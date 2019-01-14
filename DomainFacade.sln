@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainFacade", "DomainFacade\DomainFacade.csproj", "{B80A98A1-465E-4614-AF17-90A4405BF708}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facade Sabdbox Run Environment", "Facade Sabdbox Run Environment\Facade Sabdbox Run Environment.csproj", "{7E7112AE-FF13-4C15-9736-2FF80C547893}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B80A98A1-465E-4614-AF17-90A4405BF708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B80A98A1-465E-4614-AF17-90A4405BF708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B80A98A1-465E-4614-AF17-90A4405BF708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B80A98A1-465E-4614-AF17-90A4405BF708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E7112AE-FF13-4C15-9736-2FF80C547893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E7112AE-FF13-4C15-9736-2FF80C547893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E7112AE-FF13-4C15-9736-2FF80C547893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E7112AE-FF13-4C15-9736-2FF80C547893}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {422FA976-93A1-4C2B-B82D-46D5F0C75E54}
+	EndGlobalSection
+EndGlobal
