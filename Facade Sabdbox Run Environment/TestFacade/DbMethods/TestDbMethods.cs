@@ -54,9 +54,9 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
                         { "Comment", DbCommandParameterConfig<SimpleDbParamsModel<int, string>>.String(model => model.Param2).SetIsNullable()}
                     },
                     new Validator<SimpleDbParamsModel<int, string>>(){
-                        new ValidatorRule<SimpleDbParamsModel<int, string>>.Required(Param2Info),
-                        new ValidatorRule<SimpleDbParamsModel<int, string>>.GreatorThanOrEqual(Param1Info, 123),
-                        new ValidatorRule<SimpleDbParamsModel<int, string>>.MinLength(Param2Info,true, 10)
+                        new ValidationRule<SimpleDbParamsModel<int, string>>.Required(Param2Info),
+                        new ValidationRule<SimpleDbParamsModel<int, string>>.GreatorThanOrEqual(Param1Info, 123),
+                        new ValidationRule<SimpleDbParamsModel<int, string>>.MinLength(Param2Info,true, 10)
                     }
                 );
             }

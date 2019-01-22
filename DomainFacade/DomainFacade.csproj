@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="DataLayer\DbConnection.cs" />
     <Compile Include="DataLayer\DbConnectionHandler.cs" />
+    <Compile Include="DataLayer\Models\Validators\ValidationRule.cs" />
     <Compile Include="DataLayer\Models\Validators\Validator.cs" />
     <Compile Include="Facade\DbConnectionManager.cs" />
     <Compile Include="DataLayer\DbManifest\DbCommandConfig.cs" />
