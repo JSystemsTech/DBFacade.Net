@@ -65,7 +65,8 @@
   <ItemGroup>
     <Compile Include="DataLayer\DbConnection.cs" />
     <Compile Include="DataLayer\DbConnectionHandler.cs" />
-    <Compile Include="Facade\DataManager.cs" />
+    <Compile Include="DataLayer\Models\Validators\Validator.cs" />
+    <Compile Include="Facade\DbConnectionManager.cs" />
     <Compile Include="DataLayer\DbManifest\DbCommandConfig.cs" />
     <Compile Include="DataLayer\DbManifest\DbCommandParameterConfig.cs" />
     <Compile Include="DataLayer\DbManifest\DbCommandText.cs" />
@@ -79,8 +80,8 @@
     <Compile Include="DataLayer\Models\IDbParamsModel.cs" />
     <Compile Include="Utils\GenericInstance.cs" />
     <Compile Include="Facade\Core\FacadeAPIMiddleMan.cs" />
-    <Compile Include="Facade\DomainBase.cs" />
-    <Compile Include="Facade\Manager.cs" />
+    <Compile Include="Facade\DomainFacade.cs" />
+    <Compile Include="Facade\DomainManager.cs" />
     <Compile Include="Facade\Core\FacadeAPI.cs" />
     <Compile Include="DataLayer\Models\DomainModel.cs" />
     <Compile Include="DataLayer\Models\DbResponse.cs" />

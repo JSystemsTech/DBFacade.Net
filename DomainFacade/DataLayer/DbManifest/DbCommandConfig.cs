@@ -1,4 +1,5 @@
 ﻿using DomainFacade.DataLayer.Models;
+using DomainFacade.DataLayer.Models.Validators;
 using DomainFacade.Utils;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,9 @@ namespace DomainFacade.DataLayer.DbManifest
 
         public Type GetDBConnectionType() { return GetDBConnectionTypeCore(); }
         protected abstract Type GetDBConnectionTypeCore();
+
+        public bool Validate(IDbParamsModel paramsModel) { return ValidateCore(paramsModel); }
+        protected abstract bool ValidateCore(IDbParamsModel paramsModel);
     }
     public class DbCommandConfig<T, C>: DbCommandConfig where T : IDbParamsModel where C: DbConnectionCore
     {
@@ -80,24 +84,42 @@ namespace DomainFacade.DataLayer.DbManifest
             DbCommand = dbCommand;
             DbCommandType = dbCommandType;
             DbParams = new DbCommandConfigParams<T> { };
+            ParamsValidator = ParamsValidatorEmpty;
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams)
         {
             DbCommand = dbCommand;
             DbCommandType = dbCommandType;
             DbParams = dbParams;
+            ParamsValidator = ParamsValidatorEmpty;
+        }
+        public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, Validator<T> validator)
+        {
+            DbCommand = dbCommand;
+            DbCommandType = dbCommandType;
+            DbParams = dbParams;
+            ParamsValidator = validator;
         }
         public DbCommandConfig(DbCommandText<C> dbCommand)
         {
             DbCommand = dbCommand;
             DbCommandType = CommandType.StoredProcedure;
             DbParams = new DbCommandConfigParams<T> { };
+            ParamsValidator = ParamsValidatorEmpty;
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams)
         {
             DbCommand = dbCommand;
             DbCommandType = CommandType.StoredProcedure;
             DbParams = dbParams;
+            ParamsValidator = ParamsValidatorEmpty;
+        }
+        public DbCommandConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, Validator<T> validator)
+        {
+            DbCommand = dbCommand;
+            DbCommandType = CommandType.StoredProcedure;
+            DbParams = dbParams;
+            ParamsValidator = validator;
         }
 
         public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, string returnValue)
@@ -106,6 +128,7 @@ namespace DomainFacade.DataLayer.DbManifest
             DbCommand = dbCommand;
             DbCommandType = dbCommandType;
             DbParams = new DbCommandConfigParams<T> { };
+            ParamsValidator = ParamsValidatorEmpty;
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue)
         {
@@ -113,6 +136,15 @@ namespace DomainFacade.DataLayer.DbManifest
             DbCommand = dbCommand;
             DbCommandType = dbCommandType;
             DbParams = dbParams;
+            ParamsValidator = ParamsValidatorEmpty;
+        }
+        public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator)
+        {
+            ReturnValue = returnValue;
+            DbCommand = dbCommand;
+            DbCommandType = dbCommandType;
+            DbParams = dbParams;
+            ParamsValidator = validator;
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, string returnValue)
         {
@@ -120,6 +152,7 @@ namespace DomainFacade.DataLayer.DbManifest
             DbCommand = dbCommand;
             DbCommandType = CommandType.StoredProcedure;
             DbParams = new DbCommandConfigParams<T> { };
+            ParamsValidator = ParamsValidatorEmpty;
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue)
         {
@@ -127,6 +160,15 @@ namespace DomainFacade.DataLayer.DbManifest
             DbCommand = dbCommand;
             DbCommandType = CommandType.StoredProcedure;
             DbParams = dbParams;
+            ParamsValidator = ParamsValidatorEmpty;
+        }
+        public DbCommandConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator)
+        {
+            ReturnValue = returnValue;
+            DbCommand = dbCommand;
+            DbCommandType = CommandType.StoredProcedure;
+            DbParams = dbParams;
+            ParamsValidator = validator;
         }
         protected override Con GetDbConnectionCore<Con>()
         {
@@ -196,42 +238,71 @@ namespace DomainFacade.DataLayer.DbManifest
             }
             return dbCommand;
         }
-        
+
+        protected override bool ValidateCore(IDbParamsModel paramsModel)
+        {
+            if( DbParams != null && DbParams.Count > 0)
+            {
+                return ParamsValidator.Validate((T)paramsModel);
+            }
+            return true;
+        }
+        private Validator<T> ParamsValidator { get; set; }
+        private static Validator<T> ParamsValidatorEmpty = new Validator<T>();
+
         public class TransactionConfig : DbCommandConfig<T, C>
         {
             public TransactionConfig(DbCommandText<C> dbCommand) : base(dbCommand) { SetDbMethod(DbMethodType.Transaction); }
-                public TransactionConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams) : base(dbCommand, dbParams) { SetDbMethod(DbMethodType.Transaction); }
+            public TransactionConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams) : base(dbCommand, dbParams) { SetDbMethod(DbMethodType.Transaction); }          
             public TransactionConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams) : base(dbCommand, dbCommandType, dbParams) { SetDbMethod(DbMethodType.Transaction); }
+            public TransactionConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbParams, validator) { SetDbMethod(DbMethodType.Transaction); }
+            public TransactionConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, validator) { SetDbMethod(DbMethodType.Transaction); }
+
         }
         public class TransactionConfigWithReturn : DbCommandConfig<T, C>
         {
             public TransactionConfigWithReturn(DbCommandText<C> dbCommand, string returnValue) : base(dbCommand, returnValue) { SetDbMethod(DbMethodType.TransactionWithReturn); }
             public TransactionConfigWithReturn(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbParams, returnValue) { SetDbMethod(DbMethodType.TransactionWithReturn); }
             public TransactionConfigWithReturn(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbCommandType, dbParams, returnValue) { SetDbMethod(DbMethodType.TransactionWithReturn); }
+            public TransactionConfigWithReturn(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbParams, returnValue, validator) { SetDbMethod(DbMethodType.TransactionWithReturn); }
+            public TransactionConfigWithReturn(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, returnValue, validator) { SetDbMethod(DbMethodType.TransactionWithReturn); }
+
         }
         public class FetchRecordConfig: DbCommandConfig<T, C>
         {
             public FetchRecordConfig(DbCommandText<C> dbCommand) : base(dbCommand) { SetDbMethod(DbMethodType.FetchRecord); }
             public FetchRecordConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams) : base(dbCommand, dbParams) { SetDbMethod(DbMethodType.FetchRecord); }
             public FetchRecordConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams): base(dbCommand, dbCommandType, dbParams){ SetDbMethod(DbMethodType.FetchRecord); }
+            public FetchRecordConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbParams, validator) { SetDbMethod(DbMethodType.FetchRecord); }
+            public FetchRecordConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, validator) { SetDbMethod(DbMethodType.FetchRecord); }
+
         }
         public class FetchRecordConfigWithReturn : DbCommandConfig<T, C>
         {
             public FetchRecordConfigWithReturn(DbCommandText<C> dbCommand, string returnValue) : base(dbCommand, returnValue) { SetDbMethod(DbMethodType.FetchRecordWithReturn); }
             public FetchRecordConfigWithReturn(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbParams, returnValue) { SetDbMethod(DbMethodType.FetchRecordWithReturn); }
             public FetchRecordConfigWithReturn(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbCommandType, dbParams, returnValue) { SetDbMethod(DbMethodType.FetchRecordWithReturn); }
+            public FetchRecordConfigWithReturn(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbParams, returnValue, validator) { SetDbMethod(DbMethodType.FetchRecordWithReturn); }
+            public FetchRecordConfigWithReturn(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, returnValue, validator) { SetDbMethod(DbMethodType.FetchRecordWithReturn); }
+
         }
         public class FetchRecordsConfig : DbCommandConfig<T, C>
         {
             public FetchRecordsConfig(DbCommandText<C> dbCommand) : base(dbCommand) { SetDbMethod(DbMethodType.FetchRecords); }
             public FetchRecordsConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams) : base(dbCommand, dbParams) { SetDbMethod(DbMethodType.FetchRecords); }
             public FetchRecordsConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams) : base(dbCommand, dbCommandType, dbParams) { SetDbMethod(DbMethodType.FetchRecords); }
+            public FetchRecordsConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbParams, validator) { SetDbMethod(DbMethodType.FetchRecords); }
+            public FetchRecordsConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, validator) { SetDbMethod(DbMethodType.FetchRecords); }
+
         }
         public class FetchRecordsConfigWithReturn : DbCommandConfig<T, C>
         {
             public FetchRecordsConfigWithReturn(DbCommandText<C> dbCommand, string returnValue) : base(dbCommand, returnValue) { SetDbMethod(DbMethodType.FetchRecordsWithReturn); }
             public FetchRecordsConfigWithReturn(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbParams, returnValue) { SetDbMethod(DbMethodType.FetchRecordsWithReturn); }
             public FetchRecordsConfigWithReturn(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbCommandType, dbParams, returnValue) { SetDbMethod(DbMethodType.FetchRecordsWithReturn); }
+            public FetchRecordsConfigWithReturn(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbParams, returnValue, validator) { SetDbMethod(DbMethodType.Transaction); }
+            public FetchRecordsConfigWithReturn(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, returnValue, validator) { SetDbMethod(DbMethodType.FetchRecordsWithReturn); }
+
         }
     }
 }

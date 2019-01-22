@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade
 {
-    public partial class TestDomain: DomainBase<TestDbMethods>
+    public partial class TestDomain: DomainFacade<TestManager, TestDbMethods>
     {
         public List<TestDbDataModel> GetAllSimple()
         {

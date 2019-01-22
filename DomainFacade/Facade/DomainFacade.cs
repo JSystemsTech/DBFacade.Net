@@ -6,18 +6,13 @@ using static DomainFacade.DataLayer.Models.DbResponse;
 namespace DomainFacade.Facade
 {
     
-    public class DomainBase<E> : DomainBase<Manager<E>, E>
-    where E : DbMethodsCore
-    { }
-    public class DomainBase<M, E> : DomainBase<M, DataManager<E>, E>
-    where M : Manager<E>
+    public class DomainFacade<E> : DomainFacade<DomainManager<E>, E>
     where E : DbMethodsCore
     { }
 
     public interface IDomainFacade { }
-    public class DomainBase<M, DM, E> : FacadeAPIMiddleMan<E, DomainBaseCore<M, DM, E>>, IDomainFacade
-    where M : Manager<DM, E>
-    where DM : DataManager<E>
+    public class DomainFacade<M, E> : FacadeAPIMiddleMan<E, DomainFacadeCore<M, E>>, IDomainFacade
+    where M : DomainManager<E>
     where E : DbMethodsCore
     {
         protected FetchRecordModel<R> FetchRecord<R,U>(U parameters, E dbMethod)
@@ -52,9 +47,8 @@ namespace DomainFacade.Facade
         protected override void OnBeforeForward<U>(U parameters, E dbMethod) { }
     }
 
-    public class DomainBaseCore<M, DM, E> : FacadeAPIMiddleMan<E, M>
-    where M : Manager<DM, E>
-    where DM : DataManager<E>
+    public class DomainFacadeCore<M, E> : FacadeAPIMiddleMan<E, M>
+    where M : DomainManager<E>
     where E : DbMethodsCore
     {
         protected override void OnBeforeForward<U>(U parameters, E dbMethod)

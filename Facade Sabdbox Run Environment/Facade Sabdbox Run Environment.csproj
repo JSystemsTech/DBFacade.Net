@@ -50,6 +50,7 @@
     <Compile Include="TestFacade\DbMethods\TestDbMethods.cs" />
     <Compile Include="TestFacade\Models\TestDbDataModel.cs" />
     <Compile Include="TestFacade\TestDomain.cs" />
+    <Compile Include="TestFacade\TestManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

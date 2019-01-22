@@ -5,23 +5,18 @@ using System.Text;
 
 namespace DomainFacade.Facade
 {
-    public class Manager<E> : Manager<DataManager<E>, E>
-    where E : DbMethodsCore
-    { }
-    public class Manager<DM, E> : FacadeAPIMiddleMan<E, ManagerCore<DM, E>>
-    where DM : DataManager<E>
+    public class DomainManager<E> : FacadeAPIMiddleMan<E, DomainManagerCore<E>>
     where E : DbMethodsCore
     {
         protected override void OnBeforeForward<U>(U parameters, E dbMethod){}
     }
 
-    public class ManagerCore<DM, E> : FacadeAPIMiddleMan<E, DM>
-    where DM : DataManager<E>
+    public class DomainManagerCore<E> : FacadeAPIMiddleMan<E, DbConnectionManager<E>>
     where E : DbMethodsCore
     {
         protected override void OnBeforeForward<U>(U parameters, E dbMethod)
         {
-            if (!parameters.Validate(dbMethod))
+            if (!dbMethod.GetConfig().Validate(parameters))
             {
                 string paramsType = parameters.GetType().Name;
                 string MethodType = dbMethod.GetType().Name;

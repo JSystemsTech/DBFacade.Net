@@ -1,6 +1,10 @@
 ﻿using DomainFacade.DataLayer.DbManifest;
 using DomainFacade.DataLayer.Models;
+using DomainFacade.DataLayer.Models.Validators;
 using DomainFacade.SampleDomainFacade.DbMethods;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
 {
@@ -36,15 +40,27 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
 
             protected override DbCommandConfig GetConfigCore()
             {
+                Func<SimpleDbParamsModel<int, string>, object> ValidateCount = (model) => model.Param1;
+                Func<SimpleDbParamsModel<int, string>, string> ValidateComment = (model) => model.Param2;
+
+                PropertyInfo Param1Info = Validator<SimpleDbParamsModel<int, string>>.GetPropertyInfo(nameof(SimpleDbParamsModel<int, string>.Param1));
+                PropertyInfo Param2Info = Validator<SimpleDbParamsModel<int, string>>.GetPropertyInfo(nameof(SimpleDbParamsModel<int, string>.Param2));
+
                 return GetTransactionConfig(
                     TestDbConnection.AddSimpleData,
                     new DbCommandConfigParams<SimpleDbParamsModel<int, string>>()
                     {
                         { "Count", DbCommandParameterConfig<SimpleDbParamsModel<int, string>>.Int32(model => model.Param1)},
                         { "Comment", DbCommandParameterConfig<SimpleDbParamsModel<int, string>>.String(model => model.Param2).SetIsNullable()}
-                    }                
+                    },
+                    new Validator<SimpleDbParamsModel<int, string>>(){
+                        new ValidatorRule<SimpleDbParamsModel<int, string>>.Required(Param2Info),
+                        new ValidatorRule<SimpleDbParamsModel<int, string>>.GreatorThanOrEqual(Param1Info, 123),
+                        new ValidatorRule<SimpleDbParamsModel<int, string>>.MinLength(Param2Info,true, 10)
+                    }
                 );
             }
+            
         }
 
     }
