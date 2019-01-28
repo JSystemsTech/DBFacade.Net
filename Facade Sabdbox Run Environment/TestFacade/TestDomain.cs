@@ -8,15 +8,23 @@ using System.Collections.Generic;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade
 {
-    public partial class TestDomain: DomainFacade<TestManager, TestDbMethods>
+    public sealed partial class TestDomain: DomainFacade<TestManager, TestDbMethods>
     {
         public List<TestDbDataModel> GetAllSimple()
-        {
+        {            
             return FetchRecords<TestDbDataModel>(TestDbMethods.GetAllSimple).GetResponse();
+        }
+        public List<TestSharedDbDataModel> GetAllMoreShared()
+        {
+            return FetchRecords<TestSharedDbDataModel>(TestDbMethods.GetAllSimple).GetResponse();
         }
         public List<MoreDbDataModel> GetAllMore()
         {
             return FetchRecords<MoreDbDataModel>(TestDbMethods.GetAllMore).GetResponse();
+        }
+        public List<TestSharedDbDataModel> GetAllSimpleShared()
+        {
+            return FetchRecords<TestSharedDbDataModel>(TestDbMethods.GetAllMore).GetResponse();
         }
         public void AddSimpleRecord(int count, string comment)
         { 

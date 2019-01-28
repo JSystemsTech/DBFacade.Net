@@ -1,15 +1,19 @@
 ﻿using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Validators;
 using DomainFacade.Utils;
+using System;
 
 namespace DomainFacade.DataLayer.DbManifest
 {
-
-    public abstract class DbMethodsCore : Enumeration
+    public interface IDbMethod
+    {
+        DbCommandConfig GetConfig();
+        Type GetType();
+    }
+    public abstract class DbMethodsCore : Enumeration, IDbMethod
     {
 
-        protected DbMethodsCore(int id) : base(id) { }      
-
+        protected DbMethodsCore(int id) : base(id) { }
         protected DbCommandConfig Config { get; private set; }
         public DbCommandConfig GetConfig()
         {

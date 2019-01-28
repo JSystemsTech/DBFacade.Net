@@ -14,7 +14,7 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
         public TestDbMethods(int id) : base(id) { }
 
         public static TestDbMethods GetAllSimple = new GetAllSimpleData();
-        protected class GetAllSimpleData : TestDbMethods
+        public sealed class GetAllSimpleData : TestDbMethods
         {
             public GetAllSimpleData() : base(1) { }
 
@@ -24,7 +24,7 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
             }
         }
         public static TestDbMethods GetAllMore = new GetAllMoreData();
-        protected class GetAllMoreData : TestDbMethods
+        public sealed class GetAllMoreData : TestDbMethods
         {
             public GetAllMoreData() : base(2) { }
 
@@ -34,7 +34,7 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
             }
         }
         public static TestDbMethods AddSimple = new AddSimpleData();
-        protected class AddSimpleData : TestDbMethods
+        public sealed class AddSimpleData : TestDbMethods
         {
             public AddSimpleData() : base(3) { }
 

@@ -1,4 +1,5 @@
-﻿using DomainFacade.DataLayer.Models.Attributes;
+﻿using DomainFacade.DataLayer.DbManifest;
+using DomainFacade.DataLayer.Models.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,13 +8,34 @@ using System.Reflection;
 
 namespace DomainFacade.DataLayer.Models
 {
+    
     public abstract class DbDataModel
     {        
         private DbDataModel() { }
         
-        public DbDataModel(IDataRecord data) { PopulateProperties(data); }
+        public DbDataModel(IDataRecord data, IDbMethod dbMethod) { PopulateProperties(data, dbMethod); }
         public DbDataModel(object columnValue) {  }
-        protected void PopulateProperties(IDataRecord data)
+        
+        
+        protected IDbColumn GetColumnAttribute(PropertyInfo property, IDbMethod dbMethod)
+        {
+            List<DbColumn> ColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList().FindAll(column => column.BoundToDbMethodType && column.GetDbMethodType().FullName == dbMethod.GetType().FullName);
+            
+            if (ColumnAttrs.Count > 0)
+            {
+                return ColumnAttrs.First();
+            }
+            else
+            {
+                List<DbColumn> CommonColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList().FindAll(column => !column.BoundToDbMethodType);
+                if (CommonColumnAttrs.Count > 0)
+                {
+                    return CommonColumnAttrs.First();
+                }
+                return null;
+            }
+        }
+        protected void PopulateProperties(IDataRecord data, IDbMethod dbMethod)
         {
             
             Type type = this.GetType();
@@ -23,41 +45,31 @@ namespace DomainFacade.DataLayer.Models
 
             foreach (PropertyInfo property in properties)
             {
-                DbColumn columnAttribute = property.GetCustomAttributes<DbColumn>().ToList().First();
-                object value = null;
+                IDbColumn columnAttribute = GetColumnAttribute(property, dbMethod);
                 
                 Type propType = property.PropertyType;
-                if (columnAttribute.HasColumn(data) && !data.IsDBNull(columnAttribute.GetOrdinal(data)))
-                { 
-                    
-                    if (DbColumnConversion.HasConverter(propType))
-                    {
-                        if (DbColumnConversion.isDelimitedArray(propType))
-                        {
-                            value = DbColumnConversion.Converters[propType].DynamicInvoke(data, columnAttribute.GetOrdinal(data), columnAttribute.Delimeter);
-                        }
-                        else if (propType == typeof(string) && columnAttribute.DateFormat != null)
-                        {
-                            DateTime dateTime = (DateTime)DbColumnConversion.Converters[typeof(DateTime)].DynamicInvoke(data, columnAttribute.GetOrdinal(data));
-                            value = dateTime.ToString(columnAttribute.DateFormat);
-                        }
-                        else
-                        {
-                            value = DbColumnConversion.Converters[propType].DynamicInvoke(data, columnAttribute.GetOrdinal(data));
-                        }
-                    }
-                    else if(property.PropertyType.BaseType == typeof(DbDataModel))
+                object value = null;
+                if(columnAttribute != null)
+                {
+                    if (property.PropertyType.BaseType == typeof(DbDataModel))
                     {
                         object columnValue = DbColumnConversion.Converters[typeof(object)].DynamicInvoke(data, columnAttribute.GetOrdinal(data));
                         object[] args = new object[1] { columnValue };
                         Type[] types = new Type[1] { typeof(object) };
                         value = property.PropertyType.GetConstructor(types).Invoke(args);
-                    }                    
-                }
-                if (value == null && columnAttribute.DefaultValue != null)
-                {
-                    value = columnAttribute.DefaultValue;
-                }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            value = columnAttribute.GetColumnValueCore(data, propType);
+                        }
+                        catch (Exception e)
+                        {
+                            int u = 7;
+                        }
+                    }
+                }                
                 if (value != null)
                 {
                     property.SetValue(this, value, null);
@@ -70,8 +82,8 @@ namespace DomainFacade.DataLayer.Models
             {
                 if(property.PropertyType.BaseType == typeof(DbDataModel))
                 {
-                    object[] args = new object[1] { data };
-                    Type[] types = new Type[1] { typeof(IDataRecord) };
+                    object[] args = new object[2] { data, dbMethod };
+                    Type[] types = new Type[2] { typeof(IDataRecord), typeof(IDbMethod) };
                     property.SetValue(this, property.PropertyType.GetConstructor(types).Invoke(args), null);
                 }
                

@@ -1,4 +1,5 @@
-﻿using DomainFacade.Utils;
+﻿using DomainFacade.DataLayer.DbManifest;
+using DomainFacade.Utils;
 using System.Collections.Generic;
 using System.Data.Common;
 
@@ -25,7 +26,7 @@ namespace DomainFacade.DataLayer.Models
         public class FetchModel<T> : DbResponse where T : DbDataModel
         {
             internal List<T> DataRecords { get; set; }
-            private void AddFetchedData(DbDataReader dbReader)
+            private void AddFetchedData(DbDataReader dbReader, IDbMethod dbMethod)
             {
                 if(DataRecords == null)
                 {
@@ -33,25 +34,25 @@ namespace DomainFacade.DataLayer.Models
                 }
                 while (dbReader.Read())
                 {                   
-                    T model = GenericInstance<T>.GetInstance(new object[] { dbReader });
+                    T model = GenericInstance<T>.GetInstance(new object[] { dbReader, dbMethod });
                     DataRecords.Add(model);
                 }                
             }
             public static T DefaultModel = default(T);
-            public FetchModel(DbDataReader dbReader) { AddFetchedData(dbReader); }
+            public FetchModel(DbDataReader dbReader, IDbMethod dbMethod) { AddFetchedData(dbReader, dbMethod); }
             public FetchModel() { }
         }
         public class FetchRecordModel<T> : FetchModel<T> where T : DbDataModel
         {
             private T Record { get; set; }
             
-            public FetchRecordModel(DbDataReader dbReader):base(dbReader) { DBMethodType = DbMethodType.FetchRecord; }
+            public FetchRecordModel(DbDataReader dbReader, IDbMethod dbMethod) :base(dbReader, dbMethod) { DBMethodType = DbMethodType.FetchRecord; }
             public FetchRecordModel() : base() { DBMethodType = DbMethodType.FetchRecord; }
             public new T GetResponse() { return Record; }
         }
         public class FetchRecordsModel<T> : FetchModel<T> where T : DbDataModel
         {
-            public FetchRecordsModel(DbDataReader dbReader) : base(dbReader) { DBMethodType = DbMethodType.FetchRecords; }
+            public FetchRecordsModel(DbDataReader dbReader, IDbMethod dbMethod) : base(dbReader, dbMethod) { DBMethodType = DbMethodType.FetchRecords; }
             public FetchRecordsModel() : base() { DBMethodType = DbMethodType.FetchRecords; }
             public new List<T> GetResponse() { return DataRecords; }
         }
@@ -68,7 +69,7 @@ namespace DomainFacade.DataLayer.Models
         protected class ReturnValueFetchRecordModel<T, U> : FetchRecordModel <T> where T : DbDataModel
         {
             public U ReturnValue { get; private set; }
-            public ReturnValueFetchRecordModel(object value, DbDataReader dbReader) : base(dbReader)
+            public ReturnValueFetchRecordModel(object value, DbDataReader dbReader, IDbMethod dbMethod) : base(dbReader, dbMethod)
             {
                 ReturnValue = (U)value;
                 DBMethodType = DbMethodType.FetchRecordWithReturn;
@@ -78,7 +79,7 @@ namespace DomainFacade.DataLayer.Models
         protected class ReturnValueFetchRecordsModel<T, U> : FetchRecordsModel<T> where T : DbDataModel
         {
             public U ReturnValue { get; private set; }
-            public ReturnValueFetchRecordsModel(object value, DbDataReader dbReader) : base(dbReader)
+            public ReturnValueFetchRecordsModel(object value, DbDataReader dbReader, IDbMethod dbMethod) : base(dbReader, dbMethod)
             {
                 ReturnValue = (U)value;
                 DBMethodType = DbMethodType.FetchRecordsWithReturn;

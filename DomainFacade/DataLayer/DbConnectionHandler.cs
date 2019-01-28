@@ -114,11 +114,11 @@ namespace DomainFacade.DataLayer
         {
             if (dbMethod.GetConfig().IsFetchRecord() || dbMethod.GetConfig().IsFetchRecords())
             {
-                return GenericInstance<R>.GetInstance(dbReader);
+                return GenericInstance<R>.GetInstance(dbReader, dbMethod);
             }
             else if (dbMethod.GetConfig().IsFetchRecordWithReturn() || dbMethod.GetConfig().IsFetchRecordsWithReturn())
             {
-                return GenericInstance<R>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand), dbReader);
+                return GenericInstance<R>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand), dbReader, dbMethod);
             }
             else
             {
