@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomainFacade.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -36,10 +37,16 @@ namespace DomainFacade.DataLayer.Models.Validators
         protected Func<U, object> GetParamFunc { get; private set; }
         protected PropertyInfo PropInfo { get; private set; }
         protected bool IsNullable { get; private set; }
+        private  static dynamic ParamsProperties = GenericInstance<U>.GetInstance().GetModelProperties();
 
         public ValidationRule(PropertyInfo propInfo)
         {
             PropInfo = propInfo;
+            IsNullable = false;
+        }
+        public ValidationRule(Func<dynamic, PropertyInfo> getPropInfo )
+        {
+            PropInfo = getPropInfo(ParamsProperties);
             IsNullable = false;
         }
         public ValidationRule(PropertyInfo propInfo, bool isNullable)
@@ -67,7 +74,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         public class Required : ValidationRule<U>
         {
             public Required(PropertyInfo propInfo) : base(propInfo) { }
-
+            public Required(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " is required.";

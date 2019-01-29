@@ -28,8 +28,7 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
         }
         public void AddSimpleRecord(int count, string comment)
         { 
-            Func<SimpleDbParamsModel<int, string>, DbMethodsCore, bool> validator = (model, dbMethod) => false;
-            Transaction(new SimpleDbParamsModel<int, string>(count, comment).AddValidator(validator), TestDbMethods.AddSimple);
+            Transaction(new SimpleDbParamsModel<int, string>(count, comment), TestDbMethods.AddSimple);
         }
         protected override void OnBeforeForward<U>(U parameters, TestDbMethods dbMethod)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomainFacade.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -98,7 +99,10 @@ namespace DomainFacade.DataLayer.Models.Validators
     }
 
      
-
+    public interface IValidator<Par> where Par : IDbParamsModel
+    {
+        Validator<Par> GetValidator();
+    }
     public class Validator<Par> : List<ValidationRule<Par>>
         where Par : IDbParamsModel
     {
@@ -106,7 +110,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         {
             return ValidateCore(paramsModel);
         }
-
+        
         protected bool ValidateCore(Par paramsModel)
         {
             List<ValidationRuleResult> errors = new List<ValidationRuleResult>();
@@ -126,9 +130,10 @@ namespace DomainFacade.DataLayer.Models.Validators
             return src.GetType().GetProperty(propName).GetValue(src, null);
         }
         public static PropertyInfo GetPropertyInfo(string name)
-        {
+        {            
             return typeof(Par).GetProperty(name);
         }
+        public static dynamic ParamsProperties = GenericInstance<Par>.GetInstance().GetModelProperties();
     }
 
 }

@@ -4,6 +4,6 @@ namespace DomainFacade.DataLayer.Models
 {
     public interface IDbParamsModel
     {
-        bool Validate<E>(E dbMethod) where E : DbMethodsCore;
+        dynamic GetModelProperties();
     }
 }

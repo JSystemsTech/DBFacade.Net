@@ -60,14 +60,7 @@ namespace DomainFacade.DataLayer.Models
                     }
                     else
                     {
-                        try
-                        {
-                            value = columnAttribute.GetColumnValueCore(data, propType);
-                        }
-                        catch (Exception e)
-                        {
-                            int u = 7;
-                        }
+                        value = columnAttribute.GetColumnValueCore(data, propType);
                     }
                 }                
                 if (value != null)

@@ -10,10 +10,8 @@ namespace DomainFacade.DataLayer.DbManifest
         DbCommandConfig GetConfig();
         Type GetType();
     }
-    public abstract class DbMethodsCore : Enumeration, IDbMethod
-    {
-
-        protected DbMethodsCore(int id) : base(id) { }
+    public abstract class DbMethodsCore : IDbMethod
+    {        
         protected DbCommandConfig Config { get; private set; }
         public DbCommandConfig GetConfig()
         {

@@ -1,4 +1,5 @@
-﻿using Facade_Sabdbox_Run_Environment.TestFacade;
+﻿using DomainFacade.DataLayer.Models;
+using Facade_Sabdbox_Run_Environment.TestFacade;
 using Facade_Sabdbox_Run_Environment.TestFacade.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,12 @@ namespace Facade_Sabdbox_Run_Environment
     {
         static void Main(string[] args)
         {
-            //ServiceConfig.DomainFacade.AddSimpleRecord(55, null);
+
+            SimpleDbParamsModel<int, SimpleDbParamsModel<double, Guid>> nestParmas= new SimpleDbParamsModel<int, SimpleDbParamsModel<double, Guid>>();
+            dynamic info = nestParmas.GetModelProperties();
+
+
+            ServiceConfig.DomainFacade.AddSimpleRecord(55, null);
             //Console.WriteLine(GetName(typeof(ServiceConfigChild)));
             List<TestDbDataModel> test = ServiceConfig.DomainFacade.GetAllSimple();
             List<MoreDbDataModel> test2 = ServiceConfig.DomainFacade.GetAllMore();
