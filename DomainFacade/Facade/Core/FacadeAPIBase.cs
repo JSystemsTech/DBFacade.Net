@@ -4,6 +4,7 @@ using DomainFacade.DataLayer.Models;
 namespace DomainFacade.Facade.Core
 {
     public abstract class Facade { }
+    
     public abstract class FacadeAPIBase<E> : Facade where E : DbMethodsCore
     {
 

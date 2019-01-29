@@ -85,7 +85,6 @@
     <Compile Include="DataLayer\Models\DbParamsModel.cs" />
     <Compile Include="DataLayer\Models\IDbParamsModel.cs" />
     <Compile Include="Utils\GenericInstance.cs" />
-    <Compile Include="Facade\Core\FacadeAPIMiddleMan.cs" />
     <Compile Include="Facade\DomainFacade.cs" />
     <Compile Include="Facade\DomainManager.cs" />
     <Compile Include="Facade\Core\FacadeAPI.cs" />

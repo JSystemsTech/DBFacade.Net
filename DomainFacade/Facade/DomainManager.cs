@@ -5,13 +5,13 @@ using System.Text;
 
 namespace DomainFacade.Facade
 {
-    public class DomainManager<E> : FacadeAPIMiddleMan<E, DomainManagerCore<E>>
+    public class DomainManager<E> : FacadeAPI<E>.Forwarder<DomainManagerCore<E>>
     where E : DbMethodsCore
     {
         protected override void OnBeforeForward<U>(U parameters, E dbMethod){}
     }
 
-    public class DomainManagerCore<E> : FacadeAPIMiddleMan<E, DbConnectionManager<E>>
+    public class DomainManagerCore<E> : FacadeAPI<E>.Forwarder<DbConnectionManager<E>>
     where E : DbMethodsCore
     {
         protected override void OnBeforeForward<U>(U parameters, E dbMethod)

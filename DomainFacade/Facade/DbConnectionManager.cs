@@ -5,7 +5,7 @@ using System;
 
 namespace DomainFacade.Facade
 {
-    public  class DbConnectionManager<E> : FacadeAPIMiddleMan<E, DbConnectionHandler<E>>
+    public  class DbConnectionManager<E> : FacadeAPI<E>.Forwarder<DbConnectionHandler<E>>
     where E : DbMethodsCore
     {
         protected override void OnBeforeForward<U>(U parameters, E dbMethod){}

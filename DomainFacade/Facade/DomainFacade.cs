@@ -11,7 +11,7 @@ namespace DomainFacade.Facade
     { }
 
     public interface IDomainFacade { }
-    public class DomainFacade<M, E> : FacadeAPIMiddleMan<E, DomainFacadeCore<M, E>>, IDomainFacade
+    public class DomainFacade<M, E> : FacadeAPI<E>.Forwarder<DomainFacadeCore<M, E>>, IDomainFacade
     where M : DomainManager<E>
     where E : DbMethodsCore
     {
@@ -47,7 +47,7 @@ namespace DomainFacade.Facade
         protected override void OnBeforeForward<U>(U parameters, E dbMethod) { }
     }
 
-    public class DomainFacadeCore<M, E> : FacadeAPIMiddleMan<E, M>
+    public class DomainFacadeCore<M, E> : FacadeAPI<E>.Forwarder<M>
     where M : DomainManager<E>
     where E : DbMethodsCore
     {
