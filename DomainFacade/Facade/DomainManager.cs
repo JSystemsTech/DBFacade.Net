@@ -11,7 +11,7 @@ namespace DomainFacade.Facade
         protected override void OnBeforeForward<U>(U parameters, E dbMethod){}
     }
 
-    public class DomainManagerCore<E> : FacadeAPI<E>.Forwarder<DbConnectionManager<E>>
+    public sealed class DomainManagerCore<E> : FacadeAPI<E>.Forwarder<DbConnectionManager<E>>
     where E : DbMethodsCore
     {
         protected override void OnBeforeForward<U>(U parameters, E dbMethod)

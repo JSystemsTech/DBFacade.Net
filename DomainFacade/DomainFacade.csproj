@@ -77,7 +77,6 @@
     <Compile Include="DataLayer\DbManifest\DbCommandParameterConfig.cs" />
     <Compile Include="DataLayer\DbManifest\DbCommandText.cs" />
     <Compile Include="DataLayer\DbManifest\DbMethodsCore.cs" />
-    <Compile Include="Utils\Enumeration.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\NestedModel.cs" />
     <Compile Include="DataLayer\Models\DbColumnConversion.cs" />

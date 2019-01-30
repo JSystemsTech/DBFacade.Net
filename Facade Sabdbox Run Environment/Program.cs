@@ -11,18 +11,16 @@ namespace Facade_Sabdbox_Run_Environment
     {
         static void Main(string[] args)
         {
-
-            SimpleDbParamsModel<int, SimpleDbParamsModel<double, Guid>> nestParmas= new SimpleDbParamsModel<int, SimpleDbParamsModel<double, Guid>>();
-            dynamic info = nestParmas.GetModelProperties();
+            
 
 
-            ServiceConfig.DomainFacade.AddSimpleRecord(55, null);
+            //ServiceConfig.DomainFacade.AddSimpleRecord(55, null);
             //Console.WriteLine(GetName(typeof(ServiceConfigChild)));
-            List<TestDbDataModel> test = ServiceConfig.DomainFacade.GetAllSimple();
-            List<MoreDbDataModel> test2 = ServiceConfig.DomainFacade.GetAllMore();
+            IEnumerable<TestDbDataModel> test = ServiceConfig.DomainFacade.GetAllSimple();
+            IEnumerable<MoreDbDataModel> test2 = ServiceConfig.DomainFacade.GetAllMore();
 
-            List<TestSharedDbDataModel> test3 = ServiceConfig.DomainFacade.GetAllSimpleShared();
-            List<TestSharedDbDataModel> test4 = ServiceConfig.DomainFacade.GetAllMoreShared();
+            IEnumerable<TestSharedDbDataModel> test3 = ServiceConfig.DomainFacade.GetAllSimpleShared();
+            IEnumerable<TestSharedDbDataModel> test4 = ServiceConfig.DomainFacade.GetAllMoreShared();
 
 
             int i = 5;

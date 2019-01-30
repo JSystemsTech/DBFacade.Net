@@ -5,13 +5,13 @@ using System.Data;
 
 namespace DomainFacade.DataLayer.DbManifest
 {
-    public abstract class DbCommandParameterConfigBase<T> : Enumeration where T : IDbParamsModel
+    public abstract class DbCommandParameterConfigBase<T> where T : IDbParamsModel
     {
         
         public DbType DBType { get; private set; }
         
         
-        protected DbCommandParameterConfigBase(int id, DbType dbType) : base(id)
+        protected DbCommandParameterConfigBase(DbType dbType)
         {
             DBType = dbType;
         }
@@ -26,14 +26,14 @@ namespace DomainFacade.DataLayer.DbManifest
     public class DbCommandParameterConfig<T> : DbCommandParameterConfigBase<T> where T : IDbParamsModel
     {     
 
-        protected DbCommandParameterConfig(int id, DbType dbType) : base(id, dbType){}
+        protected DbCommandParameterConfig(DbType dbType) : base(dbType){}
         public bool IsNullable { get; private set; }
         public DbCommandParameterConfig<T> SetIsNullable() { IsNullable = true; return this; }
         protected class DbCommandParameterGenericConfig<N> : DbCommandParameterConfig<T>
         {
             public Func<T, N> ReturnFunction { get; private set; }
 
-            public DbCommandParameterGenericConfig(int id, DbType dbType, Func<T, N> returnFunction) : base(id, dbType)
+            public DbCommandParameterGenericConfig(DbType dbType, Func<T, N> returnFunction) : base(dbType)
             {
                 this.ReturnFunction = returnFunction;
             }
@@ -45,7 +45,7 @@ namespace DomainFacade.DataLayer.DbManifest
         protected class StringWithMaxParameterConfig : DbCommandParameterGenericConfig<string>
         {
             private int Max;
-            public StringWithMaxParameterConfig(int id, int max, Func<T, string> returnFunction) : base(id, DbType.String, returnFunction)
+            public StringWithMaxParameterConfig(int max, Func<T, string> returnFunction) : base(DbType.String, returnFunction)
             {
                 Max = max;
             }
@@ -88,81 +88,81 @@ namespace DomainFacade.DataLayer.DbManifest
         public static Func<Func<T, byte[]>, DbCommandParameterConfig<T>> Binary = returnFunction => new BinaryParameterConfig(returnFunction);
 
 
-        protected class ByteParameterConfig : DbCommandParameterGenericConfig<byte>
+        protected sealed class ByteParameterConfig : DbCommandParameterGenericConfig<byte>
         {
-            public ByteParameterConfig(Func<T, byte> returnFunction) : base(1, DbType.Byte, returnFunction) { }
+            public ByteParameterConfig(Func<T, byte> returnFunction) : base(DbType.Byte, returnFunction) { }
         }
-        protected class SByteParameterConfig : DbCommandParameterGenericConfig<sbyte>
+        protected sealed class SByteParameterConfig : DbCommandParameterGenericConfig<sbyte>
         {
-            public SByteParameterConfig(Func<T, sbyte> returnFunction) : base(2, DbType.SByte, returnFunction) { }
+            public SByteParameterConfig(Func<T, sbyte> returnFunction) : base(DbType.SByte, returnFunction) { }
         }
-        protected class StringParameterConfig : DbCommandParameterGenericConfig<string>
+        protected sealed class StringParameterConfig : DbCommandParameterGenericConfig<string>
         {
-            public StringParameterConfig(Func<T, string> returnFunction) : base(3, DbType.String, returnFunction) { }           
+            public StringParameterConfig(Func<T, string> returnFunction) : base(DbType.String, returnFunction) { }           
         }        
-        protected class VarCharParameterConfig : StringWithMaxParameterConfig
+        protected sealed class VarCharParameterConfig : StringWithMaxParameterConfig
         {
-            public VarCharParameterConfig(int max, Func<T, string> returnFunction) : base(4, max, returnFunction) { }
+            public VarCharParameterConfig(int max, Func<T, string> returnFunction) : base(max, returnFunction) { }
         }
-        protected class Int16ParameterConfig : DbCommandParameterGenericConfig<short>
+        protected sealed class Int16ParameterConfig : DbCommandParameterGenericConfig<short>
         {
-            public Int16ParameterConfig(Func<T, short> returnFunction) : base(5, DbType.Int16, returnFunction) { }
+            public Int16ParameterConfig(Func<T, short> returnFunction) : base(DbType.Int16, returnFunction) { }
         }
-        protected class Int32ParameterConfig : DbCommandParameterGenericConfig<int>
+        protected sealed class Int32ParameterConfig : DbCommandParameterGenericConfig<int>
         {
-            public Int32ParameterConfig(Func<T, int> returnFunction) : base(6, DbType.Int32, returnFunction) { }
+            public Int32ParameterConfig(Func<T, int> returnFunction) : base(DbType.Int32, returnFunction) { }
         }
-        protected class Int64ParameterConfig : DbCommandParameterGenericConfig<long>
+        protected sealed class Int64ParameterConfig : DbCommandParameterGenericConfig<long>
         {
-            public Int64ParameterConfig(Func<T, long> returnFunction) : base(7, DbType.Int64, returnFunction) { }
+            public Int64ParameterConfig(Func<T, long> returnFunction) : base(DbType.Int64, returnFunction) { }
         }
-        protected class UInt16ParameterConfig : DbCommandParameterGenericConfig<ushort>
+        protected sealed class UInt16ParameterConfig : DbCommandParameterGenericConfig<ushort>
         {
-            public UInt16ParameterConfig(Func<T, ushort> returnFunction) : base(8, DbType.UInt16, returnFunction) { }
+            public UInt16ParameterConfig(Func<T, ushort> returnFunction) : base(DbType.UInt16, returnFunction) { }
         }
-        protected class UInt32ParameterConfig : DbCommandParameterGenericConfig<uint>
+        protected sealed class UInt32ParameterConfig : DbCommandParameterGenericConfig<uint>
         {
-            public UInt32ParameterConfig(Func<T, uint> returnFunction) : base(9, DbType.UInt32, returnFunction) { }
+            public UInt32ParameterConfig(Func<T, uint> returnFunction) : base(DbType.UInt32, returnFunction) { }
         }
-        protected class UInt64ParameterConfig : DbCommandParameterGenericConfig<ulong>
+        protected sealed class UInt64ParameterConfig : DbCommandParameterGenericConfig<ulong>
         {
-            public UInt64ParameterConfig(Func<T, ulong> returnFunction) : base(10, DbType.UInt64, returnFunction) { }
+            public UInt64ParameterConfig(Func<T, ulong> returnFunction) : base(DbType.UInt64, returnFunction) { }
         }
-        protected class SingleParameterConfig : DbCommandParameterGenericConfig<float>
+        protected sealed class SingleParameterConfig : DbCommandParameterGenericConfig<float>
         {
-            public SingleParameterConfig(Func<T, float> returnFunction) : base(11, DbType.Single, returnFunction) { }
+            public SingleParameterConfig(Func<T, float> returnFunction) : base(DbType.Single, returnFunction) { }
         }
-        protected class DoubleParameterConfig : DbCommandParameterGenericConfig<double>
+        protected sealed class DoubleParameterConfig : DbCommandParameterGenericConfig<double>
         {
-            public DoubleParameterConfig(Func<T, double> returnFunction) : base(12, DbType.Double, returnFunction) { }
+            public DoubleParameterConfig(Func<T, double> returnFunction) : base(DbType.Double, returnFunction) { }
         }
-        protected class DecimalParameterConfig : DbCommandParameterGenericConfig<decimal>
+        protected sealed class DecimalParameterConfig : DbCommandParameterGenericConfig<decimal>
         {
-            public DecimalParameterConfig(Func<T, decimal> returnFunction) : base(13, DbType.Decimal, returnFunction) { }
+            public DecimalParameterConfig(Func<T, decimal> returnFunction) : base(DbType.Decimal, returnFunction) { }
         }
-        protected class BooleanParameterConfig : DbCommandParameterGenericConfig<bool>
+        protected sealed class BooleanParameterConfig : DbCommandParameterGenericConfig<bool>
         {
-            public BooleanParameterConfig(Func<T, bool> returnFunction) : base(14, DbType.Boolean, returnFunction) { }
+            public BooleanParameterConfig(Func<T, bool> returnFunction) : base(DbType.Boolean, returnFunction) { }
         }
-        protected class StringFixedLengthParameterConfig : DbCommandParameterGenericConfig<char>
+        protected sealed class StringFixedLengthParameterConfig : DbCommandParameterGenericConfig<char>
         {
-            public StringFixedLengthParameterConfig(Func<T, char> returnFunction) : base(15, DbType.StringFixedLength, returnFunction) { }
+            public StringFixedLengthParameterConfig(Func<T, char> returnFunction) : base(DbType.StringFixedLength, returnFunction) { }
         }
-        protected class GuidParameterConfig : DbCommandParameterGenericConfig<Guid>
+        protected sealed class GuidParameterConfig : DbCommandParameterGenericConfig<Guid>
         {
-            public GuidParameterConfig(Func<T, Guid> returnFunction) : base(16, DbType.Guid, returnFunction) { }
+            public GuidParameterConfig(Func<T, Guid> returnFunction) : base(DbType.Guid, returnFunction) { }
         }
-        protected class DateTimeParameterConfig : DbCommandParameterGenericConfig<DateTime>
+        protected sealed class DateTimeParameterConfig : DbCommandParameterGenericConfig<DateTime>
         {
-            public DateTimeParameterConfig(Func<T, DateTime> returnFunction) : base(17, DbType.DateTime, returnFunction) { }
+            public DateTimeParameterConfig(Func<T, DateTime> returnFunction) : base(DbType.DateTime, returnFunction) { }
         }
-        protected class DateTimeOffsetParameterConfig : DbCommandParameterGenericConfig<DateTimeOffset>
+        protected sealed class DateTimeOffsetParameterConfig : DbCommandParameterGenericConfig<DateTimeOffset>
         {
-            public DateTimeOffsetParameterConfig(Func<T, DateTimeOffset> returnFunction) : base(18, DbType.DateTimeOffset, returnFunction) { }
+            public DateTimeOffsetParameterConfig(Func<T, DateTimeOffset> returnFunction) : base(DbType.DateTimeOffset, returnFunction) { }
         }
-        protected class BinaryParameterConfig : DbCommandParameterGenericConfig<byte[]>
+        protected sealed class BinaryParameterConfig : DbCommandParameterGenericConfig<byte[]>
         {
-            public BinaryParameterConfig(Func<T, byte[]> returnFunction) : base(19, DbType.Binary, returnFunction) { }
+            public BinaryParameterConfig(Func<T, byte[]> returnFunction) : base(DbType.Binary, returnFunction) { }
         }
 
     }

@@ -2,7 +2,7 @@
 
 namespace DomainFacade.Utils
 {
-    public class GenericInstance<T>
+    public sealed class GenericInstance<T>
     {
         public static T GetInstance()
         {

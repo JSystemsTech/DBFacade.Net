@@ -250,7 +250,7 @@ namespace DomainFacade.DataLayer.DbManifest
         private Validator<T> ParamsValidator { get; set; }
         private static Validator<T> ParamsValidatorEmpty = new Validator<T>();
 
-        public class TransactionConfig : DbCommandConfig<T, C>
+        public sealed class TransactionConfig : DbCommandConfig<T, C>
         {
             public TransactionConfig(DbCommandText<C> dbCommand) : base(dbCommand) { SetDbMethod(DbMethodType.Transaction); }
             public TransactionConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams) : base(dbCommand, dbParams) { SetDbMethod(DbMethodType.Transaction); }          
@@ -259,7 +259,7 @@ namespace DomainFacade.DataLayer.DbManifest
             public TransactionConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, validator) { SetDbMethod(DbMethodType.Transaction); }
 
         }
-        public class TransactionConfigWithReturn : DbCommandConfig<T, C>
+        public sealed class TransactionConfigWithReturn : DbCommandConfig<T, C>
         {
             public TransactionConfigWithReturn(DbCommandText<C> dbCommand, string returnValue) : base(dbCommand, returnValue) { SetDbMethod(DbMethodType.TransactionWithReturn); }
             public TransactionConfigWithReturn(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbParams, returnValue) { SetDbMethod(DbMethodType.TransactionWithReturn); }
@@ -268,7 +268,7 @@ namespace DomainFacade.DataLayer.DbManifest
             public TransactionConfigWithReturn(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, returnValue, validator) { SetDbMethod(DbMethodType.TransactionWithReturn); }
 
         }
-        public class FetchRecordConfig: DbCommandConfig<T, C>
+        public sealed class FetchRecordConfig : DbCommandConfig<T, C>
         {
             public FetchRecordConfig(DbCommandText<C> dbCommand) : base(dbCommand) { SetDbMethod(DbMethodType.FetchRecord); }
             public FetchRecordConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams) : base(dbCommand, dbParams) { SetDbMethod(DbMethodType.FetchRecord); }
@@ -277,7 +277,7 @@ namespace DomainFacade.DataLayer.DbManifest
             public FetchRecordConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, validator) { SetDbMethod(DbMethodType.FetchRecord); }
 
         }
-        public class FetchRecordConfigWithReturn : DbCommandConfig<T, C>
+        public sealed class FetchRecordConfigWithReturn : DbCommandConfig<T, C>
         {
             public FetchRecordConfigWithReturn(DbCommandText<C> dbCommand, string returnValue) : base(dbCommand, returnValue) { SetDbMethod(DbMethodType.FetchRecordWithReturn); }
             public FetchRecordConfigWithReturn(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbParams, returnValue) { SetDbMethod(DbMethodType.FetchRecordWithReturn); }
@@ -286,7 +286,7 @@ namespace DomainFacade.DataLayer.DbManifest
             public FetchRecordConfigWithReturn(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, returnValue, validator) { SetDbMethod(DbMethodType.FetchRecordWithReturn); }
 
         }
-        public class FetchRecordsConfig : DbCommandConfig<T, C>
+        public sealed class FetchRecordsConfig : DbCommandConfig<T, C>
         {
             public FetchRecordsConfig(DbCommandText<C> dbCommand) : base(dbCommand) { SetDbMethod(DbMethodType.FetchRecords); }
             public FetchRecordsConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams) : base(dbCommand, dbParams) { SetDbMethod(DbMethodType.FetchRecords); }
@@ -295,7 +295,7 @@ namespace DomainFacade.DataLayer.DbManifest
             public FetchRecordsConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, validator) { SetDbMethod(DbMethodType.FetchRecords); }
 
         }
-        public class FetchRecordsConfigWithReturn : DbCommandConfig<T, C>
+        public sealed class FetchRecordsConfigWithReturn : DbCommandConfig<T, C>
         {
             public FetchRecordsConfigWithReturn(DbCommandText<C> dbCommand, string returnValue) : base(dbCommand, returnValue) { SetDbMethod(DbMethodType.FetchRecordsWithReturn); }
             public FetchRecordsConfigWithReturn(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbParams, returnValue) { SetDbMethod(DbMethodType.FetchRecordsWithReturn); }

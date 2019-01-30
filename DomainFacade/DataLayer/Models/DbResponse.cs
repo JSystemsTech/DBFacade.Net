@@ -25,18 +25,16 @@ namespace DomainFacade.DataLayer.Models
         }
         public class FetchModel<T> : DbResponse where T : DbDataModel
         {
-            internal List<T> DataRecords { get; set; }
+            internal IEnumerable<T> DataRecords { get; private set; }
             private void AddFetchedData(DbDataReader dbReader, IDbMethod dbMethod)
             {
-                if(DataRecords == null)
-                {
-                    DataRecords = new List<T>();
-                }
+                List<T> dataRecords = new List<T>();
                 while (dbReader.Read())
                 {                   
                     T model = GenericInstance<T>.GetInstance(new object[] { dbReader, dbMethod });
-                    DataRecords.Add(model);
-                }                
+                    dataRecords.Add(model);
+                }
+                DataRecords = dataRecords;
             }
             public static T DefaultModel = default(T);
             public FetchModel(DbDataReader dbReader, IDbMethod dbMethod) { AddFetchedData(dbReader, dbMethod); }
@@ -54,7 +52,7 @@ namespace DomainFacade.DataLayer.Models
         {
             public FetchRecordsModel(DbDataReader dbReader, IDbMethod dbMethod) : base(dbReader, dbMethod) { DBMethodType = DbMethodType.FetchRecords; }
             public FetchRecordsModel() : base() { DBMethodType = DbMethodType.FetchRecords; }
-            public new List<T> GetResponse() { return DataRecords; }
+            public new IEnumerable<T> GetResponse() { return DataRecords; }
         }
         protected class ReturnValueTransactionModel<U> : TransactionModel
         {

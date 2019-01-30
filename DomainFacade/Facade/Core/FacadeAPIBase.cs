@@ -3,9 +3,8 @@ using DomainFacade.DataLayer.Models;
 
 namespace DomainFacade.Facade.Core
 {
-    public abstract class Facade { }
-    
-    public abstract class FacadeAPIBase<E> : Facade where E : DbMethodsCore
+      
+    public abstract class FacadeAPIBase<E> where E : DbMethodsCore
     {
 
         protected abstract R CallDbMethod<R>(E dbMethod) 

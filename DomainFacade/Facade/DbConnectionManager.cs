@@ -1,21 +1,23 @@
 ﻿using DomainFacade.DataLayer;
 using DomainFacade.DataLayer.DbManifest;
+using DomainFacade.DataLayer.Models;
 using DomainFacade.Facade.Core;
 using System;
+using System.Collections.Generic;
 
 namespace DomainFacade.Facade
 {
-    public  class DbConnectionManager<E> : FacadeAPI<E>.Forwarder<DbConnectionHandler<E>>
+    public class DbConnectionManager<E> : FacadeAPI<E>.Forwarder<DbConnectionManagerCore<E>>where E : DbMethodsCore{}
+
+    public sealed class DbConnectionManagerCore<E> : FacadeAPI<E>
     where E : DbMethodsCore
     {
-        protected override void OnBeforeForward<U>(U parameters, E dbMethod){}
         protected override R CallDbMethodCore<U, R>(U parameters, E dbMethod)
         {
-            OnBeforeForward(parameters, dbMethod);
             Type dbConnectionType = dbMethod.GetConfig().GetDBConnectionType().BaseType;
             if (dbConnectionType == typeof(DbConnectionCore.SQL))
             {
-                return CallFacadeAPIDbMethod<U, DbConnectionHandler<E>.Sql, R>(parameters, dbMethod);
+                return CallFacadeAPIDbMethod<U, DbConnectionHandler<E>.SQL, R>(parameters, dbMethod);
             }
             if (dbConnectionType == typeof(DbConnectionCore.SQLite))
             {
@@ -37,7 +39,6 @@ namespace DomainFacade.Facade
             {
                 return CallFacadeAPIDbMethod<U, DbConnectionHandler<E>, R>(parameters, dbMethod);
             }
-        }        
+        }
     }
-
 }

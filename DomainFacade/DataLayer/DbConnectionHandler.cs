@@ -159,8 +159,9 @@ namespace DomainFacade.DataLayer
         }
 
     }
-    public class DbConnectionHandler<E> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, E> where E : DbMethodsCore {
-        public class Sql : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, E>{ }
+    public sealed class DbConnectionHandler<E> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, E> where E : DbMethodsCore
+    {
+        public class SQL : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, E>{ }
         public class SQLite : DbConnectionHandler<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, E> { }
         public class OleDb : DbConnectionHandler<OleDbDataReader, OleDbConnection, OleDbCommand, OleDbTransaction, OleDbParameter, E> { }
         public class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, E> { }        

@@ -10,19 +10,19 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
 {
     public sealed partial class TestDomain: DomainFacade<TestManager, TestDbMethods>
     {
-        public List<TestDbDataModel> GetAllSimple()
+        public IEnumerable<TestDbDataModel> GetAllSimple()
         {            
             return FetchRecords<TestDbDataModel>(TestDbMethods.GetAllSimple).GetResponse();
         }
-        public List<TestSharedDbDataModel> GetAllMoreShared()
+        public IEnumerable<TestSharedDbDataModel> GetAllMoreShared()
         {
             return FetchRecords<TestSharedDbDataModel>(TestDbMethods.GetAllSimple).GetResponse();
         }
-        public List<MoreDbDataModel> GetAllMore()
+        public IEnumerable<MoreDbDataModel> GetAllMore()
         {
             return FetchRecords<MoreDbDataModel>(TestDbMethods.GetAllMore).GetResponse();
         }
-        public List<TestSharedDbDataModel> GetAllSimpleShared()
+        public IEnumerable<TestSharedDbDataModel> GetAllSimpleShared()
         {
             return FetchRecords<TestSharedDbDataModel>(TestDbMethods.GetAllMore).GetResponse();
         }

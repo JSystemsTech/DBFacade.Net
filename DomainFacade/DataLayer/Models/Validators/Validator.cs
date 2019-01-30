@@ -103,7 +103,7 @@ namespace DomainFacade.DataLayer.Models.Validators
     {
         Validator<Par> GetValidator();
     }
-    public class Validator<Par> : List<ValidationRule<Par>>
+    public sealed class Validator<Par> : List<ValidationRule<Par>>
         where Par : IDbParamsModel
     {
         public bool Validate(Par paramsModel)
@@ -111,7 +111,7 @@ namespace DomainFacade.DataLayer.Models.Validators
             return ValidateCore(paramsModel);
         }
         
-        protected bool ValidateCore(Par paramsModel)
+        private bool ValidateCore(Par paramsModel)
         {
             List<ValidationRuleResult> errors = new List<ValidationRuleResult>();
             foreach (ValidationRule<Par> rule in this)

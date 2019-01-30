@@ -10,7 +10,7 @@ using static DomainFacade.DataLayer.Models.Validators.ValidationRuleResult;
 
 namespace DomainFacade.DataLayer.Models.Validators
 {
-    public class ValidationRuleResult
+    public sealed class ValidationRuleResult
     {
         public PropertyInfo PropInfo { get; private set; }
         public enum ValidationStatus
@@ -39,19 +39,14 @@ namespace DomainFacade.DataLayer.Models.Validators
         protected bool IsNullable { get; private set; }
         private  static dynamic ParamsProperties = GenericInstance<U>.GetInstance().GetModelProperties();
 
-        public ValidationRule(PropertyInfo propInfo)
-        {
-            PropInfo = propInfo;
-            IsNullable = false;
-        }
         public ValidationRule(Func<dynamic, PropertyInfo> getPropInfo )
         {
             PropInfo = getPropInfo(ParamsProperties);
             IsNullable = false;
         }
-        public ValidationRule(PropertyInfo propInfo, bool isNullable)
+        public ValidationRule(Func<dynamic, PropertyInfo> getPropInfo, bool isNullable)
         {
-            PropInfo = propInfo;
+            PropInfo = getPropInfo(ParamsProperties);
             IsNullable = isNullable;
         }
         public ValidationRuleResult Validate(U paramsModel)
@@ -73,7 +68,6 @@ namespace DomainFacade.DataLayer.Models.Validators
 
         public class Required : ValidationRule<U>
         {
-            public Required(PropertyInfo propInfo) : base(propInfo) { }
             public Required(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
@@ -121,22 +115,22 @@ namespace DomainFacade.DataLayer.Models.Validators
         {
             internal string MatchStr { get; private set; }
             internal RegexOptions RegexOptions { get; private set; }
-            public Match(U paramsModel, PropertyInfo propInfo, string regexMatchStr) : base(propInfo)
+            public Match(U paramsModel, Func<dynamic, PropertyInfo> getPropInfo, string regexMatchStr) : base(getPropInfo)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = RegexOptions.IgnoreCase;
             }
-            public Match(U paramsModel, PropertyInfo propInfo, bool isNullable, string regexMatchStr) : base(propInfo, isNullable)
+            public Match(U paramsModel, Func<dynamic, PropertyInfo> getPropInfo, bool isNullable, string regexMatchStr) : base(getPropInfo, isNullable)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = RegexOptions.IgnoreCase;
             }
-            public Match(U paramsModel, PropertyInfo propInfo, string regexMatchStr, RegexOptions options) : base(propInfo)
+            public Match(U paramsModel, Func<dynamic, PropertyInfo> getPropInfo, string regexMatchStr, RegexOptions options) : base(getPropInfo)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
             }
-            public Match(U paramsModel, PropertyInfo propInfo, bool isNullable, string regexMatchStr, RegexOptions options) : base(propInfo, isNullable)
+            public Match(U paramsModel, Func<dynamic, PropertyInfo> getPropInfo, bool isNullable, string regexMatchStr, RegexOptions options) : base(getPropInfo, isNullable)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
@@ -155,8 +149,8 @@ namespace DomainFacade.DataLayer.Models.Validators
         public class MinLength : ValidationRule<U>
         {
             internal int LimitValue { get; set; }
-            public MinLength(PropertyInfo propInfo, int limit) : base(propInfo) { LimitValue = limit; }
-            public MinLength(PropertyInfo propInfo, bool isNullable, int limit) : base(propInfo, isNullable) { LimitValue = limit; }
+            public MinLength(Func<dynamic, PropertyInfo> getPropInfo, int limit) : base(getPropInfo) { LimitValue = limit; }
+            public MinLength(Func<dynamic, PropertyInfo> getPropInfo, bool isNullable, int limit) : base(getPropInfo, isNullable) { LimitValue = limit; }
             protected override bool ValidateRule()
             {
                 return ParamsValue.ToString().Length >= LimitValue;
@@ -169,8 +163,8 @@ namespace DomainFacade.DataLayer.Models.Validators
         }
         public class MaxLength : MinLength
         {
-            public MaxLength(PropertyInfo propInfo, int limit) : base(propInfo, limit) { }
-            public MaxLength(PropertyInfo propInfo, bool isNullable, int limit) : base(propInfo, isNullable, limit) { }
+            public MaxLength(Func<dynamic, PropertyInfo> getPropInfo, int limit) : base(getPropInfo, limit) { }
+            public MaxLength(Func<dynamic, PropertyInfo> getPropInfo, bool isNullable, int limit) : base(getPropInfo, isNullable, limit) { }
             protected override bool ValidateRule()
             {
                 return ParamsValue.ToString().Length <= LimitValue;
@@ -183,7 +177,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         }
         public class IsNummeric : ValidationRule<U>
         {
-            public IsNummeric(PropertyInfo propInfo) : base(propInfo) { }
+            public IsNummeric(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo) { }
             protected override bool ValidateRule()
             {
                 if (IsNumeric(ParamsValue))
@@ -214,7 +208,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         public class NumericCompare : IsNummeric
         {
             internal double LimitValue { get; set; }
-            public NumericCompare(PropertyInfo propInfo, double limit) : base(propInfo) { LimitValue = limit; }
+            public NumericCompare(Func<dynamic, PropertyInfo> getPropInfo, double limit) : base(getPropInfo) { LimitValue = limit; }
 
             internal override bool Compare(double value)
             {
@@ -227,7 +221,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         }
         public class EqualTo : NumericCompare
         {
-            public EqualTo(PropertyInfo propInfo, double min) : base(propInfo, min) { }
+            public EqualTo(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
 
             internal override bool Compare(double value)
             {
@@ -240,7 +234,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         }
         public class NotEqualTo : NumericCompare
         {
-            public NotEqualTo(PropertyInfo propInfo, double min) : base(propInfo, min) { }
+            public NotEqualTo(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
 
             internal override bool Compare(double value)
             {
@@ -253,7 +247,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         }
         public class GreatorThan : NumericCompare
         {
-            public GreatorThan(PropertyInfo propInfo, double min) : base(propInfo, min) { }
+            public GreatorThan(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
 
             internal override bool Compare(double value)
             {
@@ -266,7 +260,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         }
         public class GreatorThanOrEqual : NumericCompare
         {
-            public GreatorThanOrEqual(PropertyInfo propInfo, double min) : base(propInfo, min) { }
+            public GreatorThanOrEqual(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
 
             internal override bool Compare(double value)
             {
@@ -279,7 +273,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         }
         public class LessThan : NumericCompare
         {
-            public LessThan(PropertyInfo propInfo, double max) : base(propInfo, max) { }
+            public LessThan(Func<dynamic, PropertyInfo> getPropInfo, double max) : base(getPropInfo, max) { }
 
             internal override bool Compare(double value)
             {
@@ -292,7 +286,7 @@ namespace DomainFacade.DataLayer.Models.Validators
         }
         public class LessThanOrEqual : NumericCompare
         {
-            public LessThanOrEqual(PropertyInfo propInfo, double max) : base(propInfo, max) { }
+            public LessThanOrEqual(Func<dynamic, PropertyInfo> getPropInfo, double max) : base(getPropInfo, max) { }
 
             internal override bool Compare(double value)
             {

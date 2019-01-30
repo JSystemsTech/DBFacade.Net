@@ -34,15 +34,11 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
         public sealed class AddSimpleData : TestDbMethods, IValidator<SimpleDbParamsModel<int, string>>
         {
             public Validator<SimpleDbParamsModel<int, string>> GetValidator()
-            {
-                PropertyInfoFactory<SimpleDbParamsModel<int, string>> test = new PropertyInfoFactory<SimpleDbParamsModel<int, string>>();
-                PropertyInfo Param1Info = test.GetPropertyInfo(nameof(SimpleDbParamsModel<int, string>.Param1));
-                PropertyInfo Param2Info = test.GetPropertyInfo(nameof(SimpleDbParamsModel<int, string>.Param2));
-                
+            {                
                 Validator<SimpleDbParamsModel<int, string>> validator = new Validator<SimpleDbParamsModel<int, string>>(){
                         new ValidationRule<SimpleDbParamsModel<int, string>>.Required(model => model.Param1),
-                        new ValidationRule<SimpleDbParamsModel<int, string>>.GreatorThanOrEqual(Param1Info, 123),
-                        new ValidationRule<SimpleDbParamsModel<int, string>>.MinLength(Param2Info,true, 10)
+                        new ValidationRule<SimpleDbParamsModel<int, string>>.GreatorThanOrEqual(model => model.Param1, 123),
+                        new ValidationRule<SimpleDbParamsModel<int, string>>.MinLength(model => model.Param2,true, 10)
                     };
                 
                 return validator;
