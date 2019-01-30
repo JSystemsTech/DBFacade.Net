@@ -70,7 +70,12 @@
     <Compile Include="DataLayer\Models\Attributes\DbEnumerableColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbFlagColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbParseStringColumn.cs" />
-    <Compile Include="DataLayer\Models\Validators\ValidationRule.cs" />
+    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRuleResult.cs" />
+    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_DateTime.cs" />
+    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_String.cs" />
+    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_Numeric.cs" />
+    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule.cs" />
+    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_Required.cs" />
     <Compile Include="DataLayer\Models\Validators\Validator.cs" />
     <Compile Include="Facade\DbConnectionManager.cs" />
     <Compile Include="DataLayer\DbManifest\DbCommandConfig.cs" />
