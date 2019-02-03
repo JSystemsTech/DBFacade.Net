@@ -108,9 +108,9 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
                 return propertyName + " expecting value length to not = " + LimitValue;
             }
         }
-        public class GreatorThan : NumericCompare
+        public class GreaterThan : NumericCompare
         {
-            public GreatorThan(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
+            public GreaterThan(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
 
             internal override bool Compare(double value)
             {
@@ -121,9 +121,9 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
                 return propertyName + " expecting value length to be > " + LimitValue;
             }
         }
-        public class GreatorThanOrEqual : NumericCompare
+        public class GreaterThanOrEqual : NumericCompare
         {
-            public GreatorThanOrEqual(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
+            public GreaterThanOrEqual(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
 
             internal override bool Compare(double value)
             {
