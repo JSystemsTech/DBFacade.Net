@@ -22,9 +22,10 @@ namespace DomainFacade.DataLayer
         where Prm : DbParameter
         where E : DbMethodsCore
     {
-        protected override R CallDbMethodCore<U, R>(U parameters, E dbMethod)
+        protected override R CallDbMethodCore<U, R, Em>(U parameters)
         {
-            CheckResponseType<R>(dbMethod);
+            Em dbMethod = DbMethodsService.GetInstance<Em>();
+            CheckResponseType<R, Em>();
             Con dbConnection = null;
             Cmd dbCommand = null;
             Trn transaction = null;
@@ -40,14 +41,14 @@ namespace DomainFacade.DataLayer
                     dbCommand.Transaction = transaction;
                     dbCommand.ExecuteNonQuery();
                     transaction.Commit();
-                    R response = BuildResponse<R>(dbCommand, dbMethod);
+                    R response = BuildResponse<R, Em>(dbCommand);
                     Done(transaction, dbConnection);
                     return response;
                 }
                 else
                 {
                     Drd dbDataReader = (Drd)dbCommand.ExecuteReader();
-                    R response = BuildResponse<R>(dbDataReader, dbCommand, dbMethod);
+                    R response = BuildResponse<R,Em>(dbDataReader, dbCommand);
                     Done(dbDataReader, dbConnection);
                     return response;
                 }
@@ -99,9 +100,11 @@ namespace DomainFacade.DataLayer
             return (Drd)dbCommand.ExecuteReader();
 
         }
-        private void CheckResponseType<R>(E dbMethod)
+        private void CheckResponseType<R, Em>()
             where R : DbResponse
+            where Em: E
         {
+            Em dbMethod = DbMethodsService.GetInstance<Em>();
             if (GenericInstance<R>.GetInstance().DBMethodType != dbMethod.GetConfig().DBMethodType)
             {
                 Console.WriteLine(GenericInstance<R>.GetInstance().DBMethodType);
@@ -109,25 +112,29 @@ namespace DomainFacade.DataLayer
                 throw new NotImplementedException();
             }
         }
-        private R BuildResponse<R>(Drd dbReader, Cmd dbCommand, E dbMethod)
+        private R BuildResponse<R, Em>(Drd dbReader, Cmd dbCommand)
             where R : DbResponse
+            where Em:E
         {
+            Em dbMethod = DbMethodsService.GetInstance<Em>();
             if (dbMethod.GetConfig().IsFetchRecord() || dbMethod.GetConfig().IsFetchRecords())
             {
-                return GenericInstance<R>.GetInstance(dbReader, dbMethod);
+                return GenericInstance<R>.GetInstance(dbReader);
             }
             else if (dbMethod.GetConfig().IsFetchRecordWithReturn() || dbMethod.GetConfig().IsFetchRecordsWithReturn())
             {
-                return GenericInstance<R>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand), dbReader, dbMethod);
+                return GenericInstance<R>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand), dbReader);
             }
             else
             {
                 throw new Exception("Invalid Fetch Method");
             }
         }
-        private R BuildResponse<R>(Cmd dbCommand, E dbMethod)
+        private R BuildResponse<R, Em>(Cmd dbCommand)
             where R : DbResponse
+            where Em :E
         {
+            Em dbMethod = DbMethodsService.GetInstance<Em>();
             if (dbMethod.GetConfig().IsTransaction())
             {
                 return GenericInstance<R>.GetInstance();
@@ -167,6 +174,4 @@ namespace DomainFacade.DataLayer
         public class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, E> { }        
         public class Oracle : DbConnectionHandler<OracleDataReader, OracleConnection, OracleCommand, OracleTransaction, OracleParameter, E> { }
     }
-
-
 }

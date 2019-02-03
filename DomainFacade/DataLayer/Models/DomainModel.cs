@@ -8,7 +8,7 @@ namespace DomainFacade.DataLayer.Models
 {
     public abstract class DomainModel: DbDataModel, IDbParamsModel
     {        
-        protected DomainModel(IDataRecord data) : base(data) { }        
+        //protected DomainModel(IDataRecord data) : base(data) { }        
         
         public bool Validate<E>(E dbMethod)
             where E : DbMethodsCore

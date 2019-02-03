@@ -1,16 +1,13 @@
-﻿using DomainFacade.DataLayer.DbManifest;
-using DomainFacade.DataLayer.Models;
+﻿using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Attributes;
 using Facade_Sabdbox_Run_Environment.TestFacade.DbMethods;
 using System;
 using System.Collections.Generic;
-using System.Data;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade.Models
 {
     public class TestDbDataModel : DbDataModel
     {
-        public TestDbDataModel(IDataRecord data, IDbMethod dbMethod) : base(data, dbMethod) { }
 
         [DbColumn("guid")]
         public Guid GUID { get; private set; }
@@ -30,22 +27,28 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.Models
     }
     public class TestNestedDbDataModel : DbDataModel
     {
-        public TestNestedDbDataModel(IDataRecord data, IDbMethod dbMethod) : base(data, dbMethod) { }
         
         [DbColumn.String("comment","default text in view model")]
         public string Comment { get; private set; }
 
         [DbDateStringColumn("CreateDate", "dddd, MMMM dd, yyyy h:mm:ss tt")]
         public string CreatedDateStr { get; private set; }
-        
+
+        [DbColumn.String(typeof(TestDbMethods.GetAllSimple),"comment", "default text in view model")]
+        [DbDateStringColumn(typeof(TestDbMethods.GetAllSimple),"CreateDate", "dddd, MMMM dd, yyyy h:mm:ss tt")]
+        public TestNestedDbDataModel( string commnet)
+        {
+            Comment = commnet;
+        }
+        public TestNestedDbDataModel() { }
+
     }
 
     public class TestSharedDbDataModel : DbDataModel
     {
-        public TestSharedDbDataModel(IDataRecord data, IDbMethod dbMethod) : base(data, dbMethod) { }
 
-        [DbColumn(typeof(TestDbMethods.GetAllSimpleData), "comment")]
-        [DbColumn(typeof(TestDbMethods.GetAllMoreData), "FirstName")]
+        [DbColumn(typeof(TestDbMethods.GetAllSimple), "comment")]
+        [DbColumn(typeof(TestDbMethods.GetAllMore), "FirstName")]
         public string GeneralText { get; private set; }
 
     }
@@ -53,7 +56,6 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.Models
 
     public class MoreDbDataModel : DbDataModel
     {
-        public MoreDbDataModel(IDataRecord data, IDbMethod dbMethod) : base(data, dbMethod) { }
 
         [DbColumn("number")]
         public double Number { get; private set; }
@@ -63,16 +65,12 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.Models
         public List<int> Count { get; private set; }
 
         [NestedModel()]
-        public MoreNameDbDataModel Name { get; private set; }
-
-        [DbColumn("ConcatValues")]
-        public CustomDbDataModel Custom { get; private set; }
+        public MoreNameDbDataModel Name { get; private set; }  
         
 
     }
     public class MoreNameDbDataModel : DbDataModel
     {
-        public MoreNameDbDataModel(IDataRecord data, IDbMethod dbMethod) : base(data, dbMethod) { }
 
         [DbColumn("FirstName")]
         public string FirstName { get; private set; }
@@ -83,23 +81,28 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.Models
 
 
     }
-    public class CustomDbDataModel : DbDataModel
+   
+    public class TestConstructorModel: DbDataModel
     {
-        public CustomDbDataModel(IDataRecord data, IDbMethod dbMethod) : base(data, dbMethod) { }
-        public CustomDbDataModel(object columnValue) :base(columnValue)
+        [DbColumn(typeof(TestDbMethods.GetAllSimple),"guid")]
+        [DbColumn(typeof(TestDbMethods.GetAllSimple), "CreateDate")]
+        [DbColumn(typeof(TestDbMethods.GetAllSimple), "count")]
+        [DbFlagColumn(typeof(TestDbMethods.GetAllSimple), "count", 123)]
+        [DbColumn(typeof(TestDbMethods.GetAllSimple), "comment")]
+        public TestConstructorModel(Guid guid, DateTime createdDate, int count, bool flag, string comment)
         {
-            string[] values = (columnValue as string).Split(',');
-            int[] intValues = Array.ConvertAll(values, int.Parse);
-            double value = 0;
-
-            foreach (int val in intValues)
-            {
-                value += val;
-            }
-            Value = value;
+            GUID = guid;
+            CreatedDate = createdDate;
+            Count = count;
+            Flag = flag;
+            Comment = comment;
         }
-        public double Value { get; private set; }
-
+        
+        public Guid GUID { get; private set; }
+        public DateTime CreatedDate { get; private set; }
+        public int Count { get; private set; }
+        public bool Flag { get; private set; }
+        public string Comment { get; private set; }
 
     }
 }

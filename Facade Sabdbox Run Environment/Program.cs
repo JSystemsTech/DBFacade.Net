@@ -10,13 +10,13 @@ namespace Facade_Sabdbox_Run_Environment
     class Program
     {
         static void Main(string[] args)
-        {
-            
+        {      
 
 
             //ServiceConfig.DomainFacade.AddSimpleRecord(55, null);
             //Console.WriteLine(GetName(typeof(ServiceConfigChild)));
             IEnumerable<TestDbDataModel> test = ServiceConfig.DomainFacade.GetAllSimple();
+            IEnumerable<TestConstructorModel> testCon = ServiceConfig.DomainFacade.GetAllSimple2();
             IEnumerable<MoreDbDataModel> test2 = ServiceConfig.DomainFacade.GetAllMore();
 
             IEnumerable<TestSharedDbDataModel> test3 = ServiceConfig.DomainFacade.GetAllSimpleShared();

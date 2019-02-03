@@ -46,6 +46,11 @@ namespace DomainFacade.DataLayer.DbManifest
             return GetDbConnectionCore<Con>();
         }
         protected abstract Con GetDbConnectionCore<Con>() where Con : DbConnection;
+        public bool HasStoredProcedure()
+        {
+            return HasStoredProcedureCore();
+        }
+        protected abstract bool HasStoredProcedureCore();
         public Cmd GetDbCommand<Con, Cmd, Prm>(IDbParamsModel dbMethodParams, Con dbConnection)
             where Con : DbConnection
             where Cmd : DbCommand
@@ -70,111 +75,84 @@ namespace DomainFacade.DataLayer.DbManifest
         public bool Validate(IDbParamsModel paramsModel) { return ValidateCore(paramsModel); }
         protected abstract bool ValidateCore(IDbParamsModel paramsModel);
     }
-    public class DbCommandConfig<T, C>: DbCommandConfig where T : IDbParamsModel where C: DbConnectionCore
+    public abstract class DbCommandConfig<T, C>: DbCommandConfig where T : IDbParamsModel where C: DbConnectionCore
     {
         public DbCommandConfigParams<T> DbParams { get; private set; }
-
+        private DbCommandConfigParams<T> DefaultConfigParams = new DbCommandConfigParams<T> { };
         public DbCommandText<C> DbCommand { get; private set; }
         public string ReturnValue { get; private set; }
         private CommandType DbCommandType { get; set; }
-        
-        
 
-        public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType) {
-            DbCommand = dbCommand;
-            DbCommandType = dbCommandType;
-            DbParams = new DbCommandConfigParams<T> { };
-            ParamsValidator = ParamsValidatorEmpty;
+        public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType)
+        {           
+            init(dbCommand, dbCommandType, DefaultConfigParams, null, ParamsValidatorEmpty);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams)
         {
-            DbCommand = dbCommand;
-            DbCommandType = dbCommandType;
-            DbParams = dbParams;
-            ParamsValidator = ParamsValidatorEmpty;
+            init(dbCommand, dbCommandType, dbParams, null, ParamsValidatorEmpty);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, Validator<T> validator)
         {
-            DbCommand = dbCommand;
-            DbCommandType = dbCommandType;
-            DbParams = dbParams;
-            ParamsValidator = validator;
+            init(dbCommand, dbCommandType, dbParams, null, validator);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand)
         {
-            DbCommand = dbCommand;
-            DbCommandType = CommandType.StoredProcedure;
-            DbParams = new DbCommandConfigParams<T> { };
-            ParamsValidator = ParamsValidatorEmpty;
+            init(dbCommand, CommandType.StoredProcedure, DefaultConfigParams, null, ParamsValidatorEmpty);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams)
         {
-            DbCommand = dbCommand;
-            DbCommandType = CommandType.StoredProcedure;
-            DbParams = dbParams;
-            ParamsValidator = ParamsValidatorEmpty;
+            init(dbCommand, CommandType.StoredProcedure, dbParams, null, ParamsValidatorEmpty);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, Validator<T> validator)
         {
-            DbCommand = dbCommand;
-            DbCommandType = CommandType.StoredProcedure;
-            DbParams = dbParams;
-            ParamsValidator = validator;
+            init(dbCommand, CommandType.StoredProcedure, dbParams, null, validator);
         }
-
         public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, string returnValue)
         {
-            ReturnValue = returnValue;
-            DbCommand = dbCommand;
-            DbCommandType = dbCommandType;
-            DbParams = new DbCommandConfigParams<T> { };
-            ParamsValidator = ParamsValidatorEmpty;
+            init(dbCommand, dbCommandType, DefaultConfigParams, returnValue, ParamsValidatorEmpty);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue)
         {
-            ReturnValue = returnValue;
-            DbCommand = dbCommand;
-            DbCommandType = dbCommandType;
-            DbParams = dbParams;
-            ParamsValidator = ParamsValidatorEmpty;
+            init(dbCommand, dbCommandType, dbParams, returnValue, ParamsValidatorEmpty);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator)
         {
-            ReturnValue = returnValue;
-            DbCommand = dbCommand;
-            DbCommandType = dbCommandType;
-            DbParams = dbParams;
-            ParamsValidator = validator;
+            init(dbCommand, dbCommandType, dbParams, returnValue, validator);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, string returnValue)
         {
-            ReturnValue = returnValue;
-            DbCommand = dbCommand;
-            DbCommandType = CommandType.StoredProcedure;
-            DbParams = new DbCommandConfigParams<T> { };
-            ParamsValidator = ParamsValidatorEmpty;
+            init(dbCommand, CommandType.StoredProcedure, DefaultConfigParams, returnValue, ParamsValidatorEmpty);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue)
         {
-            ReturnValue = returnValue;
-            DbCommand = dbCommand;
-            DbCommandType = CommandType.StoredProcedure;
-            DbParams = dbParams;
-            ParamsValidator = ParamsValidatorEmpty;
+            init(dbCommand, CommandType.StoredProcedure, dbParams, returnValue, ParamsValidatorEmpty);
         }
         public DbCommandConfig(DbCommandText<C> dbCommand, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator)
         {
+            init(dbCommand, CommandType.StoredProcedure, dbParams, returnValue, validator);
+        }
+       
+        private void init(DbCommandText<C> dbCommand, CommandType dbCommandType, DbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator)
+        {
             ReturnValue = returnValue;
             DbCommand = dbCommand;
-            DbCommandType = CommandType.StoredProcedure;
+            DbCommandType = dbCommandType;
             DbParams = dbParams;
             ParamsValidator = validator;
         }
         protected override Con GetDbConnectionCore<Con>()
         {
-            return (Con)GenericInstance<C>.GetInstance().GetDbConnection();
+            return (Con)DbConnectionService.GetDbConnection<C>().GetDbConnection();
         }
-        
+        protected override bool HasStoredProcedureCore()
+        {
+            C Connection = DbConnectionService.GetDbConnection<C>();
+            if (Connection.CheckStoredProcAvailability())
+            {
+                return Array.IndexOf(DbConnectionService.GetAvailableStoredProcedured<C>(), DbCommand.CommandText) != -1;
+            }
+            return true;
+        }
         protected override Type GetDBConnectionTypeCore()
         {
             return typeof(C);
@@ -305,4 +283,5 @@ namespace DomainFacade.DataLayer.DbManifest
 
         }
     }
+    
 }

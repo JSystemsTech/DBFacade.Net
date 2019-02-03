@@ -12,25 +12,29 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
     {
         public IEnumerable<TestDbDataModel> GetAllSimple()
         {            
-            return FetchRecords<TestDbDataModel>(TestDbMethods.GetAllSimple).GetResponse();
+            return FetchRecords<TestDbDataModel, TestDbMethods.GetAllSimple>().GetResponse();
+        }
+        public IEnumerable<TestConstructorModel> GetAllSimple2()
+        {
+            return FetchRecords<TestConstructorModel, TestDbMethods.GetAllSimple>().GetResponse();
         }
         public IEnumerable<TestSharedDbDataModel> GetAllMoreShared()
         {
-            return FetchRecords<TestSharedDbDataModel>(TestDbMethods.GetAllSimple).GetResponse();
+            return FetchRecords<TestSharedDbDataModel, TestDbMethods.GetAllSimple>().GetResponse();
         }
         public IEnumerable<MoreDbDataModel> GetAllMore()
         {
-            return FetchRecords<MoreDbDataModel>(TestDbMethods.GetAllMore).GetResponse();
+            return FetchRecords<MoreDbDataModel, TestDbMethods.GetAllMore>().GetResponse();
         }
         public IEnumerable<TestSharedDbDataModel> GetAllSimpleShared()
         {
-            return FetchRecords<TestSharedDbDataModel>(TestDbMethods.GetAllMore).GetResponse();
+            return FetchRecords<TestSharedDbDataModel, TestDbMethods.GetAllMore>().GetResponse();
         }
         public void AddSimpleRecord(int count, string comment)
         { 
-            Transaction(new SimpleDbParamsModel<int, string>(count, comment), TestDbMethods.AddSimple);
+            Transaction<SimpleDbParamsModel<int, string>, TestDbMethods.AddSimple>(new SimpleDbParamsModel<int, string>(count, comment));
         }
-        protected override void OnBeforeForward<U>(U parameters, TestDbMethods dbMethod)
+        protected override void OnBeforeForward<U, TestDbMethods>(U parameters)
         {
             //throw new System.NotImplementedException();
         }

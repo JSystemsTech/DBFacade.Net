@@ -1,12 +1,9 @@
 ﻿using DomainFacade.DataLayer.DbManifest;
 using System;
-using System.Collections;
 using System.Data;
-using System.Collections.Generic;
-using System.Linq;
 namespace DomainFacade.DataLayer.Models.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Constructor, Inherited = true, AllowMultiple = true)]
     public abstract class DbColumnCore : Attribute
     {
         protected abstract object GetColumnValue(IDataRecord data);

@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="DataLayer\DbConnection.cs" />
     <Compile Include="DataLayer\DbConnectionHandler.cs" />
+    <Compile Include="DataLayer\DbConnectionService.cs" />
+    <Compile Include="DataLayer\DbManifest\DbCommandConfigBuilder.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbBufferedColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbDateStringColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbEnumerableColumn.cs" />

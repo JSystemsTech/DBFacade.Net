@@ -14,33 +14,34 @@ namespace DomainFacade.Facade
     where M : DomainManager<E>
     where E : DbMethodsCore
     {
-        protected FetchRecordModel<R> FetchRecord<R,U>(U parameters, E dbMethod)
+        protected FetchRecordModel<R, Em> FetchRecord<R,U, Em>(U parameters)
             where R: DbDataModel
             where U: IDbParamsModel
+            where Em: E
         {
-            return CallDbMethod<U,FetchRecordModel<R>>(parameters, dbMethod);
+            return CallDbMethod<U,FetchRecordModel<R, Em>, Em>(parameters);
         }
-        protected FetchRecordModel<R> FetchRecord<R>(E dbMethod) where R : DbDataModel
+        protected FetchRecordModel<R, Em> FetchRecord<R, Em>() where R : DbDataModel where Em : E
         {
-            return CallDbMethod<FetchRecordModel<R>>(dbMethod);
-        }
-
-        protected FetchRecordsModel<R> FetchRecords<R, U>(U parameters, E dbMethod) where R : DbDataModel where U : IDbParamsModel
-        {
-            return CallDbMethod<U, FetchRecordsModel<R>>(parameters, dbMethod);
-        }
-        protected FetchRecordsModel<R> FetchRecords<R>(E dbMethod) where R : DbDataModel
-        {
-            return CallDbMethod<FetchRecordsModel<R>>(dbMethod);
+            return CallDbMethod<FetchRecordModel<R, Em>, Em>();
         }
 
-        protected TransactionModel Transaction<U>(U parameters, E dbMethod) where U : IDbParamsModel
+        protected FetchRecordsModel<R, Em> FetchRecords<R, U, Em>(U parameters) where R : DbDataModel where U : IDbParamsModel where Em : E
         {
-            return CallDbMethod<U, TransactionModel>(parameters, dbMethod);
+            return CallDbMethod<U, FetchRecordsModel<R, Em>, Em>(parameters);
         }
-        protected TransactionModel Transaction(E dbMethod)
+        protected FetchRecordsModel<R, Em> FetchRecords<R, Em>() where R : DbDataModel where Em : E
         {
-            return CallDbMethod<TransactionModel>(dbMethod);
+            return CallDbMethod<FetchRecordsModel<R, Em>, Em>();
+        }
+
+        protected TransactionModel Transaction<U, Em>(U parameters) where U : IDbParamsModel where Em : E
+        {
+            return CallDbMethod<U, TransactionModel, Em>(parameters);
+        }
+        protected TransactionModel Transaction<Em>() where Em : E
+        {
+            return CallDbMethod<TransactionModel, Em>();
         }
     }
 

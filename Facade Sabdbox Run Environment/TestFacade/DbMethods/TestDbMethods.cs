@@ -9,26 +9,25 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
    
     public abstract partial class TestDbMethods : DbMethodsCore
     {
-        public static GetAllSimpleData GetAllSimple = new GetAllSimpleData();
-        public sealed class GetAllSimpleData : TestDbMethods
+        public sealed class GetAllSimple : TestDbMethods
         {
+            
             protected override DbCommandConfig GetConfigCore()
             {
-                return GetFetchRecordsConfig(TestDbConnection.GetAllSimpleData);
+                return DbCommandConfigBuilder.GetFetchRecordsConfig(TestDbConnection.GetAllSimpleData);
             }
-        }
 
-        public static GetAllMoreData GetAllMore = new GetAllMoreData();
-        public sealed class GetAllMoreData : TestDbMethods
+        }
+        
+        public sealed class GetAllMore : TestDbMethods
         {
             protected override DbCommandConfig GetConfigCore()
             {
-                return GetFetchRecordsConfig(TestDbConnection.GetAllMoreData);
+                return DbCommandConfigBuilder.GetFetchRecordsConfig(TestDbConnection.GetAllMoreData);
             }
         }
         
-        public static AddSimpleData AddSimple = new AddSimpleData();
-        public sealed class AddSimpleData : TestDbMethods, IValidator<SimpleDbParamsModel<int, string>>
+        public sealed class AddSimple : TestDbMethods, IValidator<SimpleDbParamsModel<int, string>>
         {
             public Validator<SimpleDbParamsModel<int, string>> GetValidator()
             {                
@@ -43,7 +42,7 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
 
             protected override DbCommandConfig GetConfigCore()
             {
-                return GetTransactionConfig(
+                return DbCommandConfigBuilder.GetTransactionConfig(
                     TestDbConnection.AddSimpleData,
                     new DbCommandConfigParams<SimpleDbParamsModel<int, string>>()
                     {
