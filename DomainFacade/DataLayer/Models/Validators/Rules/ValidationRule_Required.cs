@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace DomainFacade.DataLayer.Models.Validators.Rules
@@ -8,7 +9,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
     {
         public class Required : ValidationRule<U>
         {
-            public Required(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo) { }
+            public Required(Expression<Func<U, object>> selector) : base(selector) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " is required.";

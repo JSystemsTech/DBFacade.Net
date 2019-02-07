@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace DomainFacade.DataLayer.Models.Validators.Rules
@@ -54,8 +55,8 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         {
 
             private string DateFormat { get; set; }
-            public IsDateTime(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo) { }
-            public IsDateTime(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo) { DateFormat = dateFormat; }
+            public IsDateTime(Expression<Func<U, object>> selector) : base(selector) { }
+            public IsDateTime(Expression<Func<U, object>> selector, string dateFormat) : base(selector) { DateFormat = dateFormat; }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " is not a Valid DateTime.";
@@ -72,8 +73,8 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
 
             private string DateFormat { get; set; }
             internal DateTime DateLimit { get; set; }
-            public DateTimeLimit(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit) : base(getPropInfo) { DateLimit = dateLimit; }
-            public DateTimeLimit(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit, string dateFormat) : base(getPropInfo) { DateLimit = dateLimit; DateFormat = dateFormat; }
+            public DateTimeLimit(Expression<Func<U, object>> selector, DateTime dateLimit) : base(selector) { DateLimit = dateLimit; }
+            public DateTimeLimit(Expression<Func<U, object>> selector, DateTime dateLimit, string dateFormat) : base(selector) { DateLimit = dateLimit; DateFormat = dateFormat; }
             
             protected override bool ValidateRule()
             {
@@ -86,8 +87,8 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         {
 
             private string DateFormat { get; set; }
-            public DateTimeEquals(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit) : base(getPropInfo, dateLimit) { }
-            public DateTimeEquals(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit, string dateFormat) : base(getPropInfo, dateLimit, dateFormat) { }
+            public DateTimeEquals(Expression<Func<U, object>> selector, DateTime dateLimit) : base(selector, dateLimit) { }
+            public DateTimeEquals(Expression<Func<U, object>> selector, DateTime dateLimit, string dateFormat) : base(selector, dateLimit, dateFormat) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " is not a date equal to " + DateLimit.ToString();
@@ -99,8 +100,8 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
             
             public class Today : DateTimeEquals
             {
-                public Today(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.Today) { }
-                public Today(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.Today, dateFormat) { }
+                public Today(Expression<Func<U, object>> selector) : base(selector, DateTime.Today) { }
+                public Today(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.Today, dateFormat) { }
                 protected override bool ValidateRule()
                 {
                     return (ParamsValue.GetType() == typeof(DateTime) || IsDateTimeString(ParamsValue.ToString(), DateFormat)) && ValidateExtraRule(ToDateTime(ParamsValue, DateFormat).Date);
@@ -111,8 +112,8 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         {
 
             private string DateFormat { get; set; }
-            public DateTimeIsBefore(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit) : base(getPropInfo, dateLimit) { }
-            public DateTimeIsBefore(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit, string dateFormat) : base(getPropInfo, dateLimit, dateFormat) { }
+            public DateTimeIsBefore(Expression<Func<U, object>> selector, DateTime dateLimit) : base(selector, dateLimit) { }
+            public DateTimeIsBefore(Expression<Func<U, object>> selector, DateTime dateLimit, string dateFormat) : base(selector, dateLimit, dateFormat) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " is not a date before " + DateLimit.ToString();
@@ -123,25 +124,25 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
             }
             public class Today : DateTimeIsBefore
             {
-                public Today(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.Today) { }
-                public Today(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.Today, dateFormat) { }
+                public Today(Expression<Func<U, object>> selector) : base(selector, DateTime.Today) { }
+                public Today(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.Today, dateFormat) { }
             }
             public class Now : DateTimeIsBefore
             {
-                public Now(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.Now) { }
-                public Now(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.Now, dateFormat) { }
+                public Now(Expression<Func<U, object>> selector) : base(selector, DateTime.Now) { }
+                public Now(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.Now, dateFormat) { }
             }
             public class UtcNow : DateTimeIsBefore
             {
-                public UtcNow(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.UtcNow) { }
-                public UtcNow(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.UtcNow, dateFormat) { }
+                public UtcNow(Expression<Func<U, object>> selector) : base(selector, DateTime.UtcNow) { }
+                public UtcNow(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.UtcNow, dateFormat) { }
             }
         }
         public class DateTimeIsOnOrBefore : DateTimeLimit
         {
 
-            public DateTimeIsOnOrBefore(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit) : base(getPropInfo, dateLimit) { }
-            public DateTimeIsOnOrBefore(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit, string dateFormat) : base(getPropInfo, dateLimit, dateFormat) { }
+            public DateTimeIsOnOrBefore(Expression<Func<U, object>> selector, DateTime dateLimit) : base(selector, dateLimit) { }
+            public DateTimeIsOnOrBefore(Expression<Func<U, object>> selector, DateTime dateLimit, string dateFormat) : base(selector, dateLimit, dateFormat) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " is not a date on or before " + DateLimit.ToString();
@@ -152,25 +153,25 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
             }
             public class Today : DateTimeIsOnOrBefore
             {
-                public Today(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.Today) { }
-                public Today(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.Today, dateFormat) { }
+                public Today(Expression<Func<U, object>> selector) : base(selector, DateTime.Today) { }
+                public Today(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.Today, dateFormat) { }
             }
             public class Now : DateTimeIsOnOrBefore
             {
-                public Now(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.Now) { }
-                public Now(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.Now, dateFormat) { }
+                public Now(Expression<Func<U, object>> selector) : base(selector, DateTime.Now) { }
+                public Now(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.Now, dateFormat) { }
             }
             public class UtcNow : DateTimeIsOnOrBefore
             {
-                public UtcNow(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.UtcNow) { }
-                public UtcNow(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.UtcNow, dateFormat) { }
+                public UtcNow(Expression<Func<U, object>> selector) : base(selector, DateTime.UtcNow) { }
+                public UtcNow(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.UtcNow, dateFormat) { }
             }
         }
         public class DateTimeIsAfter : DateTimeLimit
         {
 
-            public DateTimeIsAfter(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit) : base(getPropInfo, dateLimit) { }
-            public DateTimeIsAfter(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit, string dateFormat) : base(getPropInfo, dateLimit, dateFormat) { }
+            public DateTimeIsAfter(Expression<Func<U, object>> selector, DateTime dateLimit) : base(selector, dateLimit) { }
+            public DateTimeIsAfter(Expression<Func<U, object>> selector, DateTime dateLimit, string dateFormat) : base(selector, dateLimit, dateFormat) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " is not a date after " + DateLimit.ToString();
@@ -181,24 +182,24 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
             }
             public class Today : DateTimeIsAfter
             {
-                public Today(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.Today) { }
-                public Today(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.Today, dateFormat) { }
+                public Today(Expression<Func<U, object>> selector) : base(selector, DateTime.Today) { }
+                public Today(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.Today, dateFormat) { }
             }
             public class Now : DateTimeIsAfter
             {
-                public Now(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.Now) { }
-                public Now(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.Now, dateFormat) { }
+                public Now(Expression<Func<U, object>> selector) : base(selector, DateTime.Now) { }
+                public Now(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.Now, dateFormat) { }
             }
             public class UtcNow : DateTimeIsAfter
             {
-                public UtcNow(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.UtcNow) { }
-                public UtcNow(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.UtcNow, dateFormat) { }
+                public UtcNow(Expression<Func<U, object>> selector) : base(selector, DateTime.UtcNow) { }
+                public UtcNow(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.UtcNow, dateFormat) { }
             }
         }
         public class DateTimeIsOnOrAfter : DateTimeLimit
         {
-            public DateTimeIsOnOrAfter(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit) : base(getPropInfo, dateLimit) { }
-            public DateTimeIsOnOrAfter(Func<dynamic, PropertyInfo> getPropInfo, DateTime dateLimit, string dateFormat) : base(getPropInfo, dateLimit, dateFormat) { }
+            public DateTimeIsOnOrAfter(Expression<Func<U, object>> selector, DateTime dateLimit) : base(selector, dateLimit) { }
+            public DateTimeIsOnOrAfter(Expression<Func<U, object>> selector, DateTime dateLimit, string dateFormat) : base(selector, dateLimit, dateFormat) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " is not a date on or after " + DateLimit.ToString();
@@ -209,18 +210,18 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
             }
             public class Today : DateTimeIsOnOrAfter
             {
-                public Today(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.Today) { }
-                public Today(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.Today, dateFormat) { }
+                public Today(Expression<Func<U, object>> selector) : base(selector, DateTime.Today) { }
+                public Today(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.Today, dateFormat) { }
             }
             public class Now : DateTimeIsOnOrAfter
             {
-                public Now(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.Now) { }
-                public Now(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.Now, dateFormat) { }
+                public Now(Expression<Func<U, object>> selector) : base(selector, DateTime.Now) { }
+                public Now(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.Now, dateFormat) { }
             }
             public class UtcNow : DateTimeIsOnOrAfter
             {
-                public UtcNow(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo, DateTime.UtcNow) { }
-                public UtcNow(Func<dynamic, PropertyInfo> getPropInfo, string dateFormat) : base(getPropInfo, DateTime.UtcNow, dateFormat) { }
+                public UtcNow(Expression<Func<U, object>> selector) : base(selector, DateTime.UtcNow) { }
+                public UtcNow(Expression<Func<U, object>> selector, string dateFormat) : base(selector, DateTime.UtcNow, dateFormat) { }
             }
         }
     }

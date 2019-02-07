@@ -1,5 +1,6 @@
 ﻿using DomainFacade.Utils;
 using System;
+using System.Linq.Expressions;
 using System.Reflection;
 using static DomainFacade.DataLayer.Models.Validators.Rules.ValidationRuleResult;
 
@@ -14,21 +15,24 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         protected Func<U, object> GetParamFunc { get; private set; }
         protected PropertyInfo PropInfo { get; private set; }
         protected bool IsNullable { get; private set; }
-        private  static dynamic ParamsProperties = GenericInstance<U>.GetInstance().GetModelProperties();
 
-        public ValidationRule(Func<dynamic, PropertyInfo> getPropInfo )
+        public ValidationRule(Expression<Func<U, object>> selector)
         {
-            PropInfo = getPropInfo(ParamsProperties);
-            IsNullable = false;
+            init(selector, false);
         }
-        public ValidationRule(Func<dynamic, PropertyInfo> getPropInfo, bool isNullable)
+        public ValidationRule(Expression<Func<U, object>> selector, bool isNullable)
         {
-            PropInfo = getPropInfo(ParamsProperties);
+            init(selector, isNullable);
+        }
+        private void init(Expression<Func<U, object>> selector, bool isNullable)
+        {
+            GetParamFunc = PropertySelector<U>.GetDelegate(selector);
+            PropInfo = PropertySelector<U>.GetPropertyInfo(selector);
             IsNullable = isNullable;
         }
         public ValidationRuleResult Validate(U paramsModel)
         {
-            ParamsValue = PropInfo.GetValue(paramsModel);
+            ParamsValue = GetParamFunc(paramsModel);
             if ((IsNullable && ParamsValue == null) || ValidateRule())
             {
                 return new ValidationRuleResult(paramsModel, PropInfo, null, ValidationStatus.PASS);

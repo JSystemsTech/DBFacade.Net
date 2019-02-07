@@ -29,7 +29,7 @@ namespace DomainFacade.DataLayer
         {
             return GetInstance<C>();
         }
-        public static string[] GetAvailableStoredProcedured<C>()
+        public static DbConnectionStoredProcedure[] GetAvailableStoredProcedured<C>()
             where C : DbConnectionCore
         {
             C Connection = GetDbConnection<C>();
@@ -49,8 +49,15 @@ namespace DomainFacade.DataLayer
                 {
                     return new DbCommandConfigForDbConnection();
                 }
-            }            
-            private sealed class DbCommandConfigForDbConnection : DbCommandConfig
+            }
+            public sealed class GetAvailableStoredProcsAdditionalMeta : DbConnectionMetaMethods<C>
+            {
+                protected override DbCommandConfig GetConfigCore()
+                {
+                    return new DbCommandConfigForDbConnectionSPParams();
+                }
+            }
+            private class DbCommandConfigForDbConnection : DbCommandConfig
             {
                 
                 public DbCommandConfigForDbConnection()
@@ -99,26 +106,57 @@ namespace DomainFacade.DataLayer
                 }
 
             }
+            private sealed class DbCommandConfigForDbConnectionSPParams : DbCommandConfigForDbConnection
+            {
+                protected override Cmd GetDbCommandCore<Con, Cmd, Prm>(IDbParamsModel dbMethodParams, Con dbConnection)
+                {
+                    Cmd dbCommand = (Cmd)dbConnection.CreateCommand();
+                    SimpleDbParamsModel<string> nameParams =(SimpleDbParamsModel<string>) dbMethodParams;
+                    dbCommand.CommandText = GetDbConnection().GetAvailableStoredProcAdditionalMetaCommandText(nameParams.Param1);
+                    dbCommand.CommandType = GetDbConnection().GetAvailableStoredProcCommandType();
+                    return dbCommand;
+                }
+            }
         }
-        private class DbConnectionStoredProcedure : DbDataModel
+        public sealed class DbConnectionStoredProcedure : DbDataModel
         {
             [DbColumn("StoredProcedureName")]
             public string Name { get; private set; }
+
+            public DbConnectionStoredProcedureParamMeta[] Params { get; private set; }
+            public void SetParams(DbConnectionStoredProcedureParamMeta[] spParams)
+            {
+                Params = spParams;
+            }
+        }
+        public sealed class DbConnectionStoredProcedureParamMeta : DbDataModel
+        {
+            [DbColumn("name")]
+            public string Name { get; private set; }
+            [DbColumn("type")]
+            public string Type { get; private set; }
+            [DbFlagColumn("isRequired", 1)]
+            public bool IsRequired { get; private set; }
         }
         private sealed class DbConnectionMetaDomainFacade<C> : DomainFacade<DbConnectionMetaMethods<C>>
             where C : DbConnectionCore
         {
             
-            public string[] GetAvailableStoredPrcedures()
+            public DbConnectionStoredProcedure[] GetAvailableStoredPrcedures()
             {
-                IEnumerable<DbConnectionStoredProcedure> data = FetchRecords<DbConnectionStoredProcedure, DbConnectionMetaMethods<C>.GetAvailableStoredProcs>().GetResponse();
-                List<string> AvaliableProcs = new List<string>();
+                DbConnectionStoredProcedure[] data = FetchRecords<DbConnectionStoredProcedure, DbConnectionMetaMethods<C>.GetAvailableStoredProcs>().GetResponseAsArray();
+                
                 foreach (DbConnectionStoredProcedure sproc in data)
                 {
-                    AvaliableProcs.Add(sproc.Name);
+                    sproc.SetParams(GetAvailableStoredPrcedureParamsMeta(sproc.Name));
                 }
-                return AvaliableProcs.ToArray();
+                return data;
             }
+            private DbConnectionStoredProcedureParamMeta[] GetAvailableStoredPrcedureParamsMeta(string storedPRocName)
+            {
+                return FetchRecords<DbConnectionStoredProcedureParamMeta,SimpleDbParamsModel<string>, DbConnectionMetaMethods<C>.GetAvailableStoredProcsAdditionalMeta>(new SimpleDbParamsModel<string>(storedPRocName)).GetResponseAsArray();
+            }
+            
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -12,22 +13,22 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         {
             internal string MatchStr { get; private set; }
             internal RegexOptions RegexOptions { get; private set; }
-            public Match(U paramsModel, Func<dynamic, PropertyInfo> getPropInfo, string regexMatchStr) : base(getPropInfo)
+            public Match(U paramsModel, Expression<Func<U, object>> selector, string regexMatchStr) : base(selector)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = RegexOptions.IgnoreCase;
             }
-            public Match(U paramsModel, Func<dynamic, PropertyInfo> getPropInfo, bool isNullable, string regexMatchStr) : base(getPropInfo, isNullable)
+            public Match(U paramsModel, Expression<Func<U, object>> selector, bool isNullable, string regexMatchStr) : base(selector, isNullable)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = RegexOptions.IgnoreCase;
             }
-            public Match(U paramsModel, Func<dynamic, PropertyInfo> getPropInfo, string regexMatchStr, RegexOptions options) : base(getPropInfo)
+            public Match(U paramsModel, Expression<Func<U, object>> selector, string regexMatchStr, RegexOptions options) : base(selector)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
             }
-            public Match(U paramsModel, Func<dynamic, PropertyInfo> getPropInfo, bool isNullable, string regexMatchStr, RegexOptions options) : base(getPropInfo, isNullable)
+            public Match(U paramsModel, Expression<Func<U, object>> selector, bool isNullable, string regexMatchStr, RegexOptions options) : base(selector, isNullable)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
@@ -46,8 +47,8 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         public class MinLength : ValidationRule<U>
         {
             internal int LimitValue { get; set; }
-            public MinLength(Func<dynamic, PropertyInfo> getPropInfo, int limit) : base(getPropInfo) { LimitValue = limit; }
-            public MinLength(Func<dynamic, PropertyInfo> getPropInfo, bool isNullable, int limit) : base(getPropInfo, isNullable) { LimitValue = limit; }
+            public MinLength(Expression<Func<U, object>> selector, int limit) : base(selector) { LimitValue = limit; }
+            public MinLength(Expression<Func<U, object>> selector, bool isNullable, int limit) : base(selector, isNullable) { LimitValue = limit; }
             protected override bool ValidateRule()
             {
                 return ParamsValue.ToString().Length >= LimitValue;
@@ -60,8 +61,8 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class MaxLength : MinLength
         {
-            public MaxLength(Func<dynamic, PropertyInfo> getPropInfo, int limit) : base(getPropInfo, limit) { }
-            public MaxLength(Func<dynamic, PropertyInfo> getPropInfo, bool isNullable, int limit) : base(getPropInfo, isNullable, limit) { }
+            public MaxLength(Expression<Func<U, object>> selector, int limit) : base(selector, limit) { }
+            public MaxLength(Expression<Func<U, object>> selector, bool isNullable, int limit) : base(selector, isNullable, limit) { }
             protected override bool ValidateRule()
             {
                 return ParamsValue.ToString().Length <= LimitValue;

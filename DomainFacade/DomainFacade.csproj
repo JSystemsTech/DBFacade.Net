@@ -72,6 +72,7 @@
     <Compile Include="DataLayer\Models\Attributes\DbEnumerableColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbFlagColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbParseStringColumn.cs" />
+    <Compile Include="DataLayer\Models\IDbParamsModel.cs" />
     <Compile Include="DataLayer\Models\Validators\Rules\ValidationRuleResult.cs" />
     <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_DateTime.cs" />
     <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_String.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="DataLayer\Models\DbColumnConversion.cs" />
     <Compile Include="DataLayer\Models\DbDataModel.cs" />
     <Compile Include="DataLayer\Models\DbParamsModel.cs" />
-    <Compile Include="DataLayer\Models\IDbParamsModel.cs" />
     <Compile Include="Utils\GenericInstance.cs" />
     <Compile Include="Facade\DomainFacade.cs" />
     <Compile Include="Facade\DomainManager.cs" />
@@ -98,7 +98,7 @@
     <Compile Include="DataLayer\Models\DbResponse.cs" />
     <Compile Include="Facade\Core\FacadeAPIBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\PropertyInfoFactory.cs" />
+    <Compile Include="Utils\PropertySelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

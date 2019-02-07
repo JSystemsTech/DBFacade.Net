@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
+using static DomainFacade.DataLayer.DbConnectionService;
 using static DomainFacade.DataLayer.Models.DbResponse;
 
 namespace DomainFacade.DataLayer.DbManifest
@@ -149,7 +151,8 @@ namespace DomainFacade.DataLayer.DbManifest
             C Connection = DbConnectionService.GetDbConnection<C>();
             if (Connection.CheckStoredProcAvailability())
             {
-                return Array.IndexOf(DbConnectionService.GetAvailableStoredProcedured<C>(), DbCommand.CommandText) != -1;
+                string[] storedProcNames = GetAvailableStoredProcedured<C>().Select(sproc => sproc.Name).ToArray();
+                return Array.IndexOf(storedProcNames, DbCommand.CommandText) != -1;
             }
             return true;
         }

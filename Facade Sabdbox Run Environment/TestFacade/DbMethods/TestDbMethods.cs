@@ -33,8 +33,8 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
             {                
                 Validator<SimpleDbParamsModel<int, string>> validator = new Validator<SimpleDbParamsModel<int, string>>(){
                         new ValidationRule<SimpleDbParamsModel<int, string>>.Required(model => model.Param1),
-                        new ValidationRule<SimpleDbParamsModel<int, string>>.GreatorThanOrEqual(model => model.Param1, 123),
-                        new ValidationRule<SimpleDbParamsModel<int, string>>.MinLength(model => model.Param2,true, 10)
+                        new ValidationRule<SimpleDbParamsModel<int, string>>.GreaterThanOrEqual(model => model.Param1, 123),
+                        new ValidationRule<SimpleDbParamsModel<int, string>>.MinLength(model => model.Param2, true, 10)
                     };
                 
                 return validator;

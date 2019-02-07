@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DomainFacade.Utils
 {
-    public sealed class GenericInstance<T>
+    internal sealed class GenericInstance<T>
     {
         public static T GetInstance()
         {
@@ -14,7 +14,7 @@ namespace DomainFacade.Utils
             return (T)Activator.CreateInstance(typeof(T), args: paramsArray);
         }
     }
-    public sealed class GenericInstance
+    internal sealed class GenericInstance
     {
         public static object GetInstance(Type type)
         {

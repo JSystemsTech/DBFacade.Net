@@ -13,6 +13,7 @@ using System.Data;
 using DomainFacade.DataLayer.Models.Attributes;
 using System;
 using System.Dynamic;
+using static DomainFacade.DataLayer.DbConnectionService;
 
 namespace DomainFacade.DataLayer
 {
@@ -24,8 +25,8 @@ namespace DomainFacade.DataLayer
     }
     public abstract class DbConnectionCore
     {
-        public string[] AvailableStoredProcs { get; private set; }
-        public void SetAvailableStoredProcs(string[] storedProcs)
+        public DbConnectionStoredProcedure[] AvailableStoredProcs { get; private set; }
+        public void SetAvailableStoredProcs(DbConnectionStoredProcedure[] storedProcs)
         {
             if(AvailableStoredProcs == null)
             {
@@ -67,6 +68,19 @@ namespace DomainFacade.DataLayer
                         "on sys_procs.name = routines.SPECIFIC_NAME " +
                         "WHERE ROUTINE_TYPE = 'PROCEDURE' AND sys_procs.is_ms_shipped = 0 " +
                         "ORDER BY routines.SPECIFIC_NAME";
+        }
+        public virtual string GetAvailableStoredProcAdditionalMetaCommandText(string spName)
+        {
+            return
+            "SELECT RIGHT(name, LEN(name) - 1) [name], type, is_nullable ^ 1 [isRequired], MaxLength " +
+            "FROM sys.parameters [sp] " +
+            "inner join( " +
+                "SELECT name [type], system_type_id, max_length [MaxLength] " +
+                "FROM sys.types[types] " +
+            ") [t] " +
+            "on t.system_type_id = [sp].system_type_id " +
+            "where object_id = object_id('"+spName+"') " +
+            "order by parameter_id";
         }
         public virtual CommandType GetAvailableStoredProcCommandType()
         {

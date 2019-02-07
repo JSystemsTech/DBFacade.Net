@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace DomainFacade.DataLayer.Models.Validators.Rules
@@ -40,7 +41,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class IsNummeric : ValidationRule<U>
         {
-            public IsNummeric(Func<dynamic, PropertyInfo> getPropInfo) : base(getPropInfo) { }
+            public IsNummeric(Expression<Func<U, object>> selector) : base(selector) { }
             protected override bool ValidateRule()
             {
                 if (IsNumeric(ParamsValue))
@@ -71,7 +72,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         public class NumericCompare : IsNummeric
         {
             internal double LimitValue { get; set; }
-            public NumericCompare(Func<dynamic, PropertyInfo> getPropInfo, double limit) : base(getPropInfo) { LimitValue = limit; }
+            public NumericCompare(Expression<Func<U, object>> selector, double limit) : base(selector) { LimitValue = limit; }
 
             internal override bool Compare(double value)
             {
@@ -84,7 +85,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class EqualTo : NumericCompare
         {
-            public EqualTo(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
+            public EqualTo(Expression<Func<U, object>> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -97,7 +98,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class NotEqualTo : NumericCompare
         {
-            public NotEqualTo(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
+            public NotEqualTo(Expression<Func<U, object>> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -110,7 +111,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class GreaterThan : NumericCompare
         {
-            public GreaterThan(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
+            public GreaterThan(Expression<Func<U, object>> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -123,7 +124,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class GreaterThanOrEqual : NumericCompare
         {
-            public GreaterThanOrEqual(Func<dynamic, PropertyInfo> getPropInfo, double min) : base(getPropInfo, min) { }
+            public GreaterThanOrEqual(Expression<Func<U, object>> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -136,7 +137,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class LessThan : NumericCompare
         {
-            public LessThan(Func<dynamic, PropertyInfo> getPropInfo, double max) : base(getPropInfo, max) { }
+            public LessThan(Expression<Func<U, object>> selector, double max) : base(selector, max) { }
 
             internal override bool Compare(double value)
             {
@@ -149,7 +150,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class LessThanOrEqual : NumericCompare
         {
-            public LessThanOrEqual(Func<dynamic, PropertyInfo> getPropInfo, double max) : base(getPropInfo, max) { }
+            public LessThanOrEqual(Expression<Func<U, object>> selector, double max) : base(selector, max) { }
 
             internal override bool Compare(double value)
             {

@@ -3,16 +3,18 @@ using Facade_Sabdbox_Run_Environment.TestFacade;
 using Facade_Sabdbox_Run_Environment.TestFacade.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Facade_Sabdbox_Run_Environment
 {
     class Program
     {
+        
         static void Main(string[] args)
-        {      
-
-
+        {
+           
+            
             //ServiceConfig.DomainFacade.AddSimpleRecord(55, null);
             //Console.WriteLine(GetName(typeof(ServiceConfigChild)));
             IEnumerable<TestDbDataModel> test = ServiceConfig.DomainFacade.GetAllSimple();
@@ -45,6 +47,6 @@ namespace Facade_Sabdbox_Run_Environment
     {
 
     }
-
+   
 
 }
