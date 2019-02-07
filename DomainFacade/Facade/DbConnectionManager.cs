@@ -7,33 +7,33 @@ using System.Collections.Generic;
 
 namespace DomainFacade.Facade
 {
-    public class DbConnectionManager<E> : FacadeAPI<E>.Forwarder<DbConnectionManagerCore<E>>where E : DbMethodsCore{}
+    public class DbConnectionManager<DbMethodGroup> : FacadeAPI<DbMethodGroup>.Forwarder<DbConnectionManagerCore<DbMethodGroup>>where DbMethodGroup : DbMethodsCore{}
 
-    public sealed class DbConnectionManagerCore<E> : FacadeAPI<E>
-    where E : DbMethodsCore
+    public sealed class DbConnectionManagerCore<DbMethodGroup> : FacadeAPI<DbMethodGroup>
+    where DbMethodGroup : DbMethodsCore
     {
-        protected override R CallDbMethodCore<U, R, Em>(U parameters)
+        protected override R CallDbMethodCore<U, R, DbMethod>(U parameters)
         {
-            Type dbConnectionType = DbMethodsService.GetInstance<Em>().GetConfig().GetDBConnectionType().BaseType;
+            Type dbConnectionType = DbMethodsService.GetInstance<DbMethod>().GetConfig().GetDBConnectionType().BaseType;
             if (dbConnectionType == typeof(DbConnectionCore.SQL))
             {
-                return CallFacadeAPIDbMethod<U, DbConnectionHandler<E>.SQL, R, Em>(parameters);
+                return CallFacadeAPIDbMethod<U, DbConnectionHandler<DbMethodGroup>.SQL, R, DbMethod>(parameters);
             }
             if (dbConnectionType == typeof(DbConnectionCore.SQLite))
             {
-                return CallFacadeAPIDbMethod<U, DbConnectionHandler<E>.SQLite, R, Em>(parameters);
+                return CallFacadeAPIDbMethod<U, DbConnectionHandler<DbMethodGroup>.SQLite, R, DbMethod>(parameters);
             }
             else if (dbConnectionType == typeof(DbConnectionCore.OleDb))
             {
-                return CallFacadeAPIDbMethod<U, DbConnectionHandler<E>.OleDb, R, Em>(parameters);
+                return CallFacadeAPIDbMethod<U, DbConnectionHandler<DbMethodGroup>.OleDb, R, DbMethod>(parameters);
             }
             else if (dbConnectionType == typeof(DbConnectionCore.Odbc))
             {
-                return CallFacadeAPIDbMethod<U, DbConnectionHandler<E>.Odbc, R, Em>(parameters);
+                return CallFacadeAPIDbMethod<U, DbConnectionHandler<DbMethodGroup>.Odbc, R, DbMethod>(parameters);
             }
             else if (dbConnectionType == typeof(DbConnectionCore.Oracle))
             {
-                return CallFacadeAPIDbMethod<U, DbConnectionHandler<E>.Oracle, R, Em>(parameters);
+                return CallFacadeAPIDbMethod<U, DbConnectionHandler<DbMethodGroup>.Oracle, R, DbMethod>(parameters);
             }
             else
             {

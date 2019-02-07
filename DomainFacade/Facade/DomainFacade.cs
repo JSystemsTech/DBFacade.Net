@@ -6,48 +6,48 @@ using static DomainFacade.DataLayer.Models.DbResponse;
 namespace DomainFacade.Facade
 {
     
-    public class DomainFacade<E> : DomainFacade<DomainManager<E>, E>
-    where E : DbMethodsCore
+    public class DomainFacade<DbMethodGroup> : DomainFacade<DomainManager<DbMethodGroup>, DbMethodGroup>
+    where DbMethodGroup : DbMethodsCore
     { }
     
-    public class DomainFacade<M, E> : FacadeAPI<E>.Forwarder<DomainFacadeCore<M, E>>
-    where M : DomainManager<E>
-    where E : DbMethodsCore
+    public class DomainFacade<M, DbMethodGroup> : FacadeAPI<DbMethodGroup>.Forwarder<DomainFacadeCore<M, DbMethodGroup>>
+    where M : DomainManager<DbMethodGroup>
+    where DbMethodGroup : DbMethodsCore
     {
-        protected FetchRecordModel<R, Em> FetchRecord<R,U, Em>(U parameters)
+        protected FetchRecordModel<R, DbMethod> FetchRecord<R,U, DbMethod>(U parameters)
             where R: DbDataModel
             where U: IDbParamsModel
-            where Em: E
+            where DbMethod: DbMethodGroup
         {
-            return CallDbMethod<U,FetchRecordModel<R, Em>, Em>(parameters);
+            return CallDbMethod<U,FetchRecordModel<R, DbMethod>, DbMethod>(parameters);
         }
-        protected FetchRecordModel<R, Em> FetchRecord<R, Em>() where R : DbDataModel where Em : E
+        protected FetchRecordModel<R, DbMethod> FetchRecord<R, DbMethod>() where R : DbDataModel where DbMethod : DbMethodGroup
         {
-            return CallDbMethod<FetchRecordModel<R, Em>, Em>();
-        }
-
-        protected FetchRecordsModel<R, Em> FetchRecords<R, U, Em>(U parameters) where R : DbDataModel where U : IDbParamsModel where Em : E
-        {
-            return CallDbMethod<U, FetchRecordsModel<R, Em>, Em>(parameters);
-        }
-        protected FetchRecordsModel<R, Em> FetchRecords<R, Em>() where R : DbDataModel where Em : E
-        {
-            return CallDbMethod<FetchRecordsModel<R, Em>, Em>();
+            return CallDbMethod<FetchRecordModel<R, DbMethod>, DbMethod>();
         }
 
-        protected TransactionModel Transaction<U, Em>(U parameters) where U : IDbParamsModel where Em : E
+        protected FetchRecordsModel<R, DbMethod> FetchRecords<R, U, DbMethod>(U parameters) where R : DbDataModel where U : IDbParamsModel where DbMethod : DbMethodGroup
         {
-            return CallDbMethod<U, TransactionModel, Em>(parameters);
+            return CallDbMethod<U, FetchRecordsModel<R, DbMethod>, DbMethod>(parameters);
         }
-        protected TransactionModel Transaction<Em>() where Em : E
+        protected FetchRecordsModel<R, DbMethod> FetchRecords<R, DbMethod>() where R : DbDataModel where DbMethod : DbMethodGroup
         {
-            return CallDbMethod<TransactionModel, Em>();
+            return CallDbMethod<FetchRecordsModel<R, DbMethod>, DbMethod>();
+        }
+
+        protected TransactionModel Transaction<U, DbMethod>(U parameters) where U : IDbParamsModel where DbMethod : DbMethodGroup
+        {
+            return CallDbMethod<U, TransactionModel, DbMethod>(parameters);
+        }
+        protected TransactionModel Transaction<DbMethod>() where DbMethod : DbMethodGroup
+        {
+            return CallDbMethod<TransactionModel, DbMethod>();
         }
     }
 
-    public sealed class DomainFacadeCore<M, E> : FacadeAPI<E>.Forwarder<M>
-    where M : DomainManager<E>
-    where E : DbMethodsCore
+    public sealed class DomainFacadeCore<M, DbMethodGroup> : FacadeAPI<DbMethodGroup>.Forwarder<M>
+    where M : DomainManager<DbMethodGroup>
+    where DbMethodGroup : DbMethodsCore
     {
     }
 }

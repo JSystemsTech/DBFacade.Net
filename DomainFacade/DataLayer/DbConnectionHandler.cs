@@ -14,18 +14,18 @@ namespace DomainFacade.DataLayer
 {
 
 
-    public class DbConnectionHandler<Drd, Con, Cmd, Trn,Prm, E> : FacadeAPI<E>
+    public class DbConnectionHandler<Drd, Con, Cmd, Trn,Prm, DbMethodGroup> : FacadeAPI<DbMethodGroup>
         where Drd : DbDataReader
         where Con : DbConnection
         where Cmd : DbCommand
         where Trn : DbTransaction
         where Prm : DbParameter
-        where E : DbMethodsCore
+        where DbMethodGroup : DbMethodsCore
     {
-        protected override R CallDbMethodCore<U, R, Em>(U parameters)
+        protected override R CallDbMethodCore<U, R, DbMethod>(U parameters)
         {
-            Em dbMethod = DbMethodsService.GetInstance<Em>();
-            CheckResponseType<R, Em>();
+            DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
+            CheckResponseType<R, DbMethod>();
             Con dbConnection = null;
             Cmd dbCommand = null;
             Trn transaction = null;
@@ -41,14 +41,14 @@ namespace DomainFacade.DataLayer
                     dbCommand.Transaction = transaction;
                     dbCommand.ExecuteNonQuery();
                     transaction.Commit();
-                    R response = BuildResponse<R, Em>(dbCommand);
+                    R response = BuildResponse<R, DbMethod>(dbCommand);
                     Done(transaction, dbConnection);
                     return response;
                 }
                 else
                 {
                     Drd dbDataReader = (Drd)dbCommand.ExecuteReader();
-                    R response = BuildResponse<R,Em>(dbDataReader, dbCommand);
+                    R response = BuildResponse<R,DbMethod>(dbDataReader, dbCommand);
                     Done(dbDataReader, dbConnection);
                     return response;
                 }
@@ -100,11 +100,11 @@ namespace DomainFacade.DataLayer
             return (Drd)dbCommand.ExecuteReader();
 
         }
-        private void CheckResponseType<R, Em>()
+        private void CheckResponseType<R, DbMethod>()
             where R : DbResponse
-            where Em: E
+            where DbMethod: DbMethodGroup
         {
-            Em dbMethod = DbMethodsService.GetInstance<Em>();
+            DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
             if (GenericInstance<R>.GetInstance().DBMethodType != dbMethod.GetConfig().DBMethodType)
             {
                 Console.WriteLine(GenericInstance<R>.GetInstance().DBMethodType);
@@ -112,11 +112,11 @@ namespace DomainFacade.DataLayer
                 throw new NotImplementedException();
             }
         }
-        private R BuildResponse<R, Em>(Drd dbReader, Cmd dbCommand)
+        private R BuildResponse<R, DbMethod>(Drd dbReader, Cmd dbCommand)
             where R : DbResponse
-            where Em:E
+            where DbMethod: DbMethodGroup
         {
-            Em dbMethod = DbMethodsService.GetInstance<Em>();
+            DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
             if (dbMethod.GetConfig().IsFetchRecord() || dbMethod.GetConfig().IsFetchRecords())
             {
                 return GenericInstance<R>.GetInstance(dbReader);
@@ -130,11 +130,11 @@ namespace DomainFacade.DataLayer
                 throw new Exception("Invalid Fetch Method");
             }
         }
-        private R BuildResponse<R, Em>(Cmd dbCommand)
+        private R BuildResponse<R, DbMethod>(Cmd dbCommand)
             where R : DbResponse
-            where Em :E
+            where DbMethod : DbMethodGroup
         {
-            Em dbMethod = DbMethodsService.GetInstance<Em>();
+            DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
             if (dbMethod.GetConfig().IsTransaction())
             {
                 return GenericInstance<R>.GetInstance();
@@ -166,12 +166,12 @@ namespace DomainFacade.DataLayer
         }
 
     }
-    public sealed class DbConnectionHandler<E> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, E> where E : DbMethodsCore
+    public sealed class DbConnectionHandler<DbMethodGroup> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, DbMethodGroup> where DbMethodGroup : DbMethodsCore
     {
-        public class SQL : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, E>{ }
-        public class SQLite : DbConnectionHandler<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, E> { }
-        public class OleDb : DbConnectionHandler<OleDbDataReader, OleDbConnection, OleDbCommand, OleDbTransaction, OleDbParameter, E> { }
-        public class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, E> { }        
-        public class Oracle : DbConnectionHandler<OracleDataReader, OracleConnection, OracleCommand, OracleTransaction, OracleParameter, E> { }
+        public class SQL : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, DbMethodGroup> { }
+        public class SQLite : DbConnectionHandler<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, DbMethodGroup> { }
+        public class OleDb : DbConnectionHandler<OleDbDataReader, OleDbConnection, OleDbCommand, OleDbTransaction, OleDbParameter, DbMethodGroup> { }
+        public class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, DbMethodGroup> { }        
+        public class Oracle : DbConnectionHandler<OracleDataReader, OracleConnection, OracleCommand, OracleTransaction, OracleParameter, DbMethodGroup> { }
     }
 }

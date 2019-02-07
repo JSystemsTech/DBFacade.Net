@@ -11,49 +11,49 @@ namespace DomainFacade.DataLayer.Models
 {
     public interface IDbDataModel
     {
-        void InitializeData<E>(IDataRecord data) where E : IDbMethod;
+        void InitializeData<DbMethod>(IDataRecord data) where DbMethod : IDbMethod;
     }
     public abstract class DbDataModel: IDbDataModel
     {
         public DbDataModel() { }
         
 
-        public static T ToDbDataModel<T, E>(IDataRecord data) where T : DbDataModel where E : IDbMethod
+        public static T ToDbDataModel<T, DbMethod>(IDataRecord data) where T : DbDataModel where DbMethod : IDbMethod
         {
-            if(GetConstructorInfo<E>(typeof(T)).Count > 0)
+            if(GetConstructorInfo<DbMethod>(typeof(T)).Count > 0)
             {
-                return Create<T,E>(data);
+                return Create<T, DbMethod>(data);
             }
             T model = GenericInstance<T>.GetInstance();
-            model.InitializeData<E>(data);
+            model.InitializeData<DbMethod>(data);
             return model;
         }
-        public void InitializeData<E>(IDataRecord data) where E : IDbMethod
+        public void InitializeData<DbMethod>(IDataRecord data) where DbMethod : IDbMethod
         {
-            PopulateProperties<E>(data);
+            PopulateProperties<DbMethod>(data);
         }
-        private static T Create<T, E>(IDataRecord data) where T : DbDataModel where E : IDbMethod
+        private static T Create<T, DbMethod>(IDataRecord data) where T : DbDataModel where DbMethod : IDbMethod
         {
-            return (T)Create<E>(typeof(T), data);
+            return (T)Create<DbMethod>(typeof(T), data);
         }
-        private static List<ConstructorInfo> GetConstructorInfo<E>(Type dbDataModelType) where E : IDbMethod
+        private static List<ConstructorInfo> GetConstructorInfo<DbMethod>(Type dbDataModelType) where DbMethod : IDbMethod
         {
             return dbDataModelType.GetConstructors().ToList().FindAll(constructor =>
                 constructor.GetCustomAttributes<DbColumn>().Count() > 0 &&
                 constructor.GetParameters().Count() ==
                     constructor.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
-                        column.BoundToDbMethodType && column.GetDbMethodType().FullName == typeof(E).FullName).Count
+                        column.BoundToDbMethodType && column.GetDbMethodType().FullName == typeof(DbMethod).FullName).Count
             );
         }
-        private static IDbDataModel Create<E>(Type dbDataModelType, IDataRecord data) where E : IDbMethod
+        private static IDbDataModel Create<DbMethod>(Type dbDataModelType, IDataRecord data) where DbMethod : IDbMethod
         {
-            List<ConstructorInfo> constructorInfo = GetConstructorInfo<E>(dbDataModelType);
+            List<ConstructorInfo> constructorInfo = GetConstructorInfo<DbMethod>(dbDataModelType);
             if (constructorInfo.Count > 0)
             {
                 ConstructorInfo constructor = constructorInfo.First();
                 List<ParameterInfo> paramInfo = constructor.GetParameters().ToList();
                 List<DbColumn> columns = constructor.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
-                        column.BoundToDbMethodType && column.GetDbMethodType().FullName == typeof(E).FullName);
+                        column.BoundToDbMethodType && column.GetDbMethodType().FullName == typeof(DbMethod).FullName);
 
                 List<object> args = new List<object>();
 
@@ -67,9 +67,9 @@ namespace DomainFacade.DataLayer.Models
             }
             return null;
         }
-        protected IDbColumn GetColumnAttribute<E>(PropertyInfo property) where E : IDbMethod
+        protected IDbColumn GetColumnAttribute<DbMethod>(PropertyInfo property) where DbMethod : IDbMethod
         {
-            List<DbColumn> ColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList().FindAll(column => column.BoundToDbMethodType && column.GetDbMethodType().FullName ==typeof(E).FullName);
+            List<DbColumn> ColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList().FindAll(column => column.BoundToDbMethodType && column.GetDbMethodType().FullName ==typeof(DbMethod).FullName);
 
             if (ColumnAttrs.Count > 0)
             {
@@ -90,7 +90,7 @@ namespace DomainFacade.DataLayer.Models
         {
             return GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
         }
-        private void PopulateNestedProperties<E>(IDataRecord data) where E : IDbMethod
+        private void PopulateNestedProperties<DbMethod>(IDataRecord data) where DbMethod : IDbMethod
         {
             List<PropertyInfo> NestedProperties = GetBindableProperties().FindAll(prop =>
                 prop.GetCustomAttributes<NestedModel>().Count() > 0 &&
@@ -98,14 +98,14 @@ namespace DomainFacade.DataLayer.Models
                 );
             foreach (PropertyInfo property in NestedProperties)
             {
-                if (GetConstructorInfo<E>(property.PropertyType).Count > 0)
+                if (GetConstructorInfo<DbMethod>(property.PropertyType).Count > 0)
                 {
-                    property.SetValue(this, Create<E>(property.PropertyType, data), null);
+                    property.SetValue(this, Create<DbMethod>(property.PropertyType, data), null);
                 }
                 else
                 {
                     IDbDataModel instance = (IDbDataModel)GenericInstance.GetInstance(property.PropertyType);
-                    instance.InitializeData<E>(data);
+                    instance.InitializeData<DbMethod>(data);
                     property.SetValue(this, instance, null);
                 }
 
