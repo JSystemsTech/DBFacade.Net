@@ -6,7 +6,7 @@ using DomainFacade.Utils;
 namespace DomainFacade.Facade.Core
 {
     
-    public abstract class FacadeAPI<DbMethodGroup> : FacadeAPIBase<DbMethodGroup> where DbMethodGroup : DbMethodsCore
+    public abstract class DbFacade<DbMethodGroup> : DbFacadeBase<DbMethodGroup> where DbMethodGroup : DbMethodsCore
     {        
         private DbParamsModel DEFAULT_PARAMETERS = new DbParamsModel();
         
@@ -18,9 +18,9 @@ namespace DomainFacade.Facade.Core
         {
             return CallDbMethodCore<DbParams, TDbResponse, DbMethod>(parameters);
         }         
-        protected override TDbResponse CallFacadeAPIDbMethod<DbParams, F, TDbResponse, DbMethod>(DbParams parameters)
+        protected override TDbResponse CallFacadeAPIDbMethod<DbParams, TDbFacade, TDbResponse, DbMethod>(DbParams parameters)
         {
-            return FacadeAPIService.GetInstance<F>().CallDbMethod<DbParams, TDbResponse, DbMethod>(parameters);
+            return DbFacadeCache.GetInstance<TDbFacade>().CallDbMethod<DbParams, TDbResponse, DbMethod>(parameters);
         }
         
         protected abstract TDbResponse CallDbMethodCore<DbParams, TDbResponse, DbMethod>(DbParams parameters)
@@ -29,21 +29,21 @@ namespace DomainFacade.Facade.Core
             where DbMethod: DbMethodGroup;
 
 
-        public class Forwarder<T> : FacadeAPI<DbMethodGroup>
-        where T : FacadeAPI<DbMethodGroup>
+        public class Forwarder<TDbFacade> : DbFacade<DbMethodGroup>
+        where TDbFacade : DbFacade<DbMethodGroup>
         {
-            protected override R CallDbMethodCore<U, R, DbMethod>(U parameters)
+            protected override TDbResponse CallDbMethodCore<DbParams, TDbResponse, DbMethod>(DbParams parameters)
             {
-                OnBeforeForward<U, DbMethod>(parameters);
-                return CallFacadeAPIDbMethod<U, T, R, DbMethod>(parameters);
+                OnBeforeForward<DbParams, DbMethod>(parameters);
+                return CallFacadeAPIDbMethod<DbParams, TDbFacade, TDbResponse, DbMethod>(parameters);
             }
-            protected virtual void OnBeforeForward<U, DbMethod>(U parameters) 
-                where U : IDbParamsModel
+            protected virtual void OnBeforeForward<DbParams, DbMethod>(DbParams parameters) 
+                where DbParams : IDbParamsModel
             where DbMethod : DbMethodGroup
             { }            
         }
 
-        private sealed class FacadeAPIService : InstanceResolver<FacadeAPI<DbMethodGroup>>{}
+        private sealed class DbFacadeCache : InstanceResolver<DbFacade<DbMethodGroup>>{}
 
         
     }    

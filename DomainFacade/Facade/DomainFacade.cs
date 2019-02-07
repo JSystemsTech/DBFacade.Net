@@ -10,7 +10,7 @@ namespace DomainFacade.Facade
     where DbMethodGroup : DbMethodsCore
     { }
     
-    public class DomainFacade<M, DbMethodGroup> : FacadeAPI<DbMethodGroup>.Forwarder<DomainFacadeCore<M, DbMethodGroup>>
+    public class DomainFacade<M, DbMethodGroup> : DbFacade<DbMethodGroup>.Forwarder<DomainFacadeCore<M, DbMethodGroup>>
     where M : DomainManager<DbMethodGroup>
     where DbMethodGroup : DbMethodsCore
     {
@@ -45,7 +45,7 @@ namespace DomainFacade.Facade
         }
     }
 
-    public sealed class DomainFacadeCore<M, DbMethodGroup> : FacadeAPI<DbMethodGroup>.Forwarder<M>
+    public sealed class DomainFacadeCore<M, DbMethodGroup> : DbFacade<DbMethodGroup>.Forwarder<M>
     where M : DomainManager<DbMethodGroup>
     where DbMethodGroup : DbMethodsCore
     {

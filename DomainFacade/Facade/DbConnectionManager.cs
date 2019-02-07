@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace DomainFacade.Facade
 {
-    public class DbConnectionManager<DbMethodGroup> : FacadeAPI<DbMethodGroup>.Forwarder<DbConnectionManagerCore<DbMethodGroup>>where DbMethodGroup : DbMethodsCore{}
+    public class DbConnectionManager<DbMethodGroup> : DbFacade<DbMethodGroup>.Forwarder<DbConnectionManagerCore<DbMethodGroup>>where DbMethodGroup : DbMethodsCore{}
 
-    public sealed class DbConnectionManagerCore<DbMethodGroup> : FacadeAPI<DbMethodGroup>
+    public sealed class DbConnectionManagerCore<DbMethodGroup> : DbFacade<DbMethodGroup>
     where DbMethodGroup : DbMethodsCore
     {
         protected override TDbResponse CallDbMethodCore<DbParams, TDbResponse, DbMethod>(DbParams parameters)
         {
-            Type dbConnectionType = DbMethodsService.GetInstance<DbMethod>().GetConfig().GetDBConnectionType().BaseType;
+            Type dbConnectionType = DbMethodsCache.GetInstance<DbMethod>().GetConfig().GetDBConnectionType().BaseType;
             if (dbConnectionType == typeof(DbConnectionCore.SQL))
             {
                 return CallFacadeAPIDbMethod<DbParams, DbConnectionHandler<DbMethodGroup>.SQL, TDbResponse, DbMethod>(parameters);

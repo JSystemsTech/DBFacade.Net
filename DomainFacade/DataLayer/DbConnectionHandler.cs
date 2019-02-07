@@ -14,7 +14,7 @@ namespace DomainFacade.DataLayer
 {
 
 
-    public class DbConnectionHandler<Drd, Con, Cmd, Trn,Prm, DbMethodGroup> : FacadeAPI<DbMethodGroup>
+    public class DbConnectionHandler<Drd, Con, Cmd, Trn,Prm, DbMethodGroup> : DbFacade<DbMethodGroup>
         where Drd : DbDataReader
         where Con : DbConnection
         where Cmd : DbCommand
@@ -24,7 +24,7 @@ namespace DomainFacade.DataLayer
     {
         protected override TDbResponse CallDbMethodCore<DbParams, TDbResponse, DbMethod>(DbParams parameters)
         {
-            DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
+            DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
             CheckResponseType<TDbResponse, DbMethod>();
             Con dbConnection = null;
             Cmd dbCommand = null;
@@ -104,7 +104,7 @@ namespace DomainFacade.DataLayer
             where TDbResponse : DbResponse
             where DbMethod: DbMethodGroup
         {
-            DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
+            DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
             if (GenericInstance<TDbResponse>.GetInstance().DBMethodType != dbMethod.GetConfig().DBMethodType)
             {
                 Console.WriteLine(GenericInstance<TDbResponse>.GetInstance().DBMethodType);
@@ -116,7 +116,7 @@ namespace DomainFacade.DataLayer
             where TDbResponse : DbResponse
             where DbMethod: DbMethodGroup
         {
-            DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
+            DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
             if (dbMethod.GetConfig().IsFetchRecord() || dbMethod.GetConfig().IsFetchRecords())
             {
                 return GenericInstance<TDbResponse>.GetInstance(dbReader);
@@ -134,7 +134,7 @@ namespace DomainFacade.DataLayer
             where TDbResponse : DbResponse
             where DbMethod : DbMethodGroup
         {
-            DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
+            DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
             if (dbMethod.GetConfig().IsTransaction())
             {
                 return GenericInstance<TDbResponse>.GetInstance();

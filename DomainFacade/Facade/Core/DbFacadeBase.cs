@@ -5,9 +5,8 @@ using DomainFacade.DataLayer.Models;
 namespace DomainFacade.Facade.Core
 {
       
-    public abstract class FacadeAPIBase<DbMethodGroup> where DbMethodGroup : DbMethodsCore
+    public abstract class DbFacadeBase<DbMethodGroup> where DbMethodGroup : DbMethodsCore
     {
-
         protected abstract TDbResponse CallDbMethod<TDbResponse, DbMethod>() 
             where TDbResponse : DbResponse
             where DbMethod : DbMethodGroup;
@@ -16,16 +15,12 @@ namespace DomainFacade.Facade.Core
             where TDbResponse : DbResponse
             where DbParams : IDbParamsModel
             where DbMethod : DbMethodGroup;
-        protected abstract TDbResponse CallFacadeAPIDbMethod<DbParams, F, TDbResponse, DbMethod>(DbParams parameters) 
+        protected abstract TDbResponse CallFacadeAPIDbMethod<DbParams, TDbFacade, TDbResponse, DbMethod>(DbParams parameters) 
             where TDbResponse : DbResponse
             where DbParams : IDbParamsModel
-            where F : FacadeAPI<DbMethodGroup>
+            where TDbFacade : DbFacade<DbMethodGroup>
             where DbMethod : DbMethodGroup;
 
-        internal sealed class DbMethodsService : InstanceResolver<DbMethodGroup>
-        {
-
-        }
-
+        internal sealed class DbMethodsCache : InstanceResolver<DbMethodGroup> { }
     }
 }
