@@ -34,9 +34,5 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
         { 
             Transaction<SimpleDbParamsModel<int, string>, TestDbMethods.AddSimple>(new SimpleDbParamsModel<int, string>(count, comment));
         }
-        protected override void OnBeforeForward<U, TestDbMethods>(U parameters)
-        {
-            //throw new System.NotImplementedException();
-        }
     }
 }

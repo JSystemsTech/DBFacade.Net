@@ -105,10 +105,10 @@ namespace DomainFacade.DataLayer
             where DbMethod: DbMethodGroup
         {
             DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
-            if (GenericInstance<TDbResponse>.GetInstance().DBMethodType != dbMethod.GetConfig().DBMethodType)
+            if (GenericInstance<TDbResponse>.GetInstance().GetDbMethodCallType() != dbMethod.GetConfig().GetDbMethodCallType())
             {
-                Console.WriteLine(GenericInstance<TDbResponse>.GetInstance().DBMethodType);
-                Console.WriteLine(dbMethod.GetConfig().DBMethodType);
+                Console.WriteLine(GenericInstance<TDbResponse>.GetInstance().GetDbMethodCallType());
+                Console.WriteLine(dbMethod.GetConfig().GetDbMethodCallType());
                 throw new NotImplementedException();
             }
         }

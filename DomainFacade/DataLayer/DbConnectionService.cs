@@ -59,11 +59,8 @@ namespace DomainFacade.DataLayer
             }
             private class DbCommandConfigForDbConnection : DbCommandConfig
             {
-                
-                public DbCommandConfigForDbConnection()
-                {
-                    SetDbMethod(DbMethodType.FetchRecords);
-                }
+                public override Type GetDbMethodCallType() { return typeof(DbMethodCallType.FetchRecords); }
+                public DbCommandConfigForDbConnection() { }
                 public C GetDbConnection()
                 {
                     return DbConnectionService.GetDbConnection<C>();
