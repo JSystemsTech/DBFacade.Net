@@ -19,7 +19,7 @@ namespace DomainFacade.Facade
             where DbParams: IDbParamsModel
             where DbMethod: DbMethodGroup
         {
-            return CallDbMethod<DbParams,FetchRecordModel<TDbResponse, DbMethod>, DbMethod>(parameters);
+            return CallDbMethod<FetchRecordModel<TDbResponse, DbMethod>, DbParams, DbMethod>(parameters);
         }
         protected FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse, DbMethod>() where TDbResponse : DbDataModel where DbMethod : DbMethodGroup
         {
@@ -28,7 +28,7 @@ namespace DomainFacade.Facade
 
         protected FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbParams, DbMethod>(DbParams parameters) where TDbResponse : DbDataModel where DbParams : IDbParamsModel where DbMethod : DbMethodGroup
         {
-            return CallDbMethod<DbParams, FetchRecordsModel<TDbResponse, DbMethod>, DbMethod>(parameters);
+            return CallDbMethod<FetchRecordsModel<TDbResponse, DbMethod>, DbParams, DbMethod>(parameters);
         }
         protected FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbMethod>() where TDbResponse : DbDataModel where DbMethod : DbMethodGroup
         {
@@ -37,7 +37,7 @@ namespace DomainFacade.Facade
 
         protected TransactionModel Transaction<DbParams, DbMethod>(DbParams parameters) where DbParams : IDbParamsModel where DbMethod : DbMethodGroup
         {
-            return CallDbMethod<DbParams, TransactionModel, DbMethod>(parameters);
+            return CallDbMethod<TransactionModel, DbParams, DbMethod>(parameters);
         }
         protected TransactionModel Transaction<DbMethod>() where DbMethod : DbMethodGroup
         {

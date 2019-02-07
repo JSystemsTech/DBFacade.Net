@@ -22,7 +22,7 @@ namespace DomainFacade.DataLayer
         where Prm : DbParameter
         where DbMethodGroup : DbMethodsCore
     {
-        protected override TDbResponse CallDbMethodCore<DbParams, TDbResponse, DbMethod>(DbParams parameters)
+        protected override TDbResponse CallDbMethodCore<TDbResponse, DbParams, DbMethod>(DbParams parameters)
         {
             DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
             CheckResponseType<TDbResponse, DbMethod>();
