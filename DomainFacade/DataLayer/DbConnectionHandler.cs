@@ -22,10 +22,10 @@ namespace DomainFacade.DataLayer
         where Prm : DbParameter
         where DbMethodGroup : DbMethodsCore
     {
-        protected override R CallDbMethodCore<U, R, DbMethod>(U parameters)
+        protected override TDbResponse CallDbMethodCore<DbParams, TDbResponse, DbMethod>(DbParams parameters)
         {
             DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
-            CheckResponseType<R, DbMethod>();
+            CheckResponseType<TDbResponse, DbMethod>();
             Con dbConnection = null;
             Cmd dbCommand = null;
             Trn transaction = null;
@@ -41,14 +41,14 @@ namespace DomainFacade.DataLayer
                     dbCommand.Transaction = transaction;
                     dbCommand.ExecuteNonQuery();
                     transaction.Commit();
-                    R response = BuildResponse<R, DbMethod>(dbCommand);
+                    TDbResponse response = BuildResponse<TDbResponse, DbMethod>(dbCommand);
                     Done(transaction, dbConnection);
                     return response;
                 }
                 else
                 {
                     Drd dbDataReader = (Drd)dbCommand.ExecuteReader();
-                    R response = BuildResponse<R,DbMethod>(dbDataReader, dbCommand);
+                    TDbResponse response = BuildResponse<TDbResponse, DbMethod>(dbDataReader, dbCommand);
                     Done(dbDataReader, dbConnection);
                     return response;
                 }
@@ -100,48 +100,48 @@ namespace DomainFacade.DataLayer
             return (Drd)dbCommand.ExecuteReader();
 
         }
-        private void CheckResponseType<R, DbMethod>()
-            where R : DbResponse
+        private void CheckResponseType<TDbResponse, DbMethod>()
+            where TDbResponse : DbResponse
             where DbMethod: DbMethodGroup
         {
             DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
-            if (GenericInstance<R>.GetInstance().DBMethodType != dbMethod.GetConfig().DBMethodType)
+            if (GenericInstance<TDbResponse>.GetInstance().DBMethodType != dbMethod.GetConfig().DBMethodType)
             {
-                Console.WriteLine(GenericInstance<R>.GetInstance().DBMethodType);
+                Console.WriteLine(GenericInstance<TDbResponse>.GetInstance().DBMethodType);
                 Console.WriteLine(dbMethod.GetConfig().DBMethodType);
                 throw new NotImplementedException();
             }
         }
-        private R BuildResponse<R, DbMethod>(Drd dbReader, Cmd dbCommand)
-            where R : DbResponse
+        private TDbResponse BuildResponse<TDbResponse, DbMethod>(Drd dbReader, Cmd dbCommand)
+            where TDbResponse : DbResponse
             where DbMethod: DbMethodGroup
         {
             DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
             if (dbMethod.GetConfig().IsFetchRecord() || dbMethod.GetConfig().IsFetchRecords())
             {
-                return GenericInstance<R>.GetInstance(dbReader);
+                return GenericInstance<TDbResponse>.GetInstance(dbReader);
             }
             else if (dbMethod.GetConfig().IsFetchRecordWithReturn() || dbMethod.GetConfig().IsFetchRecordsWithReturn())
             {
-                return GenericInstance<R>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand), dbReader);
+                return GenericInstance<TDbResponse>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand), dbReader);
             }
             else
             {
                 throw new Exception("Invalid Fetch Method");
             }
         }
-        private R BuildResponse<R, DbMethod>(Cmd dbCommand)
-            where R : DbResponse
+        private TDbResponse BuildResponse<TDbResponse, DbMethod>(Cmd dbCommand)
+            where TDbResponse : DbResponse
             where DbMethod : DbMethodGroup
         {
             DbMethod dbMethod = DbMethodsService.GetInstance<DbMethod>();
             if (dbMethod.GetConfig().IsTransaction())
             {
-                return GenericInstance<R>.GetInstance();
+                return GenericInstance<TDbResponse>.GetInstance();
             }
             else if (dbMethod.GetConfig().IsTransactionWithReturn())
             {
-                return GenericInstance<R>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand));
+                return GenericInstance<TDbResponse>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand));
             }
             else
             {

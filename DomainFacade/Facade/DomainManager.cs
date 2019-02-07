@@ -8,13 +8,13 @@ namespace DomainFacade.Facade
     public class DomainManager<DbMethodGroup> : FacadeAPI<DbMethodGroup>.Forwarder<DomainManagerCore<DbMethodGroup>>
     where DbMethodGroup : DbMethodsCore
     {
-        protected override void OnBeforeForward<U, DbMethod>(U parameters){}
+        protected override void OnBeforeForward<DbParams, DbMethod>(DbParams parameters){}
     }
 
     public sealed class DomainManagerCore<DbMethodGroup> : FacadeAPI<DbMethodGroup>.Forwarder<DbConnectionManager<DbMethodGroup>>
     where DbMethodGroup : DbMethodsCore
     {
-        protected override void OnBeforeForward<U, DbMethod>(U parameters)
+        protected override void OnBeforeForward<DbParams, DbMethod>(DbParams parameters)
         {
             if (!DbMethodsService.GetInstance<DbMethod>().GetConfig().HasStoredProcedure())
             {

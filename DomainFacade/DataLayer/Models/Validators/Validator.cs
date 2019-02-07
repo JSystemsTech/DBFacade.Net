@@ -7,22 +7,22 @@ using System.Reflection;
 
 namespace DomainFacade.DataLayer.Models.Validators
 {
-   public interface IValidator<Par> where Par : IDbParamsModel
+   public interface IValidator<DbParams> where DbParams : IDbParamsModel
     {
-        Validator<Par> GetValidator();
+        Validator<DbParams> GetValidator();
     }
-    public sealed class Validator<Par> : List<ValidationRule<Par>>
-        where Par : IDbParamsModel
+    public sealed class Validator<DbParams> : List<ValidationRule<DbParams>>
+        where DbParams : IDbParamsModel
     {
-        public bool Validate(Par paramsModel)
+        public bool Validate(DbParams paramsModel)
         {
             return ValidateCore(paramsModel);
         }
         
-        private bool ValidateCore(Par paramsModel)
+        private bool ValidateCore(DbParams paramsModel)
         {
             List<ValidationRuleResult> errors = new List<ValidationRuleResult>();
-            foreach (ValidationRule<Par> rule in this)
+            foreach (ValidationRule<DbParams> rule in this)
             {
                 ValidationRuleResult validationResult = rule.Validate(paramsModel);
                 if(validationResult.Status == ValidationRuleResult.ValidationStatus.FAIL)
@@ -39,9 +39,8 @@ namespace DomainFacade.DataLayer.Models.Validators
         }
         public static PropertyInfo GetPropertyInfo(string name)
         {            
-            return typeof(Par).GetProperty(name);
+            return typeof(DbParams).GetProperty(name);
         }
-        public static dynamic ParamsProperties = GenericInstance<Par>.GetInstance().GetModelProperties();
     }
 
 }

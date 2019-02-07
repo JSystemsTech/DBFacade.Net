@@ -6,8 +6,8 @@ using System.Reflection;
 namespace DomainFacade.DataLayer.Models.Validators.Rules
 {
 
-    public abstract partial class ValidationRule<U>
-        where U : IDbParamsModel
+    public abstract partial class ValidationRule<DbParams>
+        where DbParams : IDbParamsModel
     {
         private static Type[] numberTypes = new Type[9] {
             typeof(short),
@@ -39,9 +39,9 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
                 return false;
             }
         }
-        public class IsNummeric : ValidationRule<U>
+        public class IsNummeric : ValidationRule<DbParams>
         {
-            public IsNummeric(Expression<Func<U, object>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<DbParams, object>> selector) : base(selector) { }
             protected override bool ValidateRule()
             {
                 if (IsNumeric(ParamsValue))
@@ -72,7 +72,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         public class NumericCompare : IsNummeric
         {
             internal double LimitValue { get; set; }
-            public NumericCompare(Expression<Func<U, object>> selector, double limit) : base(selector) { LimitValue = limit; }
+            public NumericCompare(Expression<Func<DbParams, object>> selector, double limit) : base(selector) { LimitValue = limit; }
 
             internal override bool Compare(double value)
             {
@@ -85,7 +85,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class EqualTo : NumericCompare
         {
-            public EqualTo(Expression<Func<U, object>> selector, double min) : base(selector, min) { }
+            public EqualTo(Expression<Func<DbParams, object>> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -98,7 +98,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class NotEqualTo : NumericCompare
         {
-            public NotEqualTo(Expression<Func<U, object>> selector, double min) : base(selector, min) { }
+            public NotEqualTo(Expression<Func<DbParams, object>> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -111,7 +111,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class GreaterThan : NumericCompare
         {
-            public GreaterThan(Expression<Func<U, object>> selector, double min) : base(selector, min) { }
+            public GreaterThan(Expression<Func<DbParams, object>> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -124,7 +124,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class GreaterThanOrEqual : NumericCompare
         {
-            public GreaterThanOrEqual(Expression<Func<U, object>> selector, double min) : base(selector, min) { }
+            public GreaterThanOrEqual(Expression<Func<DbParams, object>> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -137,7 +137,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class LessThan : NumericCompare
         {
-            public LessThan(Expression<Func<U, object>> selector, double max) : base(selector, max) { }
+            public LessThan(Expression<Func<DbParams, object>> selector, double max) : base(selector, max) { }
 
             internal override bool Compare(double value)
             {
@@ -150,7 +150,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class LessThanOrEqual : NumericCompare
         {
-            public LessThanOrEqual(Expression<Func<U, object>> selector, double max) : base(selector, max) { }
+            public LessThanOrEqual(Expression<Func<DbParams, object>> selector, double max) : base(selector, max) { }
 
             internal override bool Compare(double value)
             {

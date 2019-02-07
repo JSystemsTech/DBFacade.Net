@@ -14,30 +14,30 @@ namespace DomainFacade.Facade
     where M : DomainManager<DbMethodGroup>
     where DbMethodGroup : DbMethodsCore
     {
-        protected FetchRecordModel<R, DbMethod> FetchRecord<R,U, DbMethod>(U parameters)
-            where R: DbDataModel
-            where U: IDbParamsModel
+        protected FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse,DbParams, DbMethod>(DbParams parameters)
+            where TDbResponse : DbDataModel
+            where DbParams: IDbParamsModel
             where DbMethod: DbMethodGroup
         {
-            return CallDbMethod<U,FetchRecordModel<R, DbMethod>, DbMethod>(parameters);
+            return CallDbMethod<DbParams,FetchRecordModel<TDbResponse, DbMethod>, DbMethod>(parameters);
         }
-        protected FetchRecordModel<R, DbMethod> FetchRecord<R, DbMethod>() where R : DbDataModel where DbMethod : DbMethodGroup
+        protected FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse, DbMethod>() where TDbResponse : DbDataModel where DbMethod : DbMethodGroup
         {
-            return CallDbMethod<FetchRecordModel<R, DbMethod>, DbMethod>();
-        }
-
-        protected FetchRecordsModel<R, DbMethod> FetchRecords<R, U, DbMethod>(U parameters) where R : DbDataModel where U : IDbParamsModel where DbMethod : DbMethodGroup
-        {
-            return CallDbMethod<U, FetchRecordsModel<R, DbMethod>, DbMethod>(parameters);
-        }
-        protected FetchRecordsModel<R, DbMethod> FetchRecords<R, DbMethod>() where R : DbDataModel where DbMethod : DbMethodGroup
-        {
-            return CallDbMethod<FetchRecordsModel<R, DbMethod>, DbMethod>();
+            return CallDbMethod<FetchRecordModel<TDbResponse, DbMethod>, DbMethod>();
         }
 
-        protected TransactionModel Transaction<U, DbMethod>(U parameters) where U : IDbParamsModel where DbMethod : DbMethodGroup
+        protected FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbParams, DbMethod>(DbParams parameters) where TDbResponse : DbDataModel where DbParams : IDbParamsModel where DbMethod : DbMethodGroup
         {
-            return CallDbMethod<U, TransactionModel, DbMethod>(parameters);
+            return CallDbMethod<DbParams, FetchRecordsModel<TDbResponse, DbMethod>, DbMethod>(parameters);
+        }
+        protected FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbMethod>() where TDbResponse : DbDataModel where DbMethod : DbMethodGroup
+        {
+            return CallDbMethod<FetchRecordsModel<TDbResponse, DbMethod>, DbMethod>();
+        }
+
+        protected TransactionModel Transaction<DbParams, DbMethod>(DbParams parameters) where DbParams : IDbParamsModel where DbMethod : DbMethodGroup
+        {
+            return CallDbMethod<DbParams, TransactionModel, DbMethod>(parameters);
         }
         protected TransactionModel Transaction<DbMethod>() where DbMethod : DbMethodGroup
         {

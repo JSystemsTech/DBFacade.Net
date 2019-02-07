@@ -7,30 +7,30 @@ using static DomainFacade.DataLayer.Models.Validators.Rules.ValidationRuleResult
 namespace DomainFacade.DataLayer.Models.Validators.Rules
 {
     
-    public abstract partial class ValidationRule<U>
-        where U : IDbParamsModel
+    public abstract partial class ValidationRule<DbParams>
+        where DbParams : IDbParamsModel
     {
         protected object ParamsValue { get; private set; }
 
-        protected Func<U, object> GetParamFunc { get; private set; }
+        protected Func<DbParams, object> GetParamFunc { get; private set; }
         protected PropertyInfo PropInfo { get; private set; }
         protected bool IsNullable { get; private set; }
 
-        public ValidationRule(Expression<Func<U, object>> selector)
+        public ValidationRule(Expression<Func<DbParams, object>> selector)
         {
             init(selector, false);
         }
-        public ValidationRule(Expression<Func<U, object>> selector, bool isNullable)
+        public ValidationRule(Expression<Func<DbParams, object>> selector, bool isNullable)
         {
             init(selector, isNullable);
         }
-        private void init(Expression<Func<U, object>> selector, bool isNullable)
+        private void init(Expression<Func<DbParams, object>> selector, bool isNullable)
         {
-            GetParamFunc = PropertySelector<U>.GetDelegate(selector);
-            PropInfo = PropertySelector<U>.GetPropertyInfo(selector);
+            GetParamFunc = PropertySelector<DbParams>.GetDelegate(selector);
+            PropInfo = PropertySelector<DbParams>.GetPropertyInfo(selector);
             IsNullable = isNullable;
         }
-        public ValidationRuleResult Validate(U paramsModel)
+        public ValidationRuleResult Validate(DbParams paramsModel)
         {
             ParamsValue = GetParamFunc(paramsModel);
             if ((IsNullable && ParamsValue == null) || ValidateRule())

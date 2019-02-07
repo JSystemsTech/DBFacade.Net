@@ -10,22 +10,22 @@ namespace DomainFacade.Facade.Core
     {        
         private DbParamsModel DEFAULT_PARAMETERS = new DbParamsModel();
         
-        protected override R CallDbMethod<R, DbMethod>()
+        protected override TDbResponse CallDbMethod<TDbResponse, DbMethod>()
         {
-            return CallDbMethod<DbParamsModel, R, DbMethod>(DEFAULT_PARAMETERS);
+            return CallDbMethod<DbParamsModel, TDbResponse, DbMethod>(DEFAULT_PARAMETERS);
         }
-        protected override R CallDbMethod<U,R, DbMethod>(U parameters)
+        protected override TDbResponse CallDbMethod<DbParams, TDbResponse, DbMethod>(DbParams parameters)
         {
-            return CallDbMethodCore<U,R, DbMethod>(parameters);
+            return CallDbMethodCore<DbParams, TDbResponse, DbMethod>(parameters);
         }         
-        protected override R CallFacadeAPIDbMethod<U, F, R, DbMethod>(U parameters)
+        protected override TDbResponse CallFacadeAPIDbMethod<DbParams, F, TDbResponse, DbMethod>(DbParams parameters)
         {
-            return FacadeAPIService.GetInstance<F>().CallDbMethod<U, R, DbMethod>(parameters);
+            return FacadeAPIService.GetInstance<F>().CallDbMethod<DbParams, TDbResponse, DbMethod>(parameters);
         }
         
-        protected abstract R CallDbMethodCore<U, R, DbMethod>(U parameters)
-            where R : DbResponse
-            where U : IDbParamsModel
+        protected abstract TDbResponse CallDbMethodCore<DbParams, TDbResponse, DbMethod>(DbParams parameters)
+            where TDbResponse : DbResponse
+            where DbParams : IDbParamsModel
             where DbMethod: DbMethodGroup;
 
 
