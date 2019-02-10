@@ -1,9 +1,7 @@
-﻿using DomainFacade.DataLayer;
+﻿using DomainFacade.DataLayer.ConnectionService;
 using DomainFacade.DataLayer.DbManifest;
-using DomainFacade.DataLayer.Models;
 using DomainFacade.Facade.Core;
 using System;
-using System.Collections.Generic;
 
 namespace DomainFacade.Facade
 {

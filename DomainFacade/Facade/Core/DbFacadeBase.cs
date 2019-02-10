@@ -1,11 +1,10 @@
-﻿using DomainFacade.DataLayer;
-using DomainFacade.DataLayer.DbManifest;
+﻿using DomainFacade.DataLayer.DbManifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.Utils;
 
 namespace DomainFacade.Facade.Core
 {
-      
+
     public abstract class DbFacadeBase<DbMethodGroup> where DbMethodGroup : DbMethodsCore
     {
         protected abstract TDbResponse CallDbMethod<TDbResponse, DbMethod>() 

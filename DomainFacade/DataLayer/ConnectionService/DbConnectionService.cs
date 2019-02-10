@@ -1,11 +1,12 @@
-﻿using DomainFacade.DataLayer.DbManifest;
+﻿using DomainFacade.DataLayer.CommandConfig;
+using DomainFacade.DataLayer.DbManifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Attributes;
 using DomainFacade.Facade;
 using DomainFacade.Utils;
 using System;
 
-namespace DomainFacade.DataLayer
+namespace DomainFacade.DataLayer.ConnectionService
 {
     
     public sealed class DbConnectionService: InstanceResolver<DbConnectionCore>
@@ -26,7 +27,7 @@ namespace DomainFacade.DataLayer
             }
             return Connection.AvailableStoredProcs;
         }
-        private abstract class DbConnectionMetaMethods<C> : DbMethodsCore
+        private abstract class DbConnectionMetaMethods<C> : DbManifest.DbMethodsCore
             where C : DbConnectionCore
         {            
             public  sealed  class GetAvailableStoredProcs: DbConnectionMetaMethods<C>

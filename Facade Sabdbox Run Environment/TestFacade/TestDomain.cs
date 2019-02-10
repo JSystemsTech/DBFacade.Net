@@ -1,9 +1,7 @@
-﻿using DomainFacade.DataLayer.DbManifest;
-using DomainFacade.DataLayer.Models;
+﻿using DomainFacade.DataLayer.Models;
 using DomainFacade.Facade;
 using Facade_Sabdbox_Run_Environment.TestFacade.DbMethods;
 using Facade_Sabdbox_Run_Environment.TestFacade.Models;
-using System;
 using System.Collections.Generic;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade

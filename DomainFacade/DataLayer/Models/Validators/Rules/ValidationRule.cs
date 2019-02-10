@@ -1,27 +1,11 @@
 ﻿using DomainFacade.Utils;
 using System;
-using System.Linq.Expressions;
 using System.Reflection;
 using static DomainFacade.DataLayer.Models.Validators.Rules.ValidationRuleResult;
 
 namespace DomainFacade.DataLayer.Models.Validators.Rules
 {
-    public interface IValidationRule<DbParams> where DbParams : IDbParamsModel
-    {
-        ValidationRuleResult Validate(DbParams paramsModel);
-    }
-    public sealed class Selector<DbParams> where DbParams : IDbParamsModel
-    {
-        public Expression<Func<DbParams, object>> SelectorExpression { get; private set; }
-        public static Selector<DbParams> Map(Expression<Func<DbParams, object>> selectorExpression)
-        {
-            return new Selector<DbParams>(selectorExpression);
-        }
-        private Selector(Expression<Func<DbParams, object>> selectorExpression)
-        {
-            SelectorExpression = selectorExpression;
-        }
-    }
+
     public abstract partial class ValidationRule<DbParams>: IValidationRule<DbParams>
         where DbParams : IDbParamsModel
     {

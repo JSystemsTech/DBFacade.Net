@@ -5,17 +5,10 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Configuration;
-using System.Collections.Generic;
-using DomainFacade.DataLayer.DbManifest;
-using DomainFacade.Facade;
-using DomainFacade.DataLayer.Models;
 using System.Data;
-using DomainFacade.DataLayer.Models.Attributes;
-using System;
-using System.Dynamic;
-using static DomainFacade.DataLayer.DbConnectionService;
+using static DomainFacade.DataLayer.ConnectionService.DbConnectionService;
 
-namespace DomainFacade.DataLayer
+namespace DomainFacade.DataLayer.ConnectionService
 {
 
     public interface IDbConnectionConfig<Con> where Con : DbConnection

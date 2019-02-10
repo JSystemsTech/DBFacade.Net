@@ -10,7 +10,7 @@ using DomainFacade.DataLayer.DbManifest;
 using DomainFacade.Utils;
 using DomainFacade.DataLayer.Models;
 
-namespace DomainFacade.DataLayer
+namespace DomainFacade.DataLayer.ConnectionService
 {
 
 

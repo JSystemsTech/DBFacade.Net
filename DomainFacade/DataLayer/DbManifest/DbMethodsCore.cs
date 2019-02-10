@@ -1,10 +1,12 @@
 ﻿using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Validators;
 using DomainFacade.DataLayer.Models.Validators.Rules;
-using DomainFacade.Utils;
+using DomainFacade.DataLayer.CommandConfig;
 using System;
 using System.Data;
 using System.Linq.Expressions;
+using DomainFacade.DataLayer.CommandConfig.Parameters;
+using DomainFacade.Utils;
 
 namespace DomainFacade.DataLayer.DbManifest
 {

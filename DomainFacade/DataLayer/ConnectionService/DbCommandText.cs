@@ -1,6 +1,4 @@
-﻿using DomainFacade.Utils;
-
-namespace DomainFacade.DataLayer.DbManifest
+﻿namespace DomainFacade.DataLayer.ConnectionService
 {
     public abstract class DbCommandTextCore
     {

@@ -1,11 +1,10 @@
-﻿using DomainFacade.DataLayer;
-using DomainFacade.DataLayer.DbManifest;
+﻿using DomainFacade.DataLayer.DbManifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.Utils;
 
 namespace DomainFacade.Facade.Core
 {
-    
+
     public abstract class DbFacade<DbMethodGroup> : DbFacadeBase<DbMethodGroup> where DbMethodGroup : DbMethodsCore
     {        
         private DbParamsModel DEFAULT_PARAMETERS = new DbParamsModel();

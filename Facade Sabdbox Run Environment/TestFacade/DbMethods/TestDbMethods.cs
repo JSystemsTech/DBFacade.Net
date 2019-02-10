@@ -1,7 +1,8 @@
-﻿using DomainFacade.DataLayer.DbManifest;
+﻿using DomainFacade.DataLayer.CommandConfig;
+using DomainFacade.DataLayer.DbManifest;
 using DomainFacade.DataLayer.Models;
-using DomainFacade.DataLayer.Models.Validators.Rules;
 using DomainFacade.SampleDomainFacade.DbMethods;
+using DomainFacade.Utils;
 using System;
 using System.Linq.Expressions;
 

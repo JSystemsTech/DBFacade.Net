@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿using DomainFacade.Utils;
 using System.Text.RegularExpressions;
 
 namespace DomainFacade.DataLayer.Models.Validators.Rules

@@ -2,31 +2,8 @@
 using System;
 using System.Data;
 
-namespace DomainFacade.DataLayer.DbManifest
-{
-    public abstract class DbCommandParameterConfigBase<T> where T : IDbParamsModel
-    {
-        
-        public DbType DBType { get; private set; }
-        
-        
-        protected DbCommandParameterConfigBase(DbType dbType)
-        {
-            DBType = dbType;
-        }
-
-        public virtual object GetParam(T model)
-        {
-            return default(object);
-        }
-        internal bool isNullable = true;
-        public virtual bool IsNullable()
-        {
-            return isNullable;
-        }
-
-    }    
-    
+namespace DomainFacade.DataLayer.CommandConfig.Parameters
+{       
     public abstract class DbCommandParameterConfig<T> : DbCommandParameterConfigBase<T> where T : IDbParamsModel
     {
         protected DbCommandParameterConfig(DbType dbType) : base(dbType){}
@@ -42,7 +19,7 @@ namespace DomainFacade.DataLayer.DbManifest
             public DbCommandParameterGenericConfig(DbType dbType, N value) : base(dbType)
             {
                Func<T, N> ret = model => value;
-               this.ReturnFunction = ret;
+               ReturnFunction = ret;
             }
             public override object GetParam(T model)
             {
