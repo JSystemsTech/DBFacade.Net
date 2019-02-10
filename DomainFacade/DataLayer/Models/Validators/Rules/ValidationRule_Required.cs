@@ -9,7 +9,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
     {
         public class Required : ValidationRule<DbParams>
         {
-            public Required(Expression<Func<DbParams, object>> selector) : base(selector) { }
+            public Required(Selector<DbParams> selector) : base(selector) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " is required.";

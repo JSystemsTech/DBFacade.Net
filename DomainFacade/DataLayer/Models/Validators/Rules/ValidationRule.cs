@@ -6,8 +6,23 @@ using static DomainFacade.DataLayer.Models.Validators.Rules.ValidationRuleResult
 
 namespace DomainFacade.DataLayer.Models.Validators.Rules
 {
-    
-    public abstract partial class ValidationRule<DbParams>
+    public interface IValidationRule<DbParams> where DbParams : IDbParamsModel
+    {
+        ValidationRuleResult Validate(DbParams paramsModel);
+    }
+    public sealed class Selector<DbParams> where DbParams : IDbParamsModel
+    {
+        public Expression<Func<DbParams, object>> SelectorExpression { get; private set; }
+        public static Selector<DbParams> Map(Expression<Func<DbParams, object>> selectorExpression)
+        {
+            return new Selector<DbParams>(selectorExpression);
+        }
+        private Selector(Expression<Func<DbParams, object>> selectorExpression)
+        {
+            SelectorExpression = selectorExpression;
+        }
+    }
+    public abstract partial class ValidationRule<DbParams>: IValidationRule<DbParams>
         where DbParams : IDbParamsModel
     {
         protected object ParamsValue { get; private set; }
@@ -16,18 +31,18 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         protected PropertyInfo PropInfo { get; private set; }
         protected bool IsNullable { get; private set; }
 
-        public ValidationRule(Expression<Func<DbParams, object>> selector)
+        public ValidationRule(Selector<DbParams> selector)
         {
             init(selector, false);
         }
-        public ValidationRule(Expression<Func<DbParams, object>> selector, bool isNullable)
+        public ValidationRule(Selector<DbParams> selector, bool isNullable)
         {
             init(selector, isNullable);
         }
-        private void init(Expression<Func<DbParams, object>> selector, bool isNullable)
+        private void init(Selector<DbParams> selector, bool isNullable)
         {
-            GetParamFunc = PropertySelector<DbParams>.GetDelegate(selector);
-            PropInfo = PropertySelector<DbParams>.GetPropertyInfo(selector);
+            GetParamFunc = PropertySelector<DbParams>.GetDelegate(selector.SelectorExpression);
+            PropInfo = PropertySelector<DbParams>.GetPropertyInfo(selector.SelectorExpression);
             IsNullable = isNullable;
         }
         public ValidationRuleResult Validate(DbParams paramsModel)

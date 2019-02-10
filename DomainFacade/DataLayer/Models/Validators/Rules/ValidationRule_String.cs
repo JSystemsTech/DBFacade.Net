@@ -13,22 +13,22 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         {
             internal string MatchStr { get; private set; }
             internal RegexOptions RegexOptions { get; private set; }
-            public Match(DbParams paramsModel, Expression<Func<DbParams, object>> selector, string regexMatchStr) : base(selector)
+            public Match(DbParams paramsModel, Selector<DbParams> selector, string regexMatchStr) : base(selector)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = RegexOptions.IgnoreCase;
             }
-            public Match(DbParams paramsModel, Expression<Func<DbParams, object>> selector, bool isNullable, string regexMatchStr) : base(selector, isNullable)
+            public Match(DbParams paramsModel, Selector<DbParams> selector, bool isNullable, string regexMatchStr) : base(selector, isNullable)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = RegexOptions.IgnoreCase;
             }
-            public Match(DbParams paramsModel, Expression<Func<DbParams, object>> selector, string regexMatchStr, RegexOptions options) : base(selector)
+            public Match(DbParams paramsModel, Selector<DbParams> selector, string regexMatchStr, RegexOptions options) : base(selector)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
             }
-            public Match(DbParams paramsModel, Expression<Func<DbParams, object>> selector, bool isNullable, string regexMatchStr, RegexOptions options) : base(selector, isNullable)
+            public Match(DbParams paramsModel, Selector<DbParams> selector, bool isNullable, string regexMatchStr, RegexOptions options) : base(selector, isNullable)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
@@ -47,8 +47,8 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         public class MinLength : ValidationRule<DbParams>
         {
             internal int LimitValue { get; set; }
-            public MinLength(Expression<Func<DbParams, object>> selector, int limit) : base(selector) { LimitValue = limit; }
-            public MinLength(Expression<Func<DbParams, object>> selector, bool isNullable, int limit) : base(selector, isNullable) { LimitValue = limit; }
+            public MinLength(Selector<DbParams> selector, int limit) : base(selector) { LimitValue = limit; }
+            public MinLength(Selector<DbParams> selector, bool isNullable, int limit) : base(selector, isNullable) { LimitValue = limit; }
             protected override bool ValidateRule()
             {
                 return ParamsValue.ToString().Length >= LimitValue;
@@ -61,8 +61,8 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class MaxLength : MinLength
         {
-            public MaxLength(Expression<Func<DbParams, object>> selector, int limit) : base(selector, limit) { }
-            public MaxLength(Expression<Func<DbParams, object>> selector, bool isNullable, int limit) : base(selector, isNullable, limit) { }
+            public MaxLength(Selector<DbParams> selector, int limit) : base(selector, limit) { }
+            public MaxLength(Selector<DbParams> selector, bool isNullable, int limit) : base(selector, isNullable, limit) { }
             protected override bool ValidateRule()
             {
                 return ParamsValue.ToString().Length <= LimitValue;

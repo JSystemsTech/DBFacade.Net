@@ -41,7 +41,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class IsNummeric : ValidationRule<DbParams>
         {
-            public IsNummeric(Expression<Func<DbParams, object>> selector) : base(selector) { }
+            public IsNummeric(Selector<DbParams> selector) : base(selector) { }
             protected override bool ValidateRule()
             {
                 if (IsNumeric(ParamsValue))
@@ -72,7 +72,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         public class NumericCompare : IsNummeric
         {
             internal double LimitValue { get; set; }
-            public NumericCompare(Expression<Func<DbParams, object>> selector, double limit) : base(selector) { LimitValue = limit; }
+            public NumericCompare(Selector<DbParams> selector, double limit) : base(selector) { LimitValue = limit; }
 
             internal override bool Compare(double value)
             {
@@ -85,7 +85,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class EqualTo : NumericCompare
         {
-            public EqualTo(Expression<Func<DbParams, object>> selector, double min) : base(selector, min) { }
+            public EqualTo(Selector<DbParams> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -98,7 +98,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class NotEqualTo : NumericCompare
         {
-            public NotEqualTo(Expression<Func<DbParams, object>> selector, double min) : base(selector, min) { }
+            public NotEqualTo(Selector<DbParams> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -111,7 +111,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class GreaterThan : NumericCompare
         {
-            public GreaterThan(Expression<Func<DbParams, object>> selector, double min) : base(selector, min) { }
+            public GreaterThan(Selector<DbParams> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -124,7 +124,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class GreaterThanOrEqual : NumericCompare
         {
-            public GreaterThanOrEqual(Expression<Func<DbParams, object>> selector, double min) : base(selector, min) { }
+            public GreaterThanOrEqual(Selector<DbParams> selector, double min) : base(selector, min) { }
 
             internal override bool Compare(double value)
             {
@@ -137,7 +137,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class LessThan : NumericCompare
         {
-            public LessThan(Expression<Func<DbParams, object>> selector, double max) : base(selector, max) { }
+            public LessThan(Selector<DbParams> selector, double max) : base(selector, max) { }
 
             internal override bool Compare(double value)
             {
@@ -150,7 +150,7 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
         }
         public class LessThanOrEqual : NumericCompare
         {
-            public LessThanOrEqual(Expression<Func<DbParams, object>> selector, double max) : base(selector, max) { }
+            public LessThanOrEqual(Selector<DbParams> selector, double max) : base(selector, max) { }
 
             internal override bool Compare(double value)
             {

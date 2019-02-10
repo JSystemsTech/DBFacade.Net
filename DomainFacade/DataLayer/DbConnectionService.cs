@@ -4,24 +4,10 @@ using DomainFacade.DataLayer.Models.Attributes;
 using DomainFacade.Facade;
 using DomainFacade.Utils;
 using System;
-using System.Collections.Generic;
-using static DomainFacade.DataLayer.Models.DbResponse;
 
 namespace DomainFacade.DataLayer
 {
-    public class InstanceResolver<T>
-    {
-        public static Dictionary<Type, T> Instances = new Dictionary<Type, T>();
-        public static C GetInstance<C>()
-            where C : T
-        {
-            if (!Instances.ContainsKey(typeof(C)))
-            {
-                Instances.Add(typeof(C), GenericInstance<C>.GetInstance());
-            }
-            return (C)Instances[typeof(C)];
-        }
-    }
+    
     public sealed class DbConnectionService: InstanceResolver<DbConnectionCore>
     {        
         public static C GetDbConnection<C>()
@@ -45,19 +31,19 @@ namespace DomainFacade.DataLayer
         {            
             public  sealed  class GetAvailableStoredProcs: DbConnectionMetaMethods<C>
             {
-                protected override DbCommandConfig GetConfigCore()
+                protected override IDbCommandConfig GetConfigCore()
                 {
                     return new DbCommandConfigForDbConnection();
                 }
             }
             public sealed class GetAvailableStoredProcsAdditionalMeta : DbConnectionMetaMethods<C>
             {
-                protected override DbCommandConfig GetConfigCore()
+                protected override IDbCommandConfig GetConfigCore()
                 {
                     return new DbCommandConfigForDbConnectionSPParams();
                 }
             }
-            private class DbCommandConfigForDbConnection : DbCommandConfig
+            private class DbCommandConfigForDbConnection : DbCommandConfigBase, IDbCommandConfig
             {
                 public override Type GetDbMethodCallType() { return typeof(DbMethodCallType.FetchRecords); }
                 public DbCommandConfigForDbConnection() { }
@@ -101,7 +87,6 @@ namespace DomainFacade.DataLayer
                 {
                     return null;
                 }
-
             }
             private sealed class DbCommandConfigForDbConnectionSPParams : DbCommandConfigForDbConnection
             {
