@@ -1,4 +1,4 @@
-﻿using DomainFacade.DataLayer.DbManifest;
+﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models.Attributes;
 using DomainFacade.Utils;
 using System;

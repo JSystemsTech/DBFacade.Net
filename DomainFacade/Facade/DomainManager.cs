@@ -1,18 +1,18 @@
-﻿using DomainFacade.DataLayer.DbManifest;
+﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.Facade.Core;
 using System;
 using System.Text;
 
 namespace DomainFacade.Facade
 {
-    public class DomainManager<DbMethodGroup> : DbFacade<DbMethodGroup>.Forwarder<DomainManagerCore<DbMethodGroup>>
-    where DbMethodGroup : DbMethodsCore
+    public class DomainManager<TDbManifest> : DbFacade<TDbManifest>.Forwarder<DomainManagerCore<TDbManifest>>
+    where TDbManifest : DbManifest
     {
         protected override void OnBeforeForward<DbParams, DbMethod>(DbParams parameters){}
     }
 
-    public sealed class DomainManagerCore<DbMethodGroup> : DbFacade<DbMethodGroup>.Forwarder<DbConnectionManager<DbMethodGroup>>
-    where DbMethodGroup : DbMethodsCore
+    public sealed class DomainManagerCore<TDbManifest> : DbFacade<TDbManifest>.Forwarder<DbConnectionManager<TDbManifest>>
+    where TDbManifest : DbManifest
     {
         protected override void OnBeforeForward<DbParams, DbMethod>(DbParams parameters)
         {

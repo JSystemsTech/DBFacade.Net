@@ -6,21 +6,19 @@ using System.Data.SQLite;
 using System.Data.Odbc;
 using Oracle.ManagedDataAccess.Client;
 using DomainFacade.Facade.Core;
-using DomainFacade.DataLayer.DbManifest;
+using DomainFacade.DataLayer.Manifest;
 using DomainFacade.Utils;
 using DomainFacade.DataLayer.Models;
 
 namespace DomainFacade.DataLayer.ConnectionService
 {
-
-
-    public class DbConnectionHandler<Drd, Con, Cmd, Trn,Prm, DbMethodGroup> : DbFacade<DbMethodGroup>
+    public class DbConnectionHandler<Drd, Con, Cmd, Trn,Prm, TDbManifest> : DbFacade<TDbManifest>
         where Drd : DbDataReader
         where Con : DbConnection
         where Cmd : DbCommand
         where Trn : DbTransaction
         where Prm : DbParameter
-        where DbMethodGroup : DbMethodsCore
+        where TDbManifest : DbManifest
     {
         protected override TDbResponse CallDbMethodCore<TDbResponse, DbParams, DbMethod>(DbParams parameters)
         {
@@ -102,7 +100,7 @@ namespace DomainFacade.DataLayer.ConnectionService
         }
         private void CheckResponseType<TDbResponse, DbMethod>()
             where TDbResponse : DbResponse
-            where DbMethod: DbMethodGroup
+            where DbMethod: TDbManifest
         {
             DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
             if (GenericInstance<TDbResponse>.GetInstance().GetDbMethodCallType() != dbMethod.GetConfig().GetDbMethodCallType())
@@ -114,7 +112,7 @@ namespace DomainFacade.DataLayer.ConnectionService
         }
         private TDbResponse BuildResponse<TDbResponse, DbMethod>(Drd dbReader, Cmd dbCommand)
             where TDbResponse : DbResponse
-            where DbMethod: DbMethodGroup
+            where DbMethod: TDbManifest
         {
             DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
             if (dbMethod.GetConfig().IsFetchRecord() || dbMethod.GetConfig().IsFetchRecords())
@@ -132,7 +130,7 @@ namespace DomainFacade.DataLayer.ConnectionService
         }
         private TDbResponse BuildResponse<TDbResponse, DbMethod>(Cmd dbCommand)
             where TDbResponse : DbResponse
-            where DbMethod : DbMethodGroup
+            where DbMethod : TDbManifest
         {
             DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
             if (dbMethod.GetConfig().IsTransaction())
@@ -166,12 +164,12 @@ namespace DomainFacade.DataLayer.ConnectionService
         }
 
     }
-    public sealed class DbConnectionHandler<DbMethodGroup> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, DbMethodGroup> where DbMethodGroup : DbMethodsCore
+    public sealed class DbConnectionHandler<TDbManifest> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, TDbManifest> where TDbManifest : DbManifest
     {
-        public class SQL : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, DbMethodGroup> { }
-        public class SQLite : DbConnectionHandler<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, DbMethodGroup> { }
-        public class OleDb : DbConnectionHandler<OleDbDataReader, OleDbConnection, OleDbCommand, OleDbTransaction, OleDbParameter, DbMethodGroup> { }
-        public class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, DbMethodGroup> { }        
-        public class Oracle : DbConnectionHandler<OracleDataReader, OracleConnection, OracleCommand, OracleTransaction, OracleParameter, DbMethodGroup> { }
+        public class SQL : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, TDbManifest> { }
+        public class SQLite : DbConnectionHandler<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, TDbManifest> { }
+        public class OleDb : DbConnectionHandler<OleDbDataReader, OleDbConnection, OleDbCommand, OleDbTransaction, OleDbParameter, TDbManifest> { }
+        public class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, TDbManifest> { }        
+        public class Oracle : DbConnectionHandler<OracleDataReader, OracleConnection, OracleCommand, OracleTransaction, OracleParameter, TDbManifest> { }
     }
 }

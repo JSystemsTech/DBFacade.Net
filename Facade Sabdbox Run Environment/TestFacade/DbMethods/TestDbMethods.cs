@@ -1,5 +1,5 @@
 ﻿using DomainFacade.DataLayer.CommandConfig;
-using DomainFacade.DataLayer.DbManifest;
+using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.SampleDomainFacade.DbMethods;
 using DomainFacade.Utils;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
 {
-    public abstract class CustomRule<DbParams>: DbMethodTools<DbParams>.Rule where DbParams : IDbParamsModel
+    public abstract class CustomRule<DbParams>: DbMethodUtils<DbParams>.Rule where DbParams : IDbParamsModel
     {
         public static int test = 6;
         public CustomRule(Selector<DbParams> selector) : base(selector) { }
@@ -28,28 +28,26 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
             }
         }
     }
-    public abstract partial class TestDbMethods : DbMethodsCore
+    public abstract partial class TestDbMethods : DbManifest
     {
         public abstract class DbMethod<T> : TestDbMethods where T : IDbParamsModel
         {
-            internal class Tools : DbMethodTools<T> { }
+            internal class Tools : DbMethodUtils<T> { }
             internal abstract class CustomRules : CustomRule<T> {
                 public CustomRules(Selector<T> selector) : base(selector) { }
                 public CustomRules(Selector<T> selector, bool isNullable) : base(selector, isNullable) { }
             }
             internal virtual Tools.Validator GetValidator() { return default(Tools.Validator); }
             internal static Selector<T> Selector(Expression<Func<T, object>> selectorExpression) {
-                return Tools.Map(selectorExpression);
+                return Tools.Selector(selectorExpression);
             }
         }
         public sealed class GetAllSimple : TestDbMethods
-        {
-            
+        {            
             protected override IDbCommandConfig GetConfigCore()
             {
                 return DbCommandConfigBuilder.GetFetchRecordsConfig(TestDbConnection.GetAllSimpleData);
             }
-
         }
         
         public sealed class GetAllMore : TestDbMethods

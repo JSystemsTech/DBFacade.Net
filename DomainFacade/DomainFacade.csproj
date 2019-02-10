@@ -73,7 +73,9 @@
     <Compile Include="DataLayer\ConnectionService\DbConnectionHandler.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionService.cs" />
     <Compile Include="DataLayer\CommandConfig\DbCommandConfigBuilder.cs" />
-    <Compile Include="DataLayer\DbManifest\DbMethodCallType.cs" />
+    <Compile Include="DataLayer\Manifest\DbMethodCallType.cs" />
+    <Compile Include="DataLayer\Manifest\DbMethodUtils.cs" />
+    <Compile Include="DataLayer\Manifest\IDbMethod.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbBufferedColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbDateStringColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbEnumerableColumn.cs" />
@@ -92,7 +94,7 @@
     <Compile Include="DataLayer\CommandConfig\DbCommandConfig.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParameterConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbCommandText.cs" />
-    <Compile Include="DataLayer\DbManifest\DbMethodsCore.cs" />
+    <Compile Include="DataLayer\Manifest\DbManifest.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\NestedModel.cs" />
     <Compile Include="DataLayer\Models\DbColumnConversion.cs" />

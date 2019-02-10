@@ -1,4 +1,4 @@
-﻿using DomainFacade.DataLayer.DbManifest;
+﻿using DomainFacade.DataLayer.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;

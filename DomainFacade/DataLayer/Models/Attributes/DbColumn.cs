@@ -89,9 +89,9 @@ namespace DomainFacade.DataLayer.Models.Attributes
         }
         private void CheckDbMethodType(Type dbMethodType)
         {
-            if (!dbMethodType.IsSubclassOf(typeof(DbMethodsCore)))
+            if (!dbMethodType.IsSubclassOf(typeof(DbManifest.DbManifest)))
             {
-                throw new ArgumentException(dbMethodType.Name + " is not type of " + typeof(DbMethodsCore).Name);
+                throw new ArgumentException(dbMethodType.Name + " is not type of " + typeof(DbManifest.DbManifest).Name);
             }
         }
         public bool HasColumn(IDataRecord data)
@@ -111,7 +111,7 @@ namespace DomainFacade.DataLayer.Models.Attributes
         }
         private void CheckIfIsValidDbMethod(Type dbMethodType)
         {
-            if(!dbMethodType.IsSubclassOf(typeof(DbMethodsCore))){
+            if(!dbMethodType.IsSubclassOf(typeof(DbManifest.DbManifest))){
                 throw new InvalidOperationException("type is not a DbMethod");
             }
         }

@@ -1,35 +1,16 @@
-﻿using DomainFacade.DataLayer.Models;
+﻿using DomainFacade.DataLayer.CommandConfig;
+using DomainFacade.DataLayer.CommandConfig.Parameters;
+using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Validators;
 using DomainFacade.DataLayer.Models.Validators.Rules;
-using DomainFacade.DataLayer.CommandConfig;
+using DomainFacade.Utils;
 using System;
 using System.Data;
 using System.Linq.Expressions;
-using DomainFacade.DataLayer.CommandConfig.Parameters;
-using DomainFacade.Utils;
 
-namespace DomainFacade.DataLayer.DbManifest
+namespace DomainFacade.DataLayer.Manifest
 {
-    public interface IDbMethod
-    {
-        IDbCommandConfig GetConfig();
-        Type GetType();
-    }
-    
-    public abstract class DbMethodsCore : IDbMethod
-    {
-        protected IDbCommandConfig Config { get; private set; }
-        public IDbCommandConfig GetConfig()
-        {
-            if(Config == null)
-            {
-                Config = GetConfigCore();
-            }
-            return Config;
-        }
-        protected abstract IDbCommandConfig GetConfigCore();
-    }
-    public abstract class DbMethodTools<T>
+    public abstract class DbMethodUtils<T>
         where T : IDbParamsModel
     {
         public abstract class Rule : ValidationRule<T>
@@ -44,10 +25,9 @@ namespace DomainFacade.DataLayer.DbManifest
         public sealed class DbParams : DbCommandConfigParams<T> { }
         public sealed class Builder : DbCommandConfigBuilder<T> { }
         public sealed class Validator : Validator<T> { }
-        public static Selector<T> Map(Expression<Func<T, object>> selectorExpression)
+        public static Selector<T> Selector(Expression<Func<T, object>> selectorExpression)
         {
             return Selector<T>.Map(selectorExpression);
         }
     }
-
 }

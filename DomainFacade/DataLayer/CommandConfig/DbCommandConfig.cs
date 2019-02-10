@@ -1,6 +1,6 @@
 ﻿using DomainFacade.DataLayer.CommandConfig.Parameters;
 using DomainFacade.DataLayer.ConnectionService;
-using DomainFacade.DataLayer.DbManifest;
+using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Validators;
 using System.Data;

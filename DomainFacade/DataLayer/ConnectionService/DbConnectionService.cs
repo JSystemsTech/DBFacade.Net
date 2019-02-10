@@ -1,5 +1,5 @@
 ﻿using DomainFacade.DataLayer.CommandConfig;
-using DomainFacade.DataLayer.DbManifest;
+using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Attributes;
 using DomainFacade.Facade;
@@ -27,7 +27,7 @@ namespace DomainFacade.DataLayer.ConnectionService
             }
             return Connection.AvailableStoredProcs;
         }
-        private abstract class DbConnectionMetaMethods<C> : DbManifest.DbMethodsCore
+        private abstract class DbConnectionMetaMethods<C> : DbManifest
             where C : DbConnectionCore
         {            
             public  sealed  class GetAvailableStoredProcs: DbConnectionMetaMethods<C>

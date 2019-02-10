@@ -1,4 +1,4 @@
-﻿namespace DomainFacade.DataLayer.DbManifest
+﻿namespace DomainFacade.DataLayer.Manifest
 {
     public abstract class DbMethodCallType
     {

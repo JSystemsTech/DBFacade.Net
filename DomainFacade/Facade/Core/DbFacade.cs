@@ -1,11 +1,11 @@
-﻿using DomainFacade.DataLayer.DbManifest;
+﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.Utils;
 
 namespace DomainFacade.Facade.Core
 {
 
-    public abstract class DbFacade<DbMethodGroup> : DbFacadeBase<DbMethodGroup> where DbMethodGroup : DbMethodsCore
+    public abstract class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
     {        
         private DbParamsModel DEFAULT_PARAMETERS = new DbParamsModel();
         
@@ -25,11 +25,11 @@ namespace DomainFacade.Facade.Core
         protected abstract TDbResponse CallDbMethodCore<TDbResponse, DbParams, DbMethod>(DbParams parameters)
             where TDbResponse : DbResponse
             where DbParams : IDbParamsModel
-            where DbMethod: DbMethodGroup;
+            where DbMethod: TDbManifest;
 
 
-        public class Forwarder<TDbFacade> : DbFacade<DbMethodGroup>
-        where TDbFacade : DbFacade<DbMethodGroup>
+        public class Forwarder<TDbFacade> : DbFacade<TDbManifest>
+        where TDbFacade : DbFacade<TDbManifest>
         {
             protected override TDbResponse CallDbMethodCore<TDbResponse, DbParams, DbMethod>(DbParams parameters)
             {
@@ -38,11 +38,11 @@ namespace DomainFacade.Facade.Core
             }
             protected virtual void OnBeforeForward<DbParams, DbMethod>(DbParams parameters) 
                 where DbParams : IDbParamsModel
-            where DbMethod : DbMethodGroup
+            where DbMethod : TDbManifest
             { }            
         }
 
-        private sealed class DbFacadeCache : InstanceResolver<DbFacade<DbMethodGroup>>{}
+        private sealed class DbFacadeCache : InstanceResolver<DbFacade<TDbManifest>>{}
 
         
     }    
