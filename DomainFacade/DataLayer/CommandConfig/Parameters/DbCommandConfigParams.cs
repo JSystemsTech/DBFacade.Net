@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace DomainFacade.DataLayer.CommandConfig.Parameters
 {
-    public class DbCommandConfigParams<T> : Dictionary<string, DbCommandParameterConfig<T>>, IDbCommandConfigParams<T>
-        where T : IDbParamsModel
+    public class DbCommandConfigParams<TDbParams> : Dictionary<string, DbCommandParameterConfig<TDbParams>>, IDbCommandConfigParams<TDbParams>
+        where TDbParams : IDbParamsModel
     {
         public int ParamsCount()
         {

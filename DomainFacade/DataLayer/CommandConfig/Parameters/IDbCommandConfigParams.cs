@@ -3,8 +3,8 @@ using System.Collections;
 
 namespace DomainFacade.DataLayer.CommandConfig.Parameters
 {
-    public interface IDbCommandConfigParams<T> : IEnumerable
-        where T : IDbParamsModel
+    public interface IDbCommandConfigParams<TDbParams> : IEnumerable
+        where TDbParams : IDbParamsModel
     {
         int ParamsCount();
     }

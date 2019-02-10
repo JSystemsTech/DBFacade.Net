@@ -20,7 +20,7 @@ namespace DomainFacade.DataLayer.ConnectionService
         where Prm : DbParameter
         where TDbManifest : DbManifest
     {
-        protected override TDbResponse CallDbMethodCore<TDbResponse, DbParams, DbMethod>(DbParams parameters)
+        protected override TDbResponse CallDbMethodCore<TDbResponse, TDbParams, DbMethod>(TDbParams parameters)
         {
             DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
             CheckResponseType<TDbResponse, DbMethod>();
@@ -98,11 +98,11 @@ namespace DomainFacade.DataLayer.ConnectionService
             return (Drd)dbCommand.ExecuteReader();
 
         }
-        private void CheckResponseType<TDbResponse, DbMethod>()
+        private void CheckResponseType<TDbResponse, TDbParams>()
             where TDbResponse : DbResponse
-            where DbMethod: TDbManifest
+            where TDbParams : TDbManifest
         {
-            DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
+            TDbParams dbMethod = DbMethodsCache.GetInstance<TDbParams>();
             if (GenericInstance<TDbResponse>.GetInstance().GetDbMethodCallType() != dbMethod.GetConfig().GetDbMethodCallType())
             {
                 Console.WriteLine(GenericInstance<TDbResponse>.GetInstance().GetDbMethodCallType());
@@ -110,11 +110,11 @@ namespace DomainFacade.DataLayer.ConnectionService
                 throw new NotImplementedException();
             }
         }
-        private TDbResponse BuildResponse<TDbResponse, DbMethod>(Drd dbReader, Cmd dbCommand)
+        private TDbResponse BuildResponse<TDbResponse, TDbParams>(Drd dbReader, Cmd dbCommand)
             where TDbResponse : DbResponse
-            where DbMethod: TDbManifest
+            where TDbParams : TDbManifest
         {
-            DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
+            TDbParams dbMethod = DbMethodsCache.GetInstance<TDbParams>();
             if (dbMethod.GetConfig().IsFetchRecord() || dbMethod.GetConfig().IsFetchRecords())
             {
                 return GenericInstance<TDbResponse>.GetInstance(dbReader);
@@ -128,11 +128,11 @@ namespace DomainFacade.DataLayer.ConnectionService
                 throw new Exception("Invalid Fetch Method");
             }
         }
-        private TDbResponse BuildResponse<TDbResponse, DbMethod>(Cmd dbCommand)
+        private TDbResponse BuildResponse<TDbResponse, TDbParams>(Cmd dbCommand)
             where TDbResponse : DbResponse
-            where DbMethod : TDbManifest
+            where TDbParams : TDbManifest
         {
-            DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
+            TDbParams dbMethod = DbMethodsCache.GetInstance<TDbParams>();
             if (dbMethod.GetConfig().IsTransaction())
             {
                 return GenericInstance<TDbResponse>.GetInstance();

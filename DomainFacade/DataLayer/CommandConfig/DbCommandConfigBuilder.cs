@@ -41,72 +41,72 @@ namespace DomainFacade.DataLayer.CommandConfig
     }
 
 
-    public class DbCommandConfigBuilder<Par> 
-        where Par: IDbParamsModel
+    public class DbCommandConfigBuilder<TDbParams> 
+        where TDbParams : IDbParamsModel
     {
         
-        public static IDbCommandConfig GetFetchRecordConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams)
+        public static IDbCommandConfig GetFetchRecordConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams)
         where Con : DbConnectionCore
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.FetchRecord>(dbCommandText, dbParams);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.FetchRecord>(dbCommandText, dbParams);
         }
-        public static IDbCommandConfig GetFetchRecordConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams, Validator<Par> validator)
+        public static IDbCommandConfig GetFetchRecordConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
             where Con : DbConnectionCore
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.FetchRecord>(dbCommandText, dbParams, validator);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.FetchRecord>(dbCommandText, dbParams, validator);
         }
-        public static IDbCommandConfig GetFetchRecordConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams, string returnParam)
+        public static IDbCommandConfig GetFetchRecordConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam)
             where Con : DbConnectionCore
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.FetchRecordWithReturn>(dbCommandText, dbParams, returnParam);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.FetchRecordWithReturn>(dbCommandText, dbParams, returnParam);
         }
-        public static IDbCommandConfig GetFetchRecordConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams, string returnParam, Validator<Par> validator)
+        public static IDbCommandConfig GetFetchRecordConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam, Validator<TDbParams> validator)
         where Con : DbConnectionCore            
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.FetchRecordWithReturn>(dbCommandText, dbParams, returnParam, validator);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.FetchRecordWithReturn>(dbCommandText, dbParams, returnParam, validator);
         }
-        public static IDbCommandConfig GetFetchRecordsConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams)
+        public static IDbCommandConfig GetFetchRecordsConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams)
             where Con : DbConnectionCore
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.FetchRecords>(dbCommandText, dbParams);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.FetchRecords>(dbCommandText, dbParams);
         }
-        public static IDbCommandConfig GetFetchRecordsConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams, Validator<Par> validator)
+        public static IDbCommandConfig GetFetchRecordsConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
             where Con : DbConnectionCore
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.FetchRecords>(dbCommandText, dbParams, validator);
-        }
-        
-        public static IDbCommandConfig GetFetchRecordsConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams, string returnParam)
-            where Con : DbConnectionCore
-        {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.FetchRecordsWithReturn>(dbCommandText, dbParams, returnParam);
-        }
-        public static IDbCommandConfig GetFetchRecordsConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams, string returnParam, Validator<Par> validator)
-            where Con : DbConnectionCore
-        {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.FetchRecordsWithReturn>(dbCommandText, dbParams, returnParam, validator);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.FetchRecords>(dbCommandText, dbParams, validator);
         }
         
-        public static IDbCommandConfig GetTransactionConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams)
+        public static IDbCommandConfig GetFetchRecordsConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam)
             where Con : DbConnectionCore
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.Transaction>(dbCommandText, dbParams);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.FetchRecordsWithReturn>(dbCommandText, dbParams, returnParam);
         }
-        public static IDbCommandConfig GetTransactionConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<Par> dbParams, Validator<Par> validator)
+        public static IDbCommandConfig GetFetchRecordsConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam, Validator<TDbParams> validator)
             where Con : DbConnectionCore
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.Transaction>(dbCommandText, dbParams, validator);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.FetchRecordsWithReturn>(dbCommandText, dbParams, returnParam, validator);
         }
         
-        public static IDbCommandConfig GetTransactionConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, string returnParam, IDbCommandConfigParams<Par> dbParams)
+        public static IDbCommandConfig GetTransactionConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams)
             where Con : DbConnectionCore
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.TransactionWithReturn>(dbCommandText, dbParams, returnParam);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.Transaction>(dbCommandText, dbParams);
         }
-        public static IDbCommandConfig GetTransactionConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, string returnParam, IDbCommandConfigParams<Par> dbParams, Validator<Par> validator)
+        public static IDbCommandConfig GetTransactionConfig<Con>(DbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
             where Con : DbConnectionCore
         {
-            return new DbCommandConfig<Par, Con, DbMethodCallType.TransactionWithReturn>(dbCommandText, dbParams, returnParam, validator);
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.Transaction>(dbCommandText, dbParams, validator);
+        }
+        
+        public static IDbCommandConfig GetTransactionConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, string returnParam, IDbCommandConfigParams<TDbParams> dbParams)
+            where Con : DbConnectionCore
+        {
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.TransactionWithReturn>(dbCommandText, dbParams, returnParam);
+        }
+        public static IDbCommandConfig GetTransactionConfigWithReturn<Con>(DbCommandText<Con> dbCommandText, string returnParam, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
+            where Con : DbConnectionCore
+        {
+            return new DbCommandConfig<TDbParams, Con, DbMethodCallType.TransactionWithReturn>(dbCommandText, dbParams, returnParam, validator);
         }
     }
 }

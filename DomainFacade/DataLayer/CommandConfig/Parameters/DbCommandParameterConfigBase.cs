@@ -3,14 +3,14 @@ using System.Data;
 
 namespace DomainFacade.DataLayer.CommandConfig.Parameters
 {
-    public abstract class DbCommandParameterConfigBase<T> where T : IDbParamsModel
+    public abstract class DbCommandParameterConfigBase<TDbParams> where TDbParams : IDbParamsModel
     {
         public DbType DBType { get; private set; }
         protected DbCommandParameterConfigBase(DbType dbType)
         {
             DBType = dbType;
         }
-        public virtual object GetParam(T model)
+        public virtual object GetParam(TDbParams model)
         {
             return default(object);
         }

@@ -10,24 +10,24 @@ using System.Linq.Expressions;
 
 namespace DomainFacade.DataLayer.Manifest
 {
-    public abstract class DbMethodUtils<T>
-        where T : IDbParamsModel
+    public abstract class DbMethodUtils<TDbParams>
+        where TDbParams : IDbParamsModel
     {
-        public abstract class Rule : ValidationRule<T>
+        public abstract class Rule : ValidationRule<TDbParams>
         {
-            public Rule(Selector<T> selector) : base(selector) { }
-            public Rule(Selector<T> selector, bool isNullable) : base(selector, isNullable) { }
+            public Rule(Selector<TDbParams> selector) : base(selector) { }
+            public Rule(Selector<TDbParams> selector, bool isNullable) : base(selector, isNullable) { }
         }
-        public abstract class DbParam : DbCommandParameterConfig<T>
+        public abstract class DbParam : DbCommandParameterConfig<TDbParams>
         {
             protected DbParam(DbType dbType) : base(dbType) { }
         }
-        public sealed class DbParams : DbCommandConfigParams<T> { }
-        public sealed class Builder : DbCommandConfigBuilder<T> { }
-        public sealed class Validator : Validator<T> { }
-        public static Selector<T> Selector(Expression<Func<T, object>> selectorExpression)
+        public sealed class DbParams : DbCommandConfigParams<TDbParams> { }
+        public sealed class Builder : DbCommandConfigBuilder<TDbParams> { }
+        public sealed class Validator : Validator<TDbParams> { }
+        public static Selector<TDbParams> Selector(Expression<Func<TDbParams, object>> selectorExpression)
         {
-            return Selector<T>.Map(selectorExpression);
+            return Selector<TDbParams>.Map(selectorExpression);
         }
     }
 }

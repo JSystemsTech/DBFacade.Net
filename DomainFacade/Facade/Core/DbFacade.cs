@@ -13,31 +13,31 @@ namespace DomainFacade.Facade.Core
         {
             return CallDbMethod<TDbResponse,DbParamsModel, DbMethod>(DEFAULT_PARAMETERS);
         }
-        protected override TDbResponse CallDbMethod<TDbResponse, DbParams, DbMethod>(DbParams parameters)
+        protected override TDbResponse CallDbMethod<TDbResponse, TDbParams, DbMethod>(TDbParams parameters)
         {
-            return CallDbMethodCore<TDbResponse, DbParams, DbMethod>(parameters);
+            return CallDbMethodCore<TDbResponse, TDbParams, DbMethod>(parameters);
         }         
-        protected override TDbResponse CallFacadeAPIDbMethod<TDbFacade, TDbResponse,DbParams,  DbMethod>(DbParams parameters)
+        protected override TDbResponse CallFacadeAPIDbMethod<TDbFacade, TDbResponse, TDbParams,  DbMethod>(TDbParams parameters)
         {
-            return DbFacadeCache.GetInstance<TDbFacade>().CallDbMethod< TDbResponse,DbParams, DbMethod>(parameters);
+            return DbFacadeCache.GetInstance<TDbFacade>().CallDbMethod< TDbResponse, TDbParams, DbMethod>(parameters);
         }
         
-        protected abstract TDbResponse CallDbMethodCore<TDbResponse, DbParams, DbMethod>(DbParams parameters)
+        protected abstract TDbResponse CallDbMethodCore<TDbResponse, TDbParams, DbMethod>(TDbParams parameters)
             where TDbResponse : DbResponse
-            where DbParams : IDbParamsModel
+            where TDbParams : IDbParamsModel
             where DbMethod: TDbManifest;
 
 
         public class Forwarder<TDbFacade> : DbFacade<TDbManifest>
         where TDbFacade : DbFacade<TDbManifest>
         {
-            protected override TDbResponse CallDbMethodCore<TDbResponse, DbParams, DbMethod>(DbParams parameters)
+            protected override TDbResponse CallDbMethodCore<TDbResponse, TDbParams, DbMethod>(TDbParams parameters)
             {
-                OnBeforeForward<DbParams, DbMethod>(parameters);
-                return CallFacadeAPIDbMethod<TDbFacade, TDbResponse, DbParams, DbMethod>(parameters);
+                OnBeforeForward<TDbParams, DbMethod>(parameters);
+                return CallFacadeAPIDbMethod<TDbFacade, TDbResponse, TDbParams, DbMethod>(parameters);
             }
-            protected virtual void OnBeforeForward<DbParams, DbMethod>(DbParams parameters) 
-                where DbParams : IDbParamsModel
+            protected virtual void OnBeforeForward<TDbParams, DbMethod>(TDbParams parameters) 
+                where TDbParams : IDbParamsModel
             where DbMethod : TDbManifest
             { }            
         }

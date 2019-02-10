@@ -7,21 +7,21 @@ using System.Data;
 
 namespace DomainFacade.DataLayer.CommandConfig
 {
-    internal class DbCommandConfig<T,C, TDbMethod> : DbCommandConfigCore<T, C, TDbMethod>
-        where T : IDbParamsModel 
-        where C : DbConnectionCore
+    internal class DbCommandConfig<TDbParams, TConnection, TDbMethod> : DbCommandConfigCore<TDbParams, TConnection, TDbMethod>
+        where TDbParams : IDbParamsModel 
+        where TConnection : DbConnectionCore
         where TDbMethod : DbMethodCallType
     {
-        public DbCommandConfig(DbCommandText<C> dbCommand) : base(dbCommand) { }
-        public DbCommandConfig(DbCommandText<C> dbCommand, IDbCommandConfigParams<T> dbParams) : base(dbCommand, dbParams) {  }
-        public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<T> dbParams) : base(dbCommand, dbCommandType, dbParams) {  }
-        public DbCommandConfig(DbCommandText<C> dbCommand, IDbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbParams, validator) {  }
-        public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<T> dbParams, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, validator) { }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand) : base(dbCommand) { }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams) : base(dbCommand, dbParams) {  }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams) : base(dbCommand, dbCommandType, dbParams) {  }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator) : base(dbCommand, dbParams, validator) {  }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator) : base(dbCommand, dbCommandType, dbParams, validator) { }
 
-        public DbCommandConfig(DbCommandText<C> dbCommand, string returnValue) : base(dbCommand, returnValue) { }
-        public DbCommandConfig(DbCommandText<C> dbCommand, IDbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbParams, returnValue) { }
-        public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<T> dbParams, string returnValue) : base(dbCommand, dbCommandType, dbParams, returnValue) {  }
-        public DbCommandConfig(DbCommandText<C> dbCommand, IDbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbParams, returnValue, validator) {  }
-        public DbCommandConfig(DbCommandText<C> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<T> dbParams, string returnValue, Validator<T> validator) : base(dbCommand, dbCommandType, dbParams, returnValue, validator) { }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand, string returnValue) : base(dbCommand, returnValue) { }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams, string returnValue) : base(dbCommand, dbParams, returnValue) { }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, string returnValue) : base(dbCommand, dbCommandType, dbParams, returnValue) {  }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams, string returnValue, Validator<TDbParams> validator) : base(dbCommand, dbParams, returnValue, validator) {  }
+        public DbCommandConfig(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, string returnValue, Validator<TDbParams> validator) : base(dbCommand, dbCommandType, dbParams, returnValue, validator) { }
     }
 }

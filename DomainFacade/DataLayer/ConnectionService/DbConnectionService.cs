@@ -11,33 +11,33 @@ namespace DomainFacade.DataLayer.ConnectionService
     
     public sealed class DbConnectionService: InstanceResolver<DbConnectionCore>
     {        
-        public static C GetDbConnection<C>()
-            where C : DbConnectionCore
+        public static TConnection GetDbConnection<TConnection>()
+            where TConnection : DbConnectionCore
         {
-            return GetInstance<C>();
+            return GetInstance<TConnection>();
         }
-        public static DbConnectionStoredProcedure[] GetAvailableStoredProcedured<C>()
-            where C : DbConnectionCore
+        public static DbConnectionStoredProcedure[] GetAvailableStoredProcedured<TConnection>()
+            where TConnection : DbConnectionCore
         {
-            C Connection = GetDbConnection<C>();
+            TConnection Connection = GetDbConnection<TConnection>();
             if(Connection.AvailableStoredProcs == null)
             {
-                DbConnectionMetaDomainFacade<C> META_FACADE = new DbConnectionMetaDomainFacade<C>();
+                DbConnectionMetaDomainFacade<TConnection> META_FACADE = new DbConnectionMetaDomainFacade<TConnection>();
                 Connection.SetAvailableStoredProcs(META_FACADE.GetAvailableStoredPrcedures());
             }
             return Connection.AvailableStoredProcs;
         }
-        private abstract class DbConnectionMetaMethods<C> : DbManifest
-            where C : DbConnectionCore
+        private abstract class DbConnectionMetaMethods<TConnection> : DbManifest
+            where TConnection : DbConnectionCore
         {            
-            public  sealed  class GetAvailableStoredProcs: DbConnectionMetaMethods<C>
+            public  sealed  class GetAvailableStoredProcs: DbConnectionMetaMethods<TConnection>
             {
                 protected override IDbCommandConfig GetConfigCore()
                 {
                     return new DbCommandConfigForDbConnection();
                 }
             }
-            public sealed class GetAvailableStoredProcsAdditionalMeta : DbConnectionMetaMethods<C>
+            public sealed class GetAvailableStoredProcsAdditionalMeta : DbConnectionMetaMethods<TConnection>
             {
                 protected override IDbCommandConfig GetConfigCore()
                 {
@@ -48,9 +48,9 @@ namespace DomainFacade.DataLayer.ConnectionService
             {
                 public override Type GetDbMethodCallType() { return typeof(DbMethodCallType.FetchRecords); }
                 public DbCommandConfigForDbConnection() { }
-                public C GetDbConnection()
+                public TConnection GetDbConnection()
                 {
-                    return DbConnectionService.GetDbConnection<C>();
+                    return DbConnectionService.GetDbConnection<TConnection>();
                 }
                 protected override Con GetDbConnectionCore<Con>()
                 {
@@ -62,7 +62,7 @@ namespace DomainFacade.DataLayer.ConnectionService
                 }
                 protected override Type GetDBConnectionTypeCore()
                 {
-                    return typeof(C);
+                    return typeof(TConnection);
                 }
 
                 public bool HasReturnValue()

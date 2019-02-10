@@ -8,7 +8,7 @@
             CommandText = commandText;
         }
     }
-    public sealed class DbCommandText<T> : DbCommandTextCore where T:DbConnectionCore
+    public sealed class DbCommandText<TConnection> : DbCommandTextCore where TConnection : DbConnectionCore
     {
         public DbCommandText(string commandText) : base(commandText) { }
 

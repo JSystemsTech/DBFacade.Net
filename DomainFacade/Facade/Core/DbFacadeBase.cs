@@ -11,13 +11,13 @@ namespace DomainFacade.Facade.Core
             where TDbResponse : DbResponse
             where DbMethod : TDbManifest;
 
-        protected abstract TDbResponse CallDbMethod<TDbResponse, DbParams, DbMethod>(DbParams parameters) 
+        protected abstract TDbResponse CallDbMethod<TDbResponse, TDbParams, DbMethod>(TDbParams parameters) 
             where TDbResponse : DbResponse
-            where DbParams : IDbParamsModel
+            where TDbParams : IDbParamsModel
             where DbMethod : TDbManifest;
-        protected abstract TDbResponse CallFacadeAPIDbMethod<TDbFacade, TDbResponse, DbParams, DbMethod>(DbParams parameters) 
+        protected abstract TDbResponse CallFacadeAPIDbMethod<TDbFacade, TDbResponse, TDbParams, DbMethod>(TDbParams parameters) 
             where TDbResponse : DbResponse
-            where DbParams : IDbParamsModel
+            where TDbParams : IDbParamsModel
             where TDbFacade : DbFacade<TDbManifest>
             where DbMethod : TDbManifest;
 
