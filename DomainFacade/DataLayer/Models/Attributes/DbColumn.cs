@@ -1,4 +1,4 @@
-﻿using DomainFacade.DataLayer.DbManifest;
+﻿using DomainFacade.DataLayer.Manifest;
 using System;
 using System.Data;
 namespace DomainFacade.DataLayer.Models.Attributes
@@ -89,9 +89,9 @@ namespace DomainFacade.DataLayer.Models.Attributes
         }
         private void CheckDbMethodType(Type dbMethodType)
         {
-            if (!dbMethodType.IsSubclassOf(typeof(DbManifest.DbManifest)))
+            if (!dbMethodType.IsSubclassOf(typeof(DbManifest)))
             {
-                throw new ArgumentException(dbMethodType.Name + " is not type of " + typeof(DbManifest.DbManifest).Name);
+                throw new ArgumentException(dbMethodType.Name + " is not type of " + typeof(DbManifest).Name);
             }
         }
         public bool HasColumn(IDataRecord data)
@@ -111,7 +111,7 @@ namespace DomainFacade.DataLayer.Models.Attributes
         }
         private void CheckIfIsValidDbMethod(Type dbMethodType)
         {
-            if(!dbMethodType.IsSubclassOf(typeof(DbManifest.DbManifest))){
+            if(!dbMethodType.IsSubclassOf(typeof(DbManifest))){
                 throw new InvalidOperationException("type is not a DbMethod");
             }
         }
