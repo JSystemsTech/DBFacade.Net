@@ -1,6 +1,7 @@
 ﻿using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Attributes;
 using Facade_Sabdbox_Run_Environment.TestFacade.DbMethods;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -10,18 +11,23 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.Models
     {
 
         [DbColumn("guid")]
+        [JsonProperty]
         public Guid GUID { get; private set; }
 
         [DbColumn("CreateDate")]
+        [JsonProperty]
         public DateTime CreatedDate { get; private set; }
 
         [DbColumn("count")]
+        [JsonProperty]
         public int Count { get; private set; }
 
         [DbFlagColumn("count",123)]
+        [JsonProperty]
         public bool Flag { get; private set; }
 
         [NestedModel()]
+        [JsonProperty]
         public TestNestedDbDataModel Comments { get; private set; }
 
     }
@@ -29,9 +35,11 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.Models
     {
         
         [DbColumn.String("comment","default text in view model")]
+        [JsonProperty]
         public string Comment { get; private set; }
 
         [DbDateStringColumn("CreateDate", "dddd, MMMM dd, yyyy h:mm:ss tt")]
+        [JsonProperty]
         public string CreatedDateStr { get; private set; }
 
         [DbColumn.String(typeof(TestDbMethods.GetAllSimple),"comment", "default text in view model")]

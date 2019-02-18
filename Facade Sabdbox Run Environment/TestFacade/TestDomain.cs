@@ -1,12 +1,15 @@
 ﻿using DomainFacade.DataLayer.Models;
 using DomainFacade.Facade;
+using DomainFacade.Utils;
 using Facade_Sabdbox_Run_Environment.TestFacade.DbMethods;
 using Facade_Sabdbox_Run_Environment.TestFacade.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade
 {
-    public sealed partial class TestDomain: DomainFacade<TestManager, TestDbMethods>
+    public sealed partial class TestDomain: DomainFacade<TestManager, TestDbMethods>,ITestDomain
     {
         public IEnumerable<TestDbDataModel> GetAllSimple()
         {            

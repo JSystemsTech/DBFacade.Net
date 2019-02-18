@@ -60,6 +60,13 @@ namespace DomainFacade.DataLayer.CommandConfig
             return GetReturnValueCore(dbCommand);
         }
         protected abstract object GetReturnValueCore<Cmd>(Cmd dbCommand) where Cmd : DbCommand;
+        
+        public void SetReturnValue<Cmd>(Cmd dbCommand, object value)
+            where Cmd : DbCommand
+        {
+            SetReturnValueCore(dbCommand, value);
+        }
+        protected abstract void SetReturnValueCore<Cmd>(Cmd dbCommand, object value) where Cmd : DbCommand;
 
         public Type GetDBConnectionType() { return GetDBConnectionTypeCore(); }
         protected abstract Type GetDBConnectionTypeCore();

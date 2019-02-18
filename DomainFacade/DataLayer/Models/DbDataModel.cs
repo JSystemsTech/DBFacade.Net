@@ -1,6 +1,7 @@
 ﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models.Attributes;
 using DomainFacade.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,11 +13,19 @@ namespace DomainFacade.DataLayer.Models
     public interface IDbDataModel
     {
         void InitializeData<DbMethod>(IDataRecord data) where DbMethod : IDbMethod;
+        string ToJSON();
     }
     public abstract class DbDataModel: IDbDataModel
     {
         public DbDataModel() { }
-        
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+        public static T ParseJSON<T>(string jsonStr) where T : DbDataModel
+        {
+            return JsonConvert.DeserializeObject<T>(jsonStr);
+        }
 
         public static T ToDbDataModel<T, DbMethod>(IDataRecord data) where T : DbDataModel where DbMethod : IDbMethod
         {

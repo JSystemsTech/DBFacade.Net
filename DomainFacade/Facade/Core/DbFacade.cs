@@ -7,7 +7,7 @@ namespace DomainFacade.Facade.Core
 
     public abstract class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
     {        
-        private DbParamsModel DEFAULT_PARAMETERS = new DbParamsModel();
+        internal DbParamsModel DEFAULT_PARAMETERS = new DbParamsModel();
         
         protected override TDbResponse CallDbMethod<TDbResponse, DbMethod>()
         {

@@ -39,6 +39,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Json.Net, Version=1.0.16.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Json.Net.1.0.16\lib\netstandard2.0\Json.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.122.18.3, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.18.3.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
@@ -100,6 +106,8 @@
     <Compile Include="DataLayer\Models\DbColumnConversion.cs" />
     <Compile Include="DataLayer\Models\DbDataModel.cs" />
     <Compile Include="DataLayer\Models\DbParamsModel.cs" />
+    <Compile Include="Facade\DomainFacadeFunctionalTest.cs" />
+    <Compile Include="Utils\MockDbTable.cs" />
     <Compile Include="Utils\GenericInstance.cs" />
     <Compile Include="Facade\DomainFacade.cs" />
     <Compile Include="Facade\DomainManager.cs" />
@@ -108,6 +116,7 @@
     <Compile Include="DataLayer\Models\DbResponse.cs" />
     <Compile Include="Facade\Core\DbFacadeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\IMockDbTableRow.cs" />
     <Compile Include="Utils\InstanceResolver.cs" />
     <Compile Include="Utils\PropertySelector.cs" />
     <Compile Include="Utils\Selector.cs" />

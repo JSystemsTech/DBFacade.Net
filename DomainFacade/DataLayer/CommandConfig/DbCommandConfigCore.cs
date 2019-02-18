@@ -122,6 +122,17 @@ namespace DomainFacade.DataLayer.CommandConfig
                 throw new Exception("no return value specified");
             }
         }
+        protected override void SetReturnValueCore<Cmd>(Cmd dbCommand, object value)
+        {
+            if (HasReturnValue())
+            {
+                dbCommand.Parameters["@" + ReturnValue].Value = value;
+            }
+            else
+            {
+                throw new Exception("no return value specified");
+            }
+        }
         private Cmd AddParams<Cmd, Prm>(Cmd dbCommand, TDbParams dbMethodParams)
         where Cmd : DbCommand
         where Prm : DbParameter
@@ -159,6 +170,7 @@ namespace DomainFacade.DataLayer.CommandConfig
             }
             return true;
         }
+
         private Validator<TDbParams> ParamsValidator { get; set; }
         private static Validator<TDbParams> ParamsValidatorEmpty = new Validator<TDbParams>();
 

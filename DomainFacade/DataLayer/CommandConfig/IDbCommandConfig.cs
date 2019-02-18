@@ -13,6 +13,8 @@ namespace DomainFacade.DataLayer.CommandConfig
         bool HasReturnValue();
         object GetReturnValue<Cmd>(Cmd dbCommand)
             where Cmd : DbCommand;
+        void SetReturnValue<Cmd>(Cmd dbCommand, object value)
+            where Cmd : DbCommand;
         Type GetDBConnectionType();
         bool Validate(IDbParamsModel paramsModel);
         bool HasStoredProcedure();

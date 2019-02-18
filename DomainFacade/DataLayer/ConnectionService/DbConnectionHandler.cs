@@ -30,7 +30,25 @@ namespace DomainFacade.DataLayer.ConnectionService
             try
             {
                 dbConnection = dbMethod.GetConfig().GetDbConnection<Con>();
-                dbCommand = dbMethod.GetConfig().GetDbCommand<Con, Cmd, Prm>(parameters, dbConnection);
+                if(parameters is IDbFunctionalTestParamsModel)
+                {
+                    IDbFunctionalTestParamsModel TestParamsModel = (IDbFunctionalTestParamsModel)parameters;
+                    dbCommand = dbMethod.GetConfig().GetDbCommand<Con, Cmd, Prm>(TestParamsModel.GetParamsModel(), dbConnection);
+                    Drd dbDataReader = (Drd)TestParamsModel.GetTestResponse();
+                    if (dbMethod.GetConfig().IsFetchRecordWithReturn() ||
+                        dbMethod.GetConfig().IsFetchRecordsWithReturn() ||
+                        dbMethod.GetConfig().IsTransactionWithReturn())
+                    {
+                        dbMethod.GetConfig().SetReturnValue(dbCommand, TestParamsModel.GetReturnValue());
+                    }
+                    TDbResponse response = BuildResponse<TDbResponse, DbMethod>(dbDataReader, dbCommand);
+                    return response;
+                }
+                else
+                {
+                    dbCommand = dbMethod.GetConfig().GetDbCommand<Con, Cmd, Prm>(parameters, dbConnection);
+                }
+                
                 dbConnection.Open();
 
                 if (dbMethod.GetConfig().IsTransaction() || dbMethod.GetConfig().IsTransactionWithReturn())

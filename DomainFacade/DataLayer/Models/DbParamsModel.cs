@@ -1,11 +1,40 @@
 ﻿
+using System.Data;
+
 namespace DomainFacade.DataLayer.Models
 {
     public class DbParamsModel:IDbParamsModel
     {
         public DbParamsModel() { }
     }
+    public interface IDbFunctionalTestParamsModel
+    {
+        IDbParamsModel GetParamsModel();
+        IDataReader GetTestResponse();
+        object GetReturnValue();
+    }
+    internal sealed class DbFunctionalTestParamsModel<DbParams> : DbParamsModel,IDbFunctionalTestParamsModel where DbParams: IDbParamsModel
+    {
+        private DbParams Model { get; set; }
+        private IDataReader TestResponseData { get; set; }
+        private object ReturnValue { get; set; }
+        public DbFunctionalTestParamsModel(DbParams model, IDataReader testResponseData) { Model = model; TestResponseData = testResponseData;  }
+        public DbFunctionalTestParamsModel(DbParams model, IDataReader testResponseData, object returnValue) { Model = model; TestResponseData = testResponseData; ReturnValue = returnValue; }
+        public IDbParamsModel GetParamsModel()
+        {
+            return Model;
+        }
 
+        public IDataReader GetTestResponse()
+        {
+            return TestResponseData;
+        }
+
+        public object GetReturnValue()
+        {
+            return ReturnValue;
+        }
+    }
     public class SimpleDbParamsModel<T> : DbParamsModel
     {
         public T Param1 { get; private set; }

@@ -88,6 +88,11 @@ namespace DomainFacade.DataLayer.ConnectionService
                 {
                     return null;
                 }
+
+                protected override void SetReturnValueCore<Cmd>(Cmd dbCommand, object value)
+                {
+                    return;
+                }
             }
             private sealed class DbCommandConfigForDbConnectionSPParams : DbCommandConfigForDbConnection
             {
