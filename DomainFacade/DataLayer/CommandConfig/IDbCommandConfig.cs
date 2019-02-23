@@ -10,7 +10,6 @@ namespace DomainFacade.DataLayer.CommandConfig
             where Con : DbConnection
             where Cmd : DbCommand
             where Prm : DbParameter;
-        bool HasReturnValue();
         object GetReturnValue<Cmd>(Cmd dbCommand)
             where Cmd : DbCommand;
         void SetReturnValue<Cmd>(Cmd dbCommand, object value)
@@ -20,13 +19,7 @@ namespace DomainFacade.DataLayer.CommandConfig
         bool HasStoredProcedure();
         Con GetDbConnection<Con>()
             where Con : DbConnection;
-        Type GetDbMethodCallType();
         bool IsTransaction();
-        bool IsTransactionWithReturn();
-        bool IsFetchRecord();
-        bool IsFetchRecordWithReturn();
-        bool IsFetchRecords();
-        bool IsFetchRecordsWithReturn();
     }
 
 }

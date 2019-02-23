@@ -1,5 +1,4 @@
-﻿using DomainFacade.DataLayer.Models;
-using DomainFacade.Facade;
+﻿using DomainFacade.Facade;
 using DomainFacade.Utils;
 using Facade_Sabdbox_Run_Environment.TestFacade.DbMethods;
 using Facade_Sabdbox_Run_Environment.TestFacade.Models;
@@ -35,8 +34,8 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
             MockDbModel data3 = new MockDbModel(3, Guid.NewGuid(), DateTime.Now, 123, "other comment");
             MockDbTable<MockDbModel> data = new MockDbTable<MockDbModel>(new List<MockDbModel> { data1, data2, data3 });
             IDataReader reader = data.ToDataReader();
-            FetchRecords<TestDbDataModel, TestDbMethods.GetAllSimple>();
-            return FetchRecords<TestDbDataModel, TestDbMethods.GetAllSimple>(reader).GetResponse();
+            Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>();
+            return Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>(reader).Data();
         }
         public IEnumerable<TestConstructorModel> GetAllSimple2()
         {

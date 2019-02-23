@@ -1,11 +1,8 @@
 ﻿using DomainFacade.DataLayer.Models;
 using DomainFacade.Facade;
-using DomainFacade.Utils;
 using Facade_Sabdbox_Run_Environment.TestFacade.DbMethods;
 using Facade_Sabdbox_Run_Environment.TestFacade.Models;
-using System;
 using System.Collections.Generic;
-using System.Data;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade
 {
@@ -13,23 +10,23 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
     {
         public IEnumerable<TestDbDataModel> GetAllSimple()
         {            
-            return FetchRecords<TestDbDataModel, TestDbMethods.GetAllSimple>().GetResponse();
+            return Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>().Data();
         }
         public IEnumerable<TestConstructorModel> GetAllSimple2()
         {
-            return FetchRecords<TestConstructorModel, TestDbMethods.GetAllSimple>().GetResponse();
+            return Fetch<TestConstructorModel, TestDbMethods.GetAllSimple>().Data();
         }
         public IEnumerable<TestSharedDbDataModel> GetAllMoreShared()
         {
-            return FetchRecords<TestSharedDbDataModel, TestDbMethods.GetAllSimple>().GetResponse();
+            return Fetch<TestSharedDbDataModel, TestDbMethods.GetAllSimple>().Data();
         }
         public IEnumerable<MoreDbDataModel> GetAllMore()
         {
-            return FetchRecords<MoreDbDataModel, TestDbMethods.GetAllMore>().GetResponse();
+            return Fetch<MoreDbDataModel, TestDbMethods.GetAllMore>().Data();
         }
         public IEnumerable<TestSharedDbDataModel> GetAllSimpleShared()
         {
-            return FetchRecords<TestSharedDbDataModel, TestDbMethods.GetAllMore>().GetResponse();
+            return Fetch<TestSharedDbDataModel, TestDbMethods.GetAllMore>().Data();
         }
         public void AddSimpleRecord(int count, string comment)
         { 

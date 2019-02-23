@@ -1,8 +1,6 @@
 ﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
-using DomainFacade.Facade.Core;
 using System.Data;
-using static DomainFacade.DataLayer.Models.DbResponse;
 
 namespace DomainFacade.Facade
 {
@@ -25,93 +23,62 @@ namespace DomainFacade.Facade
         {
             return new DbFunctionalTestParamsModel<DbParams>(parameters, testResponseData);
         } 
-        protected FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData)
-            where TDbResponse : DbDataModel
+        protected IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData)
+            where TDbDataModel : DbDataModel
             where DbParams : IDbParamsModel
             where DbMethod : TDbManifest
         {
-            return CallDbMethod<FetchRecordModel<TDbResponse, DbMethod>, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
+            return CallDbMethod<TDbDataModel, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
         }
-        protected FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData, object ReturnValue)
-            where TDbResponse : DbDataModel
+        protected IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData, object ReturnValue)
+            where TDbDataModel : DbDataModel
             where DbParams : IDbParamsModel
             where DbMethod : TDbManifest
         {
-            return CallDbMethod<FetchRecordModel<TDbResponse, DbMethod>, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
+            return CallDbMethod<TDbDataModel, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
         }
-        protected FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse, DbMethod>(IDataReader testResponseData)
-            where TDbResponse : DbDataModel
+        protected IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbMethod>(IDataReader testResponseData)
+            where TDbDataModel : DbDataModel
             where DbMethod : TDbManifest
         {
-            return CallDbMethod<FetchRecordModel<TDbResponse, DbMethod>, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData));
+            return CallDbMethod<TDbDataModel, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData));
         }
-        protected FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse, DbMethod>(IDataReader testResponseData, object ReturnValue)
-            where TDbResponse : DbDataModel
+        protected IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbMethod>(IDataReader testResponseData, object ReturnValue)
+            where TDbDataModel : DbDataModel
             where DbMethod : TDbManifest
         {
-            return CallDbMethod<FetchRecordModel<TDbResponse, DbMethod>, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData, ReturnValue));
+            return CallDbMethod<TDbDataModel, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData, ReturnValue));
         }
 
-        protected FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData)
-            where TDbResponse : DbDataModel
-            where DbParams : IDbParamsModel
-            where DbMethod : TDbManifest
-        {
-            return CallDbMethod<FetchRecordsModel<TDbResponse, DbMethod>, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
-        }
-        protected FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData, object ReturnValue)
-            where TDbResponse : DbDataModel
-            where DbParams : IDbParamsModel
-            where DbMethod : TDbManifest
-        {
-            return CallDbMethod<FetchRecordsModel<TDbResponse, DbMethod>, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
-        }
-        protected FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbMethod>(IDataReader testResponseData)
-            where TDbResponse : DbDataModel
-            where DbMethod : TDbManifest
-        {
-            return CallDbMethod<FetchRecordsModel<TDbResponse, DbMethod>, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData));
-        }
-        protected FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbMethod>(IDataReader testResponseData, object ReturnValue)
-            where TDbResponse : DbDataModel
-            where DbMethod : TDbManifest
-        {
-            return CallDbMethod<FetchRecordsModel<TDbResponse, DbMethod>, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData, ReturnValue));
-        }
+        
 
-        protected TransactionModel Transaction<TDbResponse, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData)
-            where TDbResponse : DbDataModel
+        protected IDbResponse Transaction<DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData)
             where DbParams : IDbParamsModel
             where DbMethod : TDbManifest
         {
-            return CallDbMethod<TransactionModel, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
+            return CallDbMethod<DbDataModel, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
         }
-        protected TransactionModel Transaction<TDbResponse, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData, object ReturnValue)
-            where TDbResponse : DbDataModel
+        protected IDbResponse Transaction<DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData, object ReturnValue)
             where DbParams : IDbParamsModel
             where DbMethod : TDbManifest
         {
-            return CallDbMethod<TransactionModel, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
+            return CallDbMethod<DbDataModel, DbFunctionalTestParamsModel<DbParams>, DbMethod>(GetTestParams(parameters, testResponseData));
         }
-        protected TransactionModel Transaction<TDbResponse, DbMethod>(IDataReader testResponseData)
-            where TDbResponse : DbDataModel
+        protected IDbResponse Transaction<DbMethod>(IDataReader testResponseData)
             where DbMethod : TDbManifest
         {
-            return CallDbMethod<TransactionModel, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData));
+            return CallDbMethod<DbDataModel, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData));
         }
-        protected TransactionModel Transaction<TDbResponse, DbMethod>(IDataReader testResponseData, object ReturnValue)
-            where TDbResponse : DbDataModel
+        protected IDbResponse Transactionn<DbMethod>(IDataReader testResponseData, object ReturnValue)
             where DbMethod : TDbManifest
         {
-            return CallDbMethod<TransactionModel, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData, ReturnValue));
+            return CallDbMethod<DbDataModel, DbFunctionalTestParamsModel<DbParamsModel>, DbMethod>(GetTestParams(DEFAULT_PARAMETERS, testResponseData, ReturnValue));
         }
 
         /* Overridden Methods to prevent actual db calls*/
-        protected override FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse, DbParams, DbMethod>(DbParams parameters){return null;}
-        protected override FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse, DbMethod>() { return null; }
-        protected override FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbParams, DbMethod>(DbParams parameters) { return null; }
-        protected override FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbMethod>() { return null; }
-        protected override TransactionModel Transaction<DbParams, DbMethod>(DbParams parameters) { return null; }
-        protected override TransactionModel Transaction<DbMethod>() { return null; }        
+        protected override IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbParams, DbMethod>(DbParams parameters){return null;}
+        protected override IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbMethod>() { return null; }
+        protected override IDbResponse Transaction<DbParams, DbMethod>(DbParams parameters) { return null; }
+        protected override IDbResponse Transaction<DbMethod>() { return null; }        
     }
 }

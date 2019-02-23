@@ -1,5 +1,4 @@
-﻿using DomainFacade.DataLayer.Manifest;
-using DomainFacade.DataLayer.Models;
+﻿using DomainFacade.DataLayer.Models;
 using System;
 using System.Data.Common;
 
@@ -7,31 +6,11 @@ namespace DomainFacade.DataLayer.CommandConfig
 {
     internal abstract class DbCommandConfigBase
     {
-        public virtual Type GetDbMethodCallType() { return typeof(object); }
         public bool IsTransaction()
         {
-            return GetDbMethodCallType() == typeof(DbMethodCallType.Transaction);
+            return Transaction;
         }
-        public bool IsTransactionWithReturn()
-        {
-            return GetDbMethodCallType() == typeof(DbMethodCallType.TransactionWithReturn);
-        }
-        public bool IsFetchRecord()
-        {
-            return GetDbMethodCallType() == typeof(DbMethodCallType.FetchRecord);
-        }
-        public bool IsFetchRecordWithReturn()
-        {
-            return GetDbMethodCallType() == typeof(DbMethodCallType.FetchRecordWithReturn);
-        }
-        public bool IsFetchRecords()
-        {
-            return GetDbMethodCallType() == typeof(DbMethodCallType.FetchRecords);
-        }
-        public bool IsFetchRecordsWithReturn()
-        {
-            return GetDbMethodCallType() == typeof(DbMethodCallType.FetchRecordsWithReturn);
-        }
+        internal bool Transaction = false;
         public Con GetDbConnection<Con>()
             where Con : DbConnection
         {

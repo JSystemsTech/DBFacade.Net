@@ -1,6 +1,5 @@
 ﻿using DomainFacade.DataLayer.CommandConfig.Parameters;
 using DomainFacade.DataLayer.ConnectionService;
-using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Validators;
 using System;
@@ -11,17 +10,15 @@ using System.Linq;
 
 namespace DomainFacade.DataLayer.CommandConfig
 {
-    internal abstract class DbCommandConfigCore<TDbParams, TConnection, TDbMethod> : DbCommandConfigBase, IDbCommandConfig
+    internal abstract class DbCommandConfigCore<TDbParams, TConnection> : DbCommandConfigBase, IDbCommandConfig
         where TDbParams : IDbParamsModel
         where TConnection : DbConnectionCore
-        where TDbMethod : DbMethodCallType
     {
         public IDbCommandConfigParams<TDbParams> DbParams { get; private set; }
         private DbCommandConfigParams<TDbParams> DefaultConfigParams = new DbCommandConfigParams<TDbParams>() { };
         public DbCommandText<TConnection> DbCommand { get; private set; }
         public string ReturnValue { get; private set; }
         private CommandType DbCommandType { get; set; }
-        public override Type GetDbMethodCallType() { return typeof(TDbMethod); }
 
         public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, CommandType dbCommandType)
         {
@@ -106,7 +103,7 @@ namespace DomainFacade.DataLayer.CommandConfig
             dbCommand.CommandType = DbCommandType;
             return dbCommand;
         }
-        public bool HasReturnValue()
+        private bool HasReturnValue()
         {
             return !string.IsNullOrEmpty(ReturnValue);
         }
@@ -119,7 +116,7 @@ namespace DomainFacade.DataLayer.CommandConfig
             }
             else
             {
-                throw new Exception("no return value specified");
+                return null;
             }
         }
         protected override void SetReturnValueCore<Cmd>(Cmd dbCommand, object value)
@@ -127,10 +124,6 @@ namespace DomainFacade.DataLayer.CommandConfig
             if (HasReturnValue())
             {
                 dbCommand.Parameters["@" + ReturnValue].Value = value;
-            }
-            else
-            {
-                throw new Exception("no return value specified");
             }
         }
         private Cmd AddParams<Cmd, Prm>(Cmd dbCommand, TDbParams dbMethodParams)

@@ -7,7 +7,6 @@ using System.Data.Odbc;
 using Oracle.ManagedDataAccess.Client;
 using DomainFacade.Facade.Core;
 using DomainFacade.DataLayer.Manifest;
-using DomainFacade.Utils;
 using DomainFacade.DataLayer.Models;
 
 namespace DomainFacade.DataLayer.ConnectionService
@@ -20,10 +19,9 @@ namespace DomainFacade.DataLayer.ConnectionService
         where Prm : DbParameter
         where TDbManifest : DbManifest
     {
-        protected override TDbResponse CallDbMethodCore<TDbResponse, TDbParams, DbMethod>(TDbParams parameters)
+        protected override IDbResponse<TDbDataModel> CallDbMethodCore<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
         {
             DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
-            CheckResponseType<TDbResponse, DbMethod>();
             Con dbConnection = null;
             Cmd dbCommand = null;
             Trn transaction = null;
@@ -35,14 +33,8 @@ namespace DomainFacade.DataLayer.ConnectionService
                     IDbFunctionalTestParamsModel TestParamsModel = (IDbFunctionalTestParamsModel)parameters;
                     dbCommand = dbMethod.GetConfig().GetDbCommand<Con, Cmd, Prm>(TestParamsModel.GetParamsModel(), dbConnection);
                     Drd dbDataReader = (Drd)TestParamsModel.GetTestResponse();
-                    if (dbMethod.GetConfig().IsFetchRecordWithReturn() ||
-                        dbMethod.GetConfig().IsFetchRecordsWithReturn() ||
-                        dbMethod.GetConfig().IsTransactionWithReturn())
-                    {
-                        dbMethod.GetConfig().SetReturnValue(dbCommand, TestParamsModel.GetReturnValue());
-                    }
-                    TDbResponse response = BuildResponse<TDbResponse, DbMethod>(dbDataReader, dbCommand);
-                    return response;
+                    dbMethod.GetConfig().SetReturnValue(dbCommand, TestParamsModel.GetReturnValue());
+                    return new DbResponse<DbMethod, TDbDataModel>(dbMethod.GetConfig().GetReturnValue(dbCommand));
                 }
                 else
                 {
@@ -51,20 +43,20 @@ namespace DomainFacade.DataLayer.ConnectionService
                 
                 dbConnection.Open();
 
-                if (dbMethod.GetConfig().IsTransaction() || dbMethod.GetConfig().IsTransactionWithReturn())
+                if (dbMethod.GetConfig().IsTransaction())
                 {
                     transaction = (Trn)dbConnection.BeginTransaction();
                     dbCommand.Transaction = transaction;
                     dbCommand.ExecuteNonQuery();
                     transaction.Commit();
-                    TDbResponse response = BuildResponse<TDbResponse, DbMethod>(dbCommand);
+                    IDbResponse<TDbDataModel> response = new DbResponse<DbMethod, TDbDataModel>(dbMethod.GetConfig().GetReturnValue(dbCommand));
                     Done(transaction, dbConnection);
                     return response;
                 }
                 else
                 {
                     Drd dbDataReader = (Drd)dbCommand.ExecuteReader();
-                    TDbResponse response = BuildResponse<TDbResponse, DbMethod>(dbDataReader, dbCommand);
+                    IDbResponse<TDbDataModel> response = new DbResponse<DbMethod, TDbDataModel>(dbDataReader, dbMethod.GetConfig().GetReturnValue(dbCommand));
                     Done(dbDataReader, dbConnection);
                     return response;
                 }
@@ -116,54 +108,7 @@ namespace DomainFacade.DataLayer.ConnectionService
             return (Drd)dbCommand.ExecuteReader();
 
         }
-        private void CheckResponseType<TDbResponse, TDbParams>()
-            where TDbResponse : DbResponse
-            where TDbParams : TDbManifest
-        {
-            TDbParams dbMethod = DbMethodsCache.GetInstance<TDbParams>();
-            if (GenericInstance<TDbResponse>.GetInstance().GetDbMethodCallType() != dbMethod.GetConfig().GetDbMethodCallType())
-            {
-                Console.WriteLine(GenericInstance<TDbResponse>.GetInstance().GetDbMethodCallType());
-                Console.WriteLine(dbMethod.GetConfig().GetDbMethodCallType());
-                throw new NotImplementedException();
-            }
-        }
-        private TDbResponse BuildResponse<TDbResponse, TDbParams>(Drd dbReader, Cmd dbCommand)
-            where TDbResponse : DbResponse
-            where TDbParams : TDbManifest
-        {
-            TDbParams dbMethod = DbMethodsCache.GetInstance<TDbParams>();
-            if (dbMethod.GetConfig().IsFetchRecord() || dbMethod.GetConfig().IsFetchRecords())
-            {
-                return GenericInstance<TDbResponse>.GetInstance(dbReader);
-            }
-            else if (dbMethod.GetConfig().IsFetchRecordWithReturn() || dbMethod.GetConfig().IsFetchRecordsWithReturn())
-            {
-                return GenericInstance<TDbResponse>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand), dbReader);
-            }
-            else
-            {
-                throw new Exception("Invalid Fetch Method");
-            }
-        }
-        private TDbResponse BuildResponse<TDbResponse, TDbParams>(Cmd dbCommand)
-            where TDbResponse : DbResponse
-            where TDbParams : TDbManifest
-        {
-            TDbParams dbMethod = DbMethodsCache.GetInstance<TDbParams>();
-            if (dbMethod.GetConfig().IsTransaction())
-            {
-                return GenericInstance<TDbResponse>.GetInstance();
-            }
-            else if (dbMethod.GetConfig().IsTransactionWithReturn())
-            {
-                return GenericInstance<TDbResponse>.GetInstance(dbMethod.GetConfig().GetReturnValue(dbCommand));
-            }
-            else
-            {
-                throw new Exception("Invalid Transaction Method");
-            }
-        }
+        
         private void Done(Drd dbDataReader, Con dbConnection)
         {
             Close(dbDataReader);
@@ -184,10 +129,10 @@ namespace DomainFacade.DataLayer.ConnectionService
     }
     public sealed class DbConnectionHandler<TDbManifest> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, TDbManifest> where TDbManifest : DbManifest
     {
-        public class SQL : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, TDbManifest> { }
-        public class SQLite : DbConnectionHandler<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, TDbManifest> { }
-        public class OleDb : DbConnectionHandler<OleDbDataReader, OleDbConnection, OleDbCommand, OleDbTransaction, OleDbParameter, TDbManifest> { }
-        public class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, TDbManifest> { }        
-        public class Oracle : DbConnectionHandler<OracleDataReader, OracleConnection, OracleCommand, OracleTransaction, OracleParameter, TDbManifest> { }
+        public sealed class SQL : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, TDbManifest> { }
+        public sealed class SQLite : DbConnectionHandler<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, TDbManifest> { }
+        public sealed class OleDb : DbConnectionHandler<OleDbDataReader, OleDbConnection, OleDbCommand, OleDbTransaction, OleDbParameter, TDbManifest> { }
+        public sealed class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, TDbManifest> { }        
+        public sealed class Oracle : DbConnectionHandler<OracleDataReader, OracleConnection, OracleCommand, OracleTransaction, OracleParameter, TDbManifest> { }
     }
 }

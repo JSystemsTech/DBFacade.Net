@@ -46,7 +46,7 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
         {            
             protected override IDbCommandConfig GetConfigCore()
             {
-                return DbCommandConfigBuilder.GetFetchRecordsConfig(TestDbConnection.GetAllSimpleData);
+                return DbCommandConfigBuilder.GetFetchConfig(TestDbConnection.GetAllSimpleData);
             }
         }
         
@@ -54,7 +54,7 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
         {
             protected override IDbCommandConfig GetConfigCore()
             {
-                return DbCommandConfigBuilder.GetFetchRecordsConfig(TestDbConnection.GetAllMoreData);
+                return DbCommandConfigBuilder.GetFetchConfig(TestDbConnection.GetAllMoreData);
             }
         }
         

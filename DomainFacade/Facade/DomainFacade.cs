@@ -1,8 +1,6 @@
 ﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.Facade.Core;
-using System.Data;
-using static DomainFacade.DataLayer.Models.DbResponse;
 
 namespace DomainFacade.Facade
 {
@@ -15,34 +13,25 @@ namespace DomainFacade.Facade
     where M : DomainManager<TDbManifest>
     where TDbManifest : DbManifest
     {
-        protected virtual FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse,DbParams, DbMethod>(DbParams parameters)
-            where TDbResponse : DbDataModel
+        protected virtual IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbParams, DbMethod>(DbParams parameters)
+            where TDbDataModel : DbDataModel
             where DbParams: IDbParamsModel
             where DbMethod: TDbManifest
         {
-            return CallDbMethod<FetchRecordModel<TDbResponse, DbMethod>, DbParams, DbMethod>(parameters);
+            return CallDbMethod<TDbDataModel, DbParams, DbMethod>(parameters);
         }
-        protected virtual FetchRecordModel<TDbResponse, DbMethod> FetchRecord<TDbResponse, DbMethod>() where TDbResponse : DbDataModel where DbMethod : TDbManifest
+        protected virtual IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbMethod>() where TDbDataModel : DbDataModel where DbMethod : TDbManifest
         {
-            return CallDbMethod<FetchRecordModel<TDbResponse, DbMethod>, DbMethod>();
-        }
-
-        protected virtual FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbParams, DbMethod>(DbParams parameters) where TDbResponse : DbDataModel where DbParams : IDbParamsModel where DbMethod : TDbManifest
-        {
-            return CallDbMethod<FetchRecordsModel<TDbResponse, DbMethod>, DbParams, DbMethod>(parameters);
-        }
-        protected virtual FetchRecordsModel<TDbResponse, DbMethod> FetchRecords<TDbResponse, DbMethod>() where TDbResponse : DbDataModel where DbMethod : TDbManifest
-        {
-            return CallDbMethod<FetchRecordsModel<TDbResponse, DbMethod>, DbMethod>();
+            return CallDbMethod<TDbDataModel, DbMethod>();
         }
 
-        protected virtual TransactionModel Transaction<DbParams, DbMethod>(DbParams parameters) where DbParams : IDbParamsModel where DbMethod : TDbManifest
+        protected virtual IDbResponse Transaction<DbParams, DbMethod>(DbParams parameters) where DbParams : IDbParamsModel where DbMethod : TDbManifest
         {
-            return CallDbMethod<TransactionModel, DbParams, DbMethod>(parameters);
+            return CallDbMethod<DbDataModel, DbParams, DbMethod>(parameters);
         }
-        protected virtual TransactionModel Transaction<DbMethod>() where DbMethod : TDbManifest
+        protected virtual IDbResponse Transaction<DbMethod>() where DbMethod : TDbManifest
         {
-            return CallDbMethod<TransactionModel, DbMethod>();
+            return CallDbMethod<DbDataModel, DbMethod>();
         }
     }
 

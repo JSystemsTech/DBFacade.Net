@@ -5,6 +5,7 @@ using DomainFacade.DataLayer.Models.Attributes;
 using DomainFacade.Facade;
 using DomainFacade.Utils;
 using System;
+using System.Linq;
 
 namespace DomainFacade.DataLayer.ConnectionService
 {
@@ -46,7 +47,6 @@ namespace DomainFacade.DataLayer.ConnectionService
             }
             private class DbCommandConfigForDbConnection : DbCommandConfigBase, IDbCommandConfig
             {
-                public override Type GetDbMethodCallType() { return typeof(DbMethodCallType.FetchRecords); }
                 public DbCommandConfigForDbConnection() { }
                 public TConnection GetDbConnection()
                 {
@@ -132,7 +132,7 @@ namespace DomainFacade.DataLayer.ConnectionService
             
             public DbConnectionStoredProcedure[] GetAvailableStoredPrcedures()
             {
-                DbConnectionStoredProcedure[] data = FetchRecords<DbConnectionStoredProcedure, DbConnectionMetaMethods<C>.GetAvailableStoredProcs>().GetResponseAsArray();
+                DbConnectionStoredProcedure[] data = Fetch<DbConnectionStoredProcedure, DbConnectionMetaMethods<C>.GetAvailableStoredProcs>().Data().ToArray();
                 
                 foreach (DbConnectionStoredProcedure sproc in data)
                 {
@@ -142,7 +142,7 @@ namespace DomainFacade.DataLayer.ConnectionService
             }
             private DbConnectionStoredProcedureParamMeta[] GetAvailableStoredPrcedureParamsMeta(string storedPRocName)
             {
-                return FetchRecords<DbConnectionStoredProcedureParamMeta,SimpleDbParamsModel<string>, DbConnectionMetaMethods<C>.GetAvailableStoredProcsAdditionalMeta>(new SimpleDbParamsModel<string>(storedPRocName)).GetResponseAsArray();
+                return Fetch<DbConnectionStoredProcedureParamMeta,SimpleDbParamsModel<string>, DbConnectionMetaMethods<C>.GetAvailableStoredProcsAdditionalMeta>(new SimpleDbParamsModel<string>(storedPRocName)).Data().ToArray();
             }
             
         }

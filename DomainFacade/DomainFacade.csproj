@@ -79,7 +79,6 @@
     <Compile Include="DataLayer\ConnectionService\DbConnectionHandler.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionService.cs" />
     <Compile Include="DataLayer\CommandConfig\DbCommandConfigBuilder.cs" />
-    <Compile Include="DataLayer\Manifest\DbMethodCallType.cs" />
     <Compile Include="DataLayer\Manifest\DbMethodUtils.cs" />
     <Compile Include="DataLayer\Manifest\IDbMethod.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbBufferedColumn.cs" />
@@ -87,6 +86,7 @@
     <Compile Include="DataLayer\Models\Attributes\DbEnumerableColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbFlagColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbParseStringColumn.cs" />
+    <Compile Include="DataLayer\Models\IDbResponse.cs" />
     <Compile Include="DataLayer\Models\IDbParamsModel.cs" />
     <Compile Include="DataLayer\Models\Validators\Rules\IValidationRule.cs" />
     <Compile Include="DataLayer\Models\Validators\Rules\ValidationRuleResult.cs" />
