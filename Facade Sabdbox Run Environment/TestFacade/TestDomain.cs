@@ -9,7 +9,7 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
     public sealed partial class TestDomain: DomainFacade<TestManager, TestDbMethods>,ITestDomain
     {
         public IEnumerable<TestDbDataModel> GetAllSimple()
-        {            
+        {
             return Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>().Data();
         }
         public IEnumerable<TestConstructorModel> GetAllSimple2()

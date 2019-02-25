@@ -11,7 +11,7 @@ using DomainFacade.DataLayer.Models;
 
 namespace DomainFacade.DataLayer.ConnectionService
 {
-    public class DbConnectionHandler<Drd, Con, Cmd, Trn,Prm, TDbManifest> : DbFacade<TDbManifest>
+    internal class DbConnectionHandler<Drd, Con, Cmd, Trn,Prm, TDbManifest> : DbFacade<TDbManifest>
         where Drd : DbDataReader
         where Con : DbConnection
         where Cmd : DbCommand
@@ -34,7 +34,7 @@ namespace DomainFacade.DataLayer.ConnectionService
                     dbCommand = dbMethod.GetConfig().GetDbCommand<Con, Cmd, Prm>(TestParamsModel.GetParamsModel(), dbConnection);
                     Drd dbDataReader = (Drd)TestParamsModel.GetTestResponse();
                     dbMethod.GetConfig().SetReturnValue(dbCommand, TestParamsModel.GetReturnValue());
-                    return new DbResponse<DbMethod, TDbDataModel>(dbMethod.GetConfig().GetReturnValue(dbCommand));
+                    return new DbResponse<DbMethod, TDbDataModel>(dbDataReader, dbMethod.GetConfig().GetReturnValue(dbCommand));
                 }
                 else
                 {
@@ -127,7 +127,7 @@ namespace DomainFacade.DataLayer.ConnectionService
         }
 
     }
-    public sealed class DbConnectionHandler<TDbManifest> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, TDbManifest> where TDbManifest : DbManifest
+    internal sealed class DbConnectionHandler<TDbManifest> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, TDbManifest> where TDbManifest : DbManifest
     {
         public sealed class SQL : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, TDbManifest> { }
         public sealed class SQLite : DbConnectionHandler<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, TDbManifest> { }

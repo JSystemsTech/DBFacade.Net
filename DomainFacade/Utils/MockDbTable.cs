@@ -5,6 +5,10 @@ using System.Reflection;
 
 namespace DomainFacade.Utils
 {
+    public class MockDbTable
+    {
+        public static IDataReader EmptyTable = new DataTable("EmptyMockDbTable").CreateDataReader();
+    }
     public class MockDbTable<T> where T: IMockDbTableRow
     {
         private DataTable TestValuesDataTable;
@@ -60,5 +64,6 @@ namespace DomainFacade.Utils
         {
             return TestValuesDataTable.CreateDataReader();
         }
+        
     }
 }

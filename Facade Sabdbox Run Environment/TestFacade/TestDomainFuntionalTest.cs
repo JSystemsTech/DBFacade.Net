@@ -8,7 +8,7 @@ using System.Data;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade
 {
-    public sealed partial class TestDomainFuntionalTest : DomainFacadeFunctionalTest<TestManager, TestDbMethods>,ITestDomain
+    public sealed partial class MockTestDomain : DomainFacade<TestManager, TestDbMethods>, ITestDomain
     {       
         private class MockDbModel : IMockDbTableRow
         {
@@ -34,8 +34,8 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
             MockDbModel data3 = new MockDbModel(3, Guid.NewGuid(), DateTime.Now, 123, "other comment");
             MockDbTable<MockDbModel> data = new MockDbTable<MockDbModel>(new List<MockDbModel> { data1, data2, data3 });
             IDataReader reader = data.ToDataReader();
-            Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>();
-            return Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>(reader).Data();
+            
+            return MockFetch<TestDbDataModel, TestDbMethods.GetAllSimple>(reader).Data();
         }
         public IEnumerable<TestConstructorModel> GetAllSimple2()
         {

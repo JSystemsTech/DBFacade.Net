@@ -13,13 +13,13 @@ namespace DomainFacade.DataLayer.Models
         IDataReader GetTestResponse();
         object GetReturnValue();
     }
-    internal sealed class DbFunctionalTestParamsModel<DbParams> : DbParamsModel,IDbFunctionalTestParamsModel where DbParams: IDbParamsModel
+    internal sealed class MockParamsModel<DbParams> : DbParamsModel,IDbFunctionalTestParamsModel where DbParams: IDbParamsModel
     {
         private DbParams Model { get; set; }
         private IDataReader TestResponseData { get; set; }
         private object ReturnValue { get; set; }
-        public DbFunctionalTestParamsModel(DbParams model, IDataReader testResponseData) { Model = model; TestResponseData = testResponseData;  }
-        public DbFunctionalTestParamsModel(DbParams model, IDataReader testResponseData, object returnValue) { Model = model; TestResponseData = testResponseData; ReturnValue = returnValue; }
+        public MockParamsModel(DbParams model, IDataReader testResponseData) { Model = model; TestResponseData = testResponseData;  }
+        public MockParamsModel(DbParams model, IDataReader testResponseData, object returnValue) { Model = model; TestResponseData = testResponseData; ReturnValue = returnValue; }
         public IDbParamsModel GetParamsModel()
         {
             return Model;

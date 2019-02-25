@@ -31,7 +31,7 @@ namespace Facade_Sabdbox_Run_Environment
 
     public class ServiceConfig {
         private static ITestDomain domainFacade = new TestDomain();
-        private static ITestDomain UnitTestFacade = new TestDomainFuntionalTest();
+        private static ITestDomain UnitTestFacade = new MockTestDomain();
         
         public static ITestDomain DomainFacade { get{return domainFacade; } private set{} }
     }

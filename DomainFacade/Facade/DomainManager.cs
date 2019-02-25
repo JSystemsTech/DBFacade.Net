@@ -1,17 +1,21 @@
 ﻿using DomainFacade.DataLayer.Manifest;
+using DomainFacade.DataLayer.Models;
 using DomainFacade.Facade.Core;
 using System;
 using System.Text;
 
 namespace DomainFacade.Facade
 {
-    public class DomainManager<TDbManifest> : DbFacade<TDbManifest>.Forwarder<DomainManagerCore<TDbManifest>>
+    public class DomainManager<TDbManifest> : DbFacade<TDbManifest>
     where TDbManifest : DbManifest
     {
-        protected override void OnBeforeForward<DbParams, DbMethod>(DbParams parameters){}
+        protected sealed override IDbResponse<TDbDataModel> CallDbMethodCore<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
+        {
+            return CallFacadeAPIDbMethod<DomainManagerCore<TDbManifest>, TDbDataModel, TDbParams, DbMethod>(parameters);
+        }
     }
 
-    public sealed class DomainManagerCore<TDbManifest> : DbFacade<TDbManifest>.Forwarder<DbConnectionManager<TDbManifest>>
+    internal sealed class DomainManagerCore<TDbManifest> : Forwarder<TDbManifest, DbConnectionManager<TDbManifest>>
     where TDbManifest : DbManifest
     {
         protected override void OnBeforeForward<DbParams, DbMethod>(DbParams parameters)

@@ -96,6 +96,8 @@
     <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule.cs" />
     <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_Required.cs" />
     <Compile Include="DataLayer\Models\Validators\Validator.cs" />
+    <Compile Include="Facade\Core\DbFacade_MockDomainCalls.cs" />
+    <Compile Include="Facade\Core\DbFacade_DomainCalls.cs" />
     <Compile Include="Facade\DbConnectionManager.cs" />
     <Compile Include="DataLayer\CommandConfig\DbCommandConfig.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParameterConfig.cs" />
@@ -106,7 +108,6 @@
     <Compile Include="DataLayer\Models\DbColumnConversion.cs" />
     <Compile Include="DataLayer\Models\DbDataModel.cs" />
     <Compile Include="DataLayer\Models\DbParamsModel.cs" />
-    <Compile Include="Facade\DomainFacadeFunctionalTest.cs" />
     <Compile Include="Utils\MockDbTable.cs" />
     <Compile Include="Utils\GenericInstance.cs" />
     <Compile Include="Facade\DomainFacade.cs" />

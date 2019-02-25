@@ -6,9 +6,7 @@ using System;
 
 namespace DomainFacade.Facade
 {
-    public class DbConnectionManager<TDbManifest> : DbFacade<TDbManifest>.Forwarder<DbConnectionManagerCore<TDbManifest>>where TDbManifest : DbManifest{}
-
-    public sealed class DbConnectionManagerCore<TDbManifest> : DbFacade<TDbManifest>
+   internal sealed class DbConnectionManager<TDbManifest> : DbFacade<TDbManifest>
     where TDbManifest : DbManifest
     {
         protected override IDbResponse<TDbDataModel> CallDbMethodCore<TDbDataModel, DbParams, DbMethod>(DbParams parameters)
