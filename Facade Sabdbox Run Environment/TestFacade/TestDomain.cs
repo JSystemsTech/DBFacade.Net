@@ -10,23 +10,23 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
     {
         public IEnumerable<TestDbDataModel> GetAllSimple()
         {
-            return Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>().Data();
+            return Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>().Results();
         }
         public IEnumerable<TestConstructorModel> GetAllSimple2()
         {
-            return Fetch<TestConstructorModel, TestDbMethods.GetAllSimple>().Data();
+            return Fetch<TestConstructorModel, TestDbMethods.GetAllSimple>().Results();
         }
         public IEnumerable<TestSharedDbDataModel> GetAllMoreShared()
         {
-            return Fetch<TestSharedDbDataModel, TestDbMethods.GetAllSimple>().Data();
+            return Fetch<TestSharedDbDataModel, TestDbMethods.GetAllSimple>().Results();
         }
         public IEnumerable<MoreDbDataModel> GetAllMore()
         {
-            return Fetch<MoreDbDataModel, TestDbMethods.GetAllMore>().Data();
+            return Fetch<MoreDbDataModel, TestDbMethods.GetAllMore>().Results();
         }
         public IEnumerable<TestSharedDbDataModel> GetAllSimpleShared()
         {
-            return Fetch<TestSharedDbDataModel, TestDbMethods.GetAllMore>().Data();
+            return Fetch<TestSharedDbDataModel, TestDbMethods.GetAllMore>().Results();
         }
         public void AddSimpleRecord(int count, string comment)
         { 

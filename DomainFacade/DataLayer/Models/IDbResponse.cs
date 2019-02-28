@@ -9,7 +9,7 @@ namespace DomainFacade.DataLayer.Models
     public interface IDbResponse<TDbDataModel> :IDbResponse
          where TDbDataModel : DbDataModel
     {
-        IEnumerable<TDbDataModel> Data();
-        TDbDataModel Model();
+        IEnumerable<TDbDataModel> Results();
+        TDbDataModel Result();
     }    
 }

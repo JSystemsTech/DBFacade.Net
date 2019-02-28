@@ -35,7 +35,7 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
             MockDbTable<MockDbModel> data = new MockDbTable<MockDbModel>(new List<MockDbModel> { data1, data2, data3 });
             IDataReader reader = data.ToDataReader();
             
-            return MockFetch<TestDbDataModel, TestDbMethods.GetAllSimple>(reader).Data();
+            return MockFetch<TestDbDataModel, TestDbMethods.GetAllSimple>(reader).Results();
         }
         public IEnumerable<TestConstructorModel> GetAllSimple2()
         {

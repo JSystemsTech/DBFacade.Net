@@ -37,11 +37,11 @@ namespace DomainFacade.DataLayer.Models
         {
             return ReturnVal;
         }
-        public IEnumerable<TDbDataModel> Data()
+        public IEnumerable<TDbDataModel> Results()
         {
             return this;
         }
-        public TDbDataModel Model()
+        public TDbDataModel Result()
         {
             if(Count == 0)
             {

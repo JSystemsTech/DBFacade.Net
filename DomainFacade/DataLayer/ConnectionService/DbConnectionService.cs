@@ -129,7 +129,7 @@ namespace DomainFacade.DataLayer.ConnectionService
             
             public DbConnectionStoredProcedure[] GetAvailableStoredPrcedures()
             {
-                DbConnectionStoredProcedure[] data = Fetch<DbConnectionStoredProcedure, DbConnectionMetaMethods<C>.GetAvailableStoredProcs>().Data().ToArray();
+                DbConnectionStoredProcedure[] data = Fetch<DbConnectionStoredProcedure, DbConnectionMetaMethods<C>.GetAvailableStoredProcs>().Results().ToArray();
                 
                 foreach (DbConnectionStoredProcedure sproc in data)
                 {
@@ -139,7 +139,7 @@ namespace DomainFacade.DataLayer.ConnectionService
             }
             private DbConnectionStoredProcedureParamMeta[] GetAvailableStoredPrcedureParamsMeta(string storedPRocName)
             {
-                return Fetch<DbConnectionStoredProcedureParamMeta,SimpleDbParamsModel<string>, DbConnectionMetaMethods<C>.GetAvailableStoredProcsAdditionalMeta>(new SimpleDbParamsModel<string>(storedPRocName)).Data().ToArray();
+                return Fetch<DbConnectionStoredProcedureParamMeta,SimpleDbParamsModel<string>, DbConnectionMetaMethods<C>.GetAvailableStoredProcsAdditionalMeta>(new SimpleDbParamsModel<string>(storedPRocName)).Results().ToArray();
             }
             
         }
