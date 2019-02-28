@@ -10,23 +10,31 @@ using static DomainFacade.DataLayer.ConnectionService.DbConnectionService;
 
 namespace DomainFacade.DataLayer.ConnectionService
 {
+    internal interface ISQL { }
+    internal interface ISQLite { }
+    internal interface IOleDb { }
+    internal interface IOdbc { }
+    internal interface IOracle { }
 
-    public interface IDbConnectionConfig<Con> where Con : DbConnection
-    {
-        string[] GetAvailableStoredProcs();
-        Con GetDbConnection();
+    public class DbConnectionConfigCore {
+        public virtual DbConnection GetDbConnection() { return null; }
+        public virtual bool CheckStoredProcAvailability() { return true; }
+        public virtual void SetAvailableStoredProcs(DbConnectionStoredProcedure[] storedProcs) { }
+        public virtual string GetAvailableStoredProcCommandText() { return null; }
+        public virtual string GetAvailableStoredProcAdditionalMetaCommandText(string spName) { return null; }
+        public virtual CommandType GetAvailableStoredProcCommandType() { return new CommandType(); }
     }
-    public abstract class DbConnectionCore
+    public abstract class DbConnectionConfig: DbConnectionConfigCore
     {
         public DbConnectionStoredProcedure[] AvailableStoredProcs { get; private set; }
-        public void SetAvailableStoredProcs(DbConnectionStoredProcedure[] storedProcs)
+        public override void SetAvailableStoredProcs(DbConnectionStoredProcedure[] storedProcs)
         {
             if(AvailableStoredProcs == null)
             {
                 AvailableStoredProcs = storedProcs;
             }
         }
-        public DbConnection GetDbConnection()
+        public override DbConnection GetDbConnection()
         {
             return GetDbConnectionCore<DbConnection>();
         }
@@ -53,7 +61,7 @@ namespace DomainFacade.DataLayer.ConnectionService
         {
             return ConfigurationManager.ConnectionStrings[GetConnectionStringName()];
         }
-        public virtual string GetAvailableStoredProcCommandText() {
+        public override string GetAvailableStoredProcCommandText() {
                     return
                         "SELECT name[StoredProcedureName] " +
                         "FROM INFORMATION_SCHEMA.ROUTINES[routines] " +
@@ -62,7 +70,7 @@ namespace DomainFacade.DataLayer.ConnectionService
                         "WHERE ROUTINE_TYPE = 'PROCEDURE' AND sys_procs.is_ms_shipped = 0 " +
                         "ORDER BY routines.SPECIFIC_NAME";
         }
-        public virtual string GetAvailableStoredProcAdditionalMetaCommandText(string spName)
+        public override string GetAvailableStoredProcAdditionalMetaCommandText(string spName)
         {
             return
             "SELECT RIGHT(name, LEN(name) - 1) [name], type, is_nullable ^ 1 [isRequired], MaxLength " +
@@ -75,15 +83,15 @@ namespace DomainFacade.DataLayer.ConnectionService
             "where object_id = object_id('"+spName+"') " +
             "order by parameter_id";
         }
-        public virtual CommandType GetAvailableStoredProcCommandType()
+        public override CommandType GetAvailableStoredProcCommandType()
         {
             return CommandType.Text;
         }
-        public virtual bool CheckStoredProcAvailability()
+        public override bool CheckStoredProcAvailability()
         {
             return true;
         }
-        public abstract class Generic<C> : DbConnectionCore
+        public abstract class Generic<C> : DbConnectionConfig
             where C : DbConnection
         {
             public new C GetDbConnection()
@@ -91,11 +99,12 @@ namespace DomainFacade.DataLayer.ConnectionService
                 return GetDbConnectionCore<C>();
             }
         }
-        public abstract class SQL : Generic<SqlConnection> { }
-        public abstract class SQLite : Generic<SQLiteConnection> { }
-        public abstract class OleDb : Generic<OleDbConnection> { }
-        public abstract class Odbc : Generic<OdbcConnection> { }
-        public abstract class Oracle : Generic<OracleConnection> { }
+        
+        public abstract class SQL : Generic<SqlConnection>, ISQL { }
+        public abstract class SQLite : Generic<SQLiteConnection>, ISQLite { }
+        public abstract class OleDb : Generic<OleDbConnection>, IOleDb { }
+        public abstract class Odbc : Generic<OdbcConnection>, IOdbc { }
+        public abstract class Oracle : Generic<OracleConnection>, IOracle { }
 
     } 
 

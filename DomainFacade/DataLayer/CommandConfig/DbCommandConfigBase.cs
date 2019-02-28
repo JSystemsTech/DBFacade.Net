@@ -1,5 +1,7 @@
-﻿using DomainFacade.DataLayer.Models;
+﻿using DomainFacade.DataLayer.ConnectionService;
+using DomainFacade.DataLayer.Models;
 using System;
+using System.Data;
 using System.Data.Common;
 
 namespace DomainFacade.DataLayer.CommandConfig
@@ -47,8 +49,8 @@ namespace DomainFacade.DataLayer.CommandConfig
         }
         protected abstract void SetReturnValueCore<Cmd>(Cmd dbCommand, object value) where Cmd : DbCommand;
 
-        public Type GetDBConnectionType() { return GetDBConnectionTypeCore(); }
-        protected abstract Type GetDBConnectionTypeCore();
+        public DbConnectionConfigCore GetDBConnectionConfig() { return GetDBConnectionConfigCore(); }
+        protected abstract DbConnectionConfigCore GetDBConnectionConfigCore();
 
         public bool Validate(IDbParamsModel paramsModel) { return ValidateCore(paramsModel); }
         protected abstract bool ValidateCore(IDbParamsModel paramsModel);

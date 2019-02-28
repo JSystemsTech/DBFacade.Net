@@ -1,4 +1,5 @@
-﻿using DomainFacade.DataLayer.Models;
+﻿using DomainFacade.DataLayer.ConnectionService;
+using DomainFacade.DataLayer.Models;
 using System;
 using System.Data.Common;
 
@@ -14,7 +15,7 @@ namespace DomainFacade.DataLayer.CommandConfig
             where Cmd : DbCommand;
         void SetReturnValue<Cmd>(Cmd dbCommand, object value)
             where Cmd : DbCommand;
-        Type GetDBConnectionType();
+        DbConnectionConfigCore GetDBConnectionConfig();
         bool Validate(IDbParamsModel paramsModel);
         bool HasStoredProcedure();
         Con GetDbConnection<Con>()

@@ -10,15 +10,15 @@ using System.Linq;
 namespace DomainFacade.DataLayer.ConnectionService
 {
     
-    public sealed class DbConnectionService: InstanceResolver<DbConnectionCore>
+    public sealed class DbConnectionService: InstanceResolver<DbConnectionConfig>
     {        
         public static TConnection GetDbConnection<TConnection>()
-            where TConnection : DbConnectionCore
+            where TConnection : DbConnectionConfig
         {
             return GetInstance<TConnection>();
         }
         public static DbConnectionStoredProcedure[] GetAvailableStoredProcedured<TConnection>()
-            where TConnection : DbConnectionCore
+            where TConnection : DbConnectionConfig
         {
             TConnection Connection = GetDbConnection<TConnection>();
             if(Connection.AvailableStoredProcs == null)
@@ -29,7 +29,7 @@ namespace DomainFacade.DataLayer.ConnectionService
             return Connection.AvailableStoredProcs;
         }
         private abstract class DbConnectionMetaMethods<TConnection> : DbManifest
-            where TConnection : DbConnectionCore
+            where TConnection : DbConnectionConfig
         {            
             public  sealed  class GetAvailableStoredProcs: DbConnectionMetaMethods<TConnection>
             {
@@ -48,21 +48,13 @@ namespace DomainFacade.DataLayer.ConnectionService
             private class DbCommandConfigForDbConnection : DbCommandConfigBase, IDbCommandConfig
             {
                 public DbCommandConfigForDbConnection() { }
-                public TConnection GetDbConnection()
-                {
-                    return DbConnectionService.GetDbConnection<TConnection>();
-                }
                 protected override Con GetDbConnectionCore<Con>()
                 {
-                    return (Con)GetDbConnection().GetDbConnection();
+                    return (Con)GetDBConnectionConfigCore().GetDbConnection();
                 }
                 protected override bool HasStoredProcedureCore()
                 {
                     return true;
-                }
-                protected override Type GetDBConnectionTypeCore()
-                {
-                    return typeof(TConnection);
                 }
 
                 public bool HasReturnValue()
@@ -79,8 +71,8 @@ namespace DomainFacade.DataLayer.ConnectionService
                 protected override Cmd GetDbCommandCore<Con, Cmd, Prm>(IDbParamsModel dbMethodParams, Con dbConnection)
                 {
                     Cmd dbCommand = (Cmd)dbConnection.CreateCommand();
-                    dbCommand.CommandText = GetDbConnection().GetAvailableStoredProcCommandText();
-                    dbCommand.CommandType = GetDbConnection().GetAvailableStoredProcCommandType();
+                    dbCommand.CommandText = GetDBConnectionConfigCore().GetAvailableStoredProcCommandText();
+                    dbCommand.CommandType = GetDBConnectionConfigCore().GetAvailableStoredProcCommandType();
                     return dbCommand;
                 }
 
@@ -93,6 +85,11 @@ namespace DomainFacade.DataLayer.ConnectionService
                 {
                     return;
                 }
+
+                protected override DbConnectionConfigCore GetDBConnectionConfigCore()
+                {
+                    return DbConnectionService.GetDbConnection<TConnection>();
+                }
             }
             private sealed class DbCommandConfigForDbConnectionSPParams : DbCommandConfigForDbConnection
             {
@@ -100,8 +97,8 @@ namespace DomainFacade.DataLayer.ConnectionService
                 {
                     Cmd dbCommand = (Cmd)dbConnection.CreateCommand();
                     SimpleDbParamsModel<string> nameParams =(SimpleDbParamsModel<string>) dbMethodParams;
-                    dbCommand.CommandText = GetDbConnection().GetAvailableStoredProcAdditionalMetaCommandText(nameParams.Param1);
-                    dbCommand.CommandType = GetDbConnection().GetAvailableStoredProcCommandType();
+                    dbCommand.CommandText = GetDBConnectionConfigCore().GetAvailableStoredProcAdditionalMetaCommandText(nameParams.Param1);
+                    dbCommand.CommandType = GetDBConnectionConfigCore().GetAvailableStoredProcCommandType();
                     return dbCommand;
                 }
             }
@@ -127,7 +124,7 @@ namespace DomainFacade.DataLayer.ConnectionService
             public bool IsRequired { get; private set; }
         }
         private sealed class DbConnectionMetaDomainFacade<C> : DomainFacade<DbConnectionMetaMethods<C>>
-            where C : DbConnectionCore
+            where C : DbConnectionConfig
         {
             
             public DbConnectionStoredProcedure[] GetAvailableStoredPrcedures()

@@ -1,5 +1,6 @@
 ﻿using DomainFacade.DataLayer.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace DomainFacade.DataLayer.CommandConfig.Parameters
@@ -59,6 +60,8 @@ namespace DomainFacade.DataLayer.CommandConfig.Parameters
         public static DbCommandParameterConfig<TDbParams> Byte(Func<TDbParams, byte> returnFunction) { return new ByteParameterConfig(returnFunction); }
         public static DbCommandParameterConfig<TDbParams> SByte(Func<TDbParams, sbyte> returnFunction) { return new SByteParameterConfig(returnFunction); }
         public static DbCommandParameterConfig<TDbParams> String(Func<TDbParams, string> returnFunction) { return new StringParameterConfig(returnFunction); }
+        public static DbCommandParameterConfig<TDbParams> String(Func<TDbParams, IEnumerable<string>> returnFunction) { return new EnumerableStringParameterConfig(returnFunction); }
+        public static DbCommandParameterConfig<TDbParams> String(Func<TDbParams, IEnumerable<string>> returnFunction, string delimeter) { return new EnumerableStringParameterConfig(returnFunction, delimeter); }
         public static DbCommandParameterConfig<TDbParams> Int16(Func<TDbParams, short> returnFunction) { return new Int16ParameterConfig(returnFunction); }
         public static DbCommandParameterConfig<TDbParams> Int32(Func<TDbParams, int> returnFunction) { return new Int32ParameterConfig(returnFunction); }
         public static DbCommandParameterConfig<TDbParams> Int64(Func<TDbParams, long> returnFunction) { return new Int64ParameterConfig(returnFunction); }
@@ -74,11 +77,13 @@ namespace DomainFacade.DataLayer.CommandConfig.Parameters
         public static DbCommandParameterConfig<TDbParams> DateTime(Func<TDbParams, DateTime> returnFunction) { return new DateTimeParameterConfig(returnFunction); }
         public static DbCommandParameterConfig<TDbParams> DateTimeOffset(Func<TDbParams, DateTimeOffset> returnFunction) { return new DateTimeOffsetParameterConfig(returnFunction); }
         public static DbCommandParameterConfig<TDbParams> Binary(Func<TDbParams, byte[]> returnFunction) { return new BinaryParameterConfig(returnFunction); }
-
+        
         /*Hard value set*/
         public static DbCommandParameterConfig<TDbParams> Byte(byte value) { return new ByteParameterConfig(value); }
         public static DbCommandParameterConfig<TDbParams> SByte(sbyte value) { return new SByteParameterConfig(value); }
         public static DbCommandParameterConfig<TDbParams> String(string value) { return new StringParameterConfig(value); }
+        public static DbCommandParameterConfig<TDbParams> String(IEnumerable<string> value) { return new EnumerableStringParameterConfig(value); }
+        public static DbCommandParameterConfig<TDbParams> String(IEnumerable<string> value, string delimeter) { return new EnumerableStringParameterConfig(value, delimeter); }
         public static DbCommandParameterConfig<TDbParams> Int16(short value) { return new Int16ParameterConfig(value); }
         public static DbCommandParameterConfig<TDbParams> Int32(int value) { return new Int32ParameterConfig(value); }
         public static DbCommandParameterConfig<TDbParams> Int64(long value) { return new Int64ParameterConfig(value); }
@@ -94,7 +99,7 @@ namespace DomainFacade.DataLayer.CommandConfig.Parameters
         public static DbCommandParameterConfig<TDbParams> DateTime(DateTime value) { return new DateTimeParameterConfig(value); }
         public static DbCommandParameterConfig<TDbParams> DateTimeOffset(DateTimeOffset value) { return new DateTimeOffsetParameterConfig(value); }
         public static DbCommandParameterConfig<TDbParams> Binary(byte[] value) { return new BinaryParameterConfig(value); }
-
+        
 
 
         protected sealed class ByteParameterConfig : DbCommandParameterGenericConfig<byte>
@@ -186,6 +191,19 @@ namespace DomainFacade.DataLayer.CommandConfig.Parameters
         {
             public BinaryParameterConfig(Func<TDbParams, byte[]> returnFunction) : base(DbType.Binary, returnFunction) { }
             public BinaryParameterConfig(byte[] value) : base(DbType.Binary, value) { }
+        }
+        protected sealed class EnumerableStringParameterConfig : DbCommandParameterGenericConfig<IEnumerable<string>>
+        {
+            private string Delimeter = ",";
+            public EnumerableStringParameterConfig(Func<TDbParams, IEnumerable<string>> returnFunction) : base(DbType.String, returnFunction) { }
+            public EnumerableStringParameterConfig(IEnumerable<string> value) : base(DbType.String, value) { }
+            public EnumerableStringParameterConfig(Func<TDbParams, IEnumerable<string>> returnFunction, string delimeter) : base(DbType.String, returnFunction) { Delimeter = delimeter; }
+            public EnumerableStringParameterConfig(IEnumerable<string> value, string delimeter) : base(DbType.String, value) { Delimeter = delimeter; }
+            public override object GetParam(TDbParams model)
+            {
+                IEnumerable<string> value = ReturnFunction(model);
+                return value == null ? string.Empty : string.Join(Delimeter, value);
+            }
         }
 
         /*Optional params Functions*/

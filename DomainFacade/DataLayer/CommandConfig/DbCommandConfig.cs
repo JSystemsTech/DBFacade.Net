@@ -8,7 +8,7 @@ namespace DomainFacade.DataLayer.CommandConfig
 {
     internal  class DbCommandConfig<TDbParams, TConnection> : DbCommandConfigCore<TDbParams, TConnection>
         where TDbParams : IDbParamsModel 
-        where TConnection : DbConnectionCore
+        where TConnection : DbConnectionConfig
     {
         public DbCommandConfig(DbCommandText<TConnection> dbCommand) : base(dbCommand) { }
         public DbCommandConfig(DbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams) : base(dbCommand, dbParams) {  }

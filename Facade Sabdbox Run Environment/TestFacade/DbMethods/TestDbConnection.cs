@@ -2,7 +2,7 @@
 
 namespace DomainFacade.SampleDomainFacade.DbMethods
 {
-    public class TestDbConnection : DbConnectionCore
+    public class TestDbConnection : DbConnectionConfig.SQL
     {
         protected override string GetConnectionStringName()
         {

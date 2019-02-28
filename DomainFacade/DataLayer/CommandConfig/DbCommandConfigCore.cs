@@ -12,7 +12,7 @@ namespace DomainFacade.DataLayer.CommandConfig
 {
     internal abstract class DbCommandConfigCore<TDbParams, TConnection> : DbCommandConfigBase, IDbCommandConfig
         where TDbParams : IDbParamsModel
-        where TConnection : DbConnectionCore
+        where TConnection : DbConnectionConfig
     {
         public IDbCommandConfigParams<TDbParams> DbParams { get; private set; }
         private DbCommandConfigParams<TDbParams> DefaultConfigParams = new DbCommandConfigParams<TDbParams>() { };
@@ -83,17 +83,16 @@ namespace DomainFacade.DataLayer.CommandConfig
         }
         protected override bool HasStoredProcedureCore()
         {
-            TConnection Connection = DbConnectionService.GetDbConnection<TConnection>();
-            if (Connection.CheckStoredProcAvailability())
+            if (GetDBConnectionConfigCore().CheckStoredProcAvailability())
             {
                 string[] storedProcNames = DbConnectionService.GetAvailableStoredProcedured<TConnection>().Select(sproc => sproc.Name).ToArray();
                 return Array.IndexOf(storedProcNames, DbCommand.CommandText) != -1;
             }
             return true;
         }
-        protected override Type GetDBConnectionTypeCore()
+        protected override DbConnectionConfigCore GetDBConnectionConfigCore()
         {
-            return typeof(TConnection);
+            return DbConnectionService.GetDbConnection<TConnection>();
         }
         protected override Cmd GetDbCommandCore<Con, Cmd, Prm>(IDbParamsModel dbMethodParams, Con dbConnection)
         {

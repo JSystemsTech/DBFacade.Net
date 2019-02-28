@@ -75,7 +75,7 @@
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
     <Compile Include="DataLayer\CommandConfig\IDbCommandConfig.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParameterConfigBase.cs" />
-    <Compile Include="DataLayer\ConnectionService\DbConnection.cs" />
+    <Compile Include="DataLayer\ConnectionService\DbConnectionConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionHandler.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionService.cs" />
     <Compile Include="DataLayer\CommandConfig\DbCommandConfigBuilder.cs" />

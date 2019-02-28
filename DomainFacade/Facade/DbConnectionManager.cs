@@ -11,24 +11,25 @@ namespace DomainFacade.Facade
     {
         protected override IDbResponse<TDbDataModel> CallDbMethodCore<TDbDataModel, DbParams, DbMethod>(DbParams parameters)
         {
-            Type dbConnectionType = DbMethodsCache.GetInstance<DbMethod>().GetConfig().GetDBConnectionType().BaseType;
-            if (dbConnectionType == typeof(DbConnectionCore.SQL))
+            DbConnectionConfigCore connectionConfig = DbMethodsCache.GetInstance<DbMethod>().GetConfig().GetDBConnectionConfig();
+
+            if (connectionConfig is ISQL)
             {
                 return CallFacadeAPIDbMethod<DbConnectionHandler<TDbManifest>.SQL, TDbDataModel, DbParams, DbMethod>(parameters);
             }
-            if (dbConnectionType == typeof(DbConnectionCore.SQLite))
+            if (connectionConfig is ISQLite)
             {
                 return CallFacadeAPIDbMethod<DbConnectionHandler<TDbManifest>.SQLite, TDbDataModel, DbParams, DbMethod>(parameters);
             }
-            else if (dbConnectionType == typeof(DbConnectionCore.OleDb))
+            else if (connectionConfig is IOleDb)
             {
                 return CallFacadeAPIDbMethod<DbConnectionHandler<TDbManifest>.OleDb, TDbDataModel, DbParams, DbMethod>(parameters);
             }
-            else if (dbConnectionType == typeof(DbConnectionCore.Odbc))
+            else if (connectionConfig is IOdbc)
             {
                 return CallFacadeAPIDbMethod<DbConnectionHandler<TDbManifest>.Odbc, TDbDataModel, DbParams, DbMethod>(parameters);
             }
-            else if (dbConnectionType == typeof(DbConnectionCore.Oracle))
+            else if (connectionConfig is IOracle)
             {
                 return CallFacadeAPIDbMethod<DbConnectionHandler<TDbManifest>.Oracle, TDbDataModel, DbParams, DbMethod>(parameters);
             }
