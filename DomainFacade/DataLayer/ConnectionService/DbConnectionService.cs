@@ -2,6 +2,8 @@
 using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Attributes;
+using DomainFacade.DataLayer.Models.Validators;
+using DomainFacade.Exceptions;
 using DomainFacade.Facade;
 using DomainFacade.Utils;
 using System;
@@ -63,9 +65,9 @@ namespace DomainFacade.DataLayer.ConnectionService
                 }
 
 
-                protected override bool ValidateCore(IDbParamsModel paramsModel)
+                protected override IValidationResult ValidateCore(IDbParamsModel paramsModel)
                 {
-                    return true;
+                    return ValidationResult.PassingValidation();
                 }
 
                 protected override Cmd GetDbCommandCore<Con, Cmd, Prm>(IDbParamsModel dbMethodParams, Con dbConnection)
@@ -89,6 +91,16 @@ namespace DomainFacade.DataLayer.ConnectionService
                 protected override DbConnectionConfigCore GetDBConnectionConfigCore()
                 {
                     return DbConnectionService.GetDbConnection<TConnection>();
+                }
+
+                protected override MissingStoredProcedureException GetMissingStoredProcedureExceptionCore(string message)
+                {
+                    throw new MissingStoredProcedureException();
+                }
+
+                protected override SQLExecutionException GetSQLExecutionExceptionCore(string message, Exception e)
+                {
+                    throw new SQLExecutionException();
                 }
             }
             private sealed class DbCommandConfigForDbConnectionSPParams : DbCommandConfigForDbConnection

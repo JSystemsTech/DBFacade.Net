@@ -1,5 +1,7 @@
-﻿using DomainFacade.DataLayer.Manifest;
+﻿using DomainFacade.DataLayer.CommandConfig;
+using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models.Attributes;
+using DomainFacade.Exceptions;
 using DomainFacade.Utils;
 using Newtonsoft.Json;
 using System;
@@ -29,13 +31,21 @@ namespace DomainFacade.DataLayer.Models
 
         public static T ToDbDataModel<T, DbMethod>(IDataRecord data) where T : DbDataModel where DbMethod : IDbMethod
         {
-            if(GetConstructorInfo<DbMethod>(typeof(T)).Count > 0)
+            try
             {
-                return Create<T, DbMethod>(data);
+                if (GetConstructorInfo<DbMethod>(typeof(T)).Count > 0)
+                {
+                    return Create<T, DbMethod>(data);
+                }
+                T model = GenericInstance<T>.GetInstance();
+                model.InitializeData<DbMethod>(data);
+                return model;
             }
-            T model = GenericInstance<T>.GetInstance();
-            model.InitializeData<DbMethod>(data);
-            return model;
+            catch (Exception e)
+            {
+                throw new DataModelConstructionException("Failed to create data model", e);
+            }            
+            
         }
         public void InitializeData<DbMethod>(IDataRecord data) where DbMethod : IDbMethod
         {

@@ -1,5 +1,7 @@
 ﻿using DomainFacade.DataLayer.ConnectionService;
 using DomainFacade.DataLayer.Models;
+using DomainFacade.DataLayer.Models.Validators;
+using DomainFacade.Exceptions;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -52,7 +54,18 @@ namespace DomainFacade.DataLayer.CommandConfig
         public DbConnectionConfigCore GetDBConnectionConfig() { return GetDBConnectionConfigCore(); }
         protected abstract DbConnectionConfigCore GetDBConnectionConfigCore();
 
-        public bool Validate(IDbParamsModel paramsModel) { return ValidateCore(paramsModel); }
-        protected abstract bool ValidateCore(IDbParamsModel paramsModel);
+        public IValidationResult Validate(IDbParamsModel paramsModel) { return ValidateCore(paramsModel); }
+        protected abstract IValidationResult ValidateCore(IDbParamsModel paramsModel);
+
+        public MissingStoredProcedureException GetMissingStoredProcedureException(string message)
+        {
+            return GetMissingStoredProcedureExceptionCore(message);
+        }
+        protected abstract MissingStoredProcedureException GetMissingStoredProcedureExceptionCore(string message);
+        public SQLExecutionException GetSQLExecutionException(string message, Exception e)
+        {
+            return GetSQLExecutionExceptionCore(message, e);
+        }
+        protected abstract SQLExecutionException GetSQLExecutionExceptionCore(string message, Exception e);
     }
 }

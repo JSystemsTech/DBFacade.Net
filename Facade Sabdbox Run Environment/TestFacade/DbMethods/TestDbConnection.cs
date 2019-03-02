@@ -21,5 +21,6 @@ namespace DomainFacade.SampleDomainFacade.DbMethods
         public static DbCommandText<TestDbConnection> GetAllMoreData = new DbCommandText<TestDbConnection>("MORE_DATA_GET_ALL");
         public static DbCommandText<TestDbConnection> AddSimpleData = new DbCommandText<TestDbConnection>("SIMPLE_DATA_ADD");
         public static DbCommandText<TestDbConnection> AddMoreData = new DbCommandText<TestDbConnection>("MORE_DATA_ADD");
+        public static DbCommandText<TestDbConnection> MissingSproc2 = new DbCommandText<TestDbConnection>("SOME_MISSING_SPROC");
     }
 }

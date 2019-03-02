@@ -8,6 +8,10 @@ using Oracle.ManagedDataAccess.Client;
 using DomainFacade.Facade.Core;
 using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
+using DomainFacade.Exceptions;
+using DomainFacade.DataLayer.CommandConfig;
+using DomainFacade.DataLayer.Models.Validators;
+using System.Text;
 
 namespace DomainFacade.DataLayer.ConnectionService
 {
@@ -25,6 +29,10 @@ namespace DomainFacade.DataLayer.ConnectionService
             Con dbConnection = null;
             Cmd dbCommand = null;
             Trn transaction = null;
+            IDbCommandConfig config = DbMethodsCache.GetInstance<DbMethod>().GetConfig();
+            string paramsType = parameters.GetType().Name;
+            string MethodType = DbMethodsCache.GetInstance<DbMethod>().GetType().Name;
+            StringBuilder builder = new StringBuilder();
             try
             {
                 dbConnection = dbMethod.GetConfig().GetDbConnection<Con>();
@@ -32,7 +40,7 @@ namespace DomainFacade.DataLayer.ConnectionService
                 {
                     IDbFunctionalTestParamsModel TestParamsModel = (IDbFunctionalTestParamsModel)parameters;
                     dbCommand = dbMethod.GetConfig().GetDbCommand<Con, Cmd, Prm>(TestParamsModel.GetParamsModel(), dbConnection);
-                    Drd dbDataReader = (Drd)TestParamsModel.GetTestResponse();
+                    DbDataReader dbDataReader = (DbDataReader)TestParamsModel.GetTestResponse();
                     dbMethod.GetConfig().SetReturnValue(dbCommand, TestParamsModel.GetReturnValue());
                     return new DbResponse<DbMethod, TDbDataModel>(dbDataReader, dbMethod.GetConfig().GetReturnValue(dbCommand));
                 }
@@ -47,19 +55,45 @@ namespace DomainFacade.DataLayer.ConnectionService
                 {
                     transaction = (Trn)dbConnection.BeginTransaction();
                     dbCommand.Transaction = transaction;
-                    dbCommand.ExecuteNonQuery();
-                    transaction.Commit();
+                    try
+                    {
+                        dbCommand.ExecuteNonQuery();
+                        transaction.Commit();
+                    }
+                    catch(Exception e)
+                    {
+                        builder.AppendFormat("Failed to Execute Transaction for method {0}: ", MethodType);
+                        throw config.GetSQLExecutionException(builder.ToString(), e);
+                    }
+                    
                     IDbResponse<TDbDataModel> response = new DbResponse<DbMethod, TDbDataModel>(dbMethod.GetConfig().GetReturnValue(dbCommand));
                     Done(transaction, dbConnection);
                     return response;
                 }
                 else
                 {
-                    Drd dbDataReader = (Drd)dbCommand.ExecuteReader();
+                    Drd dbDataReader;
+                    try
+                    {
+                        dbDataReader = (Drd)dbCommand.ExecuteReader();
+                    }
+                    catch (Exception e)
+                    {
+                        builder.AppendFormat("Failed to Execute Reader for method {0}: ", MethodType);
+                        throw config.GetSQLExecutionException(builder.ToString(), e);
+                    }
                     IDbResponse<TDbDataModel> response = new DbResponse<DbMethod, TDbDataModel>(dbDataReader, dbMethod.GetConfig().GetReturnValue(dbCommand));
                     Done(dbDataReader, dbConnection);
                     return response;
                 }
+            }
+            catch (DataModelConstructionException e)
+            {
+                throw e;
+            }
+            catch (SQLExecutionException e)
+            {
+                throw e;
             }
             catch (Exception e)
             {
@@ -72,7 +106,7 @@ namespace DomainFacade.DataLayer.ConnectionService
                 {
                     Done(dbConnection);
                 }
-                throw e;
+                throw new FacadeException("An Unknown Error Occured",e);
             }
         }
         private void Dispose(IDisposable disposableItem)

@@ -91,6 +91,7 @@ namespace DomainFacade.DataLayer.ConnectionService
         {
             return true;
         }
+        
         public abstract class Generic<C> : DbConnectionConfig
             where C : DbConnection
         {

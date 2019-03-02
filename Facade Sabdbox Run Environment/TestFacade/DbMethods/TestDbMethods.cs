@@ -57,7 +57,14 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
                 return DbCommandConfigBuilder.GetFetchConfig(TestDbConnection.GetAllMoreData);
             }
         }
-        
+        public sealed class MissingSproc : TestDbMethods
+        {
+            protected override IDbCommandConfig GetConfigCore()
+            {
+                return DbCommandConfigBuilder.GetTransactionConfig(TestDbConnection.MissingSproc2);
+            }
+        }
+
         public sealed class AddSimple : DbMethod<SimpleDbParamsModel<int, string>>
         {
             internal override Tools.Validator GetValidator()

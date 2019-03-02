@@ -1,4 +1,5 @@
 ﻿using DomainFacade.DataLayer.Manifest;
+using DomainFacade.Exceptions;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
@@ -33,6 +34,11 @@ namespace DomainFacade.DataLayer.Models
                 ReturnVal = returnValue;
             }
         }
+        public DbResponse(FacadeException e)
+        {
+            Error = e;
+        }
+        private FacadeException Error { get; set; }
         public object ReturnValue()
         {
             return ReturnVal;
@@ -48,6 +54,16 @@ namespace DomainFacade.DataLayer.Models
                 return default(TDbDataModel);
             }
             return this.First();
+        }
+
+        public bool HasError()
+        {
+            return Error != null;
+        }
+
+        public FacadeException GetException()
+        {
+            return Error;
         }
     }
 }

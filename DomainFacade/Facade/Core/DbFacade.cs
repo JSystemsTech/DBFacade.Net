@@ -1,5 +1,6 @@
 ﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
+using DomainFacade.Exceptions;
 using DomainFacade.Utils;
 using System.Data;
 
@@ -13,7 +14,12 @@ namespace DomainFacade.Facade.Core
             where TDbDataModel : DbDataModel
             where DbMethod : TDbManifest
         {
-            return CallDbMethod<TDbDataModel, DbParamsModel, DbMethod>(DEFAULT_PARAMETERS);
+            IDbResponse <TDbDataModel> response = CallDbMethod<TDbDataModel, DbParamsModel, DbMethod>(DEFAULT_PARAMETERS);
+            if (response.HasError())
+            {
+                OnError(response);
+            }
+            return response;
         }
 
         private  IDbResponse<TDbDataModel> CallDbMethod<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
@@ -21,14 +27,28 @@ namespace DomainFacade.Facade.Core
             where TDbParams : IDbParamsModel
             where DbMethod : TDbManifest
         {
-            return CallDbMethodCore<TDbDataModel, TDbParams, DbMethod>(parameters);
+            IDbResponse<TDbDataModel> response = CallDbMethodCore<TDbDataModel, TDbParams, DbMethod>(parameters);
+            if (response.HasError())
+            {
+                OnError(response);
+            }
+            return response;
         }
 
         protected override sealed IDbResponse<TDbDataModel> CallFacadeAPIDbMethod<TDbFacade, TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
         {
-            OnBeforeForward<TDbParams, DbMethod>(parameters);
+            try
+            {
+                OnBeforeForward<TDbParams, DbMethod>(parameters);
+            }
+            catch(FacadeException e)
+            {
+                return new DbResponse<DbMethod, TDbDataModel>(e);
+            }         
+
             return DbFacadeCache.GetInstance<TDbFacade>().CallDbMethod<TDbDataModel, TDbParams, DbMethod>(parameters);
         }
+        protected virtual void OnError(IDbResponse response) { }
         protected virtual void OnBeforeForward<TDbParams, DbMethod>(TDbParams parameters)
         where TDbParams : IDbParamsModel
         where DbMethod : TDbManifest

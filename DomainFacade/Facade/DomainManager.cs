@@ -1,5 +1,8 @@
-﻿using DomainFacade.DataLayer.Manifest;
+﻿using DomainFacade.DataLayer.CommandConfig;
+using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
+using DomainFacade.DataLayer.Models.Validators;
+using DomainFacade.Exceptions;
 using DomainFacade.Facade.Core;
 using System;
 using System.Text;
@@ -20,20 +23,22 @@ namespace DomainFacade.Facade
     {
         protected override void OnBeforeForward<DbParams, DbMethod>(DbParams parameters)
         {
-            if (!DbMethodsCache.GetInstance<DbMethod>().GetConfig().HasStoredProcedure())
+            IDbCommandConfig config = DbMethodsCache.GetInstance<DbMethod>().GetConfig();
+            IValidationResult validationResult = config.Validate(parameters);
+            string paramsType = parameters.GetType().Name;
+            string MethodType = DbMethodsCache.GetInstance<DbMethod>().GetType().Name;
+            StringBuilder builder = new StringBuilder();
+            if (!config.HasStoredProcedure())
             {
-                throw new Exception("");
+                builder.AppendFormat("Invalid stored procedure for method {0}: ", MethodType);
+                throw config.GetMissingStoredProcedureException(builder.ToString());
             }
-            else if (!DbMethodsCache.GetInstance<DbMethod>().GetConfig().Validate(parameters))
+            else if (!validationResult.IsValid())
             {
-                string paramsType = parameters.GetType().Name;
-                string MethodType = DbMethodsCache.GetInstance<DbMethod>().GetType().Name;
-                StringBuilder builder = new StringBuilder();
                 builder.AppendFormat("{0} values failed to pass validation for method {1}",
                 paramsType,
                 MethodType);
-
-                throw new Exception(builder.ToString());
+                throw new ValidationException<DbParams>(validationResult, parameters, builder.ToString());
             }
         }
     }

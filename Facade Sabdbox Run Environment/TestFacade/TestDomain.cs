@@ -32,5 +32,13 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
         { 
             Transaction<SimpleDbParamsModel<int, string>, TestDbMethods.AddSimple>(new SimpleDbParamsModel<int, string>(count, comment));
         }
+        public void CallMissingSproc()
+        {
+            Transaction<TestDbMethods.MissingSproc>();
+        }
+        protected override void OnError(IDbResponse response)
+        {
+            throw response.GetException();
+        }
     }
 }

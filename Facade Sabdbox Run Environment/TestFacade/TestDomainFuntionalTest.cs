@@ -61,5 +61,9 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
         {
             throw new NotImplementedException();
         }
+        public void CallMissingSproc()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

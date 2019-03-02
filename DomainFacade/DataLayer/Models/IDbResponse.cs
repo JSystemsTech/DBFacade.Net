@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using DomainFacade.Exceptions;
+using System.Collections.Generic;
 
 namespace DomainFacade.DataLayer.Models
 {
     public interface IDbResponse {
         object ReturnValue();
+        bool HasError();
+        FacadeException GetException();
     }
     
     public interface IDbResponse<TDbDataModel> :IDbResponse
@@ -11,5 +14,6 @@ namespace DomainFacade.DataLayer.Models
     {
         IEnumerable<TDbDataModel> Results();
         TDbDataModel Result();
+        
     }    
 }

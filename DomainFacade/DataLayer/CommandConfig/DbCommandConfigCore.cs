@@ -2,6 +2,7 @@
 using DomainFacade.DataLayer.ConnectionService;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Validators;
+using DomainFacade.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -90,6 +91,14 @@ namespace DomainFacade.DataLayer.CommandConfig
             }
             return true;
         }
+        protected override MissingStoredProcedureException GetMissingStoredProcedureExceptionCore(string message)
+        {
+            return new MissingStoredProcedureException(message + DbCommand.CommandText);
+        }
+        protected override SQLExecutionException GetSQLExecutionExceptionCore(string message, Exception e)
+        {
+            return new SQLExecutionException(message + DbCommand.CommandText, e);
+        }
         protected override DbConnectionConfigCore GetDBConnectionConfigCore()
         {
             return DbConnectionService.GetDbConnection<TConnection>();
@@ -154,13 +163,13 @@ namespace DomainFacade.DataLayer.CommandConfig
             return dbCommand;
         }
 
-        protected override bool ValidateCore(IDbParamsModel paramsModel)
+        protected override IValidationResult ValidateCore(IDbParamsModel paramsModel)
         {
             if (DbParams != null && DbParams.ParamsCount() > 0)
             {
                 return ParamsValidator.Validate((TDbParams)paramsModel);
             }
-            return true;
+            return ValidationResult.PassingValidation();
         }
 
         private Validator<TDbParams> ParamsValidator { get; set; }

@@ -11,5 +11,6 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
         IEnumerable<MoreDbDataModel> GetAllMore();
         IEnumerable<TestSharedDbDataModel> GetAllSimpleShared();
         void AddSimpleRecord(int count, string comment);
+        void CallMissingSproc();
     }
 }
