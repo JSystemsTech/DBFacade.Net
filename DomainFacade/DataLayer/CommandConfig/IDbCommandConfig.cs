@@ -17,7 +17,7 @@ namespace DomainFacade.DataLayer.CommandConfig
             where Cmd : DbCommand;
         void SetReturnValue<Cmd>(Cmd dbCommand, object value)
             where Cmd : DbCommand;
-        DbConnectionConfigCore GetDBConnectionConfig();
+        IDbConnectionConfig GetDBConnectionConfig();
         IValidationResult Validate(IDbParamsModel paramsModel);
         bool HasStoredProcedure();
         Con GetDbConnection<Con>()

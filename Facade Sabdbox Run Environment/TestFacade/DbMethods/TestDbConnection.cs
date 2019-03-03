@@ -2,7 +2,7 @@
 
 namespace DomainFacade.SampleDomainFacade.DbMethods
 {
-    public class TestDbConnection : DbConnectionConfig.SQL
+    public class TestDbConnection : DbConnectionConfig<TestDbConnection>.SQL
     {
         protected override string GetConnectionStringName()
         {
@@ -17,10 +17,11 @@ namespace DomainFacade.SampleDomainFacade.DbMethods
         {
             return string.Empty;
         }
-        public static DbCommandText<TestDbConnection> GetAllSimpleData = new DbCommandText<TestDbConnection>("SIMPLE_DATA_GET_ALL");
-        public static DbCommandText<TestDbConnection> GetAllMoreData = new DbCommandText<TestDbConnection>("MORE_DATA_GET_ALL");
-        public static DbCommandText<TestDbConnection> AddSimpleData = new DbCommandText<TestDbConnection>("SIMPLE_DATA_ADD");
-        public static DbCommandText<TestDbConnection> AddMoreData = new DbCommandText<TestDbConnection>("MORE_DATA_ADD");
-        public static DbCommandText<TestDbConnection> MissingSproc2 = new DbCommandText<TestDbConnection>("SOME_MISSING_SPROC");
+        
+        public static IDbCommandText GetAllSimpleData = CreateCommandText("SIMPLE_DATA_GET_ALL", "Get simple Data");
+        public static IDbCommandText GetAllMoreData = CreateCommandText("MORE_DATA_GET_ALL", "Get more Data");
+        public static IDbCommandText AddSimpleData = CreateCommandText("SIMPLE_DATA_ADD", "Add simple Data");
+        public static IDbCommandText AddMoreData = CreateCommandText("MORE_DATA_ADD", "Add more Data");
+        public static IDbCommandText MissingSproc2 = CreateCommandText("SOME_MISSING_SPROC", "Some Missing Sproc");
     }
 }

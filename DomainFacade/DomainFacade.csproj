@@ -75,10 +75,14 @@
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
     <Compile Include="DataLayer\CommandConfig\IDbCommandConfig.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParameterConfigBase.cs" />
+    <Compile Include="DataLayer\ConnectionService\IDbConnectionConfig.cs" />
+    <Compile Include="DataLayer\ConnectionService\DbConnectionConfigBase.cs" />
+    <Compile Include="DataLayer\ConnectionService\DbConnectionConfigCore.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionHandler.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionService.cs" />
     <Compile Include="DataLayer\CommandConfig\DbCommandConfigBuilder.cs" />
+    <Compile Include="DataLayer\ConnectionService\SQL\QueryLoader.cs" />
     <Compile Include="DataLayer\Manifest\DbMethodUtils.cs" />
     <Compile Include="DataLayer\Manifest\IDbMethod.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbBufferedColumn.cs" />
@@ -128,6 +132,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="DataLayer\ConnectionService\SQL\SprocMetaQuery.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

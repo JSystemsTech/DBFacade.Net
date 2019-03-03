@@ -10,7 +10,6 @@ using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.Exceptions;
 using DomainFacade.DataLayer.CommandConfig;
-using DomainFacade.DataLayer.Models.Validators;
 using System.Text;
 
 namespace DomainFacade.DataLayer.ConnectionService

@@ -2,11 +2,10 @@
 using DomainFacade.DataLayer.Models;
 using DomainFacade.Exceptions;
 using DomainFacade.Utils;
-using System.Data;
 
 namespace DomainFacade.Facade.Core
 {
-    
+
     public abstract partial class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
     {        
         internal DbParamsModel DEFAULT_PARAMETERS = new DbParamsModel();

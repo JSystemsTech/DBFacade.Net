@@ -1,16 +1,33 @@
 ﻿namespace DomainFacade.DataLayer.ConnectionService
 {
-    public abstract class DbCommandTextCore
+
+    internal abstract class DbCommandText: IDbCommandTextBase
     {
-        public string CommandText { get; private set; }
-        public DbCommandTextCore(string commandText)
+        private string CommandTextValue { get; set; }
+        private string LabelValue { get; set; }
+        public DbCommandText(string commandText, string label)
         {
-            CommandText = commandText;
+            CommandTextValue = commandText;
+            LabelValue = label;
+        }
+        public string CommandText()
+        {
+            return CommandTextValue;
+        }
+
+        public string Label()
+        {
+            return LabelValue;
         }
     }
-    public  class DbCommandText<TConnection> : DbCommandTextCore where TConnection : DbConnectionConfig
+    public interface IDbCommandTextBase
     {
-        public DbCommandText(string commandText) : base(commandText) { }
-
+        string CommandText();
+        string Label();
+    }
+    public interface IDbCommandText<TConnection> : IDbCommandTextBase where TConnection : IDbConnectionConfig { }
+    internal class DbCommandText<TConnection> : DbCommandText, IDbCommandText<TConnection> where TConnection : IDbConnectionConfig
+    {
+        public DbCommandText(string commandText, string label) : base(commandText, label) { }
     }
 }

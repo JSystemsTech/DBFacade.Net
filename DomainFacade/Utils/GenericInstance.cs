@@ -6,7 +6,15 @@ namespace DomainFacade.Utils
     {
         public static T GetInstance()
         {
-            return (T)Activator.CreateInstance(typeof(T));
+            try
+            {
+                return (T)Activator.CreateInstance(typeof(T));
+            }catch(Exception e)
+            {
+                Console.WriteLine(typeof(T));
+                throw e;
+            }
+            
         }
         public static T GetInstance(params object[] paramsArray)
         {

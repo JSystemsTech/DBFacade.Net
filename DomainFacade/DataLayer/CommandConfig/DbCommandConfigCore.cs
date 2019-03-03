@@ -13,64 +13,64 @@ namespace DomainFacade.DataLayer.CommandConfig
 {
     internal abstract class DbCommandConfigCore<TDbParams, TConnection> : DbCommandConfigBase, IDbCommandConfig
         where TDbParams : IDbParamsModel
-        where TConnection : DbConnectionConfig
+        where TConnection : IDbConnectionConfig
     {
         public IDbCommandConfigParams<TDbParams> DbParams { get; private set; }
         private DbCommandConfigParams<TDbParams> DefaultConfigParams = new DbCommandConfigParams<TDbParams>() { };
-        public DbCommandText<TConnection> DbCommand { get; private set; }
+        public IDbCommandText<TConnection> DbCommand { get; private set; }
         public string ReturnValue { get; private set; }
         private CommandType DbCommandType { get; set; }
 
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, CommandType dbCommandType)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, CommandType dbCommandType)
         {
             Init(dbCommand, dbCommandType, DefaultConfigParams, null, ParamsValidatorEmpty);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams)
         {
             Init(dbCommand, dbCommandType, dbParams, null, ParamsValidatorEmpty);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
         {
             Init(dbCommand, dbCommandType, dbParams, null, validator);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand)
         {
             Init(dbCommand, CommandType.StoredProcedure, DefaultConfigParams, null, ParamsValidatorEmpty);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams)
         {
             Init(dbCommand, CommandType.StoredProcedure, dbParams, null, ParamsValidatorEmpty);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
         {
             Init(dbCommand, CommandType.StoredProcedure, dbParams, null, validator);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, string returnValue)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, CommandType dbCommandType, string returnValue)
         {
             Init(dbCommand, dbCommandType, DefaultConfigParams, returnValue, ParamsValidatorEmpty);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, string returnValue)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, string returnValue)
         {
             Init(dbCommand, dbCommandType, dbParams, returnValue, ParamsValidatorEmpty);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, string returnValue, Validator<TDbParams> validator)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, string returnValue, Validator<TDbParams> validator)
         {
             Init(dbCommand, dbCommandType, dbParams, returnValue, validator);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, string returnValue)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, string returnValue)
         {
             Init(dbCommand, CommandType.StoredProcedure, DefaultConfigParams, returnValue, ParamsValidatorEmpty);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams, string returnValue)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams, string returnValue)
         {
             Init(dbCommand, CommandType.StoredProcedure, dbParams, returnValue, ParamsValidatorEmpty);
         }
-        public DbCommandConfigCore(DbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams, string returnValue, Validator<TDbParams> validator)
+        public DbCommandConfigCore(IDbCommandText<TConnection> dbCommand, IDbCommandConfigParams<TDbParams> dbParams, string returnValue, Validator<TDbParams> validator)
         {
             Init(dbCommand, CommandType.StoredProcedure, dbParams, returnValue, validator);
         }
 
-        private void Init(DbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, string returnValue, Validator<TDbParams> validator)
+        private void Init(IDbCommandText<TConnection> dbCommand, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, string returnValue, Validator<TDbParams> validator)
         {
             ReturnValue = returnValue;
             DbCommand = dbCommand;
@@ -87,19 +87,19 @@ namespace DomainFacade.DataLayer.CommandConfig
             if (GetDBConnectionConfigCore().CheckStoredProcAvailability())
             {
                 string[] storedProcNames = DbConnectionService.GetAvailableStoredProcedured<TConnection>().Select(sproc => sproc.Name).ToArray();
-                return Array.IndexOf(storedProcNames, DbCommand.CommandText) != -1;
+                return Array.IndexOf(storedProcNames, DbCommand.CommandText()) != -1;
             }
             return true;
         }
         protected override MissingStoredProcedureException GetMissingStoredProcedureExceptionCore(string message)
         {
-            return new MissingStoredProcedureException(message + DbCommand.CommandText);
+            return new MissingStoredProcedureException(message + DbCommand.Label());
         }
         protected override SQLExecutionException GetSQLExecutionExceptionCore(string message, Exception e)
         {
-            return new SQLExecutionException(message + DbCommand.CommandText, e);
+            return new SQLExecutionException(message + DbCommand.Label(), e);
         }
-        protected override DbConnectionConfigCore GetDBConnectionConfigCore()
+        protected override IDbConnectionConfig GetDBConnectionConfigCore()
         {
             return DbConnectionService.GetDbConnection<TConnection>();
         }
@@ -107,7 +107,7 @@ namespace DomainFacade.DataLayer.CommandConfig
         {
             Cmd dbCommand = (Cmd)dbConnection.CreateCommand();
             dbCommand = AddParams<Cmd, Prm>(dbCommand, (TDbParams)dbMethodParams);
-            dbCommand.CommandText = DbCommand.CommandText;
+            dbCommand.CommandText = DbCommand.CommandText();
             dbCommand.CommandType = DbCommandType;
             return dbCommand;
         }

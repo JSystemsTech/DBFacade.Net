@@ -3,7 +3,6 @@ using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Validators;
 using DomainFacade.Exceptions;
 using System;
-using System.Data;
 using System.Data.Common;
 
 namespace DomainFacade.DataLayer.CommandConfig
@@ -51,8 +50,8 @@ namespace DomainFacade.DataLayer.CommandConfig
         }
         protected abstract void SetReturnValueCore<Cmd>(Cmd dbCommand, object value) where Cmd : DbCommand;
 
-        public DbConnectionConfigCore GetDBConnectionConfig() { return GetDBConnectionConfigCore(); }
-        protected abstract DbConnectionConfigCore GetDBConnectionConfigCore();
+        public IDbConnectionConfig GetDBConnectionConfig() { return GetDBConnectionConfigCore(); }
+        protected abstract IDbConnectionConfig GetDBConnectionConfigCore();
 
         public IValidationResult Validate(IDbParamsModel paramsModel) { return ValidateCore(paramsModel); }
         protected abstract IValidationResult ValidateCore(IDbParamsModel paramsModel);

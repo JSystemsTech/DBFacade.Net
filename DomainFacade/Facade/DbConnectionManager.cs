@@ -2,16 +2,15 @@
 using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.Facade.Core;
-using System;
 
 namespace DomainFacade.Facade
 {
-   internal sealed class DbConnectionManager<TDbManifest> : DbFacade<TDbManifest>
+    internal sealed class DbConnectionManager<TDbManifest> : DbFacade<TDbManifest>
     where TDbManifest : DbManifest
     {
         protected override IDbResponse<TDbDataModel> CallDbMethodCore<TDbDataModel, DbParams, DbMethod>(DbParams parameters)
         {
-            DbConnectionConfigCore connectionConfig = DbMethodsCache.GetInstance<DbMethod>().GetConfig().GetDBConnectionConfig();
+            IDbConnectionConfig connectionConfig = DbMethodsCache.GetInstance<DbMethod>().GetConfig().GetDBConnectionConfig();
 
             if (connectionConfig is ISQL)
             {

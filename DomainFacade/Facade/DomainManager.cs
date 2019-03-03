@@ -4,7 +4,6 @@ using DomainFacade.DataLayer.Models;
 using DomainFacade.DataLayer.Models.Validators;
 using DomainFacade.Exceptions;
 using DomainFacade.Facade.Core;
-using System;
 using System.Text;
 
 namespace DomainFacade.Facade

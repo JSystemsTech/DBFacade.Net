@@ -1,7 +1,6 @@
 ﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models;
 using DomainFacade.Facade.Core;
-using System.Data;
 
 namespace DomainFacade.Facade
 {

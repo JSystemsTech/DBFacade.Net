@@ -1,5 +1,4 @@
-﻿using DomainFacade.DataLayer.CommandConfig;
-using DomainFacade.DataLayer.Manifest;
+﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.DataLayer.Models.Attributes;
 using DomainFacade.Exceptions;
 using DomainFacade.Utils;
