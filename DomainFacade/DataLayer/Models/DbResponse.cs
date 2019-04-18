@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace DomainFacade.DataLayer.Models
 {
@@ -39,10 +40,13 @@ namespace DomainFacade.DataLayer.Models
         {
             Error = e;
         }
-        public string ToJSON()
+        public string ToJson()
         {
-            string json = JsonConvert.SerializeObject((IEnumerable<TDbDataModel>)this);
-            return json;
+            return JsonConvert.SerializeObject(this);
+        }
+        public JsonResult ToJsonResult()
+        {
+            return new JsonResult { Data = this, MaxJsonLength = int.MaxValue, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         private FacadeException Error { get; set; }
         public object ReturnValue()
@@ -71,5 +75,7 @@ namespace DomainFacade.DataLayer.Models
         {
             return Error;
         }
+
+        
     }
 }

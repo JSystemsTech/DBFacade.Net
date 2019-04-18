@@ -1,5 +1,6 @@
 ﻿using DomainFacade.Exceptions;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace DomainFacade.DataLayer.Models
 {
@@ -13,8 +14,10 @@ namespace DomainFacade.DataLayer.Models
          where TDbDataModel : DbDataModel
     {
         IEnumerable<TDbDataModel> Results();
-        string ToJSON();
+        string ToJson();
+        JsonResult ToJsonResult();
         TDbDataModel Result();
         
-    }    
+    }
+    
 }
