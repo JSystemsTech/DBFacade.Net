@@ -11,11 +11,12 @@ namespace Facade_Sabdbox_Run_Environment
 
         static void Main(string[] args)
         {
-            ServiceConfig.DomainFacade.CallMissingSproc();
+            //ServiceConfig.DomainFacade.CallMissingSproc();
             //IEnumerable<TestDbDataModel> UnitTestData = ServiceConfig.UnitTestFacade.GetAllSimple();
             //ServiceConfig.DomainFacade.AddSimpleRecord(55, null);
             //Console.WriteLine(GetName(typeof(ServiceConfigChild)));
             IEnumerable<TestDbDataModel> test = ServiceConfig.DomainFacade.GetAllSimple();
+            IDbResponse<TestDbDataModel> testResponse = ServiceConfig.DomainFacade.GetAllSimpleResponse();
             IEnumerable<TestConstructorModel> testCon = ServiceConfig.DomainFacade.GetAllSimple2();
             IEnumerable<MoreDbDataModel> test2 = ServiceConfig.DomainFacade.GetAllMore();
             TestDbDataModel first = test.First();

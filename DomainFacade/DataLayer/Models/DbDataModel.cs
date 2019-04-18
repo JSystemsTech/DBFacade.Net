@@ -16,6 +16,7 @@ namespace DomainFacade.DataLayer.Models
         void InitializeData<DbMethod>(IDataRecord data) where DbMethod : IDbMethod;
         string ToJSON();
     }
+    [JsonObject]
     public abstract class DbDataModel: IDbDataModel
     {
         public DbDataModel() { }

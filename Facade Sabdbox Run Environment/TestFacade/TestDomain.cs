@@ -8,6 +8,10 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
 {
     public sealed partial class TestDomain: DomainFacade<TestManager, TestDbMethods>,ITestDomain
     {
+        public IDbResponse<TestDbDataModel> GetAllSimpleResponse()
+        {
+            return Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>();
+        }
         public IEnumerable<TestDbDataModel> GetAllSimple()
         {
             return Fetch<TestDbDataModel, TestDbMethods.GetAllSimple>().Results();

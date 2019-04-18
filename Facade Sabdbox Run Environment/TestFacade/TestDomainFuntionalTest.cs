@@ -1,4 +1,5 @@
-﻿using DomainFacade.Facade;
+﻿using DomainFacade.DataLayer.Models;
+using DomainFacade.Facade;
 using DomainFacade.Utils;
 using Facade_Sabdbox_Run_Environment.TestFacade.DbMethods;
 using Facade_Sabdbox_Run_Environment.TestFacade.Models;
@@ -27,15 +28,19 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade
                 this.comment = comment;
             }
         }
-        public IEnumerable<TestDbDataModel> GetAllSimple()
+        public IDbResponse<TestDbDataModel> GetAllSimpleResponse()
         {
             MockDbModel data1 = new MockDbModel(1, Guid.NewGuid(), DateTime.Now, 23, "Testing comment");
             MockDbModel data2 = new MockDbModel(2, Guid.NewGuid(), DateTime.Now, 54, null);
             MockDbModel data3 = new MockDbModel(3, Guid.NewGuid(), DateTime.Now, 123, "other comment");
             MockDbTable<MockDbModel> data = new MockDbTable<MockDbModel>(new List<MockDbModel> { data1, data2, data3 });
             IDataReader reader = data.ToDataReader();
-            
-            return MockFetch<TestDbDataModel, TestDbMethods.GetAllSimple>(reader).Results();
+
+            return MockFetch<TestDbDataModel, TestDbMethods.GetAllSimple>(reader);
+        }
+        public IEnumerable<TestDbDataModel> GetAllSimple()
+        {
+            return GetAllSimpleResponse().Results();
         }
         public IEnumerable<TestConstructorModel> GetAllSimple2()
         {

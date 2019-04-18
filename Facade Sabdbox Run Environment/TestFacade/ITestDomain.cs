@@ -1,10 +1,12 @@
-﻿using Facade_Sabdbox_Run_Environment.TestFacade.Models;
+﻿using DomainFacade.DataLayer.Models;
+using Facade_Sabdbox_Run_Environment.TestFacade.Models;
 using System.Collections.Generic;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade
 {
     public interface ITestDomain
     {
+        IDbResponse<TestDbDataModel> GetAllSimpleResponse();
         IEnumerable<TestDbDataModel> GetAllSimple();
         IEnumerable<TestConstructorModel> GetAllSimple2();
         IEnumerable<TestSharedDbDataModel> GetAllMoreShared();

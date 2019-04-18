@@ -8,13 +8,13 @@ using System.Linq.Expressions;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
 {
-    public abstract class CustomRule<DbParams>: DbMethodUtils<DbParams>.Rule where DbParams : IDbParamsModel
+    public abstract class ExtendedRules<DbParams>: DbMethodUtils<DbParams>.Rule where DbParams : IDbParamsModel
     {
         public static int test = 6;
-        public CustomRule(Selector<DbParams> selector) : base(selector) { }
-        public CustomRule(Selector<DbParams> selector, bool isNullable) : base(selector, isNullable) { }
+        public ExtendedRules(Selector<DbParams> selector) : base(selector) { }
+        public ExtendedRules(Selector<DbParams> selector, bool isNullable) : base(selector, isNullable) { }
 
-        public class CustomTestRule : CustomRule<DbParams>
+        public class CustomTestRule : ExtendedRules<DbParams>
         {
             public CustomTestRule(Selector<DbParams> selector) : base(selector) { }
             protected override string GetErrorMessageCore(string propertyName)
@@ -30,15 +30,15 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
     }
     public abstract partial class TestDbMethods : DbManifest
     {
-        public abstract class DbMethod<T> : TestDbMethods where T : IDbParamsModel
+        public abstract class DbMethod<DbParams> : TestDbMethods where DbParams : IDbParamsModel
         {
-            internal class Tools : DbMethodUtils<T> { }
-            internal abstract class CustomRules : CustomRule<T> {
-                public CustomRules(Selector<T> selector) : base(selector) { }
-                public CustomRules(Selector<T> selector, bool isNullable) : base(selector, isNullable) { }
+            internal class Tools : DbMethodUtils<DbParams> { }
+            internal abstract class Rules : ExtendedRules<DbParams> {
+                public Rules(Selector<DbParams> selector) : base(selector) { }
+                public Rules(Selector<DbParams> selector, bool isNullable) : base(selector, isNullable) { }
             }
             internal virtual Tools.Validator GetValidator() { return default(Tools.Validator); }
-            internal static Selector<T> Selector(Expression<Func<T, object>> selectorExpression) {
+            internal static Selector<DbParams> Selector(Expression<Func<DbParams, object>> selectorExpression) {
                 return Tools.Selector(selectorExpression);
             }
         }
@@ -70,10 +70,10 @@ namespace Facade_Sabdbox_Run_Environment.TestFacade.DbMethods
             internal override Tools.Validator GetValidator()
             {
                 Tools.Validator validator = new Tools.Validator(){
-                        new Tools.Rule.Required(Selector(model => model.Param1)),
-                        new Tools.Rule.GreaterThanOrEqual(Selector(model => model.Param1), 123),
-                        new Tools.Rule.MinLength(Selector(model => model.Param2), true, 10),
-                        new CustomRules.CustomTestRule(Selector(model => model.Param2))
+                        new Rules.Required(Selector(model => model.Param1)),
+                        new Rules.GreaterThanOrEqual(Selector(model => model.Param1), 123),
+                        new Rules.MinLength(Selector(model => model.Param2), true, 10),
+                        new Rules.CustomTestRule(Selector(model => model.Param2))
                     };                
                 return validator;
             }

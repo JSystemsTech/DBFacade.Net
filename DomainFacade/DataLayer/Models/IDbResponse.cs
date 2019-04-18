@@ -13,6 +13,7 @@ namespace DomainFacade.DataLayer.Models
          where TDbDataModel : DbDataModel
     {
         IEnumerable<TDbDataModel> Results();
+        string ToJSON();
         TDbDataModel Result();
         
     }    

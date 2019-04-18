@@ -1,5 +1,6 @@
 ﻿using DomainFacade.DataLayer.Manifest;
 using DomainFacade.Exceptions;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
@@ -37,6 +38,11 @@ namespace DomainFacade.DataLayer.Models
         public DbResponse(FacadeException e)
         {
             Error = e;
+        }
+        public string ToJSON()
+        {
+            string json = JsonConvert.SerializeObject((IEnumerable<TDbDataModel>)this);
+            return json;
         }
         private FacadeException Error { get; set; }
         public object ReturnValue()
