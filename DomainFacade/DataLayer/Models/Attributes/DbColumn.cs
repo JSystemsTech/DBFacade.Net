@@ -17,7 +17,6 @@ namespace DomainFacade.DataLayer.Models.Attributes
     }
     public class DbColumn : DbColumnCore, IDbColumn
     {
-
         private string name;
         private object defaultValue;
         private char delimeter = ',';
@@ -60,8 +59,7 @@ namespace DomainFacade.DataLayer.Models.Attributes
         {
             init(dBMethodType, name, defaultValue, delimeter);
         }
-        
-        
+             
 
         private void init(Type dbMethodType, string name, object defaultValue, char delimeter)
         {

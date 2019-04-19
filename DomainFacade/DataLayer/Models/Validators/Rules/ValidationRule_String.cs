@@ -1,4 +1,7 @@
 ﻿using DomainFacade.Utils;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mail;
 using System.Text.RegularExpressions;
 
 namespace DomainFacade.DataLayer.Models.Validators.Rules
@@ -68,6 +71,46 @@ namespace DomainFacade.DataLayer.Models.Validators.Rules
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return propertyName + " expecting value length to be <= " + LimitValue;
+            }
+
+        }
+        public class Email : ValidationRule<DbParams>
+        {
+            private IEnumerable<string> Domains { get; set; }
+            private bool AllowAll { get; set; }
+            private bool ForbidSome { get; set; }
+            public Email(Selector<DbParams> selector) : base(selector) { Domains = new string[0]; AllowAll = true; }
+            public Email(Selector<DbParams> selector, bool isNullable) : base(selector, isNullable) { Domains = new string[0]; AllowAll = true; }
+            public Email(Selector<DbParams> selector, IEnumerable<string> domains) : base(selector) { Domains = domains; }
+            public Email(Selector<DbParams> selector, bool isNullable, IEnumerable<string> domains) : base(selector, isNullable) { Domains = domains;}
+            public Email(Selector<DbParams> selector, IEnumerable<string> domains, bool forbidSome) : base(selector) { Domains = domains; ForbidSome = forbidSome; }
+            public Email(Selector<DbParams> selector, bool isNullable, IEnumerable<string> domains, bool forbidSome) : base(selector, isNullable) { Domains = domains; ForbidSome = forbidSome; }
+            protected override bool ValidateRule()
+            {
+                try
+                {
+                    MailAddress email = new MailAddress(ParamsValue.ToString());
+                    if(AllowAll)
+                    {
+                        return true;
+                    }
+                    else if (ForbidSome)
+                    {
+                        return !Domains.Contains(email.Host);
+                    }
+                    else
+                    {
+                        return Domains.Contains(email.Host);
+                    }
+                }
+                catch
+                {
+                    return false;
+                }                
+            }
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                return propertyName + " is an invalid email address";
             }
 
         }
