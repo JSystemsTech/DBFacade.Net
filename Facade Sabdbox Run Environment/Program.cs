@@ -20,8 +20,8 @@ namespace Facade_Sabdbox_Run_Environment
             IEnumerable<TestConstructorModel> testCon = ServiceConfig.DomainFacade.GetAllSimple2();
             IEnumerable<MoreDbDataModel> test2 = ServiceConfig.DomainFacade.GetAllMore();
             TestDbDataModel first = test.First();
-            string json = first.ToJSON();
-            TestDbDataModel parsed = DbDataModel.ParseJSON<TestDbDataModel>(json);
+            string json = first.ToJson();
+            TestDbDataModel parsed = DbDataModel.ParseJson<TestDbDataModel>(json);
             IEnumerable<TestSharedDbDataModel> test3 = ServiceConfig.DomainFacade.GetAllSimpleShared();
             IEnumerable<TestSharedDbDataModel> test4 = ServiceConfig.DomainFacade.GetAllMoreShared();
 

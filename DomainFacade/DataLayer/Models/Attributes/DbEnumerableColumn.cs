@@ -6,18 +6,72 @@ using System.Linq;
 
 namespace DomainFacade.DataLayer.Models.Attributes
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="DomainFacade.DataLayer.Models.Attributes.DbColumn" />
     public abstract class DbEnumerableColumn : DbColumn
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbEnumerableColumn"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
         public DbEnumerableColumn(string name) : base(name) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbEnumerableColumn"/> class.
+        /// </summary>
+        /// <param name="dBMethodType">Type of the d b method.</param>
+        /// <param name="name">The name.</param>
         public DbEnumerableColumn(Type dBMethodType, string name) : base(dBMethodType, name) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbEnumerableColumn"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="delimeter">The delimeter.</param>
         public DbEnumerableColumn(string name, char delimeter) : base(name, delimeter) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbEnumerableColumn"/> class.
+        /// </summary>
+        /// <param name="dBMethodType">Type of the d b method.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="delimeter">The delimeter.</param>
         public DbEnumerableColumn(Type dBMethodType, string name, char delimeter) : base(dBMethodType, name, delimeter) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbEnumerableColumn"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="defaultValue">The default value.</param>
         public DbEnumerableColumn(string name, object defaultValue) : base(name, defaultValue) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbEnumerableColumn"/> class.
+        /// </summary>
+        /// <param name="dBMethodType">Type of the d b method.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="defaultValue">The default value.</param>
         public DbEnumerableColumn(Type dBMethodType, string name, object defaultValue) : base(dBMethodType, name, defaultValue) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbEnumerableColumn"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <param name="delimeter">The delimeter.</param>
         public DbEnumerableColumn(string name, object defaultValue, char delimeter) : base(name, defaultValue, delimeter) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbEnumerableColumn"/> class.
+        /// </summary>
+        /// <param name="dBMethodType">Type of the d b method.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <param name="delimeter">The delimeter.</param>
         public DbEnumerableColumn(Type dBMethodType, string name, object defaultValue, char delimeter) : base(dBMethodType, name, defaultValue, delimeter) { }
 
 
+        /// <summary>
+        /// Gets the column value.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="propType">Type of the property.</param>
+        /// <returns></returns>
         protected override object GetColumnValue(IDataRecord data, Type propType)
         {
             string[] value = GetValue<string[]>(data);
@@ -27,21 +81,81 @@ namespace DomainFacade.DataLayer.Models.Attributes
             }
             return null;
         }
+        /// <summary>
+        /// Gets the enumerable.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <param name="propType">Type of the property.</param>
+        /// <returns></returns>
         protected abstract IEnumerable GetEnumerable(string[] values, Type propType);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <seealso cref="DomainFacade.DataLayer.Models.Attributes.DbEnumerableColumn" />
         public sealed class Array : DbEnumerableColumn
         {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Array"/> class.
+            /// </summary>
+            /// <param name="name">The name.</param>
             public Array(string name) : base(name) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Array"/> class.
+            /// </summary>
+            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="name">The name.</param>
             public Array(Type dBMethodType, string name) : base(dBMethodType, name) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Array"/> class.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="delimeter">The delimeter.</param>
             public Array(string name, char delimeter) : base(name, delimeter) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Array"/> class.
+            /// </summary>
+            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="name">The name.</param>
+            /// <param name="delimeter">The delimeter.</param>
             public Array(Type dBMethodType, string name, char delimeter) : base(dBMethodType, name, delimeter) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Array"/> class.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="defaultValue">The default value.</param>
             public Array(string name, object defaultValue) : base(name, defaultValue) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Array"/> class.
+            /// </summary>
+            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="name">The name.</param>
+            /// <param name="defaultValue">The default value.</param>
             public Array(Type dBMethodType, string name, object defaultValue) : base(dBMethodType, name, defaultValue) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Array"/> class.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="defaultValue">The default value.</param>
+            /// <param name="delimeter">The delimeter.</param>
             public Array(string name, object defaultValue, char delimeter) : base(name, defaultValue, delimeter) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Array"/> class.
+            /// </summary>
+            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="name">The name.</param>
+            /// <param name="defaultValue">The default value.</param>
+            /// <param name="delimeter">The delimeter.</param>
             public Array(Type dBMethodType, string name, object defaultValue, char delimeter) : base(dBMethodType, name, defaultValue, delimeter) { }
 
 
 
+            /// <summary>
+            /// Gets the enumerable.
+            /// </summary>
+            /// <param name="values">The values.</param>
+            /// <param name="propType">Type of the property.</param>
+            /// <returns></returns>
             protected override IEnumerable GetEnumerable(string[] values, Type propType)
             {
                 if (propType == typeof(string[]))
@@ -78,19 +192,73 @@ namespace DomainFacade.DataLayer.Models.Attributes
                 }
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <seealso cref="DomainFacade.DataLayer.Models.Attributes.DbEnumerableColumn" />
         public sealed class List : DbEnumerableColumn
         {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="List"/> class.
+            /// </summary>
+            /// <param name="name">The name.</param>
             public List(string name) : base(name) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="List"/> class.
+            /// </summary>
+            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="name">The name.</param>
             public List(Type dBMethodType, string name) : base(dBMethodType, name) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="List"/> class.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="delimeter">The delimeter.</param>
             public List(string name, char delimeter) : base(name, delimeter) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="List"/> class.
+            /// </summary>
+            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="name">The name.</param>
+            /// <param name="delimeter">The delimeter.</param>
             public List(Type dBMethodType, string name, char delimeter) : base(dBMethodType, name, delimeter) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="List"/> class.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="defaultValue">The default value.</param>
             public List(string name, object defaultValue) : base(name, defaultValue) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="List"/> class.
+            /// </summary>
+            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="name">The name.</param>
+            /// <param name="defaultValue">The default value.</param>
             public List(Type dBMethodType, string name, object defaultValue) : base(dBMethodType, name, defaultValue) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="List"/> class.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="defaultValue">The default value.</param>
+            /// <param name="delimeter">The delimeter.</param>
             public List(string name, object defaultValue, char delimeter) : base(name, defaultValue, delimeter) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="List"/> class.
+            /// </summary>
+            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="name">The name.</param>
+            /// <param name="defaultValue">The default value.</param>
+            /// <param name="delimeter">The delimeter.</param>
             public List(Type dBMethodType, string name, object defaultValue, char delimeter) : base(dBMethodType, name, defaultValue, delimeter) { }
 
 
 
+            /// <summary>
+            /// Gets the enumerable.
+            /// </summary>
+            /// <param name="values">The values.</param>
+            /// <param name="propType">Type of the property.</param>
+            /// <returns></returns>
             protected override IEnumerable GetEnumerable(string[] values, Type propType)
             {
                 if (propType == typeof(List<string>))

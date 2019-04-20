@@ -14,6 +14,16 @@ using System.Text;
 
 namespace DomainFacade.DataLayer.ConnectionService
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="Drd">The type of the rd.</typeparam>
+    /// <typeparam name="Con">The type of the on.</typeparam>
+    /// <typeparam name="Cmd">The type of the md.</typeparam>
+    /// <typeparam name="Trn">The type of the rn.</typeparam>
+    /// <typeparam name="Prm">The type of the rm.</typeparam>
+    /// <typeparam name="TDbManifest">The type of the database manifest.</typeparam>
+    /// <seealso cref="DomainFacade.Facade.Core.DbFacade{TDbManifest}" />
     internal class DbConnectionHandler<Drd, Con, Cmd, Trn,Prm, TDbManifest> : DbFacade<TDbManifest>
         where Drd : DbDataReader
         where Con : DbConnection
@@ -22,6 +32,15 @@ namespace DomainFacade.DataLayer.ConnectionService
         where Prm : DbParameter
         where TDbManifest : DbManifest
     {
+        /// <summary>
+        /// Calls the database method core.
+        /// </summary>
+        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
+        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
+        /// <exception cref="FacadeException">An Unknown Error Occured</exception>
         protected override IDbResponse<TDbDataModel> CallDbMethodCore<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
         {
             DbMethod dbMethod = DbMethodsCache.GetInstance<DbMethod>();
@@ -108,6 +127,10 @@ namespace DomainFacade.DataLayer.ConnectionService
                 throw new FacadeException("An Unknown Error Occured",e);
             }
         }
+        /// <summary>
+        /// Disposes the specified disposable item.
+        /// </summary>
+        /// <param name="disposableItem">The disposable item.</param>
         private void Dispose(IDisposable disposableItem)
         {
             if (disposableItem != null)
@@ -115,6 +138,10 @@ namespace DomainFacade.DataLayer.ConnectionService
                 disposableItem.Dispose();
             }
         }
+        /// <summary>
+        /// Closes the specified database connection.
+        /// </summary>
+        /// <param name="dbConnection">The database connection.</param>
         private void Close(Con dbConnection)
         {
             if (dbConnection != null)
@@ -122,6 +149,10 @@ namespace DomainFacade.DataLayer.ConnectionService
                 dbConnection.Close();
             }
         }
+        /// <summary>
+        /// Rollbacks the specified transaction.
+        /// </summary>
+        /// <param name="transaction">The transaction.</param>
         private void Rollback(Trn transaction)
         {
             if (transaction != null)
@@ -129,6 +160,10 @@ namespace DomainFacade.DataLayer.ConnectionService
                 transaction.Rollback();
             }
         }
+        /// <summary>
+        /// Closes the specified database data reader.
+        /// </summary>
+        /// <param name="dbDataReader">The database data reader.</param>
         private void Close(Drd dbDataReader)
         {
             if (dbDataReader != null)
@@ -136,23 +171,42 @@ namespace DomainFacade.DataLayer.ConnectionService
                 dbDataReader.Close();
             }
         }
+        /// <summary>
+        /// Gets the reader.
+        /// </summary>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
         private Drd GetReader(Cmd dbCommand)
         {
             return (Drd)dbCommand.ExecuteReader();
 
         }
-        
+
+        /// <summary>
+        /// Dones the specified database data reader.
+        /// </summary>
+        /// <param name="dbDataReader">The database data reader.</param>
+        /// <param name="dbConnection">The database connection.</param>
         private void Done(Drd dbDataReader, Con dbConnection)
         {
             Close(dbDataReader);
             Dispose(dbDataReader);
             Done(dbConnection);
         }
+        /// <summary>
+        /// Dones the specified transaction.
+        /// </summary>
+        /// <param name="transaction">The transaction.</param>
+        /// <param name="dbConnection">The database connection.</param>
         private void Done(Trn transaction, Con dbConnection)
         {
             Dispose(transaction);
             Done(dbConnection);
         }
+        /// <summary>
+        /// Dones the specified database connection.
+        /// </summary>
+        /// <param name="dbConnection">The database connection.</param>
         private void Done(Con dbConnection)
         {
             Close(dbConnection);
@@ -160,12 +214,37 @@ namespace DomainFacade.DataLayer.ConnectionService
         }
 
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDbManifest">The type of the database manifest.</typeparam>
+    /// <seealso cref="DomainFacade.Facade.Core.DbFacade{TDbManifest}" />
     internal sealed class DbConnectionHandler<TDbManifest> : DbConnectionHandler<DbDataReader, DbConnection, DbCommand, DbTransaction,DbParameter, TDbManifest> where TDbManifest : DbManifest
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <seealso cref="DomainFacade.Facade.Core.DbFacade{TDbManifest}" />
         public sealed class SQL : DbConnectionHandler<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, TDbManifest> { }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <seealso cref="DomainFacade.Facade.Core.DbFacade{TDbManifest}" />
         public sealed class SQLite : DbConnectionHandler<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, TDbManifest> { }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <seealso cref="DomainFacade.Facade.Core.DbFacade{TDbManifest}" />
         public sealed class OleDb : DbConnectionHandler<OleDbDataReader, OleDbConnection, OleDbCommand, OleDbTransaction, OleDbParameter, TDbManifest> { }
-        public sealed class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, TDbManifest> { }        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <seealso cref="DomainFacade.Facade.Core.DbFacade{TDbManifest}" />
+        public sealed class Odbc : DbConnectionHandler<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, TDbManifest> { }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <seealso cref="DomainFacade.Facade.Core.DbFacade{TDbManifest}" />
         public sealed class Oracle : DbConnectionHandler<OracleDataReader, OracleConnection, OracleCommand, OracleTransaction, OracleParameter, TDbManifest> { }
     }
 }

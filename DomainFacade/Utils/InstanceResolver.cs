@@ -3,9 +3,21 @@ using System.Collections.Generic;
 
 namespace DomainFacade.Utils
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class InstanceResolver<T>
     {
+        /// <summary>
+        /// The instances
+        /// </summary>
         public static Dictionary<Type, T> Instances = new Dictionary<Type, T>();
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <typeparam name="C"></typeparam>
+        /// <returns></returns>
         public static C GetInstance<C>()
             where C : T
         {

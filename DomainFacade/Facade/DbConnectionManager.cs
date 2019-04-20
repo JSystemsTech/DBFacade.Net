@@ -5,9 +5,22 @@ using DomainFacade.Facade.Core;
 
 namespace DomainFacade.Facade
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDbManifest">The type of the database manifest.</typeparam>
+    /// <seealso cref="DomainFacade.Facade.Core.DbFacade{TDbManifest}" />
     internal sealed class DbConnectionManager<TDbManifest> : DbFacade<TDbManifest>
     where TDbManifest : DbManifest
     {
+        /// <summary>
+        /// Calls the database method core.
+        /// </summary>
+        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
+        /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
+        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
         protected override IDbResponse<TDbDataModel> CallDbMethodCore<TDbDataModel, DbParams, DbMethod>(DbParams parameters)
         {
             IDbConnectionConfig connectionConfig = DbMethodsCache.GetInstance<DbMethod>().GetConfig().GetDBConnectionConfig();

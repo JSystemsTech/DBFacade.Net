@@ -140,7 +140,6 @@
     <Compile Include="Facade\DomainFacade.cs" />
     <Compile Include="Facade\DomainManager.cs" />
     <Compile Include="Facade\Core\DbFacade.cs" />
-    <Compile Include="DataLayer\Models\DomainModel.cs" />
     <Compile Include="DataLayer\Models\DbResponse.cs" />
     <Compile Include="Facade\Core\DbFacadeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
