@@ -90,14 +90,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DomainFacade\DomainFacade.csproj">
-      <Project>{b80a98a1-465e-4614-af17-90a4405bf708}</Project>
-      <Name>DomainFacade</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Facade\ConnectionConfig\" />
     <Folder Include="Facade\DataModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBFacade\DBFacade.csproj">
+      <Project>{3e7e0ba8-19d9-44e2-b126-e1b5fb148cab}</Project>
+      <Name>DBFacade</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

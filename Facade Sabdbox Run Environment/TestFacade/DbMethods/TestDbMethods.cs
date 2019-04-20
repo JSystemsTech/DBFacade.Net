@@ -1,8 +1,8 @@
-﻿using DomainFacade.DataLayer.CommandConfig;
-using DomainFacade.DataLayer.Manifest;
-using DomainFacade.DataLayer.Models;
+﻿using DBFacade.DataLayer.CommandConfig;
+using DBFacade.DataLayer.Manifest;
+using DBFacade.DataLayer.Models;
 using DomainFacade.SampleDomainFacade.DbMethods;
-using DomainFacade.Utils;
+using DBFacade.Utils;
 using System;
 using System.Linq.Expressions;
 

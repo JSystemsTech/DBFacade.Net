@@ -1,4 +1,4 @@
-﻿using DomainFacade.DataLayer.ConnectionService;
+﻿using DBFacade.DataLayer.ConnectionService;
 
 namespace DomainFacade.SampleDomainFacade.DbMethods
 {

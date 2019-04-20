@@ -1,6 +1,6 @@
 ﻿using System;
-using DomainFacade.DataLayer.Models;
-using DomainFacade.Facade;
+using DBFacade.Facade;
+using DBFacade.DataLayer.Models;
 using Facade_Sabdbox_Run_Environment.TestFacade.DbMethods;
 
 namespace Facade_Sabdbox_Run_Environment.TestFacade
