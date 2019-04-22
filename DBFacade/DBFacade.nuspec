@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/JSystemsTech/DBFacade.Net/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/JSystemsTech/DBFacade.Net</projectUrl>
+    <iconUrl>https://github.com/JSystemsTech/DBFacade.Net</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Inital Alpha release</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>dbfacade domainfacade DBFacade.Net dbfacade.net</tags>
+  </metadata>
+</package>

@@ -212,7 +212,7 @@ namespace DBFacade.DataLayer.ConnectionService
         /// </summary>
         /// <typeparam name="TConnection">The type of the connection.</typeparam>
         /// <seealso cref="Facade.DBFacade{DbConnectionMetaMethods{TConnection}}" />
-        private sealed class DbConnectionMetaDomainFacade<TConnection> : DBFacade<DbConnectionMetaMethods<TConnection>>
+        private sealed class DbConnectionMetaDomainFacade<TConnection> : DomainFacade<DbConnectionMetaMethods<TConnection>>
             where TConnection : IDbConnectionConfig
         {
             /// <summary>

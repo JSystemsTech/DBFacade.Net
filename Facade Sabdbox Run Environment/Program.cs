@@ -1,6 +1,7 @@
 ﻿using DBFacade.DataLayer.Models;
-using Facade_Sabdbox_Run_Environment.TestFacade;
-using Facade_Sabdbox_Run_Environment.TestFacade.Models;
+using DomainLayerSandbox1;
+using DomainLayerSandbox1.Facades.Models.DbDataModels;
+using DomainLayerSandbox1.TestFacade;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,9 +32,9 @@ namespace Facade_Sabdbox_Run_Environment
     }
 
     public class ServiceConfig {
-        private static ITestDomain domainFacade = new TestDomain();
-        private static ITestDomain UnitTestFacade = new MockTestDomain();
+        private static IDomainFacade domainFacade = new TestDomain();
+        private static IDomainFacade UnitTestFacade = new MockTestDomain();
         
-        public static ITestDomain DomainFacade { get{return domainFacade; } private set{} }
+        public static IDomainFacade DomainFacade { get{return domainFacade; } private set{} }
     }
 }
