@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="DBFacade.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
