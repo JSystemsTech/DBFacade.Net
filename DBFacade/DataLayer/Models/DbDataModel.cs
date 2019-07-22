@@ -3,6 +3,7 @@ using DBFacade.DataLayer.Models.Attributes;
 using DBFacade.Exceptions;
 using DBFacade.Utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -46,7 +47,27 @@ namespace DBFacade.DataLayer.Models
         /// <returns></returns>
         public static T ParseJson<T>(string jsonStr) where T : DbDataModel
         {
-            return JsonConvert.DeserializeObject<T>(jsonStr);
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor;
+            settings.ContractResolver = new ContractResolverWithPrivates();
+            return JsonConvert.DeserializeObject<T>(jsonStr, settings);
+        }
+        private class ContractResolverWithPrivates : CamelCasePropertyNamesContractResolver
+        {
+            protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+            {
+                var prop = base.CreateProperty(member, memberSerialization);
+                if (!prop.Writable)
+                {
+                    var property = member as PropertyInfo;
+                    if (property != null)
+                    {
+                        var hasPrivateSetter = property.GetSetMethod(true) != null;
+                        prop.Writable = hasPrivateSetter;
+                    }
+                }
+                return prop;
+            }
         }
 
         /// <summary>

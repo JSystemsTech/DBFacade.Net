@@ -2,176 +2,81 @@
 using DBFacade.DataLayer.ConnectionService;
 using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.Models.Validators;
+using System.Data;
 
 namespace DBFacade.DataLayer.CommandConfig
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public sealed class DbCommandConfigBuilder
     {
-        /// <summary>
-        /// Gets the fetch configuration.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetFetchConfig<Con>(IDbCommandText<Con> dbCommandText)
+        
+        public static IDbCommandConfig GetFetchConfig<Con>(IDbCommandText<Con> dbCommandText, string returnParam = null, bool isOutput = false)
             where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<IDbParamsModel, Con>(dbCommandText);
+            return new DbCommandConfig<IDbParamsModel, Con>(dbCommandText, returnParam, isOutput);
         }
-        /// <summary>
-        /// Gets the fetch configuration with return.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="returnParam">The return parameter.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetFetchConfigWithReturn<Con>(IDbCommandText<Con> dbCommandText, string returnParam)
+        public static IDbCommandConfig GetFetchConfig<Con>(IDbCommandText<Con> dbCommandText, CommandType dbCommandType, string returnParam = null, bool isOutput = false)
             where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<IDbParamsModel, Con>(dbCommandText, returnParam);
+            return new DbCommandConfig<IDbParamsModel, Con>(dbCommandText, dbCommandType, returnParam, isOutput);
         }
-        /// <summary>
-        /// Gets the transaction configuration.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetTransactionConfig<Con>(IDbCommandText<Con> dbCommandText)
+
+        public static IDbCommandConfig GetTransactionConfig<Con>(IDbCommandText<Con> dbCommandText, string returnParam = null, bool isOutput = false)
             where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<IDbParamsModel, Con>(dbCommandText).AsTransaction();
+            return new DbCommandConfig<IDbParamsModel, Con>(dbCommandText, returnParam, isOutput, true);
         }
-        /// <summary>
-        /// Gets the transaction configuration with return.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="returnParam">The return parameter.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetTransactionConfigWithReturn<Con>(IDbCommandText<Con> dbCommandText, string returnParam)
+        public static IDbCommandConfig GetTransactionConfig<Con>(IDbCommandText<Con> dbCommandText, CommandType dbCommandType, string returnParam = null, bool isOutput = false)
             where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<IDbParamsModel, Con>(dbCommandText, returnParam).AsTransaction();
+            return new DbCommandConfig<IDbParamsModel, Con>(dbCommandText, dbCommandType, returnParam, isOutput, true);
         }
     }
-
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+    
     public class DbCommandConfigBuilder<TDbParams>
         where TDbParams : IDbParamsModel
     {
+        
 
-        /// <summary>
-        /// Gets the fetch configuration.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="dbParams">The database parameters.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetFetchConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams)
+        public static IDbCommandConfig GetFetchConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam = null, bool isOutput = false)
         where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams);
+            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, returnParam, isOutput);
         }
-        /// <summary>
-        /// Gets the fetch configuration.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="dbParams">The database parameters.</param>
-        /// <param name="validator">The validator.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetFetchConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
-            where Con : IDbConnectionConfig
-        {
-            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, validator);
-        }
-        /// <summary>
-        /// Gets the fetch configuration with return.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="dbParams">The database parameters.</param>
-        /// <param name="returnParam">The return parameter.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetFetchConfigWithReturn<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam)
-            where Con : IDbConnectionConfig
-        {
-            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, returnParam);
-        }
-        /// <summary>
-        /// Gets the fetch configuration with return.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="dbParams">The database parameters.</param>
-        /// <param name="returnParam">The return parameter.</param>
-        /// <param name="validator">The validator.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetFetchConfigWithReturn<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam, Validator<TDbParams> validator)
+        public static IDbCommandConfig GetFetchConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, CommandType dbCommandType, string returnParam = null, bool isOutput = false)
         where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, returnParam, validator);
+            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, dbCommandType, returnParam, isOutput);
+        }
+        public static IDbCommandConfig GetFetchConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, string returnParam = null, bool isOutput = false)
+        where Con : IDbConnectionConfig
+        {
+            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, validator, returnParam, isOutput);
+        }
+        public static IDbCommandConfig GetFetchConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, CommandType dbCommandType, string returnParam = null, bool isOutput = false)
+        where Con : IDbConnectionConfig
+        {
+            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams,validator, dbCommandType, returnParam, isOutput);
         }
 
-        /// <summary>
-        /// Gets the transaction configuration.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="dbParams">The database parameters.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetTransactionConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams)
-            where Con : IDbConnectionConfig
+        public static IDbCommandConfig GetTransactionConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam = null, bool isOutput = false)
+        where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams).AsTransaction();
+            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, returnParam, isOutput, true);
         }
-        /// <summary>
-        /// Gets the transaction configuration.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="dbParams">The database parameters.</param>
-        /// <param name="validator">The validator.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetTransactionConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
-            where Con : IDbConnectionConfig
+        public static IDbCommandConfig GetTransactionConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, CommandType dbCommandType, string returnParam = null, bool isOutput = false)
+        where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, validator).AsTransaction();
+            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, dbCommandType, returnParam, isOutput, true);
         }
-
-        /// <summary>
-        /// Gets the transaction configuration with return.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="returnParam">The return parameter.</param>
-        /// <param name="dbParams">The database parameters.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetTransactionConfigWithReturn<Con>(IDbCommandText<Con> dbCommandText, string returnParam, IDbCommandConfigParams<TDbParams> dbParams)
-            where Con : IDbConnectionConfig
+        public static IDbCommandConfig GetTransactionConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, string returnParam = null, bool isOutput = false)
+        where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, returnParam).AsTransaction();
+            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, validator, returnParam, isOutput, true);
         }
-        /// <summary>
-        /// Gets the transaction configuration with return.
-        /// </summary>
-        /// <typeparam name="Con">The type of the on.</typeparam>
-        /// <param name="dbCommandText">The database command text.</param>
-        /// <param name="returnParam">The return parameter.</param>
-        /// <param name="dbParams">The database parameters.</param>
-        /// <param name="validator">The validator.</param>
-        /// <returns></returns>
-        public static IDbCommandConfig GetTransactionConfigWithReturn<Con>(IDbCommandText<Con> dbCommandText, string returnParam, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator)
-            where Con : IDbConnectionConfig
+        public static IDbCommandConfig GetTransactionConfig<Con>(IDbCommandText<Con> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, CommandType dbCommandType, string returnParam = null, bool isOutput = false)
+        where Con : IDbConnectionConfig
         {
-            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, returnParam, validator).AsTransaction();
-        }
+            return new DbCommandConfig<TDbParams, Con>(dbCommandText, dbParams, validator, dbCommandType, returnParam, isOutput, true);
+        }        
     }
 }

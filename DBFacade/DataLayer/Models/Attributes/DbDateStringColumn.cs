@@ -1,70 +1,49 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 
 namespace DBFacade.DataLayer.Models.Attributes
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <seealso cref="DbColumn" />
     public sealed class DbDateStringColumn : DbColumn
     {
-        /// <summary>
-        /// The date format
-        /// </summary>
-        private string dateFormat;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbDateStringColumn"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="dateFormat">The date format.</param>
+        private string DateFormat;
         public DbDateStringColumn(string name, string dateFormat) : base(name)
         {
-            this.dateFormat = dateFormat;
+            DateFormat = dateFormat;
         }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbDateStringColumn"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="dateFormat">The date format.</param>
-        public DbDateStringColumn(string name, System.DateTime defaultValue, string dateFormat) : base(name, defaultValue)
-        {
-            this.dateFormat = dateFormat;
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbDateStringColumn"/> class.
-        /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="dateFormat">The date format.</param>
+        
         public DbDateStringColumn(Type dbMethodType, string name, string dateFormat) : base(dbMethodType, name)
         {
-            this.dateFormat = dateFormat;
+            DateFormat = dateFormat;
+        }        
+        
+        protected override object GetColumnValue(IDataRecord data, Type propType)
+        {           
+            if (propType.Equals(typeof(DateTime)))
+            {
+                return GetDateTimeValue(data);
+            }
+            else if (propType.Equals(typeof(string)))
+            {
+                return GetStringValue(data);
+            }
+            return null;
         }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbDateStringColumn"/> class.
-        /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="dateFormat">The date format.</param>
-        public DbDateStringColumn(Type dbMethodType, string name, System.DateTime defaultValue, string dateFormat) : base(dbMethodType, name, defaultValue)
+        private string GetStringValue(IDataRecord data)
         {
-            this.dateFormat = dateFormat;
-        }
-
-        /// <summary>
-        /// Gets the column value.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns></returns>
-        protected override object GetColumnValue(IDataRecord data)
-        {
-            System.DateTime value = GetValue<System.DateTime>(data);
+            DateTime value = GetValue<DateTime>(data);
             if (value != null)
             {
-                return GetValue<System.DateTime>(data).ToString(dateFormat);
+                return value.ToString(DateFormat);
+            }
+            return null;
+        }
+        private DateTime? GetDateTimeValue(IDataRecord data)
+        {
+            string value = GetValue<string>(data);
+            if (value != null)
+            {
+                return DateTime.ParseExact(value, DateFormat, CultureInfo.InvariantCulture);
             }
             return null;
         }

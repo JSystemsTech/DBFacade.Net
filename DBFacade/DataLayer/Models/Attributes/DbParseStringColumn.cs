@@ -10,39 +10,15 @@ namespace DBFacade.DataLayer.Models.Attributes
     /// <seealso cref="DbColumn" />
     public sealed class DbParseStringColumn : DbColumn
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbParseStringColumn"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
         public DbParseStringColumn(string name) : base(name) { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbParseStringColumn"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
         public DbParseStringColumn(string name, object defaultValue) : base(name, defaultValue) { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbParseStringColumn"/> class.
-        /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
-        /// <param name="name">The name.</param>
+        
         public DbParseStringColumn(Type dbMethodType, string name) : base(dbMethodType, name) { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbParseStringColumn"/> class.
-        /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
+        
         public DbParseStringColumn(Type dbMethodType, string name, object defaultValue) : base(dbMethodType, name, defaultValue) { }
-        /// <summary>
-        /// The date format
-        /// </summary>
+        
         private string dateFormat;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbParseStringColumn"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="dateFormat">The date format.</param>
+        
         public DbParseStringColumn(string name, string dateFormat) : base(name)
         {
             this.dateFormat = dateFormat;

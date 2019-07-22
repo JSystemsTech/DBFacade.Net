@@ -32,5 +32,6 @@ namespace DBFacade.DataLayer.Manifest
         /// </summary>
         /// <returns></returns>
         protected abstract IDbCommandConfig GetConfigCore();
+
     }
 }

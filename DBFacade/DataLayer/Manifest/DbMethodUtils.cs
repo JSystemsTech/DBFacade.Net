@@ -20,19 +20,19 @@ namespace DBFacade.DataLayer.Manifest
         /// <summary>
         /// 
         /// </summary>
-        public abstract class Rule : ValidationRule<TDbParams>
+        public abstract class Rules : ValidationRule<TDbParams>
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="Rule"/> class.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            public Rule(Selector<TDbParams> selector) : base(selector) { }
+            public Rules(Selector<TDbParams> selector) : base(selector) { }
             /// <summary>
             /// Initializes a new instance of the <see cref="Rule"/> class.
             /// </summary>
             /// <param name="selector">The selector.</param>
             /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            public Rule(Selector<TDbParams> selector, bool isNullable) : base(selector, isNullable) { }
+            public Rules(Selector<TDbParams> selector, bool isNullable) : base(selector, isNullable) { }
         }
         /// <summary>
         /// 
@@ -62,7 +62,7 @@ namespace DBFacade.DataLayer.Manifest
         /// </summary>
         /// <param name="selectorExpression">The selector expression.</param>
         /// <returns></returns>
-        public static Selector<TDbParams> Selector(Expression<Func<TDbParams, object>> selectorExpression)
+        public static Selector<TDbParams> Select(Expression<Func<TDbParams, object>> selectorExpression)
         {
             return Selector<TDbParams>.Map(selectorExpression);
         }
