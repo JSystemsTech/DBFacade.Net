@@ -36,19 +36,6 @@ namespace DBFacade.DataLayer.Models
         {
             return JsonConvert.SerializeObject(this);
         }
-        /// <summary>
-        /// Parses the json.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="jsonStr">The json string.</param>
-        /// <returns></returns>
-        public static T ParseJson<T>(string jsonStr) where T : DbDataModel
-        {
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor;
-            settings.ContractResolver = new ContractResolverWithPrivates();
-            return JsonConvert.DeserializeObject<T>(jsonStr, settings);
-        }
         
         private class ContractResolverWithPrivates : CamelCasePropertyNamesContractResolver
         {
