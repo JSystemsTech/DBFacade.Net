@@ -5,110 +5,44 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Data;
+using DBFacade.DataLayer.Manifest;
+using DBFacade.DataLayer.Models;
 
 namespace DBFacade.DataLayer.ConnectionService
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    internal interface ISQL { }
-    /// <summary>
-    /// 
-    /// </summary>
-    internal interface ISQLite { }
-    /// <summary>
-    /// 
-    /// </summary>
-    internal interface IOleDb { }
-    /// <summary>
-    /// 
-    /// </summary>
-    internal interface IOdbc { }
-    /// <summary>
-    /// 
-    /// </summary>
-    internal interface IOracle { }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TConnection">The type of the connection.</typeparam>
-    /// <seealso cref="DbConnectionConfigCore" />
-    public abstract class DbConnectionConfig<TConnection> : DbConnectionConfigCore where TConnection : IDbConnectionConfig
+    public abstract class DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter,TConnection> : DbConnectionConfigCore 
+        where TDbDataReader : DbDataReader
+        where TDbConnection : DbConnection
+        where TDbCommand : DbCommand
+        where TDbTransaction : DbTransaction
+        where TDbParameter : DbParameter
+        where TConnection : IDbConnectionConfig
+
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="DbConnectionConfigCore" />
         public interface IDbCommandText : IDbCommandText<TConnection> { }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="DbConnectionConfigCore" />
-        private class DbCommandText : DbCommandText<TConnection>, IDbCommandText
+        private sealed class DbCommandText : DbCommandText<TConnection>, IDbCommandText
         {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="DbCommandText"/> class.
-            /// </summary>
-            /// <param name="commandText">The command text.</param>
-            /// <param name="label">The label.</param>
             public DbCommandText(string commandText, string label) : base(commandText, label) { }
         }
+        private sealed class ConnectionHandler<TDbManifest> : DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbManifest> where TDbManifest : DbManifest { }
+        public sealed override IDbConnection GetDbConnection() => GetDbConnectionCore<TDbConnection>();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TDbConnection">The type of the database connection.</typeparam>
-        /// <seealso cref="DbConnectionConfigCore" />
-        public abstract class GenericBase<TDbConnection> : DbConnectionConfig<TConnection>
-            where TDbConnection : DbConnection
+        public sealed override IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, DbMethod>(DbMethod dbMethod, TDbParams parameters)
         {
-            /// <summary>
-            /// Gets the database connection.
-            /// </summary>
-            /// <returns></returns>
-            public override IDbConnection GetDbConnection()
-            {
-                return GetDbConnectionCore<TDbConnection>();
-            }
+            return ConnectionHandler<TDbManifest>.ExecuteDbAction<TDbDataModel, TDbParams, DbMethod>(dbMethod, parameters);
         }
-        /// <summary>
-        /// Creates the command text.
-        /// </summary>
-        /// <param name="commandText">The command text.</param>
-        /// <param name="label">The label.</param>
-        /// <returns></returns>
-        public static IDbCommandText CreateCommandText(string commandText, string label) { return new DbCommandText(commandText, label); }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="DbConnectionConfigCore" />
-        public abstract class SQL : GenericBase<SqlConnection>, ISQL { }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="DbConnectionConfigCore" />
-        public abstract class SQLite : GenericBase<SQLiteConnection>, ISQLite { }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="DbConnectionConfigCore" />
-        public abstract class OleDb : GenericBase<OleDbConnection>, IOleDb { }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="DbConnectionConfigCore" />
-        public abstract class Odbc : GenericBase<OdbcConnection>, IOdbc { }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="DbConnectionConfigCore" />
-        public abstract class Oracle : GenericBase<OracleConnection>, IOracle { }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="DbConnectionConfigCore" />
-        public abstract class Generic : GenericBase<DbConnection> { }
+        protected static IDbCommandText CreateCommandText(string commandText, string label) => new DbCommandText(commandText, label);
     }
+    public abstract class SQLConnectionConfig<TConnection> : DbConnectionConfig<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, TConnection> where TConnection : IDbConnectionConfig { }
 
+    public abstract class SQLiteConnectionConfig<TConnection> : DbConnectionConfig<SQLiteDataReader, SQLiteConnection, SQLiteCommand, SQLiteTransaction, SQLiteParameter, TConnection> where TConnection : IDbConnectionConfig { }
+
+    public abstract class OleDbConnectionConfig<TConnection> : DbConnectionConfig<OleDbDataReader, OleDbConnection, OleDbCommand, OleDbTransaction, OleDbParameter, TConnection> where TConnection : IDbConnectionConfig { }
+
+    public abstract class OdbcConnectionConfig<TConnection> : DbConnectionConfig<OdbcDataReader, OdbcConnection, OdbcCommand, OdbcTransaction, OdbcParameter, TConnection> where TConnection : IDbConnectionConfig { }
+
+    public abstract class OracleConnectionConfig<TConnection> : DbConnectionConfig<OracleDataReader, OracleConnection, OracleCommand, OracleTransaction, OracleParameter, TConnection> where TConnection : IDbConnectionConfig { }
+
+    public abstract class DefaultConnectionConfig<TConnection> : DbConnectionConfig<DbDataReader, DbConnection, DbCommand, DbTransaction, DbParameter, TConnection> where TConnection : IDbConnectionConfig { }
 }

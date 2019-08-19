@@ -1,144 +1,87 @@
 ﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
-using DBFacade.Exceptions;
-using DBFacade.Utils;
+using DBFacade.Services;
+using System;
+using System.Threading.Tasks;
 
 namespace DBFacade.Facade.Core
-{
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TDbManifest">The type of the database manifest.</typeparam>
-    /// <seealso cref="Core.DbFacadeBase{TDbManifest}" />
+{   
+    
     public abstract partial class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
-    {
-        /// <summary>
-        /// The default parameters
-        /// </summary>
-        internal DbParamsModel DEFAULT_PARAMETERS = new DbParamsModel();
-        /// <summary>
-        /// Calls the database method.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <returns></returns>
-        private IDbResponse<TDbDataModel> CallDbMethod<TDbDataModel, DbMethod>()
-            where TDbDataModel : DbDataModel
-            where DbMethod : TDbManifest
+    {       
+        internal IDbParamsModel DEFAULT_PARAMETERS { get { return InstanceResolvers.Get<IDbParamsModel>().Get<DbParamsModel>(); } }
+        private IInstanceResolver<DbFacade<TDbManifest>> DbFacadeCache { get { return InstanceResolvers.Get<DbFacade<TDbManifest>>(); } }
+        private IInstanceResolver<TDbManifest> DbMethodsCache { get { return InstanceResolvers.Get<TDbManifest>(); } }
+        private DbMethod GetMethod<DbMethod>() where DbMethod: TDbManifest => DbMethodsCache.Get<DbMethod>();
+        internal TDbFacade GetDbFacade<TDbFacade>() where TDbFacade : DbFacade<TDbManifest> => DbFacadeCache.Get<TDbFacade>();
+
+        protected bool Disposed { get; set; }
+        public void Dispose()
         {
-            IDbResponse<TDbDataModel> response = CallDbMethod<TDbDataModel, DbParamsModel, DbMethod>(DEFAULT_PARAMETERS);
-            if (response.HasError())
+            if (Disposed)
             {
-                OnError(response);
+                InstanceResolvers.Get<IDbParamsModel>().Dispose();
+                DbFacadeCache.Dispose();
+                DbMethodsCache.Dispose();
+                OnDispose();
+                Disposed = true;
             }
-            return response;
+        }
+        internal virtual void HandleInnerDispose() {}
+        protected virtual void OnDispose() { }
+        
+
+        internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, DbMethod>()
+            => ExecuteProcess<TDbDataModel, IDbParamsModel, DbMethod>(GetMethod<DbMethod>(),DEFAULT_PARAMETERS);
+        internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
+            => ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(GetMethod<DbMethod>(), parameters);
+        internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+            => HandleProcess<TDbDataModel, TDbParams, DbMethod>(method, parameters);
+
+        
+
+
+        internal override void OnBeforeNextInner<TDbParams, DbMethod>(DbMethod method, TDbParams parameters) { }
+
+        protected override void OnBeforeNext<TDbParams, DbMethod>(DbMethod method, TDbParams parameters) { }
+        internal sealed override IDbResponse<TDbDataModel> ExecuteNext<TDbFacade, TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+        {
+            return DbFacadeCache.Get<TDbFacade>().ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(method, parameters);
         }
 
-        /// <summary>
-        /// Calls the database method.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        private IDbResponse<TDbDataModel> CallDbMethod<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
+        internal sealed override IDbResponse<TDbDataModel> ExecuteNext<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+        {
+            OnBeforeNextInner(method, parameters);
+            OnBeforeNext(method, parameters);
+            return ExecuteNextCore<TDbDataModel, TDbParams, DbMethod>(method, parameters);
+        }
+        internal override IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters) => null;
+        
+        
+        private IDbResponse<TDbDataModel> HandleProcess<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where DbMethod : TDbManifest
+        {
+            IDbResponse<TDbDataModel> response = Process<TDbDataModel, TDbParams, DbMethod>(method, parameters);
+            return response != null ? response : ExecuteNext<TDbDataModel, TDbParams, DbMethod>(method, parameters);
+        }
+        protected virtual IDbResponse<TDbDataModel> Process<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
             where DbMethod : TDbManifest
         {
-            IDbResponse<TDbDataModel> response = CallDbMethodCore<TDbDataModel, TDbParams, DbMethod>(parameters);
-            if (response.HasError())
-            {
-                OnError(response);
-            }
-            return response;
-        }
-
-        /// <summary>
-        /// Calls the facade API database method.
-        /// </summary>
-        /// <typeparam name="TDbFacade">The type of the database facade.</typeparam>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        protected override sealed IDbResponse<TDbDataModel> CallFacadeAPIDbMethod<TDbFacade, TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
-        {
-            try
-            {
-                OnBeforeForward<TDbParams, DbMethod>(parameters);
-            }
-            catch (FacadeException e)
-            {
-                return new DbResponse<DbMethod, TDbDataModel>(e);
-            }
-
-            return DbFacadeCache.GetInstance<TDbFacade>().CallDbMethod<TDbDataModel, TDbParams, DbMethod>(parameters);
-        }
-        /// <summary>
-        /// Called when [error].
-        /// </summary>
-        /// <param name="response">The response.</param>
-        protected virtual void OnError(IDbResponse response) { }
-        /// <summary>
-        /// Called when [before forward].
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        protected virtual void OnBeforeForward<TDbParams, DbMethod>(TDbParams parameters)
-        where TDbParams : IDbParamsModel
-        where DbMethod : TDbManifest
-        { }
-        /// <summary>
-        /// Calls the database method core.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse<TDbDataModel> CallDbMethodCore<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
-            where TDbDataModel : DbDataModel
-            where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="Core.DbFacadeBase{TDbManifest}" />
-        private sealed class DbFacadeCache : InstanceResolver<DbFacade<TDbManifest>> { }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="Core.DbFacadeBase{TDbManifest}" />
-        internal sealed class DbMethodsCache : InstanceResolver<TDbManifest> { }
-
+            return null;
+        }       
     }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TDbManifest">The type of the database manifest.</typeparam>
-    /// <typeparam name="TDbFacade">The type of the database facade.</typeparam>
-    /// <seealso cref="Core.DbFacade{TDbManifest}" />
-    internal class Forwarder<TDbManifest, TDbFacade> : DbFacade<TDbManifest>
+    public abstract class DbFacade<TDbManifest, TDbFacade> : DbFacade<TDbManifest>
         where TDbManifest : DbManifest
         where TDbFacade : DbFacade<TDbManifest>
     {
-        /// <summary>
-        /// Calls the database method core.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        protected sealed override IDbResponse<TDbDataModel> CallDbMethodCore<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
+        internal override sealed void HandleInnerDispose() => GetDbFacade<TDbFacade>().Dispose();
+        internal override sealed IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
         {
-            return CallFacadeAPIDbMethod<TDbFacade, TDbDataModel, TDbParams, DbMethod>(parameters);
+            return ExecuteNext<TDbFacade, TDbDataModel, TDbParams, DbMethod>(method, parameters);
         }
     }
 }

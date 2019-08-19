@@ -1,145 +1,49 @@
 ﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
-using System.Data;
+using System.Threading.Tasks;
 
 namespace DBFacade.Facade.Core
 {
+    
     public abstract class DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
     {
+        internal abstract IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, DbMethod>()
+            where TDbDataModel : DbDataModel
+            where DbMethod : TDbManifest;
 
-        /// <summary>
-        /// Calls the facade API database method.
-        /// </summary>
-        /// <typeparam name="TDbFacade">The type of the database facade.</typeparam>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse<TDbDataModel> CallFacadeAPIDbMethod<TDbFacade, TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
+        internal abstract IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where DbMethod : TDbManifest;
+
+        internal abstract IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where DbMethod : TDbManifest;
+        
+
+        internal abstract IDbResponse<TDbDataModel> ExecuteNext<TDbFacade, TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
             where TDbFacade : DbFacade<TDbManifest>
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
             where DbMethod : TDbManifest;
-        /// <summary>
-        /// Fetches the specified parameters.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbParams, DbMethod>(DbParams parameters)
-            where TDbDataModel : DbDataModel
-            where DbParams : IDbParamsModel
-            where DbMethod : TDbManifest;
-        /// <summary>
-        /// Fetches this instance.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <returns></returns>
-        protected abstract IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbMethod>() where TDbDataModel : DbDataModel where DbMethod : TDbManifest;
-        /// <summary>
-        /// Transactions the specified parameters.
-        /// </summary>
-        /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse Transaction<DbParams, DbMethod>(DbParams parameters) where DbParams : IDbParamsModel where DbMethod : TDbManifest;
-        /// <summary>
-        /// Transactions this instance.
-        /// </summary>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <returns></returns>
-        protected abstract IDbResponse Transaction<DbMethod>() where DbMethod : TDbManifest;
 
+        internal abstract IDbResponse<TDbDataModel> ExecuteNext<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where DbMethod : TDbManifest;
 
-        /// <summary>
-        /// Mocks the fetch.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="testResponseData">The test response data.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse<TDbDataModel> MockFetch<TDbDataModel, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData)
+        internal abstract IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
             where TDbDataModel : DbDataModel
-            where DbParams : IDbParamsModel
+            where TDbParams : IDbParamsModel
             where DbMethod : TDbManifest;
-        /// <summary>
-        /// Mocks the fetch.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="testResponseData">The test response data.</param>
-        /// <param name="ReturnValue">The return value.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse<TDbDataModel> MockFetch<TDbDataModel, DbParams, DbMethod>(DbParams parameters, IDataReader testResponseData, object ReturnValue)
-            where TDbDataModel : DbDataModel
-            where DbParams : IDbParamsModel
+
+        internal abstract void OnBeforeNextInner<TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+            where TDbParams : IDbParamsModel
             where DbMethod : TDbManifest;
-        /// <summary>
-        /// Mocks the fetch.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="testResponseData">The test response data.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse<TDbDataModel> MockFetch<TDbDataModel, DbMethod>(IDataReader testResponseData)
-            where TDbDataModel : DbDataModel
-            where DbMethod : TDbManifest;
-        /// <summary>
-        /// Mocks the fetch.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="testResponseData">The test response data.</param>
-        /// <param name="ReturnValue">The return value.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse<TDbDataModel> MockFetch<TDbDataModel, DbMethod>(IDataReader testResponseData, object ReturnValue)
-            where TDbDataModel : DbDataModel
-            where DbMethod : TDbManifest;
-        /// <summary>
-        /// Mocks the transaction.
-        /// </summary>
-        /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse MockTransaction<DbParams, DbMethod>(DbParams parameters)
-            where DbParams : IDbParamsModel
-            where DbMethod : TDbManifest;
-        /// <summary>
-        /// Mocks the transaction.
-        /// </summary>
-        /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="ReturnValue">The return value.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse MockTransaction<DbParams, DbMethod>(DbParams parameters, object ReturnValue)
-            where DbParams : IDbParamsModel
-            where DbMethod : TDbManifest;
-        /// <summary>
-        /// Mocks the transaction.
-        /// </summary>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <returns></returns>
-        protected abstract IDbResponse MockTransaction<DbMethod>()
-            where DbMethod : TDbManifest;
-        /// <summary>
-        /// Mocks the transaction.
-        /// </summary>
-        /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-        /// <param name="testResponseData">The test response data.</param>
-        /// <param name="ReturnValue">The return value.</param>
-        /// <returns></returns>
-        protected abstract IDbResponse MockTransaction<DbMethod>(IDataReader testResponseData, object ReturnValue)
+
+        protected abstract void OnBeforeNext<TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+            where TDbParams : IDbParamsModel
             where DbMethod : TDbManifest;
     }
 }

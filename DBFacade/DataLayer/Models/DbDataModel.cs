@@ -25,16 +25,13 @@ namespace DBFacade.DataLayer.Models
     /// </summary>
     /// <seealso cref="IDbDataModel" />
     [JsonObject]
+    [Serializable]
     public abstract class DbDataModel : IDbDataModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DbDataModel"/> class.
         /// </summary>
         public DbDataModel() { }
-        /// <summary>
-        /// Converts to json.
-        /// </summary>
-        /// <returns></returns>
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this);
@@ -52,6 +49,7 @@ namespace DBFacade.DataLayer.Models
             settings.ContractResolver = new ContractResolverWithPrivates();
             return JsonConvert.DeserializeObject<T>(jsonStr, settings);
         }
+        
         private class ContractResolverWithPrivates : CamelCasePropertyNamesContractResolver
         {
             protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
@@ -92,7 +90,7 @@ namespace DBFacade.DataLayer.Models
             }
             catch (Exception e)
             {
-                throw new DataModelConstructionException("Failed to create data model", e);
+                throw new DataModelConstructionException($"Failed to create {typeof(T).Name} data model", e);
             }
 
         }

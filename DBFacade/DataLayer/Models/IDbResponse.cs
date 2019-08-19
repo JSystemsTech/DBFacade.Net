@@ -1,6 +1,9 @@
 ﻿using DBFacade.Exceptions;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Mvc;
+using System.Xml;
 
 namespace DBFacade.DataLayer.Models
 {
@@ -28,34 +31,49 @@ namespace DBFacade.DataLayer.Models
         FacadeException GetException();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-    public interface IDbResponse<TDbDataModel> : IDbResponse
+    public interface IXMLSerializable<TDbDataModel>
          where TDbDataModel : DbDataModel
     {
-        /// <summary>
-        /// Resultses this instance.
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<TDbDataModel> Results();
-        /// <summary>
-        /// Converts to json.
-        /// </summary>
-        /// <returns></returns>
-        string ToJson();
-        /// <summary>
-        /// Converts to jsonresult.
-        /// </summary>
-        /// <returns></returns>
-        JsonResult ToJsonResult();
-        /// <summary>
-        /// Results this instance.
-        /// </summary>
-        /// <returns></returns>
-        TDbDataModel Result();
-
+        void Serialize(TextWriter textWriter);
+        void Serialize(XmlWriter xmlWriter);
     }
+    public interface IJsonSerializable<TDbDataModel>
+         where TDbDataModel : DbDataModel
+    {
+        string ToJson();
+        JsonResult ToJsonResult();
+    }
+    public interface IReadOnlyDbCollection<TDbDataModel>
+         where TDbDataModel : DbDataModel
+    {
+        bool Contains(TDbDataModel item);
+        int Count();
+        TDbDataModel First();
+        bool Exists(Predicate<TDbDataModel> match);
+        TDbDataModel Find(Predicate<TDbDataModel> match);
+        int FindIndex(Predicate<TDbDataModel> match);
+        int FindIndex(int startIndex, Predicate<TDbDataModel> match);
+        int FindIndex(int startIndex, int count, Predicate<TDbDataModel> match);
+        int FindLastIndex(Predicate<TDbDataModel> match);
+        int FindLastIndex(int startIndex, int count, Predicate<TDbDataModel> match);
+        void ForEach(Action<TDbDataModel> action);
+        int IndexOf(TDbDataModel item, int index, int count);
+        int IndexOf(TDbDataModel item, int index);
+        int IndexOf(TDbDataModel item);
+        int LastIndexOf(TDbDataModel item);
+        int LastIndexOf(TDbDataModel item, int index);
+        int LastIndexOf(TDbDataModel item, int index, int count);
+        void Reverse(int index, int count);
+        void Reverse();
+        void Sort(int index, int count, IComparer<TDbDataModel> comparer);
+        void Sort(Comparison<TDbDataModel> comparison);
+        void Sort();
+        void Sort(IComparer<TDbDataModel> comparer);
+        TDbDataModel[] ToArray();
+        List<TDbDataModel> ToList();
+    }
+    public interface IDbResponse<TDbDataModel> : IDbResponse, IReadOnlyDbCollection<TDbDataModel>, IXMLSerializable<TDbDataModel>, IJsonSerializable<TDbDataModel>
+         where TDbDataModel : DbDataModel
+    {}
 
 }

@@ -1,6 +1,6 @@
 ﻿using System.Data;
-using static DBFacade.DataLayer.ConnectionService.DbConnectionService;
-using DBFacade.DataLayer.ConnectionService.SQL;
+using DBFacade.DataLayer.Models;
+using DBFacade.DataLayer.Manifest;
 
 namespace DBFacade.DataLayer.ConnectionService
 {
@@ -9,38 +9,13 @@ namespace DBFacade.DataLayer.ConnectionService
     /// </summary>
     public class DbConnectionConfigBase
     {
-        /// <summary>
-        /// Gets the database connection.
-        /// </summary>
-        /// <returns></returns>
         public virtual IDbConnection GetDbConnection() { return null; }
-        /// <summary>
-        /// Checks the stored proc availability.
-        /// </summary>
-        /// <returns></returns>
-        public virtual bool CheckStoredProcAvailability() { return true; }
-        /// <summary>
-        /// Sets the available stored procs.
-        /// </summary>
-        /// <param name="storedProcs">The stored procs.</param>
-        public virtual void SetAvailableStoredProcs(DbConnectionStoredProcedure[] storedProcs) { }
-        /// <summary>
-        /// Gets the available stored proc command text.
-        /// </summary>
-        /// <returns></returns>
-        public virtual string GetAvailableStoredProcCommandText() { return null; }
-        /// <summary>
-        /// Gets the type of the available stored proc command.
-        /// </summary>
-        /// <returns></returns>
-        public virtual CommandType GetAvailableStoredProcCommandType() { return new CommandType(); }
-        /// <summary>
-        /// Gets the default available stored proc command text.
-        /// </summary>
-        /// <returns></returns>
-        internal string GetDefaultAvailableStoredProcCommandText()
-        {
-            return QueryLoader.GetSprocMetaQuery();
-        }
+        public virtual IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, DbMethod>(DbMethod dbMethod, TDbParams parameters)
+            where TDbManifest : DbManifest
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where DbMethod : TDbManifest
+        { return null; }
+        
     }
 }

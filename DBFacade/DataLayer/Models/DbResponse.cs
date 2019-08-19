@@ -3,27 +3,19 @@ using DBFacade.Exceptions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using System.Xml;
 
 namespace DBFacade.DataLayer.Models
 {
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="DbMethod">The type of the b method.</typeparam>
-    /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-    /// <seealso cref="System.Collections.Generic.List{TDbDataModel}" />
-    /// <seealso cref="Models.IDbResponse{TDbDataModel}" />
     internal class DbResponse<DbMethod, TDbDataModel> : List<TDbDataModel>, IDbResponse<TDbDataModel>
         where TDbDataModel : DbDataModel
         where DbMethod : IDbMethod
     {
-        /// <summary>
-        /// Adds the fetched data.
-        /// </summary>
-        /// <param name="dbReader">The database reader.</param>
         private void AddFetchedData(DbDataReader dbReader)
         {
             while (dbReader.Read())
@@ -31,91 +23,47 @@ namespace DBFacade.DataLayer.Models
                 Add(DbDataModel.ToDbDataModel<TDbDataModel, DbMethod>(dbReader));
             }
         }
-        /// <summary>
-        /// Gets or sets the return value.
-        /// </summary>
-        /// <value>
-        /// The return value.
-        /// </value>
         private object ReturnVal { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbResponse{DbMethod, TDbDataModel}"/> class.
-        /// </summary>
-        /// <param name="dbReader">The database reader.</param>
-        /// <param name="returnValue">The return value.</param>
-        public DbResponse(DbDataReader dbReader, object returnValue)
+        public DbResponse(DbDataReader dbReader, object returnValue = null)
         {
             AddFetchedData(dbReader);
-            if (returnValue != null)
-            {
-                ReturnVal = returnValue;
-            }
+            ReturnVal = returnValue;
         }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbResponse{DbMethod, TDbDataModel}"/> class.
-        /// </summary>
-        /// <param name="returnValue">The return value.</param>
-        public DbResponse(object returnValue)
+        public DbResponse(object returnValue = null)
         {
-            if (returnValue != null)
-            {
-                ReturnVal = returnValue;
-            }
+            ReturnVal = returnValue;
         }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbResponse{DbMethod, TDbDataModel}"/> class.
-        /// </summary>
-        /// <param name="e">The e.</param>
-        public DbResponse(FacadeException e)
-        {
-            Error = e;
-        }
-        /// <summary>
-        /// Converts to json.
-        /// </summary>
-        /// <returns></returns>
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this);
         }
-        /// <summary>
-        /// Converts to jsonresult.
-        /// </summary>
-        /// <returns></returns>
         public JsonResult ToJsonResult()
         {
             return new JsonResult { Data = this, MaxJsonLength = int.MaxValue, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        /// <summary>
-        /// Gets or sets the error.
-        /// </summary>
-        /// <value>
-        /// The error.
-        /// </value>
+        public void Serialize(TextWriter textWriter)
+        {
+            using (XmlWriter xmlWriter = XmlWriter.Create(textWriter))
+            {
+                Serialize(xmlWriter);
+            }
+        }
+        public void Serialize(XmlWriter xmlWriter)
+        {
+            List<TDbDataModel> data = ToList();
+            DataContractSerializer serializer = new DataContractSerializer(data.GetType());
+            serializer.WriteObject(xmlWriter, data);
+        }
+        public static IDbResponse<TDbDataModel> Deserialize(Stream stream)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(DbResponse<DbMethod, TDbDataModel>));
+            return (DbResponse<DbMethod, TDbDataModel>)serializer.Deserialize(stream);
+        }
         private FacadeException Error { get; set; }
-        /// <summary>
-        /// Returns the value.
-        /// </summary>
-        /// <returns></returns>
+       
         public object ReturnValue()
         {
             return ReturnVal;
-        }
-        /// <summary>
-        /// Resultses this instance.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<TDbDataModel> Results()
-        {
-            return this;
-        }
-        public TDbDataModel Result()
-        {
-            if (Count == 0)
-            {
-                return default(TDbDataModel);
-            }
-            return this.First();
         }
 
         /// <summary>
@@ -137,7 +85,17 @@ namespace DBFacade.DataLayer.Models
         {
             return Error;
         }
-
-
+        int IReadOnlyDbCollection<TDbDataModel>.Count()
+        {
+            return Count;
+        }
+        public TDbDataModel First()
+        {
+            return this[0];
+        }
+        public List<TDbDataModel> ToList()
+        {
+            return ToArray().ToList();
+        }
     }
 }
