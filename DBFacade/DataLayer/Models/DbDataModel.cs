@@ -17,7 +17,7 @@ namespace DBFacade.DataLayer.Models
     /// </summary>
     public interface IDbDataModel
     {
-        void InitializeData<TDbManifestMethod>(IDataRecord data) where TDbManifestMethod : ITDbManifestMethod;
+        void InitializeData<TDbManifestMethod>(IDataRecord data) where TDbManifestMethod : IDbManifestMethod;
         string ToJson();
     }
     /// <summary>
@@ -63,7 +63,7 @@ namespace DBFacade.DataLayer.Models
         /// <param name="data">The data.</param>
         /// <returns></returns>
         /// <exception cref="DataModelConstructionException">Failed to create data model</exception>
-        public static T ToDbDataModel<T, TDbManifestMethod>(IDataRecord data) where T : DbDataModel where TDbManifestMethod : ITDbManifestMethod
+        public static T ToDbDataModel<T, TDbManifestMethod>(IDataRecord data) where T : DbDataModel where TDbManifestMethod : IDbManifestMethod
         {
             try
             {
@@ -86,7 +86,7 @@ namespace DBFacade.DataLayer.Models
         /// </summary>
         /// <typeparam name="TDbManifestMethod">The type of the b method.</typeparam>
         /// <param name="data">The data.</param>
-        public void InitializeData<TDbManifestMethod>(IDataRecord data) where TDbManifestMethod : ITDbManifestMethod
+        public void InitializeData<TDbManifestMethod>(IDataRecord data) where TDbManifestMethod : IDbManifestMethod
         {
             PopulateProperties<TDbManifestMethod>(data);
         }
@@ -97,7 +97,7 @@ namespace DBFacade.DataLayer.Models
         /// <typeparam name="TDbManifestMethod">The type of the b method.</typeparam>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        private static T Create<T, TDbManifestMethod>(IDataRecord data) where T : DbDataModel where TDbManifestMethod : ITDbManifestMethod
+        private static T Create<T, TDbManifestMethod>(IDataRecord data) where T : DbDataModel where TDbManifestMethod : IDbManifestMethod
         {
             return (T)Create<TDbManifestMethod>(typeof(T), data);
         }
@@ -107,7 +107,7 @@ namespace DBFacade.DataLayer.Models
         /// <typeparam name="TDbManifestMethod">The type of the b method.</typeparam>
         /// <param name="dbDataModelType">Type of the database data model.</param>
         /// <returns></returns>
-        private static List<ConstructorInfo> GetConstructorInfo<TDbManifestMethod>(Type dbDataModelType) where TDbManifestMethod : ITDbManifestMethod
+        private static List<ConstructorInfo> GetConstructorInfo<TDbManifestMethod>(Type dbDataModelType) where TDbManifestMethod : IDbManifestMethod
         {
             return dbDataModelType.GetConstructors().ToList().FindAll(constructor =>
                 constructor.GetCustomAttributes<DbColumn>().Count() > 0 &&
@@ -123,7 +123,7 @@ namespace DBFacade.DataLayer.Models
         /// <param name="dbDataModelType">Type of the database data model.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        private static IDbDataModel Create<TDbManifestMethod>(Type dbDataModelType, IDataRecord data) where TDbManifestMethod : ITDbManifestMethod
+        private static IDbDataModel Create<TDbManifestMethod>(Type dbDataModelType, IDataRecord data) where TDbManifestMethod : IDbManifestMethod
         {
             List<ConstructorInfo> constructorInfo = GetConstructorInfo<TDbManifestMethod>(dbDataModelType);
             if (constructorInfo.Count > 0)
@@ -151,7 +151,7 @@ namespace DBFacade.DataLayer.Models
         /// <typeparam name="TDbManifestMethod">The type of the b method.</typeparam>
         /// <param name="property">The property.</param>
         /// <returns></returns>
-        protected IDbColumn GetColumnAttribute<TDbManifestMethod>(PropertyInfo property) where TDbManifestMethod : ITDbManifestMethod
+        protected IDbColumn GetColumnAttribute<TDbManifestMethod>(PropertyInfo property) where TDbManifestMethod : IDbManifestMethod
         {
             List<DbColumn> ColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList().FindAll(column => column.BoundToTDbManifestMethodType && column.GetTDbManifestMethodType().FullName == typeof(TDbManifestMethod).FullName);
 
@@ -183,7 +183,7 @@ namespace DBFacade.DataLayer.Models
         /// </summary>
         /// <typeparam name="TDbManifestMethod">The type of the b method.</typeparam>
         /// <param name="data">The data.</param>
-        private void PopulateNestedProperties<TDbManifestMethod>(IDataRecord data) where TDbManifestMethod : ITDbManifestMethod
+        private void PopulateNestedProperties<TDbManifestMethod>(IDataRecord data) where TDbManifestMethod : IDbManifestMethod
         {
             List<PropertyInfo> NestedProperties = GetBindableProperties().FindAll(prop =>
                 prop.GetCustomAttributes<NestedModel>().Count() > 0 &&
@@ -210,7 +210,7 @@ namespace DBFacade.DataLayer.Models
         /// </summary>
         /// <typeparam name="E"></typeparam>
         /// <param name="data">The data.</param>
-        protected void PopulateProperties<E>(IDataRecord data) where E : ITDbManifestMethod
+        protected void PopulateProperties<E>(IDataRecord data) where E : IDbManifestMethod
         {
             List<PropertyInfo> properties = GetBindableProperties().FindAll(prop =>
                 prop.GetCustomAttributes<DbColumn>().Count() > 0

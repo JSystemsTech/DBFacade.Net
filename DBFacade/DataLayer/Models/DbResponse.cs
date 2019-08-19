@@ -14,7 +14,7 @@ namespace DBFacade.DataLayer.Models
 {
     internal class DbResponse<TDbManifestMethod, TDbDataModel> : List<TDbDataModel>, IDbResponse<TDbDataModel>
         where TDbDataModel : DbDataModel
-        where TDbManifestMethod : ITDbManifestMethod
+        where TDbManifestMethod : IDbManifestMethod
     {
         private void AddFetchedData(DbDataReader dbReader)
         {
