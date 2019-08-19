@@ -264,3 +264,13 @@ __pycache__/
 [branch "Dev"]
 /DomainLayerSandbox1/*
 /Facade Sabdbox Run Environment/*
+_sections
+_site
+[branch "master"]
+/DomainLayerSandbox1/*
+/Facade Sabdbox Run Environment/*
+_sections
+_site
+[branch "gh-pages"]
+/DomainLayerSandbox1/*
+/Facade Sabdbox Run Environment/*
