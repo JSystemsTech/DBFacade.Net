@@ -13,9 +13,9 @@ namespace DBFacade.DataLayer.Models.Attributes
         public DbParseStringColumn(string name) : base(name) { }
         public DbParseStringColumn(string name, object defaultValue) : base(name, defaultValue) { }
         
-        public DbParseStringColumn(Type dbMethodType, string name) : base(dbMethodType, name) { }
+        public DbParseStringColumn(Type TDbManifestMethodType, string name) : base(TDbManifestMethodType, name) { }
         
-        public DbParseStringColumn(Type dbMethodType, string name, object defaultValue) : base(dbMethodType, name, defaultValue) { }
+        public DbParseStringColumn(Type TDbManifestMethodType, string name, object defaultValue) : base(TDbManifestMethodType, name, defaultValue) { }
         
         private string dateFormat;
         
@@ -36,21 +36,21 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="DbParseStringColumn"/> class.
         /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
+        /// <param name="TDbManifestMethodType">Type of the database method.</param>
         /// <param name="name">The name.</param>
         /// <param name="dateFormat">The date format.</param>
-        public DbParseStringColumn(Type dbMethodType, string name, string dateFormat) : base(dbMethodType, name)
+        public DbParseStringColumn(Type TDbManifestMethodType, string name, string dateFormat) : base(TDbManifestMethodType, name)
         {
             this.dateFormat = dateFormat;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="DbParseStringColumn"/> class.
         /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
+        /// <param name="TDbManifestMethodType">Type of the database method.</param>
         /// <param name="name">The name.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <param name="dateFormat">The date format.</param>
-        public DbParseStringColumn(Type dbMethodType, string name, System.DateTime defaultValue, string dateFormat) : base(dbMethodType, name, defaultValue)
+        public DbParseStringColumn(Type TDbManifestMethodType, string name, System.DateTime defaultValue, string dateFormat) : base(TDbManifestMethodType, name, defaultValue)
         {
             this.dateFormat = dateFormat;
         }

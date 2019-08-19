@@ -14,7 +14,7 @@ namespace DBFacade.DataLayer.Manifest
     /// 
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    public abstract class DbMethodUtils<TDbParams>
+    public abstract class TDbManifestMethodUtils<TDbParams>
         where TDbParams : IDbParamsModel
     {
         /// <summary>

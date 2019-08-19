@@ -8,7 +8,7 @@ namespace DBFacade.DataLayer.CommandConfig
 {
     public interface IDbCommandConfig: IDisposable
     {
-        TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel dbMethodParams, TDbConnection dbConnection)
+        TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbManifestMethodParams, TDbConnection dbConnection)
             where TDbConnection : DbConnection
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter;        

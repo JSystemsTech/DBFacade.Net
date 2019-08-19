@@ -11,7 +11,7 @@ namespace DBFacade.Facade
     public class DomainManager<TDbManifest> : DbFacade<TDbManifest>
     where TDbManifest : DbManifest
     {
-        internal sealed override void OnBeforeNextInner<TDbParams, DbMethod>(DbMethod method, TDbParams parameters) {
+        internal sealed override void OnBeforeNextInner<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) {
             IDbCommandConfig config = method.GetConfig();
             IValidationResult validationResult = config.Validate(parameters);
             string paramsType = parameters.GetType().Name;
@@ -21,9 +21,9 @@ namespace DBFacade.Facade
                 throw new ValidationException<TDbParams>(validationResult, parameters, $"{paramsType} values failed to pass validation for method {MethodType}");
             }
         }        
-        internal sealed override IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+        internal sealed override IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
-            return ExecuteNext<DbConnectionManager<TDbManifest>, TDbDataModel, TDbParams, DbMethod>(method, parameters);
+            return ExecuteNext<DbConnectionManager<TDbManifest>, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
         internal sealed override void HandleInnerDispose() => GetDbFacade<DbConnectionManager<TDbManifest>>().Dispose();
     }

@@ -2,7 +2,7 @@
 
 namespace DBFacade.DataLayer.Manifest
 {
-    public abstract class DbManifest : IDbMethod
+    public abstract class DbManifest : ITDbManifestMethod
     {
         private IDbCommandConfig Config { get; set; }
         public IDbCommandConfig GetConfig() => Config ?? GetConfigCore();

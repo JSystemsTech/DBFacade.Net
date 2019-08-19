@@ -10,11 +10,11 @@ namespace DBFacade.DataLayer.ConnectionService
     public class DbConnectionConfigBase
     {
         public virtual IDbConnection GetDbConnection() { return null; }
-        public virtual IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, DbMethod>(DbMethod dbMethod, TDbParams parameters)
+        public virtual IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
             where TDbManifest : DbManifest
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         { return null; }
         
     }

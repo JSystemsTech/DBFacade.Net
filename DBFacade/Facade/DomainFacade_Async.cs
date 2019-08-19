@@ -12,61 +12,61 @@ namespace DBFacade.Facade
     where TDbManifest : DbManifest
     {
         #region Db Data Actions Async
-        protected async Task<IDbResponse<TDbDataModel>> FetchAsync<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
+        protected async Task<IDbResponse<TDbDataModel>> FetchAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
-            return await ExecuteProcessAsync<TDbDataModel, TDbParams, DbMethod>(parameters);
+            return await ExecuteProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(parameters);
         }
-        protected async Task<IDbResponse<TDbDataModel>> FetchAsync<TDbDataModel, DbMethod>()
+        protected async Task<IDbResponse<TDbDataModel>> FetchAsync<TDbDataModel, TDbManifestMethod>()
             where TDbDataModel : DbDataModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
-            return await ExecuteProcessAsync<TDbDataModel, DbMethod>();
+            return await ExecuteProcessAsync<TDbDataModel, TDbManifestMethod>();
         }
-        protected async Task<IDbResponse> TransactionAsync<TDbParams, DbMethod>(TDbParams parameters)
+        protected async Task<IDbResponse> TransactionAsync<TDbParams, TDbManifestMethod>(TDbParams parameters)
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
-            return await ExecuteProcessAsync<DbDataModel, TDbParams, DbMethod>(parameters);
+            return await ExecuteProcessAsync<DbDataModel, TDbParams, TDbManifestMethod>(parameters);
         }
-        protected async Task<IDbResponse> TransactionAsync<DbMethod>()
-            where DbMethod : TDbManifest
+        protected async Task<IDbResponse> TransactionAsync<TDbManifestMethod>()
+            where TDbManifestMethod : TDbManifest
         {
-            return await ExecuteProcessAsync<DbDataModel, DbMethod>();
+            return await ExecuteProcessAsync<DbDataModel, TDbManifestMethod>();
         }
         #endregion
         #region Mock Db Calls Async
-        protected async Task<IDbResponse<TDbDataModel>> MockFetchAsync<TDbDataModel, TDbParams, DbMethod, T>(IEnumerable<T> responseData, object returnValue, TDbParams parameters)
+        protected async Task<IDbResponse<TDbDataModel>> MockFetchAsync<TDbDataModel, TDbParams, TDbManifestMethod, T>(IEnumerable<T> responseData, object returnValue, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
             parameters.RunAsTest(responseData, returnValue);
-            return await FetchAsync<TDbDataModel, TDbParams, DbMethod>(parameters);
+            return await FetchAsync<TDbDataModel, TDbParams, TDbManifestMethod>(parameters);
         }
-        protected async Task<IDbResponse<TDbDataModel>> MockFetchAsync<TDbDataModel, DbMethod, T>(IEnumerable<T> responseData, object returnValue)
+        protected async Task<IDbResponse<TDbDataModel>> MockFetchAsync<TDbDataModel, TDbManifestMethod, T>(IEnumerable<T> responseData, object returnValue)
             where TDbDataModel : DbDataModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
             DbParamsModel parameters = new DbParamsModel();
             parameters.RunAsTest(responseData, returnValue);
-            return await FetchAsync<TDbDataModel, DbParamsModel, DbMethod>(parameters);
+            return await FetchAsync<TDbDataModel, DbParamsModel, TDbManifestMethod>(parameters);
         }
-        protected async Task<IDbResponse> MockTransactionAsync<TDbParams, DbMethod>(object returnValue, TDbParams parameters)
+        protected async Task<IDbResponse> MockTransactionAsync<TDbParams, TDbManifestMethod>(object returnValue, TDbParams parameters)
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
             parameters.RunAsTest(returnValue);
-            return await TransactionAsync<TDbParams, DbMethod>(parameters);
+            return await TransactionAsync<TDbParams, TDbManifestMethod>(parameters);
         }
-        protected async Task<IDbResponse> MockTransactionAsync<DbMethod>(object returnValue)
-            where DbMethod : TDbManifest
+        protected async Task<IDbResponse> MockTransactionAsync<TDbManifestMethod>(object returnValue)
+            where TDbManifestMethod : TDbManifest
         {
             DbParamsModel parameters = new DbParamsModel();
             parameters.RunAsTest(returnValue);
-            return await TransactionAsync<DbParamsModel, DbMethod>(parameters);
+            return await TransactionAsync<DbParamsModel, TDbManifestMethod>(parameters);
         }
         #endregion
 

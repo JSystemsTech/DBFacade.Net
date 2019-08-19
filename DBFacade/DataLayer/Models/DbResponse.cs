@@ -12,15 +12,15 @@ using System.Xml;
 
 namespace DBFacade.DataLayer.Models
 {
-    internal class DbResponse<DbMethod, TDbDataModel> : List<TDbDataModel>, IDbResponse<TDbDataModel>
+    internal class DbResponse<TDbManifestMethod, TDbDataModel> : List<TDbDataModel>, IDbResponse<TDbDataModel>
         where TDbDataModel : DbDataModel
-        where DbMethod : IDbMethod
+        where TDbManifestMethod : ITDbManifestMethod
     {
         private void AddFetchedData(DbDataReader dbReader)
         {
             while (dbReader.Read())
             {
-                Add(DbDataModel.ToDbDataModel<TDbDataModel, DbMethod>(dbReader));
+                Add(DbDataModel.ToDbDataModel<TDbDataModel, TDbManifestMethod>(dbReader));
             }
         }
         private object ReturnVal { get; set; }
@@ -56,8 +56,8 @@ namespace DBFacade.DataLayer.Models
         }
         public static IDbResponse<TDbDataModel> Deserialize(Stream stream)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(DbResponse<DbMethod, TDbDataModel>));
-            return (DbResponse<DbMethod, TDbDataModel>)serializer.Deserialize(stream);
+            XmlSerializer serializer = new XmlSerializer(typeof(DbResponse<TDbManifestMethod, TDbDataModel>));
+            return (DbResponse<TDbManifestMethod, TDbDataModel>)serializer.Deserialize(stream);
         }
         private FacadeException Error { get; set; }
        

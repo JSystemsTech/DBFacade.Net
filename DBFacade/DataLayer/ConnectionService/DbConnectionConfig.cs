@@ -28,9 +28,9 @@ namespace DBFacade.DataLayer.ConnectionService
         private sealed class ConnectionHandler<TDbManifest> : DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbManifest> where TDbManifest : DbManifest { }
         public sealed override IDbConnection GetDbConnection() => GetDbConnectionCore<TDbConnection>();
 
-        public sealed override IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, DbMethod>(DbMethod dbMethod, TDbParams parameters)
+        public sealed override IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
-            return ConnectionHandler<TDbManifest>.ExecuteDbAction<TDbDataModel, TDbParams, DbMethod>(dbMethod, parameters);
+            return ConnectionHandler<TDbManifest>.ExecuteDbAction<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
         protected static IDbCommandText CreateCommandText(string commandText, string label) => new DbCommandText(commandText, label);
     }

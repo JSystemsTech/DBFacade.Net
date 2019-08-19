@@ -23,12 +23,12 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="DbBufferedColumn"/> class.
         /// </summary>
-        /// <param name="dBMethodType">Type of the d b method.</param>
+        /// <param name="TDbManifestMethodType">Type of the d b method.</param>
         /// <param name="name">The name.</param>
         /// <param name="fieldOffset">The field offset.</param>
         /// <param name="bufferoffset">The bufferoffset.</param>
         /// <param name="length">The length.</param>
-        public DbBufferedColumn(Type dBMethodType, string name, long fieldOffset, int bufferoffset, int length) : base(dBMethodType, name)
+        public DbBufferedColumn(Type TDbManifestMethodType, string name, long fieldOffset, int bufferoffset, int length) : base(TDbManifestMethodType, name)
         {
             InitBufferColumn(fieldOffset, bufferoffset, length);
         }
@@ -97,13 +97,13 @@ namespace DBFacade.DataLayer.Models.Attributes
             /// <summary>
             /// Initializes a new instance of the <see cref="BytesBase"/> class.
             /// </summary>
-            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="TDbManifestMethodType">Type of the d b method.</param>
             /// <param name="name">The name.</param>
             /// <param name="fieldOffset">The field offset.</param>
             /// <param name="buffer">The buffer.</param>
             /// <param name="bufferoffset">The bufferoffset.</param>
             /// <param name="length">The length.</param>
-            public BytesBase(Type dBMethodType, string name, long fieldOffset, byte[] buffer, int bufferoffset, int length) : base(dBMethodType, name, fieldOffset, bufferoffset, length) { Buffer = buffer; }
+            public BytesBase(Type TDbManifestMethodType, string name, long fieldOffset, byte[] buffer, int bufferoffset, int length) : base(TDbManifestMethodType, name, fieldOffset, bufferoffset, length) { Buffer = buffer; }
 
             /// <summary>
             /// The buffer
@@ -139,13 +139,13 @@ namespace DBFacade.DataLayer.Models.Attributes
             /// <summary>
             /// Initializes a new instance of the <see cref="Bytes"/> class.
             /// </summary>
-            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="TDbManifestMethodType">Type of the d b method.</param>
             /// <param name="name">The name.</param>
             /// <param name="fieldOffset">The field offset.</param>
             /// <param name="buffer">The buffer.</param>
             /// <param name="bufferoffset">The bufferoffset.</param>
             /// <param name="length">The length.</param>
-            public Bytes(Type dBMethodType, string name, long fieldOffset, byte[] buffer, int bufferoffset, int length) : base(dBMethodType, name, fieldOffset, buffer, bufferoffset, length) { }
+            public Bytes(Type TDbManifestMethodType, string name, long fieldOffset, byte[] buffer, int bufferoffset, int length) : base(TDbManifestMethodType, name, fieldOffset, buffer, bufferoffset, length) { }
 
         }
         /// <summary>
@@ -167,13 +167,13 @@ namespace DBFacade.DataLayer.Models.Attributes
             /// <summary>
             /// Initializes a new instance of the <see cref="Chars"/> class.
             /// </summary>
-            /// <param name="dBMethodType">Type of the d b method.</param>
+            /// <param name="TDbManifestMethodType">Type of the d b method.</param>
             /// <param name="name">The name.</param>
             /// <param name="fieldOffset">The field offset.</param>
             /// <param name="buffer">The buffer.</param>
             /// <param name="bufferoffset">The bufferoffset.</param>
             /// <param name="length">The length.</param>
-            public Chars(Type dBMethodType, string name, long fieldOffset, char[] buffer, int bufferoffset, int length) : base(dBMethodType, name, fieldOffset, bufferoffset, length) { Buffer = buffer; }
+            public Chars(Type TDbManifestMethodType, string name, long fieldOffset, char[] buffer, int bufferoffset, int length) : base(TDbManifestMethodType, name, fieldOffset, bufferoffset, length) { Buffer = buffer; }
 
             /// <summary>
             /// The buffer

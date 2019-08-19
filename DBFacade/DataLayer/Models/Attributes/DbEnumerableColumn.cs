@@ -9,9 +9,9 @@ namespace DBFacade.DataLayer.Models.Attributes
     public abstract class DbEnumerableColumn : DbColumn
     {
         public DbEnumerableColumn(string name) : base(name) { }
-        public DbEnumerableColumn(Type dBMethodType, string name) : base(dBMethodType, name) { }
+        public DbEnumerableColumn(Type TDbManifestMethodType, string name) : base(TDbManifestMethodType, name) { }
         public DbEnumerableColumn(string name, char delimeter) : base(name, delimeter) { }
-        public DbEnumerableColumn(Type dBMethodType, string name, char delimeter) : base(dBMethodType, name, delimeter) { }
+        public DbEnumerableColumn(Type TDbManifestMethodType, string name, char delimeter) : base(TDbManifestMethodType, name, delimeter) { }
         
         
         protected override object GetColumnValue(IDataRecord data, Type propType)
@@ -29,7 +29,7 @@ namespace DBFacade.DataLayer.Models.Attributes
         {
             
             public Array(string name) : base(name) { }
-            public Array(Type dBMethodType, string name) : base(dBMethodType, name) { }
+            public Array(Type TDbManifestMethodType, string name) : base(TDbManifestMethodType, name) { }
             
             public Array(string name, char delimeter) : base(name, delimeter) { }
             
@@ -75,11 +75,11 @@ namespace DBFacade.DataLayer.Models.Attributes
             
             public List(string name) : base(name) { }
             
-            public List(Type dBMethodType, string name) : base(dBMethodType, name) { }
+            public List(Type TDbManifestMethodType, string name) : base(TDbManifestMethodType, name) { }
             
             public List(string name, char delimeter) : base(name, delimeter) { }
             
-            public List(Type dBMethodType, string name, char delimeter) : base(dBMethodType, name, delimeter) { }
+            public List(Type TDbManifestMethodType, string name, char delimeter) : base(TDbManifestMethodType, name, delimeter) { }
             
             
             protected override IEnumerable GetEnumerable(string[] values, Type propType)

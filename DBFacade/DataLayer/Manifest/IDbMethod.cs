@@ -6,7 +6,7 @@ namespace DBFacade.DataLayer.Manifest
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbMethod
+    public interface ITDbManifestMethod
     {
         /// <summary>
         /// Gets the configuration.

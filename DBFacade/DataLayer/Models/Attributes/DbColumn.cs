@@ -13,7 +13,7 @@ namespace DBFacade.DataLayer.Models.Attributes
     {
         object GetColumnValueCore(IDataRecord data, Type propType);
         int GetOrdinal(IDataRecord data);
-        Type GetDbMethodType();
+        Type GetTDbManifestMethodType();
     }
     /// <summary>
     /// 
@@ -37,11 +37,11 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// The database method type
         /// </summary>
-        private Type dbMethodType;
+        private Type TDbManifestMethodType;
         /// <summary>
         /// The bound to database method
         /// </summary>
-        private bool boundToDbMethod;
+        private bool boundToTDbManifestMethod;
         /// <summary>
         /// Initializes a new instance of the <see cref="DbColumn"/> class.
         /// </summary>
@@ -60,11 +60,11 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="DbColumn"/> class.
         /// </summary>
-        /// <param name="dBMethodType">Type of the d b method.</param>
+        /// <param name="TDbManifestMethodType">Type of the d b method.</param>
         /// <param name="name">The name.</param>
-        public DbColumn(Type dBMethodType, string name)
+        public DbColumn(Type TDbManifestMethodType, string name)
         {
-            init(dBMethodType, name, null);
+            init(TDbManifestMethodType, name, null);
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="DbColumn"/> class.
@@ -78,12 +78,12 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="DbColumn"/> class.
         /// </summary>
-        /// <param name="dBMethodType">Type of the d b method.</param>
+        /// <param name="TDbManifestMethodType">Type of the d b method.</param>
         /// <param name="name">The name.</param>
         /// <param name="delimeter">The delimeter.</param>
-        internal DbColumn(Type dBMethodType, string name, char delimeter)
+        internal DbColumn(Type TDbManifestMethodType, string name, char delimeter)
         {
-            init(dBMethodType, name, null, delimeter);
+            init(TDbManifestMethodType, name, null, delimeter);
         }
 
         /// <summary>
@@ -98,12 +98,12 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="DbColumn"/> class.
         /// </summary>
-        /// <param name="dBMethodType">Type of the d b method.</param>
+        /// <param name="TDbManifestMethodType">Type of the d b method.</param>
         /// <param name="name">The name.</param>
         /// <param name="defaultValue">The default value.</param>
-        internal DbColumn(Type dBMethodType, string name, object defaultValue)
+        internal DbColumn(Type TDbManifestMethodType, string name, object defaultValue)
         {
-            init(dBMethodType, name, defaultValue);
+            init(TDbManifestMethodType, name, defaultValue);
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="DbColumn"/> class.
@@ -118,41 +118,41 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="DbColumn"/> class.
         /// </summary>
-        /// <param name="dBMethodType">Type of the d b method.</param>
+        /// <param name="TDbManifestMethodType">Type of the d b method.</param>
         /// <param name="name">The name.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <param name="delimeter">The delimeter.</param>
-        internal DbColumn(Type dBMethodType, string name, object defaultValue, char delimeter)
+        internal DbColumn(Type TDbManifestMethodType, string name, object defaultValue, char delimeter)
         {
-            init(dBMethodType, name, defaultValue, delimeter);
+            init(TDbManifestMethodType, name, defaultValue, delimeter);
         }
 
 
         /// <summary>
         /// Initializes the specified database method type.
         /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
+        /// <param name="TDbManifestMethodType">Type of the database method.</param>
         /// <param name="name">The name.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <param name="delimeter">The delimeter.</param>
-        private void init(Type dbMethodType, string name, object defaultValue, char delimeter)
+        private void init(Type TDbManifestMethodType, string name, object defaultValue, char delimeter)
         {
-            CheckDbMethodType(dbMethodType);
-            this.dbMethodType = dbMethodType;
-            boundToDbMethod = true;
+            CheckTDbManifestMethodType(TDbManifestMethodType);
+            this.TDbManifestMethodType = TDbManifestMethodType;
+            boundToTDbManifestMethod = true;
             init(name, defaultValue, delimeter);
         }
         /// <summary>
         /// Initializes the specified database method type.
         /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
+        /// <param name="TDbManifestMethodType">Type of the database method.</param>
         /// <param name="name">The name.</param>
         /// <param name="defaultValue">The default value.</param>
-        private void init(Type dbMethodType, string name, object defaultValue)
+        private void init(Type TDbManifestMethodType, string name, object defaultValue)
         {
-            CheckDbMethodType(dbMethodType);
-            this.dbMethodType = dbMethodType;
-            boundToDbMethod = true;
+            CheckTDbManifestMethodType(TDbManifestMethodType);
+            this.TDbManifestMethodType = TDbManifestMethodType;
+            boundToTDbManifestMethod = true;
             init(name, defaultValue);
         }
         /// <summary>
@@ -179,13 +179,13 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// Checks the type of the database method.
         /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
+        /// <param name="TDbManifestMethodType">Type of the database method.</param>
         /// <exception cref="ArgumentException"></exception>
-        private void CheckDbMethodType(Type dbMethodType)
+        private void CheckTDbManifestMethodType(Type TDbManifestMethodType)
         {
-            if (!dbMethodType.IsSubclassOf(typeof(DbManifest)))
+            if (!TDbManifestMethodType.IsSubclassOf(typeof(DbManifest)))
             {
-                throw new ArgumentException(dbMethodType.Name + " is not type of " + typeof(DbManifest).Name);
+                throw new ArgumentException(TDbManifestMethodType.Name + " is not type of " + typeof(DbManifest).Name);
             }
         }
         /// <summary>
@@ -218,22 +218,22 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// Checks if is valid database method.
         /// </summary>
-        /// <param name="dbMethodType">Type of the database method.</param>
-        /// <exception cref="InvalidOperationException">type is not a DbMethod</exception>
-        private void CheckIfIsValidDbMethod(Type dbMethodType)
+        /// <param name="TDbManifestMethodType">Type of the database method.</param>
+        /// <exception cref="InvalidOperationException">type is not a TDbManifestMethod</exception>
+        private void CheckIfIsValidTDbManifestMethod(Type TDbManifestMethodType)
         {
-            if (!dbMethodType.IsSubclassOf(typeof(DbManifest)))
+            if (!TDbManifestMethodType.IsSubclassOf(typeof(DbManifest)))
             {
-                throw new InvalidOperationException("type is not a DbMethod");
+                throw new InvalidOperationException("type is not a TDbManifestMethod");
             }
         }
         /// <summary>
         /// Gets the type of the database method.
         /// </summary>
         /// <returns></returns>
-        public Type GetDbMethodType()
+        public Type GetTDbManifestMethodType()
         {
-            return dbMethodType;
+            return TDbManifestMethodType;
         }
         /// <summary>
         /// Gets a value indicating whether [bound to database method type].
@@ -241,9 +241,9 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <value>
         ///   <c>true</c> if [bound to database method type]; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool BoundToDbMethodType
+        public virtual bool BoundToTDbManifestMethodType
         {
-            get { return boundToDbMethod; }
+            get { return boundToTDbManifestMethod; }
         }
         /// <summary>
         /// Gets the column value core.

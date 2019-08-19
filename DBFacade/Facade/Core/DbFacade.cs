@@ -11,8 +11,8 @@ namespace DBFacade.Facade.Core
     {       
         internal IDbParamsModel DEFAULT_PARAMETERS { get { return InstanceResolvers.Get<IDbParamsModel>().Get<DbParamsModel>(); } }
         private IInstanceResolver<DbFacade<TDbManifest>> DbFacadeCache { get { return InstanceResolvers.Get<DbFacade<TDbManifest>>(); } }
-        private IInstanceResolver<TDbManifest> DbMethodsCache { get { return InstanceResolvers.Get<TDbManifest>(); } }
-        private DbMethod GetMethod<DbMethod>() where DbMethod: TDbManifest => DbMethodsCache.Get<DbMethod>();
+        private IInstanceResolver<TDbManifest> TDbManifestMethodsCache { get { return InstanceResolvers.Get<TDbManifest>(); } }
+        private TDbManifestMethod GetMethod<TDbManifestMethod>() where TDbManifestMethod: TDbManifest => TDbManifestMethodsCache.Get<TDbManifestMethod>();
         internal TDbFacade GetDbFacade<TDbFacade>() where TDbFacade : DbFacade<TDbManifest> => DbFacadeCache.Get<TDbFacade>();
 
         protected bool Disposed { get; set; }
@@ -22,7 +22,7 @@ namespace DBFacade.Facade.Core
             {
                 InstanceResolvers.Get<IDbParamsModel>().Dispose();
                 DbFacadeCache.Dispose();
-                DbMethodsCache.Dispose();
+                TDbManifestMethodsCache.Dispose();
                 OnDispose();
                 Disposed = true;
             }
@@ -31,45 +31,45 @@ namespace DBFacade.Facade.Core
         protected virtual void OnDispose() { }
         
 
-        internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, DbMethod>()
-            => ExecuteProcess<TDbDataModel, IDbParamsModel, DbMethod>(GetMethod<DbMethod>(),DEFAULT_PARAMETERS);
-        internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
-            => ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(GetMethod<DbMethod>(), parameters);
-        internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
-            => HandleProcess<TDbDataModel, TDbParams, DbMethod>(method, parameters);
+        internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbManifestMethod>()
+            => ExecuteProcess<TDbDataModel, IDbParamsModel, TDbManifestMethod>(GetMethod<TDbManifestMethod>(),DEFAULT_PARAMETERS);
+        internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams, TDbManifestMethod>(TDbParams parameters)
+            => ExecuteProcess<TDbDataModel, TDbParams, TDbManifestMethod>(GetMethod<TDbManifestMethod>(), parameters);
+        internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            => HandleProcess<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
 
         
 
 
-        internal override void OnBeforeNextInner<TDbParams, DbMethod>(DbMethod method, TDbParams parameters) { }
+        internal override void OnBeforeNextInner<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) { }
 
-        protected override void OnBeforeNext<TDbParams, DbMethod>(DbMethod method, TDbParams parameters) { }
-        internal sealed override IDbResponse<TDbDataModel> ExecuteNext<TDbFacade, TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+        protected override void OnBeforeNext<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) { }
+        internal sealed override IDbResponse<TDbDataModel> ExecuteNext<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
-            return DbFacadeCache.Get<TDbFacade>().ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(method, parameters);
+            return DbFacadeCache.Get<TDbFacade>().ExecuteProcess<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
 
-        internal sealed override IDbResponse<TDbDataModel> ExecuteNext<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+        internal sealed override IDbResponse<TDbDataModel> ExecuteNext<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
             OnBeforeNextInner(method, parameters);
             OnBeforeNext(method, parameters);
-            return ExecuteNextCore<TDbDataModel, TDbParams, DbMethod>(method, parameters);
+            return ExecuteNextCore<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
-        internal override IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters) => null;
+        internal override IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) => null;
         
         
-        private IDbResponse<TDbDataModel> HandleProcess<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+        private IDbResponse<TDbDataModel> HandleProcess<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
-            IDbResponse<TDbDataModel> response = Process<TDbDataModel, TDbParams, DbMethod>(method, parameters);
-            return response != null ? response : ExecuteNext<TDbDataModel, TDbParams, DbMethod>(method, parameters);
+            IDbResponse<TDbDataModel> response = Process<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+            return response != null ? response : ExecuteNext<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
-        protected virtual IDbResponse<TDbDataModel> Process<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+        protected virtual IDbResponse<TDbDataModel> Process<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
             return null;
         }       
@@ -79,9 +79,9 @@ namespace DBFacade.Facade.Core
         where TDbFacade : DbFacade<TDbManifest>
     {
         internal override sealed void HandleInnerDispose() => GetDbFacade<TDbFacade>().Dispose();
-        internal override sealed IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, DbMethod>(DbMethod method, TDbParams parameters)
+        internal override sealed IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
-            return ExecuteNext<TDbFacade, TDbDataModel, TDbParams, DbMethod>(method, parameters);
+            return ExecuteNext<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
     }
 }

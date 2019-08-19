@@ -12,7 +12,7 @@ namespace DBFacade.DataLayer.Models.Attributes
             DateFormat = dateFormat;
         }
         
-        public DbDateStringColumn(Type dbMethodType, string name, string dateFormat) : base(dbMethodType, name)
+        public DbDateStringColumn(Type TDbManifestMethodType, string name, string dateFormat) : base(TDbManifestMethodType, name)
         {
             DateFormat = dateFormat;
         }        

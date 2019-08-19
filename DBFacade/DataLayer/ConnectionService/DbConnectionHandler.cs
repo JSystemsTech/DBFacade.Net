@@ -18,14 +18,14 @@ namespace DBFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
         where TDbManifest : DbManifest
     {
-        public static IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams, DbMethod>(DbMethod dbMethod, TDbParams parameters)
+        public static IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
-            IDbCommandConfig config = dbMethod.GetConfig();
+            IDbCommandConfig config = method.GetConfig();
             string paramsType = parameters.GetType().Name;
-            string MethodType = dbMethod.GetType().Name;
+            string MethodType = method.GetType().Name;
             StringBuilder builder = new StringBuilder();
             bool rollback = false;
 
@@ -36,7 +36,7 @@ namespace DBFacade.DataLayer.ConnectionService
             if (parameters._GetRunMode() == MethodRunMode.Test)
             {
                 DbDataReader data = parameters._GetResponseData() as DbDataReader;
-                response = new DbResponse<DbMethod, TDbDataModel>(data, parameters._GetReturnValue());
+                response = new DbResponse<TDbManifestMethod, TDbDataModel>(data, parameters._GetReturnValue());
                 if (data != null) data.Close();
             }
             else
@@ -54,12 +54,12 @@ namespace DBFacade.DataLayer.ConnectionService
                             dbCommand.ExecuteNonQuery();
                             transaction.Commit();
 
-                            response = new DbResponse<DbMethod, TDbDataModel>(dbMethod.GetConfig().GetReturnValue(dbCommand));
+                            response = new DbResponse<TDbManifestMethod, TDbDataModel>(method.GetConfig().GetReturnValue(dbCommand));
                         }
                         else
                         {
                             dbDataReader = (TDbDataReader)dbCommand.ExecuteReader();
-                            response = new DbResponse<DbMethod, TDbDataModel>(dbDataReader, dbMethod.GetConfig().GetReturnValue(dbCommand));
+                            response = new DbResponse<TDbManifestMethod, TDbDataModel>(dbDataReader, method.GetConfig().GetReturnValue(dbCommand));
                         }
                     }
                     catch (SqlException sqlEx)

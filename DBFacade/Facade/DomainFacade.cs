@@ -16,62 +16,62 @@ namespace DBFacade.Facade
     where TDbManifest : DbManifest
     {   
         #region Db Data Actions
-        protected IDbResponse<TDbDataModel> Fetch<TDbDataModel, TDbParams, DbMethod>(TDbParams parameters)
+        protected IDbResponse<TDbDataModel> Fetch<TDbDataModel, TDbParams, TDbManifestMethod>(TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
-            return ExecuteProcess<TDbDataModel, TDbParams, DbMethod>(parameters);
+            return ExecuteProcess<TDbDataModel, TDbParams, TDbManifestMethod>(parameters);
         }
-        protected IDbResponse<TDbDataModel> Fetch<TDbDataModel, DbMethod>()
+        protected IDbResponse<TDbDataModel> Fetch<TDbDataModel, TDbManifestMethod>()
             where TDbDataModel : DbDataModel 
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
-            return ExecuteProcess<TDbDataModel, DbMethod>();
+            return ExecuteProcess<TDbDataModel, TDbManifestMethod>();
         }
-        protected IDbResponse Transaction<TDbParams, DbMethod>(TDbParams parameters)
+        protected IDbResponse Transaction<TDbParams, TDbManifestMethod>(TDbParams parameters)
             where TDbParams : IDbParamsModel 
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
-            return ExecuteProcess<DbDataModel, TDbParams, DbMethod>(parameters);
+            return ExecuteProcess<DbDataModel, TDbParams, TDbManifestMethod>(parameters);
         }
-        protected IDbResponse Transaction<DbMethod>()
-            where DbMethod : TDbManifest
+        protected IDbResponse Transaction<TDbManifestMethod>()
+            where TDbManifestMethod : TDbManifest
         {
-            return ExecuteProcess<DbDataModel, DbMethod>();
+            return ExecuteProcess<DbDataModel, TDbManifestMethod>();
         }
         #endregion
 
         #region Mock Db Calls
-        protected IDbResponse<TDbDataModel> MockFetch<TDbDataModel, TDbParams, DbMethod, T>(IEnumerable<T> responseData, object returnValue, TDbParams parameters)
+        protected IDbResponse<TDbDataModel> MockFetch<TDbDataModel, TDbParams, TDbManifestMethod, T>(IEnumerable<T> responseData, object returnValue, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
             parameters.RunAsTest(responseData, returnValue);
-            return Fetch<TDbDataModel, TDbParams, DbMethod>(parameters);
+            return Fetch<TDbDataModel, TDbParams, TDbManifestMethod>(parameters);
         }
-        protected IDbResponse<TDbDataModel> MockFetch<TDbDataModel, DbMethod, T>(IEnumerable<T> responseData, object returnValue)
+        protected IDbResponse<TDbDataModel> MockFetch<TDbDataModel, TDbManifestMethod, T>(IEnumerable<T> responseData, object returnValue)
             where TDbDataModel : DbDataModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
             DbParamsModel parameters = new DbParamsModel();
             parameters.RunAsTest(responseData, returnValue);
-            return Fetch<TDbDataModel, DbParamsModel, DbMethod>(parameters);
+            return Fetch<TDbDataModel, DbParamsModel, TDbManifestMethod>(parameters);
         }
-        protected IDbResponse MockTransaction<TDbParams, DbMethod>(object returnValue, TDbParams parameters)
+        protected IDbResponse MockTransaction<TDbParams, TDbManifestMethod>(object returnValue, TDbParams parameters)
             where TDbParams : IDbParamsModel
-            where DbMethod : TDbManifest
+            where TDbManifestMethod : TDbManifest
         {
             parameters.RunAsTest(returnValue);
-            return Transaction<TDbParams, DbMethod>(parameters);
+            return Transaction<TDbParams, TDbManifestMethod>(parameters);
         }
-        protected IDbResponse MockTransaction<DbMethod>(object returnValue)
-            where DbMethod : TDbManifest
+        protected IDbResponse MockTransaction<TDbManifestMethod>(object returnValue)
+            where TDbManifestMethod : TDbManifest
         {
             DbParamsModel parameters = new DbParamsModel();
             parameters.RunAsTest(returnValue);
-            return Transaction<DbParamsModel, DbMethod>(parameters);
+            return Transaction<DbParamsModel, TDbManifestMethod>(parameters);
         }
         #endregion
 
