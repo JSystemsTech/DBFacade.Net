@@ -9,45 +9,45 @@ using System.Data.Common;
 
 namespace DBFacade.DataLayer.CommandConfig
 {
-    internal class DbCommandConfig<TDbParams, TConnection>: IDbCommandConfig
+    internal class DbCommandConfig<TDbParams, TDbConnectionConfig> : IDbCommandConfig
         where TDbParams : IDbParamsModel
-        where TConnection : IDbConnectionConfig
+        where TDbConnectionConfig : IDbConnectionConfig
     {        
         private IDbCommandConfigParams<TDbParams> DbParams { get; set; }
         private Validator<TDbParams> ParamsValidator { get; set; }
-        private IDbCommandText<TConnection> DbCommandText { get; set; }
+        private IDbCommandText<TDbConnectionConfig> DbCommandText { get; set; }
         private CommandType DbCommandType { get; set; }
         private string ReturnParam{ get; set; }
         private bool IsOutput { get; set; }        
         private bool Transaction { get; set; }
         private bool Disposed { get; set; }
 
-        public DbCommandConfig(IDbCommandText<TConnection> dbCommandText, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
             Init(dbCommandText, null, null, CommandType.StoredProcedure, returnParam, isOutput, isTransaction);
         }
-        public DbCommandConfig(IDbCommandText<TConnection> dbCommandText, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
             Init(dbCommandText, null, null, dbCommandType, returnParam, isOutput, isTransaction);
         }
-        public DbCommandConfig(IDbCommandText<TConnection> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
             Init(dbCommandText, dbParams, null, CommandType.StoredProcedure, returnParam, isOutput, isTransaction);
         }
-        public DbCommandConfig(IDbCommandText<TConnection> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
             Init(dbCommandText, dbParams, null, dbCommandType, returnParam, isOutput, isTransaction);
         }
-        public DbCommandConfig(IDbCommandText<TConnection> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
             Init(dbCommandText, dbParams, validator, CommandType.StoredProcedure, returnParam, isOutput, isTransaction);
         }
-        public DbCommandConfig(IDbCommandText<TConnection> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
             Init(dbCommandText, dbParams, validator, dbCommandType, returnParam, isOutput, isTransaction);
         }        
         
-        private void Init(IDbCommandText<TConnection> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, CommandType dbCommandType = CommandType.StoredProcedure, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        private void Init(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, CommandType dbCommandType = CommandType.StoredProcedure, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
             ReturnParam = returnParam;
             DbCommandText = dbCommandText;
@@ -58,7 +58,7 @@ namespace DBFacade.DataLayer.CommandConfig
             Transaction = isTransaction;
         }
         
-        public IDbConnectionConfig GetDBConnectionConfig() => InstanceResolvers.Get<IDbConnectionConfig>().Get<TConnection>();
+        public IDbConnectionConfig GetDBConnectionConfig() => InstanceResolvers.Get<IDbConnectionConfig>().Get<TDbConnectionConfig>();
         public IDbCommandText GetDbCommandText() => DbCommandText;
 
         public TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel dbMethodParams, TDbConnection dbConnection)

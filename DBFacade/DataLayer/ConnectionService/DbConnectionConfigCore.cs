@@ -6,8 +6,8 @@ namespace DBFacade.DataLayer.ConnectionService
 {
     public abstract class DbConnectionConfigCore : DbConnectionConfigBase, IDbConnectionConfig
     {
-        public sealed override IDbConnection GetDbConnection() => GetDbConnectionCore<DbConnection>();
-        protected Con GetDbConnectionCore<Con>() where Con : DbConnection
+        public override IDbConnection GetDbConnection() => GetDbConnectionCore<DbConnection>();
+        protected TDbConnection GetDbConnectionCore<TDbConnection>() where TDbConnection : DbConnection
         {
             string provider = GetDbConnectionProviderInvariantCore();
             string connectionString = GetDbConnectionStringCore();
@@ -18,7 +18,7 @@ namespace DBFacade.DataLayer.ConnectionService
                 connectionString = GetConnectionStringSettings().ConnectionString;
             }
 
-            Con dbConnection = (Con)DbProviderFactories.GetFactory(provider).CreateConnection();
+            TDbConnection dbConnection = DbProviderFactories.GetFactory(provider).CreateConnection() as TDbConnection;
             dbConnection.ConnectionString = connectionString;
             return dbConnection;
         }

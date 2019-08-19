@@ -13,11 +13,11 @@
     {
         string Label();
     }
-    public interface IDbCommandText<TConnection> : IDbCommandText where TConnection : IDbConnectionConfig {
+    public interface IDbCommandText<TDbConnectionConfig> : IDbCommandText where TDbConnectionConfig : IDbConnectionConfig {
         string CommandText();
     }
     
-    internal class DbCommandText<TConnection> : DbCommandText, IDbCommandText<TConnection> where TConnection : IDbConnectionConfig
+    internal class DbCommandText<TDbConnectionConfig> : DbCommandText, IDbCommandText<TDbConnectionConfig> where TDbConnectionConfig : IDbConnectionConfig
     {
         private string CommandTextValue { get; set; }
         public DbCommandText(string commandText, string label) : base(label) { CommandTextValue = commandText; }
