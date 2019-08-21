@@ -1,9 +1,5 @@
 ﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DBFacade.Facade.Core
@@ -25,17 +21,65 @@ namespace DBFacade.Facade.Core
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
-            => await ProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+            => await HandleProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
 
-        private Task<IDbResponse<TDbDataModel>> ProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+
+        internal virtual async Task OnBeforeNextInnerAsync<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        {
+            await Task.Run(() => OnBeforeNextInner(method, parameters));
+        }
+        private async Task OnBeforeNextAsync<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        {
+            await Task.Run(() => OnBeforeNext(method, parameters));
+        }
+        internal async Task<IDbResponse<TDbDataModel>> ExecuteNextAsync<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbFacade : DbFacade<TDbManifest>
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
         {
-            return Task.Run(() =>
-            {
-                return HandleProcess<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
-            });
+            TDbFacade next = await DbFacadeCache.GetAsync<TDbFacade>();
+            return await next.ExecuteProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
+                    
+        internal async Task<IDbResponse<TDbDataModel>> ExecuteNextAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        {
+            await Task.WhenAll(OnBeforeNextInnerAsync(method, parameters), OnBeforeNextAsync(method, parameters));
+            return await ExecuteNextCoreAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+        }
+        internal async virtual Task<IDbResponse<TDbDataModel>> ExecuteNextCoreAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        => await GetDefaultAsyncReturn<TDbDataModel, TDbManifestMethod>();
+
+
+        private async Task<IDbResponse<TDbDataModel>> HandleProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        {
+            IDbResponse<TDbDataModel> response =  await ProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);            
+            return !response.IsNull() ? response : await ExecuteNextAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+        }
+        private async Task<IDbResponse<TDbDataModel>> GetDefaultAsyncReturn<TDbDataModel, TDbManifestMethod>()
+            where TDbDataModel : DbDataModel
+            where TDbManifestMethod : TDbManifest
+        {
+            return await Task.Run(() => new DbResponse<TDbManifestMethod,TDbDataModel>());
+        }
+        
+        protected virtual async Task<IDbResponse<TDbDataModel>> ProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        => await GetDefaultAsyncReturn<TDbDataModel, TDbManifestMethod>();
     }
 }

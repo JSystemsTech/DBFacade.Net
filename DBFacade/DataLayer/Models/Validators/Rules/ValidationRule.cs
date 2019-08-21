@@ -1,6 +1,8 @@
 ﻿using DBFacade.Utils;
 using System;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 using static DBFacade.DataLayer.Models.Validators.Rules.ValidationRuleResult;
 
 namespace DBFacade.DataLayer.Models.Validators.Rules
@@ -71,6 +73,15 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             GetParamFunc = PropertySelector<DbParams>.GetDelegate(selector.SelectorExpression);
             PropInfo = PropertySelector<DbParams>.GetPropertyInfo(selector.SelectorExpression);
             IsNullable = isNullable;
+        }
+        /// <summary>
+        /// Validates the asynchronous.
+        /// </summary>
+        /// <param name="paramsModel">The parameters model.</param>
+        /// <returns></returns>
+        public async Task<ValidationRuleResult> ValidateAsync(DbParams paramsModel)
+        {
+            return await Task.Run(() => Validate(paramsModel));
         }
         /// <summary>
         /// Validates the specified parameters model.

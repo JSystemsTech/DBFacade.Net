@@ -2,11 +2,10 @@
 using DBFacade.DataLayer.Models;
 using DBFacade.Facade.Core;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace DBFacade.Facade
 {
-    
+
     public abstract class DomainFacade<TDbManifest> : DomainFacade<DomainManager<TDbManifest>, TDbManifest>
     where TDbManifest : DbManifest
     { }

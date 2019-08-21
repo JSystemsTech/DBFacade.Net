@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.Models.Validators
 {
@@ -80,6 +81,21 @@ namespace DBFacade.DataLayer.Models.Validators
             return ValidateCore(paramsModel);
         }
 
+        public async Task<IValidationResult> ValidateAsync(DbParams paramsModel)
+        {
+            return await ValidateCoreAsync(paramsModel);
+        }
+        /// <summary>
+        /// Validates the core asynchronous.
+        /// </summary>
+        /// <param name="paramsModel">The parameters model.</param>
+        /// <returns></returns>
+        private async Task<IValidationResult> ValidateCoreAsync(DbParams paramsModel)
+        {
+            Task<ValidationRuleResult>[] validationTasks = this.Select(rule => rule.ValidateAsync(paramsModel)).ToArray();
+            await Task.WhenAll(validationTasks);
+            return new ValidationResult(validationTasks.Where(task => task.Result.Status == ValidationRuleResult.ValidationStatus.FAIL).Select(task => task.Result));            
+        }
         /// <summary>
         /// Validates the core.
         /// </summary>
@@ -87,16 +103,7 @@ namespace DBFacade.DataLayer.Models.Validators
         /// <returns></returns>
         private IValidationResult ValidateCore(DbParams paramsModel)
         {
-            List<ValidationRuleResult> errors = new List<ValidationRuleResult>();
-            foreach (IValidationRule<DbParams> rule in this)
-            {
-                ValidationRuleResult validationResult = rule.Validate(paramsModel);
-                if (validationResult.Status == ValidationRuleResult.ValidationStatus.FAIL)
-                {
-                    errors.Add(validationResult);
-                }
-            }
-            return new ValidationResult(errors);
+            return new ValidationResult(this.Select(rule => rule.Validate(paramsModel)).Where(result => result.Status == ValidationRuleResult.ValidationStatus.FAIL));
         }
         /// <summary>
         /// Gets the property value.

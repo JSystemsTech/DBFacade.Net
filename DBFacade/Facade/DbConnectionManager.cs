@@ -2,6 +2,7 @@
 using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
 using DBFacade.Facade.Core;
+using System.Threading.Tasks;
 
 namespace DBFacade.Facade
 {
@@ -12,6 +13,11 @@ namespace DBFacade.Facade
         {
             IDbConnectionConfig connectionConfig = method.GetConfig().GetDBConnectionConfig();
             return connectionConfig.ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);            
+        }
+        protected sealed override async Task<IDbResponse<TDbDataModel>> ProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+        {
+            IDbConnectionConfig connectionConfig = method.GetConfig().GetDBConnectionConfig();
+            return await connectionConfig.ExecuteDbActionAsync<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
     }
 }

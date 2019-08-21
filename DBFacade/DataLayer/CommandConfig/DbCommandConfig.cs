@@ -6,6 +6,7 @@ using DBFacade.Services;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.CommandConfig
 {
@@ -114,8 +115,12 @@ namespace DBFacade.DataLayer.CommandConfig
         public IValidationResult Validate(IDbParamsModel paramsModel)
             => (DbParams != null && DbParams.ParamsCount() > 0) ?
                 ParamsValidator.Validate((TDbParams)paramsModel) :
-                ValidationResult.PassingValidation();     
-        
+                ValidationResult.PassingValidation();
+        public async Task<IValidationResult> ValidateAsync(IDbParamsModel paramsModel)
+            => (DbParams != null && DbParams.ParamsCount() > 0) ?
+                await ParamsValidator.ValidateAsync((TDbParams)paramsModel) :
+                ValidationResult.PassingValidation();
+
         public bool IsTransaction() => Transaction;
         
         public void Dispose()

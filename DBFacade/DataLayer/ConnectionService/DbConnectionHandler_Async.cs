@@ -5,9 +5,11 @@ using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.CommandConfig;
 using System.Data.SqlClient;
 using DBFacade.Exceptions;
+using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.ConnectionService
 {
+
     internal partial class DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbManifest>        
         where TDbConnection : DbConnection
         where TDbCommand : DbCommand
@@ -16,14 +18,14 @@ namespace DBFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
         where TDbManifest : DbManifest
     {
-        private static IDbResponse<TDbDataModel> BuildResonse<TDbManifestMethod, TDbDataModel>(object returnValue, TDbDataReader dbDataReader = null)
+        private async static Task<IDbResponse<TDbDataModel>> BuildResonseAsync<TDbManifestMethod, TDbDataModel>(object returnValue, TDbDataReader dbDataReader = null)
             where TDbDataModel : DbDataModel
             where TDbManifestMethod : TDbManifest
         {
             DbResponse<TDbManifestMethod, TDbDataModel> responseObj = new DbResponse<TDbManifestMethod, TDbDataModel>(returnValue);
             if (dbDataReader != null)
             {
-                while (dbDataReader.Read())
+                while (await dbDataReader.ReadAsync())
                 {
                     responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel, TDbManifestMethod>(dbDataReader));
                 }
@@ -31,7 +33,7 @@ namespace DBFacade.DataLayer.ConnectionService
             }
             return responseObj;
         }
-        public static IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+        public static async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
@@ -39,16 +41,13 @@ namespace DBFacade.DataLayer.ConnectionService
             IDbCommandConfig config = method.GetConfig();
             if (parameters._GetRunMode() == MethodRunMode.Test)
             {
-                using(TDbDataReader dbDataReader = parameters._GetResponseData() as TDbDataReader)
-                {
-                    return BuildResonse<TDbManifestMethod, TDbDataModel>(parameters._GetReturnValue(), dbDataReader);
-                }                
+                return await BuildResonseAsync<TDbManifestMethod, TDbDataModel>(parameters._GetReturnValue(), parameters._GetResponseData() as TDbDataReader);
             }
             else
             {
                 using (TDbConnection dbConnection = config.GetDBConnectionConfig().GetDbConnection() as TDbConnection)
                 {
-                    dbConnection.Open();
+                    await dbConnection.OpenAsync();
                     using (TDbCommand dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parameters, dbConnection))
                     {
                         try
@@ -60,7 +59,7 @@ namespace DBFacade.DataLayer.ConnectionService
                                     try
                                     {
                                         dbCommand.Transaction = transaction;
-                                        dbCommand.ExecuteNonQuery();
+                                        await dbCommand.ExecuteNonQueryAsync();
                                     }
                                     catch
                                     {
@@ -68,13 +67,13 @@ namespace DBFacade.DataLayer.ConnectionService
                                         throw;
                                     }
                                     transaction.Commit();
-                                    return BuildResonse<TDbManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand));
+                                    return await BuildResonseAsync<TDbManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand));
                                 }                                
                             }
                             else
                             {
-                                using (TDbDataReader dbDataReader = dbCommand.ExecuteReader() as TDbDataReader) {
-                                    return BuildResonse<TDbManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand), dbDataReader);
+                                using (TDbDataReader dbDataReader = await dbCommand.ExecuteReaderAsync() as TDbDataReader) {
+                                    return await BuildResonseAsync<TDbManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand), dbDataReader);
                                 }                                
                             }
                         }

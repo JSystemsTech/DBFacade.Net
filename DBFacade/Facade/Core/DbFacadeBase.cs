@@ -1,10 +1,9 @@
 ﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
-using System.Threading.Tasks;
 
 namespace DBFacade.Facade.Core
 {
-    
+
     public abstract class DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
     {
         internal abstract IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbManifestMethod>()

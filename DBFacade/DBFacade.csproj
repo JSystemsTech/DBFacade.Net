@@ -106,9 +106,9 @@
     <Compile Include="DataLayer\CommandConfig\Parameters\IDbCommandConfigParams.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParameterConfigBase.cs" />
+    <Compile Include="DataLayer\ConnectionService\DbConnectionHandler_Async.cs" />
     <Compile Include="DataLayer\ConnectionService\IDbConnectionConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionConfigBase.cs" />
-    <Compile Include="DataLayer\ConnectionService\DbConnectionConfigCore.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionHandler.cs" />
     <Compile Include="DataLayer\CommandConfig\DbCommandConfigBuilder.cs" />

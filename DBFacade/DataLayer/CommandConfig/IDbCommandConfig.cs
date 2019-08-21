@@ -3,6 +3,7 @@ using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.Models.Validators;
 using System;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.CommandConfig
 {
@@ -45,6 +46,12 @@ namespace DBFacade.DataLayer.CommandConfig
         /// <param name="paramsModel">The parameters model.</param>
         /// <returns></returns>
         IValidationResult Validate(IDbParamsModel paramsModel);
+        /// <summary>
+        /// Validates the asynchronous.
+        /// </summary>
+        /// <param name="paramsModel">The parameters model.</param>
+        /// <returns></returns>
+        Task<IValidationResult> ValidateAsync(IDbParamsModel paramsModel);
         /// <summary>
         /// Determines whether this instance is transaction.
         /// </summary>

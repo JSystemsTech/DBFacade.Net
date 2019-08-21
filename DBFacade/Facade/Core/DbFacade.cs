@@ -1,12 +1,11 @@
 ﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
 using DBFacade.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace DBFacade.Facade.Core
-{   
-    
+{
+
     public abstract partial class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
     {       
         internal IDbParamsModel DEFAULT_PARAMETERS { get { return InstanceResolvers.Get<IDbParamsModel>().Get<DbParamsModel>(); } }
@@ -42,19 +41,19 @@ namespace DBFacade.Facade.Core
 
 
         internal override void OnBeforeNextInner<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) { }
-
         protected override void OnBeforeNext<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) { }
+
         internal sealed override IDbResponse<TDbDataModel> ExecuteNext<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
             return DbFacadeCache.Get<TDbFacade>().ExecuteProcess<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
-
         internal sealed override IDbResponse<TDbDataModel> ExecuteNext<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
             OnBeforeNextInner(method, parameters);
             OnBeforeNext(method, parameters);
             return ExecuteNextCore<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
+
         internal override IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) => null;
         
         
@@ -82,6 +81,10 @@ namespace DBFacade.Facade.Core
         internal override sealed IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
             return ExecuteNext<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+        }
+        internal override sealed async Task<IDbResponse<TDbDataModel>> ExecuteNextCoreAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+        {
+            return await ExecuteNextAsync<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
     }
 }

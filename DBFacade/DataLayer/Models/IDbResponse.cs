@@ -1,5 +1,4 @@
-﻿using DBFacade.Exceptions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web.Mvc;
@@ -17,18 +16,7 @@ namespace DBFacade.DataLayer.Models
         /// </summary>
         /// <returns></returns>
         object ReturnValue();
-        /// <summary>
-        /// Determines whether this instance has error.
-        /// </summary>
-        /// <returns>
-        ///   <c>true</c> if this instance has error; otherwise, <c>false</c>.
-        /// </returns>
-        bool HasError();
-        /// <summary>
-        /// Gets the exception.
-        /// </summary>
-        /// <returns></returns>
-        FacadeException GetException();
+        bool IsNull();
     }
 
     /// <summary>

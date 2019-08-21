@@ -7,11 +7,12 @@ using System.Data.SQLite;
 using System.Data;
 using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
+using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.ConnectionService
 {
 
-    public abstract class DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig> : DbConnectionConfigCore 
+    public abstract class DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig> : DbConnectionConfigBase 
         where TDbDataReader : DbDataReader
         where TDbConnection : DbConnection
         where TDbCommand : DbCommand
@@ -31,6 +32,10 @@ namespace DBFacade.DataLayer.ConnectionService
         public sealed override IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
             return ConnectionHandler<TDbManifest>.ExecuteDbAction<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+        }
+        public sealed async override Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+        {
+            return await ConnectionHandler<TDbManifest>.ExecuteDbActionAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
         protected static IDbCommandText CreateCommandText(string commandText, string label) => new DbCommandText(commandText, label);
     }
