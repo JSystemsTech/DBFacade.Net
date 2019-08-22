@@ -1,4 +1,5 @@
-﻿using DBFacade.DataLayer.ConnectionService;
+﻿using DBFacade.DataLayer.CommandConfig;
+using DBFacade.DataLayer.ConnectionService;
 using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
 using DBFacade.Facade.Core;
@@ -16,7 +17,8 @@ namespace DBFacade.Facade
         }
         protected sealed override async Task<IDbResponse<TDbDataModel>> ProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
-            IDbConnectionConfig connectionConfig = method.GetConfig().GetDBConnectionConfig();
+            IDbCommandConfig commandConfig = await method.GetConfigAsync();
+            IDbConnectionConfig connectionConfig = await commandConfig.GetDBConnectionConfigAsync();
             return await connectionConfig.ExecuteDbActionAsync<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
     }

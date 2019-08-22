@@ -28,13 +28,13 @@ namespace DBFacade.Facade.Core
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
         {
-            await Task.Run(() => OnBeforeNextInner(method, parameters));
+            await Task.Run(() => { return; });
         }
-        private async Task OnBeforeNextAsync<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+        protected virtual async Task OnBeforeNextAsync<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
         {
-            await Task.Run(() => OnBeforeNext(method, parameters));
+            await Task.Run(() => { return; });
         }
         internal async Task<IDbResponse<TDbDataModel>> ExecuteNextAsync<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
             where TDbFacade : DbFacade<TDbManifest>

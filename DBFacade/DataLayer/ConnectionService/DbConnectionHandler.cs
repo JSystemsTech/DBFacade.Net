@@ -16,7 +16,7 @@ namespace DBFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
         where TDbManifest : DbManifest
     {
-        private static IDbResponse<TDbDataModel> BuildResonse<TDbManifestMethod, TDbDataModel>(object returnValue, TDbDataReader dbDataReader = null)
+        private static IDbResponse<TDbDataModel> BuildResonse<TDbManifestMethod, TDbDataModel>(object returnValue, DbDataReader dbDataReader = null)
             where TDbDataModel : DbDataModel
             where TDbManifestMethod : TDbManifest
         {
@@ -39,7 +39,7 @@ namespace DBFacade.DataLayer.ConnectionService
             IDbCommandConfig config = method.GetConfig();
             if (parameters._GetRunMode() == MethodRunMode.Test)
             {
-                using(TDbDataReader dbDataReader = parameters._GetResponseData() as TDbDataReader)
+                using(DbDataReader dbDataReader = parameters._GetResponseData())
                 {
                     return BuildResonse<TDbManifestMethod, TDbDataModel>(parameters._GetReturnValue(), dbDataReader);
                 }                

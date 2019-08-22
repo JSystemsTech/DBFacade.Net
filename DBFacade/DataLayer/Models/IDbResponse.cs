@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml;
 
@@ -31,11 +32,13 @@ namespace DBFacade.DataLayer.Models
         /// </summary>
         /// <param name="textWriter">The text writer.</param>
         void Serialize(TextWriter textWriter);
+        Task SerializeAsync(TextWriter textWriter);
         /// <summary>
         /// Serializes the specified XML writer.
         /// </summary>
         /// <param name="xmlWriter">The XML writer.</param>
         void Serialize(XmlWriter xmlWriter);
+        Task SerializeAsync(XmlWriter xmlWriter);
     }
     /// <summary>
     /// 
@@ -49,11 +52,13 @@ namespace DBFacade.DataLayer.Models
         /// </summary>
         /// <returns></returns>
         string ToJson();
+        Task<string> ToJsonAsync();
         /// <summary>
         /// Converts to jsonresult.
         /// </summary>
         /// <returns></returns>
         JsonResult ToJsonResult();
+        Task<JsonResult> ToJsonResultAsync();
     }
     public interface IReadOnlyDbCollection<TDbDataModel>
          where TDbDataModel : DbDataModel
@@ -211,6 +216,7 @@ namespace DBFacade.DataLayer.Models
         /// </summary>
         /// <returns></returns>
         List<TDbDataModel> ToList();
+        Task<List<TDbDataModel>> ToListAsync();
     }
     /// <summary>
     /// 

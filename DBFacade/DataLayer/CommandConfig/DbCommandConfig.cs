@@ -60,6 +60,11 @@ namespace DBFacade.DataLayer.CommandConfig
         }
         
         public IDbConnectionConfig GetDBConnectionConfig() => InstanceResolvers.Get<IDbConnectionConfig>().Get<TDbConnectionConfig>();
+        public async Task<IDbConnectionConfig> GetDBConnectionConfigAsync()
+        {
+            IInstanceResolver<IDbConnectionConfig> connectionConfigResolver = await InstanceResolvers.GetAsync<IDbConnectionConfig>();
+            return await connectionConfigResolver.GetAsync<TDbConnectionConfig>();
+        }
         public IDbCommandText GetDbCommandText() => DbCommandText;
 
         public TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbManifestMethodParams, TDbConnection dbConnection)

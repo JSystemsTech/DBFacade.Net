@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 
 namespace DBFacade.DataLayer.Models
 {
@@ -36,7 +37,7 @@ namespace DBFacade.DataLayer.Models
         /// Gets the response data.
         /// </summary>
         /// <returns></returns>
-        IDataReader _GetResponseData();
+        DbDataReader _GetResponseData();
         /// <summary>
         /// Gets the return value.
         /// </summary>

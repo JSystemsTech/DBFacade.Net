@@ -38,14 +38,15 @@ namespace DBFacade.DataLayer.ConnectionService
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
         {
-            IDbCommandConfig config = method.GetConfig();
+            IDbCommandConfig config = await method.GetConfigAsync();
             if (parameters._GetRunMode() == MethodRunMode.Test)
             {
                 return await BuildResonseAsync<TDbManifestMethod, TDbDataModel>(parameters._GetReturnValue(), parameters._GetResponseData() as TDbDataReader);
             }
             else
             {
-                using (TDbConnection dbConnection = config.GetDBConnectionConfig().GetDbConnection() as TDbConnection)
+                IDbConnectionConfig connectionConfig = await config.GetDBConnectionConfigAsync();
+                using (TDbConnection dbConnection = connectionConfig.GetDbConnection() as TDbConnection)
                 {
                     await dbConnection.OpenAsync();
                     using (TDbCommand dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parameters, dbConnection))

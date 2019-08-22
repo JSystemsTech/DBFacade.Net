@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.Xml;
+using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.Models
 {
@@ -22,9 +23,7 @@ namespace DBFacade.DataLayer.Models
             ReturnVal = returnValue;
         }
         public string ToJson()=> JsonConvert.SerializeObject(this);
-        
         public JsonResult ToJsonResult() => new JsonResult { Data = this, MaxJsonLength = int.MaxValue, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        
         public void Serialize(TextWriter textWriter)
         {
             using (XmlWriter xmlWriter = XmlWriter.Create(textWriter))
@@ -38,17 +37,20 @@ namespace DBFacade.DataLayer.Models
             DataContractSerializer serializer = new DataContractSerializer(data.GetType());
             serializer.WriteObject(xmlWriter, data);
         }
-        public static IDbResponse<TDbDataModel> Deserialize(Stream stream)
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(DbResponse<TDbManifestMethod, TDbDataModel>));
-            return (DbResponse<TDbManifestMethod, TDbDataModel>)serializer.Deserialize(stream);
-        }
-
+        
         public object ReturnValue() => ReturnVal;
         int IReadOnlyDbCollection<TDbDataModel>.Count() => Count;
         public TDbDataModel First() => this[0];
-        public List<TDbDataModel> ToList()=>ToArray().ToList();     
-
+        public List<TDbDataModel> ToList()=>ToArray().ToList();
         public bool IsNull() => ObjectIsNull;
+
+        public async Task<string> ToJsonAsync() => await Task.Run(() => ToJson());
+        public async Task<JsonResult> ToJsonResultAsync() => await Task.Run(() => ToJsonResult());
+
+        public async Task SerializeAsync(TextWriter textWriter) => await Task.Run(() => Serialize(textWriter));
+
+        public async Task SerializeAsync(XmlWriter xmlWriter) => await Task.Run(() => Serialize(xmlWriter));
+        
+        public async Task<List<TDbDataModel>> ToListAsync() => await Task.Run(() => ToList());
     }
 }

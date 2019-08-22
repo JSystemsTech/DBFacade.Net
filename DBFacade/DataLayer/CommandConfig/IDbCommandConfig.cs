@@ -35,6 +35,7 @@ namespace DBFacade.DataLayer.CommandConfig
         /// </summary>
         /// <returns></returns>
         IDbConnectionConfig GetDBConnectionConfig();
+        Task<IDbConnectionConfig> GetDBConnectionConfigAsync();
         /// <summary>
         /// Gets the database command text.
         /// </summary>

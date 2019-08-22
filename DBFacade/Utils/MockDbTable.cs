@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 
@@ -7,7 +8,7 @@ namespace DBFacade.Utils
 {
     internal class MockDbTable
     {
-        public static IDataReader EmptyTable = new DataTable("EmptyMockDbTable").CreateDataReader();
+        public static DbDataReader EmptyTable = new DataTable("EmptyMockDbTable").CreateDataReader();
     }
     internal class MockDbTable<T>
     {
@@ -58,7 +59,7 @@ namespace DBFacade.Utils
             TestValuesDataTable.Rows.Add(GetRowValues(model));
             return this;
         }
-        public IDataReader ToDataReader()
+        public DbDataReader ToDataReader()
         {
             return TestValuesDataTable.CreateDataReader();
         }

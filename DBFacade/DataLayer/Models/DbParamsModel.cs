@@ -2,6 +2,7 @@
 using DBFacade.Utils;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 
 namespace DBFacade.DataLayer.Models
 {
@@ -13,7 +14,7 @@ namespace DBFacade.DataLayer.Models
     public class DbParamsModel : IDbParamsModel
     {
         private MethodRunMode _RunMode = MethodRunMode.Normal;
-        private IDataReader _ResponseData { get; set; }
+        private DbDataReader _ResponseData { get; set; }
         private object _ReturnValue { get; set; }
         private void SetRunAsTest<T>(object returnValue, IEnumerable<T> responseData, T singleResponseValue)
         {
@@ -33,7 +34,7 @@ namespace DBFacade.DataLayer.Models
         public void RunAsTest<T>(T responseData, object returnValue) => SetRunAsTest(returnValue, null, responseData);
         
         public MethodRunMode _GetRunMode() => _RunMode;
-        public IDataReader _GetResponseData() => _ResponseData;
+        public DbDataReader _GetResponseData() => _ResponseData;
         public object _GetReturnValue() => _ReturnValue;
 
         public DbParamsModel() { }
@@ -41,23 +42,23 @@ namespace DBFacade.DataLayer.Models
     public interface IDbFunctionalTestParamsModel
     {
         IDbParamsModel GetParamsModel();
-        IDataReader GetTestResponse();
+        DbDataReader GetTestResponse();
         object GetReturnValue();
     }
     internal sealed class MockParamsModel<DbParams> : DbParamsModel, IDbFunctionalTestParamsModel where DbParams : IDbParamsModel
     {
         private DbParams Model { get; set; }
-        private IDataReader TestResponseData { get; set; }
+        private DbDataReader TestResponseData { get; set; }
         private object ReturnValue { get; set; }
-        public MockParamsModel(DbParams model, IDataReader testResponseData) { Model = model; TestResponseData = testResponseData; }
-        public MockParamsModel(DbParams model, IDataReader testResponseData, object returnValue) { Model = model; TestResponseData = testResponseData; ReturnValue = returnValue; }
+        public MockParamsModel(DbParams model, DbDataReader testResponseData) { Model = model; TestResponseData = testResponseData; }
+        public MockParamsModel(DbParams model, DbDataReader testResponseData, object returnValue) { Model = model; TestResponseData = testResponseData; ReturnValue = returnValue; }
        
         public IDbParamsModel GetParamsModel()
         {
             return Model;
         }
        
-        public IDataReader GetTestResponse()
+        public DbDataReader GetTestResponse()
         {
             return TestResponseData;
         }
