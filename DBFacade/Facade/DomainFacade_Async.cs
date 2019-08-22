@@ -43,7 +43,7 @@ namespace DBFacade.Facade
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
         {
-            parameters.RunAsTest(responseData, returnValue);
+            await Task.Run(() => parameters.RunAsTest(responseData, returnValue));
             return await FetchAsync<TDbDataModel, TDbParams, TDbManifestMethod>(parameters);
         }
         protected async Task<IDbResponse<TDbDataModel>> MockFetchAsync<TDbDataModel, TDbManifestMethod, T>(IEnumerable<T> responseData, object returnValue)
@@ -51,21 +51,21 @@ namespace DBFacade.Facade
             where TDbManifestMethod : TDbManifest
         {
             DbParamsModel parameters = new DbParamsModel();
-            parameters.RunAsTest(responseData, returnValue);
+            await Task.Run(() => parameters.RunAsTest(responseData, returnValue));
             return await FetchAsync<TDbDataModel, DbParamsModel, TDbManifestMethod>(parameters);
         }
         protected async Task<IDbResponse> MockTransactionAsync<TDbParams, TDbManifestMethod>(object returnValue, TDbParams parameters)
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
         {
-            parameters.RunAsTest(returnValue);
+            await Task.Run(() => parameters.RunAsTest(returnValue));
             return await TransactionAsync<TDbParams, TDbManifestMethod>(parameters);
         }
         protected async Task<IDbResponse> MockTransactionAsync<TDbManifestMethod>(object returnValue)
             where TDbManifestMethod : TDbManifest
         {
             DbParamsModel parameters = new DbParamsModel();
-            parameters.RunAsTest(returnValue);
+            await Task.Run(() => parameters.RunAsTest(returnValue));
             return await TransactionAsync<DbParamsModel, TDbManifestMethod>(parameters);
         }
         #endregion

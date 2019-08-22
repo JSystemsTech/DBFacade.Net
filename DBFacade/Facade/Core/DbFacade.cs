@@ -1,27 +1,43 @@
 ﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
 using DBFacade.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace DBFacade.Facade.Core
 {
 
-    public abstract partial class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
-    {       
-        internal IDbParamsModel DEFAULT_PARAMETERS { get { return InstanceResolvers.Get<IDbParamsModel>().Get<DbParamsModel>(); } }
-        private IInstanceResolver<DbFacade<TDbManifest>> DbFacadeCache { get { return InstanceResolvers.Get<DbFacade<TDbManifest>>(); } }
-        private IInstanceResolver<TDbManifest> TDbManifestMethodsCache { get { return InstanceResolvers.Get<TDbManifest>(); } }
+    public abstract partial class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest>, IDisposable where TDbManifest : DbManifest
+    {
+        private IDbParamsModel defaultParams { get; set; }
+        private IDbParamsModel DEFAULT_PARAMETERS { get { return defaultParams ?? InstanceResolvers.Get<IDbParamsModel>().Get<DbParamsModel>(); } }
+
+        private IInstanceResolver<DbFacade<TDbManifest>> dbFacadeCache { get; set; }
+        private IInstanceResolver<DbFacade<TDbManifest>> DbFacadeCache { get { return dbFacadeCache ?? InstanceResolvers.Get<DbFacade<TDbManifest>>(); } }
+
+        private IInstanceResolver<TDbManifest> tDbManifestMethodsCache { get; set; }
+        private IInstanceResolver<TDbManifest> TDbManifestMethodsCache { get { return tDbManifestMethodsCache?? InstanceResolvers.Get<TDbManifest>(); } }
+
         private TDbManifestMethod GetMethod<TDbManifestMethod>() where TDbManifestMethod: TDbManifest => TDbManifestMethodsCache.Get<TDbManifestMethod>();
         internal TDbFacade GetDbFacade<TDbFacade>() where TDbFacade : DbFacade<TDbManifest> => DbFacadeCache.Get<TDbFacade>();
 
         protected bool Disposed { get; set; }
+        
+        private static bool Disposing = false;
         public void Dispose()
         {
-            if (Disposed)
+            if (!Disposed)
             {
-                InstanceResolvers.Get<IDbParamsModel>().Dispose();
-                DbFacadeCache.Dispose();
-                TDbManifestMethodsCache.Dispose();
+                if (!Disposing) {
+                    Disposing = true;
+                    InstanceResolvers.Get<IDbParamsModel>().Dispose();
+                    DbFacadeCache.Dispose();
+                    TDbManifestMethodsCache.Dispose();
+                    defaultParams = null;
+                    dbFacadeCache = null;
+                    tDbManifestMethodsCache = null;
+                    Disposing = false;
+                }
                 OnDispose();
                 Disposed = true;
             }

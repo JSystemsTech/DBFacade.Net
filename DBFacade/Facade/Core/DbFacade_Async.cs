@@ -1,10 +1,11 @@
 ﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace DBFacade.Facade.Core
 {
-    public abstract partial class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
+    public abstract partial class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest>, IDisposable where TDbManifest : DbManifest
     {
         internal async Task<IDbResponse<TDbDataModel>> ExecuteProcessAsync<TDbDataModel, TDbManifestMethod>()
             where TDbDataModel : DbDataModel

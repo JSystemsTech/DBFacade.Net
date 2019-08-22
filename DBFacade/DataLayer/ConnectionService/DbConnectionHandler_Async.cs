@@ -18,7 +18,7 @@ namespace DBFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
         where TDbManifest : DbManifest
     {
-        private async static Task<IDbResponse<TDbDataModel>> BuildResonseAsync<TDbManifestMethod, TDbDataModel>(object returnValue, TDbDataReader dbDataReader = null)
+        private async static Task<IDbResponse<TDbDataModel>> BuildResonseAsync<TDbManifestMethod, TDbDataModel>(object returnValue, DbDataReader dbDataReader = null)
             where TDbDataModel : DbDataModel
             where TDbManifestMethod : TDbManifest
         {
@@ -41,7 +41,7 @@ namespace DBFacade.DataLayer.ConnectionService
             IDbCommandConfig config = await method.GetConfigAsync();
             if (parameters._GetRunMode() == MethodRunMode.Test)
             {
-                return await BuildResonseAsync<TDbManifestMethod, TDbDataModel>(parameters._GetReturnValue(), parameters._GetResponseData() as TDbDataReader);
+                return await BuildResonseAsync<TDbManifestMethod, TDbDataModel>(parameters._GetReturnValue(), parameters._GetResponseData());
             }
             else
             {

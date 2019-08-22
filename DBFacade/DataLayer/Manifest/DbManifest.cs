@@ -18,8 +18,11 @@ namespace DBFacade.DataLayer.Manifest
         {
             if (!Disposed)
             {
-                Config.Dispose();
-                Config = null;
+                if(Config != null)
+                {
+                    Config.Dispose();
+                    Config = null;
+                }                
                 OnDispose();
                 Disposed = true;
             }
