@@ -11,8 +11,8 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
     public abstract partial class ValidationRule<TDbParams>
         where TDbParams : IDbParamsModel
     {
-        public RequiredRule Required(Func<TDbParams, object> selector) => new RequiredRule(selector);
-        public class RequiredRule : ValidationRule<TDbParams>
+        public IValidationRule<TDbParams> Required(Func<TDbParams, object> selector) => new RequiredRule(selector);
+        private class RequiredRule : ValidationRule<TDbParams>
         {
             public RequiredRule(Func<TDbParams, object> selector) : base(selector) { }
             protected override string GetErrorMessageCore(string propertyName)

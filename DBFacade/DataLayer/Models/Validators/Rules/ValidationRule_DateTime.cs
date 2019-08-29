@@ -32,9 +32,9 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
                 (DateTime)date : ToDateTimeCore(date.ToString(), dateFormat);
         }
         
-        public IsDateTimeRule IsDateTime(Func<TDbParams, string> selector, string dateFormat) => new IsDateTimeRule(selector);
+        public IValidationRule<TDbParams> IsDateTime(Func<TDbParams, string> selector, string dateFormat) => new IsDateTimeRule(selector);
 
-        public sealed class IsDateTimeRule : ValidationRule<TDbParams>
+        private sealed class IsDateTimeRule : ValidationRule<TDbParams>
         {
 
             private string DateFormat { get; set; }
@@ -71,9 +71,9 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected abstract bool ValidateDateRule(DateTime ParamsValueAsDate);
         }
 
-        public DateTimeEqualsRule DateTimeEquals(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeEqualsRule(selector, dateLimit);
-        public DateTimeEqualsRule DateTimeEquals(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeEqualsRule(selector, dateLimit, dateFormat);
-        public class DateTimeEqualsRule : DateTimeLimit
+        public IValidationRule<TDbParams> DateTimeEquals(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeEqualsRule(selector, dateLimit);
+        public IValidationRule<TDbParams> DateTimeEquals(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeEqualsRule(selector, dateLimit, dateFormat);
+        private class DateTimeEqualsRule : DateTimeLimit
         {
             public DateTimeEqualsRule(Func<TDbParams, DateTime> selector, DateTime dateLimit) : base(selector, dateLimit) { RuleText = "equal to"; }
             public DateTimeEqualsRule(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) : base(selector, dateLimit, dateFormat) { RuleText = "equal to"; }
@@ -81,9 +81,9 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected override bool ValidateDateRule(DateTime ParamsValueAsDate)=> ParamsValueAsDate == DateLimit;           
         }
 
-        public DateTimeIsBeforeRule DateTimeIsBefore(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsBeforeRule(selector, dateLimit);
-        public DateTimeIsBeforeRule DateTimeIsBefore(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsBeforeRule(selector, dateLimit, dateFormat);
-        public class DateTimeIsBeforeRule : DateTimeLimit
+        public IValidationRule<TDbParams> DateTimeIsBefore(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsBeforeRule(selector, dateLimit);
+        public IValidationRule<TDbParams> DateTimeIsBefore(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsBeforeRule(selector, dateLimit, dateFormat);
+        private class DateTimeIsBeforeRule : DateTimeLimit
         {
             public DateTimeIsBeforeRule(Func<TDbParams, DateTime> selector, DateTime dateLimit) : base(selector, dateLimit) { RuleText = "before"; }
             public DateTimeIsBeforeRule(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) : base(selector, dateLimit, dateFormat) { RuleText = "before"; }
@@ -91,9 +91,9 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected override bool ValidateDateRule(DateTime ParamsValueAsDate)=> ParamsValueAsDate < DateLimit;
         }
 
-        public DateTimeIsOnOrBeforeRule DateTimeIsOnOrBefore(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsOnOrBeforeRule(selector, dateLimit);
-        public DateTimeIsOnOrBeforeRule DateTimeIsOnOrBefore(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsOnOrBeforeRule(selector, dateLimit, dateFormat);
-        public class DateTimeIsOnOrBeforeRule : DateTimeLimit
+        public IValidationRule<TDbParams> DateTimeIsOnOrBefore(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsOnOrBeforeRule(selector, dateLimit);
+        public IValidationRule<TDbParams> DateTimeIsOnOrBefore(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsOnOrBeforeRule(selector, dateLimit, dateFormat);
+        private class DateTimeIsOnOrBeforeRule : DateTimeLimit
         {
             public DateTimeIsOnOrBeforeRule(Func<TDbParams, DateTime> selector, DateTime dateLimit) : base(selector, dateLimit) { RuleText = "on or before"; }
             public DateTimeIsOnOrBeforeRule(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) : base(selector, dateLimit, dateFormat) { RuleText = "on or before"; }
@@ -101,9 +101,9 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected override bool ValidateDateRule(DateTime ParamsValueAsDate) => ParamsValueAsDate <= DateLimit;           
         }
 
-        public DateTimeIsAfterRule DateTimeIsAfter(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsAfterRule(selector, dateLimit);
-        public DateTimeIsAfterRule DateTimeIsAfter(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsAfterRule(selector, dateLimit, dateFormat);
-        public class DateTimeIsAfterRule : DateTimeLimit
+        public IValidationRule<TDbParams> DateTimeIsAfter(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsAfterRule(selector, dateLimit);
+        public IValidationRule<TDbParams> DateTimeIsAfter(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsAfterRule(selector, dateLimit, dateFormat);
+        private class DateTimeIsAfterRule : DateTimeLimit
         {
             public DateTimeIsAfterRule(Func<TDbParams, DateTime> selector, DateTime dateLimit) : base(selector, dateLimit) { RuleText = "after"; }
             public DateTimeIsAfterRule(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) : base(selector, dateLimit, dateFormat) { RuleText = "after"; }
@@ -111,9 +111,9 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected override bool ValidateDateRule(DateTime ParamsValueAsDate) => ParamsValueAsDate > DateLimit;    
         }
 
-        public DateTimeIsOnOrAfterRule DateTimeIsOnOrAfter(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsOnOrAfterRule(selector, dateLimit);
-        public DateTimeIsOnOrAfterRule DateTimeIsOnOrAfter(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsOnOrAfterRule(selector, dateLimit, dateFormat);
-        public class DateTimeIsOnOrAfterRule : DateTimeLimit
+        public IValidationRule<TDbParams> DateTimeIsOnOrAfter(Func<TDbParams, DateTime> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsOnOrAfterRule(selector, dateLimit);
+        public IValidationRule<TDbParams> DateTimeIsOnOrAfter(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) => new DateTimeIsOnOrAfterRule(selector, dateLimit, dateFormat);
+        private class DateTimeIsOnOrAfterRule : DateTimeLimit
         {
             public DateTimeIsOnOrAfterRule(Func<TDbParams, DateTime> selector, DateTime dateLimit) : base(selector, dateLimit) { RuleText = "on or after"; }
             public DateTimeIsOnOrAfterRule(Func<TDbParams, string> selector, DateTime dateLimit, string dateFormat = null) : base(selector, dateLimit, dateFormat) { RuleText = "on or after"; }
