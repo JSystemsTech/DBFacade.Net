@@ -12,9 +12,9 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
     /// 
     /// </summary>
     /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-    /// <seealso cref="Rules.IValidationRule{DbParams}" />
-    public abstract partial class ValidationRule<DbParams> : IValidationRule<DbParams>
-        where DbParams : IDbParamsModel
+    /// <seealso cref="Rules.IValidationRule{TDbParams}" />
+    public abstract partial class ValidationRule<TDbParams> : IValidationRule<TDbParams>
+        where TDbParams : IDbParamsModel
     {
         /// <summary>
         /// Gets the parameters value.
@@ -30,7 +30,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         /// <value>
         /// The get parameter function.
         /// </value>
-        protected Func<DbParams, object> GetParamFunc { get; private set; }
+        protected Func<TDbParams, object> GetParamFunc { get; private set; }
         /// <summary>
         /// Gets the property information.
         /// </summary>
@@ -46,40 +46,57 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         /// </value>
         protected bool IsNullable { get; private set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationRule{DbParams}"/> class.
-        /// </summary>
-        /// <param name="selector">The selector.</param>
-        public ValidationRule(Selector<DbParams> selector)
+        public static ValidationRule<TDbParams> GetRules() { return new ValidationRuleInstance(); }
+        private class ValidationRuleInstance : ValidationRule<TDbParams>
         {
-            init(selector, false);
+            protected override string GetErrorMessageCore(string propertyName)=> "";
+
+            protected override bool ValidateRule() => true;
         }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationRule{DbParams}"/> class.
-        /// </summary>
-        /// <param name="selector">The selector.</param>
-        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-        public ValidationRule(Selector<DbParams> selector, bool isNullable)
+        public ValidationRule() { }
+
+        public ValidationRule(Func<TDbParams, object> selector, bool isNullable = false)=> init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, short> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, int> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, long> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, ushort> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, uint> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, ulong> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, double> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, float> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, decimal> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, string> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, char> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, DateTime> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, bool> selector, bool isNullable = false) => init(selector, isNullable);
+
+        public ValidationRule(Func<TDbParams, short?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, int?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, long?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, ushort?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, uint?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, ulong?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, double?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, float?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, decimal?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, char?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, DateTime?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, bool?> selector, bool isNullable = false) => init(selector, isNullable);
+
+
+        private void init<T>(Func<TDbParams, T> selector, bool isNullable)
         {
-            init(selector, isNullable);
-        }
-        /// <summary>
-        /// Initializes the specified selector.
-        /// </summary>
-        /// <param name="selector">The selector.</param>
-        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-        private void init(Selector<DbParams> selector, bool isNullable)
-        {
-            GetParamFunc = PropertySelector<DbParams>.GetDelegate(selector.SelectorExpression);
-            PropInfo = PropertySelector<DbParams>.GetPropertyInfo(selector.SelectorExpression);
+            GetParamFunc = model => selector(model);
+            PropInfo = PropertySelector<TDbParams>.GetPropertyInfo(selector);
             IsNullable = isNullable;
         }
+        
         /// <summary>
         /// Validates the asynchronous.
         /// </summary>
         /// <param name="paramsModel">The parameters model.</param>
         /// <returns></returns>
-        public async Task<ValidationRuleResult> ValidateAsync(DbParams paramsModel)
+        public async Task<ValidationRuleResult> ValidateAsync(TDbParams paramsModel)
         {
             return await Task.Run(() => Validate(paramsModel));
         }
@@ -88,7 +105,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         /// </summary>
         /// <param name="paramsModel">The parameters model.</param>
         /// <returns></returns>
-        public ValidationRuleResult Validate(DbParams paramsModel)
+        public ValidationRuleResult Validate(TDbParams paramsModel)
         {
             ParamsValue = GetParamFunc(paramsModel);
             if ((IsNullable && ParamsValue == null) || ValidateRule())

@@ -1,4 +1,5 @@
 ﻿using DBFacade.Utils;
+using System;
 
 namespace DBFacade.DataLayer.Models.Validators.Rules
 {
@@ -7,34 +8,17 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
     /// </summary>
     /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
     /// <seealso cref="Rules.IValidationRule{DbParams}" />
-    public abstract partial class ValidationRule<DbParams>
-        where DbParams : IDbParamsModel
+    public abstract partial class ValidationRule<TDbParams>
+        where TDbParams : IDbParamsModel
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="Rules.IValidationRule{DbParams}" />
-        public class Required : ValidationRule<DbParams>
+        public RequiredRule Required(Func<TDbParams, object> selector) => new RequiredRule(selector);
+        public class RequiredRule : ValidationRule<TDbParams>
         {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Required"/> class.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            public Required(Selector<DbParams> selector) : base(selector) { }
-            /// <summary>
-            /// Gets the error message core.
-            /// </summary>
-            /// <param name="propertyName">Name of the property.</param>
-            /// <returns></returns>
+            public RequiredRule(Func<TDbParams, object> selector) : base(selector) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
-                return propertyName + " is required.";
+                return $"{propertyName} is required.";
             }
-
-            /// <summary>
-            /// Validates the rule.
-            /// </summary>
-            /// <returns></returns>
             protected override bool ValidateRule()
             {
                 return ParamsValue != null;

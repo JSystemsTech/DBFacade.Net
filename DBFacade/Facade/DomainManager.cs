@@ -34,6 +34,10 @@ namespace DBFacade.Facade
         {
             return await ExecuteNextAsync<DbConnectionManager<TDbManifest>, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
-        internal sealed override void HandleInnerDispose() => GetDbFacade<DbConnectionManager<TDbManifest>>().Dispose();
+        protected override void OnDispose(bool calledFromDispose)
+        {
+            GetDbFacade<DbConnectionManager<TDbManifest>>().Dispose(calledFromDispose);
+            base.OnDispose(calledFromDispose);
+        }
     }
 }

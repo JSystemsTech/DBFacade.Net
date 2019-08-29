@@ -10,15 +10,7 @@ namespace DBFacade.Utils
     /// <typeparam name="T"></typeparam>
     internal sealed class PropertySelector<T>
     {
-        /// <summary>
-        /// Gets the delegate.
-        /// </summary>
-        /// <param name="selector">The selector.</param>
-        /// <returns></returns>
-        public static Func<T, object> GetDelegate(Expression<Func<T, object>> selector)
-        {
-            return selector.Compile();
-        }
+        
         /// <summary>
         /// Gets the property information.
         /// </summary>
@@ -30,14 +22,15 @@ namespace DBFacade.Utils
         /// Selector must be member access expression - selector
         /// </exception>
         /// <exception cref="InvalidOperationException">Property does not have declaring type</exception>
-        public static PropertyInfo GetPropertyInfo(Expression<Func<T, object>> selector)
+        public static PropertyInfo GetPropertyInfo<TOut>(Func<T, TOut> selector)
         {
-            if (selector.NodeType != ExpressionType.Lambda)
+            Expression<Func<T, TOut>> expression = Expression.Lambda<Func<T, TOut>>(Expression.Call(selector.Method));
+            if (expression.NodeType != ExpressionType.Lambda)
             {
                 throw new ArgumentException("Selector must be lambda expression", "selector");
             }
 
-            var lambda = (LambdaExpression)selector;
+            var lambda = (LambdaExpression)expression;
 
             var memberExpression = ExtractMemberExpression(lambda.Body);
 

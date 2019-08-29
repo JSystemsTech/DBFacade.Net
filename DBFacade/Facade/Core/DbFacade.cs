@@ -7,8 +7,24 @@ using System.Threading.Tasks;
 namespace DBFacade.Facade.Core
 {
 
-    public abstract partial class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest>, IDisposable where TDbManifest : DbManifest
+    public abstract partial class DbFacade<TDbManifest> : DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
     {
+        #region SafeDisposable Support        
+        protected override void OnDispose(bool calledFromDispose)
+        {
+            InstanceResolvers.Get<IDbParamsModel>().Dispose(calledFromDispose);
+            DbFacadeCache.Dispose(calledFromDispose);
+            TDbManifestMethodsCache.Dispose(calledFromDispose);            
+        }
+
+        protected override void OnDisposeComplete()
+        {
+            defaultParams = null;
+            dbFacadeCache = null;
+            tDbManifestMethodsCache = null;
+        }
+        #endregion
+
         private IDbParamsModel defaultParams { get; set; }
         private IDbParamsModel DEFAULT_PARAMETERS { get { return defaultParams ?? InstanceResolvers.Get<IDbParamsModel>().Get<DbParamsModel>(); } }
 
@@ -20,32 +36,7 @@ namespace DBFacade.Facade.Core
 
         private TDbManifestMethod GetMethod<TDbManifestMethod>() where TDbManifestMethod: TDbManifest => TDbManifestMethodsCache.Get<TDbManifestMethod>();
         internal TDbFacade GetDbFacade<TDbFacade>() where TDbFacade : DbFacade<TDbManifest> => DbFacadeCache.Get<TDbFacade>();
-
-        protected bool Disposed { get; set; }
         
-        private static bool Disposing = false;
-        public void Dispose()
-        {
-            if (!Disposed)
-            {
-                if (!Disposing) {
-                    Disposing = true;
-                    InstanceResolvers.Get<IDbParamsModel>().Dispose();
-                    DbFacadeCache.Dispose();
-                    TDbManifestMethodsCache.Dispose();
-                    defaultParams = null;
-                    dbFacadeCache = null;
-                    tDbManifestMethodsCache = null;
-                    Disposing = false;
-                }
-                OnDispose();
-                Disposed = true;
-            }
-        }
-        internal virtual void HandleInnerDispose() {}
-        protected virtual void OnDispose() { }
-        
-
         internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbManifestMethod>()
             => ExecuteProcess<TDbDataModel, IDbParamsModel, TDbManifestMethod>(GetMethod<TDbManifestMethod>(),DEFAULT_PARAMETERS);
         internal override sealed IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams, TDbManifestMethod>(TDbParams parameters)
@@ -93,7 +84,11 @@ namespace DBFacade.Facade.Core
         where TDbManifest : DbManifest
         where TDbFacade : DbFacade<TDbManifest>
     {
-        internal override sealed void HandleInnerDispose() => GetDbFacade<TDbFacade>().Dispose();
+        protected override void OnDispose(bool calledFromDispose)
+        {
+            GetDbFacade<TDbFacade>().Dispose(calledFromDispose);
+            base.OnDispose(calledFromDispose);
+        }        
         internal override sealed IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
             return ExecuteNext<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);

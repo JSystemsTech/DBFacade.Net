@@ -118,7 +118,6 @@
     <Compile Include="DataLayer\ConnectionService\DbConnectionConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionHandler.cs" />
     <Compile Include="DataLayer\CommandConfig\DbCommandConfigBuilder.cs" />
-    <Compile Include="DataLayer\Manifest\DbMethodUtils.cs" />
     <Compile Include="DataLayer\Manifest\IDbManifestMethod.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbBufferedColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbColumnDefault.cs" />
@@ -148,6 +147,7 @@
     <Compile Include="DataLayer\Models\DbDataModel.cs" />
     <Compile Include="DataLayer\Models\DbParamsModel.cs" />
     <Compile Include="Facade\DomainFacade_Async.cs" />
+    <Compile Include="SafeDisposable.cs" />
     <Compile Include="Services\InstanceResolvers.cs" />
     <Compile Include="Utils\MockDbTable.cs" />
     <Compile Include="Utils\GenericInstance.cs" />
@@ -160,7 +160,6 @@
     <Compile Include="Utils\IMockDbTableRow.cs" />
     <Compile Include="Services\InstanceResolver.cs" />
     <Compile Include="Utils\PropertySelector.cs" />
-    <Compile Include="Utils\Selector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

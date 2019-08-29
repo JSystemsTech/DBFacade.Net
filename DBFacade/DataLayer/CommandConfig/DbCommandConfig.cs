@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.CommandConfig
 {
-    internal class DbCommandConfig<TDbParams, TDbConnectionConfig> : IDbCommandConfig
+    internal class DbCommandConfig<TDbParams, TDbConnectionConfig> : SafeDisposableBase, IDbCommandConfig
         where TDbParams : IDbParamsModel
         where TDbConnectionConfig : IDbConnectionConfig
     {        
@@ -21,7 +21,6 @@ namespace DBFacade.DataLayer.CommandConfig
         private string ReturnParam{ get; set; }
         private bool IsOutput { get; set; }        
         private bool Transaction { get; set; }
-        private bool Disposed { get; set; }
 
         public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
@@ -127,13 +126,9 @@ namespace DBFacade.DataLayer.CommandConfig
                 ValidationResult.PassingValidation();
 
         public bool IsTransaction() => Transaction;
-        
-        public void Dispose()
-        {
-            if (!Disposed)
-            {
-                Disposed = true;
-            }
-        }        
+
+        protected override void OnDispose(bool calledFromDispose) { }
+
+        protected override void OnDisposeComplete() { }
     }
 }

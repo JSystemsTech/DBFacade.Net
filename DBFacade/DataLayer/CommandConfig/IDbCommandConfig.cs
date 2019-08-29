@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.CommandConfig
 {
-    public interface IDbCommandConfig: IDisposable
+    public interface IDbCommandConfig: ISafeDisposable
     {
         /// <summary>
         /// Gets the database command.

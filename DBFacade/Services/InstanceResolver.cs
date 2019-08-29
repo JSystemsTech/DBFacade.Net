@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DBFacade.Services
 {
-    public interface IInstanceResolver: IDisposable
+    public interface IInstanceResolver: ISafeDisposable
     {
         Type GetResolverType();
     }
@@ -25,14 +25,28 @@ namespace DBFacade.Services
         {
             return await Task.Run(async()=> (C)GetOrAdd(typeof(C), await GenericInstance<C>.GetInstanceAsync()));
         }
-        private bool Disposed { get; set; } 
-        void IDisposable.Dispose()
+        public Type GetResolverType()
         {
-            if (!Disposed)
+            return typeof(T);
+        }
+ 
+        #region IDisposable Support
+        private bool Disposed = false;
+        private bool Disposing = false;
+        public bool IsDisposing() { return Disposed || Disposing; }
+        public void Dispose(bool calledFromDispose)
+        {
+            /* skip if already disposed or in the process of disposing*/
+            if (!IsDisposing())
             {
+                Disposing = true;
                 foreach (KeyValuePair<Type, T> item in this)
                 {
-                    if (item.Value is IDisposable)
+                    if (item.Value is ISafeDisposable)
+                    {
+                        (item.Value as ISafeDisposable).Dispose(calledFromDispose);
+                    }
+                    else if (item.Value is IDisposable)
                     {
                         (item.Value as IDisposable).Dispose();
                     }
@@ -42,9 +56,11 @@ namespace DBFacade.Services
             }
         }
 
-        public Type GetResolverType()
+        public void Dispose()
         {
-            return typeof(T);
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }

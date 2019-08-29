@@ -4,7 +4,7 @@ using DBFacade.DataLayer.Models;
 namespace DBFacade.Facade.Core
 {
 
-    public abstract class DbFacadeBase<TDbManifest> where TDbManifest : DbManifest
+    public abstract class DbFacadeBase<TDbManifest>: SafeDisposableBase where TDbManifest : DbManifest
     {
         internal abstract IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbManifestMethod>()
             where TDbDataModel : DbDataModel

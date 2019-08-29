@@ -8,8 +8,6 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
     public class DbCommandConfigParams<TDbParams> : Dictionary<string, DbCommandParameterConfig<TDbParams>>, IDbCommandConfigParams<TDbParams>
         where TDbParams : IDbParamsModel
     {
-        /// <summary>Parameterses the count.</summary>
-        /// <returns></returns>
         public int ParamsCount()
         {
             return Count;
