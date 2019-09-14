@@ -1,8 +1,8 @@
 ﻿using DBFacade.Utils;
 using System;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using static DBFacade.DataLayer.Models.Validators.Rules.ValidationRuleResult;
 
 namespace DBFacade.DataLayer.Models.Validators.Rules
@@ -13,7 +13,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
     /// </summary>
     /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
     /// <seealso cref="Rules.IValidationRule{TDbParams}" />
-    public abstract partial class ValidationRule<TDbParams> : IValidationRule<TDbParams>
+    public partial class ValidationRule<TDbParams> : IValidationRule<TDbParams>
         where TDbParams : IDbParamsModel
     {
         /// <summary>
@@ -56,39 +56,43 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         public ValidationRule() { }
 
         public ValidationRule(Func<TDbParams, object> selector, bool isNullable = false)=> init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, short> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, int> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, long> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, ushort> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, uint> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, ulong> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, double> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, float> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, decimal> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, short> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, int> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, long> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, ushort> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, uint> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, ulong> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, double> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, float> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, decimal> selector) => init(selector, false);
         public ValidationRule(Func<TDbParams, string> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, char> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, DateTime> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, DateTimeOffset> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, bool> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, byte> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, sbyte> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, byte[]> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, char> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, TimeSpan> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, DateTime> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, DateTimeOffset> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, bool> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, byte> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, sbyte> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, byte[]> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, char[]> selector) => init(selector, false);
+        public ValidationRule(Func<TDbParams, Xml> selector) => init(selector, false);
 
-        public ValidationRule(Func<TDbParams, short?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, int?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, long?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, ushort?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, uint?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, ulong?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, double?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, float?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, decimal?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, char?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, DateTime?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, DateTimeOffset?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, bool?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, byte?> selector, bool isNullable = false) => init(selector, isNullable);
-        public ValidationRule(Func<TDbParams, sbyte?> selector, bool isNullable = false) => init(selector, isNullable);
+        public ValidationRule(Func<TDbParams, short?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, int?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, long?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, ushort?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, uint?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, ulong?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, double?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, float?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, decimal?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, char?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, TimeSpan?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, DateTime?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, DateTimeOffset?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, bool?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, byte?> selector, bool isNullable = false) => init(selector, true);
+        public ValidationRule(Func<TDbParams, sbyte?> selector, bool isNullable = false) => init(selector, true);
 
 
         private void init<T>(Func<TDbParams, T> selector, bool isNullable)
@@ -125,7 +129,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         /// Validates the rule.
         /// </summary>
         /// <returns></returns>
-        protected abstract bool ValidateRule();
+        protected virtual bool ValidateRule() => true;
 
         /// <summary>
         /// Gets the error message.
@@ -140,6 +144,6 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
-        protected abstract string GetErrorMessageCore(string propertyName);
+        protected virtual string GetErrorMessageCore(string propertyName) => string.Empty;
     }
 }

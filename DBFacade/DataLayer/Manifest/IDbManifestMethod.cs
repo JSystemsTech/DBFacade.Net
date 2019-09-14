@@ -1,22 +1,12 @@
 ﻿using DBFacade.DataLayer.CommandConfig;
-using System;
+using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.Manifest
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public interface IDbManifestMethod
     {
-        /// <summary>
-        /// Gets the configuration.
-        /// </summary>
-        /// <returns></returns>
-        IDbCommandConfig GetConfig();
-        /// <summary>
-        /// Gets the type.
-        /// </summary>
-        /// <returns></returns>
-        Type GetType();
-    }
+        IDbCommandConfig Config{ get; }  
+        Task<IDbCommandConfig> GetConfigAsync();
+    }  
+
 }

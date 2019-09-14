@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainFacadeTestLocal", "DomainFacadeTestLocal\DomainFacadeTestLocal.csproj", "{FDFF7543-ABB3-4EE9-B82D-7ABBB6EA2AC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F6181497-FFBD-4A24-B68C-CC87AA1388D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6181497-FFBD-4A24-B68C-CC87AA1388D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6181497-FFBD-4A24-B68C-CC87AA1388D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDFF7543-ABB3-4EE9-B82D-7ABBB6EA2AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDFF7543-ABB3-4EE9-B82D-7ABBB6EA2AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDFF7543-ABB3-4EE9-B82D-7ABBB6EA2AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDFF7543-ABB3-4EE9-B82D-7ABBB6EA2AC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

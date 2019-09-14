@@ -3,8 +3,6 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web.Mvc;
-using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.Xml;
 using System.Threading.Tasks;
@@ -23,7 +21,6 @@ namespace DBFacade.DataLayer.Models
             ReturnVal = returnValue;
         }
         public string ToJson()=> JsonConvert.SerializeObject(this);
-        public JsonResult ToJsonResult() => new JsonResult { Data = this, MaxJsonLength = int.MaxValue, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         public void Serialize(TextWriter textWriter)
         {
             using (XmlWriter xmlWriter = XmlWriter.Create(textWriter))
@@ -45,7 +42,6 @@ namespace DBFacade.DataLayer.Models
         public bool IsNull() => ObjectIsNull;
 
         public async Task<string> ToJsonAsync() => await Task.Run(() => ToJson());
-        public async Task<JsonResult> ToJsonResultAsync() => await Task.Run(() => ToJsonResult());
 
         public async Task SerializeAsync(TextWriter textWriter) => await Task.Run(() => Serialize(textWriter));
 

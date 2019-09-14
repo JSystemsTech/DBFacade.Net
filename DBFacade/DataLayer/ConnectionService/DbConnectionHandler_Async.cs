@@ -39,9 +39,10 @@ namespace DBFacade.DataLayer.ConnectionService
             where TDbManifestMethod : TDbManifest
         {
             IDbCommandConfig config = await method.GetConfigAsync();
-            if (parameters._GetRunMode() == MethodRunMode.Test)
+            IInternalDbParamsModel parametersModel = parameters as IInternalDbParamsModel;
+            if (parametersModel.RunMode == MethodRunMode.Test)
             {
-                return await BuildResonseAsync<TDbManifestMethod, TDbDataModel>(parameters._GetReturnValue(), parameters._GetResponseData());
+                return await BuildResonseAsync<TDbManifestMethod, TDbDataModel>(parametersModel.ReturnValue, parametersModel.ResponseData);
             }
             else
             {
@@ -49,7 +50,7 @@ namespace DBFacade.DataLayer.ConnectionService
                 using (TDbConnection dbConnection = connectionConfig.GetDbConnection() as TDbConnection)
                 {
                     await dbConnection.OpenAsync();
-                    using (TDbCommand dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parameters, dbConnection))
+                    using (TDbCommand dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parametersModel, dbConnection))
                     {
                         try
                         {

@@ -36,12 +36,13 @@ namespace DBFacade.DataLayer.ConnectionService
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
         {
-            IDbCommandConfig config = method.GetConfig();
-            if (parameters._GetRunMode() == MethodRunMode.Test)
+            IDbCommandConfig config = method.Config;
+            IInternalDbParamsModel parametersModel = parameters as IInternalDbParamsModel;
+            if (parametersModel.RunMode == MethodRunMode.Test)
             {
-                using(DbDataReader dbDataReader = parameters._GetResponseData())
+                using(DbDataReader dbDataReader = parametersModel.ResponseData)
                 {
-                    return BuildResonse<TDbManifestMethod, TDbDataModel>(parameters._GetReturnValue(), dbDataReader);
+                    return BuildResonse<TDbManifestMethod, TDbDataModel>(parametersModel.ReturnValue, dbDataReader);
                 }                
             }
             else
@@ -49,7 +50,7 @@ namespace DBFacade.DataLayer.ConnectionService
                 using (TDbConnection dbConnection = config.GetDBConnectionConfig().GetDbConnection() as TDbConnection)
                 {
                     dbConnection.Open();
-                    using (TDbCommand dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parameters, dbConnection))
+                    using (TDbCommand dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parametersModel, dbConnection))
                     {
                         try
                         {

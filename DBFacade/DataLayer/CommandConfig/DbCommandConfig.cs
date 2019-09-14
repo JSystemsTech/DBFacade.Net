@@ -22,32 +22,22 @@ namespace DBFacade.DataLayer.CommandConfig
         private bool IsOutput { get; set; }        
         private bool Transaction { get; set; }
 
-        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+
+        
+        internal DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
-            Init(dbCommandText, null, null, CommandType.StoredProcedure, returnParam, isOutput, isTransaction);
+            Init(dbCommandText, dbCommandType, null, null, returnParam, isOutput, isTransaction);
         }
-        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        internal DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
-            Init(dbCommandText, null, null, dbCommandType, returnParam, isOutput, isTransaction);
+            Init(dbCommandText, dbCommandType, dbParams, null, returnParam, isOutput, isTransaction);
         }
-        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        internal DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
-            Init(dbCommandText, dbParams, null, CommandType.StoredProcedure, returnParam, isOutput, isTransaction);
-        }
-        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
-        {
-            Init(dbCommandText, dbParams, null, dbCommandType, returnParam, isOutput, isTransaction);
-        }
-        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, string returnParam = null, bool isOutput = false, bool isTransaction = false)
-        {
-            Init(dbCommandText, dbParams, validator, CommandType.StoredProcedure, returnParam, isOutput, isTransaction);
-        }
-        public DbCommandConfig(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, CommandType dbCommandType, string returnParam = null, bool isOutput = false, bool isTransaction = false)
-        {
-            Init(dbCommandText, dbParams, validator, dbCommandType, returnParam, isOutput, isTransaction);
+            Init(dbCommandText, dbCommandType, dbParams, validator, returnParam, isOutput, isTransaction);
         }        
         
-        private void Init(IDbCommandText<TDbConnectionConfig> dbCommandText, IDbCommandConfigParams<TDbParams> dbParams, Validator<TDbParams> validator, CommandType dbCommandType = CommandType.StoredProcedure, string returnParam = null, bool isOutput = false, bool isTransaction = false)
+        private void Init(IDbCommandText<TDbConnectionConfig> dbCommandText, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams=null, Validator<TDbParams> validator = null, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
             ReturnParam = returnParam;
             DbCommandText = dbCommandText;
@@ -97,16 +87,18 @@ namespace DBFacade.DataLayer.CommandConfig
             parameter.ParameterName = GetFullParamName(parameterName);
             return parameter;
         }
+
         private TDbCommand AddParams<TDbCommand, TDbParameter>(TDbCommand dbCommand, TDbParams TDbManifestMethodParams)
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
         {            
-            foreach (KeyValuePair<string, DbCommandParameterConfig<TDbParams>> config in DbParams)
+            foreach (KeyValuePair<string, IDbCommandParameterConfig<TDbParams>> config in DbParams)
             {
+                IInternalDbCommandParameterConfig<TDbParams> paramConfig = config.Value as IInternalDbCommandParameterConfig<TDbParams>;
                 TDbParameter dbParameter = CreateParameter<TDbCommand, TDbParameter>(dbCommand, TDbManifestMethodParams, ParameterDirection.Input, config.Key);
-                dbParameter.DbType = config.Value.DBType;
-                dbParameter.IsNullable = config.Value.IsNullable();
-                dbParameter.Value = config.Value.GetParam(TDbManifestMethodParams);
+                dbParameter.DbType = paramConfig.DbType;
+                dbParameter.IsNullable = paramConfig.IsNullable;
+                dbParameter.Value = paramConfig.Value(TDbManifestMethodParams);
                 dbCommand.Parameters.Add(dbParameter);
             }
             if (HasReturnValue())
@@ -117,11 +109,11 @@ namespace DBFacade.DataLayer.CommandConfig
         }
 
         public IValidationResult Validate(IDbParamsModel paramsModel)
-            => (DbParams != null && DbParams.ParamsCount() > 0) ?
+            => (DbParams != null && DbParams.Count > 0) ?
                 ParamsValidator.Validate((TDbParams)paramsModel) :
                 ValidationResult.PassingValidation();
         public async Task<IValidationResult> ValidateAsync(IDbParamsModel paramsModel)
-            => (DbParams != null && DbParams.ParamsCount() > 0) ?
+            => (DbParams != null && DbParams.Count > 0) ?
                 await ParamsValidator.ValidateAsync((TDbParams)paramsModel) :
                 ValidationResult.PassingValidation();
 

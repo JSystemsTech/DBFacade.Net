@@ -1,5 +1,4 @@
-﻿using DBFacade.DataLayer.CommandConfig;
-using DBFacade.DataLayer.Manifest;
+﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.Models.Validators;
 using DBFacade.Exceptions;
@@ -13,14 +12,14 @@ namespace DBFacade.Facade
     {
         internal sealed override async Task OnBeforeNextInnerAsync<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
-            IValidationResult validationResult = await method.GetConfig().ValidateAsync(parameters);
+            IValidationResult validationResult = await method.Config.ValidateAsync(parameters);
             if (!validationResult.IsValid())
             {
                 throw new ValidationException<TDbParams>(validationResult, parameters, $"{parameters.GetType().Name} values failed to pass validation for method {method.GetType().Name}");
             }
         }
         internal sealed override void OnBeforeNextInner<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) {
-            IValidationResult validationResult = method.GetConfig().Validate(parameters);
+            IValidationResult validationResult = method.Config.Validate(parameters);
             if (!validationResult.IsValid())
             {
                 throw new ValidationException<TDbParams>(validationResult, parameters, $"{parameters.GetType().Name} values failed to pass validation for method {method.GetType().Name}");

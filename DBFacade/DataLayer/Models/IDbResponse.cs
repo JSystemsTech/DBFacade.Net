@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using System.Xml;
 
 namespace DBFacade.DataLayer.Models
@@ -53,12 +52,6 @@ namespace DBFacade.DataLayer.Models
         /// <returns></returns>
         string ToJson();
         Task<string> ToJsonAsync();
-        /// <summary>
-        /// Converts to jsonresult.
-        /// </summary>
-        /// <returns></returns>
-        JsonResult ToJsonResult();
-        Task<JsonResult> ToJsonResultAsync();
     }
     public interface IReadOnlyDbCollection<TDbDataModel>
          where TDbDataModel : DbDataModel

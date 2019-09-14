@@ -1,5 +1,4 @@
-﻿using DBFacade.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -16,8 +15,8 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
     public abstract partial class ValidationRule<TDbParams>
         where TDbParams : IDbParamsModel
     {
-        public IValidationRule<TDbParams> Match(TDbParams paramsModel, Func<TDbParams, string> selector, string regexMatchStr, bool isNullable = false) => new MatchRule(paramsModel, selector, regexMatchStr, isNullable);
-        public IValidationRule<TDbParams> Match(TDbParams paramsModel, Func<TDbParams, string> selector, string regexMatchStr, RegexOptions options, bool isNullable = false) => new MatchRule(paramsModel, selector, regexMatchStr, options, isNullable);
+        public static IValidationRule<TDbParams> Match(TDbParams paramsModel, Func<TDbParams, string> selector, string regexMatchStr, bool isNullable = false) => new MatchRule(paramsModel, selector, regexMatchStr, isNullable);
+        public static IValidationRule<TDbParams> Match(TDbParams paramsModel, Func<TDbParams, string> selector, string regexMatchStr, RegexOptions options, bool isNullable = false) => new MatchRule(paramsModel, selector, regexMatchStr, options, isNullable);
 
         private class MatchRule : ValidationRule<TDbParams>
         {
@@ -50,7 +49,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
 
         }
 
-        public IValidationRule<TDbParams> MinLength(Func<TDbParams, string> selector, int limit, bool isNullable = false) => new MinLengthRule(selector, limit, isNullable);
+        public static IValidationRule<TDbParams> MinLength(Func<TDbParams, string> selector, int limit, bool isNullable = false) => new MinLengthRule(selector, limit, isNullable);
 
         private class MinLengthRule : ValidationRule<TDbParams>
         {
@@ -66,7 +65,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
 
         }
         
-        public IValidationRule<TDbParams> MaxLength(Func<TDbParams, string> selector, int limit, bool isNullable = false) => new MaxLengthRule(selector, limit, isNullable);
+        public static IValidationRule<TDbParams> MaxLength(Func<TDbParams, string> selector, int limit, bool isNullable = false) => new MaxLengthRule(selector, limit, isNullable);
 
         private class MaxLengthRule : ValidationRule<TDbParams>
         {
@@ -85,8 +84,8 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             Whitelist = 1,
             Blacklist = 2
         }
-        public IValidationRule<TDbParams> Email(Func<TDbParams, string> selector, bool isNullable = false) => new EmailRule(selector, isNullable);
-        public IValidationRule<TDbParams> Email(Func<TDbParams, string> selector, IEnumerable<string> domains, EmailDomainMode mode, bool isNullable = false) => new EmailRule(selector, domains, mode, isNullable);
+        public static IValidationRule<TDbParams> Email(Func<TDbParams, string> selector, bool isNullable = false) => new EmailRule(selector, isNullable);
+        public static IValidationRule<TDbParams> Email(Func<TDbParams, string> selector, IEnumerable<string> domains, EmailDomainMode mode, bool isNullable = false) => new EmailRule(selector, domains, mode, isNullable);
 
         private class EmailRule : ValidationRule<TDbParams>
         {            

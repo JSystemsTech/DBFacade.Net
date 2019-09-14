@@ -36,10 +36,11 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DbFacadeDigitalSigniture.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -109,15 +110,17 @@
   <ItemGroup>
     <Compile Include="DataLayer\CommandConfig\DbCommandConfig.cs" />
     <Compile Include="DataLayer\CommandConfig\IDbCommandConfig.cs" />
+    <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParametersConfigFactory.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\IDbCommandConfigParams.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
-    <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParameterConfigBase.cs" />
+    <Compile Include="DataLayer\CommandConfig\Parameters\IDbCommandParameterConfig.cs" />
+    <Compile Include="DataLayer\CommandConfig\Parameters\IDbCommandParameterConfigFactory.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionHandler_Async.cs" />
     <Compile Include="DataLayer\ConnectionService\IDbConnectionConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionConfigBase.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionHandler.cs" />
-    <Compile Include="DataLayer\CommandConfig\DbCommandConfigBuilder.cs" />
+    <Compile Include="DataLayer\CommandConfig\DbCommandConfigFactory.cs" />
     <Compile Include="DataLayer\Manifest\IDbManifestMethod.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbBufferedColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbColumnDefault.cs" />
@@ -164,8 +167,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="DBFacade.nuspec" />
-    <None Include="DbFacadeDigitalSigniture.pfx" />
-    <None Include="DbFacadeDigitalSignuture.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

@@ -1,5 +1,4 @@
-﻿using DBFacade.Utils;
-using System;
+﻿using System;
 
 namespace DBFacade.DataLayer.Models.Validators.Rules
 {
@@ -11,7 +10,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
     public abstract partial class ValidationRule<TDbParams>
         where TDbParams : IDbParamsModel
     {
-        public IValidationRule<TDbParams> Required(Func<TDbParams, object> selector) => new RequiredRule(selector);
+        public static IValidationRule<TDbParams> Required(Func<TDbParams, object> selector) => new RequiredRule(selector);
         private class RequiredRule : ValidationRule<TDbParams>
         {
             public RequiredRule(Func<TDbParams, object> selector) : base(selector) { }
