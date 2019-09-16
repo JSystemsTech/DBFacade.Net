@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace DBFacade.DataLayer.ConnectionService
 {
 
-    public abstract class DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig> : DbConnectionConfigBase 
+    public abstract class DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig> : IDbConnectionConfig//DbConnectionConfigBase
         where TDbDataReader : DbDataReader
         where TDbConnection : DbConnection
         where TDbCommand : DbCommand
@@ -27,17 +27,32 @@ namespace DBFacade.DataLayer.ConnectionService
             public DbCommandText(string commandText, string label) : base(commandText, label) { }
         }
         private sealed class ConnectionHandler<TDbManifest> : DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbManifest> where TDbManifest : DbManifest { }
-        public sealed override IDbConnection GetDbConnection() => GetDbConnectionCore<TDbConnection>();
+        public IDbConnection GetDbConnection() => ResolveDbConnection();
 
-        public sealed override IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
-        {
-            return ConnectionHandler<TDbManifest>.ExecuteDbAction<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
-        }
-        public sealed async override Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
-        {
-            return await ConnectionHandler<TDbManifest>.ExecuteDbActionAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
-        }
+        public IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbManifest : DbManifest
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        => ConnectionHandler<TDbManifest>.ExecuteDbAction<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+        
+        public async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbManifest : DbManifest
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        => await ConnectionHandler<TDbManifest>.ExecuteDbActionAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+        
         protected static IDbCommandText CreateCommandText(string commandText, string label) => new DbCommandText(commandText, label);
+
+        private TDbConnection ResolveDbConnection()
+        {
+            TDbConnection dbConnection = DbProviderFactories.GetFactory(GetDbConnectionProvider()).CreateConnection() as TDbConnection;
+            dbConnection.ConnectionString = GetDbConnectionString();
+            return dbConnection;
+        }
+        protected abstract string GetDbConnectionString();
+        protected abstract string GetDbConnectionProvider();
     }
     public abstract class SQLConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<SqlDataReader, SqlConnection, SqlCommand, SqlTransaction, SqlParameter, TDbConnectionConfig> where TDbConnectionConfig : IDbConnectionConfig { }
 
