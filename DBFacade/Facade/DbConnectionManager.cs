@@ -12,7 +12,7 @@ namespace DBFacade.Facade
     {        
         protected sealed override IDbResponse<TDbDataModel> Process<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
-            IDbConnectionConfig connectionConfig = method.GetConfig().GetDBConnectionConfig();
+            IDbConnectionConfig connectionConfig = method.Config.GetDBConnectionConfig();
             return connectionConfig.ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);            
         }
         protected sealed override async Task<IDbResponse<TDbDataModel>> ProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
