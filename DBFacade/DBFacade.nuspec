@@ -7,8 +7,8 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/JSystemsTech/DBFacade.Net</projectUrl>
-    <iconUrl>https://github.com/JSystemsTech/DBFacade.Net</iconUrl>
+    <projectUrl>https://dbfacade.azurewebsites.net</projectUrl>
+    <iconUrl>https://dbfacade.azurewebsites.net</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Beta release ($version$)</releaseNotes>
