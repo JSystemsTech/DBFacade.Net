@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Connection\MyConnection.cs" />
+    <Compile Include="Domain\MyDomainFacade.cs" />
+    <Compile Include="Domain\MyDomainManager.cs" />
     <Compile Include="Domain\Methods\DomainMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

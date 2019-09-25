@@ -5,8 +5,8 @@ namespace DBFacade.DataLayer.Models.Attributes
     public class DbColumnDefault : DbColumn
     {
 
-        private DbColumnDefault(string name, object defaultValue) : base(name, defaultValue) { }
-        private DbColumnDefault(Type TDbManifestMethodType, string name, object defaultValue) : base(TDbManifestMethodType, name, defaultValue) { }
+        private DbColumnDefault(string name, object defaultValue) : base(name, defaultValue, DefaultDelimeter) { }
+        private DbColumnDefault(Type TDbManifestMethodType, string name, object defaultValue) : base(TDbManifestMethodType, name, defaultValue,null, DefaultDelimeter) { }
         
         public sealed class Boolean : DbColumnDefault
         {
@@ -29,6 +29,12 @@ namespace DBFacade.DataLayer.Models.Attributes
             
             public DateTime(string name, System.DateTime defaultValue) : base(name, defaultValue) { }
             public DateTime(Type TDbManifestMethodType, string name, System.DateTime defaultValue) : base(TDbManifestMethodType, name, defaultValue) { }
+        }
+        public sealed class TimeSpan : DbColumnDefault
+        {
+
+            public TimeSpan(string name, System.TimeSpan defaultValue) : base(name, defaultValue) { }
+            public TimeSpan(Type TDbManifestMethodType, string name, System.TimeSpan defaultValue) : base(TDbManifestMethodType, name, defaultValue) { }
         }
         public sealed class Decimal : DbColumnDefault
         {

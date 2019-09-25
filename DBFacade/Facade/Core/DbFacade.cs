@@ -1,5 +1,6 @@
 ﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
+using DBFacade.Factories;
 using DBFacade.Services;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace DBFacade.Facade.Core
         #region SafeDisposable Support        
         protected override void OnDispose(bool calledFromDispose)
         {
-            InstanceResolvers.Get<IDbParamsModel>().Dispose(calledFromDispose);
+            InstanceResolverFactory.Get<IDbParamsModel>().Dispose(calledFromDispose);
             DbFacadeCache.Dispose(calledFromDispose);
             TDbManifestMethodsCache.Dispose(calledFromDispose);            
         }
@@ -25,13 +26,13 @@ namespace DBFacade.Facade.Core
         #endregion
 
         private IDbParamsModel defaultParams { get; set; }
-        private IDbParamsModel DEFAULT_PARAMETERS { get { return defaultParams ?? InstanceResolvers.Get<IDbParamsModel>().Get<DbParamsModel>(); } }
+        private IDbParamsModel DEFAULT_PARAMETERS { get { return defaultParams ?? InstanceResolverFactory.Get<IDbParamsModel>().Get<DbParamsModel>(); } }
 
         private IInstanceResolver<DbFacade<TDbManifest>> dbFacadeCache { get; set; }
-        private IInstanceResolver<DbFacade<TDbManifest>> DbFacadeCache { get { return dbFacadeCache ?? InstanceResolvers.Get<DbFacade<TDbManifest>>(); } }
+        private IInstanceResolver<DbFacade<TDbManifest>> DbFacadeCache { get { return dbFacadeCache ?? InstanceResolverFactory.Get<DbFacade<TDbManifest>>(); } }
 
         private IInstanceResolver<TDbManifest> tDbManifestMethodsCache { get; set; }
-        private IInstanceResolver<TDbManifest> TDbManifestMethodsCache { get { return tDbManifestMethodsCache?? InstanceResolvers.Get<TDbManifest>(); } }
+        private IInstanceResolver<TDbManifest> TDbManifestMethodsCache { get { return tDbManifestMethodsCache?? InstanceResolverFactory.Get<TDbManifest>(); } }
 
         private TDbManifestMethod GetMethod<TDbManifestMethod>() where TDbManifestMethod: TDbManifest => TDbManifestMethodsCache.Get<TDbManifestMethod>();
         internal TDbFacade GetDbFacade<TDbFacade>() where TDbFacade : DbFacade<TDbManifest> => DbFacadeCache.Get<TDbFacade>();
@@ -49,6 +50,13 @@ namespace DBFacade.Facade.Core
         internal override void OnBeforeNextInner<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) { }
         protected override void OnBeforeNext<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) { }
 
+        protected IDbResponse<TDbDataModel> Next<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbFacade : DbFacade<TDbManifest>
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        => ExecuteNext<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+        
         internal sealed override IDbResponse<TDbDataModel> ExecuteNext<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
             return DbFacadeCache.Get<TDbFacade>().ExecuteProcess<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);

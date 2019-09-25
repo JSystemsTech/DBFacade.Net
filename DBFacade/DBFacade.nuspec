@@ -13,6 +13,6 @@
     <description>$description$</description>
     <releaseNotes>Beta release ($version$)</releaseNotes>
     <copyright>Copyright 2019</copyright>
-    <tags>dbfacade domainfacade DBFacade.Net dbfacade.net</tags>
+    <tags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net</tags>
   </metadata>
 </package>

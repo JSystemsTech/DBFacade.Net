@@ -11,14 +11,12 @@ namespace DBFacade.Facade
     where TDbManifest : DbManifest
     {        
         protected sealed override IDbResponse<TDbDataModel> Process<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
-        {
-            IDbConnectionConfig connectionConfig = method.Config.GetDBConnectionConfig();
-            return connectionConfig.ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);            
-        }
+        => (method.Config as IDbCommandConfigInternal).DbConnectionConfig.ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);            
+        
         protected sealed override async Task<IDbResponse<TDbDataModel>> ProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
-            IDbCommandConfig commandConfig = await method.GetConfigAsync();
-            IDbConnectionConfig connectionConfig = await commandConfig.GetDBConnectionConfigAsync();
+            IDbCommandConfigInternal commandConfig = await method.GetConfigAsync() as IDbCommandConfigInternal;
+            IDbConnectionConfigInternal connectionConfig = await commandConfig.GetDbConnectionConfigAsync();
             return await connectionConfig.ExecuteDbActionAsync<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
     }

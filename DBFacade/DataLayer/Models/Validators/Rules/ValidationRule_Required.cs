@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace DBFacade.DataLayer.Models.Validators.Rules
 {
@@ -10,17 +11,13 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
     public abstract partial class ValidationRule<TDbParams>
         where TDbParams : IDbParamsModel
     {
-        public static IValidationRule<TDbParams> Required(Func<TDbParams, object> selector) => new RequiredRule(selector);
+        public static IValidationRule<TDbParams> Required(Expression<Func<TDbParams, object>> selector) => new RequiredRule(selector);
         private class RequiredRule : ValidationRule<TDbParams>
         {
-            public RequiredRule(Func<TDbParams, object> selector) : base(selector) { }
+            public RequiredRule(Expression<Func<TDbParams, object>> selector) : base(selector) { }
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return $"{propertyName} is required.";
-            }
-            protected override bool ValidateRule()
-            {
-                return ParamsValue != null;
             }
         }
     }

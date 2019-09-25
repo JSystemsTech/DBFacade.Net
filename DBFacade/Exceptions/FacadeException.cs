@@ -30,7 +30,7 @@ namespace DBFacade.Exceptions
     public class ValidationException<DbParams> : FacadeException where DbParams : IDbParamsModel
     {
         public override string Name() { return "ValidationException"; }
-        public IEnumerable<ValidationRuleResult> ValidationErrors { get; private set; }
+        public IEnumerable<IValidationRuleResult> ValidationErrors { get; private set; }
         public int Count { get; private set; }
         public DbParams Parameters { get; private set; }
         public ValidationException(IValidationResult validationResult, DbParams parameters) : base()
@@ -47,8 +47,8 @@ namespace DBFacade.Exceptions
         }
         private void Init(IValidationResult validationResult, DbParams parameters)
         {
-            ValidationErrors = validationResult.Errors();
-            Count = validationResult.Errors().Count();
+            ValidationErrors = validationResult.Errors;
+            Count = validationResult.Errors.Count();
             Parameters = parameters;
         }
     }

@@ -36,7 +36,7 @@ namespace DBFacade.DataLayer.ConnectionService
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
         {
-            IDbCommandConfig config = method.Config;
+            IDbCommandConfigInternal config = method.Config as IDbCommandConfigInternal;
             IInternalDbParamsModel parametersModel = parameters as IInternalDbParamsModel;
             if (parametersModel.RunMode == MethodRunMode.Test)
             {
@@ -47,14 +47,14 @@ namespace DBFacade.DataLayer.ConnectionService
             }
             else
             {
-                using (TDbConnection dbConnection = config.GetDBConnectionConfig().GetDbConnection() as TDbConnection)
+                using (TDbConnection dbConnection = config.DbConnectionConfig.DbConnection as TDbConnection)
                 {
                     dbConnection.Open();
                     using (TDbCommand dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parametersModel, dbConnection))
                     {
                         try
                         {
-                            if (config.IsTransaction())
+                            if (config.IsTransaction)
                             {
                                 using (TDbTransaction transaction = dbConnection.BeginTransaction() as TDbTransaction)
                                 {                                    
@@ -81,7 +81,7 @@ namespace DBFacade.DataLayer.ConnectionService
                         }
                         catch (SqlException sqlEx)
                         {
-                            throw new SQLExecutionException("A SQL Error has occurred", config.GetDbCommandText(), sqlEx);
+                            throw new SQLExecutionException("A SQL Error has occurred", config.DbCommandText, sqlEx);
                         }
                         catch (Exception Ex)
                         {

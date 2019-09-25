@@ -47,7 +47,7 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// </summary>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        protected override object GetColumnValue(IDataRecord data)
+        protected override object GetColumnValue(IDataRecord data, Type propType)
         {
             return GetValue(data, TrueValue.GetType()).ToString() == TrueValue.ToString();
         }

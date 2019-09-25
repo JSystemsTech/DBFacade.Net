@@ -1,11 +1,11 @@
 ﻿using DBFacade.DataLayer.CommandConfig;
-using DBFacade.DataLayer.CommandConfig.Parameters;
 using DBFacade.DataLayer.Models;
+using DBFacade.Factories;
 using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.Manifest
 {
-    
+
     public abstract class DbManifest : SafeDisposableBase, IDbManifestMethod
     {
         private IDbCommandConfig config { get; set; }

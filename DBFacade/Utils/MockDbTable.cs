@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -14,22 +15,26 @@ namespace DBFacade.Utils
     {
         private DataTable TestValuesDataTable;
         private List<PropertyInfo> BindableProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
-        
+        private List<FieldInfo> BindableFields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance).ToList();
+
         private object[] GetRowValues(T model)
         {
-            object[] values = new object[BindableProperties.Count];
-            foreach (PropertyInfo prop in BindableProperties)
-            {
-                values[BindableProperties.IndexOf(prop)] = prop.GetValue(model);
-            }
-            return values;
+            IEnumerable<object> values = BindableProperties.Select(prop => prop.GetValue(model));
+            values = values.Concat(BindableFields.Select(field => field.GetValue(model)));
+            return values.ToArray();
         }
+        private Type GetType(Type type)
+            => Nullable.GetUnderlyingType(type) ?? type;
         private void Init()
         {
             TestValuesDataTable = new DataTable("MockDbTable");
             foreach (PropertyInfo prop in BindableProperties)
+            {              
+                TestValuesDataTable.Columns.Add(new DataColumn(prop.Name, GetType(prop.PropertyType)));
+            }
+            foreach (FieldInfo field in BindableFields)
             {
-                TestValuesDataTable.Columns.Add(new DataColumn(prop.Name, prop.PropertyType));
+                TestValuesDataTable.Columns.Add(new DataColumn(field.Name, GetType(field.FieldType)));
             }
         }
         public MockDbTable()

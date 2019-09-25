@@ -1,24 +1,17 @@
-﻿using System.Reflection;
-
-namespace DBFacade.DataLayer.Models.Validators.Rules
+﻿namespace DBFacade.DataLayer.Models.Validators.Rules
 {
-    public sealed class ValidationRuleResult
+    public enum ValidationStatus
     {
-        /// <summary>
-        /// Gets the property information.
-        /// </summary>
-        /// <value>
-        /// The property information.
-        /// </value>
-        public PropertyInfo PropInfo { get; private set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public enum ValidationStatus
-        {
-            PASS,
-            FAIL
-        }
+        PASS,
+        FAIL
+    }
+    public interface IValidationRuleResult
+    {
+        ValidationStatus Status { get;}
+        string ErrorMessage { get; }
+    }
+    internal sealed class ValidationRuleResult: IValidationRuleResult
+    {
         /// <summary>
         /// Gets the status.
         /// </summary>
@@ -34,25 +27,16 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         /// </value>
         public string ErrorMessage { get; private set; }
         /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        public object Value { get; private set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="ValidationRuleResult"/> class.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="propInfo">The property information.</param>
         /// <param name="errorMessage">The error message.</param>
         /// <param name="status">The status.</param>
-        public ValidationRuleResult(IDbParamsModel model, PropertyInfo propInfo, string errorMessage, ValidationStatus status)
+        public ValidationRuleResult(IDbParamsModel model, string errorMessage, ValidationStatus status)
         {
-            PropInfo = propInfo;
             ErrorMessage = errorMessage;
             Status = status;
-            Value = propInfo.GetValue(model);
         }
     }
 }

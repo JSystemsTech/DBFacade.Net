@@ -3,48 +3,32 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 namespace DBFacade.Utils
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
+{    
     internal sealed class PropertySelector<T>
     {
-        
-        /// <summary>
-        /// Gets the property information.
-        /// </summary>
-        /// <param name="selector">The selector.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">
-        /// Selector must be lambda expression - selector
-        /// or
-        /// Selector must be member access expression - selector
-        /// </exception>
-        /// <exception cref="InvalidOperationException">Property does not have declaring type</exception>
-        public static PropertyInfo GetPropertyInfo<TOut>(Func<T, TOut> selector)
+        public static string GetSelectorNameValue(string name, string type) => $"{name} ({type} Value)".Trim();
+        public static string GetPropertyName<TOut>(Expression<Func<T, TOut>> expression)
         {
-            Expression<Func<T, TOut>> expression = Expression.Lambda<Func<T, TOut>>(Expression.Call(selector.Method));
-            if (expression.NodeType != ExpressionType.Lambda)
+            if(expression.Body.NodeType == ExpressionType.Call)
             {
-                throw new ArgumentException("Selector must be lambda expression", "selector");
+                MethodInfo methodInfo = ((MethodCallExpression)expression.Body).Method;
+                return GetSelectorNameValue(methodInfo.Name, "Method");
             }
-
-            var lambda = (LambdaExpression)expression;
-
-            var memberExpression = ExtractMemberExpression(lambda.Body);
+            else if (expression.Body.NodeType == ExpressionType.Constant)
+            {
+                return GetSelectorNameValue(string.Empty, "Constant");
+            }
+            MemberExpression memberExpression = ExtractMemberExpression(expression.Body);
 
             if (memberExpression == null)
             {
                 throw new ArgumentException("Selector must be member access expression", "selector");
-            }
-
-            if (memberExpression.Member.DeclaringType == null)
+            }else if (memberExpression.Member.DeclaringType == null)
             {
                 throw new InvalidOperationException("Property does not have declaring type");
             }
-
-            return memberExpression.Member.DeclaringType.GetProperty(memberExpression.Member.Name);
+            string propType = typeof(T).GetProperty(memberExpression.Member.Name) == null ? "Field" : "Property";
+            return GetSelectorNameValue(memberExpression.Member.Name, propType);
         }
 
         /// <summary>
@@ -57,9 +41,7 @@ namespace DBFacade.Utils
             if (expression.NodeType == ExpressionType.MemberAccess)
             {
                 return ((MemberExpression)expression);
-            }
-
-            if (expression.NodeType == ExpressionType.Convert)
+            }else if (expression.NodeType == ExpressionType.Convert)
             {
                 var operand = ((UnaryExpression)expression).Operand;
                 return ExtractMemberExpression(operand);

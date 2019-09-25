@@ -2,135 +2,99 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Mail;
 
 namespace DBFacade.DataLayer.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public sealed class DbColumnConversion
     {
-        /// <summary>
-        /// As boolean
-        /// </summary>
-        private static Func<IDataRecord, int, bool> AsBoolean = (data, columnOrdinal) => data.GetBoolean(columnOrdinal);
-        /// <summary>
-        /// As byte
-        /// </summary>
-        private static Func<IDataRecord, int, byte> AsByte = (data, columnOrdinal) => data.GetByte(columnOrdinal);
-        /// <summary>
-        /// As byte array
-        /// </summary>
-        private static Func<IDataRecord, int, byte[]> AsByteArray = (data, columnOrdinal) => (byte[])AsObject(data, columnOrdinal);
-        /// <summary>
-        /// As character
-        /// </summary>
-        private static Func<IDataRecord, int, char> AsChar = (data, columnOrdinal) => GetChar(data.GetString(columnOrdinal));
+        private delegate object Converter(IDataRecord data, int columnOrdinal);
+        private delegate object IEnumerableConverter(IDataRecord data, int columnOrdinal, char delimeter = ',');
+        private delegate object BufferedConverter(IDataRecord data, int columnOrdinal, int BufferSize);
 
-        /*IDataRecord.GetChar not implemented by DataReader classes*/
-        /// <summary>
-        /// Gets the character.
-        /// </summary>
-        /// <param name="str">The string.</param>
-        /// <returns></returns>
-        private static char GetChar(string str)
+        private static object AsEmail(IDataRecord data, int columnOrdinal) => new MailAddress(AsString(data, columnOrdinal).ToString());
+
+        private static object AsBoolean(IDataRecord data, int columnOrdinal) => data.GetBoolean(columnOrdinal);
+        private static object AsByte(IDataRecord data, int columnOrdinal) => data.GetByte(columnOrdinal);
+        private static object AsChar(IDataRecord data, int columnOrdinal) => GetChar(data.GetString(columnOrdinal));        
+        private static char GetChar(string str) 
+            => string.IsNullOrEmpty(str) ? default(char) : str.FirstOrDefault();
+        private static object AsDateTime(IDataRecord data, int columnOrdinal) => data.GetDateTime(columnOrdinal);
+        private static object AsTimeSpan(IDataRecord data, int columnOrdinal) => data.GetDateTime(columnOrdinal).TimeOfDay;
+        private static object AsDecimal(IDataRecord data, int columnOrdinal) => data.GetDecimal(columnOrdinal);
+        private static object AsDouble(IDataRecord data, int columnOrdinal) => data.GetDouble(columnOrdinal);
+        private static object AsFloat(IDataRecord data, int columnOrdinal) => data.GetFloat(columnOrdinal);
+        private static object AsGuid(IDataRecord data, int columnOrdinal) => data.GetGuid(columnOrdinal);
+
+        private static object AsShort(IDataRecord data, int columnOrdinal) => data.GetInt16(columnOrdinal);
+
+        private static object AsInt(IDataRecord data, int columnOrdinal) => data.GetInt32(columnOrdinal);
+        private static object AsLong(IDataRecord data, int columnOrdinal) => data.GetInt64(columnOrdinal);
+        private static object AsString(IDataRecord data, int columnOrdinal) => data.GetString(columnOrdinal);
+        private static object AsUShort(IDataRecord data, int columnOrdinal) => (ushort)AsShort(data, columnOrdinal);
+        private static object AsUInt(IDataRecord data, int columnOrdinal) => (uint)AsInt(data, columnOrdinal);
+        private static object AsULong(IDataRecord data, int columnOrdinal) => (ulong)AsLong(data, columnOrdinal);
+        private static object AsObject(IDataRecord data, int columnOrdinal) => data.GetValue(columnOrdinal);
+
+        private const char DefaultDelimeter = ',';
+        private static IEnumerable<string> ToIEnumerableString(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => AsString(data, columnOrdinal).ToString().Split(delimeter).ToArray();
+
+        private static object AsIEnumerableString(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => ToIEnumerableString(data, columnOrdinal, delimeter);
+        private static object AsIEnumerableShort(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => short.Parse(value.Trim())).ToArray();
+        private static object AsIEnumerableInt(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => int.Parse(value.Trim())).ToArray();
+        private static object AsIEnumerableLong(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => long.Parse(value.Trim())).ToArray();
+        private static object AsIEnumerableFloat(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => float.Parse(value.Trim())).ToArray();
+        private static object AsIEnumerableDouble(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => double.Parse(value.Trim())).ToArray();
+        private static object AsIEnumerableDecimal(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => decimal.Parse(value.Trim())).ToArray();
+        private static object AsIEnumerableGuid(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => Guid.Parse(value.Trim())).ToArray();
+
+        private static object AsByteArray(IDataRecord data, int columnOrdinal, int BufferSize)
         {
-            if (string.IsNullOrEmpty(str))
+            byte[] output = new byte[BufferSize];
+            long startIndex = 0;
+
+            long retval = data.GetBytes(columnOrdinal, startIndex, output, 0, BufferSize);
+            while (retval == BufferSize)
             {
-                return default(char);
+                startIndex += BufferSize;
+                retval = data.GetBytes(columnOrdinal, startIndex, output, 0, BufferSize);
             }
-            return str.FirstOrDefault();
+            return output;
         }
-        /// <summary>
-        /// As date time
-        /// </summary>
-        private static Func<IDataRecord, int, DateTime> AsDateTime = (data, columnOrdinal) => data.GetDateTime(columnOrdinal);
-        /// <summary>
-        /// As decimal
-        /// </summary>
-        private static Func<IDataRecord, int, decimal> AsDecimal = (data, columnOrdinal) => data.GetDecimal(columnOrdinal);
-        /// <summary>
-        /// As double
-        /// </summary>
-        private static Func<IDataRecord, int, double> AsDouble = (data, columnOrdinal) => data.GetDouble(columnOrdinal);
-        /// <summary>
-        /// As float
-        /// </summary>
-        private static Func<IDataRecord, int, float> AsFloat = (data, columnOrdinal) => data.GetFloat(columnOrdinal);
-        /// <summary>
-        /// As unique identifier
-        /// </summary>
-        private static Func<IDataRecord, int, Guid> AsGuid = (data, columnOrdinal) => data.GetGuid(columnOrdinal);
-        /// <summary>
-        /// As short
-        /// </summary>
-        private static Func<IDataRecord, int, short> AsShort = (data, columnOrdinal) => data.GetInt16(columnOrdinal);
-        /// <summary>
-        /// As int
-        /// </summary>
-        private static Func<IDataRecord, int, int> AsInt = (data, columnOrdinal) => data.GetInt32(columnOrdinal);
-        /// <summary>
-        /// As long
-        /// </summary>
-        private static Func<IDataRecord, int, long> AsLong = (data, columnOrdinal) => data.GetInt64(columnOrdinal);
-        /// <summary>
-        /// As string
-        /// </summary>
-        private static Func<IDataRecord, int, string> AsString = (data, columnOrdinal) => data.GetString(columnOrdinal);
-        /// <summary>
-        /// As u short
-        /// </summary>
-        private static Func<IDataRecord, int, ushort> AsUShort = (data, columnOrdinal) => (ushort)AsShort(data, columnOrdinal);
-        /// <summary>
-        /// As u int
-        /// </summary>
-        private static Func<IDataRecord, int, uint> AsUInt = (data, columnOrdinal) => (uint)AsInt(data, columnOrdinal);
-        /// <summary>
-        /// As u long
-        /// </summary>
-        private static Func<IDataRecord, int, ulong> AsULong = (data, columnOrdinal) => (ulong)AsLong(data, columnOrdinal);
-        /// <summary>
-        /// As object
-        /// </summary>
-        private static Func<IDataRecord, int, object> AsObject = (data, columnOrdinal) => data.GetValue(columnOrdinal);
-
-
-        /// <summary>
-        /// As string array
-        /// </summary>
-        private static Func<IDataRecord, int, char, string[]> AsStringArray = (data, columnOrdinal, delimeter) => AsString(data, columnOrdinal).Split(delimeter);
-
-        /// <summary>
-        /// Determines whether [is delimited array] [the specified type].
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if [is delimited array] [the specified type]; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool isDelimitedArray(Type type)
+        private static object AsCharArray(IDataRecord data, int columnOrdinal, int BufferSize)
         {
-            return type == typeof(string[]);
+            char[] output = new char[BufferSize];
+            long startIndex = 0;
+
+            long retval = data.GetChars(columnOrdinal, startIndex, output, 0, BufferSize);
+            while (retval == BufferSize)
+            {
+                startIndex += BufferSize;
+                retval = data.GetChars(columnOrdinal, startIndex, output, 0, BufferSize);
+            }
+            return output;
         }
-        /// <summary>
-        /// Determines whether the specified type has converter.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified type has converter; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool HasConverter(Type type)
+
+        private static object AsIEnumerableEmail(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter) => ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => new MailAddress(value.Trim())).ToArray();
+
+        public static object Convert(Type type, IDataRecord data, int columnOrdinal, int BufferSize, char delimeter = DefaultDelimeter, object defaultValue = null)
         {
-            return Converters.ContainsKey(type);
+            return IEnumerableConverters.ContainsKey(type) ? 
+                   IEnumerableConverters[type](data, columnOrdinal, delimeter) :
+                   BufferedConverters.ContainsKey(type) ?
+                   BufferedConverters[type](data, columnOrdinal, BufferSize) :
+                    Converters.ContainsKey(type) ? 
+                    Converters[type](data, columnOrdinal) : 
+                        defaultValue;            
         }
-        /// <summary>
-        /// The converters
-        /// </summary>
-        public static Dictionary<Type, Delegate> Converters = new Dictionary<Type, Delegate>() {
+
+        
+        private static Dictionary<Type, Converter> Converters = new Dictionary<Type, Converter>() {
             { typeof(bool), AsBoolean },
             { typeof(byte), AsByte },
-            { typeof(byte[]), AsByteArray },
             { typeof(char), AsChar },
             { typeof(DateTime), AsDateTime },
+            { typeof(TimeSpan), AsTimeSpan },
             { typeof(decimal), AsDecimal },
             { typeof(double), AsDouble },
             { typeof(float), AsFloat },
@@ -139,11 +103,42 @@ namespace DBFacade.DataLayer.Models
             { typeof(int), AsInt },
             { typeof(long), AsLong },
             { typeof(string), AsString },
-            { typeof(string[]), AsStringArray },
             { typeof(ushort), AsUShort },
             { typeof(uint), AsUInt },
             { typeof(ulong), AsULong },
-            { typeof(object), AsObject }
+            { typeof(object), AsObject },
+            {typeof(MailAddress), AsEmail},
+
+            { typeof(bool?), AsBoolean },
+            { typeof(byte?), AsByte },
+            { typeof(char?), AsChar },
+            { typeof(DateTime?), AsDateTime },
+            { typeof(TimeSpan?), AsTimeSpan },
+            { typeof(decimal?), AsDecimal },
+            { typeof(double?), AsDouble },
+            { typeof(float?), AsFloat },
+            { typeof(Guid?), AsGuid },
+            { typeof(short?), AsShort },
+            { typeof(int?), AsInt },
+            { typeof(long?), AsLong },
+            { typeof(ushort?), AsUShort },
+            { typeof(uint?), AsUInt },
+            { typeof(ulong?), AsULong }
+        };
+        private static Dictionary<Type, IEnumerableConverter> IEnumerableConverters = new Dictionary<Type, IEnumerableConverter>() {
+            { typeof(IEnumerable<string>), AsIEnumerableString },
+            { typeof(IEnumerable<short>), AsIEnumerableShort },
+            { typeof(IEnumerable<int>), AsIEnumerableInt },
+            { typeof(IEnumerable<long>), AsIEnumerableLong },
+            { typeof(IEnumerable<float>), AsIEnumerableFloat },
+            { typeof(IEnumerable<double>), AsIEnumerableDouble },
+            { typeof(IEnumerable<decimal>), AsIEnumerableDecimal },
+            { typeof(IEnumerable<MailAddress>), AsIEnumerableEmail },
+            { typeof(IEnumerable<Guid>), AsIEnumerableGuid }
+        };
+        private static Dictionary<Type, BufferedConverter> BufferedConverters = new Dictionary<Type, BufferedConverter>() {
+            { typeof(byte[]), AsByteArray },
+            { typeof(char[]), AsCharArray }
         };
     }
 }

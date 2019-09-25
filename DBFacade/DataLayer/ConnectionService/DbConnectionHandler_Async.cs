@@ -38,7 +38,7 @@ namespace DBFacade.DataLayer.ConnectionService
             where TDbParams : IDbParamsModel
             where TDbManifestMethod : TDbManifest
         {
-            IDbCommandConfig config = await method.GetConfigAsync();
+            IDbCommandConfigInternal config = await method.GetConfigAsync() as IDbCommandConfigInternal;
             IInternalDbParamsModel parametersModel = parameters as IInternalDbParamsModel;
             if (parametersModel.RunMode == MethodRunMode.Test)
             {
@@ -46,15 +46,15 @@ namespace DBFacade.DataLayer.ConnectionService
             }
             else
             {
-                IDbConnectionConfig connectionConfig = await config.GetDBConnectionConfigAsync();
-                using (TDbConnection dbConnection = connectionConfig.GetDbConnection() as TDbConnection)
+                IDbConnectionConfigInternal connectionConfig = await config.GetDbConnectionConfigAsync();
+                using (TDbConnection dbConnection = connectionConfig.DbConnection as TDbConnection)
                 {
                     await dbConnection.OpenAsync();
                     using (TDbCommand dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parametersModel, dbConnection))
                     {
                         try
                         {
-                            if (config.IsTransaction())
+                            if (config.IsTransaction)
                             {
                                 using (TDbTransaction transaction = dbConnection.BeginTransaction() as TDbTransaction)
                                 {                                    
@@ -81,7 +81,7 @@ namespace DBFacade.DataLayer.ConnectionService
                         }
                         catch (SqlException sqlEx)
                         {
-                            throw new SQLExecutionException("A SQL Error has occurred", config.GetDbCommandText(), sqlEx);
+                            throw new SQLExecutionException("A SQL Error has occurred", config.DbCommandText, sqlEx);
                         }
                         catch (Exception Ex)
                         {

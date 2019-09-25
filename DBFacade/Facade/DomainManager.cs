@@ -7,20 +7,23 @@ using System.Threading.Tasks;
 
 namespace DBFacade.Facade
 {
+    public sealed class DefaultDomainManager<TDbManifest> : DomainManager<TDbManifest>
+    where TDbManifest : DbManifest
+    { }
     public abstract class DomainManager<TDbManifest> : DbFacade<TDbManifest>
     where TDbManifest : DbManifest
     {
         internal sealed override async Task OnBeforeNextInnerAsync<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
         {
             IValidationResult validationResult = await method.Config.ValidateAsync(parameters);
-            if (!validationResult.IsValid())
+            if (!validationResult.IsValid)
             {
                 throw new ValidationException<TDbParams>(validationResult, parameters, $"{parameters.GetType().Name} values failed to pass validation for method {method.GetType().Name}");
             }
         }
         internal sealed override void OnBeforeNextInner<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) {
             IValidationResult validationResult = method.Config.Validate(parameters);
-            if (!validationResult.IsValid())
+            if (!validationResult.IsValid)
             {
                 throw new ValidationException<TDbParams>(validationResult, parameters, $"{parameters.GetType().Name} values failed to pass validation for method {method.GetType().Name}");
             }

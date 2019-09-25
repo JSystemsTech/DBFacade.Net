@@ -13,12 +13,12 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         /// </summary>
         /// <param name="paramsModel">The parameters model.</param>
         /// <returns></returns>
-        ValidationRuleResult Validate(DbParams paramsModel);
+        IValidationRuleResult Validate(DbParams paramsModel);
         /// <summary>
         /// Validates the asynchronous.
         /// </summary>
         /// <param name="paramsModel">The parameters model.</param>
         /// <returns></returns>
-        Task<ValidationRuleResult> ValidateAsync(DbParams paramsModel);
+        Task<IValidationRuleResult> ValidateAsync(DbParams paramsModel);
     }
 }

@@ -13,12 +13,12 @@ namespace DBFacade.DataLayer.Models
         where TDbDataModel : DbDataModel
         where TDbManifestMethod : IDbManifestMethod
     {        
-        private object ReturnVal { get; set; }
-        private bool ObjectIsNull { get; set; }
-        public DbResponse() { ObjectIsNull = true; }
+        public object ReturnValue { get; private set; }
+        public bool IsNull { get; private set; }
+        public DbResponse() { IsNull = true; }
         public DbResponse(object returnValue = null)
-        {            
-            ReturnVal = returnValue;
+        {
+            ReturnValue = returnValue;
         }
         public string ToJson()=> JsonConvert.SerializeObject(this);
         public void Serialize(TextWriter textWriter)
@@ -35,11 +35,9 @@ namespace DBFacade.DataLayer.Models
             serializer.WriteObject(xmlWriter, data);
         }
         
-        public object ReturnValue() => ReturnVal;
         int IReadOnlyDbCollection<TDbDataModel>.Count() => Count;
         public TDbDataModel First() => this[0];
         public List<TDbDataModel> ToList()=>ToArray().ToList();
-        public bool IsNull() => ObjectIsNull;
 
         public async Task<string> ToJsonAsync() => await Task.Run(() => ToJson());
 

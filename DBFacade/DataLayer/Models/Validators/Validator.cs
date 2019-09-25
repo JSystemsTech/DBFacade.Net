@@ -1,7 +1,6 @@
 ﻿using DBFacade.DataLayer.Models.Validators.Rules;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.Models.Validators
@@ -11,8 +10,8 @@ namespace DBFacade.DataLayer.Models.Validators
     /// </summary>
     public interface IValidationResult
     {
-        bool IsValid();
-        IEnumerable<ValidationRuleResult> Errors();
+        bool IsValid { get; }
+        IEnumerable<IValidationRuleResult> Errors { get; }
     }
     /// <summary>
     /// 
@@ -26,15 +25,15 @@ namespace DBFacade.DataLayer.Models.Validators
         /// <value>
         /// The validation errors.
         /// </value>
-        private IEnumerable<ValidationRuleResult> ValidationErrors { get; set; }
+        public IEnumerable<IValidationRuleResult> Errors { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationResult"/> class.
         /// </summary>
         /// <param name="errors">The errors.</param>
-        public ValidationResult(IEnumerable<ValidationRuleResult> errors)
+        public ValidationResult(IEnumerable<IValidationRuleResult> errors)
         {
-            ValidationErrors = errors;
+            Errors = errors;
         }
         /// <summary>
         /// Returns true if ... is valid.
@@ -42,26 +41,13 @@ namespace DBFacade.DataLayer.Models.Validators
         /// <returns>
         ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsValid()
-        {
-            return ValidationErrors.Count() == 0;
-        }
-        /// <summary>
-        /// Errorses this instance.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<ValidationRuleResult> Errors()
-        {
-            return ValidationErrors;
-        }
+        public bool IsValid => Errors.Count() == 0;
+       
         /// <summary>
         /// Passings the validation.
         /// </summary>
         /// <returns></returns>
-        public static ValidationResult PassingValidation()
-        {
-            return new ValidationResult(new List<ValidationRuleResult>());
-        }
+        public static ValidationResult PassingValidation()=> new ValidationResult(new List<ValidationRuleResult>());
     }
     /// <summary>
     /// 
@@ -71,38 +57,23 @@ namespace DBFacade.DataLayer.Models.Validators
     public class Validator<TDbParams>:List<IValidationRule<TDbParams>>
         where TDbParams : IDbParamsModel
     {
-        
-        public IValidationResult Validate(TDbParams paramsModel)
-        {
-            return ValidateCore(paramsModel);
-        }
+        public IValidationResult Validate(TDbParams paramsModel) => ValidateCore(paramsModel);
 
-        public async Task<IValidationResult> ValidateAsync(TDbParams paramsModel)
-        {
-            return await ValidateCoreAsync(paramsModel);
-        }
+        public async Task<IValidationResult> ValidateAsync(TDbParams paramsModel)=> await ValidateCoreAsync(paramsModel);
+        
         
         private async Task<IValidationResult> ValidateCoreAsync(TDbParams paramsModel)
         {
-            Task<ValidationRuleResult>[] validationTasks = this.Select(rule => rule.ValidateAsync(paramsModel)).ToArray();
+            Task<IValidationRuleResult>[] validationTasks = this.Select(rule => rule.ValidateAsync(paramsModel)).ToArray();
             await Task.WhenAll(validationTasks);
-            return new ValidationResult(validationTasks.Where(task => task.Result.Status == ValidationRuleResult.ValidationStatus.FAIL).Select(task => task.Result));            
+            return new ValidationResult(validationTasks.Where(task => task.Result.Status == ValidationStatus.FAIL).Select(task => task.Result));            
         }
         
         private IValidationResult ValidateCore(TDbParams paramsModel)
         {
-            return new ValidationResult(this.Select(rule => rule.Validate(paramsModel)).Where(result => result.Status == ValidationRuleResult.ValidationStatus.FAIL));
-        }
+            return new ValidationResult(this.Select(rule => rule.Validate(paramsModel)).Where(result => result.Status == ValidationStatus.FAIL));
+        }        
         
-        public static object GetPropValue(object src, string propName)
-        {
-            return src.GetType().GetProperty(propName).GetValue(src, null);
-        }
-        
-        public static PropertyInfo GetPropertyInfo(string name)
-        {
-            return typeof(TDbParams).GetProperty(name);
-        }
     }
 
 }

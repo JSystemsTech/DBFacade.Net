@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using DBFacade.Services;
+using System.Threading.Tasks;
 
-namespace DBFacade.Services
+namespace DBFacade.Factories
 {
-    internal class InstanceResolvers
+    internal class InstanceResolverFactory
     {
         private static IInstanceResolver<IInstanceResolver> Resolvers = new InstanceResolver<IInstanceResolver>();
         public static IInstanceResolver<T> Get<T>()

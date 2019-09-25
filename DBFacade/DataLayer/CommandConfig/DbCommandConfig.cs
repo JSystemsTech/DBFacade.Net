@@ -2,6 +2,7 @@
 using DBFacade.DataLayer.ConnectionService;
 using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.Models.Validators;
+using DBFacade.Factories;
 using DBFacade.Services;
 using System.Collections.Generic;
 using System.Data;
@@ -10,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.CommandConfig
 {
-    internal class DbCommandConfig<TDbParams, TDbConnectionConfig> : SafeDisposableBase, IDbCommandConfig
+    internal class DbCommandConfig<TDbParams, TDbConnectionConfig> : SafeDisposableBase, IDbCommandConfigInternal
         where TDbParams : IDbParamsModel
         where TDbConnectionConfig : IDbConnectionConfig
     {        
         private IDbCommandConfigParams<TDbParams> DbParams { get; set; }
         private Validator<TDbParams> ParamsValidator { get; set; }
-        private IDbCommandText<TDbConnectionConfig> DbCommandText { get; set; }
+        private IDbCommandText<TDbConnectionConfig> DbCommandTextPrivate { get; set; }
         private CommandType DbCommandType { get; set; }
         private string ReturnParam{ get; set; }
         private bool IsOutput { get; set; }        
@@ -40,7 +41,7 @@ namespace DBFacade.DataLayer.CommandConfig
         private void Init(IDbCommandText<TDbConnectionConfig> dbCommandText, CommandType dbCommandType, IDbCommandConfigParams<TDbParams> dbParams=null, Validator<TDbParams> validator = null, string returnParam = null, bool isOutput = false, bool isTransaction = false)
         {
             ReturnParam = returnParam;
-            DbCommandText = dbCommandText;
+            DbCommandTextPrivate = dbCommandText;
             DbCommandType = dbCommandType;
             DbParams = dbParams != null ? dbParams : new DbCommandConfigParams<TDbParams>();
             ParamsValidator = validator != null ? validator : new Validator<TDbParams>();
@@ -48,13 +49,13 @@ namespace DBFacade.DataLayer.CommandConfig
             Transaction = isTransaction;
         }
         
-        public IDbConnectionConfig GetDBConnectionConfig() => InstanceResolvers.Get<IDbConnectionConfig>().Get<TDbConnectionConfig>();
-        public async Task<IDbConnectionConfig> GetDBConnectionConfigAsync()
+        public IDbConnectionConfigInternal DbConnectionConfig => InstanceResolverFactory.Get<IDbConnectionConfig>().Get<TDbConnectionConfig>() as IDbConnectionConfigInternal;
+        public async Task<IDbConnectionConfigInternal> GetDbConnectionConfigAsync()
         {
-            IInstanceResolver<IDbConnectionConfig> connectionConfigResolver = await InstanceResolvers.GetAsync<IDbConnectionConfig>();
-            return await connectionConfigResolver.GetAsync<TDbConnectionConfig>();
+            IInstanceResolver<IDbConnectionConfig> connectionConfigResolver = await InstanceResolverFactory.GetAsync<IDbConnectionConfig>();
+            return await connectionConfigResolver.GetAsync<TDbConnectionConfig>() as IDbConnectionConfigInternal;
         }
-        public IDbCommandText GetDbCommandText() => DbCommandText;
+        public IDbCommandText DbCommandText => DbCommandTextPrivate;
 
         public TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbManifestMethodParams, TDbConnection dbConnection)
             where TDbConnection : DbConnection
@@ -63,7 +64,7 @@ namespace DBFacade.DataLayer.CommandConfig
         {
             TDbCommand dbCommand = dbConnection.CreateCommand() as TDbCommand;
             dbCommand = AddParams<TDbCommand, TDbParameter>(dbCommand, (TDbParams)TDbManifestMethodParams);
-            dbCommand.CommandText = DbCommandText.CommandText();
+            dbCommand.CommandText = DbCommandTextPrivate.CommandText;
             dbCommand.CommandType = DbCommandType;
             return dbCommand;
         }        
@@ -117,7 +118,7 @@ namespace DBFacade.DataLayer.CommandConfig
                 await ParamsValidator.ValidateAsync((TDbParams)paramsModel) :
                 ValidationResult.PassingValidation();
 
-        public bool IsTransaction() => Transaction;
+        public bool IsTransaction => Transaction;
 
         protected override void OnDispose(bool calledFromDispose) { }
 

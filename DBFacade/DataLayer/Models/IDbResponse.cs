@@ -15,8 +15,8 @@ namespace DBFacade.DataLayer.Models
         /// Returns the value.
         /// </summary>
         /// <returns></returns>
-        object ReturnValue();
-        bool IsNull();
+        object ReturnValue { get; }
+        bool IsNull { get; }
     }
 
     /// <summary>

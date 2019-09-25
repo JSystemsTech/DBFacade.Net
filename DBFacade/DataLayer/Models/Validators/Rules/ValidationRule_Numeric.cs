@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace DBFacade.DataLayer.Models.Validators.Rules
 {
@@ -26,7 +27,11 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         
         private bool IsNumeric(object value)
         {
-            if (value.GetType() == typeof(string))
+            if (value == null)
+            {
+                return false;
+            }
+            else if (value.GetType() == typeof(string))
             {
                 string str = value.ToString();
                 return
@@ -43,20 +48,30 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             return true;
         }
 
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, string> selector) => new IsNummeric(selector);
+        public static IValidationRule<TDbParams> IsNumber(Expression<Func<TDbParams, string>> selector, bool isNullable = false) => new IsNummeric(selector, isNullable);
         private class IsNummeric : ValidationRule<TDbParams>
         {
             
-            public IsNummeric(Func<TDbParams, string> selector) : base(selector) { }
-            public IsNummeric(Func<TDbParams, short> selector) : base(selector) { }
-            public IsNummeric(Func<TDbParams, int> selector) : base(selector) { }
-            public IsNummeric(Func<TDbParams, long> selector) : base(selector) { }
-            public IsNummeric(Func<TDbParams, double> selector) : base(selector) { }
-            public IsNummeric(Func<TDbParams, float> selector) : base(selector) { }
-            public IsNummeric(Func<TDbParams, decimal> selector) : base(selector) { }
-            public IsNummeric(Func<TDbParams, ushort> selector) : base(selector) { }
-            public IsNummeric(Func<TDbParams, uint> selector) : base(selector) { }
-            public IsNummeric(Func<TDbParams, ulong> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, string>> selector, bool isNullable = false) : base(selector, isNullable) { }
+            public IsNummeric(Expression<Func<TDbParams, short>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, int>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, long>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, double>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, float>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, decimal>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, ushort>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, uint>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, ulong>> selector) : base(selector) { }
+
+            public IsNummeric(Expression<Func<TDbParams, short?>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, int?>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, long?>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, double?>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, float?>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, decimal?>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, ushort?>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, uint?>> selector) : base(selector) { }
+            public IsNummeric(Expression<Func<TDbParams, ulong?>> selector) : base(selector) { }
 
             protected override bool ValidateRule()
             {
@@ -66,12 +81,13 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
                     if (ParamsValue.GetType() == typeof(string))
                     {
                         double.TryParse(ParamsValue.ToString(), out num);
+                        return ValidateNumberRule(num);
                     }
-                    else
-                    {
-                        num = Convert.ToDouble(ParamsValue);
-                    }
-                    return ValidateNumberRule(num);
+                    //else
+                    //{
+                    //    num = Convert.ToDouble(ParamsValue);
+                    //}
+                    return ValidateNumberRule(ParamsValue);
                 }
                 return false;
             }
@@ -102,40 +118,50 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             internal uint LimitValueUInt { get; set; }
             internal ulong LimitValueULong { get; set; }
 
-            public NumericCompare(Func<TDbParams, string> selector, double limit) : base(selector) { LimitValueDouble = limit; }
-            public NumericCompare(Func<TDbParams, short> selector, short limit) : base(selector) { LimitValueShort = limit; }
-            public NumericCompare(Func<TDbParams, int> selector, int limit) : base(selector) { LimitValueInt = limit; }
-            public NumericCompare(Func<TDbParams, long> selector, long limit) : base(selector) { LimitValueLong = limit; }
-            public NumericCompare(Func<TDbParams, double> selector, double limit) : base(selector) { LimitValueDouble = limit; }
-            public NumericCompare(Func<TDbParams, float> selector, float limit) : base(selector) { LimitValueFloat = limit;}
-            public NumericCompare(Func<TDbParams, decimal> selector, decimal limit) : base(selector) { LimitValueDecimal = limit; }
-            public NumericCompare(Func<TDbParams, ushort> selector, ushort limit) : base(selector) { LimitValueUShort = limit; }
-            public NumericCompare(Func<TDbParams, uint> selector, uint limit) : base(selector) { LimitValueUInt = limit;}
-            public NumericCompare(Func<TDbParams, ulong> selector, ulong limit) : base(selector) { LimitValueULong = limit;}
-            
-            
+            public NumericCompare(Expression<Func<TDbParams, string>> selector, double limit, bool isNullable = false) : base(selector, isNullable) { LimitValueDouble = limit; }
+            public NumericCompare(Expression<Func<TDbParams, short>> selector, short limit) : base(selector) { LimitValueShort = limit; }
+            public NumericCompare(Expression<Func<TDbParams, int>> selector, int limit) : base(selector) { LimitValueInt = limit; }
+            public NumericCompare(Expression<Func<TDbParams, long>> selector, long limit) : base(selector) { LimitValueLong = limit; }
+            public NumericCompare(Expression<Func<TDbParams, double>> selector, double limit) : base(selector) { LimitValueDouble = limit; }
+            public NumericCompare(Expression<Func<TDbParams, float>> selector, float limit) : base(selector) { LimitValueFloat = limit;}
+            public NumericCompare(Expression<Func<TDbParams, decimal>> selector, decimal limit) : base(selector) { LimitValueDecimal = limit; }
+            public NumericCompare(Expression<Func<TDbParams, ushort>> selector, ushort limit) : base(selector) { LimitValueUShort = limit; }
+            public NumericCompare(Expression<Func<TDbParams, uint>> selector, uint limit) : base(selector) { LimitValueUInt = limit;}
+            public NumericCompare(Expression<Func<TDbParams, ulong>> selector, ulong limit) : base(selector) { LimitValueULong = limit;}
+
+            public NumericCompare(Expression<Func<TDbParams, short?>> selector, short limit) : base(selector) { LimitValueShort = limit; }
+            public NumericCompare(Expression<Func<TDbParams, int?>> selector, int limit) : base(selector) { LimitValueInt = limit; }
+            public NumericCompare(Expression<Func<TDbParams, long?>> selector, long limit) : base(selector) { LimitValueLong = limit; }
+            public NumericCompare(Expression<Func<TDbParams, double?>> selector, double limit) : base(selector) { LimitValueDouble = limit; }
+            public NumericCompare(Expression<Func<TDbParams, float?>> selector, float limit) : base(selector) { LimitValueFloat = limit; }
+            public NumericCompare(Expression<Func<TDbParams, decimal?>> selector, decimal limit) : base(selector) { LimitValueDecimal = limit; }
+            public NumericCompare(Expression<Func<TDbParams, ushort?>> selector, ushort limit) : base(selector) { LimitValueUShort = limit; }
+            public NumericCompare(Expression<Func<TDbParams, uint?>> selector, uint limit) : base(selector) { LimitValueUInt = limit; }
+            public NumericCompare(Expression<Func<TDbParams, ulong?>> selector, ulong limit) : base(selector) { LimitValueULong = limit; }
+
             internal override bool ValidateNumberRule(object value)
             {
                 Type numType = value.GetType();
+                
                 return
                     numType == typeof(short) ?
-                        CompareShort((short)ParamsValue, LimitValueShort) :
+                        CompareShort((short)value, LimitValueShort) :
                     numType == typeof(int) ?
-                        CompareInt((int)ParamsValue, LimitValueInt) :
+                        CompareInt((int)value, LimitValueInt) :
                     numType == typeof(long) ?
-                        CompareLong((long)ParamsValue, LimitValueLong) :
+                        CompareLong((long)value, LimitValueLong) :
                     numType == typeof(double) ?
-                        CompareDouble((double)ParamsValue, LimitValueDouble) :
+                        CompareDouble((double)value, LimitValueDouble) :
                     numType == typeof(float) ?
-                        CompareFloat((float)ParamsValue, LimitValueFloat) :
+                        CompareFloat((float)value, LimitValueFloat) :
                     numType == typeof(decimal) ?
-                        CompareDecimal((decimal)ParamsValue, LimitValueDecimal) :
+                        CompareDecimal((decimal)value, LimitValueDecimal) :
                     numType == typeof(ushort) ?
-                        CompareUShort((ushort)ParamsValue, LimitValueUShort) :
+                        CompareUShort((ushort)value, LimitValueUShort) :
                     numType == typeof(uint) ?
-                        CompareUInt((uint)ParamsValue,LimitValueUInt) :
+                        CompareUInt((uint)value, LimitValueUInt) :
                     numType == typeof(ulong) ?
-                        CompareULong((ulong)ParamsValue,LimitValueULong) : false;
+                        CompareULong((ulong)value, LimitValueULong) : false;
             }
             protected virtual bool CompareShort(short value, short compareValue) => false;
             protected virtual bool CompareInt(int value, int compareValue) => false;
@@ -177,28 +203,49 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             }
         }
 
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, string> selector, double compareValue) => new EqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, short> selector, short compareValue) => new EqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, int> selector, int compareValue) => new EqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, long> selector, long compareValue) => new EqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, double> selector, double compareValue) => new EqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, float> selector, float compareValue) => new EqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, decimal> selector, decimal compareValue) => new EqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, ushort> selector, ushort compareValue) => new EqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, uint> selector, uint compareValue) => new EqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams> EqualTo(Func<TDbParams, ulong> selector, ulong compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, string>> selector, double compareValue, bool isNullable = false) => new EqualToRule(selector, compareValue,isNullable);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, short>> selector, short compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, int>> selector, int compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, long>> selector, long compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, double>> selector, double compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, float>> selector, float compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, decimal>> selector, decimal compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, ushort>> selector, ushort compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, uint>> selector, uint compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) => new EqualToRule(selector, compareValue);
+
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, short?>> selector, short compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, int?>> selector, int compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, long?>> selector, long compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, double?>> selector, double compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, float?>> selector, float compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, ushort?>> selector, ushort compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, uint?>> selector, uint compareValue) => new EqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) => new EqualToRule(selector, compareValue);
+
         private class EqualToRule : NumericCompare
         {
-            public EqualToRule(Func<TDbParams, string> selector, double compareValue) : base(selector, compareValue) { }
-            public EqualToRule(Func<TDbParams, short> selector, short compareValue) : base(selector, compareValue) { }
-            public EqualToRule(Func<TDbParams, int> selector, int compareValue) : base(selector, compareValue) { }
-            public EqualToRule(Func<TDbParams, long> selector, long compareValue) : base(selector, compareValue) { }
-            public EqualToRule(Func<TDbParams, double> selector, double compareValue) : base(selector, compareValue) { }
-            public EqualToRule(Func<TDbParams, float> selector, float compareValue) : base(selector, compareValue) { }
-            public EqualToRule(Func<TDbParams, decimal> selector, decimal compareValue) : base(selector, compareValue) { }
-            public EqualToRule(Func<TDbParams, ushort> selector, ushort compareValue) : base(selector, compareValue) { }
-            public EqualToRule(Func<TDbParams, uint> selector, uint compareValue) : base(selector, compareValue) { }
-            public EqualToRule(Func<TDbParams, ulong> selector, ulong compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, string>> selector, double compareValue, bool isNullable = false) : base(selector, compareValue, isNullable) { }
+            public EqualToRule(Expression<Func<TDbParams, short>> selector, short compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, int>> selector, int compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, long>> selector, long compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, double>> selector, double compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, float>> selector, float compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, decimal>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, ushort>> selector, ushort compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, uint>> selector, uint compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) : base(selector, compareValue) { }
+
+            public EqualToRule(Expression<Func<TDbParams, short?>> selector, short compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, int?>> selector, int compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, long?>> selector, long compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, double?>> selector, double compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, float?>> selector, float compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, ushort?>> selector, ushort compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, uint?>> selector, uint compareValue) : base(selector, compareValue) { }
+            public EqualToRule(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) : base(selector, compareValue) { }
 
             protected override bool CompareShort(short value, short compareValue)       => value == compareValue;
             protected override bool CompareInt(int value, int compareValue)             => value == compareValue;
@@ -213,28 +260,49 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected override string GetCompareTypeLabel() => "to be equal to";
         }
 
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, string> selector, double compareValue) => new NotEqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, short> selector, short compareValue) => new NotEqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, int> selector, int compareValue) => new NotEqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, long> selector, long compareValue) => new NotEqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, double> selector, double compareValue) => new NotEqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, float> selector, float compareValue) => new NotEqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, decimal> selector, decimal compareValue) => new NotEqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, ushort> selector, ushort compareValue) => new NotEqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, uint> selector, uint compareValue) => new NotEqualToRule(selector, compareValue);
-        public static IValidationRule<TDbParams>  NotEqualTo(Func<TDbParams, ulong> selector, ulong compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, string>> selector, double compareValue, bool isNullable = false) => new NotEqualToRule(selector, compareValue, isNullable);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, short>> selector, short compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, int>> selector, int compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, long>> selector, long compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, double>> selector, double compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, float>> selector, float compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, decimal>> selector, decimal compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, ushort>> selector, ushort compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, uint>> selector, uint compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams>  NotEqualTo(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) => new NotEqualToRule(selector, compareValue);
+
+        public static IValidationRule<TDbParams> NotEqualTo(Expression<Func<TDbParams, short?>> selector, short compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> NotEqualTo(Expression<Func<TDbParams, int?>> selector, int compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> NotEqualTo(Expression<Func<TDbParams, long?>> selector, long compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> NotEqualTo(Expression<Func<TDbParams, double?>> selector, double compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> NotEqualTo(Expression<Func<TDbParams, float?>> selector, float compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> NotEqualTo(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> NotEqualTo(Expression<Func<TDbParams, ushort?>> selector, ushort compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> NotEqualTo(Expression<Func<TDbParams, uint?>> selector, uint compareValue) => new NotEqualToRule(selector, compareValue);
+        public static IValidationRule<TDbParams> NotEqualTo(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) => new NotEqualToRule(selector, compareValue);
+
         private class NotEqualToRule : NumericCompare
         {
-            public NotEqualToRule(Func<TDbParams, string> selector, double compareValue) : base(selector, compareValue) { }
-            public NotEqualToRule(Func<TDbParams, short> selector, short compareValue) : base(selector, compareValue) { }
-            public NotEqualToRule(Func<TDbParams, int> selector, int compareValue) : base(selector, compareValue) { }
-            public NotEqualToRule(Func<TDbParams, long> selector, long compareValue) : base(selector, compareValue) { }
-            public NotEqualToRule(Func<TDbParams, double> selector, double compareValue) : base(selector, compareValue) { }
-            public NotEqualToRule(Func<TDbParams, float> selector, float compareValue) : base(selector, compareValue) { }
-            public NotEqualToRule(Func<TDbParams, decimal> selector, decimal compareValue) : base(selector, compareValue) { }
-            public NotEqualToRule(Func<TDbParams, ushort> selector, ushort compareValue) : base(selector, compareValue) { }
-            public NotEqualToRule(Func<TDbParams, uint> selector, uint compareValue) : base(selector, compareValue) { }
-            public NotEqualToRule(Func<TDbParams, ulong> selector, ulong compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, string>> selector  , double compareValue, bool isNullable = false) : base(selector, compareValue, isNullable) { }
+            public NotEqualToRule(Expression<Func<TDbParams, short>> selector   , short compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, int>> selector     , int compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, long>> selector    , long compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, double>> selector  , double compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, float>> selector   , float compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, decimal>> selector , decimal compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, ushort>> selector  , ushort compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, uint>> selector    , uint compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, ulong>> selector   , ulong compareValue) : base(selector, compareValue) { }
+
+            public NotEqualToRule(Expression<Func<TDbParams, short?>> selector  , short compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, int?>> selector    , int compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, long?>> selector   , long compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, double?>> selector , double compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, float?>> selector  , float compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, ushort?>> selector , ushort compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, uint?>> selector   , uint compareValue) : base(selector, compareValue) { }
+            public NotEqualToRule(Expression<Func<TDbParams, ulong?>> selector  , ulong compareValue) : base(selector, compareValue) { }
 
             protected override bool CompareShort(short value, short compareValue)       => value != compareValue;
             protected override bool CompareInt(int value, int compareValue)             => value != compareValue;
@@ -248,29 +316,49 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected override string GetCompareTypeLabel() => "to not be equal to";
         }
 
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, string> selector, double compareValue) => new GreaterThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, short> selector, short compareValue) => new GreaterThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, int> selector, int compareValue) => new GreaterThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, long> selector, long compareValue) => new GreaterThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, double> selector, double compareValue) => new GreaterThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, float> selector, float compareValue) => new GreaterThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, decimal> selector, decimal compareValue) => new GreaterThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, ushort> selector, ushort compareValue) => new GreaterThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, uint> selector, uint compareValue) => new GreaterThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThan(Func<TDbParams, ulong> selector, ulong compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, string>> selector   , double compareValue, bool isNullable = false) => new GreaterThanRule(selector, compareValue, isNullable);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, short>> selector    , short compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, int>> selector      , int compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, long>> selector     , long compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, double>> selector   , double compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, float>> selector    , float compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, decimal>> selector  , decimal compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, ushort>> selector   , ushort compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, uint>> selector     , uint compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) => new GreaterThanRule(selector, compareValue);
+
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, short?>> selector  , short compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, int?>> selector    , int compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, long?>> selector   , long compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, double?>> selector , double compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, float?>> selector  , float compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, ushort?>> selector , ushort compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, uint?>> selector   , uint compareValue) => new GreaterThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThan(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) => new GreaterThanRule(selector, compareValue);
 
         private class GreaterThanRule : NumericCompare
         {
-            public GreaterThanRule(Func<TDbParams, string> selector, double compareValue) : base(selector, compareValue) { }
-            public GreaterThanRule(Func<TDbParams, short> selector, short compareValue) : base(selector, compareValue) { }
-            public GreaterThanRule(Func<TDbParams, int> selector, int compareValue) : base(selector, compareValue) { }
-            public GreaterThanRule(Func<TDbParams, long> selector, long compareValue) : base(selector, compareValue) { }
-            public GreaterThanRule(Func<TDbParams, double> selector, double compareValue) : base(selector, compareValue) { }
-            public GreaterThanRule(Func<TDbParams, float> selector, float compareValue) : base(selector, compareValue) { }
-            public GreaterThanRule(Func<TDbParams, decimal> selector, decimal compareValue) : base(selector, compareValue) { }
-            public GreaterThanRule(Func<TDbParams, ushort> selector, ushort compareValue) : base(selector, compareValue) { }
-            public GreaterThanRule(Func<TDbParams, uint> selector, uint compareValue) : base(selector, compareValue) { }
-            public GreaterThanRule(Func<TDbParams, ulong> selector, ulong compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, string>> selector , double compareValue, bool isNullable = false) : base(selector, compareValue,isNullable) { }
+            public GreaterThanRule(Expression<Func<TDbParams, short>> selector  , short compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, int>> selector    , int compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, long>> selector   , long compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, double>> selector , double compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, float>> selector  , float compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, decimal>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, ushort>> selector , ushort compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, uint>> selector   , uint compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) : base(selector, compareValue) { }
+
+            public GreaterThanRule(Expression<Func<TDbParams, short?>> selector  , short compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, int?>> selector    , int compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, long?>> selector   , long compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, double?>> selector , double compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, float?>> selector  , float compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, ushort?>> selector , ushort compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, uint?>> selector   , uint compareValue) : base(selector, compareValue) { }
+            public GreaterThanRule(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) : base(selector, compareValue) { }
 
             protected override bool CompareShort(short value, short compareValue)       => value > compareValue;
             protected override bool CompareInt(int value, int compareValue)             => value > compareValue;
@@ -285,29 +373,49 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             
         }
 
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, string> selector, double compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, short> selector, short compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, int> selector, int compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, long> selector, long compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, double> selector, double compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, float> selector, float compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, decimal> selector, decimal compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, ushort> selector, ushort compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, uint> selector, uint compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> GreaterThanOrEqual(Func<TDbParams, ulong> selector, ulong compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, string>> selector  , double compareValue, bool isNullable = false) => new GreaterThanOrEqualRule(selector, compareValue,isNullable);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, short>> selector   , short compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, int>> selector     , int compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, long>> selector    , long compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, double>> selector  , double compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, float>> selector   , float compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, decimal>> selector , decimal compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, ushort>> selector  , ushort compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, uint>> selector    , uint compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, short?>> selector  , short compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, int?>> selector    , int compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, long?>> selector   , long compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, double?>> selector , double compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, float?>> selector  , float compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, ushort?>> selector , ushort compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, uint?>> selector   , uint compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> GreaterThanOrEqual(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) => new GreaterThanOrEqualRule(selector, compareValue);
 
         private class GreaterThanOrEqualRule : NumericCompare
         {
-            public GreaterThanOrEqualRule(Func<TDbParams, string> selector, double compareValue) : base(selector, compareValue) { }
-            public GreaterThanOrEqualRule(Func<TDbParams, short> selector, short compareValue) : base(selector, compareValue) { }
-            public GreaterThanOrEqualRule(Func<TDbParams, int> selector, int compareValue) : base(selector, compareValue) { }
-            public GreaterThanOrEqualRule(Func<TDbParams, long> selector, long compareValue) : base(selector, compareValue) { }
-            public GreaterThanOrEqualRule(Func<TDbParams, double> selector, double compareValue) : base(selector, compareValue) { }
-            public GreaterThanOrEqualRule(Func<TDbParams, float> selector, float compareValue) : base(selector, compareValue) { }
-            public GreaterThanOrEqualRule(Func<TDbParams, decimal> selector, decimal compareValue) : base(selector, compareValue) { }
-            public GreaterThanOrEqualRule(Func<TDbParams, ushort> selector, ushort compareValue) : base(selector, compareValue) { }
-            public GreaterThanOrEqualRule(Func<TDbParams, uint> selector, uint compareValue) : base(selector, compareValue) { }
-            public GreaterThanOrEqualRule(Func<TDbParams, ulong> selector, ulong compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, string>> selector , double compareValue, bool isNullable = false) : base(selector, compareValue, isNullable) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, short>> selector  , short compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, int>> selector    , int compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, long>> selector   , long compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, double>> selector , double compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, float>> selector  , float compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, decimal>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, ushort>> selector , ushort compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, uint>> selector   , uint compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) : base(selector, compareValue) { }
+
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, short?>> selector  , short compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, int?>> selector    , int compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, long?>> selector   , long compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, double?>> selector , double compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, float?>> selector  , float compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, ushort?>> selector , ushort compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, uint?>> selector   , uint compareValue) : base(selector, compareValue) { }
+            public GreaterThanOrEqualRule(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) : base(selector, compareValue) { }
 
             protected override bool CompareShort(short value, short compareValue)       => value >= compareValue;
             protected override bool CompareInt(int value, int compareValue)             => value >= compareValue;
@@ -321,29 +429,49 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected override string GetCompareTypeLabel() => "to be greater than or equal to";
         }
 
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, string> selector, double compareValue) => new LessThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, short> selector, short compareValue) => new LessThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, int> selector, int compareValue) => new LessThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, long> selector, long compareValue) => new LessThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, double> selector, double compareValue) => new LessThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, float> selector, float compareValue) => new LessThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, decimal> selector, decimal compareValue) => new LessThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, ushort> selector, ushort compareValue) => new LessThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, uint> selector, uint compareValue) => new LessThanRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThan(Func<TDbParams, ulong> selector, ulong compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, string>> selector , double compareValue, bool isNullable = false) => new LessThanRule(selector, compareValue, isNullable);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, short>> selector  , short compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, int>> selector    , int compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, long>> selector   , long compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, double>> selector , double compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, float>> selector  , float compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, decimal>> selector, decimal compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, ushort>> selector , ushort compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, uint>> selector   , uint compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) => new LessThanRule(selector, compareValue);
+
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, short?>> selector  , short compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, int?>> selector    , int compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, long?>> selector   , long compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, double?>> selector , double compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, float?>> selector  , float compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, ushort?>> selector , ushort compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, uint?>> selector   , uint compareValue) => new LessThanRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThan(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) => new LessThanRule(selector, compareValue);
 
         private class LessThanRule : NumericCompare
         {
-            public LessThanRule(Func<TDbParams, string> selector, double compareValue) : base(selector, compareValue) { }
-            public LessThanRule(Func<TDbParams, short> selector, short compareValue) : base(selector, compareValue) { }
-            public LessThanRule(Func<TDbParams, int> selector, int compareValue) : base(selector, compareValue) { }
-            public LessThanRule(Func<TDbParams, long> selector, long compareValue) : base(selector, compareValue) { }
-            public LessThanRule(Func<TDbParams, double> selector, double compareValue) : base(selector, compareValue) { }
-            public LessThanRule(Func<TDbParams, float> selector, float compareValue) : base(selector, compareValue) { }
-            public LessThanRule(Func<TDbParams, decimal> selector, decimal compareValue) : base(selector, compareValue) { }
-            public LessThanRule(Func<TDbParams, ushort> selector, ushort compareValue) : base(selector, compareValue) { }
-            public LessThanRule(Func<TDbParams, uint> selector, uint compareValue) : base(selector, compareValue) { }
-            public LessThanRule(Func<TDbParams, ulong> selector, ulong compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, string>> selector , double compareValue, bool isNullable = false) : base(selector, compareValue, isNullable) { }
+            public LessThanRule(Expression<Func<TDbParams, short>> selector  , short compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, int>> selector    , int compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, long>> selector   , long compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, double>> selector , double compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, float>> selector  , float compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, decimal>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, ushort>> selector , ushort compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, uint>> selector   , uint compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) : base(selector, compareValue) { }
+
+            public LessThanRule(Expression<Func<TDbParams, short?>> selector  , short compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, int?>> selector    , int compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, long?>> selector   , long compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, double?>> selector , double compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, float?>> selector  , float compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, ushort?>> selector , ushort compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, uint?>> selector   , uint compareValue) : base(selector, compareValue) { }
+            public LessThanRule(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) : base(selector, compareValue) { }
 
             protected override bool CompareShort(short value, short compareValue)           => value < compareValue;
             protected override bool CompareInt(int value, int compareValue)                 => value < compareValue;
@@ -357,29 +485,49 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected override string GetCompareTypeLabel() => "to be less than";
         }
 
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, string> selector, double compareValue) => new LessThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, short> selector, short compareValue) => new LessThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, int> selector, int compareValue) => new LessThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, long> selector, long compareValue) => new LessThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, double> selector, double compareValue) => new LessThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, float> selector, float compareValue) => new LessThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, decimal> selector, decimal compareValue) => new LessThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, ushort> selector, ushort compareValue) => new LessThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, uint> selector, uint compareValue) => new LessThanOrEqualRule(selector, compareValue);
-        public static IValidationRule<TDbParams> LessThanOrEqual(Func<TDbParams, ulong> selector, ulong compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, string>> selector , double compareValue, bool isNullable = false) => new LessThanOrEqualRule(selector, compareValue, isNullable);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, short>> selector  , short compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, int>> selector    , int compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, long>> selector   , long compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, double>> selector , double compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, float>> selector  , float compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, decimal>> selector, decimal compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, ushort>> selector , ushort compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, uint>> selector   , uint compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) => new LessThanOrEqualRule(selector, compareValue);
+
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, short?>> selector  , short compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, int?>> selector    , int compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, long?>> selector   , long compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, double?>> selector , double compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, float?>> selector  , float compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, ushort?>> selector , ushort compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, uint?>> selector   , uint compareValue) => new LessThanOrEqualRule(selector, compareValue);
+        public static IValidationRule<TDbParams> LessThanOrEqual(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) => new LessThanOrEqualRule(selector, compareValue);
 
         private class LessThanOrEqualRule : NumericCompare
         {
-            public LessThanOrEqualRule(Func<TDbParams, string> selector, double compareValue) : base(selector, compareValue) { }
-            public LessThanOrEqualRule(Func<TDbParams, short> selector, short compareValue) : base(selector, compareValue) { }
-            public LessThanOrEqualRule(Func<TDbParams, int> selector, int compareValue) : base(selector, compareValue) { }
-            public LessThanOrEqualRule(Func<TDbParams, long> selector, long compareValue) : base(selector, compareValue) { }
-            public LessThanOrEqualRule(Func<TDbParams, double> selector, double compareValue) : base(selector, compareValue) { }
-            public LessThanOrEqualRule(Func<TDbParams, float> selector, float compareValue) : base(selector, compareValue) { }
-            public LessThanOrEqualRule(Func<TDbParams, decimal> selector, decimal compareValue) : base(selector, compareValue) { }
-            public LessThanOrEqualRule(Func<TDbParams, ushort> selector, ushort compareValue) : base(selector, compareValue) { }
-            public LessThanOrEqualRule(Func<TDbParams, uint> selector, uint compareValue) : base(selector, compareValue) { }
-            public LessThanOrEqualRule(Func<TDbParams, ulong> selector, ulong compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, string>> selector , double compareValue, bool isNullable = false) : base(selector, compareValue, isNullable) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, short>> selector  , short compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, int>> selector    , int compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, long>> selector   , long compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, double>> selector , double compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, float>> selector  , float compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, decimal>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, ushort>> selector , ushort compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, uint>> selector   , uint compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, ulong>> selector, ulong compareValue) : base(selector, compareValue) { }
+
+            public LessThanOrEqualRule(Expression<Func<TDbParams, short?>> selector  , short compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, int?>> selector    , int compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, long?>> selector   , long compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, double?>> selector , double compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, float?>> selector  , float compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, decimal?>> selector, decimal compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, ushort?>> selector , ushort compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, uint?>> selector   , uint compareValue) : base(selector, compareValue) { }
+            public LessThanOrEqualRule(Expression<Func<TDbParams, ulong?>> selector, ulong compareValue) : base(selector, compareValue) { }
 
             protected override bool CompareShort(short value, short compareValue)           => value <= compareValue;
             protected override bool CompareInt(int value, int compareValue)                 => value <= compareValue;

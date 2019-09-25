@@ -46,7 +46,13 @@ namespace DBFacade.Facade.Core
             TDbFacade next = await DbFacadeCache.GetAsync<TDbFacade>();
             return await next.ExecuteProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
-                    
+        protected async Task<IDbResponse<TDbDataModel>> NextAsync<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+            where TDbFacade : DbFacade<TDbManifest>
+            where TDbDataModel : DbDataModel
+            where TDbParams : IDbParamsModel
+            where TDbManifestMethod : TDbManifest
+        => await ExecuteNextAsync<TDbFacade, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+
         internal async Task<IDbResponse<TDbDataModel>> ExecuteNextAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
@@ -68,7 +74,7 @@ namespace DBFacade.Facade.Core
             where TDbManifestMethod : TDbManifest
         {
             IDbResponse<TDbDataModel> response =  await ProcessAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);            
-            return !response.IsNull() ? response : await ExecuteNextAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+            return !response.IsNull ? response : await ExecuteNextAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
         }
         private async Task<IDbResponse<TDbDataModel>> GetDefaultAsyncReturn<TDbDataModel, TDbManifestMethod>()
             where TDbDataModel : DbDataModel

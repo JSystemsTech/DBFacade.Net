@@ -6,195 +6,60 @@ namespace DBFacade.DataLayer.Models.Attributes
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Constructor, Inherited = true, AllowMultiple = true)]
     public abstract class DbColumnCore : Attribute
     {
-        protected abstract object GetColumnValue(IDataRecord data);
-        protected abstract object GetColumnValue(IDataRecord data, Type propType);
+        protected abstract object GetColumnValue(IDataRecord data, Type propType = null);
     }
-    public interface IDbColumn
+    interface IDbColumn
     {
-        object GetColumnValueCore(IDataRecord data, Type propType);
+        object GetColumnValueCore(IDataRecord data, Type propType = null);
         int GetOrdinal(IDataRecord data);
         Type GetTDbManifestMethodType();
     }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <seealso cref="DbColumnCore" />
-    /// <seealso cref="IDbColumn" />
     public class DbColumn : DbColumnCore, IDbColumn
     {
-        /// <summary>
-        /// The name
-        /// </summary>
+        internal const char DefaultDelimeter = ',';
+        private char delimeter { get; set; }
+        private int BufferSize { get; set; }
+
         private string name;
-        /// <summary>
-        /// The default value
-        /// </summary>
         private object defaultValue;
-        /// <summary>
-        /// The delimeter
-        /// </summary>
-        private char delimeter = ',';
-        /// <summary>
-        /// The database method type
-        /// </summary>
+        
         private Type TDbManifestMethodType;
-        /// <summary>
-        /// The bound to database method
-        /// </summary>
         private bool boundToTDbManifestMethod;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbColumn"/> class.
-        /// </summary>
-        internal DbColumn()
-        {
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbColumn"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        public DbColumn(string name)
-        {
-            init(name, null);
-        }
+        internal DbColumn() { }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbColumn"/> class.
-        /// </summary>
-        /// <param name="TDbManifestMethodType">Type of the d b method.</param>
-        /// <param name="name">The name.</param>
-        public DbColumn(Type TDbManifestMethodType, string name)
-        {
-            init(TDbManifestMethodType, name, null);
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbColumn"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="delimeter">The delimeter.</param>
-        internal DbColumn(string name, char delimeter)
-        {
-            init(name, null, delimeter);
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbColumn"/> class.
-        /// </summary>
-        /// <param name="TDbManifestMethodType">Type of the d b method.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="delimeter">The delimeter.</param>
-        internal DbColumn(Type TDbManifestMethodType, string name, char delimeter)
-        {
-            init(TDbManifestMethodType, name, null, delimeter);
-        }
+        public DbColumn(string name, char delimeter = DefaultDelimeter)
+            : this(null, name, null,null, delimeter) { }
+        public DbColumn(Type TDbManifestMethodType, string name, char delimeter = DefaultDelimeter)
+            : this(TDbManifestMethodType, name, null, delimeter) { }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbColumn"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        internal DbColumn(string name, object defaultValue)
-        {
-            init(name, defaultValue);
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbColumn"/> class.
-        /// </summary>
-        /// <param name="TDbManifestMethodType">Type of the d b method.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        internal DbColumn(Type TDbManifestMethodType, string name, object defaultValue)
-        {
-            init(TDbManifestMethodType, name, defaultValue);
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbColumn"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="delimeter">The delimeter.</param>
-        internal DbColumn(string name, object defaultValue, char delimeter)
-        {
-            init(name, defaultValue, delimeter);
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbColumn"/> class.
-        /// </summary>
-        /// <param name="TDbManifestMethodType">Type of the d b method.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="delimeter">The delimeter.</param>
-        internal DbColumn(Type TDbManifestMethodType, string name, object defaultValue, char delimeter)
-        {
-            init(TDbManifestMethodType, name, defaultValue, delimeter);
-        }
+        public DbColumn(string name, int bufferSize)
+            : this(null, name, null, bufferSize, DefaultDelimeter) { }
+        public DbColumn(Type TDbManifestMethodType, string name, int bufferSize)
+            : this(TDbManifestMethodType, name, null, bufferSize, DefaultDelimeter) { }
 
 
-        /// <summary>
-        /// Initializes the specified database method type.
-        /// </summary>
-        /// <param name="TDbManifestMethodType">Type of the database method.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="delimeter">The delimeter.</param>
-        private void init(Type TDbManifestMethodType, string name, object defaultValue, char delimeter)
-        {
-            CheckTDbManifestMethodType(TDbManifestMethodType);
-            this.TDbManifestMethodType = TDbManifestMethodType;
-            boundToTDbManifestMethod = true;
-            init(name, defaultValue, delimeter);
-        }
-        /// <summary>
-        /// Initializes the specified database method type.
-        /// </summary>
-        /// <param name="TDbManifestMethodType">Type of the database method.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        private void init(Type TDbManifestMethodType, string name, object defaultValue)
-        {
-            CheckTDbManifestMethodType(TDbManifestMethodType);
-            this.TDbManifestMethodType = TDbManifestMethodType;
-            boundToTDbManifestMethod = true;
-            init(name, defaultValue);
-        }
-        /// <summary>
-        /// Initializes the specified name.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="delimeter">The delimeter.</param>
-        private void init(string name, object defaultValue, char delimeter)
-        {
+        internal DbColumn(string name, object defaultValue, char delimeter = DefaultDelimeter)
+            :this(null, name, defaultValue,null, delimeter){}
+        internal DbColumn(Type TDbManifestMethodType, string name, object defaultValue, int? bufferSize, char delimeter = DefaultDelimeter)            
+        {                        
             this.delimeter = delimeter;
-            init(name, defaultValue);
-        }
-        /// <summary>
-        /// Initializes the specified name.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        private void init(string name, object defaultValue)
-        {
             this.name = name;
             this.defaultValue = defaultValue;
-        }
-        /// <summary>
-        /// Checks the type of the database method.
-        /// </summary>
-        /// <param name="TDbManifestMethodType">Type of the database method.</param>
-        /// <exception cref="ArgumentException"></exception>
+            if(TDbManifestMethodType != null)
+            {
+                CheckTDbManifestMethodType(TDbManifestMethodType);
+                this.TDbManifestMethodType = TDbManifestMethodType;
+                boundToTDbManifestMethod = true;
+            }            
+        }        
+        
         private void CheckTDbManifestMethodType(Type TDbManifestMethodType)
         {
             if (!TDbManifestMethodType.IsSubclassOf(typeof(DbManifest)))
             {
-                throw new ArgumentException(TDbManifestMethodType.Name + " is not type of " + typeof(DbManifest).Name);
+                throw new ArgumentException($"{TDbManifestMethodType.Name} is not type of {typeof(DbManifest).Name}");
             }
         }
-        /// <summary>
-        /// Determines whether the specified data has column.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified data has column; otherwise, <c>false</c>.
-        /// </returns>
         public bool HasColumn(IDataRecord data)
         {
             try
@@ -206,20 +71,12 @@ namespace DBFacade.DataLayer.Models.Attributes
                 return false;
             }
         }
-        /// <summary>
-        /// Gets the ordinal.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns></returns>
+        protected bool HasColumnValue(IDataRecord data) => HasColumn(data) && !data.IsDBNull(GetOrdinal(data));
+        
         public int GetOrdinal(IDataRecord data)
         {
             return data.GetOrdinal(name);
         }
-        /// <summary>
-        /// Checks if is valid database method.
-        /// </summary>
-        /// <param name="TDbManifestMethodType">Type of the database method.</param>
-        /// <exception cref="InvalidOperationException">type is not a TDbManifestMethod</exception>
         private void CheckIfIsValidTDbManifestMethod(Type TDbManifestMethodType)
         {
             if (!TDbManifestMethodType.IsSubclassOf(typeof(DbManifest)))
@@ -227,114 +84,38 @@ namespace DBFacade.DataLayer.Models.Attributes
                 throw new InvalidOperationException("type is not a TDbManifestMethod");
             }
         }
-        /// <summary>
-        /// Gets the type of the database method.
-        /// </summary>
-        /// <returns></returns>
         public Type GetTDbManifestMethodType()
         {
             return TDbManifestMethodType;
         }
-        /// <summary>
-        /// Gets a value indicating whether [bound to database method type].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [bound to database method type]; otherwise, <c>false</c>.
-        /// </value>
         public virtual bool BoundToTDbManifestMethodType
         {
             get { return boundToTDbManifestMethod; }
         }
-        /// <summary>
-        /// Gets the column value core.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <param name="propType">Type of the property.</param>
-        /// <returns></returns>
+        private bool IsIgnorableValue(object value) => value.GetType() == typeof(IgnorableDbColumnValue);
         public object GetColumnValueCore(IDataRecord data, Type propType)
         {
             object value = GetColumnValue(data, propType);
-            if (value.GetType() == typeof(IgnorableDbColumnValue))
-            {
-                value = GetColumnValue(data);
-                if (value.GetType() == typeof(IgnorableDbColumnValue))
-                {
-                    value = GetColumnValueBase(data, propType);
-                }
-            }
-            return value;
+            return IsIgnorableValue(value) ? GetColumnValueBase(data, propType) : value;
         }
-        /// <summary>
-        /// Gets the column value base.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <param name="propType">Type of the property.</param>
-        /// <returns></returns>
         private object GetColumnValueBase(IDataRecord data, Type propType)
         {
-            if (HasColumn(data) && !data.IsDBNull(GetOrdinal(data)) && DbColumnConversion.HasConverter(propType))
-            {
-                if (DbColumnConversion.isDelimitedArray(propType))
-                {
-                    return DbColumnConversion.Converters[propType].DynamicInvoke(data, GetOrdinal(data), delimeter);
-                }
-                return DbColumnConversion.Converters[propType].DynamicInvoke(data, GetOrdinal(data));
-            }
-            if (data.IsDBNull(GetOrdinal(data)) && defaultValue != null)
-            {
-                return defaultValue;
-            }
-            return null;
+            bool hasData = HasColumn(data);
+            bool hasNullValue = hasData && data.IsDBNull(GetOrdinal(data));
+            return !hasNullValue ? DbColumnConversion.Convert(propType, data, GetOrdinal(data),BufferSize, delimeter, defaultValue) :
+                defaultValue != null ? defaultValue : 
+                null;
         }
-        /// <summary>
-        /// 
-        /// </summary>
         private class IgnorableDbColumnValue { }
-        /// <summary>
-        /// Gets the column value.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns></returns>
-        protected override object GetColumnValue(IDataRecord data)
-        {
-            return new IgnorableDbColumnValue();
-        }
-        /// <summary>
-        /// Gets the column value.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <param name="propType">Type of the property.</param>
-        /// <returns></returns>
-        protected override object GetColumnValue(IDataRecord data, Type propType)
-        {
-            return new IgnorableDbColumnValue();
-        }
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <typeparam name="OutVal">The type of the ut value.</typeparam>
-        /// <param name="data">The data.</param>
-        /// <returns></returns>
-        internal OutVal GetValue<OutVal>(IDataRecord data)
+        private static IgnorableDbColumnValue ignorableDbColumnValue = new IgnorableDbColumnValue();
+        protected override object GetColumnValue(IDataRecord data, Type propType = null) => ignorableDbColumnValue;
+
+        protected OutVal GetValue<OutVal>(IDataRecord data)
         {
             object value = GetValue(data, typeof(OutVal));
-            if (value == null)
-            {
-                value = default(OutVal);
-            }
-            return (OutVal)value;
+            return value == null ? default(OutVal) : (OutVal)value;
         }
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <param name="outType">Type of the out.</param>
-        /// <returns></returns>
-        internal object GetValue(IDataRecord data, Type outType)
-        {
-            return GetColumnValueBase(data, outType);
-        }
-        
+        protected object GetValue(IDataRecord data, Type outType) => GetColumnValueBase(data, outType);
     }
 
 }

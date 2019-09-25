@@ -1,4 +1,5 @@
 ﻿using DBFacade.DataLayer.Models;
+using DBFacade.Factories;
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -22,8 +23,8 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
         
         private class DbCommandParameterGenericConfig<N> : DbCommandParameterConfig<TDbParams>
         {
-            private Func<TDbParams, N> ReturnFunction { get; set; }            
-            public DbCommandParameterGenericConfig(DbType dbType, Func<TDbParams, N> returnFunction, bool isNullable = true) : base(dbType, isNullable)
+            private DelegateHandler<TDbParams, N> ReturnFunction { get; set; }            
+            public DbCommandParameterGenericConfig(DbType dbType, DelegateHandler<TDbParams, N> returnFunction, bool isNullable = true) : base(dbType, isNullable)
             {
                 ReturnFunction = returnFunction;
             }
@@ -32,31 +33,31 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
         }
 
         /*params Functions*/
-        internal IDbCommandParameterConfig<TDbParams> Byte(Func<TDbParams, byte> returnFunction) { return new DbCommandParameterGenericConfig<byte>(DbType.Byte, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> SByte(Func<TDbParams, sbyte> returnFunction) { return new DbCommandParameterGenericConfig<sbyte>(DbType.SByte, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Int16(Func<TDbParams, short> returnFunction) { return new DbCommandParameterGenericConfig<short>(DbType.Int16, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Int32(Func<TDbParams, int> returnFunction) { return new DbCommandParameterGenericConfig<int>(DbType.Int32, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Int64(Func<TDbParams, long> returnFunction) { return new DbCommandParameterGenericConfig<long>(DbType.Int64, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> UInt16(Func<TDbParams, ushort> returnFunction) { return new DbCommandParameterGenericConfig<ushort>(DbType.UInt16, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> UInt32(Func<TDbParams, uint> returnFunction) { return new DbCommandParameterGenericConfig<uint>(DbType.UInt32, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> UInt64(Func<TDbParams, ulong> returnFunction) { return new DbCommandParameterGenericConfig<ulong>(DbType.UInt64, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Single(Func<TDbParams, float> returnFunction) { return new DbCommandParameterGenericConfig<float>(DbType.Single, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Double(Func<TDbParams, double> returnFunction) { return new DbCommandParameterGenericConfig<double>(DbType.Double, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Decimal(Func<TDbParams, decimal> returnFunction) { return new DbCommandParameterGenericConfig<decimal>(DbType.Decimal, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Boolean(Func<TDbParams, bool> returnFunction) { return new DbCommandParameterGenericConfig<bool>(DbType.Boolean, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Char(Func<TDbParams, char> returnFunction) { return new DbCommandParameterGenericConfig<char>(DbType.StringFixedLength, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Guid(Func<TDbParams, Guid> returnFunction) { return new DbCommandParameterGenericConfig<Guid>(DbType.Guid, returnFunction, false); }        
-        internal IDbCommandParameterConfig<TDbParams> TimeSpan(Func<TDbParams, TimeSpan> returnFunction) { return new DbCommandParameterGenericConfig<TimeSpan>(DbType.Time, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> DateTime(Func<TDbParams, DateTime> returnFunction) { return new DbCommandParameterGenericConfig<DateTime>(DbType.DateTime, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> DateTime2(Func<TDbParams, DateTime> returnFunction) { return new DbCommandParameterGenericConfig<DateTime>(DbType.DateTime2, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> DateTimeOffset(Func<TDbParams, DateTimeOffset> returnFunction) { return new DbCommandParameterGenericConfig<DateTimeOffset>(DbType.DateTimeOffset, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Binary(Func<TDbParams, byte[]> returnFunction) { return new DbCommandParameterGenericConfig<byte[]>(DbType.Binary, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Byte(DelegateHandler<TDbParams, byte> returnFunction) { return new DbCommandParameterGenericConfig<byte>(DbType.Byte, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> SByte(DelegateHandler<TDbParams, sbyte> returnFunction) { return new DbCommandParameterGenericConfig<sbyte>(DbType.SByte, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Int16(DelegateHandler<TDbParams, short> returnFunction) { return new DbCommandParameterGenericConfig<short>(DbType.Int16, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Int32(DelegateHandler<TDbParams, int> returnFunction) { return new DbCommandParameterGenericConfig<int>(DbType.Int32, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Int64(DelegateHandler<TDbParams, long> returnFunction) { return new DbCommandParameterGenericConfig<long>(DbType.Int64, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> UInt16(DelegateHandler<TDbParams, ushort> returnFunction) { return new DbCommandParameterGenericConfig<ushort>(DbType.UInt16, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> UInt32(DelegateHandler<TDbParams, uint> returnFunction) { return new DbCommandParameterGenericConfig<uint>(DbType.UInt32, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> UInt64(DelegateHandler<TDbParams, ulong> returnFunction) { return new DbCommandParameterGenericConfig<ulong>(DbType.UInt64, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Single(DelegateHandler<TDbParams, float> returnFunction) { return new DbCommandParameterGenericConfig<float>(DbType.Single, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Double(DelegateHandler<TDbParams, double> returnFunction) { return new DbCommandParameterGenericConfig<double>(DbType.Double, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Decimal(DelegateHandler<TDbParams, decimal> returnFunction) { return new DbCommandParameterGenericConfig<decimal>(DbType.Decimal, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Boolean(DelegateHandler<TDbParams, bool> returnFunction) { return new DbCommandParameterGenericConfig<bool>(DbType.Boolean, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Char(DelegateHandler<TDbParams, char> returnFunction) { return new DbCommandParameterGenericConfig<char>(DbType.StringFixedLength, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Guid(DelegateHandler<TDbParams, Guid> returnFunction) { return new DbCommandParameterGenericConfig<Guid>(DbType.Guid, returnFunction, false); }        
+        internal IDbCommandParameterConfig<TDbParams> TimeSpan(DelegateHandler<TDbParams, TimeSpan> returnFunction) { return new DbCommandParameterGenericConfig<TimeSpan>(DbType.Time, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> DateTime(DelegateHandler<TDbParams, DateTime> returnFunction) { return new DbCommandParameterGenericConfig<DateTime>(DbType.DateTime, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> DateTime2(DelegateHandler<TDbParams, DateTime> returnFunction) { return new DbCommandParameterGenericConfig<DateTime>(DbType.DateTime2, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> DateTimeOffset(DelegateHandler<TDbParams, DateTimeOffset> returnFunction) { return new DbCommandParameterGenericConfig<DateTimeOffset>(DbType.DateTimeOffset, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Binary(DelegateHandler<TDbParams, byte[]> returnFunction) { return new DbCommandParameterGenericConfig<byte[]>(DbType.Binary, returnFunction, false); }
 
-        internal IDbCommandParameterConfig<TDbParams> String(Func<TDbParams, string> returnFunction, bool isNullable = true) { return new DbCommandParameterGenericConfig<string>(DbType.String, returnFunction, isNullable); }
-        internal IDbCommandParameterConfig<TDbParams> CharArray(Func<TDbParams, char[]> returnFunction, bool isNullable = true) { return new DbCommandParameterGenericConfig<char[]>(DbType.String, returnFunction, isNullable); }
-        internal IDbCommandParameterConfig<TDbParams> AnsiStringFixedLength(Func<TDbParams, string> returnFunction, bool isNullable = true) { return new DbCommandParameterGenericConfig<string>(DbType.AnsiStringFixedLength, returnFunction, isNullable); }
-        internal IDbCommandParameterConfig<TDbParams> AnsiString(Func<TDbParams, string> returnFunction, bool isNullable = true) { return new DbCommandParameterGenericConfig<string>(DbType.AnsiString, returnFunction, isNullable); }
-        internal IDbCommandParameterConfig<TDbParams> Xml(Func<TDbParams, Xml> returnFunction) { return new DbCommandParameterGenericConfig<Xml>(DbType.Xml, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> String(DelegateHandler<TDbParams, string> returnFunction, bool isNullable = true) { return new DbCommandParameterGenericConfig<string>(DbType.String, returnFunction, isNullable); }
+        internal IDbCommandParameterConfig<TDbParams> CharArray(DelegateHandler<TDbParams, char[]> returnFunction, bool isNullable = true) { return new DbCommandParameterGenericConfig<char[]>(DbType.String, returnFunction, isNullable); }
+        internal IDbCommandParameterConfig<TDbParams> AnsiStringFixedLength(DelegateHandler<TDbParams, string> returnFunction, bool isNullable = true) { return new DbCommandParameterGenericConfig<string>(DbType.AnsiStringFixedLength, returnFunction, isNullable); }
+        internal IDbCommandParameterConfig<TDbParams> AnsiString(DelegateHandler<TDbParams, string> returnFunction, bool isNullable = true) { return new DbCommandParameterGenericConfig<string>(DbType.AnsiString, returnFunction, isNullable); }
+        internal IDbCommandParameterConfig<TDbParams> Xml(DelegateHandler<TDbParams, Xml> returnFunction) { return new DbCommandParameterGenericConfig<Xml>(DbType.Xml, returnFunction, false); }
         /*Hard value set*/
         internal IDbCommandParameterConfig<TDbParams> Byte(byte value) { return new DbCommandParameterGenericConfig<byte>(DbType.Byte, value, false); }
         internal IDbCommandParameterConfig<TDbParams> SByte(sbyte value) { return new DbCommandParameterGenericConfig<sbyte>(DbType.SByte, value, false); }
@@ -87,25 +88,25 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
 
 
         /*Optional params Functions*/
-        internal IDbCommandParameterConfig<TDbParams> Byte(Func<TDbParams, byte?> returnFunction) { return new DbCommandParameterGenericConfig<byte?>(DbType.Byte, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> SByte(Func<TDbParams, sbyte?> returnFunction) { return new DbCommandParameterGenericConfig<sbyte?>(DbType.SByte, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> Int16(Func<TDbParams, short?> returnFunction) { return new DbCommandParameterGenericConfig<short?>(DbType.Int16, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> Int32(Func<TDbParams, int?> returnFunction) { return new DbCommandParameterGenericConfig<int?>(DbType.Int32, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> Int64(Func<TDbParams, long?> returnFunction) { return new DbCommandParameterGenericConfig<long?>(DbType.Int64, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> UInt16(Func<TDbParams, ushort?> returnFunction) { return new DbCommandParameterGenericConfig<ushort?>(DbType.UInt16, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> UInt32(Func<TDbParams, uint?> returnFunction) { return new DbCommandParameterGenericConfig<uint?>(DbType.UInt32, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> UInt64(Func<TDbParams, ulong?> returnFunction) { return new DbCommandParameterGenericConfig<ulong?>(DbType.UInt64, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> Single(Func<TDbParams, float?> returnFunction) { return new DbCommandParameterGenericConfig<float?>(DbType.Single, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> Double(Func<TDbParams, double?> returnFunction) { return new DbCommandParameterGenericConfig<double?>(DbType.Double, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> Decimal(Func<TDbParams, decimal?> returnFunction) { return new DbCommandParameterGenericConfig<decimal?>(DbType.Decimal, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> Boolean(Func<TDbParams, bool?> returnFunction) { return new DbCommandParameterGenericConfig<bool?>(DbType.Boolean, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> Char(Func<TDbParams, char?> returnFunction) { return new DbCommandParameterGenericConfig<char?>(DbType.StringFixedLength, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> Guid(Func<TDbParams, Guid?> returnFunction) { return new DbCommandParameterGenericConfig<Guid?>(DbType.Guid, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> TimeSpan(Func<TDbParams, TimeSpan?> returnFunction) { return new DbCommandParameterGenericConfig<TimeSpan?>(DbType.Time, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> DateTime(Func<TDbParams, DateTime?> returnFunction) { return new DbCommandParameterGenericConfig<DateTime?>(DbType.DateTime, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> DateTime2(Func<TDbParams, DateTime?> returnFunction) { return new DbCommandParameterGenericConfig<DateTime?>(DbType.DateTime2, returnFunction); }
-        internal IDbCommandParameterConfig<TDbParams> DateTimeOffset(Func<TDbParams, DateTimeOffset?> returnFunction) { return new DbCommandParameterGenericConfig<DateTimeOffset?>(DbType.DateTimeOffset, returnFunction, false); }
-        internal IDbCommandParameterConfig<TDbParams> Binary(Func<TDbParams, byte?[]> returnFunction) { return new DbCommandParameterGenericConfig<byte?[]>(DbType.Binary, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Byte(DelegateHandler<TDbParams, byte?> returnFunction) { return new DbCommandParameterGenericConfig<byte?>(DbType.Byte, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> SByte(DelegateHandler<TDbParams, sbyte?> returnFunction) { return new DbCommandParameterGenericConfig<sbyte?>(DbType.SByte, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Int16(DelegateHandler<TDbParams, short?> returnFunction) { return new DbCommandParameterGenericConfig<short?>(DbType.Int16, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Int32(DelegateHandler<TDbParams, int?> returnFunction) { return new DbCommandParameterGenericConfig<int?>(DbType.Int32, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Int64(DelegateHandler<TDbParams, long?> returnFunction) { return new DbCommandParameterGenericConfig<long?>(DbType.Int64, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> UInt16(DelegateHandler<TDbParams, ushort?> returnFunction) { return new DbCommandParameterGenericConfig<ushort?>(DbType.UInt16, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> UInt32(DelegateHandler<TDbParams, uint?> returnFunction) { return new DbCommandParameterGenericConfig<uint?>(DbType.UInt32, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> UInt64(DelegateHandler<TDbParams, ulong?> returnFunction) { return new DbCommandParameterGenericConfig<ulong?>(DbType.UInt64, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Single(DelegateHandler<TDbParams, float?> returnFunction) { return new DbCommandParameterGenericConfig<float?>(DbType.Single, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Double(DelegateHandler<TDbParams, double?> returnFunction) { return new DbCommandParameterGenericConfig<double?>(DbType.Double, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Decimal(DelegateHandler<TDbParams, decimal?> returnFunction) { return new DbCommandParameterGenericConfig<decimal?>(DbType.Decimal, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Boolean(DelegateHandler<TDbParams, bool?> returnFunction) { return new DbCommandParameterGenericConfig<bool?>(DbType.Boolean, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Char(DelegateHandler<TDbParams, char?> returnFunction) { return new DbCommandParameterGenericConfig<char?>(DbType.StringFixedLength, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> Guid(DelegateHandler<TDbParams, Guid?> returnFunction) { return new DbCommandParameterGenericConfig<Guid?>(DbType.Guid, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> TimeSpan(DelegateHandler<TDbParams, TimeSpan?> returnFunction) { return new DbCommandParameterGenericConfig<TimeSpan?>(DbType.Time, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> DateTime(DelegateHandler<TDbParams, DateTime?> returnFunction) { return new DbCommandParameterGenericConfig<DateTime?>(DbType.DateTime, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> DateTime2(DelegateHandler<TDbParams, DateTime?> returnFunction) { return new DbCommandParameterGenericConfig<DateTime?>(DbType.DateTime2, returnFunction); }
+        internal IDbCommandParameterConfig<TDbParams> DateTimeOffset(DelegateHandler<TDbParams, DateTimeOffset?> returnFunction) { return new DbCommandParameterGenericConfig<DateTimeOffset?>(DbType.DateTimeOffset, returnFunction, false); }
+        internal IDbCommandParameterConfig<TDbParams> Binary(DelegateHandler<TDbParams, byte?[]> returnFunction) { return new DbCommandParameterGenericConfig<byte?[]>(DbType.Binary, returnFunction); }
 
         /*Optional Hard value set*/
         internal IDbCommandParameterConfig<TDbParams> Byte(byte? value) { return new DbCommandParameterGenericConfig<byte?>(DbType.Byte,value); }        
