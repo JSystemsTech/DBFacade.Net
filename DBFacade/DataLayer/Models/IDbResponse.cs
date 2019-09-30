@@ -215,7 +215,7 @@ namespace DBFacade.DataLayer.Models
     /// 
     /// </summary>
     /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-    public interface IDbResponse<TDbDataModel> : IDbResponse, IReadOnlyDbCollection<TDbDataModel>, IXMLSerializable<TDbDataModel>, IJsonSerializable<TDbDataModel>
+    public interface IDbResponse<TDbDataModel> : IDbResponse,IEnumerable<TDbDataModel>, IReadOnlyDbCollection<TDbDataModel>, IXMLSerializable<TDbDataModel>, IJsonSerializable<TDbDataModel>
          where TDbDataModel : DbDataModel
     {}
 

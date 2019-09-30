@@ -5,6 +5,7 @@ using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.Models.Validators;
 using DBFacade.DataLayer.Models.Validators.Rules;
 using DBFacade.Factories;
+using System;
 
 namespace DbFacadeUnitTests.TestFacade
 {

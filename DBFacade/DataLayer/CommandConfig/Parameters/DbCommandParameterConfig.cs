@@ -8,7 +8,7 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
 {
     /// <summary></summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    internal class DbCommandParameterConfig<TDbParams> : IDbCommandParameterConfig<TDbParams> where TDbParams : IDbParamsModel
+    internal class DbCommandParameterConfig<TDbParams> : IInternalDbCommandParameterConfig<TDbParams> where TDbParams : IDbParamsModel
     {
 
         public DbType DbType { get; protected set; }
