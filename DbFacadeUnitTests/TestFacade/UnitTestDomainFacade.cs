@@ -8,6 +8,11 @@ namespace DbFacadeUnitTests.TestFacade
 {
     internal class UnitTestDomainFacade: DomainFacade<UnitTestMethods>
     {
+        public UnitTestDomainFacade()
+        {
+            UnitTestConnection connection = new UnitTestConnection();
+            InitConnectionConfig(connection);
+        }
         public IDbResponse<FetchData> TestFetchData()
         {            
             return MockFetch<FetchData,UnitTestMethods.TestFetchData, ResponseData>(new ResponseData { MyString = "test string" });

@@ -13,7 +13,7 @@ namespace DBFacade.DataLayer.CommandConfig
     }
     internal interface IDbCommandConfigInternal: IDbCommandConfig
     {
-        TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbManifestMethodParams, TDbConnection dbConnection)
+        TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbMethodManifestMethodParams, TDbConnection dbConnection)
             where TDbConnection : DbConnection
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter;

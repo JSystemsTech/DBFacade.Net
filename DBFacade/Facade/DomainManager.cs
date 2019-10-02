@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace DBFacade.Facade
 {
-    public sealed class DefaultDomainManager<TDbManifest> : DomainManager<TDbManifest>
-    where TDbManifest : DbManifest
+    public sealed class DefaultDomainManager<TDbMethodManifest> : DomainManager<TDbMethodManifest>
+    where TDbMethodManifest : DbMethodManifest
     { }
-    public abstract class DomainManager<TDbManifest> : DbFacade<TDbManifest>
-    where TDbManifest : DbManifest
+    public abstract class DomainManager<TDbMethodManifest> : DbFacade<TDbMethodManifest>
+    where TDbMethodManifest : DbMethodManifest
     {
-        internal sealed override async Task OnBeforeNextInnerAsync<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+        internal sealed override async Task OnBeforeNextInnerAsync<TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
         {
             IValidationResult validationResult = await method.Config.ValidateAsync(parameters);
             if (!validationResult.IsValid)
@@ -21,24 +21,24 @@ namespace DBFacade.Facade
                 throw new ValidationException<TDbParams>(validationResult, parameters, $"{parameters.GetType().Name} values failed to pass validation for method {method.GetType().Name}");
             }
         }
-        internal sealed override void OnBeforeNextInner<TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters) {
+        internal sealed override void OnBeforeNextInner<TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters) {
             IValidationResult validationResult = method.Config.Validate(parameters);
             if (!validationResult.IsValid)
             {
                 throw new ValidationException<TDbParams>(validationResult, parameters, $"{parameters.GetType().Name} values failed to pass validation for method {method.GetType().Name}");
             }
         }        
-        internal sealed override IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+        internal sealed override IDbResponse<TDbDataModel> ExecuteNextCore<TDbDataModel, TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
         {
-            return ExecuteNext<DbConnectionManager<TDbManifest>, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+            return ExecuteNext<DbConnectionManager<TDbMethodManifest>, TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters);
         }
-        internal sealed async override Task<IDbResponse<TDbDataModel>> ExecuteNextCoreAsync<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+        internal sealed async override Task<IDbResponse<TDbDataModel>> ExecuteNextCoreAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
         {
-            return await ExecuteNextAsync<DbConnectionManager<TDbManifest>, TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+            return await ExecuteNextAsync<DbConnectionManager<TDbMethodManifest>, TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters);
         }
         protected override void OnDispose(bool calledFromDispose)
         {
-            GetDbFacade<DbConnectionManager<TDbManifest>>().Dispose(calledFromDispose);
+            GetDbFacade<DbConnectionManager<TDbMethodManifest>>().Dispose(calledFromDispose);
             base.OnDispose(calledFromDispose);
         }
     }

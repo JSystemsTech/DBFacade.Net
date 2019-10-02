@@ -8,33 +8,33 @@ using DBFacade.Exceptions;
 
 namespace DBFacade.DataLayer.ConnectionService
 {
-    internal partial class DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbManifest>        
+    internal partial class DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbMethodManifest>        
         where TDbConnection : DbConnection
         where TDbCommand : DbCommand
         where TDbParameter : DbParameter
         where TDbTransaction : DbTransaction
         where TDbDataReader : DbDataReader
-        where TDbManifest : DbManifest
+        where TDbMethodManifest : DbMethodManifest
     {
-        private static IDbResponse<TDbDataModel> BuildResonse<TDbManifestMethod, TDbDataModel>(object returnValue, DbDataReader dbDataReader = null)
+        private static IDbResponse<TDbDataModel> BuildResonse<TDbMethodManifestMethod, TDbDataModel>(object returnValue, DbDataReader dbDataReader = null)
             where TDbDataModel : DbDataModel
-            where TDbManifestMethod : TDbManifest
+            where TDbMethodManifestMethod : TDbMethodManifest
         {
-            DbResponse<TDbManifestMethod, TDbDataModel> responseObj = new DbResponse<TDbManifestMethod, TDbDataModel>(returnValue);
+            DbResponse<TDbMethodManifestMethod, TDbDataModel> responseObj = new DbResponse<TDbMethodManifestMethod, TDbDataModel>(returnValue);
             if (dbDataReader != null)
             {
                 while (dbDataReader.Read())
                 {
-                    responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel, TDbManifestMethod>(dbDataReader));
+                    responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel, TDbMethodManifestMethod>(dbDataReader));
                 }
                 dbDataReader.Close();
             }
             return responseObj;
         }
-        public static IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
+        public static IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where TDbManifestMethod : TDbManifest
+            where TDbMethodManifestMethod : TDbMethodManifest
         {
             IDbCommandConfigInternal config = method.Config as IDbCommandConfigInternal;
             IInternalDbParamsModel parametersModel = parameters as IInternalDbParamsModel;
@@ -42,7 +42,7 @@ namespace DBFacade.DataLayer.ConnectionService
             {
                 using(DbDataReader dbDataReader = parametersModel.ResponseData)
                 {
-                    return BuildResonse<TDbManifestMethod, TDbDataModel>(parametersModel.ReturnValue, dbDataReader);
+                    return BuildResonse<TDbMethodManifestMethod, TDbDataModel>(parametersModel.ReturnValue, dbDataReader);
                 }                
             }
             else
@@ -69,13 +69,13 @@ namespace DBFacade.DataLayer.ConnectionService
                                         throw;
                                     }
                                     transaction.Commit();
-                                    return BuildResonse<TDbManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand));
+                                    return BuildResonse<TDbMethodManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand));
                                 }                                
                             }
                             else
                             {
                                 using (TDbDataReader dbDataReader = dbCommand.ExecuteReader() as TDbDataReader) {
-                                    return BuildResonse<TDbManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand), dbDataReader);
+                                    return BuildResonse<TDbMethodManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand), dbDataReader);
                                 }                                
                             }
                         }

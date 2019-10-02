@@ -23,6 +23,13 @@ namespace DbFacadeUnitTests.Models
         public object Null = null;
         public object EmptyString = string.Empty;
         public string String = "my test string";
+        public string FiveDigitString = "12345";
+        public string TenDigitString = "1234567890";
+        public string SSN = "234-23-1234";
+        public string SSNNoDashes = "234231235";
+        public string InvalidSSN = "ABC-23-1234";
+        public string InvalidSSNNoDashes = "ABC231234";
+
         public string StringInvalidNum = "A_Bad_Number";
         public string StringInvalidDate = "A_Bad_Date";
         public string StringNum = "10";

@@ -1,4 +1,5 @@
-﻿using DBFacade.DataLayer.CommandConfig.Parameters;
+﻿using DbFacade.DataLayer.ConnectionService;
+using DBFacade.DataLayer.CommandConfig.Parameters;
 using DBFacade.DataLayer.ConnectionService;
 using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.Models.Validators;
@@ -48,22 +49,18 @@ namespace DBFacade.DataLayer.CommandConfig
             IsOutput = isOutput;
             Transaction = isTransaction;
         }
-        
-        public IDbConnectionConfigInternal DbConnectionConfig => InstanceResolverFactory.Get<IDbConnectionConfig>().Get<TDbConnectionConfig>() as IDbConnectionConfigInternal;
-        public async Task<IDbConnectionConfigInternal> GetDbConnectionConfigAsync()
-        {
-            IInstanceResolver<IDbConnectionConfig> connectionConfigResolver = await InstanceResolverFactory.GetAsync<IDbConnectionConfig>();
-            return await connectionConfigResolver.GetAsync<TDbConnectionConfig>() as IDbConnectionConfigInternal;
-        }
+
+        public IDbConnectionConfigInternal DbConnectionConfig => DbConnectionConfigManager.Resolve<TDbConnectionConfig>();
+        public async Task<IDbConnectionConfigInternal> GetDbConnectionConfigAsync()=> await DbConnectionConfigManager.ResolveAsync<TDbConnectionConfig>();
         public IDbCommandText DbCommandText => DbCommandTextPrivate;
 
-        public TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbManifestMethodParams, TDbConnection dbConnection)
+        public TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbMethodManifestMethodParams, TDbConnection dbConnection)
             where TDbConnection : DbConnection
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
         {
             TDbCommand dbCommand = dbConnection.CreateCommand() as TDbCommand;
-            dbCommand = AddParams<TDbCommand, TDbParameter>(dbCommand, (TDbParams)TDbManifestMethodParams);
+            dbCommand = AddParams<TDbCommand, TDbParameter>(dbCommand, (TDbParams)TDbMethodManifestMethodParams);
             dbCommand.CommandText = DbCommandTextPrivate.CommandText;
             dbCommand.CommandType = DbCommandType;
             return dbCommand;
@@ -79,7 +76,7 @@ namespace DBFacade.DataLayer.CommandConfig
         public object GetReturnValue<TDbCommand>(TDbCommand dbCommand)
             where TDbCommand : DbCommand
             => HasReturnValue() ? dbCommand.Parameters[GetFullParamName(ReturnParam)].Value : null;
-        private TDbParameter CreateParameter<TDbCommand, TDbParameter>(TDbCommand dbCommand, TDbParams TDbManifestMethodParams, ParameterDirection direction, string parameterName)
+        private TDbParameter CreateParameter<TDbCommand, TDbParameter>(TDbCommand dbCommand, TDbParams TDbMethodManifestMethodParams, ParameterDirection direction, string parameterName)
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
         {
@@ -89,22 +86,22 @@ namespace DBFacade.DataLayer.CommandConfig
             return parameter;
         }
 
-        private TDbCommand AddParams<TDbCommand, TDbParameter>(TDbCommand dbCommand, TDbParams TDbManifestMethodParams)
+        private TDbCommand AddParams<TDbCommand, TDbParameter>(TDbCommand dbCommand, TDbParams TDbMethodManifestMethodParams)
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
         {            
             foreach (KeyValuePair<string, IDbCommandParameterConfig<TDbParams>> config in DbParams)
             {
                 IInternalDbCommandParameterConfig<TDbParams> paramConfig = config.Value as IInternalDbCommandParameterConfig<TDbParams>;
-                TDbParameter dbParameter = CreateParameter<TDbCommand, TDbParameter>(dbCommand, TDbManifestMethodParams, ParameterDirection.Input, config.Key);
+                TDbParameter dbParameter = CreateParameter<TDbCommand, TDbParameter>(dbCommand, TDbMethodManifestMethodParams, ParameterDirection.Input, config.Key);
                 dbParameter.DbType = paramConfig.DbType;
                 dbParameter.IsNullable = paramConfig.IsNullable;
-                dbParameter.Value = paramConfig.Value(TDbManifestMethodParams);
+                dbParameter.Value = paramConfig.Value(TDbMethodManifestMethodParams);
                 dbCommand.Parameters.Add(dbParameter);
             }
             if (HasReturnValue())
             {
-                dbCommand.Parameters.Add(CreateParameter<TDbCommand, TDbParameter>(dbCommand, TDbManifestMethodParams, IsOutput ? ParameterDirection.Output : ParameterDirection.ReturnValue, ReturnParam));
+                dbCommand.Parameters.Add(CreateParameter<TDbCommand, TDbParameter>(dbCommand, TDbMethodManifestMethodParams, IsOutput ? ParameterDirection.Output : ParameterDirection.ReturnValue, ReturnParam));
             }
             return dbCommand;
         }

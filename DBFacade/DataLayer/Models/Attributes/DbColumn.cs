@@ -12,7 +12,7 @@ namespace DBFacade.DataLayer.Models.Attributes
     {
         object GetColumnValueCore(IDataRecord data, Type propType = null);
         int GetOrdinal(IDataRecord data);
-        Type GetTDbManifestMethodType();
+        Type GetTDbMethodManifestMethodType();
     }
     public class DbColumn : DbColumnCore, IDbColumn
     {
@@ -23,41 +23,41 @@ namespace DBFacade.DataLayer.Models.Attributes
         private string name;
         private object defaultValue;
         
-        private Type TDbManifestMethodType;
-        private bool boundToTDbManifestMethod;
+        private Type TDbMethodManifestMethodType;
+        private bool boundToTDbMethodManifestMethod;
         internal DbColumn() { }
 
         public DbColumn(string name, char delimeter = DefaultDelimeter)
             : this(null, name, null,null, delimeter) { }
-        public DbColumn(Type TDbManifestMethodType, string name, char delimeter = DefaultDelimeter)
-            : this(TDbManifestMethodType, name, null, delimeter) { }
+        public DbColumn(Type TDbMethodManifestMethodType, string name, char delimeter = DefaultDelimeter)
+            : this(TDbMethodManifestMethodType, name, null, delimeter) { }
 
         public DbColumn(string name, int bufferSize)
             : this(null, name, null, bufferSize, DefaultDelimeter) { }
-        public DbColumn(Type TDbManifestMethodType, string name, int bufferSize)
-            : this(TDbManifestMethodType, name, null, bufferSize, DefaultDelimeter) { }
+        public DbColumn(Type TDbMethodManifestMethodType, string name, int bufferSize)
+            : this(TDbMethodManifestMethodType, name, null, bufferSize, DefaultDelimeter) { }
 
 
         internal DbColumn(string name, object defaultValue, char delimeter = DefaultDelimeter)
             :this(null, name, defaultValue,null, delimeter){}
-        internal DbColumn(Type TDbManifestMethodType, string name, object defaultValue, int? bufferSize, char delimeter = DefaultDelimeter)            
+        internal DbColumn(Type TDbMethodManifestMethodType, string name, object defaultValue, int? bufferSize, char delimeter = DefaultDelimeter)            
         {                        
             this.delimeter = delimeter;
             this.name = name;
             this.defaultValue = defaultValue;
-            if(TDbManifestMethodType != null)
+            if(TDbMethodManifestMethodType != null)
             {
-                CheckTDbManifestMethodType(TDbManifestMethodType);
-                this.TDbManifestMethodType = TDbManifestMethodType;
-                boundToTDbManifestMethod = true;
+                CheckTDbMethodManifestMethodType(TDbMethodManifestMethodType);
+                this.TDbMethodManifestMethodType = TDbMethodManifestMethodType;
+                boundToTDbMethodManifestMethod = true;
             }            
         }        
         
-        private void CheckTDbManifestMethodType(Type TDbManifestMethodType)
+        private void CheckTDbMethodManifestMethodType(Type TDbMethodManifestMethodType)
         {
-            if (!TDbManifestMethodType.IsSubclassOf(typeof(DbManifest)))
+            if (!TDbMethodManifestMethodType.IsSubclassOf(typeof(DbMethodManifest)))
             {
-                throw new ArgumentException($"{TDbManifestMethodType.Name} is not type of {typeof(DbManifest).Name}");
+                throw new ArgumentException($"{TDbMethodManifestMethodType.Name} is not type of {typeof(DbMethodManifest).Name}");
             }
         }
         public bool HasColumn(IDataRecord data)
@@ -77,20 +77,20 @@ namespace DBFacade.DataLayer.Models.Attributes
         {
             return data.GetOrdinal(name);
         }
-        private void CheckIfIsValidTDbManifestMethod(Type TDbManifestMethodType)
+        private void CheckIfIsValidTDbMethodManifestMethod(Type TDbMethodManifestMethodType)
         {
-            if (!TDbManifestMethodType.IsSubclassOf(typeof(DbManifest)))
+            if (!TDbMethodManifestMethodType.IsSubclassOf(typeof(DbMethodManifest)))
             {
-                throw new InvalidOperationException("type is not a TDbManifestMethod");
+                throw new InvalidOperationException("type is not a TDbMethodManifestMethod");
             }
         }
-        public Type GetTDbManifestMethodType()
+        public Type GetTDbMethodManifestMethodType()
         {
-            return TDbManifestMethodType;
+            return TDbMethodManifestMethodType;
         }
-        public virtual bool BoundToTDbManifestMethodType
+        public virtual bool BoundToTDbMethodManifestMethodType
         {
-            get { return boundToTDbManifestMethod; }
+            get { return boundToTDbMethodManifestMethod; }
         }
         private bool IsIgnorableValue(object value) => value.GetType() == typeof(IgnorableDbColumnValue);
         public object GetColumnValueCore(IDataRecord data, Type propType)

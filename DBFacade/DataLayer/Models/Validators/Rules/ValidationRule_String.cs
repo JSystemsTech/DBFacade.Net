@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Mail;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace DBFacade.DataLayer.Models.Validators.Rules
@@ -13,11 +14,6 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         Whitelist = 1,
         Blacklist = 2
     }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-    /// <seealso cref="Rules.IValidationRule{TDbParams}" />
     public abstract partial class ValidationRule<TDbParams>
         where TDbParams : IDbParamsModel
     {
@@ -30,26 +26,70 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
 
             internal RegexOptions RegexOptions { get; private set; }
 
-            public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr, bool isNullable = false) : this(selector, regexMatchStr, RegexOptions.IgnoreCase, isNullable) { }
-            
+            public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr, bool isNullable = false) : this(selector, regexMatchStr, RegexOptions.IgnoreCase, isNullable) { }            
             public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr, RegexOptions options, bool isNullable = false) : base(selector, isNullable)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
             }
-
             protected override bool ValidateRule()
             {
                 Match MatchRegex = Regex.Match(ParamsValue.ToString(), MatchStr, RegexOptions);
                 return MatchRegex.Success;
-            }
-           
+            }           
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return $"{propertyName} does not match the expression.";
             }
-
         }
+        public static IValidationRule<TDbParams> IsNDigitString(Expression<Func<TDbParams, string>> selector, int length, bool isNullable = false) => new IsNDigitStringRule(selector, length, isNullable);
+        private sealed class IsNDigitStringRule : MatchRule
+        {
+            private int Length { get; set; } 
+            private static string BuildRegexString(int length) => new StringBuilder("(?<!\\d)\\d{").Append(length).Append("}(?!\\d)").ToString();
+            public IsNDigitStringRule(Expression<Func<TDbParams, string>> selector, int length, bool isNullable = false) : base(selector, BuildRegexString(length), isNullable)
+            {
+                Length = length;
+            }
+            protected override bool ValidateRule()
+            {
+                return Length > 0 && ParamsValue.ToString().Length == Length && base.ValidateRule();
+            }
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                if(Length <= 0 || ParamsValue.ToString().Length != Length)
+                {
+                    return $"Length of {propertyName} is not equal to {Length}";
+                }
+                return $"{propertyName} is not a {Length} digit string";
+            }
+        }
+        public static IValidationRule<TDbParams> IsSocialSecurityNumber(Expression<Func<TDbParams, string>> selector, bool allowDashes = true, bool isNullable = false) => new IsSocialSecurityNumberRule(selector, allowDashes, isNullable);
+        private sealed class IsSocialSecurityNumberRule : ValidationRule<TDbParams>
+        {
+            private bool AllowDashes { get; set; }
+            private static string SSNMatch = "^(?!219-09-9999|078-05-1120)((?!666|000|9\\d{2})\\d{3}-?(?!00)\\d{2}-?(?!0{4})\\d{4})$";
+            private static string SSNMatchNoDashes = "^(?!219099999|078051120)((?!666|000|9\\d{2})\\d{3}?(?!00)\\d{2}?(?!0{4})\\d{4})$";
+            public IsSocialSecurityNumberRule(Expression<Func<TDbParams, string>> selector, bool allowDashes = true, bool isNullable = false) : base(selector, isNullable)
+            { AllowDashes = allowDashes; }
+            protected override bool ValidateRule()
+            {
+                Match SSNMatchNoDashesResult = Regex.Match(ParamsValue.ToString(), SSNMatchNoDashes, RegexOptions.IgnoreCase);
+                if (AllowDashes)
+                {
+                    Match SSNMatchResult = Regex.Match(ParamsValue.ToString(), SSNMatch, RegexOptions.IgnoreCase);
+                    return SSNMatchNoDashesResult.Success || SSNMatchResult.Success;
+                }
+                return SSNMatchNoDashesResult.Success;
+            }
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                
+                return $"{propertyName} is not a valid Social Security Number";
+            }
+        }
+
+
         public static IValidationRule<TDbParams> IsNullOrEmpty(Expression<Func<TDbParams, string>> selector) => new IsNullOrEmptyRule(selector);
 
         private class IsNullOrEmptyRule : ValidationRule<TDbParams>
@@ -96,7 +136,21 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} expecting value to not be null or white space";
 
         }
+        public static IValidationRule<TDbParams> LengthEquals(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) => new LengthEqualsRule(selector, limit, isNullable);
 
+        private class LengthEqualsRule : ValidationRule<TDbParams>
+        {
+
+            private int LimitValue { get; set; }
+
+            public LengthEqualsRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) : base(selector, isNullable) { LimitValue = limit; }
+
+            protected override bool ValidateRule() => ParamsValue.ToString().Length == LimitValue;
+
+            protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} expecting text length to  equal to {LimitValue}";
+
+
+        }
         public static IValidationRule<TDbParams> MinLength(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) => new MinLengthRule(selector, limit, isNullable);
 
         private class MinLengthRule : ValidationRule<TDbParams>

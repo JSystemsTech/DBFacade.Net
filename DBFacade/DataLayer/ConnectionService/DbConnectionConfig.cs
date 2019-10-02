@@ -28,19 +28,19 @@ namespace DBFacade.DataLayer.ConnectionService
         }
         public IDbConnection DbConnection => ResolveDbConnection();
 
-        public IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
-            where TDbManifest : DbManifest
+        public IDbResponse<TDbDataModel> ExecuteDbAction<TDbMethodManifest, TDbDataModel, TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
+            where TDbMethodManifest : DbMethodManifest
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where TDbManifestMethod : TDbManifest
-        => DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbManifest>.ExecuteDbAction<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+            where TDbMethodManifestMethod : TDbMethodManifest
+        => DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbMethodManifest>.ExecuteDbAction<TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters);
         
-        public async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
-            where TDbManifest : DbManifest
+        public async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbMethodManifest, TDbDataModel, TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
+            where TDbMethodManifest : DbMethodManifest
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where TDbManifestMethod : TDbManifest
-        => await DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbManifest>.ExecuteDbActionAsync<TDbDataModel, TDbParams, TDbManifestMethod>(method, parameters);
+            where TDbMethodManifestMethod : TDbMethodManifest
+        => await DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbMethodManifest>.ExecuteDbActionAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters);
         
         protected static IDbCommandText CreateCommandText(string commandText, string label) => new DbCommandText(commandText, label);
 

@@ -10,16 +10,16 @@ namespace DBFacade.DataLayer.ConnectionService
     {
         IDbConnection DbConnection { get; }
         
-        IDbResponse<TDbDataModel> ExecuteDbAction<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
-            where TDbManifest : DbManifest
+        IDbResponse<TDbDataModel> ExecuteDbAction<TDbMethodManifest, TDbDataModel, TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
+            where TDbMethodManifest : DbMethodManifest
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where TDbManifestMethod : TDbManifest;
+            where TDbMethodManifestMethod : TDbMethodManifest;
         
-        Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbManifest, TDbDataModel, TDbParams, TDbManifestMethod>(TDbManifestMethod method, TDbParams parameters)
-            where TDbManifest : DbManifest
+        Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbMethodManifest, TDbDataModel, TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
+            where TDbMethodManifest : DbMethodManifest
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
-            where TDbManifestMethod : TDbManifest;
+            where TDbMethodManifestMethod : TDbMethodManifest;
     }
 }

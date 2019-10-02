@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace DBFacade.DataLayer.Manifest
 {
 
-    public abstract class DbManifest : SafeDisposableBase, IDbManifestMethod
+    public abstract class DbMethodManifest : SafeDisposableBase, IDbManifestMethod
     {
         private IDbCommandConfig config { get; set; }
         public IDbCommandConfig Config { get => config ?? BuildConfig(); }

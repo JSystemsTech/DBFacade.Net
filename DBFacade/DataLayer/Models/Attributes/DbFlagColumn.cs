@@ -26,10 +26,10 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="DbFlagColumn"/> class.
         /// </summary>
-        /// <param name="TDbManifestMethodType">Type of the database method.</param>
+        /// <param name="TDbMethodManifestMethodType">Type of the database method.</param>
         /// <param name="name">The name.</param>
         /// <param name="trueValue">The true value.</param>
-        public DbFlagColumn(Type TDbManifestMethodType, string name, object trueValue) : base(TDbManifestMethodType, name)
+        public DbFlagColumn(Type TDbMethodManifestMethodType, string name, object trueValue) : base(TDbMethodManifestMethodType, name)
         {
             initColumn(trueValue);
         }

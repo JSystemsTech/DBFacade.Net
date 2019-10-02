@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.Models
 {
-    internal class DbResponse<TDbManifestMethod, TDbDataModel> : List<TDbDataModel>, IDbResponse<TDbDataModel>
+    internal class DbResponse<TDbMethodManifestMethod, TDbDataModel> : List<TDbDataModel>, IDbResponse<TDbDataModel>
         where TDbDataModel : DbDataModel
-        where TDbManifestMethod : IDbManifestMethod
+        where TDbMethodManifestMethod : IDbManifestMethod
     {        
         public object ReturnValue { get; private set; }
         public bool IsNull { get; private set; }

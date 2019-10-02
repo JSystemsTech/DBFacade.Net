@@ -9,7 +9,7 @@ using System;
 
 namespace DbFacadeUnitTests.TestFacade
 {
-    public abstract class UnitTestMethods : DbManifest
+    public abstract class UnitTestMethods : DbMethodManifest
     {
         public abstract class UnitTestMethod<TDbParams> : UnitTestMethods
             where TDbParams : IDbParamsModel

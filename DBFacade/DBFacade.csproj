@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="DataLayer\CommandConfig\DbCommandConfig.cs" />
     <Compile Include="DataLayer\CommandConfig\IDbCommandConfig.cs" />
+    <Compile Include="DataLayer\ConnectionService\DbConnectionConfigManager.cs" />
     <Compile Include="Factories\DbCommandParametersConfigFactory.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\IDbCommandConfigParams.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
@@ -116,7 +117,7 @@
     <Compile Include="Facade\DbConnectionManager.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParameterConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbCommandText.cs" />
-    <Compile Include="DataLayer\Manifest\DbManifest.cs" />
+    <Compile Include="DataLayer\Manifest\DbMethodManifest.cs" />
     <Compile Include="DataLayer\Models\Attributes\DbColumn.cs" />
     <Compile Include="DataLayer\Models\Attributes\NestedModel.cs" />
     <Compile Include="DataLayer\Models\DbColumnConversion.cs" />
