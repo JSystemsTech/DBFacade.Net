@@ -260,6 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 
-#Dev Branch Ignored Files
+# Branch Ignored Files
 _sections
 _site
