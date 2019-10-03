@@ -10,7 +10,7 @@ namespace DbFacadeUnitTests.TestFacade
     {
         public UnitTestDomainFacade()
         {
-            UnitTestConnection connection = new UnitTestConnection();
+            UnitTestConnection connection = new UnitTestConnection(1);
             InitConnectionConfig(connection);
         }
         public IDbResponse<FetchData> TestFetchData()
