@@ -3,10 +3,6 @@ using DBFacade.Facade;
 using DBFacade.Facade.Core;
 using DbFacadeUnitTests.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.TestFacade
 {

@@ -1,5 +1,4 @@
 ﻿using DBFacade.DataLayer.ConnectionService;
-using System;
 
 namespace DbFacadeUnitTests.TestFacade
 {

@@ -3,8 +3,6 @@ using DBFacade.DataLayer.CommandConfig.Parameters;
 using DBFacade.DataLayer.ConnectionService;
 using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.Models.Validators;
-using DBFacade.Factories;
-using DBFacade.Services;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;

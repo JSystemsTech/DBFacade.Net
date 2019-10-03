@@ -1,8 +1,6 @@
 ﻿using DBFacade.DataLayer.Models;
 using DBFacade.Facade;
 using DbFacadeUnitTests.Models;
-using System;
-using System.Collections.Generic;
 
 namespace DbFacadeUnitTests.TestFacade
 {
