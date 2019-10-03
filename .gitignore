@@ -261,16 +261,5 @@ __pycache__/
 *.pyc
 
 #Dev Branch Ignored Files
-[branch "Dev"]
-/DomainLayerSandbox1/*
-/Facade Sabdbox Run Environment/*
 _sections
 _site
-[branch "master"]
-/DomainLayerSandbox1/*
-/Facade Sabdbox Run Environment/*
-_sections
-_site
-[branch "gh-pages"]
-/DomainLayerSandbox1/*
-/Facade Sabdbox Run Environment/*
