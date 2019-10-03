@@ -5,6 +5,10 @@ namespace DbFacadeUnitTests.TestFacade
 {
     internal class UnitTestConnection : SQLConnectionConfig<UnitTestConnection>
     {
+        public UnitTestConnection(int test)
+        {
+
+        }
         protected override string GetDbConnectionString() => "MyUnitTestConnectionString";
 
         protected override string GetDbConnectionProvider() => "MyUnitTestConnectionProvider";

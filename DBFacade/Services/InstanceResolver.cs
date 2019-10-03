@@ -21,7 +21,14 @@ namespace DBFacade.Services
     {
         C IInstanceResolver<T>.Get<C>()
         {
-            return (C)GetOrAdd(typeof(C), GenericInstance<C>.GetInstance());
+            Type type = typeof(C);
+            if (!ContainsKey(type))
+            {
+                GetOrAdd(type, GenericInstance<C>.GetInstance());
+            }
+            T value;
+            TryGetValue(type, out value);
+            return (C)value;
         }
         void IInstanceResolver<T>.Add<C>(C value)
         {
@@ -29,7 +36,17 @@ namespace DBFacade.Services
         }
         async Task<C> IInstanceResolver<T>.GetAsync<C>()
         {
-            return await Task.Run(async()=> (C)GetOrAdd(typeof(C), await GenericInstance<C>.GetInstanceAsync()));
+            Type type = typeof(C);
+            return await Task.Run(async() =>{
+                
+                if (!ContainsKey(type))
+                {
+                    GetOrAdd(type, await GenericInstance<C>.GetInstanceAsync());
+                }
+                T value;
+                TryGetValue(type, out value);
+                return (C)value;
+            });
         }
         async Task IInstanceResolver<T>.AddAsync<C>(C value)
         {
