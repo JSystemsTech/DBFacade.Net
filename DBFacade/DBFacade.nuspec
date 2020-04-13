@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Beta release ($version$)</releaseNotes>
-    <copyright>Copyright 2019</copyright>
+    <copyright>Copyright 2020</copyright>
     <tags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net</tags>
   </metadata>
 </package>
