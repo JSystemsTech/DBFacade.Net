@@ -14,56 +14,61 @@ namespace DBFacade.DataLayer.Models.Attributes
         CurrentCulture,
         DefaultThreadCurrentUICulture
     }
+
     public sealed class DbDateStringColumn : DbColumn
     {
-        private static Dictionary<CultureInfoType, CultureInfo> CultureInfoMap = new Dictionary<CultureInfoType, CultureInfo>()
-        {
-            {CultureInfoType.InvariantCulture, CultureInfo.InvariantCulture},
-            {CultureInfoType.DefaultThreadCurrentCulture, CultureInfo.DefaultThreadCurrentCulture},
-            {CultureInfoType.InstalledUICulture, CultureInfo.InstalledUICulture},
-            {CultureInfoType.CurrentUICulture, CultureInfo.CurrentUICulture},
-            {CultureInfoType.CurrentCulture, CultureInfo.CurrentCulture},
-            {CultureInfoType.DefaultThreadCurrentUICulture, CultureInfo.DefaultThreadCurrentUICulture}
-        };
-        private CultureInfo CultureInfo;
-        private string DateFormat;
-        private DateTimeStyles DateTimeStyles;
+        private static readonly Dictionary<CultureInfoType, CultureInfo> CultureInfoMap =
+            new Dictionary<CultureInfoType, CultureInfo>
+            {
+                {CultureInfoType.InvariantCulture, CultureInfo.InvariantCulture},
+                {CultureInfoType.DefaultThreadCurrentCulture, CultureInfo.DefaultThreadCurrentCulture},
+                {CultureInfoType.InstalledUICulture, CultureInfo.InstalledUICulture},
+                {CultureInfoType.CurrentUICulture, CultureInfo.CurrentUICulture},
+                {CultureInfoType.CurrentCulture, CultureInfo.CurrentCulture},
+                {CultureInfoType.DefaultThreadCurrentUICulture, CultureInfo.DefaultThreadCurrentUICulture}
+            };
 
-        public DbDateStringColumn(string name, string dateFormat, CultureInfoType cultureInfo = CultureInfoType.InvariantCulture, DateTimeStyles dateTimeStyles = DateTimeStyles.None) : this(null, name, dateFormat, cultureInfo, dateTimeStyles) { }
-        public DbDateStringColumn(Type TDbMethodManifestMethodType, string name, string dateFormat, CultureInfoType cultureInfo = CultureInfoType.InvariantCulture, DateTimeStyles dateTimeStyles = DateTimeStyles.None) : base(TDbMethodManifestMethodType, name)
+        private readonly CultureInfo CultureInfo;
+        private readonly string DateFormat;
+        private readonly DateTimeStyles DateTimeStyles;
+
+        public DbDateStringColumn(string name, string dateFormat,
+            CultureInfoType cultureInfo = CultureInfoType.InvariantCulture,
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None) : this(null, name, dateFormat, cultureInfo,
+            dateTimeStyles)
+        {
+        }
+
+        public DbDateStringColumn(Type TDbMethodManifestMethodType, string name, string dateFormat,
+            CultureInfoType cultureInfo = CultureInfoType.InvariantCulture,
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None) : base(TDbMethodManifestMethodType, name)
         {
             DateFormat = dateFormat;
             CultureInfo = CultureInfoMap[cultureInfo];
             DateTimeStyles = dateTimeStyles;
-        }        
-        
-        protected override object GetColumnValue(IDataRecord data, Type propType)
-        {           
+        }
+
+        protected override object GetColumnValue(IDataRecord data, Type propType = null)
+        {
             if (propType.Equals(typeof(DateTime)))
-            {
                 return GetDateTimeValue(data);
-            }
-            else if (propType.Equals(typeof(string)))
-            {
-                return GetStringValue(data);
-            }
+            if (propType.Equals(typeof(string))) return GetStringValue(data);
             return null;
         }
+
         private string GetStringValue(IDataRecord data)
         {
-            DateTime? value = GetValue<DateTime>(data);
-            return value != null ? ((DateTime)value).ToString(DateFormat) : null;
+            var value = GetValue<DateTime?>(data);
+            return value != null ? ((DateTime) value).ToString(DateFormat) : null;
         }
+
         private DateTime? GetDateTimeValue(IDataRecord data)
         {
-            string valueStr = GetValue<string>(data);
-            DateTime outValue = new DateTime();
+            var valueStr = GetValue<string>(data);
+            var outValue = new DateTime();
             var hasDate = !string.IsNullOrWhiteSpace(valueStr)
-                && DateTime.TryParseExact(valueStr, DateFormat, CultureInfo, DateTimeStyles, out outValue);
-            if (hasDate)
-            {
-                return outValue;
-            }
+                          && DateTime.TryParseExact(valueStr, DateFormat, CultureInfo, DateTimeStyles, out outValue);
+            if (hasDate) return outValue;
             return null;
         }
     }

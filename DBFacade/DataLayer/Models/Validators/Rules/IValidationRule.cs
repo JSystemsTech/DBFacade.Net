@@ -3,22 +3,22 @@
 namespace DBFacade.DataLayer.Models.Validators.Rules
 {
     /// <summary>
-    /// 
     /// </summary>
-    /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-    public interface IValidationRule<DbParams> where DbParams : IDbParamsModel
+    /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
+    public interface IValidationRule<TDbParams> where TDbParams : IDbParamsModel
     {
         /// <summary>
-        /// Validates the specified parameters model.
+        ///     Validates the specified parameters model.
         /// </summary>
         /// <param name="paramsModel">The parameters model.</param>
         /// <returns></returns>
-        IValidationRuleResult Validate(DbParams paramsModel);
+        IValidationRuleResult Validate(TDbParams paramsModel);
+
         /// <summary>
-        /// Validates the asynchronous.
+        ///     Validates the asynchronous.
         /// </summary>
         /// <param name="paramsModel">The parameters model.</param>
         /// <returns></returns>
-        Task<IValidationRuleResult> ValidateAsync(DbParams paramsModel);
+        Task<IValidationRuleResult> ValidateAsync(TDbParams paramsModel);
     }
 }

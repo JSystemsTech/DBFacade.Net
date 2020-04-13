@@ -1,8 +1,8 @@
-﻿using DBFacade.DataLayer.ConnectionService;
+﻿using System.Data.Common;
+using System.Threading.Tasks;
+using DBFacade.DataLayer.ConnectionService;
 using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.Models.Validators;
-using System.Data.Common;
-using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.CommandConfig
 {
@@ -11,17 +11,22 @@ namespace DBFacade.DataLayer.CommandConfig
         IValidationResult Validate(IDbParamsModel paramsModel);
         Task<IValidationResult> ValidateAsync(IDbParamsModel paramsModel);
     }
-    internal interface IDbCommandConfigInternal: IDbCommandConfig
+
+    internal interface IDbCommandConfigInternal : IDbCommandConfig
     {
-        TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbMethodManifestMethodParams, TDbConnection dbConnection)
+        IDbConnectionConfigInternal DbConnectionConfig { get; }
+        IDbCommandText DbCommandText { get; }
+        bool IsTransaction { get; }
+
+        TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbMethodManifestMethodParams,
+            TDbConnection dbConnection)
             where TDbConnection : DbConnection
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter;
+
         object GetReturnValue<TDbCommand>(TDbCommand dbCommand)
             where TDbCommand : DbCommand;
-        IDbConnectionConfigInternal DbConnectionConfig { get; }
-        Task<IDbConnectionConfigInternal> GetDbConnectionConfigAsync();        
-        IDbCommandText DbCommandText { get; }        
-        bool IsTransaction { get; }
+
+        Task<IDbConnectionConfigInternal> GetDbConnectionConfigAsync();
     }
 }

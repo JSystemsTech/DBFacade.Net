@@ -1,5 +1,5 @@
-﻿using DBFacade.DataLayer.Models;
-using System.Collections;
+﻿using System.Collections;
+using DBFacade.DataLayer.Models;
 
 namespace DBFacade.DataLayer.CommandConfig.Parameters
 {

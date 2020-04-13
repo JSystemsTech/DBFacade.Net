@@ -1,15 +1,18 @@
-﻿using DBFacade.DataLayer.CommandConfig.Parameters;
-using DBFacade.DataLayer.Models;
-using System;
+﻿using System;
 using System.Web.UI.WebControls;
+using DBFacade.DataLayer.CommandConfig.Parameters;
+using DBFacade.DataLayer.Models;
 
 namespace DBFacade.Factories
 {
     public delegate T DelegateHandler<TDbParams, T>(TDbParams value) where TDbParams : IDbParamsModel;
+
     public interface IDbCommandParameterConfigFactory<TDbParams> where TDbParams : IDbParamsModel
-    {        
+    {
         #region Non Nullable
+
         #region Lamda
+
         IDbCommandParameterConfig<TDbParams> Byte(DelegateHandler<TDbParams, byte> returnFunction);
         IDbCommandParameterConfig<TDbParams> SByte(DelegateHandler<TDbParams, sbyte> returnFunction);
         IDbCommandParameterConfig<TDbParams> Int16(DelegateHandler<TDbParams, short> returnFunction);
@@ -30,8 +33,11 @@ namespace DBFacade.Factories
         IDbCommandParameterConfig<TDbParams> DateTimeOffset(DelegateHandler<TDbParams, DateTimeOffset> returnFunction);
         IDbCommandParameterConfig<TDbParams> Binary(DelegateHandler<TDbParams, byte[]> returnFunction);
         IDbCommandParameterConfig<TDbParams> Xml(DelegateHandler<TDbParams, Xml> returnFunction);
+
         #endregion
+
         #region Hard Coded
+
         IDbCommandParameterConfig<TDbParams> Byte(byte value);
         IDbCommandParameterConfig<TDbParams> SByte(sbyte value);
         IDbCommandParameterConfig<TDbParams> Int16(short value);
@@ -58,14 +64,24 @@ namespace DBFacade.Factories
         IDbCommandParameterConfig<TDbParams> Xml(Xml value);
 
         #endregion
+
         #endregion
 
         #region Nullable
+
         #region Lamda
-        IDbCommandParameterConfig<TDbParams> String(DelegateHandler<TDbParams, string> returnFunction, bool isNullable = true);
-        IDbCommandParameterConfig<TDbParams> CharArray(DelegateHandler<TDbParams, char[]> returnFunction, bool isNullable = true);
-        IDbCommandParameterConfig<TDbParams> AnsiStringFixedLength(DelegateHandler<TDbParams, string> returnFunction, bool isNullable = true);
-        IDbCommandParameterConfig<TDbParams> AnsiString(DelegateHandler<TDbParams, string> returnFunction, bool isNullable = true);
+
+        IDbCommandParameterConfig<TDbParams> String(DelegateHandler<TDbParams, string> returnFunction,
+            bool isNullable = true);
+
+        IDbCommandParameterConfig<TDbParams> CharArray(DelegateHandler<TDbParams, char[]> returnFunction,
+            bool isNullable = true);
+
+        IDbCommandParameterConfig<TDbParams> AnsiStringFixedLength(DelegateHandler<TDbParams, string> returnFunction,
+            bool isNullable = true);
+
+        IDbCommandParameterConfig<TDbParams> AnsiString(DelegateHandler<TDbParams, string> returnFunction,
+            bool isNullable = true);
 
 
         IDbCommandParameterConfig<TDbParams> Byte(DelegateHandler<TDbParams, byte?> returnFunction);
@@ -86,8 +102,11 @@ namespace DBFacade.Factories
         IDbCommandParameterConfig<TDbParams> DateTime(DelegateHandler<TDbParams, DateTime?> returnFunction);
         IDbCommandParameterConfig<TDbParams> DateTime2(DelegateHandler<TDbParams, DateTime?> returnFunction);
         IDbCommandParameterConfig<TDbParams> DateTimeOffset(DelegateHandler<TDbParams, DateTimeOffset?> returnFunction);
+
         #endregion
+
         #region Hard Coded
+
         IDbCommandParameterConfig<TDbParams> Byte(byte? value);
         IDbCommandParameterConfig<TDbParams> SByte(sbyte? value);
         IDbCommandParameterConfig<TDbParams> Int16(short? value);
@@ -104,7 +123,9 @@ namespace DBFacade.Factories
         IDbCommandParameterConfig<TDbParams> Guid(Guid? value);
         IDbCommandParameterConfig<TDbParams> DateTime(DateTime? value);
         IDbCommandParameterConfig<TDbParams> DateTimeOffset(DateTimeOffset? value);
+
         #endregion
+
         #endregion
     }
 }

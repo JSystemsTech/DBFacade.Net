@@ -8,9 +8,9 @@ namespace DBFacade.DataLayer.Models
         void RunAsTest(object returnValue);
         void RunAsTest<T>(IEnumerable<T> responseData, object returnValue);
         void RunAsTest<T>(T responseData, object returnValue);
-        
     }
-    interface IInternalDbParamsModel : IDbParamsModel
+
+    internal interface IInternalDbParamsModel : IDbParamsModel
     {
         MethodRunMode RunMode { get; }
         DbDataReader ResponseData { get; }
