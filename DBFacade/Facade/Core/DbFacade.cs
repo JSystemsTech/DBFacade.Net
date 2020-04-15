@@ -43,6 +43,17 @@ namespace DBFacade.Facade.Core
                 GetMethod<TDbMethodManifestMethod>(), DEFAULT_PARAMETERS);
         }
 
+        internal sealed override IDbResponse ExecuteProcess<TDbParams,
+            TDbMethodManifestMethod>(TDbParams parameters)
+        {
+            return ExecuteProcess<DbDataModel, TDbParams, TDbMethodManifestMethod>(
+                GetMethod<TDbMethodManifestMethod>(), parameters);
+        }
+        internal sealed override IDbResponse ExecuteProcess<TDbMethodManifestMethod>()
+        {
+            return ExecuteProcess<DbDataModel, IDbParamsModel,TDbMethodManifestMethod>(
+                GetMethod<TDbMethodManifestMethod>(),DEFAULT_PARAMETERS);
+        }
         internal sealed override IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams,
             TDbMethodManifestMethod>(TDbParams parameters)
         {

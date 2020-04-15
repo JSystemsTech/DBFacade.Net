@@ -45,7 +45,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         [TestMethod]
         public void SuccessfullyFetchesNestedData()
         {
-            IDbResponse<FetchDataWithNested> data = DomainFacade.TestFetchDataWithNsted();
+            IDbResponse<FetchDataWithNested> data = DomainFacade.TestFetchDataWithNested();
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Count());
             FetchDataWithNested model = data.First();

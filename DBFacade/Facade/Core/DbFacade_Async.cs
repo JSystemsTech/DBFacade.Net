@@ -15,13 +15,18 @@ namespace DBFacade.Facade.Core
         {
             await DbConnectionConfigManager.AddAsync(value);
         }
+        private async Task<TDbMethodManifestMethod> GetMethodAsync<TDbMethodManifestMethod>()
+            where TDbMethodManifestMethod : TDbMethodManifest
+        {
+            return await Task<TDbMethodManifestMethod>.Factory.StartNew(() => TDbManifestMethodsCache.Get<TDbMethodManifestMethod>());
+        }
 
         internal async Task<IDbResponse<TDbDataModel>> ExecuteProcessAsync<TDbDataModel, TDbMethodManifestMethod>()
             where TDbDataModel : DbDataModel
             where TDbMethodManifestMethod : TDbMethodManifest
         {
             return await ExecuteProcessAsync<TDbDataModel, IDbParamsModel, TDbMethodManifestMethod>(
-                GetMethod<TDbMethodManifestMethod>(), DEFAULT_PARAMETERS);
+                await GetMethodAsync<TDbMethodManifestMethod>(), DEFAULT_PARAMETERS);
         }
 
         internal async Task<IDbResponse<TDbDataModel>> ExecuteProcessAsync<TDbDataModel, TDbParams,
@@ -31,8 +36,24 @@ namespace DBFacade.Facade.Core
             where TDbMethodManifestMethod : TDbMethodManifest
         {
             return await ExecuteProcessAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod>(
-                GetMethod<TDbMethodManifestMethod>(), parameters);
+                await GetMethodAsync<TDbMethodManifestMethod>(), parameters);
         }
+        internal async Task<IDbResponse> ExecuteProcessAsync<TDbMethodManifestMethod>()
+            where TDbMethodManifestMethod : TDbMethodManifest
+        {
+            return await ExecuteProcessAsync<DbDataModel, IDbParamsModel, TDbMethodManifestMethod>(
+                await GetMethodAsync<TDbMethodManifestMethod>(), DEFAULT_PARAMETERS);
+        }
+
+        internal async Task<IDbResponse> ExecuteProcessAsync<TDbParams,
+            TDbMethodManifestMethod>(TDbParams parameters)
+            where TDbParams : IDbParamsModel
+            where TDbMethodManifestMethod : TDbMethodManifest
+        {
+            return await ExecuteProcessAsync<DbDataModel, TDbParams, TDbMethodManifestMethod>(
+                await GetMethodAsync<TDbMethodManifestMethod>(), parameters);
+        }
+
 
         internal async Task<IDbResponse<TDbDataModel>> ExecuteProcessAsync<TDbDataModel, TDbParams,
             TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)

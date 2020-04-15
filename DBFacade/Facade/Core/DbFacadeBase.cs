@@ -6,6 +6,12 @@ namespace DBFacade.Facade.Core
     public abstract class DbFacadeBase<TDbMethodManifest> : SafeDisposableBase
         where TDbMethodManifest : DbMethodManifest
     {
+        internal abstract IDbResponse ExecuteProcess<TDbMethodManifestMethod>()
+            where TDbMethodManifestMethod : TDbMethodManifest;
+        internal abstract IDbResponse ExecuteProcess<TDbParams, TDbMethodManifestMethod>(
+            TDbParams parameters)
+            where TDbParams : IDbParamsModel
+            where TDbMethodManifestMethod : TDbMethodManifest;
         internal abstract IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbMethodManifestMethod>()
             where TDbDataModel : DbDataModel
             where TDbMethodManifestMethod : TDbMethodManifest;

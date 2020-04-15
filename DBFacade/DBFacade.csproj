@@ -108,6 +108,8 @@
     <Compile Include="DataLayer\CommandConfig\DbCommandConfig.cs" />
     <Compile Include="DataLayer\CommandConfig\IDbCommandConfig.cs" />
     <Compile Include="DataLayer\ConnectionService\DbConnectionConfigManager.cs" />
+    <Compile Include="Facade\Core\AsyncMethodExecutionHandler.cs" />
+    <Compile Include="Facade\Core\MethodExecutionHandler.cs" />
     <Compile Include="Factories\DbCommandParametersConfigFactory.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\IDbCommandConfigParams.cs" />
     <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
@@ -171,6 +173,9 @@
     <None Include="DbFacade.0.3.7212.24442.nupkg" />
     <None Include="DbFacade.0.4.7214.35817.nupkg" />
     <None Include="DbFacade.0.5.7214.42869.nupkg" />
+    <None Include="DbFacade.0.6.7408.22752.nupkg" />
+    <None Include="DbFacade.0.6.7408.26153.nupkg" />
+    <None Include="DbFacade.0.6.7408.26303.nupkg" />
     <None Include="DbFacade.1.0.0.42822.nupkg" />
     <None Include="DBFacade.nuspec" />
     <None Include="packages.config" />
