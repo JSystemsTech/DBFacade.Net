@@ -82,7 +82,7 @@ namespace DBFacade.DataLayer.Models
         TDbDataModel First();
 
         /// <summary>
-        ///     Existses the specified match.
+        ///     Exists the specified match.
         /// </summary>
         /// <param name="match">The match.</param>
         /// <returns></returns>
@@ -136,7 +136,7 @@ namespace DBFacade.DataLayer.Models
         int FindLastIndex(int startIndex, int count, Predicate<TDbDataModel> match);
 
         /// <summary>
-        ///     Fors the each.
+        ///     For each.
         /// </summary>
         /// <param name="action">The action.</param>
         void ForEach(Action<TDbDataModel> action);

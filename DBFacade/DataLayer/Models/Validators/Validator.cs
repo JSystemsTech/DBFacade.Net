@@ -56,7 +56,7 @@ namespace DBFacade.DataLayer.Models.Validators
     /// <summary>
     /// </summary>
     /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
-    /// <seealso cref="System.Collections.Generic.List{IValidationRule{TDbParams}}" />
+    /// <seealso cref="System.Collections.Generic.List{IValidationRule&lt;TDbParams&gt;}" />
     public class Validator<TDbParams> : List<IValidationRule<TDbParams>>
         where TDbParams : IDbParamsModel
     {

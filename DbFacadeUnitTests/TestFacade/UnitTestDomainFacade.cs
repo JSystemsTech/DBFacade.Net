@@ -12,6 +12,10 @@ namespace DbFacadeUnitTests.TestFacade
         {
             get=> BuildFetch<FetchData, UnitTestMethods.TestFetchData>();
         }
+        protected IFetch<FetchDataWithBadDbColumn> TestFetchDataWithBadDbColumnHandler
+        {
+            get => BuildFetch<FetchDataWithBadDbColumn, UnitTestMethods.TestFetchData>();
+        }
         protected IFetch<FetchDataWithNested> TestFetchDataWithNestedHandler
         {
             get => BuildFetch<FetchDataWithNested, UnitTestMethods.TestFetchData>();
@@ -32,6 +36,8 @@ namespace DbFacadeUnitTests.TestFacade
         }
         public IDbResponse<FetchData> TestFetchData()
             => TestFetchDataHandler.Mock(new ResponseData { MyString = "test string" });
+        public IDbResponse<FetchDataWithBadDbColumn> TestFetchDataWithBadDbColumn()
+            => TestFetchDataWithBadDbColumnHandler.Mock(new ResponseData { MyString = "test string" });
         public IDbResponse<FetchDataWithNested> TestFetchDataWithNested()
             => TestFetchDataWithNestedHandler.Mock(new ResponseData { MyString = "test string" });
 

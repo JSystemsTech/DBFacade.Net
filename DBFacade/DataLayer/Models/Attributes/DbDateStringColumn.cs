@@ -28,9 +28,9 @@ namespace DBFacade.DataLayer.Models.Attributes
                 {CultureInfoType.DefaultThreadCurrentUICulture, CultureInfo.DefaultThreadCurrentUICulture}
             };
 
-        private readonly CultureInfo CultureInfo;
-        private readonly string DateFormat;
-        private readonly DateTimeStyles DateTimeStyles;
+        private readonly CultureInfo _cultureInfo;
+        private readonly string _dateFormat;
+        private readonly DateTimeStyles _dateTimeStyles;
 
         public DbDateStringColumn(string name, string dateFormat,
             CultureInfoType cultureInfo = CultureInfoType.InvariantCulture,
@@ -39,13 +39,13 @@ namespace DBFacade.DataLayer.Models.Attributes
         {
         }
 
-        public DbDateStringColumn(Type TDbMethodManifestMethodType, string name, string dateFormat,
+        public DbDateStringColumn(Type tDbMethodManifestMethodType, string name, string dateFormat,
             CultureInfoType cultureInfo = CultureInfoType.InvariantCulture,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None) : base(TDbMethodManifestMethodType, name)
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None) : base(tDbMethodManifestMethodType, name)
         {
-            DateFormat = dateFormat;
-            CultureInfo = CultureInfoMap[cultureInfo];
-            DateTimeStyles = dateTimeStyles;
+            _dateFormat = dateFormat;
+            _cultureInfo = CultureInfoMap[cultureInfo];
+            _dateTimeStyles = dateTimeStyles;
         }
 
         protected override object GetColumnValue(IDataRecord data, Type propType = null)
@@ -59,7 +59,11 @@ namespace DBFacade.DataLayer.Models.Attributes
         private string GetStringValue(IDataRecord data)
         {
             var value = GetValue<DateTime?>(data);
-            return value != null ? ((DateTime) value).ToString(DateFormat) : null;
+            if (value is DateTime convertedValue)
+            {
+                return convertedValue.ToString(_dateFormat);
+            }
+            return null;
         }
 
         private DateTime? GetDateTimeValue(IDataRecord data)
@@ -67,7 +71,7 @@ namespace DBFacade.DataLayer.Models.Attributes
             var valueStr = GetValue<string>(data);
             var outValue = new DateTime();
             var hasDate = !string.IsNullOrWhiteSpace(valueStr)
-                          && DateTime.TryParseExact(valueStr, DateFormat, CultureInfo, DateTimeStyles, out outValue);
+                          && DateTime.TryParseExact(valueStr, _dateFormat, _cultureInfo, _dateTimeStyles, out outValue);
             if (hasDate) return outValue;
             return null;
         }

@@ -8,7 +8,7 @@ namespace DBFacade.DataLayer.Models
 {
     public sealed class DbColumnConversion
     {
-        private const char DefaultDelimeter = ',';
+        private const char DefaultDelimiter = ',';
 
 
         private static readonly Dictionary<Type, Converter> Converters = new Dictionary<Type, Converter>
@@ -49,8 +49,8 @@ namespace DBFacade.DataLayer.Models
             {typeof(ulong?), AsULong}
         };
 
-        private static readonly Dictionary<Type, IEnumerableConverter> IEnumerableConverters =
-            new Dictionary<Type, IEnumerableConverter>
+        private static readonly Dictionary<Type, EnumerableConverter> EnumerableConverters =
+            new Dictionary<Type, EnumerableConverter>
             {
                 {typeof(IEnumerable<string>), AsIEnumerableString},
                 {typeof(IEnumerable<short>), AsIEnumerableShort},
@@ -166,105 +166,105 @@ namespace DBFacade.DataLayer.Models
         }
 
         private static IEnumerable<string> ToIEnumerableString(IDataRecord data, int columnOrdinal,
-            char delimeter = DefaultDelimeter)
+            char delimiter = DefaultDelimiter)
         {
-            return AsString(data, columnOrdinal).ToString().Split(delimeter).ToArray();
+            return AsString(data, columnOrdinal).ToString().Split(delimiter).ToArray();
         }
 
         private static object AsIEnumerableString(IDataRecord data, int columnOrdinal,
-            char delimeter = DefaultDelimeter)
+            char delimiter = DefaultDelimiter)
         {
-            return ToIEnumerableString(data, columnOrdinal, delimeter);
+            return ToIEnumerableString(data, columnOrdinal, delimiter);
         }
 
-        private static object AsIEnumerableShort(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter)
+        private static object AsIEnumerableShort(IDataRecord data, int columnOrdinal, char delimiter = DefaultDelimiter)
         {
-            return ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => short.Parse(value.Trim()))
+            return ToIEnumerableString(data, columnOrdinal, delimiter).Select(value => short.Parse(value.Trim()))
                 .ToArray();
         }
 
-        private static object AsIEnumerableInt(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter)
+        private static object AsIEnumerableInt(IDataRecord data, int columnOrdinal, char delimiter = DefaultDelimiter)
         {
-            return ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => int.Parse(value.Trim()))
+            return ToIEnumerableString(data, columnOrdinal, delimiter).Select(value => int.Parse(value.Trim()))
                 .ToArray();
         }
 
-        private static object AsIEnumerableLong(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter)
+        private static object AsIEnumerableLong(IDataRecord data, int columnOrdinal, char delimiter = DefaultDelimiter)
         {
-            return ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => long.Parse(value.Trim()))
+            return ToIEnumerableString(data, columnOrdinal, delimiter).Select(value => long.Parse(value.Trim()))
                 .ToArray();
         }
 
-        private static object AsIEnumerableFloat(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter)
+        private static object AsIEnumerableFloat(IDataRecord data, int columnOrdinal, char delimiter = DefaultDelimiter)
         {
-            return ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => float.Parse(value.Trim()))
+            return ToIEnumerableString(data, columnOrdinal, delimiter).Select(value => float.Parse(value.Trim()))
                 .ToArray();
         }
 
         private static object AsIEnumerableDouble(IDataRecord data, int columnOrdinal,
-            char delimeter = DefaultDelimeter)
+            char delimiter = DefaultDelimiter)
         {
-            return ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => double.Parse(value.Trim()))
+            return ToIEnumerableString(data, columnOrdinal, delimiter).Select(value => double.Parse(value.Trim()))
                 .ToArray();
         }
 
         private static object AsIEnumerableDecimal(IDataRecord data, int columnOrdinal,
-            char delimeter = DefaultDelimeter)
+            char delimiter = DefaultDelimiter)
         {
-            return ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => decimal.Parse(value.Trim()))
+            return ToIEnumerableString(data, columnOrdinal, delimiter).Select(value => decimal.Parse(value.Trim()))
                 .ToArray();
         }
 
-        private static object AsIEnumerableGuid(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter)
+        private static object AsIEnumerableGuid(IDataRecord data, int columnOrdinal, char delimiter = DefaultDelimiter)
         {
-            return ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => Guid.Parse(value.Trim()))
+            return ToIEnumerableString(data, columnOrdinal, delimiter).Select(value => Guid.Parse(value.Trim()))
                 .ToArray();
         }
 
-        private static object AsByteArray(IDataRecord data, int columnOrdinal, int BufferSize)
+        private static object AsByteArray(IDataRecord data, int columnOrdinal, int bufferSize)
         {
-            var output = new byte[BufferSize];
+            var output = new byte[bufferSize];
             long startIndex = 0;
 
-            var retval = data.GetBytes(columnOrdinal, startIndex, output, 0, BufferSize);
-            while (retval == BufferSize)
+            var retVal = data.GetBytes(columnOrdinal, startIndex, output, 0, bufferSize);
+            while (retVal == bufferSize)
             {
-                startIndex += BufferSize;
-                retval = data.GetBytes(columnOrdinal, startIndex, output, 0, BufferSize);
+                startIndex += bufferSize;
+                retVal = data.GetBytes(columnOrdinal, startIndex, output, 0, bufferSize);
             }
 
             return output;
         }
 
-        private static object AsCharArray(IDataRecord data, int columnOrdinal, int BufferSize)
+        private static object AsCharArray(IDataRecord data, int columnOrdinal, int bufferSize)
         {
-            var output = new char[BufferSize];
+            var output = new char[bufferSize];
             long startIndex = 0;
 
-            var retval = data.GetChars(columnOrdinal, startIndex, output, 0, BufferSize);
-            while (retval == BufferSize)
+            var retVal = data.GetChars(columnOrdinal, startIndex, output, 0, bufferSize);
+            while (retVal == bufferSize)
             {
-                startIndex += BufferSize;
-                retval = data.GetChars(columnOrdinal, startIndex, output, 0, BufferSize);
+                startIndex += bufferSize;
+                retVal = data.GetChars(columnOrdinal, startIndex, output, 0, bufferSize);
             }
 
             return output;
         }
 
-        private static object AsIEnumerableEmail(IDataRecord data, int columnOrdinal, char delimeter = DefaultDelimeter)
+        private static object AsIEnumerableEmail(IDataRecord data, int columnOrdinal, char delimiter = DefaultDelimiter)
         {
-            return ToIEnumerableString(data, columnOrdinal, delimeter).Select(value => new MailAddress(value.Trim()))
+            return ToIEnumerableString(data, columnOrdinal, delimiter).Select(value => new MailAddress(value.Trim()))
                 .ToArray();
         }
 
-        public static object Convert(Type type, IDataRecord data, int columnOrdinal, int BufferSize,
-            char delimeter = DefaultDelimeter, object defaultValue = null)
+        public static object Convert(Type type, IDataRecord data, int columnOrdinal, int bufferSize,
+            char delimiter = DefaultDelimiter, object defaultValue = null)
         {
-            return IEnumerableConverters.ContainsKey(type)
+            return EnumerableConverters.ContainsKey(type)
                 ?
-                IEnumerableConverters[type](data, columnOrdinal, delimeter)
+                EnumerableConverters[type](data, columnOrdinal, delimiter)
                 : BufferedConverters.ContainsKey(type)
-                    ? BufferedConverters[type](data, columnOrdinal, BufferSize)
+                    ? BufferedConverters[type](data, columnOrdinal, bufferSize)
                     : Converters.ContainsKey(type)
                         ? Converters[type](data, columnOrdinal)
                         :
@@ -273,8 +273,8 @@ namespace DBFacade.DataLayer.Models
 
         private delegate object Converter(IDataRecord data, int columnOrdinal);
 
-        private delegate object IEnumerableConverter(IDataRecord data, int columnOrdinal, char delimeter = ',');
+        private delegate object EnumerableConverter(IDataRecord data, int columnOrdinal, char delimiter = ',');
 
-        private delegate object BufferedConverter(IDataRecord data, int columnOrdinal, int BufferSize);
+        private delegate object BufferedConverter(IDataRecord data, int columnOrdinal, int bufferSize);
     }
 }

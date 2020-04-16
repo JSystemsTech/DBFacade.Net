@@ -24,8 +24,7 @@ namespace DBFacade.Services
         {
             var type = typeof(C);
             if (!ContainsKey(type)) GetOrAdd(type, GenericInstance<C>.GetInstance());
-            T value;
-            TryGetValue(type, out value);
+            TryGetValue(type, out T value);
             return (C) value;
         }
 
@@ -40,8 +39,7 @@ namespace DBFacade.Services
             return await Task.Run(async () =>
             {
                 if (!ContainsKey(type)) GetOrAdd(type, await GenericInstance<C>.GetInstanceAsync());
-                T value;
-                TryGetValue(type, out value);
+                TryGetValue(type, out T value);
                 return (C) value;
             });
         }
@@ -58,12 +56,12 @@ namespace DBFacade.Services
 
         #region IDisposable Support
 
-        private bool Disposed;
-        private bool Disposing;
+        private bool _disposed;
+        private bool _disposing;
 
         public bool IsDisposing()
         {
-            return Disposed || Disposing;
+            return _disposed || _disposing;
         }
 
         public void Dispose(bool calledFromDispose)
@@ -71,7 +69,7 @@ namespace DBFacade.Services
             /* skip if already disposed or in the process of disposing*/
             if (!IsDisposing())
             {
-                Disposing = true;
+                _disposing = true;
                 foreach (var item in this)
                 {
                     if (item.Value is ISafeDisposable valueAsISafeDisposable)
@@ -80,7 +78,7 @@ namespace DBFacade.Services
                     TryRemove(item.Key, out var value);
                 }
 
-                Disposed = true;
+                _disposed = true;
             }
         }
 

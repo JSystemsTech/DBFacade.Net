@@ -7,8 +7,8 @@ namespace DBFacade.DataLayer.Manifest
 {
     public abstract class DbMethodManifest : SafeDisposableBase, IDbManifestMethod
     {
-        private IDbCommandConfig config { get; set; }
-        public IDbCommandConfig Config => config ?? BuildConfig();
+        private IDbCommandConfig InnerConfig { get; set; }
+        public IDbCommandConfig Config => InnerConfig ?? BuildConfig();
 
         public Task<IDbCommandConfig> GetConfigAsync()
         {
@@ -31,12 +31,13 @@ namespace DBFacade.DataLayer.Manifest
 
         protected override void OnDispose(bool calledFromDispose)
         {
-            if (config != null) config.Dispose(calledFromDispose);
+            OnDispose();
+            if (InnerConfig != null) InnerConfig.Dispose(calledFromDispose);
         }
 
         protected override void OnDisposeComplete()
         {
-            config = null;
+            InnerConfig = null;
         }
 
         #endregion

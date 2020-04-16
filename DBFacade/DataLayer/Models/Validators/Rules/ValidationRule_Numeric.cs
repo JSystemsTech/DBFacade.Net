@@ -10,7 +10,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
     public abstract partial class ValidationRule<TDbParams>
         where TDbParams : IDbParamsModel
     {
-        private bool IsNumeric<T>(string value, Func<string, T> converter)
+        private bool IsNumericCheck<T>(string value, Func<string, T> converter)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             }
         }
 
-        private bool IsNumeric(object value)
+        private bool IsNumericCheck(object value)
         {
             if (value == null)
             {
@@ -34,15 +34,15 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             {
                 var str = value.ToString();
                 return
-                    IsNumeric(str, short.Parse) ||
-                    IsNumeric(str, int.Parse) ||
-                    IsNumeric(str, long.Parse) ||
-                    IsNumeric(str, double.Parse) ||
-                    IsNumeric(str, float.Parse) ||
-                    IsNumeric(str, decimal.Parse) ||
-                    IsNumeric(str, ushort.Parse) ||
-                    IsNumeric(str, uint.Parse) ||
-                    IsNumeric(str, ulong.Parse);
+                    IsNumericCheck(str, short.Parse) ||
+                    IsNumericCheck(str, int.Parse) ||
+                    IsNumericCheck(str, long.Parse) ||
+                    IsNumericCheck(str, double.Parse) ||
+                    IsNumericCheck(str, float.Parse) ||
+                    IsNumericCheck(str, decimal.Parse) ||
+                    IsNumericCheck(str, ushort.Parse) ||
+                    IsNumericCheck(str, uint.Parse) ||
+                    IsNumericCheck(str, ulong.Parse);
             }
 
             return true;
@@ -51,7 +51,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         public static IValidationRule<TDbParams> IsNumber(Expression<Func<TDbParams, string>> selector,
             bool isNullable = false)
         {
-            return new IsNummeric(selector, isNullable);
+            return new IsNumeric(selector, isNullable);
         }
 
         public static IValidationRule<TDbParams> Equals(Expression<Func<TDbParams, string>> selector,
@@ -724,100 +724,94 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             return new LessThanOrEqualRule(selector, compareValue);
         }
 
-        private class IsNummeric : ValidationRule<TDbParams>
+        private class IsNumeric : ValidationRule<TDbParams>
         {
-            public IsNummeric(Expression<Func<TDbParams, string>> selector, bool isNullable = false) : base(selector,
+            public IsNumeric(Expression<Func<TDbParams, string>> selector, bool isNullable = false) : base(selector,
                 isNullable)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, short>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, short>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, int>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, int>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, long>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, long>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, double>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, double>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, float>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, float>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, decimal>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, decimal>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, ushort>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, ushort>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, uint>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, uint>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, ulong>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, ulong>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, short?>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, short?>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, int?>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, int?>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, long?>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, long?>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, double?>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, double?>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, float?>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, float?>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, decimal?>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, decimal?>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, ushort?>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, ushort?>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, uint?>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, uint?>> selector) : base(selector)
             {
             }
 
-            public IsNummeric(Expression<Func<TDbParams, ulong?>> selector) : base(selector)
+            public IsNumeric(Expression<Func<TDbParams, ulong?>> selector) : base(selector)
             {
             }
 
             protected override bool ValidateRule()
             {
-                if (IsNumeric(ParamsValue))
+                if (IsNumericCheck(ParamsValue))
                 {
-                    double num;
-                    if (ParamsValue is string)
+                    
+                    if (ParamsValue is string && double.TryParse(ParamsValue.ToString(), out double num))
                     {
-                        double.TryParse(ParamsValue.ToString(), out num);
                         return ValidateNumberRule(num);
                     }
-
-                    //else
-                    //{
-                    //    num = Convert.ToDouble(ParamsValue);
-                    //}
                     return ValidateNumberRule(ParamsValue);
                 }
 
@@ -838,7 +832,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         /// <summary>
         /// </summary>
         /// <seealso cref="Rules.IValidationRule{TDbParams}" />
-        private class NumericCompare : IsNummeric
+        private class NumericCompare : IsNumeric
         {
             public NumericCompare(Expression<Func<TDbParams, string>> selector, double limit, bool isNullable = false) :
                 base(selector, isNullable)

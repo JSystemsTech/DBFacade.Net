@@ -15,36 +15,38 @@ namespace DBFacade.DataLayer.Models
     public interface IDbDataModel
     {
         string ToJson();
-    }
-
-    internal interface IDbDataModelInternal : IDbDataModel
-    {
-        void InitializeData<TDbMethodManifestMethod>(IDataRecord data)
-            where TDbMethodManifestMethod : IDbManifestMethod;
+        IEnumerable<DataModelConstructionException> DataBindingErrors { get; }
+        bool HasDataBindingErrors { get;  }
     }
 
     [JsonObject]
     [Serializable]
-    public abstract class DbDataModel : IDbDataModelInternal
+    public abstract class DbDataModel: IDbDataModel
     {
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this);
         }
 
+        public IEnumerable<DataModelConstructionException> DataBindingErrors { get; private set; }
+
+        
+
+        public bool HasDataBindingErrors { get; private set; }
+
         /// <summary>
         ///     Initializes the data.
         /// </summary>
         /// <typeparam name="TDbMethodManifestMethod">The type of the b method.</typeparam>
         /// <param name="data">The data.</param>
-        public void InitializeData<TDbMethodManifestMethod>(IDataRecord data)
+        internal void InitializeData<TDbMethodManifestMethod>(IDataRecord data)
             where TDbMethodManifestMethod : IDbManifestMethod
         {
             PopulateProperties<TDbMethodManifestMethod>(data);
         }
 
         /// <summary>
-        ///     Converts to dbdatamodel.
+        ///     Converts to DbDataModel.
         /// </summary>
         /// <typeparam name="TDbDataModel"></typeparam>
         /// <typeparam name="TDbMethodManifestMethod">The type of the b method.</typeparam>
@@ -77,9 +79,7 @@ namespace DBFacade.DataLayer.Models
         /// <returns></returns>
         private static TDbDataModel Create<TDbDataModel, TDbMethodManifestMethod>(IDataRecord data)
             where TDbDataModel : DbDataModel where TDbMethodManifestMethod : IDbManifestMethod
-        {
-            return (TDbDataModel) Create<TDbMethodManifestMethod>(typeof(TDbDataModel), data);
-        }
+            => Create<TDbMethodManifestMethod>(typeof(TDbDataModel), data) is TDbDataModel model ? model: null;
 
         /// <summary>
         ///     Gets the constructor information.
@@ -127,9 +127,10 @@ namespace DBFacade.DataLayer.Models
                     args.Add(value);
                 }
 
-                return (IDbDataModel) GenericInstance.GetInstanceWithArgArray(dbDataModelType, args.ToArray());
+                return GenericInstance.GetInstanceWithArgArray(dbDataModelType, args.ToArray()) is IDbDataModel model
+                    ? model
+                    : null;
             }
-
             return null;
         }
 
@@ -142,15 +143,15 @@ namespace DBFacade.DataLayer.Models
         private IDbColumn GetColumnAttribute<TDbMethodManifestMethod>(PropertyInfo property)
             where TDbMethodManifestMethod : IDbManifestMethod
         {
-            var ColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
+            var columnAttrs = property.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
                 column.BoundToTDbMethodManifestMethodType && column.GetTDbMethodManifestMethodType().FullName ==
                 typeof(TDbMethodManifestMethod).FullName);
 
-            if (ColumnAttrs.Count > 0) return ColumnAttrs.First();
+            if (columnAttrs.Any()) return columnAttrs.First();
 
-            var CommonColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList()
+            var commonColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList()
                 .FindAll(column => !column.BoundToTDbMethodManifestMethodType);
-            if (CommonColumnAttrs.Count > 0) return CommonColumnAttrs.First();
+            if (commonColumnAttrs.Any()) return commonColumnAttrs.First();
             return null;
         }
 
@@ -171,21 +172,37 @@ namespace DBFacade.DataLayer.Models
         private void PopulateNestedProperties<TDbMethodManifestMethod>(IDataRecord data)
             where TDbMethodManifestMethod : IDbManifestMethod
         {
-            var NestedProperties = GetBindableProperties().Where(prop =>
-                prop.GetCustomAttributes<NestedModel>().Any() &&
-                prop.PropertyType.BaseType == typeof(DbDataModel)
+            var nestedProperties = GetBindableProperties().Where(prop =>
+                prop.PropertyType.IsSubclassOf(typeof(DbDataModel))
             );
-            foreach (var property in NestedProperties)
+            foreach (var property in nestedProperties)
+            {
                 if (GetConstructorInfo<TDbMethodManifestMethod>(property.PropertyType).Count > 0)
                 {
-                    property.SetValue(this, Create<TDbMethodManifestMethod>(property.PropertyType, data), null);
+                    if (Create<TDbMethodManifestMethod>(property.PropertyType, data) is IDbDataModel model)
+                    {
+                        property.SetValue(this, model, null);
+                        HasDataBindingErrors = HasDataBindingErrors || model.HasDataBindingErrors || model.DataBindingErrors.Any();
+                    }
                 }
                 else
                 {
-                    var instance = (IDbDataModelInternal) GenericInstance.GetInstance(property.PropertyType);
-                    instance.InitializeData<TDbMethodManifestMethod>(data);
+                    var instance = GenericInstance.GetInstance(property.PropertyType);
+                    MethodInfo method = property.PropertyType.GetMethod(
+                        "InitializeData",
+                        BindingFlags.NonPublic | BindingFlags.Instance);
+                    if (method != null)
+                    {
+                        MethodInfo methodToInvoke = method.MakeGenericMethod(typeof(TDbMethodManifestMethod));
+                        methodToInvoke.Invoke(instance, new object[] { data });
+                    }
                     property.SetValue(this, instance, null);
+                    if (instance is IDbDataModel nestedModel)
+                    {
+                        HasDataBindingErrors = HasDataBindingErrors || nestedModel.HasDataBindingErrors || nestedModel.DataBindingErrors.Any();
+                    }
                 }
+            }
         }
 
         protected void PopulateProperties<TDbMethodManifestMethod>(IDataRecord data)
@@ -194,17 +211,30 @@ namespace DBFacade.DataLayer.Models
             var properties = GetBindableProperties().Where(prop =>
                 prop.GetCustomAttributes<DbColumn>().Any()
             );
+            DataBindingErrors = new DataModelConstructionException[0];
+            List<DataModelConstructionException> dataBindingErrors = new List<DataModelConstructionException>();
 
             foreach (var property in properties)
             {
-                var columnAttribute = GetColumnAttribute<TDbMethodManifestMethod>(property);
+                try
+                {
+                    var columnAttribute = GetColumnAttribute<TDbMethodManifestMethod>(property);
 
-                var propType = property.PropertyType;
-                object value = null;
-                if (columnAttribute != null) value = columnAttribute.GetColumnValueCore(data, propType);
-                if (value != null) property.SetValue(this, value, null);
+                    var propType = property.PropertyType;
+                    object value = null;
+                    if (columnAttribute != null) value = columnAttribute.GetColumnValueCore(data, propType);
+                    if (value != null) property.SetValue(this, value, null);
+                }
+                catch (DataModelConstructionException e)
+                {
+                    dataBindingErrors.Add(e);
+                }
             }
-
+            if (dataBindingErrors.Any())
+            {
+                DataBindingErrors = dataBindingErrors;
+                HasDataBindingErrors = true;
+            }
             PopulateNestedProperties<TDbMethodManifestMethod>(data);
         }
 

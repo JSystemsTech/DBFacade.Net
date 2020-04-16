@@ -17,7 +17,7 @@ namespace DBFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
         where TDbMethodManifest : DbMethodManifest
     {
-        private static IDbResponse<TDbDataModel> BuildResonse<TDbMethodManifestMethod, TDbDataModel>(object returnValue,
+        private static IDbResponse<TDbDataModel> BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(object returnValue,
             DbDataReader dbDataReader = null)
             where TDbDataModel : DbDataModel
             where TDbMethodManifestMethod : TDbMethodManifest
@@ -45,7 +45,7 @@ namespace DBFacade.DataLayer.ConnectionService
                 if (parametersModel != null && parametersModel.RunMode == MethodRunMode.Test)
                     using (var dbDataReader = parametersModel.ResponseData)
                     {
-                        return BuildResonse<TDbMethodManifestMethod, TDbDataModel>(parametersModel.ReturnValue,
+                        return BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(parametersModel.ReturnValue,
                             dbDataReader);
                     }
 
@@ -76,7 +76,7 @@ namespace DBFacade.DataLayer.ConnectionService
                                             }
 
                                             transaction.Commit();
-                                            return BuildResonse<TDbMethodManifestMethod, TDbDataModel>(
+                                            return BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(
                                                 config.GetReturnValue(dbCommand));
                                         }
 
@@ -85,7 +85,7 @@ namespace DBFacade.DataLayer.ConnectionService
 
                                 using (var dbDataReader = dbCommand.ExecuteReader() as TDbDataReader)
                                 {
-                                    return BuildResonse<TDbMethodManifestMethod, TDbDataModel>(
+                                    return BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(
                                         config.GetReturnValue(dbCommand),
                                         dbDataReader);
                                 }

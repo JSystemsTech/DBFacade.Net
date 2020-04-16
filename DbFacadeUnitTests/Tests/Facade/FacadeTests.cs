@@ -43,6 +43,23 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.AreNotEqual(new Guid(), model.PublicKey);
         }
         [TestMethod]
+        public void SuccessfullyFetchesDataAndIgnoresBadColumnName()
+        {
+            IDbResponse<FetchDataWithBadDbColumn> data = DomainFacade.TestFetchDataWithBadDbColumn();
+            Assert.IsNotNull(data);
+            Assert.AreEqual(1, data.Count());
+            FetchDataWithBadDbColumn model = data.First();
+            Assert.IsTrue(model.HasDataBindingErrors);
+            Assert.AreEqual(5, model.DataBindingErrors.Count());
+            Assert.IsNull(model.MyString);
+            Assert.AreEqual( default(int), model.Integer);
+            Assert.IsNull(model.IntegerOptional);
+            Assert.IsNull(model.IntegerOptionalNull);
+            Assert.IsNull(model.MyString);
+            Assert.IsNotNull(model.PublicKey);
+            Assert.AreEqual(new Guid(), model.PublicKey);
+        }
+        [TestMethod]
         public void SuccessfullyFetchesNestedData()
         {
             IDbResponse<FetchDataWithNested> data = DomainFacade.TestFetchDataWithNested();

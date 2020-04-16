@@ -101,8 +101,8 @@ namespace DbFacade.Facade.Core
     {
         internal delegate Task<IDbResponse<TDbDataModel>> ExecutionDelegate();
         internal delegate Task<IDbResponse<TDbDataModel>> MockExecutionDelegate(DbParamsModel parameters);
-        private ExecutionDelegate Handler { get; set; }
-        private MockExecutionDelegate MockHandler { get; set; }
+        private ExecutionDelegate Handler { get; }
+        private MockExecutionDelegate MockHandler { get; }
         public AsyncFetch(ExecutionDelegate handler, MockExecutionDelegate mockHandler)
         {
             Handler = handler;
@@ -127,7 +127,7 @@ namespace DbFacade.Facade.Core
         where TDbParams : IDbParamsModel
     {
         internal delegate Task<IDbResponse<TDbDataModel>> ExecutionDelegate(TDbParams parameters);
-        private ExecutionDelegate Handler { get; set; }
+        private ExecutionDelegate Handler { get;  }
         public AsyncFetch(ExecutionDelegate handler)
         {
             Handler = handler;
@@ -217,8 +217,8 @@ namespace DbFacade.Facade.Core
     {
         internal delegate Task<IDbResponse> ExecutionDelegate();
         internal delegate Task<IDbResponse> MockExecutionDelegate(DbParamsModel parameters);
-        private ExecutionDelegate Handler { get; set; }
-        private MockExecutionDelegate MockHandler { get; set; }
+        private ExecutionDelegate Handler { get; }
+        private MockExecutionDelegate MockHandler { get; }
         public AsyncTransaction(ExecutionDelegate handler, MockExecutionDelegate mockHandler)
         {
             Handler = handler;
@@ -236,7 +236,7 @@ namespace DbFacade.Facade.Core
         where TDbParams : IDbParamsModel
     {
         internal delegate Task<IDbResponse> ExecutionDelegate(TDbParams parameters);
-        private ExecutionDelegate Handler { get; set; }
+        private ExecutionDelegate Handler { get; }
         public AsyncTransaction(ExecutionDelegate handler)
         {
             Handler = handler;

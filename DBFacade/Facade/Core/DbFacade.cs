@@ -11,7 +11,7 @@ namespace DBFacade.Facade.Core
     public abstract partial class DbFacade<TDbMethodManifest> : DbFacadeBase<TDbMethodManifest>
         where TDbMethodManifest : DbMethodManifest
     {
-        private readonly IDbParamsModel DEFAULT_PARAMETERS = new DbParamsModel();
+        private readonly IDbParamsModel _defaultParameters = new DbParamsModel();
 
         private IInstanceResolver<DbFacade<TDbMethodManifest>> DbFacadeCache =>
             InstanceResolverFactory.Get<DbFacade<TDbMethodManifest>>();
@@ -40,7 +40,7 @@ namespace DBFacade.Facade.Core
         internal sealed override IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbMethodManifestMethod>()
         {
             return ExecuteProcess<TDbDataModel, IDbParamsModel, TDbMethodManifestMethod>(
-                GetMethod<TDbMethodManifestMethod>(), DEFAULT_PARAMETERS);
+                GetMethod<TDbMethodManifestMethod>(), _defaultParameters);
         }
 
         internal sealed override IDbResponse ExecuteProcess<TDbParams,
@@ -52,7 +52,7 @@ namespace DBFacade.Facade.Core
         internal sealed override IDbResponse ExecuteProcess<TDbMethodManifestMethod>()
         {
             return ExecuteProcess<DbDataModel, IDbParamsModel,TDbMethodManifestMethod>(
-                GetMethod<TDbMethodManifestMethod>(),DEFAULT_PARAMETERS);
+                GetMethod<TDbMethodManifestMethod>(), _defaultParameters);
         }
         internal sealed override IDbResponse<TDbDataModel> ExecuteProcess<TDbDataModel, TDbParams,
             TDbMethodManifestMethod>(TDbParams parameters)
@@ -118,9 +118,7 @@ namespace DBFacade.Facade.Core
             where TDbMethodManifestMethod : TDbMethodManifest
         {
             var response = Process<TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters);
-            return response != null
-                ? response
-                : ExecuteNext<TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters);
+            return response ?? ExecuteNext<TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters);
         }
 
         protected virtual IDbResponse<TDbDataModel> Process<TDbDataModel, TDbParams, TDbMethodManifestMethod>(

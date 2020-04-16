@@ -1,10 +1,5 @@
-﻿using DBFacade.DataLayer.Manifest;
-using DBFacade.DataLayer.Models;
-using System;
+﻿using DBFacade.DataLayer.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DbFacade.Facade.Core
 {
@@ -104,7 +99,7 @@ namespace DbFacade.Facade.Core
         where TDbParams : IDbParamsModel
     {
         internal delegate IDbResponse<TDbDataModel> ExecutionDelegate(TDbParams parameters);
-        private ExecutionDelegate Handler { get; set; }
+        private ExecutionDelegate Handler { get;  }
         public Fetch(ExecutionDelegate handler)
         {
             Handler = handler;
@@ -193,8 +188,8 @@ namespace DbFacade.Facade.Core
     {
         internal delegate IDbResponse<TDbDataModel> ExecutionDelegate();
         internal delegate IDbResponse<TDbDataModel> MockExecutionDelegate(DbParamsModel parameters);
-        private ExecutionDelegate Handler { get; set; }
-        private MockExecutionDelegate MockHandler { get; set; }
+        private ExecutionDelegate Handler { get;  }
+        private MockExecutionDelegate MockHandler { get;  }
         public Fetch(ExecutionDelegate handler, MockExecutionDelegate mockHandler)
         {
             Handler = handler;
@@ -282,8 +277,8 @@ namespace DbFacade.Facade.Core
     {
         internal delegate IDbResponse ExecutionDelegate();
         internal delegate IDbResponse MockExecutionDelegate(DbParamsModel parameters);
-        private ExecutionDelegate Handler { get; set; }
-        private MockExecutionDelegate MockHandler { get; set; }
+        private ExecutionDelegate Handler { get;  }
+        private MockExecutionDelegate MockHandler { get;  }
         public Transaction(ExecutionDelegate handler, MockExecutionDelegate mockHandler)
         {
             Handler = handler;

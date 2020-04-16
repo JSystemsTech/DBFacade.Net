@@ -114,8 +114,8 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
 
             protected override bool ValidateRule()
             {
-                var MatchRegex = Regex.Match(ParamsValue.ToString(), MatchStr, RegexOptions);
-                return MatchRegex.Success;
+                var matchRegex = Regex.Match(ParamsValue.ToString(), MatchStr, RegexOptions);
+                return matchRegex.Success;
             }
 
             protected override string GetErrorMessageCore(string propertyName)
@@ -170,15 +170,15 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
 
             protected override bool ValidateRule()
             {
-                var SSNMatchNoDashesResult =
+                var sSnMatchNoDashesResult =
                     Regex.Match(ParamsValue.ToString(), SSNMatchNoDashes, RegexOptions.IgnoreCase);
                 if (AllowDashes)
                 {
-                    var SSNMatchResult = Regex.Match(ParamsValue.ToString(), SSNMatch, RegexOptions.IgnoreCase);
-                    return SSNMatchNoDashesResult.Success || SSNMatchResult.Success;
+                    var sSnMatchResult = Regex.Match(ParamsValue.ToString(), SSNMatch, RegexOptions.IgnoreCase);
+                    return sSnMatchNoDashesResult.Success || sSnMatchResult.Success;
                 }
 
-                return SSNMatchNoDashesResult.Success;
+                return sSnMatchNoDashesResult.Success;
             }
 
             protected override string GetErrorMessageCore(string propertyName)
@@ -342,9 +342,9 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
                 try
                 {
                     var email = new MailAddress(ParamsValue.ToString());
-                    var hasDomail = Domains.Contains(email.Host);
-                    return Mode == EmailDomainMode.Whitelist ? hasDomail :
-                        Mode == EmailDomainMode.Blacklist ? !hasDomail :
+                    var hasDomain = Domains.Contains(email.Host);
+                    return Mode == EmailDomainMode.Whitelist ? hasDomain :
+                        Mode == EmailDomainMode.Blacklist ? !hasDomain :
                         true;
                 }
                 catch

@@ -2,7 +2,7 @@
 
 namespace DbFacadeUnitTests.TestFacade
 {
-    internal class UnitTestConnection : SQLConnectionConfig<UnitTestConnection>
+    internal class UnitTestConnection : SqlConnectionConfig<UnitTestConnection>
     {
         public UnitTestConnection(int test)
         {

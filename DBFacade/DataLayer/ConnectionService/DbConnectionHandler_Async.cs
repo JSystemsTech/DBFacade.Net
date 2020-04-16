@@ -18,7 +18,7 @@ namespace DBFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
         where TDbMethodManifest : DbMethodManifest
     {
-        private static async Task<IDbResponse<TDbDataModel>> BuildResonseAsync<TDbMethodManifestMethod, TDbDataModel>(
+        private static async Task<IDbResponse<TDbDataModel>> BuildRepsonseAsync<TDbMethodManifestMethod, TDbDataModel>(
             object returnValue, DbDataReader dbDataReader = null)
             where TDbDataModel : DbDataModel
             where TDbMethodManifestMethod : TDbMethodManifest
@@ -44,7 +44,7 @@ namespace DBFacade.DataLayer.ConnectionService
             {
                 var parametersModel = parameters as IInternalDbParamsModel;
                 if (parametersModel != null && parametersModel.RunMode == MethodRunMode.Test)
-                    return await BuildResonseAsync<TDbMethodManifestMethod, TDbDataModel>(parametersModel.ReturnValue,
+                    return await BuildRepsonseAsync<TDbMethodManifestMethod, TDbDataModel>(parametersModel.ReturnValue,
                         parametersModel.ResponseData);
 
                 var connectionConfig = await config.GetDbConnectionConfigAsync();
@@ -75,7 +75,7 @@ namespace DBFacade.DataLayer.ConnectionService
                                             }
 
                                             transaction.Commit();
-                                            return await BuildResonseAsync<TDbMethodManifestMethod, TDbDataModel>(
+                                            return await BuildRepsonseAsync<TDbMethodManifestMethod, TDbDataModel>(
                                                 config.GetReturnValue(dbCommand));
                                         }
 
@@ -84,7 +84,7 @@ namespace DBFacade.DataLayer.ConnectionService
 
                                 using (var dbDataReader = await dbCommand.ExecuteReaderAsync() as TDbDataReader)
                                 {
-                                    return await BuildResonseAsync<TDbMethodManifestMethod, TDbDataModel>(
+                                    return await BuildRepsonseAsync<TDbMethodManifestMethod, TDbDataModel>(
                                         config.GetReturnValue(dbCommand), dbDataReader);
                                 }
                             }

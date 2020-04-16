@@ -13,193 +13,193 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
     public partial class ValidationRule<TDbParams> : IValidationRule<TDbParams>
         where TDbParams : IDbParamsModel
     {
-        public ValidationRule()
+        protected ValidationRule()
         {
         }
 
-        public ValidationRule(Expression<Func<TDbParams, object>> selector, bool isNullable = false)
+        protected ValidationRule(Expression<Func<TDbParams, object>> selector, bool isNullable = false)
         {
-            init(selector, isNullable);
+            Init(selector, isNullable);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, short>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, short>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, int>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, int>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, long>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, long>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, ushort>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, ushort>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, uint>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, uint>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, ulong>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, ulong>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, double>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, double>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, float>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, float>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, decimal>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, decimal>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, string>> selector, bool isNullable = false)
+        protected ValidationRule(Expression<Func<TDbParams, string>> selector, bool isNullable = false)
         {
-            init(selector, isNullable);
+            Init(selector, isNullable);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, char>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, char>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, TimeSpan>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, TimeSpan>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, DateTime>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, DateTime>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, DateTimeOffset>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, DateTimeOffset>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, bool>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, bool>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, byte>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, byte>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, sbyte>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, sbyte>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, byte[]>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, byte[]>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, char[]>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, char[]>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, Xml>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, Xml>> selector)
         {
-            init(selector, false);
+            Init(selector, false);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, short?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, short?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, int?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, int?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, long?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, long?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, ushort?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, ushort?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, uint?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, uint?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, ulong?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, ulong?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, double?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, double?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, float?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, float?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, decimal?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, decimal?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, char?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, char?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, TimeSpan?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, TimeSpan?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, DateTime?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, DateTime?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, DateTimeOffset?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, DateTimeOffset?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, bool?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, bool?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, byte?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, byte?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
-        public ValidationRule(Expression<Func<TDbParams, sbyte?>> selector)
+        protected ValidationRule(Expression<Func<TDbParams, sbyte?>> selector)
         {
-            init(selector, true);
+            Init(selector, true);
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         }
 
 
-        private void init<T>(Expression<Func<TDbParams, T>> selector, bool isNullable)
+        private void Init<T>(Expression<Func<TDbParams, T>> selector, bool isNullable)
         {
             GetParamFunc = model => selector.Compile()(model);
             PropertyName = PropertySelector<TDbParams>.GetPropertyName(selector);

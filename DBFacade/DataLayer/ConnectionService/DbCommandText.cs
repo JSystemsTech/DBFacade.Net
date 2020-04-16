@@ -13,7 +13,7 @@
 
     internal abstract class DbCommandText : IDbCommandText
     {
-        public DbCommandText(string label)
+        protected DbCommandText(string label)
         {
             Label = label;
         }

@@ -218,7 +218,7 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
             public DelegateRule(Expression<Func<TDbParams, T>> selector, DelegateRuleHandler<T> handler,
                 bool isNullable = false)
             {
-                init(selector, isNullable);
+                Init(selector, isNullable);
                 DelegateRuleHandler = handler;
             }
 

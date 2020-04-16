@@ -42,12 +42,11 @@ namespace DBFacade.DataLayer.Models
             ReturnValue = returnValue;
             var useEmptyTable = responseData == null && singleResponseValue == null;
             var useIEnumerableTable = responseData != null;
-            var useSingleItemTable = singleResponseValue != null;
 
             ResponseData =
                 useEmptyTable ? MockDbTable.EmptyTable :
                 useIEnumerableTable ? new MockDbTable<T>(responseData).ToDataReader() :
-                useSingleItemTable ? new MockDbTable<T>(singleResponseValue).ToDataReader() : MockDbTable.EmptyTable;
+                new MockDbTable<T>(singleResponseValue).ToDataReader();
         }
     }
 

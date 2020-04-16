@@ -1,14 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DbFacade.DataLayer.ConnectionService;
 using DBFacade.DataLayer.ConnectionService;
-using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
 
 namespace DBFacade.Facade.Core
 {
-    public abstract partial class DbFacade<TDbMethodManifest> : DbFacadeBase<TDbMethodManifest>, IDisposable
-        where TDbMethodManifest : DbMethodManifest
+    public abstract partial class DbFacade<TDbMethodManifest> 
     {
         protected async Task InitConnectionConfigAsync<TDbConnectionConfig>(TDbConnectionConfig value)
             where TDbConnectionConfig : IDbConnectionConfig
@@ -26,7 +23,7 @@ namespace DBFacade.Facade.Core
             where TDbMethodManifestMethod : TDbMethodManifest
         {
             return await ExecuteProcessAsync<TDbDataModel, IDbParamsModel, TDbMethodManifestMethod>(
-                await GetMethodAsync<TDbMethodManifestMethod>(), DEFAULT_PARAMETERS);
+                await GetMethodAsync<TDbMethodManifestMethod>(), _defaultParameters);
         }
 
         internal async Task<IDbResponse<TDbDataModel>> ExecuteProcessAsync<TDbDataModel, TDbParams,
@@ -42,7 +39,7 @@ namespace DBFacade.Facade.Core
             where TDbMethodManifestMethod : TDbMethodManifest
         {
             return await ExecuteProcessAsync<DbDataModel, IDbParamsModel, TDbMethodManifestMethod>(
-                await GetMethodAsync<TDbMethodManifestMethod>(), DEFAULT_PARAMETERS);
+                await GetMethodAsync<TDbMethodManifestMethod>(), _defaultParameters);
         }
 
         internal async Task<IDbResponse> ExecuteProcessAsync<TDbParams,

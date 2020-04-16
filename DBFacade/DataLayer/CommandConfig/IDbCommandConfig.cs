@@ -18,7 +18,7 @@ namespace DBFacade.DataLayer.CommandConfig
         IDbCommandText DbCommandText { get; }
         bool IsTransaction { get; }
 
-        TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel TDbMethodManifestMethodParams,
+        TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel tDbMethodManifestMethodParams,
             TDbConnection dbConnection)
             where TDbConnection : DbConnection
             where TDbCommand : DbCommand

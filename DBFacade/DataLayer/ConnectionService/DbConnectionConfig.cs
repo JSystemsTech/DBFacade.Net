@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
 using System.Data.OleDb;
@@ -79,15 +80,19 @@ namespace DBFacade.DataLayer.ConnectionService
             }
         }
     }
-
+    [Obsolete("Use SqlConnectionConfig instead.")]
     public abstract class
-        SQLConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<SqlDataReader, SqlConnection, SqlCommand,
+        SQLConnectionConfig<TDbConnectionConfig> : SqlConnectionConfig<TDbConnectionConfig> where TDbConnectionConfig : IDbConnectionConfig
+    {
+    }
+    public abstract class
+        SqlConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<SqlDataReader, SqlConnection, SqlCommand,
             SqlTransaction, SqlParameter, TDbConnectionConfig> where TDbConnectionConfig : IDbConnectionConfig
     {
     }
 
     public abstract class
-        SQLiteConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<SQLiteDataReader, SQLiteConnection,
+        SqLiteConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<SQLiteDataReader, SQLiteConnection,
             SQLiteCommand, SQLiteTransaction, SQLiteParameter, TDbConnectionConfig>
         where TDbConnectionConfig : IDbConnectionConfig
     {

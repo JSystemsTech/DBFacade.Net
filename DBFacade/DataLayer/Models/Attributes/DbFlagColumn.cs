@@ -11,7 +11,7 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <summary>
         ///     The true value
         /// </summary>
-        private object TrueValue;
+        private object _trueValue;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DbFlagColumn" /> class.
@@ -20,28 +20,28 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <param name="trueValue">The true value.</param>
         public DbFlagColumn(string name, object trueValue) : base(name)
         {
-            initColumn(trueValue);
+            InitColumn(trueValue);
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DbFlagColumn" /> class.
         /// </summary>
-        /// <param name="TDbMethodManifestMethodType">Type of the database method.</param>
+        /// <param name="tDbMethodManifestMethodType">Type of the database method.</param>
         /// <param name="name">The name.</param>
         /// <param name="trueValue">The true value.</param>
-        public DbFlagColumn(Type TDbMethodManifestMethodType, string name, object trueValue) : base(
-            TDbMethodManifestMethodType, name)
+        public DbFlagColumn(Type tDbMethodManifestMethodType, string name, object trueValue) : base(
+            tDbMethodManifestMethodType, name)
         {
-            initColumn(trueValue);
+            InitColumn(trueValue);
         }
 
         /// <summary>
         ///     Initializes the column.
         /// </summary>
         /// <param name="trueValue">The true value.</param>
-        private void initColumn(object trueValue)
+        private void InitColumn(object trueValue)
         {
-            TrueValue = trueValue;
+            _trueValue = trueValue;
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace DBFacade.DataLayer.Models.Attributes
         /// <returns></returns>
         protected override object GetColumnValue(IDataRecord data, Type propType = null)
         {
-            return GetValue(data, TrueValue.GetType()).ToString() == TrueValue.ToString();
+            return GetValue(data, _trueValue.GetType()).ToString() == _trueValue.ToString();
         }
     }
 }
