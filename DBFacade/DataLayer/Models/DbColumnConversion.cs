@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net.Mail;
+using DBFacade.Exceptions;
 
 namespace DBFacade.DataLayer.Models
 {
@@ -260,15 +261,17 @@ namespace DBFacade.DataLayer.Models
         public static object Convert(Type type, IDataRecord data, int columnOrdinal, int bufferSize,
             char delimiter = DefaultDelimiter, object defaultValue = null)
         {
-            return EnumerableConverters.ContainsKey(type)
-                ?
-                EnumerableConverters[type](data, columnOrdinal, delimiter)
-                : BufferedConverters.ContainsKey(type)
-                    ? BufferedConverters[type](data, columnOrdinal, bufferSize)
-                    : Converters.ContainsKey(type)
-                        ? Converters[type](data, columnOrdinal)
-                        :
-                        defaultValue;
+            
+                return EnumerableConverters.ContainsKey(type)
+                    ? EnumerableConverters[type](data, columnOrdinal, delimiter)
+                    : BufferedConverters.ContainsKey(type)
+                        ? BufferedConverters[type](data, columnOrdinal, bufferSize)
+                        : Converters.ContainsKey(type)
+                            ? Converters[type](data, columnOrdinal)
+                            : defaultValue;
+            
+            
+            
         }
 
         private delegate object Converter(IDataRecord data, int columnOrdinal);

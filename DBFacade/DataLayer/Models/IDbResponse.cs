@@ -248,5 +248,6 @@ namespace DBFacade.DataLayer.Models
         IReadOnlyDbCollection<TDbDataModel>, IXMLSerializable<TDbDataModel>, IJsonSerializable<TDbDataModel>
         where TDbDataModel : DbDataModel
     {
+        bool HasDataBindingErrors { get; }
     }
 }

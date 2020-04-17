@@ -132,9 +132,18 @@ namespace DBFacade.DataLayer.Models.Attributes
         {
             var hasData = HasColumn(data);
             var hasNullValue = hasData && data.IsDBNull(GetOrdinal(data));
-            return !hasNullValue
-                ? DbColumnConversion.Convert(propType, data, GetOrdinal(data), BufferSize, Delimiter, _defaultValue)
-                : _defaultValue;
+            try
+            {
+                return !hasNullValue
+                    ? DbColumnConversion.Convert(propType, data, GetOrdinal(data), BufferSize, Delimiter, _defaultValue)
+                    : _defaultValue;
+            }
+            catch (Exception e)
+            {
+                throw new DataModelConstructionException($"Error converting Column {_name}: Expected type {propType.Name} Actual {data.GetFieldType(GetOrdinal(data)).Name}", e);
+            }
+
+            
         }
 
         protected override object GetColumnValue(IDataRecord data, Type propType = null)

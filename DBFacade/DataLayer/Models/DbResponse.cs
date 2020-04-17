@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Xml;
 using DBFacade.DataLayer.Manifest;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ namespace DBFacade.DataLayer.Models
         where TDbDataModel : DbDataModel
         where TDbMethodManifestMethod : IDbManifestMethod
     {
+        public bool HasDataBindingErrors { get=> this.Any(item=>item.HasDataBindingErrors);}
         public DbResponse()
         {
             IsNull = true;
