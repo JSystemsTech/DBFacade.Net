@@ -2,6 +2,7 @@
 using DBFacade.DataLayer.Models;
 using DBFacade.Facade;
 using DbFacadeUnitTests.Models;
+using System.Collections.Generic;
 
 namespace DbFacadeUnitTests.TestFacade
 {
@@ -24,8 +25,14 @@ namespace DbFacadeUnitTests.TestFacade
         {
             get => BuildGenericTransaction<UnitTestMethods.TestTransaction, string>();
         }
-
-
+        protected IFetch<FetchData> TestFetchDataHandlerWithOutput
+        {
+            get => BuildFetch<FetchData, UnitTestMethods.TestFetchDataWithOutput>();
+        }
+        protected IGenericTransaction<string> TestTransactionHandlerWithOutput
+        {
+            get => BuildGenericTransaction<UnitTestMethods.TestTransactionWithOutput, string>();
+        }
     }
     internal class UnitTestDomainFacade : UnitTestDomainFacadeBase
     {
@@ -43,6 +50,16 @@ namespace DbFacadeUnitTests.TestFacade
 
         public IDbResponse TestTransaction(string value)
             => TestTransactionHandler.Mock(value, 10);
+        public IDbResponse<FetchData> TestFetchDataWithOutput()
+            => TestFetchDataHandlerWithOutput.Mock(new ResponseData { MyString = "test string" }, 1, 
+                new Dictionary<string, object> {
+                    {"MyStringOutputParam", "output response" }
+                });
+        public IDbResponse TestTransactionWithOutput(string value)
+           => TestTransactionHandlerWithOutput.Mock(value, 10,
+               new Dictionary<string, object> {
+                    {"MyStringOutputParam", "output response" }
+               });
 
     }
     internal class UnitTestDomainFacadeWithManager : DomainFacade<UnitTestManager,UnitTestMethods>

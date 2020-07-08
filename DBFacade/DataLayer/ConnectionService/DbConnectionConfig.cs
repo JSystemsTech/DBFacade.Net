@@ -6,6 +6,7 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Threading.Tasks;
+using DbFacade.DataLayer.ConnectionService.MockDb;
 using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
 using Oracle.ManagedDataAccess.Client;
@@ -22,19 +23,25 @@ namespace DBFacade.DataLayer.ConnectionService
         where TDbConnectionConfig : IDbConnectionConfig
 
     {
-        public IDbConnection DbConnection => ResolveDbConnection();
-
+        public IDbConnection GetDbConnection(IDbParamsModel parameters) =>ResolveDbConnection(parameters);
+           
+        
+        private bool IsRunAsTest(IDbParamsModel parameters)
+        => parameters is IInternalDbParamsModel paramsModel && paramsModel.RunMode == MethodRunMode.Test;
         public IDbResponse<TDbDataModel> ExecuteDbAction<TDbMethodManifest, TDbDataModel, TDbParams,
             TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
             where TDbMethodManifest : DbMethodManifest
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
             where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            return DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader,
+        => IsRunAsTest(parameters) ?
+            DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader,
+                    TDbMethodManifest>
+                .ExecuteDbAction<TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters):
+            DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader,
                     TDbMethodManifest>
                 .ExecuteDbAction<TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters);
-        }
+        
 
         public async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbMethodManifest, TDbDataModel, TDbParams,
             TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
@@ -42,25 +49,32 @@ namespace DBFacade.DataLayer.ConnectionService
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
             where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            return await
+        
+            => IsRunAsTest(parameters) ?
+            await DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader,
+                    TDbMethodManifest>
+                .ExecuteDbActionAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters):            
+            await
                 DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader,
                         TDbMethodManifest>
                     .ExecuteDbActionAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod>(method, parameters);
-        }
+                      
+        
 
         protected static IDbCommandText CreateCommandText(string commandText, string label)
         {
             return new DbCommandText(commandText, label);
         }
 
-        private TDbConnection ResolveDbConnection()
+        private IDbConnection ResolveDbConnection(IDbParamsModel parameters)
         {
-            if (DbProviderFactories.GetFactory(GetDbConnectionProvider()).CreateConnection() is TDbConnection
-                dbConnection)
+            IDbConnection resolvedDbConnection = IsRunAsTest(parameters) ? new MockDbConnection(parameters as IInternalDbParamsModel) as IDbConnection :
+            DbProviderFactories.GetFactory(GetDbConnectionProvider()).CreateConnection() is TDbConnection dbConnection ? dbConnection : null;
+
+            if (resolvedDbConnection != null)
             {
-                dbConnection.ConnectionString = GetDbConnectionString();
-                return dbConnection;
+                resolvedDbConnection.ConnectionString = GetDbConnectionString();
+                return resolvedDbConnection;
             }
 
             return null;
@@ -80,11 +94,7 @@ namespace DBFacade.DataLayer.ConnectionService
             }
         }
     }
-    [Obsolete("Use SqlConnectionConfig instead.")]
-    public abstract class
-        SQLConnectionConfig<TDbConnectionConfig> : SqlConnectionConfig<TDbConnectionConfig> where TDbConnectionConfig : IDbConnectionConfig
-    {
-    }
+    
     public abstract class
         SqlConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<SqlDataReader, SqlConnection, SqlCommand,
             SqlTransaction, SqlParameter, TDbConnectionConfig> where TDbConnectionConfig : IDbConnectionConfig

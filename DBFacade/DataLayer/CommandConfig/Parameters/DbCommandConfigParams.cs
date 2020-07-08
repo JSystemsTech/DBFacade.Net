@@ -10,4 +10,5 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
         where TDbParams : IDbParamsModel
     {
     }
+    public class DbCommandConfigParams : DbCommandConfigParams<DbParamsModel> { }
 }

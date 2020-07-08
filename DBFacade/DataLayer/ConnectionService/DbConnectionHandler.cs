@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
 using DBFacade.DataLayer.CommandConfig;
@@ -17,12 +18,13 @@ namespace DBFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
         where TDbMethodManifest : DbMethodManifest
     {
-        private static IDbResponse<TDbDataModel> BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(object returnValue,
-            DbDataReader dbDataReader = null)
+        private static IDbResponse<TDbDataModel> BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(int returnValue,
+            DbDataReader dbDataReader = null,
+            IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
             where TDbMethodManifestMethod : TDbMethodManifest
         {
-            var responseObj = new DbResponse<TDbMethodManifestMethod, TDbDataModel>(returnValue);
+            var responseObj = new DbResponse<TDbMethodManifestMethod, TDbDataModel>(returnValue, outputValues);
             if (dbDataReader != null)
             {
                 while (dbDataReader.Read())
@@ -41,21 +43,13 @@ namespace DBFacade.DataLayer.ConnectionService
         {
             if (method.Config is IDbCommandConfigInternal config)
             {
-                var parametersModel = parameters as IInternalDbParamsModel;
-                if (parametersModel != null && parametersModel.RunMode == MethodRunMode.Test)
-                    using (var dbDataReader = parametersModel.ResponseData)
-                    {
-                        return BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(parametersModel.ReturnValue,
-                            dbDataReader);
-                    }
-
-                using (var dbConnection = config.DbConnectionConfig.DbConnection as TDbConnection)
+                using (var dbConnection = config.DbConnectionConfig.GetDbConnection(parameters) as TDbConnection)
                 {
                     if (dbConnection != null)
                     {
                         dbConnection.Open();
                         using (var dbCommand =
-                            config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parametersModel, dbConnection))
+                            config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parameters, dbConnection))
                         {
                             try
                             {
@@ -77,7 +71,8 @@ namespace DBFacade.DataLayer.ConnectionService
 
                                             transaction.Commit();
                                             return BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(
-                                                config.GetReturnValue(dbCommand));
+                                                config.GetReturnValue(dbCommand), null, 
+                                                config.GetOutputValues(dbCommand));
                                         }
 
                                         throw new FacadeException("Invalid Transaction Definition");
@@ -87,7 +82,8 @@ namespace DBFacade.DataLayer.ConnectionService
                                 {
                                     return BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(
                                         config.GetReturnValue(dbCommand),
-                                        dbDataReader);
+                                        dbDataReader,
+                                        config.GetOutputValues(dbCommand));
                                 }
                             }
                             catch (SqlException sqlEx)

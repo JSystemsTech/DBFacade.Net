@@ -13,6 +13,7 @@ namespace DbFacadeUnitTests.TestFacade
         protected override string GetDbConnectionProvider() => "MyUnitTestConnectionProvider";
 
         public static IDbCommandText TestFetchData = CreateCommandText("TestFetchData", "Test Fetch Data");
+        public static IDbCommandText TestFetchDataWithOutputParameters = CreateCommandText("TestFetchDataWithOutputParameters", "Test Fetch Data with output parameters");
         public static IDbCommandText TestTransaction = CreateCommandText("TestTransaction", "Test Transaction");
     }
 }

@@ -7,41 +7,41 @@ namespace DbFacade.Facade.Core
     public interface IAsyncTransaction
     {
         Task<IDbResponse> Execute();
-        Task<IDbResponse> Mock(object returnValue = null);
+        Task<IDbResponse> Mock(int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncTransaction<TDbParams>
         where TDbParams : IDbParamsModel
     {
         Task<IDbResponse> Execute(TDbParams parameters);
-        Task<IDbResponse> Mock(TDbParams parameters, object returnValue = null);
+        Task<IDbResponse> Mock(TDbParams parameters, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericTransaction<T1> : IAsyncTransaction<DbParamsModel<T1>>
     {
         Task<IDbResponse> Execute(T1 param1);
-        Task<IDbResponse> Mock(T1 param1, object returnValue = null);
+        Task<IDbResponse> Mock(T1 param1, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericTransaction<T1, T2> : IAsyncTransaction<DbParamsModel<T1, T2>>
     {
         Task<IDbResponse> Execute(T1 param1, T2 param2);
-        Task<IDbResponse> Mock(T1 param1, T2 param2, object returnValue = null);
+        Task<IDbResponse> Mock(T1 param1, T2 param2, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericTransaction<T1, T2, T3> : IAsyncTransaction<DbParamsModel<T1, T2, T3>>
 
     {
         Task<IDbResponse> Execute(T1 param1, T2 param2, T3 param3);
-        Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, object returnValue = null);
+        Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericTransaction<T1, T2, T3, T4> : IAsyncTransaction<DbParamsModel<T1, T2, T3, T4>>
 
     {
         Task<IDbResponse> Execute(T1 param1, T2 param2, T3 param3, T4 param4);
-        Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, T4 param4, object returnValue = null);
+        Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, T4 param4, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericTransaction<T1, T2, T3, T4, T5> : IAsyncTransaction<DbParamsModel<T1, T2, T3, T4, T5>>
 
     {
         Task<IDbResponse> Execute(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5);
-        Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, object returnValue = null);
+        Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     
 
@@ -49,51 +49,51 @@ namespace DbFacade.Facade.Core
         where TDbDataModel : DbDataModel
     {
         Task<IDbResponse<TDbDataModel>> Execute();
-        Task<IDbResponse<TDbDataModel>> Mock<T>(IEnumerable<T> responseData, object returnValue = null);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T responseData, object returnValue = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncFetch<TDbDataModel, TDbParams>
         where TDbDataModel : DbDataModel
         where TDbParams : IDbParamsModel
     {
         Task<IDbResponse<TDbDataModel>> Execute(TDbParams parameters);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(TDbParams parameters, IEnumerable<T> responseData, object returnValue = null);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(TDbParams parameters, T responseData, object returnValue = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(TDbParams parameters, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericFetch<TDbDataModel, T1> : IAsyncFetch<TDbDataModel, DbParamsModel<T1>>
         where TDbDataModel : DbDataModel
     {
         Task<IDbResponse<TDbDataModel>> Execute(T1 param1);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, IEnumerable<T> responseData, object returnValue = null);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T responseData, object returnValue = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericFetch<TDbDataModel, T1, T2> : IAsyncFetch<TDbDataModel, DbParamsModel<T1, T2>>
         where TDbDataModel : DbDataModel
     {
         Task<IDbResponse<TDbDataModel>> Execute(T1 param1, T2 param2);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, IEnumerable<T> responseData, object returnValue = null);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T responseData, object returnValue = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericFetch<TDbDataModel, T1, T2, T3> : IAsyncFetch<TDbDataModel, DbParamsModel<T1, T2, T3>>
         where TDbDataModel : DbDataModel
     {
         Task<IDbResponse<TDbDataModel>> Execute(T1 param1, T2 param2, T3 param3);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, IEnumerable<T> responseData, object returnValue = null);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T responseData, object returnValue = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericFetch<TDbDataModel, T1, T2, T3, T4> : IAsyncFetch<TDbDataModel, DbParamsModel<T1, T2, T3, T4>>
         where TDbDataModel : DbDataModel
     {
         Task<IDbResponse<TDbDataModel>> Execute(T1 param1, T2 param2, T3 param3, T4 param4);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, IEnumerable<T> responseData, object returnValue = null);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T responseData, object returnValue = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
     public interface IAsyncGenericFetch<TDbDataModel, T1, T2, T3, T4, T5> : IAsyncFetch<TDbDataModel, DbParamsModel<T1, T2, T3, T4, T5>>
         where TDbDataModel : DbDataModel
     {
         Task<IDbResponse<TDbDataModel>> Execute(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, IEnumerable<T> responseData, object returnValue = null);
-        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, T responseData, object returnValue = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null);
     }
 
     internal class AsyncFetch<TDbDataModel> : IAsyncFetch<TDbDataModel>
@@ -109,16 +109,16 @@ namespace DbFacade.Facade.Core
             MockHandler = mockHandler;
         }
         public async Task<IDbResponse<TDbDataModel>> Execute() => await Handler();
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(IEnumerable<T> responseData, object returnValue = null)
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             var parameters = new DbParamsModel();
-            await Task.Run(() => parameters.RunAsTest(responseData, returnValue));
+            await Task.Run(() => parameters.RunAsTest(responseData, returnValue, outputValues));
             return await MockHandler(parameters);
         }
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T responseData, object returnValue = null)
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             var parameters = new DbParamsModel();
-            await Task.Run(() => parameters.RunAsTest(responseData, returnValue));
+            await Task.Run(() => parameters.RunAsTest(responseData, returnValue, outputValues));
             return await MockHandler(parameters);
         }
     }
@@ -133,14 +133,14 @@ namespace DbFacade.Facade.Core
             Handler = handler;
         }
         public async Task<IDbResponse<TDbDataModel>> Execute(TDbParams parameters) => await Handler(parameters);
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(TDbParams parameters, IEnumerable<T> responseData, object returnValue = null)
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
-            await Task.Run(() => parameters.RunAsTest(responseData, returnValue));
+            await Task.Run(() => parameters.RunAsTest(responseData, returnValue,outputValues));
             return await Execute(parameters);
         }
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(TDbParams parameters, T responseData, object returnValue = null)
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(TDbParams parameters, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
-            await Task.Run(() => parameters.RunAsTest(responseData, returnValue));
+            await Task.Run(() => parameters.RunAsTest(responseData, returnValue,outputValues));
             return await Execute(parameters);
         }
     }
@@ -151,11 +151,11 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse<TDbDataModel>> Execute(T1 param1)
             => await Execute(new DbParamsModel<T1>(param1));
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, IEnumerable<T> responseData, object returnValue = null)
-            => await Mock(new DbParamsModel<T1>(param1), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1>(param1), responseData, returnValue, outputValues);
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T responseData, object returnValue = null)
-            => await Mock(new DbParamsModel<T1>(param1), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1>(param1), responseData, returnValue, outputValues);
     }
     internal class GenericAsyncFetch<TDbDataModel, T1, T2> : AsyncFetch<TDbDataModel, DbParamsModel<T1, T2>>, IAsyncGenericFetch<TDbDataModel, T1, T2>
         where TDbDataModel : DbDataModel
@@ -164,11 +164,11 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse<TDbDataModel>> Execute(T1 param1, T2 param2)
             => await Execute(new DbParamsModel<T1, T2>(param1, param2));
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, IEnumerable<T> responseData, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2>(param1, param2), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2>(param1, param2), responseData, returnValue, outputValues);
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T responseData, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2>(param1, param2), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2>(param1, param2), responseData, returnValue, outputValues);
     }
     internal class GenericAsyncFetch<TDbDataModel, T1, T2, T3> : AsyncFetch<TDbDataModel, DbParamsModel<T1, T2, T3>>, IAsyncGenericFetch<TDbDataModel, T1, T2, T3>
         where TDbDataModel : DbDataModel
@@ -177,11 +177,11 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse<TDbDataModel>> Execute(T1 param1, T2 param2, T3 param3)
             => await Execute(new DbParamsModel<T1, T2, T3>(param1, param2, param3));
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, IEnumerable<T> responseData, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2, T3>(param1, param2, param3), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2, T3>(param1, param2, param3), responseData, returnValue, outputValues);
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T responseData, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2, T3>(param1, param2, param3), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2, T3>(param1, param2, param3), responseData, returnValue, outputValues);
     }
     internal class GenericAsyncFetch<TDbDataModel, T1, T2, T3, T4> : AsyncFetch<TDbDataModel, DbParamsModel<T1, T2, T3, T4>>, IAsyncGenericFetch<TDbDataModel, T1, T2, T3, T4>
         where TDbDataModel : DbDataModel
@@ -190,11 +190,11 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse<TDbDataModel>> Execute(T1 param1, T2 param2, T3 param3, T4 param4)
             => await Execute(new DbParamsModel<T1, T2, T3, T4>(param1, param2, param3, param4));
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, IEnumerable<T> responseData, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2, T3, T4>(param1, param2, param3, param4), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2, T3, T4>(param1, param2, param3, param4), responseData, returnValue, outputValues);
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T responseData, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2, T3, T4>(param1, param2, param3, param4), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2, T3, T4>(param1, param2, param3, param4), responseData, returnValue, outputValues);
     }
     internal class GenericAsyncFetch<TDbDataModel, T1, T2, T3, T4, T5> : AsyncFetch<TDbDataModel, DbParamsModel<T1, T2, T3, T4, T5>>, IAsyncGenericFetch<TDbDataModel, T1, T2, T3, T4, T5>
         where TDbDataModel : DbDataModel
@@ -203,12 +203,11 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse<TDbDataModel>> Execute(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5)
             => await Execute(new DbParamsModel<T1, T2, T3, T4, T5>(param1, param2, param3, param4, param5));
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, IEnumerable<T> responseData, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2, T3, T4, T5>(param1, param2, param3, param4, param5), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, IEnumerable<T> responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2, T3, T4, T5>(param1, param2, param3, param4, param5), responseData, returnValue, outputValues);
 
-        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, T responseData, object returnValue = null)
-            =>await
- Mock(new DbParamsModel<T1, T2, T3, T4, T5>(param1, param2, param3, param4, param5), responseData, returnValue);
+        public async Task<IDbResponse<TDbDataModel>> Mock<T>(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, T responseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            =>await Mock(new DbParamsModel<T1, T2, T3, T4, T5>(param1, param2, param3, param4, param5), responseData, returnValue, outputValues);
     }
 
 
@@ -225,10 +224,10 @@ namespace DbFacade.Facade.Core
             MockHandler = mockHandler;
         }
         public async Task<IDbResponse> Execute() => await Handler();
-        public async Task<IDbResponse> Mock(object returnValue = null)
+        public async Task<IDbResponse> Mock(int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             var parameters = new DbParamsModel();
-            await Task.Run(() => parameters.RunAsTest(returnValue));
+            await Task.Run(() => parameters.RunAsTest(returnValue, outputValues));
             return await MockHandler(parameters);
         }
     }
@@ -243,9 +242,9 @@ namespace DbFacade.Facade.Core
         }
 
         public async Task<IDbResponse> Execute(TDbParams parameters) => await Handler(parameters);
-        public async Task<IDbResponse> Mock(TDbParams parameters, object returnValue = null)
+        public async Task<IDbResponse> Mock(TDbParams parameters, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
-            await Task.Run(() => parameters.RunAsTest(returnValue));
+            await Task.Run(() => parameters.RunAsTest(returnValue, outputValues));
             return await Execute(parameters);
         }
     }
@@ -255,8 +254,8 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse> Execute(T1 param1)
             => await Execute(new DbParamsModel<T1>(param1));
 
-        public async Task<IDbResponse> Mock(T1 param1, object returnValue = null)
-            => await Mock(new DbParamsModel<T1>(param1), returnValue);
+        public async Task<IDbResponse> Mock(T1 param1, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1>(param1), returnValue,outputValues);
     }
     internal class GenericAsyncTransaction<T1, T2> : AsyncTransaction<DbParamsModel<T1, T2>>, IAsyncGenericTransaction<T1, T2>
     {
@@ -264,8 +263,8 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse> Execute(T1 param1, T2 param2)
             => await Execute(new DbParamsModel<T1, T2>(param1, param2));
 
-        public async Task<IDbResponse> Mock(T1 param1, T2 param2, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2>(param1, param2), returnValue);
+        public async Task<IDbResponse> Mock(T1 param1, T2 param2, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2>(param1, param2), returnValue, outputValues);
     }
     internal class GenericAsyncTransaction<T1, T2, T3> : AsyncTransaction<DbParamsModel<T1, T2, T3>>, IAsyncGenericTransaction<T1, T2, T3>
     {
@@ -273,8 +272,8 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse> Execute(T1 param1, T2 param2, T3 param3)
             => await Execute(new DbParamsModel<T1, T2, T3>(param1, param2, param3));
 
-        public async Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2, T3>(param1, param2, param3), returnValue);
+        public async Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2, T3>(param1, param2, param3), returnValue,outputValues);
     }
     internal class GenericAsyncTransaction<T1, T2, T3, T4> : AsyncTransaction<DbParamsModel<T1, T2, T3, T4>>, IAsyncGenericTransaction<T1, T2, T3, T4>
     {
@@ -282,8 +281,8 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse> Execute(T1 param1, T2 param2, T3 param3, T4 param4)
             => await Execute(new DbParamsModel<T1, T2, T3, T4>(param1, param2, param3, param4));
 
-        public async Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, T4 param4, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2, T3, T4>(param1, param2, param3, param4), returnValue);
+        public async Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, T4 param4, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2, T3, T4>(param1, param2, param3, param4), returnValue,outputValues);
     }
     internal class GenericAsyncTransaction<T1, T2, T3, T4, T5> : AsyncTransaction<DbParamsModel<T1, T2, T3, T4, T5>>, IAsyncGenericTransaction<T1, T2, T3, T4, T5>
     {
@@ -291,8 +290,8 @@ namespace DbFacade.Facade.Core
         public async Task<IDbResponse> Execute(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5)
             => await Execute(new DbParamsModel<T1, T2, T3, T4, T5>(param1, param2, param3, param4, param5));
 
-        public async Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, object returnValue = null)
-            => await Mock(new DbParamsModel<T1, T2, T3, T4, T5>(param1, param2, param3, param4, param5), returnValue);
+        public async Task<IDbResponse> Mock(T1 param1, T2 param2, T3 param3, T4 param4, T5 param5, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => await Mock(new DbParamsModel<T1, T2, T3, T4, T5>(param1, param2, param3, param4, param5), returnValue,outputValues);
     }
     
 }

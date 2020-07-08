@@ -19,27 +19,29 @@ namespace DBFacade.DataLayer.Models
 
         public MethodRunMode RunMode { get; private set; }
         public DbDataReader ResponseData { get; protected set; }
-        public object ReturnValue { get; protected set; }
+        public int ReturnValue { get; protected set; }
+        public IDictionary<string,object> OutputValues { get; protected set; }
 
-        public void RunAsTest(object returnValue)
+        public void RunAsTest(int returnValue, IDictionary<string, object> outputValues = null)
         {
-            SetRunAsTest<int?>(returnValue, null, null);
+            SetRunAsTest<int?>(returnValue, null, null, outputValues);
         }
 
-        public void RunAsTest<T>(IEnumerable<T> responseData, object returnValue)
+        public void RunAsTest<T>(IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null)
         {
-            SetRunAsTest(returnValue, responseData, default(T));
+            SetRunAsTest(returnValue, responseData, default(T), outputValues);
         }
 
-        public void RunAsTest<T>(T responseData, object returnValue)
+        public void RunAsTest<T>(T responseData, int returnValue, IDictionary<string, object> outputValues = null)
         {
-            SetRunAsTest(returnValue, null, responseData);
+            SetRunAsTest(returnValue, null, responseData, outputValues);
         }
 
-        private void SetRunAsTest<T>(object returnValue, IEnumerable<T> responseData, T singleResponseValue)
+        private void SetRunAsTest<T>(int returnValue, IEnumerable<T> responseData, T singleResponseValue, IDictionary<string, object> outputValues = null)
         {
             RunMode = MethodRunMode.Test;
             ReturnValue = returnValue;
+            OutputValues = outputValues;
             var useEmptyTable = responseData == null && singleResponseValue == null;
             var useIEnumerableTable = responseData != null;
 
@@ -58,17 +60,15 @@ namespace DBFacade.DataLayer.Models
     public sealed class MockParamsModel<DbParams> : DbParamsModel, IDbFunctionalTestParamsModel
         where DbParams : IDbParamsModel
     {
-        public MockParamsModel(DbParams model, DbDataReader testResponseData)
-        {
-            ParamsModel = model;
-            ResponseData = testResponseData;
-        }
+        public MockParamsModel(DbParams model, DbDataReader testResponseData,IDictionary<string, object> outputValues = null)
+        :this(model, testResponseData, 0, outputValues){}
 
-        public MockParamsModel(DbParams model, DbDataReader testResponseData, object returnValue)
+        public MockParamsModel(DbParams model, DbDataReader testResponseData, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             ParamsModel = model;
             ResponseData = testResponseData;
             ReturnValue = returnValue;
+            OutputValues = outputValues;
         }
 
         public IDbParamsModel ParamsModel { get; }

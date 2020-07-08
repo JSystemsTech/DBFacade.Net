@@ -14,7 +14,10 @@ namespace DBFacade.DataLayer.Models
         ///     Returns the value.
         /// </summary>
         /// <returns></returns>
-        object ReturnValue { get; }
+        int ReturnValue { get; }
+        IDictionary<string, object> OutputValues { get; }
+        object GetOutputValue(string key);
+        T GetOutputValue<T>(string key);
 
         bool IsNull { get; }
     }

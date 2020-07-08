@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -133,6 +134,15 @@ namespace DBFacade.DataLayer.Models
 
         private static object AsInt(IDataRecord data, int columnOrdinal)
         {
+            var dotNetType = data.GetFieldType(columnOrdinal);
+            if (dotNetType == typeof(byte))
+            {
+                return (int)AsByte(data, columnOrdinal);
+            }
+            if (dotNetType == typeof(short))
+            {
+                return (int)AsShort(data, columnOrdinal);
+            }
             return data.GetInt32(columnOrdinal);
         }
 

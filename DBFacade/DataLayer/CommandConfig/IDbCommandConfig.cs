@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System.Collections.Generic;
+using System.Data.Common;
 using System.Threading.Tasks;
 using DBFacade.DataLayer.ConnectionService;
 using DBFacade.DataLayer.Models;
@@ -24,7 +25,9 @@ namespace DBFacade.DataLayer.CommandConfig
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter;
 
-        object GetReturnValue<TDbCommand>(TDbCommand dbCommand)
+        int GetReturnValue<TDbCommand>(TDbCommand dbCommand)
+            where TDbCommand : DbCommand;
+        IDictionary<string, object> GetOutputValues<TDbCommand>(TDbCommand dbCommand)
             where TDbCommand : DbCommand;
 
         Task<IDbConnectionConfigInternal> GetDbConnectionConfigAsync();

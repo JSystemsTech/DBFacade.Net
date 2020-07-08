@@ -8,7 +8,7 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
 {
     /// <summary></summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    internal class DbCommandParameterConfig<TDbParams> : IInternalDbCommandParameterConfig<TDbParams>
+    internal partial class DbCommandParameterConfig<TDbParams> : IInternalDbCommandParameterConfig<TDbParams>
         where TDbParams : IDbParamsModel
     {
         internal DbCommandParameterConfig()
@@ -23,12 +23,16 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
 
         public DbType DbType { get; protected set; }
         public bool IsNullable { get; }
+        public bool IsOutput { get; private set; }
 
         public virtual object Value(TDbParams model)
         {
             return null;
         }
-
+        public virtual object Value()
+        {
+            return null;
+        }
         /*params Functions*/
         internal IDbCommandParameterConfig<TDbParams> Byte(DelegateHandler<TDbParams, byte> returnFunction)
         {
@@ -473,5 +477,6 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
                 return ReturnFunction(model);
             }
         }
+        
     }
 }

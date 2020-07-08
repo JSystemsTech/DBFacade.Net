@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Xml;
 using DBFacade.DataLayer.Manifest;
 using Newtonsoft.Json;
@@ -20,13 +19,26 @@ namespace DBFacade.DataLayer.Models
             IsNull = true;
         }
 
-        public DbResponse(object returnValue = null)
+        public DbResponse(int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             ReturnValue = returnValue;
+            OutputValues = outputValues;
         }
 
-        public object ReturnValue { get; }
-        public bool IsNull { get; }
+        public int ReturnValue { get; private set; }
+        public object GetOutputValue(string key)
+        {
+            object value;
+            if(OutputValues != null && OutputValues.TryGetValue(key, out value))
+            {
+                return value;
+            }
+            return null;
+        }
+        public T GetOutputValue<T>(string key)
+        => GetOutputValue(key) is T value ? value : default(T);
+        public IDictionary<string, object> OutputValues { get; private set; }
+        public bool IsNull { get; private set; }
 
         public string ToJson()
         {

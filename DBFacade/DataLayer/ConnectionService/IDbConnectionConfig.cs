@@ -11,8 +11,7 @@ namespace DBFacade.DataLayer.ConnectionService
 
     internal interface IDbConnectionConfigInternal : IDbConnectionConfig
     {
-        IDbConnection DbConnection { get; }
-
+        IDbConnection GetDbConnection(IDbParamsModel parameters);
         IDbResponse<TDbDataModel> ExecuteDbAction<TDbMethodManifest, TDbDataModel, TDbParams, TDbMethodManifestMethod>(
             TDbMethodManifestMethod method, TDbParams parameters)
             where TDbMethodManifest : DbMethodManifest

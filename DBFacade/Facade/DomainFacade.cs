@@ -123,65 +123,6 @@ namespace DBFacade.Facade
 
         #endregion
 
-        #region Mock Db Calls
-        [Obsolete("This method will soon be deprecated. Use BuildFetch.Mock instead.")]
-        protected IDbResponse<TDbDataModel> MockFetch<TDbDataModel, TDbParams, TDbMethodManifestMethod, T>(
-            IEnumerable<T> responseData, TDbParams parameters, object returnValue = null)
-            where TDbDataModel : DbDataModel
-            where TDbParams : IDbParamsModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            parameters.RunAsTest(responseData, returnValue);
-            return Fetch<TDbDataModel, TDbParams, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildFetch.Mock instead.")]
-        protected IDbResponse<TDbDataModel> MockFetch<TDbDataModel, TDbMethodManifestMethod, T>(
-            IEnumerable<T> responseData, object returnValue = null)
-            where TDbDataModel : DbDataModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            var parameters = new DbParamsModel();
-            parameters.RunAsTest(responseData, returnValue);
-            return Fetch<TDbDataModel, DbParamsModel, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildFetch.Mock instead.")]
-        protected IDbResponse<TDbDataModel> MockFetch<TDbDataModel, TDbParams, TDbMethodManifestMethod, T>(
-            T responseData, TDbParams parameters, object returnValue = null)
-            where TDbDataModel : DbDataModel
-            where TDbParams : IDbParamsModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            parameters.RunAsTest(responseData, returnValue);
-            return Fetch<TDbDataModel, TDbParams, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildFetch.Mock instead.")]
-        protected IDbResponse<TDbDataModel> MockFetch<TDbDataModel, TDbMethodManifestMethod, T>(T responseData,
-            object returnValue = null)
-            where TDbDataModel : DbDataModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            var parameters = new DbParamsModel();
-            parameters.RunAsTest(responseData, returnValue);
-            return Fetch<TDbDataModel, DbParamsModel, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildTransaction.Mock instead.")]
-        protected IDbResponse MockTransaction<TDbParams, TDbMethodManifestMethod>(TDbParams parameters,
-            object returnValue = null)
-            where TDbParams : IDbParamsModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            parameters.RunAsTest(returnValue);
-            return Transaction<TDbParams, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildTransaction.Mock instead.")]
-        protected IDbResponse MockTransaction<TDbMethodManifestMethod>(object returnValue = null)
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            var parameters = new DbParamsModel();
-            parameters.RunAsTest(returnValue);
-            return Transaction<DbParamsModel, TDbMethodManifestMethod>(parameters);
-        }
-
-        #endregion
+       
     }
 }

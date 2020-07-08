@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using DBFacade.DataLayer.Manifest;
+﻿using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
 using DbFacade.Facade.Core;
 using DBFacade.Facade.Core;
-using System;
 
 namespace DBFacade.Facade
 {
@@ -85,80 +82,8 @@ namespace DBFacade.Facade
             => new AsyncTransaction(
                 ExecuteProcessAsync<TDbMethodManifestMethod>,
                 ExecuteProcessAsync<DbParamsModel, TDbMethodManifestMethod>);
-
-
-
-        [Obsolete("This method will soon be deprecated. Use BuildAsyncFetch.Execute instead.")]
-        protected async Task<IDbResponse<TDbDataModel>> FetchAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod>(
-            TDbParams parameters)
-            where TDbDataModel : DbDataModel
-            where TDbParams : IDbParamsModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            return await ExecuteProcessAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildAsyncFetch.Execute instead.")]
-        protected async Task<IDbResponse<TDbDataModel>> FetchAsync<TDbDataModel, TDbMethodManifestMethod>()
-            where TDbDataModel : DbDataModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            return await ExecuteProcessAsync<TDbDataModel, TDbMethodManifestMethod>();
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildAsyncTransaction.Execute instead.")]
-        protected async Task<IDbResponse> TransactionAsync<TDbParams, TDbMethodManifestMethod>(TDbParams parameters)
-            where TDbParams : IDbParamsModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            return await ExecuteProcessAsync<DbDataModel, TDbParams, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildAsyncTransaction.Execute instead.")]
-        protected async Task<IDbResponse> TransactionAsync<TDbMethodManifestMethod>()
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            return await ExecuteProcessAsync<DbDataModel, TDbMethodManifestMethod>();
-        }
-
+        
         #endregion
 
-        #region Mock Db Calls Async
-        [Obsolete("This method will soon be deprecated. Use BuildAsyncFetch.Mock instead.")]
-        protected async Task<IDbResponse<TDbDataModel>> MockFetchAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod,
-            T>(IEnumerable<T> responseData, object returnValue, TDbParams parameters)
-            where TDbDataModel : DbDataModel
-            where TDbParams : IDbParamsModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            await Task.Run(() => parameters.RunAsTest(responseData, returnValue));
-            return await FetchAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildAsyncFetch.Mock instead.")]
-        protected async Task<IDbResponse<TDbDataModel>> MockFetchAsync<TDbDataModel, TDbMethodManifestMethod, T>(
-            IEnumerable<T> responseData, object returnValue)
-            where TDbDataModel : DbDataModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            var parameters = new DbParamsModel();
-            await Task.Run(() => parameters.RunAsTest(responseData, returnValue));
-            return await FetchAsync<TDbDataModel, DbParamsModel, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildAsyncTransaction.Mock instead.")]
-        protected async Task<IDbResponse> MockTransactionAsync<TDbParams, TDbMethodManifestMethod>(object returnValue,
-            TDbParams parameters)
-            where TDbParams : IDbParamsModel
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            await Task.Run(() => parameters.RunAsTest(returnValue));
-            return await TransactionAsync<TDbParams, TDbMethodManifestMethod>(parameters);
-        }
-        [Obsolete("This method will soon be deprecated. Use BuildAsyncTransaction.Mock instead.")]
-        protected async Task<IDbResponse> MockTransactionAsync<TDbMethodManifestMethod>(object returnValue)
-            where TDbMethodManifestMethod : TDbMethodManifest
-        {
-            var parameters = new DbParamsModel();
-            await Task.Run(() => parameters.RunAsTest(returnValue));
-            return await TransactionAsync<DbParamsModel, TDbMethodManifestMethod>(parameters);
-        }
-
-        #endregion
     }
 }

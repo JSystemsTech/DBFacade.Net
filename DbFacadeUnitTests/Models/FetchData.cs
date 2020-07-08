@@ -19,6 +19,10 @@ namespace DbFacadeUnitTests.Models
 
         [DbColumn("PublicKey")]
         public Guid PublicKey { get; internal set; }
+        [DbColumn("MyByte")]
+        public byte MyByte { get; internal set; }
+        [DbColumn("MyByte")]
+        public int MyByteAsInt { get; internal set; }
     }
     internal class FetchDataWithBadDbColumn : DbDataModel
     {
