@@ -13,6 +13,7 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
         DbType DbType { get; }
         bool IsNullable { get; }
         bool IsOutput { get; }
+        int OutputSize { get; }
         object Value(TDbParams model);
     }
 }

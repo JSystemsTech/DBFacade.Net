@@ -24,6 +24,7 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
         public DbType DbType { get; protected set; }
         public bool IsNullable { get; }
         public bool IsOutput { get; private set; }
+        public int OutputSize { get; protected set; }
 
         public virtual object Value(TDbParams model)
         {

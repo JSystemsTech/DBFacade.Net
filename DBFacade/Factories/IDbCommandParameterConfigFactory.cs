@@ -129,30 +129,30 @@ namespace DBFacade.Factories
         #endregion
         #region Output
 
-        IDbCommandParameterConfig<TDbParams> OutputByte();
-        IDbCommandParameterConfig<TDbParams> OutputSByte();
-        IDbCommandParameterConfig<TDbParams> OutputInt16();
-        IDbCommandParameterConfig<TDbParams> OutputInt32();
-        IDbCommandParameterConfig<TDbParams> OutputInt64();
-        IDbCommandParameterConfig<TDbParams> OutputUInt16();
-        IDbCommandParameterConfig<TDbParams> OutputUInt32();
-        IDbCommandParameterConfig<TDbParams> OutputUInt64();
-        IDbCommandParameterConfig<TDbParams> OutputSingle();
-        IDbCommandParameterConfig<TDbParams> OutputDouble();
-        IDbCommandParameterConfig<TDbParams> OutputDecimal();
-        IDbCommandParameterConfig<TDbParams> OutputBoolean();
-        IDbCommandParameterConfig<TDbParams> OutputGuid();
-        IDbCommandParameterConfig<TDbParams> OutputTimeSpan();
-        IDbCommandParameterConfig<TDbParams> OutputDateTime();
-        IDbCommandParameterConfig<TDbParams> OutputDateTime2();
-        IDbCommandParameterConfig<TDbParams> OutputDateTimeOffset();
-        IDbCommandParameterConfig<TDbParams> OutputBinary();
-        IDbCommandParameterConfig<TDbParams> OutputChar();
-        IDbCommandParameterConfig<TDbParams> OutputString();
-        IDbCommandParameterConfig<TDbParams> OutputCharArray();
-        IDbCommandParameterConfig<TDbParams> OutputAnsiStringFixedLength();
-        IDbCommandParameterConfig<TDbParams> OutputAnsiString();
-        IDbCommandParameterConfig<TDbParams> OutputXml();
+        IDbCommandParameterConfig<TDbParams> OutputByte(int size);
+        IDbCommandParameterConfig<TDbParams> OutputSByte(int size);
+        IDbCommandParameterConfig<TDbParams> OutputInt16(int size);
+        IDbCommandParameterConfig<TDbParams> OutputInt32(int size);
+        IDbCommandParameterConfig<TDbParams> OutputInt64(int size);
+        IDbCommandParameterConfig<TDbParams> OutputUInt16(int size);
+        IDbCommandParameterConfig<TDbParams> OutputUInt32(int size);
+        IDbCommandParameterConfig<TDbParams> OutputUInt64(int size);
+        IDbCommandParameterConfig<TDbParams> OutputSingle(int size);
+        IDbCommandParameterConfig<TDbParams> OutputDouble(int size);
+        IDbCommandParameterConfig<TDbParams> OutputDecimal(int size);
+        IDbCommandParameterConfig<TDbParams> OutputBoolean(int size);
+        IDbCommandParameterConfig<TDbParams> OutputGuid(int size);
+        IDbCommandParameterConfig<TDbParams> OutputTimeSpan(int size);
+        IDbCommandParameterConfig<TDbParams> OutputDateTime(int size);
+        IDbCommandParameterConfig<TDbParams> OutputDateTime2(int size);
+        IDbCommandParameterConfig<TDbParams> OutputDateTimeOffset(int size);
+        IDbCommandParameterConfig<TDbParams> OutputBinary(int size);
+        IDbCommandParameterConfig<TDbParams> OutputChar(int size);
+        IDbCommandParameterConfig<TDbParams> OutputString(int size);
+        IDbCommandParameterConfig<TDbParams> OutputCharArray(int size);
+        IDbCommandParameterConfig<TDbParams> OutputAnsiStringFixedLength(int size);
+        IDbCommandParameterConfig<TDbParams> OutputAnsiString(int size);
+        IDbCommandParameterConfig<TDbParams> OutputXml(int size);
 
 
         #endregion

@@ -219,30 +219,30 @@ namespace DBFacade.Factories
 
         #region Output
 
-        public static IDbCommandParameterConfig<DbParamsModel> OutputByte => ConfigBuilder.OutputByte();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputSByte => ConfigBuilder.OutputSByte();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputInt16 => ConfigBuilder.OutputInt16();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputInt32 => ConfigBuilder.OutputInt32();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputInt64 => ConfigBuilder.OutputInt64();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputUInt16 => ConfigBuilder.OutputUInt16();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputUInt32 => ConfigBuilder.OutputUInt32();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputUInt64 => ConfigBuilder.OutputUInt64();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputSingle => ConfigBuilder.OutputSingle();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputDouble => ConfigBuilder.OutputDouble();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputDecimal => ConfigBuilder.OutputDecimal();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputBoolean => ConfigBuilder.OutputBoolean();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputGuid => ConfigBuilder.OutputGuid();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputTimeSpan => ConfigBuilder.OutputTimeSpan();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputDateTime => ConfigBuilder.OutputDateTime();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputDateTime2 => ConfigBuilder.OutputDateTime2();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputDateTimeOffset => ConfigBuilder.OutputDateTimeOffset();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputBinary => ConfigBuilder.OutputBinary();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputChar => ConfigBuilder.OutputChar();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputString => ConfigBuilder.OutputString();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputCharArray => ConfigBuilder.OutputCharArray();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputAnsiStringFixedLength => ConfigBuilder.OutputAnsiStringFixedLength();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputAnsiString => ConfigBuilder.OutputAnsiString();
-        public static IDbCommandParameterConfig<DbParamsModel> OutputXml => ConfigBuilder.OutputXml();
+        public static IDbCommandParameterConfig<DbParamsModel> OutputByte(int size) => ConfigBuilder.OutputByte(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputSByte(int size) => ConfigBuilder.OutputSByte(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputInt16(int size) => ConfigBuilder.OutputInt16(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputInt32(int size) => ConfigBuilder.OutputInt32(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputInt64(int size) => ConfigBuilder.OutputInt64(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputUInt16(int size) => ConfigBuilder.OutputUInt16(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputUInt32(int size) => ConfigBuilder.OutputUInt32(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputUInt64(int size) => ConfigBuilder.OutputUInt64(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputSingle(int size) => ConfigBuilder.OutputSingle(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputDouble(int size) => ConfigBuilder.OutputDouble(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputDecimal(int size) => ConfigBuilder.OutputDecimal(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputBoolean(int size) => ConfigBuilder.OutputBoolean(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputGuid(int size) => ConfigBuilder.OutputGuid(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputTimeSpan(int size) => ConfigBuilder.OutputTimeSpan(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputDateTime(int size) => ConfigBuilder.OutputDateTime(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputDateTime2(int size) => ConfigBuilder.OutputDateTime2(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputDateTimeOffset(int size) => ConfigBuilder.OutputDateTimeOffset(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputBinary(int size) => ConfigBuilder.OutputBinary(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputChar(int size) => ConfigBuilder.OutputChar(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputString(int size) => ConfigBuilder.OutputString(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputCharArray(int size) => ConfigBuilder.OutputCharArray(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputAnsiStringFixedLength(int size) => ConfigBuilder.OutputAnsiStringFixedLength(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputAnsiString(int size) => ConfigBuilder.OutputAnsiString(size);
+        public static IDbCommandParameterConfig<DbParamsModel> OutputXml(int size) => ConfigBuilder.OutputXml(size);
 
 
         #endregion
@@ -695,30 +695,30 @@ namespace DBFacade.Factories
 
         #region Output
 
-        public IDbCommandParameterConfig<TDbParams> OutputByte() => ConfigBuilder.OutputByte();
-        public IDbCommandParameterConfig<TDbParams> OutputSByte() => ConfigBuilder.OutputSByte();
-        public IDbCommandParameterConfig<TDbParams> OutputInt16() => ConfigBuilder.OutputInt16();
-        public IDbCommandParameterConfig<TDbParams> OutputInt32() => ConfigBuilder.OutputInt32();
-        public IDbCommandParameterConfig<TDbParams> OutputInt64() => ConfigBuilder.OutputInt64();
-        public IDbCommandParameterConfig<TDbParams> OutputUInt16()=> ConfigBuilder.OutputUInt16();
-        public IDbCommandParameterConfig<TDbParams> OutputUInt32()=> ConfigBuilder.OutputUInt32();
-        public IDbCommandParameterConfig<TDbParams> OutputUInt64()=> ConfigBuilder.OutputUInt64();
-        public IDbCommandParameterConfig<TDbParams> OutputSingle()=> ConfigBuilder.OutputSingle();
-        public IDbCommandParameterConfig<TDbParams> OutputDouble()=> ConfigBuilder.OutputDouble();
-        public IDbCommandParameterConfig<TDbParams> OutputDecimal()=> ConfigBuilder.OutputDecimal();
-        public IDbCommandParameterConfig<TDbParams> OutputBoolean()=> ConfigBuilder.OutputBoolean();
-        public IDbCommandParameterConfig<TDbParams> OutputGuid()  => ConfigBuilder.OutputGuid();
-        public IDbCommandParameterConfig<TDbParams> OutputTimeSpan() =>ConfigBuilder.OutputTimeSpan();
-        public IDbCommandParameterConfig<TDbParams> OutputDateTime()=> ConfigBuilder.OutputDateTime();
-        public IDbCommandParameterConfig<TDbParams> OutputDateTime2()=> ConfigBuilder.OutputDateTime2();
-        public IDbCommandParameterConfig<TDbParams> OutputDateTimeOffset()=> ConfigBuilder.OutputDateTimeOffset();
-        public IDbCommandParameterConfig<TDbParams> OutputBinary() => ConfigBuilder.OutputBinary();
-        public IDbCommandParameterConfig<TDbParams> OutputChar()   => ConfigBuilder.OutputChar();
-        public IDbCommandParameterConfig<TDbParams> OutputString() => ConfigBuilder.OutputString();
-        public IDbCommandParameterConfig<TDbParams> OutputCharArray()  => ConfigBuilder.OutputCharArray();
-        public IDbCommandParameterConfig<TDbParams> OutputAnsiStringFixedLength() => ConfigBuilder.OutputAnsiStringFixedLength();
-        public IDbCommandParameterConfig<TDbParams> OutputAnsiString() => ConfigBuilder.OutputAnsiString();
-        public IDbCommandParameterConfig<TDbParams> OutputXml() => ConfigBuilder.OutputXml();
+        public IDbCommandParameterConfig<TDbParams> OutputByte(int size) => ConfigBuilder.OutputByte(size);
+        public IDbCommandParameterConfig<TDbParams> OutputSByte(int size) => ConfigBuilder.OutputSByte(size);
+        public IDbCommandParameterConfig<TDbParams> OutputInt16(int size) => ConfigBuilder.OutputInt16(size);
+        public IDbCommandParameterConfig<TDbParams> OutputInt32(int size) => ConfigBuilder.OutputInt32(size);
+        public IDbCommandParameterConfig<TDbParams> OutputInt64(int size) => ConfigBuilder.OutputInt64(size);
+        public IDbCommandParameterConfig<TDbParams> OutputUInt16(int size) => ConfigBuilder.OutputUInt16(size);
+        public IDbCommandParameterConfig<TDbParams> OutputUInt32(int size) => ConfigBuilder.OutputUInt32(size);
+        public IDbCommandParameterConfig<TDbParams> OutputUInt64(int size) => ConfigBuilder.OutputUInt64(size);
+        public IDbCommandParameterConfig<TDbParams> OutputSingle(int size) => ConfigBuilder.OutputSingle(size);
+        public IDbCommandParameterConfig<TDbParams> OutputDouble(int size) => ConfigBuilder.OutputDouble(size);
+        public IDbCommandParameterConfig<TDbParams> OutputDecimal(int size) => ConfigBuilder.OutputDecimal(size);
+        public IDbCommandParameterConfig<TDbParams> OutputBoolean(int size) => ConfigBuilder.OutputBoolean(size);
+        public IDbCommandParameterConfig<TDbParams> OutputGuid(int size)  => ConfigBuilder.OutputGuid(size);
+        public IDbCommandParameterConfig<TDbParams> OutputTimeSpan(int size) =>ConfigBuilder.OutputTimeSpan(size);
+        public IDbCommandParameterConfig<TDbParams> OutputDateTime(int size) => ConfigBuilder.OutputDateTime(size);
+        public IDbCommandParameterConfig<TDbParams> OutputDateTime2(int size) => ConfigBuilder.OutputDateTime2(size);
+        public IDbCommandParameterConfig<TDbParams> OutputDateTimeOffset(int size) => ConfigBuilder.OutputDateTimeOffset(size);
+        public IDbCommandParameterConfig<TDbParams> OutputBinary(int size) => ConfigBuilder.OutputBinary(size);
+        public IDbCommandParameterConfig<TDbParams> OutputChar(int size)   => ConfigBuilder.OutputChar(size);
+        public IDbCommandParameterConfig<TDbParams> OutputString(int size) => ConfigBuilder.OutputString(size);
+        public IDbCommandParameterConfig<TDbParams> OutputCharArray(int size)  => ConfigBuilder.OutputCharArray(size);
+        public IDbCommandParameterConfig<TDbParams> OutputAnsiStringFixedLength(int size) => ConfigBuilder.OutputAnsiStringFixedLength(size);
+        public IDbCommandParameterConfig<TDbParams> OutputAnsiString(int size) => ConfigBuilder.OutputAnsiString(size);
+        public IDbCommandParameterConfig<TDbParams> OutputXml(int size) => ConfigBuilder.OutputXml(size);
 
 
         #endregion

@@ -36,7 +36,7 @@ namespace DbFacadeUnitTests.TestFacade
                     UnitTestConnection.TestFetchDataWithOutputParameters,
                     new DbCommandConfigParams
                     {
-                        {"MyStringOutputParam", DbCommandParameterConfigFactory.OutputString }
+                        {"MyStringOutputParam", DbCommandParameterConfigFactory.OutputString(8000) }
                     }
                 );
             }
@@ -65,7 +65,7 @@ namespace DbFacadeUnitTests.TestFacade
                     UnitTestConnection.TestTransaction,
                     new Params {
                         {"MyStringParam", ParamFactory.String(model=>model.Param1) },
-                        {"MyStringOutputParam", ParamFactory.OutputString() }
+                        {"MyStringOutputParam", ParamFactory.OutputString(8000) }
                     },
                     new Validator() {
                         Rules.Required(model=>model.Param1)

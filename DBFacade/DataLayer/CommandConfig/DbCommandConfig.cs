@@ -140,7 +140,11 @@ namespace DBFacade.DataLayer.CommandConfig
                          paramConfig.IsOutput ? ParameterDirection.Output : ParameterDirection.Input, config.Key);
                     dbParameter.DbType = paramConfig.DbType;
                     dbParameter.IsNullable = paramConfig.IsNullable;
-                    if (!paramConfig.IsOutput)
+                    if (paramConfig.IsOutput)
+                    {
+                        dbParameter.Size = paramConfig.OutputSize;
+                    }
+                    else
                     {
                         dbParameter.Value = paramConfig.Value(tDbMethodManifestMethodParams);
                     }

@@ -13,106 +13,107 @@ namespace DBFacade.DataLayer.CommandConfig.Parameters
     {
         private class DbCommandOutputParameterConfig : DbCommandParameterConfig<TDbParams>
         {
-            public DbCommandOutputParameterConfig(DbType dbType) : base(dbType, true)
+            public DbCommandOutputParameterConfig(DbType dbType, int size) : base(dbType, true)
             {
                 IsOutput = true;
+                OutputSize = size;
             }
 
         }        
-        
-        internal IDbCommandParameterConfig<TDbParams> OutputByte()
-        => new DbCommandOutputParameterConfig(DbType.Byte);
-        
-
-        internal IDbCommandParameterConfig<TDbParams> OutputSByte()
-        => new DbCommandOutputParameterConfig(DbType.SByte);
+        internal IDbCommandParameterConfig<TDbParams> OutputByte(int size)
+        => new DbCommandOutputParameterConfig(DbType.Byte, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputInt16()
-        => new DbCommandOutputParameterConfig(DbType.Int16);
+        internal IDbCommandParameterConfig<TDbParams> OutputSByte(int size)
+        => new DbCommandOutputParameterConfig(DbType.SByte, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputInt32()
-        => new DbCommandOutputParameterConfig(DbType.Int32);
+        internal IDbCommandParameterConfig<TDbParams> OutputInt16(int size)
+        => new DbCommandOutputParameterConfig(DbType.Int16, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputInt64()
-        => new DbCommandOutputParameterConfig(DbType.Int64);
+        internal IDbCommandParameterConfig<TDbParams> OutputInt32(int size)
+        => new DbCommandOutputParameterConfig(DbType.Int32, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputUInt16()
-        => new DbCommandOutputParameterConfig(DbType.UInt16);
+        internal IDbCommandParameterConfig<TDbParams> OutputInt64(int size)
+        => new DbCommandOutputParameterConfig(DbType.Int64, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputUInt32()
-        => new DbCommandOutputParameterConfig(DbType.UInt32);
+        internal IDbCommandParameterConfig<TDbParams> OutputUInt16(int size)
+        => new DbCommandOutputParameterConfig(DbType.UInt16, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputUInt64()
-        =>new DbCommandOutputParameterConfig(DbType.UInt64);
+        internal IDbCommandParameterConfig<TDbParams> OutputUInt32(int size)
+        => new DbCommandOutputParameterConfig(DbType.UInt32, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputSingle()
-        =>new DbCommandOutputParameterConfig(DbType.Single);
+        internal IDbCommandParameterConfig<TDbParams> OutputUInt64(int size)
+        =>new DbCommandOutputParameterConfig(DbType.UInt64, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputDouble()
-        => new DbCommandOutputParameterConfig(DbType.Double);
+        internal IDbCommandParameterConfig<TDbParams> OutputSingle(int size)
+        =>new DbCommandOutputParameterConfig(DbType.Single, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputDecimal()
-        => new DbCommandOutputParameterConfig(DbType.Decimal);
+        internal IDbCommandParameterConfig<TDbParams> OutputDouble(int size)
+        => new DbCommandOutputParameterConfig(DbType.Double, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputBoolean()
-        => new DbCommandOutputParameterConfig(DbType.Boolean);
+        internal IDbCommandParameterConfig<TDbParams> OutputDecimal(int size)
+        => new DbCommandOutputParameterConfig(DbType.Decimal, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputGuid()
-        => new DbCommandOutputParameterConfig(DbType.Guid);
+        internal IDbCommandParameterConfig<TDbParams> OutputBoolean(int size)
+        => new DbCommandOutputParameterConfig(DbType.Boolean, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputTimeSpan()
-        =>new DbCommandOutputParameterConfig(DbType.Time);
+        internal IDbCommandParameterConfig<TDbParams> OutputGuid(int size)
+        => new DbCommandOutputParameterConfig(DbType.Guid, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputDateTime()
-        =>new DbCommandOutputParameterConfig(DbType.DateTime);
+        internal IDbCommandParameterConfig<TDbParams> OutputTimeSpan(int size)
+        =>new DbCommandOutputParameterConfig(DbType.Time, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputDateTime2()
-        =>new DbCommandOutputParameterConfig(DbType.DateTime2);
+        internal IDbCommandParameterConfig<TDbParams> OutputDateTime(int size)
+        =>new DbCommandOutputParameterConfig(DbType.DateTime, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputDateTimeOffset()
-        => new DbCommandOutputParameterConfig(DbType.DateTimeOffset);
+        internal IDbCommandParameterConfig<TDbParams> OutputDateTime2(int size)
+        =>new DbCommandOutputParameterConfig(DbType.DateTime2, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputBinary()
-        => new DbCommandOutputParameterConfig(DbType.Binary);
+        internal IDbCommandParameterConfig<TDbParams> OutputDateTimeOffset(int size)
+        => new DbCommandOutputParameterConfig(DbType.DateTimeOffset, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputChar()
-        => new DbCommandOutputParameterConfig(DbType.StringFixedLength);
+        internal IDbCommandParameterConfig<TDbParams> OutputBinary(int size)
+        => new DbCommandOutputParameterConfig(DbType.Binary, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputString()
-        => new DbCommandOutputParameterConfig(DbType.String);
+        internal IDbCommandParameterConfig<TDbParams> OutputChar(int size)
+        => new DbCommandOutputParameterConfig(DbType.StringFixedLength, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputCharArray()
-        => new DbCommandOutputParameterConfig(DbType.String);
+        internal IDbCommandParameterConfig<TDbParams> OutputString(int size)
+        => new DbCommandOutputParameterConfig(DbType.String, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputAnsiStringFixedLength()
-        => new DbCommandOutputParameterConfig(DbType.AnsiStringFixedLength);
+        internal IDbCommandParameterConfig<TDbParams> OutputCharArray(int size)
+        => new DbCommandOutputParameterConfig(DbType.String, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams> OutputAnsiString()
-        => new DbCommandOutputParameterConfig(DbType.AnsiString);
+        internal IDbCommandParameterConfig<TDbParams> OutputAnsiStringFixedLength(int size)
+        => new DbCommandOutputParameterConfig(DbType.AnsiStringFixedLength, size);
         
 
-        internal IDbCommandParameterConfig<TDbParams>OutputXml()=> new DbCommandOutputParameterConfig(DbType.Xml);
+        internal IDbCommandParameterConfig<TDbParams> OutputAnsiString(int size)
+        => new DbCommandOutputParameterConfig(DbType.AnsiString, size);
+        
+
+        internal IDbCommandParameterConfig<TDbParams>OutputXml(int size)
+            => new DbCommandOutputParameterConfig(DbType.Xml, size);
         
         
     }
