@@ -43,9 +43,43 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.AreNotEqual(new Guid(), model.PublicKey);
         }
         [TestMethod]
+        public void SuccessfullyFetchesDataWithOutput()
+        {
+            IDbResponse<FetchData> data = DomainFacade.TestFetchDataWithOutput();
+            Assert.IsNotNull(data);
+            Assert.AreEqual(1, data.Count());
+            FetchData model = data.First();
+            Assert.AreEqual("test string", model.MyString);
+            Assert.IsNotNull(model.PublicKey);
+            Assert.AreNotEqual(new Guid(), model.PublicKey);
+
+            Assert.IsNotNull(data.OutputValues);
+            Assert.IsTrue(data.OutputValues.Count > 0);
+            Assert.IsTrue(data.OutputValues.ContainsKey("MyStringOutputParam"));
+            Assert.AreEqual(data.GetOutputValue("MyStringOutputParam"), "output response");
+            Assert.AreEqual(data.GetOutputValue<string>("MyStringOutputParam"), "output response");
+        }
+        [TestMethod]
+        public void SuccessfullyFetchesDataAndIgnoresBadColumnName()
+        {
+            IDbResponse<FetchDataWithBadDbColumn> data = DomainFacade.TestFetchDataWithBadDbColumn();
+            Assert.IsNotNull(data);
+            Assert.AreEqual(1, data.Count());
+            FetchDataWithBadDbColumn model = data.First();
+            Assert.IsTrue(model.HasDataBindingErrors);
+            Assert.AreEqual(5, model.DataBindingErrors.Count());
+            Assert.IsNull(model.MyString);
+            Assert.AreEqual( default(int), model.Integer);
+            Assert.IsNull(model.IntegerOptional);
+            Assert.IsNull(model.IntegerOptionalNull);
+            Assert.IsNull(model.MyString);
+            Assert.IsNotNull(model.PublicKey);
+            Assert.AreEqual(new Guid(), model.PublicKey);
+        }
+        [TestMethod]
         public void SuccessfullyFetchesNestedData()
         {
-            IDbResponse<FetchDataWithNested> data = DomainFacade.TestFetchDataWithNsted();
+            IDbResponse<FetchDataWithNested> data = DomainFacade.TestFetchDataWithNested();
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Count());
             FetchDataWithNested model = data.First();
@@ -74,6 +108,19 @@ namespace DbFacadeUnitTests.Tests.Facade
             IDbResponse response = DomainFacade.TestTransaction("my param");
             Assert.IsNotNull(response);
             Assert.AreEqual(10, response.ReturnValue);
+        }
+        [TestMethod]
+        public void SuccessfullyHandlesTransactionWithOutput()
+        {
+            IDbResponse response = DomainFacade.TestTransactionWithOutput("my param");
+            Assert.IsNotNull(response);
+            Assert.AreEqual(10, response.ReturnValue);
+
+            Assert.IsNotNull(response.OutputValues);
+            Assert.IsTrue(response.OutputValues.Count > 0);
+            Assert.IsTrue(response.OutputValues.ContainsKey("MyStringOutputParam"));
+            Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
+            Assert.AreEqual(response.GetOutputValue<string>("MyStringOutputParam"), "output response");
         }
         [TestMethod]
         public void CatchesValidationError()
@@ -150,8 +197,6 @@ namespace DbFacadeUnitTests.Tests.Facade
             {
                 Assert.AreEqual("Stopping at step 3", e.Message);
             }
-
-        }
-        
+        }        
     }
 }

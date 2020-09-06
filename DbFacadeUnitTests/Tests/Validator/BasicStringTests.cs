@@ -27,7 +27,7 @@ namespace DbFacadeUnitTests.Tests.Validator
             UnitTestValidator Validator = new UnitTestValidator()
             {
                 UnitTestRules.Delegate(model => model.String, Invalidates),
-                UnitTestRules.Delegate(model => model.String, value=> value != value),
+                UnitTestRules.Delegate(model => model.String, value=> false),
                 UnitTestRules.Delegate(model => model.Short, value=> value == 11)
             };
             IValidationResult result = Validator.Validate(Parameters);

@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<package >
+
+<package>
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
@@ -11,8 +12,8 @@
     <iconUrl>https://dbfacade.azurewebsites.net</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Beta release ($version$)</releaseNotes>
-    <copyright>Copyright 2019</copyright>
+    <releaseNotes>Stable Pre-Release ($version$)</releaseNotes>
+    <copyright>Copyright 2020</copyright>
     <tags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net</tags>
   </metadata>
 </package>

@@ -1,15 +1,15 @@
-﻿using DBFacade.Utils;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using DBFacade.Utils;
 
 namespace DBFacade.Services
 {
-    internal interface IInstanceResolver: ISafeDisposable
+    internal interface IInstanceResolver : ISafeDisposable
     {
         Type GetResolverType();
     }
+
     internal interface IInstanceResolver<T> : IInstanceResolver
     {
         C Get<C>() where C : T;
@@ -17,69 +17,68 @@ namespace DBFacade.Services
         void Add<C>(C value) where C : T;
         Task AddAsync<C>(C value) where C : T;
     }
+
     internal class InstanceResolver<T> : ConcurrentDictionary<Type, T>, IInstanceResolver<T>
     {
         C IInstanceResolver<T>.Get<C>()
         {
-            Type type = typeof(C);
-            if (!ContainsKey(type))
-            {
-                GetOrAdd(type, GenericInstance<C>.GetInstance());
-            }
-            T value;
-            TryGetValue(type, out value);
-            return (C)value;
+            var type = typeof(C);
+            if (!ContainsKey(type)) GetOrAdd(type, GenericInstance<C>.GetInstance());
+            TryGetValue(type, out T value);
+            return (C) value;
         }
+
         void IInstanceResolver<T>.Add<C>(C value)
         {
             GetOrAdd(typeof(C), value);
         }
+
         async Task<C> IInstanceResolver<T>.GetAsync<C>()
         {
-            Type type = typeof(C);
-            return await Task.Run(async() =>{
-                
-                if (!ContainsKey(type))
-                {
-                    GetOrAdd(type, await GenericInstance<C>.GetInstanceAsync());
-                }
-                T value;
-                TryGetValue(type, out value);
-                return (C)value;
+            var type = typeof(C);
+            return await Task.Run(async () =>
+            {
+                if (!ContainsKey(type)) GetOrAdd(type, await GenericInstance<C>.GetInstanceAsync());
+                TryGetValue(type, out T value);
+                return (C) value;
             });
         }
+
         async Task IInstanceResolver<T>.AddAsync<C>(C value)
         {
             await Task.Run(() => GetOrAdd(typeof(C), value));
         }
+
         public Type GetResolverType()
         {
             return typeof(T);
         }
- 
+
         #region IDisposable Support
-        private bool Disposed = false;
-        private bool Disposing = false;
-        public bool IsDisposing() { return Disposed || Disposing; }
+
+        private bool _disposed;
+        private bool _disposing;
+
+        public bool IsDisposing()
+        {
+            return _disposed || _disposing;
+        }
+
         public void Dispose(bool calledFromDispose)
         {
             /* skip if already disposed or in the process of disposing*/
             if (!IsDisposing())
             {
-                Disposing = true;
-                foreach (KeyValuePair<Type, T> item in this)
+                _disposing = true;
+                foreach (var item in this)
                 {
-                    if (item.Value is ISafeDisposable)
-                    {
-                        (item.Value as ISafeDisposable).Dispose(calledFromDispose);
-                    }
-                    else if (item.Value is IDisposable)
-                    {
-                        (item.Value as IDisposable).Dispose();
-                    }
-                    TryRemove(item.Key, out T value);
+                    if (item.Value is ISafeDisposable valueAsISafeDisposable)
+                        valueAsISafeDisposable.Dispose(calledFromDispose);
+                    else if (item.Value is IDisposable valueAsIDisposable) valueAsIDisposable.Dispose();
+                    TryRemove(item.Key, out var value);
                 }
-                Disposed = true;
+
+                _disposed = true;
             }
         }
 
@@ -88,6 +87,7 @@ namespace DBFacade.Services
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

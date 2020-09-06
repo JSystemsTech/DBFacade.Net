@@ -5,7 +5,6 @@ using DBFacade.DataLayer.Models;
 using DBFacade.DataLayer.Models.Validators;
 using DBFacade.DataLayer.Models.Validators.Rules;
 using DBFacade.Factories;
-using System;
 
 namespace DbFacadeUnitTests.TestFacade
 {
@@ -29,6 +28,19 @@ namespace DbFacadeUnitTests.TestFacade
                 );
             }
         }
+        public sealed class TestFetchDataWithOutput : UnitTestMethods
+        {
+            protected override IDbCommandConfig BuildConfig()
+            {
+                return DbCommandConfigFactory.FetchConfig(
+                    UnitTestConnection.TestFetchDataWithOutputParameters,
+                    new DbCommandConfigParams
+                    {
+                        {"MyStringOutputParam", DbCommandParameterConfigFactory.OutputString(8000) }
+                    }
+                );
+            }
+        }
         public sealed class TestTransaction : UnitTestMethod<DbParamsModel<string>>
         {
             protected override IDbCommandConfig BuildConfig()
@@ -38,6 +50,22 @@ namespace DbFacadeUnitTests.TestFacade
                     new Params {
                     {
                         "MyStringParam", ParamFactory.String(model=>model.Param1) }
+                    },
+                    new Validator() {
+                        Rules.Required(model=>model.Param1)
+                    }
+                );
+            }
+        }
+        public sealed class TestTransactionWithOutput : UnitTestMethod<DbParamsModel<string>>
+        {
+            protected override IDbCommandConfig BuildConfig()
+            {
+                return ConfigFactory.TransactionConfig(
+                    UnitTestConnection.TestTransaction,
+                    new Params {
+                        {"MyStringParam", ParamFactory.String(model=>model.Param1) },
+                        {"MyStringOutputParam", ParamFactory.OutputString(8000) }
                     },
                     new Validator() {
                         Rules.Required(model=>model.Param1)

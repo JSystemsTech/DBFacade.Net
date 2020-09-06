@@ -13,6 +13,7 @@ namespace DbFacadeUnitTests.Models
         public string Email = "MyTestEmail@gmail.com";
         public string EmailList = "MyTestEmail@gmail.com,MyOtherEmail@hotmail.com,MyLastEmail@yahoo.com";
 
+        public byte MyByte = 3;
         public int Integer = 100;
         public int? IntegerOptional = null;
         public Guid PublicKey = Guid.NewGuid();

@@ -14,192 +14,337 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
         Whitelist = 1,
         Blacklist = 2
     }
+
     public abstract partial class ValidationRule<TDbParams>
         where TDbParams : IDbParamsModel
     {
-        public static IValidationRule<TDbParams> Match(Expression<Func<TDbParams, string>> selector, string regexMatchStr, bool isNullable = false) => new MatchRule(selector, regexMatchStr, isNullable);
-        public static IValidationRule<TDbParams> Match(Expression<Func<TDbParams, string>> selector, string regexMatchStr, RegexOptions options, bool isNullable = false) => new MatchRule(selector, regexMatchStr, options, isNullable);
+        public static IValidationRule<TDbParams> Match(Expression<Func<TDbParams, string>> selector,
+            string regexMatchStr, bool isNullable = false)
+        {
+            return new MatchRule(selector, regexMatchStr, isNullable);
+        }
+
+        public static IValidationRule<TDbParams> Match(Expression<Func<TDbParams, string>> selector,
+            string regexMatchStr, RegexOptions options, bool isNullable = false)
+        {
+            return new MatchRule(selector, regexMatchStr, options, isNullable);
+        }
+
+        public static IValidationRule<TDbParams> IsNDigitString(Expression<Func<TDbParams, string>> selector,
+            int length, bool isNullable = false)
+        {
+            return new IsNDigitStringRule(selector, length, isNullable);
+        }
+
+        public static IValidationRule<TDbParams> IsSocialSecurityNumber(Expression<Func<TDbParams, string>> selector,
+            bool allowDashes = true, bool isNullable = false)
+        {
+            return new IsSocialSecurityNumberRule(selector, allowDashes, isNullable);
+        }
+
+
+        public static IValidationRule<TDbParams> IsNullOrEmpty(Expression<Func<TDbParams, string>> selector)
+        {
+            return new IsNullOrEmptyRule(selector);
+        }
+
+        public static IValidationRule<TDbParams> IsNotNullOrEmpty(Expression<Func<TDbParams, string>> selector)
+        {
+            return new IsNotNullOrEmptyRule(selector);
+        }
+
+        public static IValidationRule<TDbParams> IsNullOrWhiteSpace(Expression<Func<TDbParams, string>> selector)
+        {
+            return new IsNullOrWhiteSpaceRule(selector);
+        }
+
+        public static IValidationRule<TDbParams> IsNotNullOrWhiteSpace(Expression<Func<TDbParams, string>> selector)
+        {
+            return new IsNotNullOrWhiteSpaceRule(selector);
+        }
+
+        public static IValidationRule<TDbParams> LengthEquals(Expression<Func<TDbParams, string>> selector, int limit,
+            bool isNullable = false)
+        {
+            return new LengthEqualsRule(selector, limit, isNullable);
+        }
+
+        public static IValidationRule<TDbParams> MinLength(Expression<Func<TDbParams, string>> selector, int limit,
+            bool isNullable = false)
+        {
+            return new MinLengthRule(selector, limit, isNullable);
+        }
+
+        public static IValidationRule<TDbParams> MaxLength(Expression<Func<TDbParams, string>> selector, int limit,
+            bool isNullable = false)
+        {
+            return new MaxLengthRule(selector, limit, isNullable);
+        }
+
+
+        public static IValidationRule<TDbParams> Email(Expression<Func<TDbParams, string>> selector,
+            bool isNullable = false)
+        {
+            return new EmailRule(selector, isNullable);
+        }
+
+        public static IValidationRule<TDbParams> Email(Expression<Func<TDbParams, string>> selector,
+            IEnumerable<string> domains, EmailDomainMode mode, bool isNullable = false)
+        {
+            return new EmailRule(selector, domains, mode, isNullable);
+        }
 
         private class MatchRule : ValidationRule<TDbParams>
         {
-            private string MatchStr { get;  set; }
+            public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr,
+                bool isNullable = false) : this(selector, regexMatchStr, RegexOptions.IgnoreCase, isNullable)
+            {
+            }
 
-            internal RegexOptions RegexOptions { get; private set; }
-
-            public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr, bool isNullable = false) : this(selector, regexMatchStr, RegexOptions.IgnoreCase, isNullable) { }            
-            public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr, RegexOptions options, bool isNullable = false) : base(selector, isNullable)
+            public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr, RegexOptions options,
+                bool isNullable = false) : base(selector, isNullable)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
             }
+
+            private string MatchStr { get; }
+
+            internal RegexOptions RegexOptions { get; }
+
             protected override bool ValidateRule()
             {
-                Match MatchRegex = Regex.Match(ParamsValue.ToString(), MatchStr, RegexOptions);
-                return MatchRegex.Success;
-            }           
+                var matchRegex = Regex.Match(ParamsValue.ToString(), MatchStr, RegexOptions);
+                return matchRegex.Success;
+            }
+
             protected override string GetErrorMessageCore(string propertyName)
             {
                 return $"{propertyName} does not match the expression.";
             }
         }
-        public static IValidationRule<TDbParams> IsNDigitString(Expression<Func<TDbParams, string>> selector, int length, bool isNullable = false) => new IsNDigitStringRule(selector, length, isNullable);
+
         private sealed class IsNDigitStringRule : MatchRule
         {
-            private int Length { get; set; } 
-            private static string BuildRegexString(int length) => new StringBuilder("(?<!\\d)\\d{").Append(length).Append("}(?!\\d)").ToString();
-            public IsNDigitStringRule(Expression<Func<TDbParams, string>> selector, int length, bool isNullable = false) : base(selector, BuildRegexString(length), isNullable)
+            public IsNDigitStringRule(Expression<Func<TDbParams, string>> selector, int length, bool isNullable = false)
+                : base(selector, BuildRegexString(length), isNullable)
             {
                 Length = length;
             }
+
+            private int Length { get; }
+
+            private static string BuildRegexString(int length)
+            {
+                return new StringBuilder("(?<!\\d)\\d{").Append(length).Append("}(?!\\d)").ToString();
+            }
+
             protected override bool ValidateRule()
             {
                 return Length > 0 && ParamsValue.ToString().Length == Length && base.ValidateRule();
             }
+
             protected override string GetErrorMessageCore(string propertyName)
             {
-                if(Length <= 0 || ParamsValue.ToString().Length != Length)
-                {
+                if (Length <= 0 || ParamsValue.ToString().Length != Length)
                     return $"Length of {propertyName} is not equal to {Length}";
-                }
                 return $"{propertyName} is not a {Length} digit string";
             }
         }
-        public static IValidationRule<TDbParams> IsSocialSecurityNumber(Expression<Func<TDbParams, string>> selector, bool allowDashes = true, bool isNullable = false) => new IsSocialSecurityNumberRule(selector, allowDashes, isNullable);
+
         private sealed class IsSocialSecurityNumberRule : ValidationRule<TDbParams>
         {
-            private bool AllowDashes { get; set; }
-            private static string SSNMatch = "^(?!219-09-9999|078-05-1120)((?!666|000|9\\d{2})\\d{3}-?(?!00)\\d{2}-?(?!0{4})\\d{4})$";
-            private static string SSNMatchNoDashes = "^(?!219099999|078051120)((?!666|000|9\\d{2})\\d{3}?(?!00)\\d{2}?(?!0{4})\\d{4})$";
-            public IsSocialSecurityNumberRule(Expression<Func<TDbParams, string>> selector, bool allowDashes = true, bool isNullable = false) : base(selector, isNullable)
-            { AllowDashes = allowDashes; }
+            private static readonly string SSNMatch =
+                "^(?!219-09-9999|078-05-1120)((?!666|000|9\\d{2})\\d{3}-?(?!00)\\d{2}-?(?!0{4})\\d{4})$";
+
+            private static readonly string SSNMatchNoDashes =
+                "^(?!219099999|078051120)((?!666|000|9\\d{2})\\d{3}?(?!00)\\d{2}?(?!0{4})\\d{4})$";
+
+            public IsSocialSecurityNumberRule(Expression<Func<TDbParams, string>> selector, bool allowDashes = true,
+                bool isNullable = false) : base(selector, isNullable)
+            {
+                AllowDashes = allowDashes;
+            }
+
+            private bool AllowDashes { get; }
+
             protected override bool ValidateRule()
             {
-                Match SSNMatchNoDashesResult = Regex.Match(ParamsValue.ToString(), SSNMatchNoDashes, RegexOptions.IgnoreCase);
+                var sSnMatchNoDashesResult =
+                    Regex.Match(ParamsValue.ToString(), SSNMatchNoDashes, RegexOptions.IgnoreCase);
                 if (AllowDashes)
                 {
-                    Match SSNMatchResult = Regex.Match(ParamsValue.ToString(), SSNMatch, RegexOptions.IgnoreCase);
-                    return SSNMatchNoDashesResult.Success || SSNMatchResult.Success;
+                    var sSnMatchResult = Regex.Match(ParamsValue.ToString(), SSNMatch, RegexOptions.IgnoreCase);
+                    return sSnMatchNoDashesResult.Success || sSnMatchResult.Success;
                 }
-                return SSNMatchNoDashesResult.Success;
+
+                return sSnMatchNoDashesResult.Success;
             }
+
             protected override string GetErrorMessageCore(string propertyName)
             {
-                
                 return $"{propertyName} is not a valid Social Security Number";
             }
         }
 
-
-        public static IValidationRule<TDbParams> IsNullOrEmpty(Expression<Func<TDbParams, string>> selector) => new IsNullOrEmptyRule(selector);
-
         private class IsNullOrEmptyRule : ValidationRule<TDbParams>
         {
-            public IsNullOrEmptyRule(Expression<Func<TDbParams, string>> selector) : base(selector, true) { }
+            public IsNullOrEmptyRule(Expression<Func<TDbParams, string>> selector) : base(selector, true)
+            {
+            }
 
-            protected override bool ValidateRule() => string.IsNullOrEmpty(ParamsValue.ToString());
+            protected override bool ValidateRule()
+            {
+                return string.IsNullOrEmpty(ParamsValue.ToString());
+            }
 
-            protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} expecting value to be null or empty";
-
-
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                return $"{propertyName} expecting value to be null or empty";
+            }
         }
-        public static IValidationRule<TDbParams> IsNotNullOrEmpty(Expression<Func<TDbParams, string>> selector) => new IsNotNullOrEmptyRule(selector);
 
         private class IsNotNullOrEmptyRule : ValidationRule<TDbParams>
         {
-            public IsNotNullOrEmptyRule(Expression<Func<TDbParams, string>> selector) : base(selector, true) { }
+            public IsNotNullOrEmptyRule(Expression<Func<TDbParams, string>> selector) : base(selector, true)
+            {
+            }
 
-            protected override bool ValidateRule() => !string.IsNullOrEmpty(ParamsValue.ToString());
+            protected override bool ValidateRule()
+            {
+                return !string.IsNullOrEmpty(ParamsValue.ToString());
+            }
 
-            protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} expecting value to not be null or empty";
-
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                return $"{propertyName} expecting value to not be null or empty";
+            }
         }
-        public static IValidationRule<TDbParams> IsNullOrWhiteSpace(Expression<Func<TDbParams, string>> selector) => new IsNullOrWhiteSpaceRule(selector);
 
         private class IsNullOrWhiteSpaceRule : ValidationRule<TDbParams>
         {
-            public IsNullOrWhiteSpaceRule(Expression<Func<TDbParams, string>> selector) : base(selector, true) { }
+            public IsNullOrWhiteSpaceRule(Expression<Func<TDbParams, string>> selector) : base(selector, true)
+            {
+            }
 
-            protected override bool ValidateRule() => string.IsNullOrWhiteSpace(ParamsValue.ToString());
+            protected override bool ValidateRule()
+            {
+                return string.IsNullOrWhiteSpace(ParamsValue.ToString());
+            }
 
-            protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} expecting value to be null or white space";
-
-
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                return $"{propertyName} expecting value to be null or white space";
+            }
         }
-        public static IValidationRule<TDbParams> IsNotNullOrWhiteSpace(Expression<Func<TDbParams, string>> selector) => new IsNotNullOrWhiteSpaceRule(selector);
 
         private class IsNotNullOrWhiteSpaceRule : ValidationRule<TDbParams>
         {
-            public IsNotNullOrWhiteSpaceRule(Expression<Func<TDbParams, string>> selector) : base(selector, true) { }
+            public IsNotNullOrWhiteSpaceRule(Expression<Func<TDbParams, string>> selector) : base(selector, true)
+            {
+            }
 
-            protected override bool ValidateRule() => !string.IsNullOrWhiteSpace(ParamsValue.ToString());
+            protected override bool ValidateRule()
+            {
+                return !string.IsNullOrWhiteSpace(ParamsValue.ToString());
+            }
 
-            protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} expecting value to not be null or white space";
-
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                return $"{propertyName} expecting value to not be null or white space";
+            }
         }
-        public static IValidationRule<TDbParams> LengthEquals(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) => new LengthEqualsRule(selector, limit, isNullable);
 
         private class LengthEqualsRule : ValidationRule<TDbParams>
         {
+            public LengthEqualsRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) :
+                base(selector, isNullable)
+            {
+                LimitValue = limit;
+            }
 
-            private int LimitValue { get; set; }
+            private int LimitValue { get; }
 
-            public LengthEqualsRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) : base(selector, isNullable) { LimitValue = limit; }
+            protected override bool ValidateRule()
+            {
+                return ParamsValue.ToString().Length == LimitValue;
+            }
 
-            protected override bool ValidateRule() => ParamsValue.ToString().Length == LimitValue;
-
-            protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} expecting text length to  equal to {LimitValue}";
-
-
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                return $"{propertyName} expecting text length to  equal to {LimitValue}";
+            }
         }
-        public static IValidationRule<TDbParams> MinLength(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) => new MinLengthRule(selector, limit, isNullable);
 
         private class MinLengthRule : ValidationRule<TDbParams>
         {
-            
-            private int LimitValue { get; set; }
-            
-            public MinLengthRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) : base(selector, isNullable) { LimitValue = limit; }
-            
-            protected override bool ValidateRule() => ParamsValue.ToString().Length >= LimitValue;
-            
-            protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} expecting text length to be greater than or equal to {LimitValue}";
-           
+            public MinLengthRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) :
+                base(selector, isNullable)
+            {
+                LimitValue = limit;
+            }
 
+            private int LimitValue { get; }
+
+            protected override bool ValidateRule()
+            {
+                return ParamsValue.ToString().Length >= LimitValue;
+            }
+
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                return $"{propertyName} expecting text length to be greater than or equal to {LimitValue}";
+            }
         }
-        
-        public static IValidationRule<TDbParams> MaxLength(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) => new MaxLengthRule(selector, limit, isNullable);
 
         private class MaxLengthRule : ValidationRule<TDbParams>
         {
-            private int LimitValue { get; set; }
-            public MaxLengthRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) : base(selector, isNullable) { LimitValue = limit; }
+            public MaxLengthRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false) :
+                base(selector, isNullable)
+            {
+                LimitValue = limit;
+            }
 
-            protected override bool ValidateRule() => ParamsValue.ToString().Length <= LimitValue;
+            private int LimitValue { get; }
 
-            protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} expecting text length to be less than or equal to {LimitValue}";
-            
+            protected override bool ValidateRule()
+            {
+                return ParamsValue.ToString().Length <= LimitValue;
+            }
+
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                return $"{propertyName} expecting text length to be less than or equal to {LimitValue}";
+            }
         }
 
-        
-        public static IValidationRule<TDbParams> Email(Expression<Func<TDbParams, string>> selector, bool isNullable = false) => new EmailRule(selector, isNullable);
-        public static IValidationRule<TDbParams> Email(Expression<Func<TDbParams, string>> selector, IEnumerable<string> domains, EmailDomainMode mode, bool isNullable = false) => new EmailRule(selector, domains, mode, isNullable);
-
         private class EmailRule : ValidationRule<TDbParams>
-        {            
-            private IEnumerable<string> Domains { get; set; }
-            private EmailDomainMode Mode { get; set; }
+        {
+            public EmailRule(Expression<Func<TDbParams, string>> selector, bool isNullable = false) : base(selector,
+                isNullable)
+            {
+                Domains = new string[0];
+                Mode = EmailDomainMode.AllowAll;
+            }
 
-            public EmailRule(Expression<Func<TDbParams, string>> selector, bool isNullable = false) : base(selector, isNullable) { Domains = new string[0]; Mode = EmailDomainMode.AllowAll; }
-            public EmailRule(Expression<Func<TDbParams, string>> selector, IEnumerable<string> domains, EmailDomainMode mode, bool isNullable = false) : base(selector, isNullable) { Domains = domains; Mode = mode; }
-            
+            public EmailRule(Expression<Func<TDbParams, string>> selector, IEnumerable<string> domains,
+                EmailDomainMode mode, bool isNullable = false) : base(selector, isNullable)
+            {
+                Domains = domains;
+                Mode = mode;
+            }
+
+            private IEnumerable<string> Domains { get; }
+            private EmailDomainMode Mode { get; }
+
             protected override bool ValidateRule()
             {
                 try
                 {
-                    MailAddress email = new MailAddress(ParamsValue.ToString());
-                    bool hasDomail = Domains.Contains(email.Host);
-                    return Mode == EmailDomainMode.Whitelist ? hasDomail :
-                        Mode == EmailDomainMode.Blacklist ? !hasDomail :
+                    var email = new MailAddress(ParamsValue.ToString());
+                    var hasDomain = Domains.Contains(email.Host);
+                    return Mode == EmailDomainMode.Whitelist ? hasDomain :
+                        Mode == EmailDomainMode.Blacklist ? !hasDomain :
                         true;
                 }
                 catch
@@ -207,9 +352,11 @@ namespace DBFacade.DataLayer.Models.Validators.Rules
                     return false;
                 }
             }
-           
-            protected override string GetErrorMessageCore(string propertyName) => $"{propertyName} is an invalid email address";
-           
+
+            protected override string GetErrorMessageCore(string propertyName)
+            {
+                return $"{propertyName} is an invalid email address";
+            }
         }
     }
 }

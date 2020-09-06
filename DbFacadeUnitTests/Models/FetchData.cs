@@ -19,16 +19,33 @@ namespace DbFacadeUnitTests.Models
 
         [DbColumn("PublicKey")]
         public Guid PublicKey { get; internal set; }
+        [DbColumn("MyByte")]
+        public byte MyByte { get; internal set; }
+        [DbColumn("MyByte")]
+        public int MyByteAsInt { get; internal set; }
+    }
+    internal class FetchDataWithBadDbColumn : DbDataModel
+    {
+        [DbColumn("BadMyString")]
+        public string MyString { get; internal set; }
+        [DbColumn("BadInteger")]
+        public int Integer { get; internal set; }
+        [DbColumn("BadInteger")]
+        public int? IntegerOptional { get; internal set; }
+        [DbColumn("BadIntegerOptional")]
+        public int? IntegerOptionalNull { get; internal set; }
+
+        [DbColumn("BadPublicKey")]
+        public Guid PublicKey { get; internal set; }
     }
     internal class FetchDataWithNested : DbDataModel
     {
-        [NestedModel]
         public FetchDataEnumerable EnumerableData { get; internal set; }
-        [NestedModel]
+        
         public FetchDataDates DateData { get; internal set; }
-        [NestedModel]
+        
         public FetchDataEmail EmailData { get; internal set; }
-        [NestedModel]
+        
         public FetchDataFlags FlagData { get; internal set; }
 
     }

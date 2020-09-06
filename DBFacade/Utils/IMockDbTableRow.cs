@@ -1,4 +1,6 @@
 ﻿namespace DBFacade.Utils
 {
-    public interface IMockDbTableRow { }
+    public interface IMockDbTableRow
+    {
+    }
 }

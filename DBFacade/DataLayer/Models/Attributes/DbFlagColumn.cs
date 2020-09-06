@@ -4,52 +4,56 @@ using System.Data;
 namespace DBFacade.DataLayer.Models.Attributes
 {
     /// <summary>
-    /// 
     /// </summary>
     /// <seealso cref="DbColumn" />
     public sealed class DbFlagColumn : DbColumn
     {
         /// <summary>
-        /// The true value
+        ///     The true value
         /// </summary>
-        private object TrueValue;
+        private object _trueValue;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbFlagColumn"/> class.
+        ///     Initializes a new instance of the <see cref="DbFlagColumn" /> class.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="trueValue">The true value.</param>
         public DbFlagColumn(string name, object trueValue) : base(name)
         {
-            initColumn(trueValue);
+            InitColumn(trueValue);
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbFlagColumn"/> class.
+        ///     Initializes a new instance of the <see cref="DbFlagColumn" /> class.
         /// </summary>
-        /// <param name="TDbMethodManifestMethodType">Type of the database method.</param>
+        /// <param name="tDbMethodManifestMethodType">Type of the database method.</param>
         /// <param name="name">The name.</param>
         /// <param name="trueValue">The true value.</param>
-        public DbFlagColumn(Type TDbMethodManifestMethodType, string name, object trueValue) : base(TDbMethodManifestMethodType, name)
+        public DbFlagColumn(Type tDbMethodManifestMethodType, string name, object trueValue) : base(
+            tDbMethodManifestMethodType, name)
         {
-            initColumn(trueValue);
+            InitColumn(trueValue);
         }
-        
+
         /// <summary>
-        /// Initializes the column.
+        ///     Initializes the column.
         /// </summary>
         /// <param name="trueValue">The true value.</param>
-        private void initColumn(object trueValue)
+        private void InitColumn(object trueValue)
         {
-            TrueValue = trueValue;
+            _trueValue = trueValue;
         }
+
         /// <summary>
-        /// Gets the column value.
+        ///     Gets the column value.
         /// </summary>
         /// <param name="data">The data.</param>
+        /// ///
+        /// <param name="propType">The data.</param>
         /// <returns></returns>
-        protected override object GetColumnValue(IDataRecord data, Type propType)
+        protected override object GetColumnValue(IDataRecord data, Type propType = null)
         {
-            return GetValue(data, TrueValue.GetType()).ToString() == TrueValue.ToString();
+            return GetValue(data, _trueValue.GetType()).ToString() == _trueValue.ToString();
         }
     }
 }

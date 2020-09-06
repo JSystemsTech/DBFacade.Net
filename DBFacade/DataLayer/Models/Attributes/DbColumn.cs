@@ -1,122 +1,169 @@
-﻿using DBFacade.DataLayer.Manifest;
-using System;
+﻿using System;
 using System.Data;
+using DBFacade.DataLayer.Manifest;
+using DBFacade.Exceptions;
+
 namespace DBFacade.DataLayer.Models.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Constructor, Inherited = true, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Constructor, AllowMultiple = true)]
     public abstract class DbColumnCore : Attribute
     {
         protected abstract object GetColumnValue(IDataRecord data, Type propType = null);
     }
-    interface IDbColumn
+
+    internal interface IDbColumn
     {
         object GetColumnValueCore(IDataRecord data, Type propType = null);
         int GetOrdinal(IDataRecord data);
         Type GetTDbMethodManifestMethodType();
     }
+
     public class DbColumn : DbColumnCore, IDbColumn
     {
-        internal const char DefaultDelimeter = ',';
-        private char delimeter { get; set; }
-        private int BufferSize { get; set; }
+        internal const char DefaultDelimiter = ',';
+        private static readonly IgnorableDbColumnValue IgnorableDbColumnValueProp = new IgnorableDbColumnValue();
+        private readonly object _defaultValue;
 
-        private string name;
-        private object defaultValue;
-        
-        private Type TDbMethodManifestMethodType;
-        private bool boundToTDbMethodManifestMethod;
-        internal DbColumn() { }
+        private readonly string _name;
 
-        public DbColumn(string name, char delimeter = DefaultDelimeter)
-            : this(null, name, null,null, delimeter) { }
-        public DbColumn(Type TDbMethodManifestMethodType, string name, char delimeter = DefaultDelimeter)
-            : this(TDbMethodManifestMethodType, name, null, delimeter) { }
+        private readonly Type _tDbMethodManifestMethodType;
+
+        internal DbColumn()
+        {
+        }
+
+        public DbColumn(string name, char delimiter = DefaultDelimiter)
+            : this(null, name, null, null, delimiter)
+        {
+        }
+
+        public DbColumn(Type tDbMethodManifestMethodType, string name, char delimiter = DefaultDelimiter)
+            : this(tDbMethodManifestMethodType, name, null, delimiter)
+        {
+        }
 
         public DbColumn(string name, int bufferSize)
-            : this(null, name, null, bufferSize, DefaultDelimeter) { }
-        public DbColumn(Type TDbMethodManifestMethodType, string name, int bufferSize)
-            : this(TDbMethodManifestMethodType, name, null, bufferSize, DefaultDelimeter) { }
-
-
-        internal DbColumn(string name, object defaultValue, char delimeter = DefaultDelimeter)
-            :this(null, name, defaultValue,null, delimeter){}
-        internal DbColumn(Type TDbMethodManifestMethodType, string name, object defaultValue, int? bufferSize, char delimeter = DefaultDelimeter)            
-        {                        
-            this.delimeter = delimeter;
-            this.name = name;
-            this.defaultValue = defaultValue;
-            if(TDbMethodManifestMethodType != null)
-            {
-                CheckTDbMethodManifestMethodType(TDbMethodManifestMethodType);
-                this.TDbMethodManifestMethodType = TDbMethodManifestMethodType;
-                boundToTDbMethodManifestMethod = true;
-            }            
-        }        
-        
-        private void CheckTDbMethodManifestMethodType(Type TDbMethodManifestMethodType)
+            : this(null, name, null, bufferSize)
         {
-            if (!TDbMethodManifestMethodType.IsSubclassOf(typeof(DbMethodManifest)))
+        }
+
+        public DbColumn(Type tDbMethodManifestMethodType, string name, int bufferSize)
+            : this(tDbMethodManifestMethodType, name, null, bufferSize)
+        {
+        }
+
+
+        internal DbColumn(string name, object defaultValue, char delimiter = DefaultDelimiter)
+            : this(null, name, defaultValue, null, delimiter)
+        {
+        }
+
+        internal DbColumn(Type tDbMethodManifestMethodType, string name, object defaultValue, int? bufferSize,
+            char delimiter = DefaultDelimiter)
+        {
+            Delimiter = delimiter;
+            _name = name;
+            _defaultValue = defaultValue;
+            BufferSize = bufferSize ?? 0;
+            if (tDbMethodManifestMethodType != null)
             {
-                throw new ArgumentException($"{TDbMethodManifestMethodType.Name} is not type of {typeof(DbMethodManifest).Name}");
+                CheckTDbMethodManifestMethodType(tDbMethodManifestMethodType);
+                _tDbMethodManifestMethodType = tDbMethodManifestMethodType;
+                BoundToTDbMethodManifestMethodType = true;
             }
         }
+
+        private char Delimiter { get; }
+        private int BufferSize { get; }
+
+        public virtual bool BoundToTDbMethodManifestMethodType { get; }
+
+        public int GetOrdinal(IDataRecord data)
+        {
+            return data.GetOrdinal(_name);
+        }
+
+        public Type GetTDbMethodManifestMethodType()
+        {
+            return _tDbMethodManifestMethodType;
+        }
+
+        public object GetColumnValueCore(IDataRecord data, Type propType)
+        {
+            if (!HasColumnValue(data))
+            {
+                return null;
+            }
+            var value = GetColumnValue(data, propType);
+            return IsIgnorableValue(value) ? GetColumnValueBase(data, propType) : value;
+        }
+
+        private void CheckTDbMethodManifestMethodType(Type tDbMethodManifestMethodType)
+        {
+            if (!tDbMethodManifestMethodType.IsSubclassOf(typeof(DbMethodManifest)))
+                throw new ArgumentException(
+                    $"{tDbMethodManifestMethodType.Name} is not type of {typeof(DbMethodManifest).Name}");
+        }
+
         public bool HasColumn(IDataRecord data)
         {
             try
             {
                 return GetOrdinal(data) >= 0;
             }
-            catch (IndexOutOfRangeException)
+            catch (Exception e)
             {
-                return false;
+                throw new DataModelConstructionException($"Error finding column '{_name}'", e);
             }
         }
-        protected bool HasColumnValue(IDataRecord data) => HasColumn(data) && !data.IsDBNull(GetOrdinal(data));
+
+        protected bool HasColumnValue(IDataRecord data)
+        {
+            return HasColumn(data) && !data.IsDBNull(GetOrdinal(data));
+        }
         
-        public int GetOrdinal(IDataRecord data)
+
+        private bool IsIgnorableValue(object value)
         {
-            return data.GetOrdinal(name);
+            return value.GetType() == typeof(IgnorableDbColumnValue);
         }
-        private void CheckIfIsValidTDbMethodManifestMethod(Type TDbMethodManifestMethodType)
-        {
-            if (!TDbMethodManifestMethodType.IsSubclassOf(typeof(DbMethodManifest)))
-            {
-                throw new InvalidOperationException("type is not a TDbMethodManifestMethod");
-            }
-        }
-        public Type GetTDbMethodManifestMethodType()
-        {
-            return TDbMethodManifestMethodType;
-        }
-        public virtual bool BoundToTDbMethodManifestMethodType
-        {
-            get { return boundToTDbMethodManifestMethod; }
-        }
-        private bool IsIgnorableValue(object value) => value.GetType() == typeof(IgnorableDbColumnValue);
-        public object GetColumnValueCore(IDataRecord data, Type propType)
-        {
-            object value = GetColumnValue(data, propType);
-            return IsIgnorableValue(value) ? GetColumnValueBase(data, propType) : value;
-        }
+
         private object GetColumnValueBase(IDataRecord data, Type propType)
         {
-            bool hasData = HasColumn(data);
-            bool hasNullValue = hasData && data.IsDBNull(GetOrdinal(data));
-            return !hasNullValue ? DbColumnConversion.Convert(propType, data, GetOrdinal(data),BufferSize, delimeter, defaultValue) :
-                defaultValue != null ? defaultValue : 
-                null;
+            var hasData = HasColumn(data);
+            var hasNullValue = hasData && data.IsDBNull(GetOrdinal(data));
+            try
+            {
+                return !hasNullValue
+                    ? DbColumnConversion.Convert(propType, data, GetOrdinal(data), BufferSize, Delimiter, _defaultValue)
+                    : _defaultValue;
+            }
+            catch (Exception e)
+            {
+                throw new DataModelConstructionException($"Error converting Column {_name}: Expected type {propType.Name} Actual {data.GetFieldType(GetOrdinal(data)).Name}", e);
+            }
+
+            
         }
-        private class IgnorableDbColumnValue { }
-        private static IgnorableDbColumnValue ignorableDbColumnValue = new IgnorableDbColumnValue();
-        protected override object GetColumnValue(IDataRecord data, Type propType = null) => ignorableDbColumnValue;
+
+        protected override object GetColumnValue(IDataRecord data, Type propType = null)
+        {
+            return IgnorableDbColumnValueProp;
+        }
 
         protected OutVal GetValue<OutVal>(IDataRecord data)
         {
-            object value = GetValue(data, typeof(OutVal));
-            return value == null ? default(OutVal) : (OutVal)value;
+            var value = GetValue(data, typeof(OutVal));
+            return value == null ? default(OutVal) : (OutVal) value;
         }
-        protected object GetValue(IDataRecord data, Type outType) => GetColumnValueBase(data, outType);
+
+        protected object GetValue(IDataRecord data, Type outType)
+        {
+            return GetColumnValueBase(data, outType);
+        }
+
+        private class IgnorableDbColumnValue
+        {
+        }
     }
-
 }
-

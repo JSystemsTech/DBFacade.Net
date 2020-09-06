@@ -1,16 +1,19 @@
-﻿using DBFacade.DataLayer.Models;
-using System.Data;
+﻿using System.Data;
+using DBFacade.DataLayer.Models;
 
 namespace DBFacade.DataLayer.CommandConfig.Parameters
 {
     public interface IDbCommandParameterConfig<TDbParams>
         where TDbParams : IDbParamsModel
     { }
-    interface IInternalDbCommandParameterConfig<TDbParams>: IDbCommandParameterConfig<TDbParams>
+
+    internal interface IInternalDbCommandParameterConfig<TDbParams> : IDbCommandParameterConfig<TDbParams>
         where TDbParams : IDbParamsModel
     {
         DbType DbType { get; }
         bool IsNullable { get; }
+        bool IsOutput { get; }
+        int OutputSize { get; }
         object Value(TDbParams model);
     }
 }

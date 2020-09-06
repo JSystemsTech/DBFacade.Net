@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
+using DBFacade.DataLayer.CommandConfig;
 using DBFacade.DataLayer.Manifest;
 using DBFacade.DataLayer.Models;
-using DBFacade.DataLayer.CommandConfig;
-using System.Data.SqlClient;
 using DBFacade.Exceptions;
-using System.Threading.Tasks;
 
 namespace DBFacade.DataLayer.ConnectionService
 {
-
-    internal partial class DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader, TDbMethodManifest>        
+    internal partial class DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader,
+        TDbMethodManifest>
         where TDbConnection : DbConnection
         where TDbCommand : DbCommand
         where TDbParameter : DbParameter
@@ -18,79 +19,96 @@ namespace DBFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
         where TDbMethodManifest : DbMethodManifest
     {
-        private async static Task<IDbResponse<TDbDataModel>> BuildResonseAsync<TDbMethodManifestMethod, TDbDataModel>(object returnValue, DbDataReader dbDataReader = null)
+        private static async Task<IDbResponse<TDbDataModel>> BuildRepsonseAsync<TDbMethodManifestMethod, TDbDataModel>(
+            int returnValue, DbDataReader dbDataReader = null,
+            IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
             where TDbMethodManifestMethod : TDbMethodManifest
         {
-            DbResponse<TDbMethodManifestMethod, TDbDataModel> responseObj = new DbResponse<TDbMethodManifestMethod, TDbDataModel>(returnValue);
+            var responseObj = new DbResponse<TDbMethodManifestMethod, TDbDataModel>(returnValue, outputValues);
             if (dbDataReader != null)
             {
                 while (await dbDataReader.ReadAsync())
-                {
                     responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel, TDbMethodManifestMethod>(dbDataReader));
-                }
                 dbDataReader.Close();
             }
+
             return responseObj;
         }
-        public static async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams, TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
+
+        public static async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams,
+            TDbMethodManifestMethod>(TDbMethodManifestMethod method, TDbParams parameters)
             where TDbDataModel : DbDataModel
             where TDbParams : IDbParamsModel
             where TDbMethodManifestMethod : TDbMethodManifest
         {
-            IDbCommandConfigInternal config = await method.GetConfigAsync() as IDbCommandConfigInternal;
-            IInternalDbParamsModel parametersModel = parameters as IInternalDbParamsModel;
-            if (parametersModel.RunMode == MethodRunMode.Test)
+            if (await method.GetConfigAsync() is IDbCommandConfigInternal config)
             {
-                return await BuildResonseAsync<TDbMethodManifestMethod, TDbDataModel>(parametersModel.ReturnValue, parametersModel.ResponseData);
-            }
-            else
-            {
-                IDbConnectionConfigInternal connectionConfig = await config.GetDbConnectionConfigAsync();
-                using (TDbConnection dbConnection = connectionConfig.DbConnection as TDbConnection)
+                var connectionConfig = await config.GetDbConnectionConfigAsync();
+                using (var dbConnection = connectionConfig.GetDbConnection(parameters) as TDbConnection)
                 {
-                    await dbConnection.OpenAsync();
-                    using (TDbCommand dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parametersModel, dbConnection))
+                    if (dbConnection != null)
                     {
-                        try
+                        await dbConnection.OpenAsync();
+                        using (var dbCommand = config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parameters, dbConnection))
                         {
-                            if (config.IsTransaction)
+                            try
                             {
-                                using (TDbTransaction transaction = dbConnection.BeginTransaction() as TDbTransaction)
-                                {                                    
-                                    try
+                                if (config.IsTransaction)
+                                    using (var transaction = dbConnection.BeginTransaction() as TDbTransaction)
                                     {
-                                        dbCommand.Transaction = transaction;
-                                        await dbCommand.ExecuteNonQueryAsync();
+                                        if (transaction != null)
+                                        {
+                                            try
+                                            {
+                                                dbCommand.Transaction = transaction;
+                                                await dbCommand.ExecuteNonQueryAsync();
+                                            }
+                                            catch
+                                            {
+                                                transaction.Rollback();
+                                                throw;
+                                            }
+
+                                            transaction.Commit();
+                                            return await BuildRepsonseAsync<TDbMethodManifestMethod, TDbDataModel>(
+                                                config.GetReturnValue(dbCommand),
+                                                null,
+                                                config.GetOutputValues(dbCommand));
+                                        }
+
+                                        throw new FacadeException("Invalid Transaction Definition");
                                     }
-                                    catch
-                                    {
-                                        transaction.Rollback();
-                                        throw;
-                                    }
-                                    transaction.Commit();
-                                    return await BuildResonseAsync<TDbMethodManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand));
-                                }                                
+
+                                using (var dbDataReader = await dbCommand.ExecuteReaderAsync() as TDbDataReader)
+                                {
+                                    return await BuildRepsonseAsync<TDbMethodManifestMethod, TDbDataModel>(
+                                        config.GetReturnValue(dbCommand), 
+                                        dbDataReader,
+                                        config.GetOutputValues(dbCommand));
+                                }
                             }
-                            else
+                            catch (SqlException sqlEx)
                             {
-                                using (TDbDataReader dbDataReader = await dbCommand.ExecuteReaderAsync() as TDbDataReader) {
-                                    return await BuildResonseAsync<TDbMethodManifestMethod, TDbDataModel>(config.GetReturnValue(dbCommand), dbDataReader);
-                                }                                
+                                throw new SQLExecutionException("A SQL Error has occurred", config.DbCommandText,
+                                    sqlEx);
+                            }
+                            catch (DataModelConstructionException)
+                            {
+                                throw;
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new FacadeException("Unknown Error", ex);
                             }
                         }
-                        catch (SqlException sqlEx)
-                        {
-                            throw new SQLExecutionException("A SQL Error has occurred", config.DbCommandText, sqlEx);
-                        }
-                        catch (Exception Ex)
-                        {
-                            throw new FacadeException("Unknown Error", Ex);
-                        }
-                    }                    
+                    }
+
+                    throw new FacadeException("Invalid Connection Definition");
                 }
             }
-        }
 
+            throw new FacadeException("Invalid Config");
+        }
     }
 }

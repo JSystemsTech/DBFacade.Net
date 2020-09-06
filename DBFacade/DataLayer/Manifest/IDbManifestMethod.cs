@@ -1,12 +1,11 @@
-﻿using DBFacade.DataLayer.CommandConfig;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DBFacade.DataLayer.CommandConfig;
 
 namespace DBFacade.DataLayer.Manifest
 {
     public interface IDbManifestMethod
     {
-        IDbCommandConfig Config{ get; }  
+        IDbCommandConfig Config { get; }
         Task<IDbCommandConfig> GetConfigAsync();
-    }  
-
+    }
 }
