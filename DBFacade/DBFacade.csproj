@@ -85,10 +85,9 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
-      <HintPath>..\packages\Oracle.ManagedDataAccess.19.7.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+      <HintPath>..\packages\Oracle.ManagedDataAccess.19.9.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.113.1\lib\net46\System.Data.SQLite.dll</HintPath>
@@ -100,97 +99,22 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataLayer\CommandConfig\DbCommandConfig.cs" />
-    <Compile Include="DataLayer\CommandConfig\IDbCommandConfig.cs" />
-    <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParameterConfig_Output.cs" />
-    <Compile Include="DataLayer\ConnectionService\DbConnectionConfigManager.cs" />
-    <Compile Include="DataLayer\ConnectionService\MockDb\MockDbCommand.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DataLayer\ConnectionService\MockDb\MockDbConnection.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DataLayer\ConnectionService\MockDb\MockDbParameter.cs" />
-    <Compile Include="DataLayer\ConnectionService\MockDb\MockDbParameterCollection.cs" />
-    <Compile Include="DataLayer\ConnectionService\MockDb\MockDbTransaction.cs" />
-    <Compile Include="Facade\Core\AsyncMethodExecutionHandler.cs" />
-    <Compile Include="Facade\Core\MethodExecutionHandler.cs" />
-    <Compile Include="Factories\DbCommandParametersConfigFactory.cs" />
-    <Compile Include="DataLayer\CommandConfig\Parameters\IDbCommandConfigParams.cs" />
-    <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
-    <Compile Include="DataLayer\CommandConfig\Parameters\IDbCommandParameterConfig.cs" />
-    <Compile Include="Factories\IDbCommandParameterConfigFactory.cs" />
-    <Compile Include="DataLayer\ConnectionService\DbConnectionHandler_Async.cs" />
-    <Compile Include="DataLayer\ConnectionService\IDbConnectionConfig.cs" />
-    <Compile Include="DataLayer\ConnectionService\DbConnectionConfig.cs" />
-    <Compile Include="DataLayer\ConnectionService\DbConnectionHandler.cs" />
-    <Compile Include="Factories\DbCommandConfigFactory.cs" />
-    <Compile Include="DataLayer\Manifest\IDbManifestMethod.cs" />
-    <Compile Include="DataLayer\Models\Attributes\DbColumnDefault.cs" />
-    <Compile Include="DataLayer\Models\Attributes\DbDateStringColumn.cs" />
-    <Compile Include="DataLayer\Models\Attributes\DbFlagColumn.cs" />
-    <Compile Include="DataLayer\Models\IDbResponse.cs" />
-    <Compile Include="DataLayer\Models\IDbParamsModel.cs" />
-    <Compile Include="DataLayer\Models\Validators\Rules\IValidationRule.cs" />
-    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_Delegate.cs" />
-    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRuleResult.cs" />
-    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_DateTime.cs" />
-    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_String.cs" />
-    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_Numeric.cs" />
-    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule.cs" />
-    <Compile Include="DataLayer\Models\Validators\Rules\ValidationRule_Required.cs" />
-    <Compile Include="DataLayer\Models\Validators\Validator.cs" />
-    <Compile Include="Exceptions\FacadeException.cs" />
-    <Compile Include="Facade\Core\DbFacade_Async.cs" />
-    <Compile Include="Facade\DbConnectionManager.cs" />
-    <Compile Include="DataLayer\CommandConfig\Parameters\DbCommandParameterConfig.cs" />
-    <Compile Include="DataLayer\ConnectionService\DbCommandText.cs" />
-    <Compile Include="DataLayer\Manifest\DbMethodManifest.cs" />
-    <Compile Include="DataLayer\Models\Attributes\DbColumn.cs" />
-    <Compile Include="DataLayer\Models\Attributes\NestedModel.cs" />
-    <Compile Include="DataLayer\Models\DbColumnConversion.cs" />
-    <Compile Include="DataLayer\Models\DbDataModel.cs" />
-    <Compile Include="DataLayer\Models\DbParamsModel.cs" />
-    <Compile Include="Facade\DomainFacade_Async.cs" />
-    <Compile Include="SafeDisposable.cs" />
-    <Compile Include="Factories\InstanceResolverFactory.cs" />
-    <Compile Include="Utils\MockDbTable.cs" />
-    <Compile Include="Utils\GenericInstance.cs" />
-    <Compile Include="Facade\DomainFacade.cs" />
-    <Compile Include="Facade\DomainManager.cs" />
-    <Compile Include="Facade\Core\DbFacade.cs" />
-    <Compile Include="DataLayer\Models\DbResponse.cs" />
-    <Compile Include="Facade\Core\DbFacadeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\IMockDbTableRow.cs" />
-    <Compile Include="Services\InstanceResolver.cs" />
-    <Compile Include="Utils\PropertySelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="DBFacade.0.1.3.nupkg" />
-    <None Include="DBFacade.0.2.0.nupkg" />
-    <None Include="DBFacade.0.2.1.nupkg" />
-    <None Include="DBFacade.0.2.2.nupkg" />
-    <None Include="DBFacade.0.2.3.nupkg" />
-    <None Include="DbFacade.0.3.0.34499.nupkg" />
-    <None Include="DbFacade.0.3.7207.34978.nupkg" />
-    <None Include="DbFacade.0.3.7212.24442.nupkg" />
-    <None Include="DbFacade.0.4.7214.35817.nupkg" />
-    <None Include="DbFacade.0.5.7214.42869.nupkg" />
-    <None Include="DbFacade.0.6.7408.22752.nupkg" />
-    <None Include="DbFacade.0.6.7408.26153.nupkg" />
-    <None Include="DbFacade.0.6.7408.26303.nupkg" />
-    <None Include="DBFacade.nuspec" />
+    <None Include="DbFacade.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DbFacadeLogoNoText.jpg" />
+  </ItemGroup>
+  <Import Project="..\DbFacadeShared\DbFacadeShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

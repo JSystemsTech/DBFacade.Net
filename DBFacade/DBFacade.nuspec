@@ -9,7 +9,7 @@
     <owners>$author$</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://dbfacade.azurewebsites.net</projectUrl>
-    <iconUrl>https://dbfacade.azurewebsites.net</iconUrl>
+    <icon>..\DbFacade\DbFacadeLogoNoText.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Stable Pre-Release ($version$)</releaseNotes>

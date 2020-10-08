@@ -52,41 +52,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\FetchData.cs" />
-    <Compile Include="Models\ResponseData.cs" />
-    <Compile Include="Models\UnitTestDbParams.cs" />
-    <Compile Include="TestFacade\UnitTestConnection.cs" />
-    <Compile Include="TestFacade\UnitTestDomainFacade.cs" />
-    <Compile Include="TestFacade\UnitTestManager.cs" />
-    <Compile Include="TestFacade\UnitTestMethods.cs" />
-    <Compile Include="Tests\Facade\FacadeTests.cs" />
-    <Compile Include="Tests\UnitTestBase.cs" />
-    <Compile Include="Tests\Validator\BasicStringTests.cs" />
-    <Compile Include="Tests\Validator\DateTimeEquals.cs" />
-    <Compile Include="Tests\Validator\IsBeforeTests.cs" />
-    <Compile Include="Tests\Validator\IsSocialSecurityNumberTests.cs" />
-    <Compile Include="Tests\Validator\IsOnOrBeforeTests.cs" />
-    <Compile Include="Tests\Validator\IsOnOrAfterTests.cs" />
-    <Compile Include="Tests\Validator\IsAfterTests.cs" />
-    <Compile Include="Tests\Validator\IsDateTimeTests.cs" />
-    <Compile Include="Tests\Validator\IsNumberTests.cs" />
-    <Compile Include="Tests\Validator\GreaterThanOrEqualTests.cs" />
-    <Compile Include="Tests\Validator\IsNDigitStringTests.cs" />
-    <Compile Include="Tests\Validator\LessThanOrEqualTests.cs" />
-    <Compile Include="Tests\Validator\LessThanTests.cs" />
-    <Compile Include="Tests\Validator\GreaterThanTests.cs" />
-    <Compile Include="Tests\Validator\MatchTests.cs" />
-    <Compile Include="Tests\Validator\DelegateTests.cs" />
-    <Compile Include="Tests\Validator\LengthEqualsTests.cs" />
-    <Compile Include="Tests\Validator\MinLengthTests.cs" />
-    <Compile Include="Tests\Validator\NotEqualToTests.cs" />
-    <Compile Include="Tests\Validator\NumericEquals.cs" />
-    <Compile Include="Tests\Validator\EmailTests.cs" />
-    <Compile Include="Tests\Validator\MaxLengthTests.cs" />
-    <Compile Include="Tests\Validator\RequiredTests.cs" />
-    <Compile Include="Tests\Validator\ValidatorTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validator\UnitTestValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -100,6 +66,7 @@
       <Name>DbFacade</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems" Label="Shared" />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
