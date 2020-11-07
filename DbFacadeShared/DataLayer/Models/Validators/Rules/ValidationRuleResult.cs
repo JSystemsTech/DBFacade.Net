@@ -12,7 +12,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     {
         ValidationStatus Status { get; }
         string ErrorMessage { get; }
-        IDbParamsModel Model { get; }
+        DbParamsModel Model { get; }
     }
 
     internal sealed class ValidationRuleResult : IValidationRuleResult
@@ -23,20 +23,20 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         /// <param name="model">The model.</param>
         /// <param name="errorMessage">The error message.</param>
         /// <param name="status">The status.</param>
-        public ValidationRuleResult(IDbParamsModel model, string errorMessage, ValidationStatus status)
+        public ValidationRuleResult(DbParamsModel model, string errorMessage, ValidationStatus status)
         {
             Model = model;
             ErrorMessage = errorMessage;
             Status = status;
         }
         public ValidationRuleResult() { }
-        public static async Task<ValidationRuleResult> CreateAsync(IDbParamsModel model, string errorMessage, ValidationStatus status)
+        public static async Task<ValidationRuleResult> CreateAsync(DbParamsModel model, string errorMessage, ValidationStatus status)
         {
             ValidationRuleResult result = new ValidationRuleResult();
             await result.InitializeAsync(model, errorMessage, status);
             return result;
         }
-        private async Task InitializeAsync(IDbParamsModel model, string errorMessage, ValidationStatus status)
+        private async Task InitializeAsync(DbParamsModel model, string errorMessage, ValidationStatus status)
         {
             Model = model;
             ErrorMessage = errorMessage;
@@ -61,6 +61,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         public string ErrorMessage { get; private set; }
 
 
-        public IDbParamsModel Model { get; private set; }
+        public DbParamsModel Model { get; private set; }
     }
 }

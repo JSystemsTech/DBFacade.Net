@@ -1,29 +1,36 @@
 ﻿using DbFacade.DataLayer.Models.Validators;
-using DbFacadeUnitTests.Validator;
+using DbFacade.Factories;
+using DbFacadeUnitTests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace DbFacadeUnitTests.Tests.Validator
 {
     [TestClass]
     public class IsOnOrBeforeTests : ValidatorTestBase
     {
+        private static DateTime ValidValue = Tomorrow;
+        private static DateTime InvalidValue = Yesterday;
+        private static DateTime ValidDateTimeValue = DateTime1979.AddYears(1);
+        private static DateTime ValidDateTimeValueAlt = DateTime1979Alt.AddYears(1);
+        private static DateTime InvalidDateTimeValue = DateTime1979.AddYears(-1);
+        private static DateTime InvalidDateTimeValueAlt = DateTime1979Alt.AddYears(-1);
+
         [TestMethod]
         public void WithValue()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.Today, Tomorrow)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.Today, ValidValue));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithValueFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.Today, Yesterday)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.Today, InvalidValue));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
@@ -31,30 +38,27 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValue()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.TodayOptional, Tomorrow)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.TodayOptional, ValidValue));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithOptionalValueNull()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.DateTimeNull, Today)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.DateTimeNull, ValidValue));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithOptionalValueFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.TodayOptional, Yesterday)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.TodayOptional, InvalidValue));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
@@ -62,22 +66,20 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringValue()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.DateTimeString, DateTime1979.AddYears(1),"dd/MM/yyyy"),
-                UnitTestRules.IsOnOrBefore(model => model.DateTimeStringAlt, DateTime1979Alt.AddYears(1), "dd-MM-yyyy")
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.DateTimeString, ValidDateTimeValue, DateFormat));
+                v.Add(v.Rules.IsOnOrBefore(model => model.DateTimeStringAlt, ValidDateTimeValueAlt, DateFormatAlt));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithStringValueFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.DateTimeString, DateTime1979.AddYears(-1),"dd/MM/yyyy"),
-                UnitTestRules.IsOnOrBefore(model => model.DateTimeStringAlt, DateTime1979Alt.AddYears(-1), "dd-MM-yyyy")
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.DateTimeString, InvalidDateTimeValue, DateFormat));
+                v.Add(v.Rules.IsOnOrBefore(model => model.DateTimeStringAlt, InvalidDateTimeValueAlt, DateFormatAlt));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 2);
@@ -85,49 +87,43 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringOptionalValue()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.DateTimeString, DateTime1979.AddYears(1), null, true),
-                UnitTestRules.IsOnOrBefore(model => model.DateTimeStringAlt, DateTime1979Alt.AddYears(1), "dd-MM-yyyy", true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.DateTimeString, ValidDateTimeValue, DateFormat, true));
+                v.Add(v.Rules.IsOnOrBefore(model => model.DateTimeStringAlt, ValidDateTimeValueAlt, DateFormatAlt, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithStringOptionalNullValue()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.StringNumNull, DateTime1979.AddYears(1), null, true),
-                UnitTestRules.IsOnOrBefore(model => model.StringNumNull, DateTime1979Alt.AddYears(1), "dd-MM-yyyy", true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.StringNumNull, ValidDateTimeValue, DateFormat, true));
+                v.Add(v.Rules.IsOnOrBefore(model => model.StringNumNull, ValidDateTimeValueAlt, DateFormatAlt, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithStringOptionalValueFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsOnOrBefore(model => model.DateTimeString, DateTime1979.AddYears(-1), null, true),
-                UnitTestRules.IsOnOrBefore(model => model.DateTimeStringAlt, DateTime1979Alt.AddYears(-1), "dd-MM-yyyy", true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsOnOrBefore(model => model.DateTimeString, InvalidDateTimeValue, DateFormat, true));
+                v.Add(v.Rules.IsOnOrBefore(model => model.DateTimeStringAlt, InvalidDateTimeValueAlt, DateFormatAlt, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 2);
         }
 
-
-
-
         [TestMethod]
         public void WithValueAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.Today, Tomorrow)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.Today, ValidValue));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -135,10 +131,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithValueFailAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.Today, Yesterday)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.Today, InvalidValue));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 1);
             });
@@ -147,10 +143,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithOptionalValueAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.TodayOptional, Today)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.TodayOptional, ValidValue));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -158,10 +154,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithOptionalValueNullAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.DateTimeNull, Today)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.DateTimeNull, ValidValue));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -169,10 +165,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithOptionalValueFailAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.TodayOptional, Yesterday)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.TodayOptional, InvalidValue));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 1);
             });
@@ -181,11 +177,11 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithStringValueAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.DateTimeString, DateTime1979.AddYears(1), "dd/MM/yyyy"),
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.DateTimeStringAlt, DateTime1979Alt.AddYears(1), "dd-MM-yyyy")
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.DateTimeString, ValidDateTimeValue, DateFormat));
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.DateTimeStringAlt, ValidDateTimeValueAlt, DateFormatAlt));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -193,11 +189,11 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithStringValueFailAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.DateTimeString, DateTime1979.AddYears(-1), "dd/MM/yyyy"),
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.DateTimeStringAlt, DateTime1979Alt.AddYears(-1), "dd-MM-yyyy")
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.DateTimeString, InvalidDateTimeValue, DateFormat));
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.DateTimeStringAlt, InvalidDateTimeValueAlt, DateFormatAlt));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 2);
             });
@@ -206,11 +202,11 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithStringOptionalValueAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.DateTimeString, DateTime1979.AddYears(1), "dd/MM/yyyy", true),
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.DateTimeStringAlt, DateTime1979Alt.AddYears(1), "dd-MM-yyyy", true)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.DateTimeString, ValidDateTimeValue, DateFormat, true));
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.DateTimeStringAlt, ValidDateTimeValueAlt, DateFormatAlt, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -218,11 +214,11 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithStringOptionalNullValueAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.StringNumNull, DateTime1979.AddYears(1), "dd/MM/yyyy", true),
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.StringNumNull, DateTime1979Alt.AddYears(1), "dd-MM-yyyy", true)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.StringNumNull, ValidDateTimeValue, DateFormat, true));
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.StringNumNull, ValidDateTimeValueAlt, DateFormatAlt, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -230,11 +226,11 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithStringOptionalValueFailAsync()
         {
             RunAsAsyc(async () => {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.DateTimeString, DateTime1979.AddYears(-1), "dd/MM/yyyy", true),
-                    await UnitTestRules.IsOnOrBeforeAsync(model => model.DateTimeStringAlt, DateTime1979Alt.AddYears(-1), "dd-MM-yyyy", true)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.DateTimeString, InvalidDateTimeValue, DateFormat, true));
+                    await v.AddAsync(await v.Rules.IsOnOrBeforeAsync(model => model.DateTimeStringAlt, InvalidDateTimeValueAlt, DateFormatAlt, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 2);
             });

@@ -4,13 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using DbFacade.DataLayer.Manifest;
 using DbFacade.DataLayer.Models.Attributes;
-using DbFacade.Exceptions;
 using DbFacade.Utils;
-using DbFacadeShared.DataLayer.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace DbFacade.DataLayer.Models
 {
@@ -20,12 +16,58 @@ namespace DbFacade.DataLayer.Models
         Task<string> ToJsonAsync();
         IEnumerable<IDbDataModelBindingError> DataBindingErrors { get; }
         bool HasDataBindingErrors { get;  }
-        void Init<TDbMethodManifestMethod>(IDataRecord data)
-            where TDbMethodManifestMethod : IDbManifestMethod;
-        Task InitAsync<TDbMethodManifestMethod>(IDataRecord data)
-           where TDbMethodManifestMethod : IDbManifestMethod;
     }
+    internal static class DbDataModelExtensions
+    {
+        public static List<ConstructorInfo> GetConstructorInfo(this Type dbDataModelType)
+        {
+            return dbDataModelType.GetConstructors().ToList().FindAll(constructor =>
+                constructor.GetConstructorDbColumns() is List<DbColumn> columns && columns.Any() &&
+                constructor.GetParameters().Count() == columns.Count
+            );
+        }
+        public static async Task<List<ConstructorInfo>> GetConstructorInfoAsync(this Type dbDataModelType)
+        {
+            List<ConstructorInfo> info = dbDataModelType.GetConstructors().ToList().FindAll(constructor =>
+                constructor.GetCustomAttributes<DbColumn>() is List<DbColumn> columns && columns.Any() &&
+                constructor.GetParameters().Count() == columns.Count
+            );
+            await Task.CompletedTask;
+            return info;
+        }
+        public static List<DbColumn> GetConstructorDbColumns(this ConstructorInfo constructor)
+            => constructor.GetCustomAttributes<DbColumn>().ToList();
+        public static List<DbColumn> GetPropertyDbColumns(this PropertyInfo property)
+            => property.GetCustomAttributes<DbColumn>().ToList();
 
+        public static DbColumn GetColumnAttribute(this PropertyInfo property)
+            => property.GetPropertyDbColumns() is IEnumerable<DbColumn> colAttrs && colAttrs.Any() ? colAttrs.First() : null;
+
+        public static async Task<DbColumn> GetColumnAttributeAsync(this PropertyInfo property)
+        {
+            var columnAttrs = property.GetPropertyDbColumns() is IEnumerable<DbColumn> colAttrs && colAttrs.Any() ? colAttrs.First() : null;
+            await Task.CompletedTask;
+            return columnAttrs;
+        }
+        public static IEnumerable<PropertyInfo> GetBindableProperties(this Type type)
+        => type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop => prop.GetPropertyDbColumns().Any());
+
+        public static async Task<IEnumerable<PropertyInfo>> GetBindablePropertiesAsync(this Type type)
+        {
+            IEnumerable<PropertyInfo> properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop => prop.GetPropertyDbColumns().Any());
+            await Task.CompletedTask;
+            return properties;
+        }
+        public static IEnumerable<PropertyInfo> GetNestedProperties(this Type type)
+        => type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop=> prop.PropertyType.IsSubclassOf(typeof(DbDataModel)));
+
+        public static async Task<IEnumerable<PropertyInfo>> GetNestedPropertiesAsync(this Type type)
+        {
+            IEnumerable<PropertyInfo> properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop => prop.PropertyType.IsSubclassOf(typeof(DbDataModel)));
+            await Task.CompletedTask;
+            return properties;
+        }
+    }
     [JsonObject]
     [Serializable]
     public abstract class DbDataModel: IDbDataModel
@@ -61,84 +103,39 @@ namespace DbFacade.DataLayer.Models
         ///     Converts to DbDataModel.
         /// </summary>
         /// <typeparam name="TDbDataModel"></typeparam>
-        /// <typeparam name="TDbMethodManifestMethod">The type of the b method.</typeparam>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        public static TDbDataModel ToDbDataModel<TDbDataModel, TDbMethodManifestMethod>(IDataRecord data)
-            where TDbDataModel : DbDataModel where TDbMethodManifestMethod : IDbManifestMethod
+        public static TDbDataModel ToDbDataModel<TDbDataModel>(IDataRecord data)
+            where TDbDataModel : DbDataModel 
         {
-            if (GetConstructorInfo<TDbMethodManifestMethod>(typeof(TDbDataModel)).Count > 0)
-                return Create<TDbDataModel, TDbMethodManifestMethod>(data);
+            if (typeof(TDbDataModel).GetConstructorInfo().Count > 0)
+                return Create(typeof(TDbDataModel), data) is TDbDataModel tDbDataModel ? tDbDataModel : null;
             var model = GenericInstance.GetInstance<TDbDataModel>();
-            model.Init<TDbMethodManifestMethod>(data);
+            model.Init(data);
             return model;
         }
-        internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel, TDbMethodManifestMethod>(IDataRecord data)
-            where TDbDataModel : DbDataModel where TDbMethodManifestMethod : IDbManifestMethod
+        internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel>(IDataRecord data)
+            where TDbDataModel : DbDataModel
         {
-            List<ConstructorInfo> ConstructorInfo = await GetConstructorInfoAsync<TDbMethodManifestMethod>(typeof(TDbDataModel));
+            List<ConstructorInfo> ConstructorInfo = await typeof(TDbDataModel).GetConstructorInfoAsync();
             if (ConstructorInfo.Count > 0)
-                return await CreateAsync<TDbDataModel, TDbMethodManifestMethod>(data);
+                return await CreateAsync(typeof(TDbDataModel), data) is TDbDataModel tDbDataModel ? tDbDataModel : null; ;
             var model = await GenericInstance.GetInstanceAsync<TDbDataModel>();
-            await model.InitAsync<TDbMethodManifestMethod>(data);
+            await model.InitAsync(data);
             return model;
         }
-        /// <summary>
-        ///     Creates the specified data.
-        /// </summary>
-        /// <typeparam name="TDbDataModel"></typeparam>
-        /// <typeparam name="TDbMethodManifestMethod">The type of the b method.</typeparam>
-        /// <param name="data">The data.</param>
-        /// <returns></returns>
-        private static TDbDataModel Create<TDbDataModel, TDbMethodManifestMethod>(IDataRecord data)
-            where TDbDataModel : DbDataModel where TDbMethodManifestMethod : IDbManifestMethod
-            => Create<TDbMethodManifestMethod>(typeof(TDbDataModel), data) is TDbDataModel model ? model: null;
-        private static async Task<TDbDataModel> CreateAsync<TDbDataModel, TDbMethodManifestMethod>(IDataRecord data)
-            where TDbDataModel : DbDataModel where TDbMethodManifestMethod : IDbManifestMethod
-            => await CreateAsync<TDbMethodManifestMethod>(typeof(TDbDataModel), data) is TDbDataModel model ? model : null;
 
-        /// <summary>
-        ///     Gets the constructor information.
-        /// </summary>
-        /// <typeparam name="TDbMethodManifestMethod">The type of the b method.</typeparam>
-        /// <param name="dbDataModelType">Type of the database data model.</param>
-        /// <returns></returns>
-        private static List<ConstructorInfo> GetConstructorInfo<TDbMethodManifestMethod>(Type dbDataModelType)
-            where TDbMethodManifestMethod : IDbManifestMethod
-        {
-            return dbDataModelType.GetConstructors().ToList().FindAll(constructor =>
-                constructor.GetCustomAttributes<DbColumn>().Any() &&
-                constructor.GetParameters().Count() ==
-                constructor.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
-                    column.BoundToTDbMethodManifestMethodType && column.TDbMethodManifestMethodType.FullName ==
-                    typeof(TDbMethodManifestMethod).FullName).Count
-            );
-        }
-        private static async Task<List<ConstructorInfo>> GetConstructorInfoAsync<TDbMethodManifestMethod>(Type dbDataModelType)
-            where TDbMethodManifestMethod : IDbManifestMethod
-        {
-            List<ConstructorInfo> info=  dbDataModelType.GetConstructors().ToList().FindAll(constructor =>
-                constructor.GetCustomAttributes<DbColumn>().Any() &&
-                constructor.GetParameters().Count() ==
-                constructor.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
-                    column.BoundToTDbMethodManifestMethodType && column.TDbMethodManifestMethodType.FullName ==
-                    typeof(TDbMethodManifestMethod).FullName).Count
-            );
-            await Task.CompletedTask;
-            return info;
-        }
+        
 
         /// <summary>
         ///     Creates the specified database data model type.
         /// </summary>
-        /// <typeparam name="TDbMethodManifestMethod">The type of the b method.</typeparam>
         /// <param name="dbDataModelType">Type of the database data model.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        private static IDbDataModel Create<TDbMethodManifestMethod>(Type dbDataModelType, IDataRecord data)
-            where TDbMethodManifestMethod : IDbManifestMethod
+        private static IDbDataModel Create(Type dbDataModelType, IDataRecord data)
         {
-            var constructorInfo = GetConstructorInfo<TDbMethodManifestMethod>(dbDataModelType);
+            var constructorInfo = dbDataModelType.GetConstructorInfo();
             if (constructorInfo.Count > 0)
             {             
                 
@@ -146,9 +143,7 @@ namespace DbFacade.DataLayer.Models
                 {
                     var constructor = constructorInfo.First();
                     var paramInfo = constructor.GetParameters().ToList();
-                    var columns = constructor.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
-                        column.BoundToTDbMethodManifestMethodType && column.TDbMethodManifestMethodType.FullName ==
-                        typeof(TDbMethodManifestMethod).FullName);
+                    var columns = constructor.GetConstructorDbColumns();
 
                     var args = paramInfo.Select(param => columns[paramInfo.IndexOf(param)].GetValue(data, param.ParameterType));
 
@@ -164,19 +159,16 @@ namespace DbFacade.DataLayer.Models
             }
             return null;
         }
-        private static async Task<IDbDataModel> CreateAsync<TDbMethodManifestMethod>(Type dbDataModelType, IDataRecord data)
-            where TDbMethodManifestMethod : IDbManifestMethod
+        private static async Task<IDbDataModel> CreateAsync(Type dbDataModelType, IDataRecord data)
         {
-            var constructorInfo = GetConstructorInfo<TDbMethodManifestMethod>(dbDataModelType);
+            var constructorInfo = dbDataModelType.GetConstructorInfo();
             if (constructorInfo.Count > 0)
             {
                 try
                 {
                     var constructor = constructorInfo.First();
                     var paramInfo = constructor.GetParameters().ToList();
-                    var columns = constructor.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
-                        column.BoundToTDbMethodManifestMethodType && column.TDbMethodManifestMethodType.FullName ==
-                        typeof(TDbMethodManifestMethod).FullName);
+                    var columns = constructor.GetConstructorDbColumns();
 
                     var args = paramInfo.Select(param => columns[paramInfo.IndexOf(param)].GetValue(data, param.ParameterType));
 
@@ -193,80 +185,17 @@ namespace DbFacade.DataLayer.Models
             await Task.CompletedTask;
             return null;
         }
-        /// <summary>
-        ///     Gets the column attribute.
-        /// </summary>
-        /// <typeparam name="TDbMethodManifestMethod">The type of the b method.</typeparam>
-        /// <param name="property">The property.</param>
-        /// <returns></returns>
-        private IDbColumn GetColumnAttribute<TDbMethodManifestMethod>(PropertyInfo property)
-            where TDbMethodManifestMethod : IDbManifestMethod
+        
+
+        
+
+        private void PopulateNestedProperties(IDataRecord data)
         {
-            var columnAttrs = property.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
-                column.BoundToTDbMethodManifestMethodType && column.TDbMethodManifestMethodType.FullName ==
-                typeof(TDbMethodManifestMethod).FullName);
-
-            if (columnAttrs.Any()) return columnAttrs.First();
-
-            var commonColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList()
-                .FindAll(column => !column.BoundToTDbMethodManifestMethodType);
-            if (commonColumnAttrs.Any()) return commonColumnAttrs.First();
-            return null;
-        }
-        private async Task<IDbColumn> GetColumnAttributeAsync<TDbMethodManifestMethod>(PropertyInfo property)
-            where TDbMethodManifestMethod : IDbManifestMethod
-        {
-            var columnAttrs = property.GetCustomAttributes<DbColumn>().ToList().FindAll(column =>
-                column.BoundToTDbMethodManifestMethodType && column.TDbMethodManifestMethodType.FullName ==
-                typeof(TDbMethodManifestMethod).FullName);
-
-            if (columnAttrs.Any()) {
-                await Task.CompletedTask;
-                return columnAttrs.First(); 
-            }
-
-            var commonColumnAttrs = property.GetCustomAttributes<DbColumn>().ToList()
-                .FindAll(column => !column.BoundToTDbMethodManifestMethodType);
-            if (commonColumnAttrs.Any())
+            foreach (var property in GetType().GetNestedProperties())
             {
-                await Task.CompletedTask;
-                return commonColumnAttrs.First();
-            }
-            await Task.CompletedTask;
-            return null;
-        }
-
-        /// <summary>
-        ///     Gets the bindable properties.
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<PropertyInfo> GetBindableProperties()
-        {
-            return GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        }
-        private async Task<IEnumerable<PropertyInfo>> GetBindablePropertiesAsync()
-        {
-            IEnumerable<PropertyInfo> properties = GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            await Task.CompletedTask;
-            return properties;
-        }
-
-        /// <summary>
-        ///     Populates the nested properties.
-        /// </summary>
-        /// <typeparam name="TDbMethodManifestMethod">The type of the b method.</typeparam>
-        /// <param name="data">The data.</param>
-        private void PopulateNestedProperties<TDbMethodManifestMethod>(IDataRecord data)
-            where TDbMethodManifestMethod : IDbManifestMethod
-        {
-            var nestedProperties = GetBindableProperties().Where(prop =>
-                prop.PropertyType.IsSubclassOf(typeof(DbDataModel))
-            );
-            foreach (var property in nestedProperties)
-            {
-                if (GetConstructorInfo<TDbMethodManifestMethod>(property.PropertyType).Count > 0)
+                if (property.PropertyType.GetConstructorInfo().Count > 0)
                 {
-                    if (Create<TDbMethodManifestMethod>(property.PropertyType, data) is IDbDataModel model)
+                    if (Create(property.PropertyType, data) is DbDataModel model)
                     {
                         property.SetValue(this, model, null);
                         HasNestedDataBindingErrors = model.HasDataBindingErrors;
@@ -275,26 +204,23 @@ namespace DbFacade.DataLayer.Models
                 else
                 {
                     var instance = GenericInstance.GetInstance(property.PropertyType);
-                    if (instance is IDbDataModel nestedModel)
+                    if (instance is DbDataModel nestedModel)
                     {
-                        nestedModel.Init<TDbMethodManifestMethod>(data);
+                        nestedModel.Init(data);
                         property.SetValue(this, instance, null);
                         HasNestedDataBindingErrors = nestedModel.HasDataBindingErrors;
                     }
                 }
             }
         }
-        private async Task PopulateNestedPropertiesAsync<TDbMethodManifestMethod>(IDataRecord data)
-            where TDbMethodManifestMethod : IDbManifestMethod
+        private async Task PopulateNestedPropertiesAsync(IDataRecord data)
         {
-            var nestedProperties = (await GetBindablePropertiesAsync()).Where(prop =>
-                prop.PropertyType.IsSubclassOf(typeof(DbDataModel))
-            );
-            foreach (var property in nestedProperties)
+            Type type = GetType();
+            foreach (var property in await type.GetNestedPropertiesAsync())
             {
-                if ((await GetConstructorInfoAsync<TDbMethodManifestMethod>(property.PropertyType)).Count > 0)
+                if ((await property.PropertyType.GetConstructorInfoAsync()).Count > 0)
                 {
-                    if (await CreateAsync<TDbMethodManifestMethod>(property.PropertyType, data) is IDbDataModel model)
+                    if (await CreateAsync(property.PropertyType, data) is DbDataModel model)
                     {
                         property.SetValue(this, model, null);
                         HasNestedDataBindingErrors = model.HasDataBindingErrors;
@@ -304,9 +230,9 @@ namespace DbFacade.DataLayer.Models
                 else
                 {
                     var instance = await GenericInstance.GetInstanceAsync(property.PropertyType);
-                    if (instance is IDbDataModel nestedModel)
+                    if (instance is DbDataModel nestedModel)
                     {
-                        await nestedModel.InitAsync<TDbMethodManifestMethod>(data);
+                        await nestedModel.InitAsync(data);
                         property.SetValue(this, instance, null);
                         HasNestedDataBindingErrors = nestedModel.HasDataBindingErrors;
                     }
@@ -315,17 +241,13 @@ namespace DbFacade.DataLayer.Models
             await Task.CompletedTask;
         }
 
-        public void Init<TDbMethodManifestMethod>(IDataRecord data)
-            where TDbMethodManifestMethod : IDbManifestMethod
+        private void Init(IDataRecord data)
         {
-            var properties = GetBindableProperties().Where(prop =>
-                prop.GetCustomAttributes<DbColumn>().Any()
-            );
-            foreach (var property in properties)
+            foreach (var property in GetType().GetBindableProperties())
             {
                 try
                 {
-                    var columnAttribute = GetColumnAttribute<TDbMethodManifestMethod>(property);
+                    var columnAttribute = property.GetColumnAttribute();
 
                     var propType = property.PropertyType;
                     object value = null;
@@ -344,20 +266,16 @@ namespace DbFacade.DataLayer.Models
                     AddDataBindingError(DbDataModelBindingError.Create(e, GetType()));
                 }
             }
-            PopulateNestedProperties<TDbMethodManifestMethod>(data);
+            PopulateNestedProperties(data);
         }
-        public async Task InitAsync<TDbMethodManifestMethod>(IDataRecord data)
-            where TDbMethodManifestMethod : IDbManifestMethod
+        private async Task InitAsync(IDataRecord data)
         {
-            var properties = (await GetBindablePropertiesAsync()).Where(prop =>
-                prop.GetCustomAttributes<DbColumn>().Any()
-            );
-            
-            foreach (var property in properties)
+            Type type = GetType();
+            foreach (var property in await type.GetBindablePropertiesAsync())
             {
                 try
                 {
-                    var columnAttribute = await GetColumnAttributeAsync<TDbMethodManifestMethod>(property);
+                    var columnAttribute = await property.GetColumnAttributeAsync();
 
                     var propType = property.PropertyType;
                     object value = null;
@@ -376,7 +294,7 @@ namespace DbFacade.DataLayer.Models
                     await AddDataBindingErrorAsync(await DbDataModelBindingError.CreateAsync(e, GetType()));
                 }
             }
-            await PopulateNestedPropertiesAsync<TDbMethodManifestMethod>(data);
+            await PopulateNestedPropertiesAsync(data);
             await Task.CompletedTask;
         }
 

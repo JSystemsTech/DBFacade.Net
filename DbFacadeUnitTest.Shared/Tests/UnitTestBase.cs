@@ -18,6 +18,9 @@ namespace DbFacadeUnitTests.Tests
         protected static DateTime DateTime1979 = DateTime.Parse("01/01/1979");
         protected static DateTime DateTime1979Alt = DateTime.Parse("12/30/1979");
 
+        protected static string DateFormat = "dd/MM/yyyy";
+        protected static string DateFormatAlt = "dd-MM-yyyy";
+
         protected static short Short9 = 9;
         protected static int Int9 = 9;
         protected static long Long9 = 9;

@@ -14,7 +14,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\UnitTestDbParams.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestFacade\UnitTestConnection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestFacade\UnitTestDomainFacade.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TestFacade\UnitTestManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestFacade\UnitTestMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tests\Facade\FacadeTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tests\UnitTestBase.cs" />
@@ -42,6 +41,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\Equals.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\RequiredTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\ValidatorTestBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Validator\UnitTestValidator.cs" />
   </ItemGroup>
 </Project>

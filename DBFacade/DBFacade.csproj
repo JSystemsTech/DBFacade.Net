@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,36 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <!-- 4.6.1 Specific -->
-  <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.6.1' ">
-    <DefineConstants>$(DefineConstants);NET461</DefineConstants>
-    <TargetFrameworkVersionNumber>4.6.1</TargetFrameworkVersionNumber>
-  </PropertyGroup>
-  <!-- 4.6.2 Specific -->
-  <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.6.2' ">
-    <DefineConstants>$(DefineConstants);NET462</DefineConstants>
-    <TargetFrameworkVersionNumber>4.6.2</TargetFrameworkVersionNumber>
-  </PropertyGroup>
-  <!-- 4.7.0 Specific -->
-  <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.7.0' ">
-    <DefineConstants>$(DefineConstants);NET47</DefineConstants>
-    <TargetFrameworkVersionNumber>4.7.0</TargetFrameworkVersionNumber>
-  </PropertyGroup>
-  <!-- 4.7.1 Specific -->
-  <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.7.1' ">
-    <DefineConstants>$(DefineConstants);NET471</DefineConstants>
-    <TargetFrameworkVersionNumber>4.7.1</TargetFrameworkVersionNumber>
-  </PropertyGroup>
-  <!-- 4.7.2 Specific -->
-  <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.7.2' ">
-    <DefineConstants>$(DefineConstants);NET472</DefineConstants>
-    <TargetFrameworkVersionNumber>4.7.2</TargetFrameworkVersionNumber>
-  </PropertyGroup>
-  <!-- 4.8.0 Specific -->
-  <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.8.0' ">
-    <DefineConstants>$(DefineConstants);NET48</DefineConstants>
-    <TargetFrameworkVersionNumber>4.8.0</TargetFrameworkVersionNumber>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -112,7 +84,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DbFacadeLogoNoText.jpg" />
+    <Content Include="icon.jpg" />
   </ItemGroup>
   <Import Project="..\DbFacadeShared\DbFacadeShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

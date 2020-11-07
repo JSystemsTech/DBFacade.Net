@@ -35,14 +35,7 @@ namespace DbFacade.DataLayer.Models.Attributes
 
         public DbDateStringColumn(string name, string dateFormat,
             CultureInfoType cultureInfo = CultureInfoType.InvariantCulture,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None) : this(null, name, dateFormat, cultureInfo,
-            dateTimeStyles)
-        {
-        }
-
-        public DbDateStringColumn(Type tDbMethodManifestMethodType, string name, string dateFormat,
-            CultureInfoType cultureInfo = CultureInfoType.InvariantCulture,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None) : base(tDbMethodManifestMethodType, name)
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None) : base(name)
         {
             _dateFormat = dateFormat;
             _cultureInfo = CultureInfoMap[cultureInfo];

@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.Tests.Facade
@@ -15,9 +14,8 @@ namespace DbFacadeUnitTests.Tests.Facade
     [TestClass]
     public class FacadeTests: UnitTestBase
     {
+
         UnitTestDomainFacade DomainFacade = new UnitTestDomainFacade();
-        UnitTestDomainFacadeWithManager DomainFacadeWithManager = new UnitTestDomainFacadeWithManager();
-        UnitTestDomainFacadeCustom DomainFacadeCustom = new UnitTestDomainFacadeCustom();
 
         public void CheckEnumerable<T>(IEnumerable<T>expectedData, IEnumerable<T> data)
         {
@@ -49,6 +47,20 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.AreEqual(expectedEmail.User, email.User);
 
             await Task.CompletedTask;
+        }
+        [TestMethod]
+        public void SuccessfullyCatchesUnregisteredConnectionException()
+        {
+            try
+            {
+                IDbResponse data = DomainFacade.TestUnregisteredConnectionCall();
+                Assert.Fail();
+            }
+            catch(DbConnectionConfigNotRegisteredException e)
+            {
+                Assert.IsTrue(true);
+            }
+            
         }
         [TestMethod]
         public void SuccessfullyFetchesData()
@@ -124,15 +136,15 @@ namespace DbFacadeUnitTests.Tests.Facade
         [TestMethod]
         public void SuccessfullyHandlesTransaction()
         {
-            IDbResponse response = DomainFacade.TestTransaction("my param");
-            Assert.IsNotNull(response);
+            IDbResponse<DbDataModel> response = DomainFacade.TestTransaction("my param");
+            Assert.IsFalse(response.IsNull);
             Assert.AreEqual(10, response.ReturnValue);
         }
         [TestMethod]
         public void SuccessfullyHandlesTransactionWithOutput()
         {
-            IDbResponse response = DomainFacade.TestTransactionWithOutput("my param");
-            Assert.IsNotNull(response);
+            IDbResponse<DbDataModel> response = DomainFacade.TestTransactionWithOutput("my param");
+            Assert.IsFalse(response.IsNull);
             Assert.AreEqual(10, response.ReturnValue);
 
             Assert.IsNotNull(response.OutputValues);
@@ -146,7 +158,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             try
             {
-                IDbResponse response = DomainFacade.TestTransaction(null);
+                IDbResponse<DbDataModel> response = DomainFacade.TestTransaction(null);
                 Assert.Fail();
             }
             catch(ValidationException<DbParamsModel<string>> e)
@@ -156,37 +168,21 @@ namespace DbFacadeUnitTests.Tests.Facade
                 Assert.AreEqual("Param1 (Property Value) is required.", e.ValidationErrors.First().ErrorMessage);
             }         
         }
-        [TestMethod]
-        public void SuccessfullyPassesManager()
-        {
-            IDbResponse response = DomainFacadeWithManager.TestFetchData(true);
-            Assert.IsNotNull(response);
-        }
-        [TestMethod]
-        public void ManagerCatchesInvalidModel()
-        {
-            try
-            {
-                IDbResponse response = DomainFacadeWithManager.TestFetchData(false);
-                Assert.Fail();
-            }
-            catch (Exception e)
-            {
-                Assert.AreEqual("UnitTestManager caught invalid model", e.Message);
-            }
-            
-        }
+        
+        
         [TestMethod]
         public void CustomFacadeVerifyStopsAtStep1()
         {
             try
             {
-                IDbResponse response = DomainFacadeCustom.TestFetchData(true, false, false);
+                IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(true, false, false);
                 Assert.Fail();
             }
             catch (Exception e)
             {
-                Assert.AreEqual("Stopping at step 1", e.Message);
+                Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
+                Assert.AreEqual("Stopping at step 1", e.InnerException.Message);
+                
             }
 
         }
@@ -195,12 +191,13 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             try
             {
-                IDbResponse response = DomainFacadeCustom.TestFetchData(false, true, false);
+                IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(false, true, false);
                 Assert.Fail();
             }
             catch (Exception e)
             {
-                Assert.AreEqual("Stopping at step 2", e.Message);
+                Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
+                Assert.AreEqual("Stopping at step 2", e.InnerException.Message);
             }
 
         }
@@ -209,12 +206,13 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             try
             {
-                IDbResponse response = DomainFacadeCustom.TestFetchData(false, false, true);
+                IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(false, false, true);
                 Assert.Fail();
             }
             catch (Exception e)
             {
-                Assert.AreEqual("Stopping at step 3", e.Message);
+                Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
+                Assert.AreEqual("Stopping at step 3", e.InnerException.Message);
             }
         }
 
@@ -228,7 +226,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse <FetchData> response = await DomainFacade.TestFetchDataAsync();
+                IDbResponse<FetchData> response = await DomainFacade.TestFetchDataAsync();
                 Assert.IsNotNull(response);
                 Assert.AreEqual(1, response.Count());
                 FetchData model = response.First();
@@ -237,7 +235,7 @@ namespace DbFacadeUnitTests.Tests.Facade
                 Assert.AreNotEqual(new Guid(), model.PublicKey);
                 await Task.CompletedTask;
             });
-            
+
         }
         [TestMethod]
         public void SuccessfullyFetchesDataWithOutputAsync()
@@ -266,21 +264,30 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse<FetchDataWithBadDbColumn> response = await DomainFacade.TestFetchDataWithBadDbColumnAsync();
-                Assert.IsNotNull(response);
-                Assert.AreEqual(1, response.Count());
-                FetchDataWithBadDbColumn model = response.First();
-                Assert.IsTrue(model.HasDataBindingErrors);
-                Assert.AreEqual(5, model.DataBindingErrors.Count());
-                Assert.IsNull(model.MyString);
-                Assert.AreEqual(default(int), model.Integer);
-                Assert.IsNull(model.IntegerOptional);
-                Assert.IsNull(model.IntegerOptionalNull);
-                Assert.IsNull(model.MyString);
-                Assert.IsNotNull(model.PublicKey);
-                Assert.AreEqual(new Guid(), model.PublicKey);
+                try
+                {
+                    IDbResponse<FetchDataWithBadDbColumn> response = await DomainFacade.TestFetchDataWithBadDbColumnAsync();
+                    Assert.IsNotNull(response);
+                    Assert.AreEqual(1, response.Count());
+                    FetchDataWithBadDbColumn model = response.First();
+                    Assert.IsTrue(model.HasDataBindingErrors);
+                    Assert.AreEqual(5, model.DataBindingErrors.Count());
+                    Assert.IsNull(model.MyString);
+                    Assert.AreEqual(default(int), model.Integer);
+                    Assert.IsNull(model.IntegerOptional);
+                    Assert.IsNull(model.IntegerOptionalNull);
+                    Assert.IsNull(model.MyString);
+                    Assert.IsNotNull(model.PublicKey);
+                    Assert.AreEqual(new Guid(), model.PublicKey);
 
-                await Task.CompletedTask;
+                    await Task.CompletedTask;
+                }
+                catch(Exception e)
+                {
+                    Assert.Fail();
+                    await Task.CompletedTask;
+                }
+               
             });
         }
         [TestMethod]
@@ -318,8 +325,8 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse response = await DomainFacade.TestTransactionAsync("my param");
-                Assert.IsNotNull(response);
+                IDbResponse<DbDataModel> response = await DomainFacade.TestTransactionAsync("my param");
+                Assert.IsFalse(response.IsNull);
                 Assert.AreEqual(10, response.ReturnValue);
                 await Task.CompletedTask;
             });
@@ -329,8 +336,8 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse response = await DomainFacade.TestTransactionWithOutputAsync("my param");
-                Assert.IsNotNull(response);
+                IDbResponse<DbDataModel> response = await DomainFacade.TestTransactionWithOutputAsync("my param");
+                Assert.IsFalse(response.IsNull);
                 Assert.AreEqual(10, response.ReturnValue);
 
                 Assert.IsNotNull(response.OutputValues);
@@ -348,7 +355,7 @@ namespace DbFacadeUnitTests.Tests.Facade
             {
                 try
                 {
-                    IDbResponse response = await DomainFacade.TestTransactionAsync(null);
+                    IDbResponse<DbDataModel> response = await DomainFacade.TestTransactionAsync(null);
                     Assert.Fail();
                     await Task.CompletedTask;
                 }
@@ -361,56 +368,24 @@ namespace DbFacadeUnitTests.Tests.Facade
                 }
                 catch (Exception ex)
                 {
-                    if(ex.InnerException is ValidationException<DbParamsModel<string>> e)
+                    if (ex.InnerException is ValidationException<DbParamsModel<string>> e)
                     {
                         Assert.AreEqual(1, e.ValidationErrors.Count());
                         Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
                         Assert.AreEqual("Param1 (Property Value) is required.", e.ValidationErrors.First().ErrorMessage);
                         await Task.CompletedTask;
                     }
-                    else{
+                    else
+                    {
                         Assert.Fail();
                         await Task.CompletedTask;
                     }
                 }
-                
-            });
-        }
-        [TestMethod]
-        public void SuccessfullyPassesManagerAsync()
-        {
-            Task<IDbResponse<FetchData>> response = DomainFacadeWithManager.TestFetchDataAsync(true);
-            response.Wait();
-            Assert.IsNotNull(response);
-        }
-        [TestMethod]
-        public void ManagerCatchesInvalidModelAsync()
-        {
-            RunAsAsyc(async () =>
-            {
-                try
-                {
-                    IDbResponse<FetchData> response = await DomainFacadeWithManager.TestFetchDataAsync(false);
-                    Assert.Fail();
-                    await Task.CompletedTask;
-                }                
-                catch (Exception e)
-                {
-                    if (e.InnerException is Exception ex)
-                    {
-                        Assert.AreEqual("UnitTestManager caught invalid model", ex.Message);
-                        await Task.CompletedTask;
-                    }
-                    else
-                    {
-                        Assert.AreEqual("UnitTestManager caught invalid model", e.Message);
-                        await Task.CompletedTask;
-                    }
-                }
 
             });
-
         }
+        
+        
         [TestMethod]
         public void CustomFacadeVerifyStopsAtStep1Async()
         {
@@ -418,22 +393,15 @@ namespace DbFacadeUnitTests.Tests.Facade
             {
                 try
                 {
-                    IDbResponse<FetchData> response = await DomainFacadeCustom.TestFetchDataAsync(true, false, false);
+                    IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(true, false, false);
                     Assert.Fail();
                     await Task.CompletedTask;
                 }
                 catch (Exception e)
                 {
-                    if (e.InnerException is Exception ex)
-                    {
-                        Assert.AreEqual("Stopping at step 1", ex.Message);
-                        await Task.CompletedTask;
-                    }
-                    else
-                    {
-                        Assert.AreEqual("Stopping at step 1", e.Message);
-                        await Task.CompletedTask;
-                    }
+                    Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
+                    Assert.AreEqual("Stopping at step 1", e.InnerException.Message);
+                    await Task.CompletedTask;
                 }
 
             });
@@ -446,22 +414,15 @@ namespace DbFacadeUnitTests.Tests.Facade
             {
                 try
                 {
-                    IDbResponse<FetchData> response = await DomainFacadeCustom.TestFetchDataAsync(false, true, false);
+                    IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(false, true, false);
                     Assert.Fail();
                     await Task.CompletedTask;
                 }
                 catch (Exception e)
                 {
-                    if (e.InnerException is Exception ex)
-                    {
-                        Assert.AreEqual("Stopping at step 2", ex.Message);
-                        await Task.CompletedTask;
-                    }
-                    else
-                    {
-                        Assert.AreEqual("Stopping at step 2", e.Message);
-                        await Task.CompletedTask;
-                    }
+                    Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
+                    Assert.AreEqual("Stopping at step 2", e.InnerException.Message);
+                    await Task.CompletedTask;
                 }
 
             });
@@ -473,24 +434,16 @@ namespace DbFacadeUnitTests.Tests.Facade
             {
                 try
                 {
-                    IDbResponse<FetchData> response = await DomainFacadeCustom.TestFetchDataAsync(false, false, true);
+                    IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(false, false, true);
                     Assert.Fail();
                     await Task.CompletedTask;
                 }
                 catch (Exception e)
                 {
-                    if (e.InnerException is Exception ex)
-                    {
-                        Assert.AreEqual("Stopping at step 3", ex.Message);
-                        await Task.CompletedTask;
-                    }
-                    else
-                    {
-                        Assert.AreEqual("Stopping at step 3", e.Message);
-                        await Task.CompletedTask;
-                    }
+                    Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
+                    Assert.AreEqual("Stopping at step 3", e.InnerException.Message);
+                    await Task.CompletedTask;
                 }
-
             });
         }
     }

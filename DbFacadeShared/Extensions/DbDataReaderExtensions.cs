@@ -1,12 +1,11 @@
 ﻿using DbFacade.Utils;
-using DbFacadeShared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net.Mail;
 
-namespace DbFacadeShared.Extensions
+namespace DbFacade.Extensions
 {
     internal static partial class DbDataReaderExtensions
     {
@@ -266,6 +265,7 @@ namespace DbFacadeShared.Extensions
         public static object GetColumn(this IDataRecord data, string columnName, Type t, int bufferSize,
             char delimiter = DefaultDelimiter, object defaultValue = null)
         => data.GetColumn(data.GetOrdinal(columnName), t, bufferSize, delimiter, defaultValue);
+
 
     }
 }

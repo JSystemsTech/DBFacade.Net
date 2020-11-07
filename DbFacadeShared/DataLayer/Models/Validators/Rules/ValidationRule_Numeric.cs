@@ -11,7 +11,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
     /// <seealso cref="Rules.IValidationRule{TDbParams}" />
     public abstract partial class ValidationRule<TDbParams>
-        where TDbParams : IDbParamsModel
+        where TDbParams : DbParamsModel
     {
         
 
@@ -22,7 +22,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         }
         
 
-        private class IsNumeric : ValidationRule<TDbParams>
+        internal class IsNumeric : ValidationRule<TDbParams>
         {
             private static NumberStyles NumberStyles = 
                 NumberStyles.Any |

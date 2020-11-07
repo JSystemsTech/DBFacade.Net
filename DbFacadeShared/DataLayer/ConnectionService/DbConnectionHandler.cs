@@ -3,103 +3,96 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
 using DbFacade.DataLayer.CommandConfig;
-using DbFacade.DataLayer.Manifest;
 using DbFacade.DataLayer.Models;
 using DbFacade.Exceptions;
+using DbFacade.Extensions;
 
 namespace DbFacade.DataLayer.ConnectionService
 {
-    internal partial class DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader,
-        TDbMethodManifest>
+    internal partial class DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
         where TDbConnection : DbConnection
         where TDbCommand : DbCommand
         where TDbParameter : DbParameter
         where TDbTransaction : DbTransaction
         where TDbDataReader : DbDataReader
-        where TDbMethodManifest : DbMethodManifest
     {
-        private static IDbResponse<TDbDataModel> BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(int returnValue,
+        private static IDbResponse<TDbDataModel> BuildRepsonse<TDbDataModel>(
+            int returnValue,
             DbDataReader dbDataReader = null,
             IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
-            where TDbMethodManifestMethod : TDbMethodManifest
         {
-            var responseObj = new DbResponse<TDbMethodManifestMethod, TDbDataModel>(returnValue, outputValues);
-            if (dbDataReader != null)
+            var responseObj = DbResponseFactory<TDbDataModel>.Create(returnValue, outputValues);
+            if(responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 while (dbDataReader.Read())
-                    responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel, TDbMethodManifestMethod>(dbDataReader));
+                    _responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel>(dbDataReader));
                 dbDataReader.Close();
             }
-
             return responseObj;
         }
 
-        public static IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams, TDbMethodManifestMethod>(
-            TDbMethodManifestMethod method, TDbParams parameters)
+        public static IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(
+            DbCommandMethod<TDbParams, TDbDataModel> config, TDbParams parameters)
             where TDbDataModel : DbDataModel
-            where TDbParams : IDbParamsModel
-            where TDbMethodManifestMethod : TDbMethodManifest
+            where TDbParams : DbParamsModel
         {
-            if (method.GetConfig() is IDbCommandConfigInternal config)
+            using (TDbConnection dbConnection = config.DbConnectionConfig.GetDbConnection(parameters) as TDbConnection)
             {
-                using (var dbConnection = config.DbConnectionConfig.GetDbConnection(parameters) as TDbConnection)
+                if (dbConnection != null)
                 {
-                    if (dbConnection != null)
+                    dbConnection.Open();
+                    using (var dbCommand =
+                        dbConnection.GetDbCommand<TDbConnection, TDbCommand, TDbParameter, TDbParams>(config.DbCommandText, config.DbParams, parameters))
                     {
-                        dbConnection.Open();
-                        using (var dbCommand =
-                            config.GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(parameters, dbConnection))
+                        try
                         {
-                            try
-                            {
-                                if (config.IsTransaction)
-                                    using (var transaction = dbConnection.BeginTransaction() as TDbTransaction)
+                            if (config.DbCommandText.IsTransaction)
+                                using (var transaction = dbConnection.BeginTransaction() as TDbTransaction)
+                                {
+                                    if (transaction != null)
                                     {
-                                        if (transaction != null)
+                                        try
                                         {
-                                            try
-                                            {
-                                                dbCommand.Transaction = transaction;
-                                                dbCommand.ExecuteNonQuery();
-                                            }
-                                            catch
-                                            {
-                                                transaction.Rollback();
-                                                throw;
-                                            }
-
-                                            transaction.Commit();
-                                            return BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(
-                                                config.GetReturnValue(dbCommand), null, 
-                                                config.GetOutputValues(dbCommand));
+                                            dbCommand.Transaction = transaction;
+                                            dbCommand.ExecuteNonQuery();
+                                        }
+                                        catch
+                                        {
+                                            transaction.Rollback();
+                                            throw;
                                         }
 
-                                        throw new FacadeException("Invalid Transaction Definition");
+                                        transaction.Commit();
+                                        return BuildRepsonse<TDbDataModel>(
+                                            dbCommand.GetReturnValue(), null,
+                                            dbCommand.GetOutputValues());
                                     }
 
-                                using (var dbDataReader = dbCommand.ExecuteReader() as TDbDataReader)
-                                {
-                                    return BuildRepsonse<TDbMethodManifestMethod, TDbDataModel>(
-                                        config.GetReturnValue(dbCommand),
-                                        dbDataReader,
-                                        config.GetOutputValues(dbCommand));
+                                    throw new FacadeException("Invalid Transaction Definition");
                                 }
-                            }
-                            catch (SqlException sqlEx)
+
+                            using (var dbDataReader = dbCommand.ExecuteReader() as TDbDataReader)
                             {
-                                throw new SQLExecutionException("A SQL Error has occurred", config.DbCommandText,
-                                    sqlEx);
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new FacadeException("Unknown Error", ex);
+                                return BuildRepsonse<TDbDataModel>(
+                                    dbCommand.GetReturnValue(),
+                                    dbDataReader,
+                                    dbCommand.GetOutputValues());
                             }
                         }
+                        catch (SqlException sqlEx)
+                        {
+                            throw new SQLExecutionException("A SQL Error has occurred", config.DbCommandText,
+                                sqlEx);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new FacadeException("Unknown Error", ex);
+                        }
                     }
-
-                    throw new FacadeException("Invalid Connection Definition");
                 }
+
+                throw new FacadeException("Invalid Connection Definition");
             }
 
             throw new FacadeException("Invalid Config");

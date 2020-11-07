@@ -5,14 +5,15 @@ using DbFacade.DataLayer.Models;
 namespace DbFacade.DataLayer.CommandConfig.Parameters
 {
     public interface IDbCommandParameterConfig<TDbParams>
-        where TDbParams : IDbParamsModel
+        where TDbParams : DbParamsModel
     { }
 
     internal interface IInternalDbCommandParameterConfig<TDbParams> : IDbCommandParameterConfig<TDbParams>
-        where TDbParams : IDbParamsModel
+        where TDbParams : DbParamsModel
     {
         DbType DbType { get; }
         bool IsNullable { get; }
+        ParameterDirection ParameterDirection { get;}
         bool IsOutput { get; }
         int OutputSize { get; }
         object Value(TDbParams model);

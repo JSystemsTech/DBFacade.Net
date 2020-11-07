@@ -10,7 +10,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
     /// <summary></summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     internal class DbCommandParameterConfig<TDbParams> : IInternalDbCommandParameterConfig<TDbParams>
-        where TDbParams : IDbParamsModel
+        where TDbParams : DbParamsModel
     {
         internal DbCommandParameterConfig() { }
 
@@ -18,11 +18,13 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         {
             DbType = dbType;
             IsNullable = isNullable;
+            ParameterDirection = ParameterDirection.Input;
         }
         protected async Task InitAsync(DbType dbType, bool isNullable = true)
         {
             DbType = dbType;
             IsNullable = isNullable;
+            ParameterDirection = ParameterDirection.Input;
             await Task.CompletedTask;
         }
 
@@ -30,6 +32,8 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         public bool IsNullable { get; set; }
         public bool IsOutput { get; private set; }
         public int OutputSize { get; protected set; }
+        public ParameterDirection ParameterDirection { get; protected set; }
+
 
         public virtual object Value(TDbParams model) => null;
         public virtual async Task<object> ValueAsync(TDbParams model) {
@@ -89,16 +93,29 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         internal static DbCommandParameterConfig<TDbParams> CreateOutput(DbType dbType, int size)
         {
             DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>(dbType, true);
-            config.IsOutput = true;
             config.OutputSize = size;
+            config.ParameterDirection = ParameterDirection.Output;
             return config;
         }
         internal static async Task<DbCommandParameterConfig<TDbParams>> CreateOutputAsync(DbType dbType, int size)
         {
             DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>();
             await config.InitAsync(dbType, true);
-            config.IsOutput = true;
             config.OutputSize = size;
+            config.ParameterDirection = ParameterDirection.Output;
+            await Task.CompletedTask;
+            return config;
+        }
+        internal static DbCommandParameterConfig<TDbParams> CreateReturnValue()
+        {
+            DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>();
+            config.ParameterDirection = ParameterDirection.ReturnValue;
+            return config;
+        }
+        internal static async Task<DbCommandParameterConfig<TDbParams>> CreateReturnValueAsync()
+        {
+            DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>();
+            config.ParameterDirection = ParameterDirection.ReturnValue;
             await Task.CompletedTask;
             return config;
         }

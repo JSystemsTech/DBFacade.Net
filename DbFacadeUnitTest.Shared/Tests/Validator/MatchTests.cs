@@ -1,8 +1,8 @@
 ﻿using DbFacade.DataLayer.Models.Validators;
-using DbFacadeUnitTests.Validator;
+using DbFacade.Factories;
+using DbFacadeUnitTests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.Tests.Validator
 {
@@ -12,22 +12,20 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void Match()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Match(model => model.FormatedString,"Formatted[0-9]{10}"),
-                UnitTestRules.Match(model => model.FormatedString.ToLower(),"Formatted[0-9]{10}", RegexOptions.IgnoreCase)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Match(model => model.FormatedString, "Formatted[0-9]{10}"));
+                v.Add(v.Rules.Match(model => model.FormatedString.ToLower(), "Formatted[0-9]{10}", RegexOptions.IgnoreCase));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void MatchFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Match(model => model.FormatedString,"Bad[0-9]{10}"),
-                UnitTestRules.Match(model => model.FormatedString.ToLower(),"Bad[0-9]{10}", RegexOptions.IgnoreCase)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Match(model => model.FormatedString, "Bad[0-9]{10}"));
+                v.Add(v.Rules.Match(model => model.FormatedString.ToLower(), "Bad[0-9]{10}", RegexOptions.IgnoreCase));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 2);
@@ -35,33 +33,30 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MatchOptionalValue()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Match(model => model.FormatedString,"Formatted[0-9]{10}", true),
-                UnitTestRules.Match(model => model.FormatedString.ToLower(),"Formatted[0-9]{10}", RegexOptions.IgnoreCase, true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Match(model => model.FormatedString, "Formatted[0-9]{10}", true));
+                v.Add(v.Rules.Match(model => model.FormatedString.ToLower(), "Formatted[0-9]{10}", RegexOptions.IgnoreCase, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void MatchOptionalNull()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Match(model => model.StringNumNull,"Formatted[0-9]{10}", true),
-                UnitTestRules.Match(model => model.StringNumNull,"Formatted[0-9]{10}", RegexOptions.IgnoreCase, true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Match(model => model.StringNumNull, "Formatted[0-9]{10}", true));
+                v.Add(v.Rules.Match(model => model.StringNumNull, "Formatted[0-9]{10}", RegexOptions.IgnoreCase, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void MatchOptionalFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Match(model => model.FormatedString,"Bad[0-9]{10}",true),
-                UnitTestRules.Match(model => model.FormatedString.ToLower(),"Bad[0-9]{10}", RegexOptions.IgnoreCase,true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Match(model => model.FormatedString, "Bad[0-9]{10}", true));
+                v.Add(v.Rules.Match(model => model.FormatedString.ToLower(), "Bad[0-9]{10}", RegexOptions.IgnoreCase, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 2);
@@ -72,59 +67,69 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MatchAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
+            RunAsAsyc(async () =>
             {
-                UnitTestRules.Match(model => model.FormatedString,"Formatted[0-9]{10}"),
-                UnitTestRules.Match(model => model.FormatedString.ToLower(),"Formatted[0-9]{10}", RegexOptions.IgnoreCase)
-            };
-            Task<IValidationResult> result = Validator.ValidateAsync(Parameters);
-            IsValid(result);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.FormatedString, "Formatted[0-9]{10}"));
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.FormatedString.ToLower(), "Formatted[0-9]{10}", RegexOptions.IgnoreCase));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsValidAsync(result);
+            });
         }
         [TestMethod]
         public void MatchFailAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
+            RunAsAsyc(async () =>
             {
-                UnitTestRules.Match(model => model.FormatedString,"Bad[0-9]{10}"),
-                UnitTestRules.Match(model => model.FormatedString.ToLower(),"Bad[0-9]{10}", RegexOptions.IgnoreCase)
-            };
-            Task<IValidationResult> result = Validator.ValidateAsync(Parameters);
-            IsInvalid(result);
-            HasCorrectErrorCount(result, 2);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.FormatedString, "Bad[0-9]{10}"));
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.FormatedString.ToLower(), "Bad[0-9]{10}", RegexOptions.IgnoreCase));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsInvalidAsync(result);
+                await HasCorrectErrorCountAsync(result, 2);
+            });
         }
         [TestMethod]
         public void MatchOptionalValueAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
+            RunAsAsyc(async () =>
             {
-                UnitTestRules.Match(model => model.FormatedString,"Formatted[0-9]{10}", true),
-                UnitTestRules.Match(model => model.FormatedString.ToLower(),"Formatted[0-9]{10}", RegexOptions.IgnoreCase, true)
-            };
-            Task<IValidationResult> result = Validator.ValidateAsync(Parameters);
-            IsValid(result);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.FormatedString, "Formatted[0-9]{10}", true));
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.FormatedString.ToLower(), "Formatted[0-9]{10}", RegexOptions.IgnoreCase, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsValidAsync(result);
+            });
         }
         [TestMethod]
         public void MatchOptionalNullAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
+            RunAsAsyc(async () =>
             {
-                UnitTestRules.Match(model => model.StringNumNull,"Formatted[0-9]{10}", true),
-                UnitTestRules.Match(model => model.StringNumNull,"Formatted[0-9]{10}", RegexOptions.IgnoreCase, true)
-            };
-            Task<IValidationResult> result = Validator.ValidateAsync(Parameters);
-            IsValid(result);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.StringNumNull, "Formatted[0-9]{10}", true));
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.StringNumNull, "Formatted[0-9]{10}", RegexOptions.IgnoreCase, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsValidAsync(result);
+            });
         }
         [TestMethod]
         public void MatchOptionalFailAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
+            RunAsAsyc(async () =>
             {
-                UnitTestRules.Match(model => model.FormatedString,"Bad[0-9]{10}",true),
-                UnitTestRules.Match(model => model.FormatedString.ToLower(),"Bad[0-9]{10}", RegexOptions.IgnoreCase,true)
-            };
-            Task<IValidationResult> result = Validator.ValidateAsync(Parameters);
-            IsInvalid(result);
-            HasCorrectErrorCount(result, 2);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.FormatedString, "Bad[0-9]{10}", true));
+                    await v.AddAsync(await v.Rules.MatchAsync(model => model.FormatedString.ToLower(), "Bad[0-9]{10}", RegexOptions.IgnoreCase, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsInvalidAsync(result);
+                await HasCorrectErrorCountAsync(result, 2);
+            });
         }
     }
 }

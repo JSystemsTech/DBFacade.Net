@@ -1,5 +1,6 @@
 ﻿using DbFacade.DataLayer.Models.Validators;
-using DbFacadeUnitTests.Validator;
+using DbFacade.Factories;
+using DbFacadeUnitTests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 
@@ -23,25 +24,23 @@ namespace DbFacadeUnitTests.Tests.Validator
         }
         [TestMethod]
         public void Delegate()
-        {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Delegate(model => model.String, Validates),
-                UnitTestRules.Delegate(model => model.String, value=> true),
-                UnitTestRules.Delegate(model => model.Short, value=> value == 10)
-            };
+        {            
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Delegate(model => model.String, Validates));
+                v.Add(v.Rules.Delegate(model => model.String, value => true));
+                v.Add(v.Rules.Delegate(model => model.Short, value => value == 10));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void DelegateFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Delegate(model => model.String, Invalidates),
-                UnitTestRules.Delegate(model => model.String, value=> false),
-                UnitTestRules.Delegate(model => model.Short, value=> value == 11)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Delegate(model => model.String, Invalidates));
+                v.Add(v.Rules.Delegate(model => model.String, value => false));
+                v.Add(v.Rules.Delegate(model => model.Short, value => value == 11));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 3);
@@ -53,10 +52,12 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.DelegateAsync(model => model.String, ValidatesAsync)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, ValidatesAsync));
+                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, async value => await Task.Run(() => true)));
+                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.Short, async value => await Task.Run(() => value == 10)));
+                });
+                var result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -66,12 +67,12 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.DelegateAsync(model => model.String, InvalidatesAsync),
-                    await UnitTestRules.DelegateAsync(model => model.String, async value => await Task.Run(()=>false)),
-                    await UnitTestRules.DelegateAsync(model => model.Short, async value => await Task.Run(() => value == 11))
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, InvalidatesAsync));
+                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, async value => await Task.Run(() => false)));
+                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.Short, async value => await Task.Run(() => value == 11)));
+                });
+                var result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 3);
             });

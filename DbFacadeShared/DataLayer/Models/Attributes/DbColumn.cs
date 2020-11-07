@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
-using DbFacade.DataLayer.Manifest;
-using DbFacade.Exceptions;
-using DbFacadeShared.DataLayer.Models;
-using DbFacadeShared.Extensions;
+using DbFacade.Extensions;
 
 namespace DbFacade.DataLayer.Models.Attributes
 {
@@ -13,89 +13,70 @@ namespace DbFacade.DataLayer.Models.Attributes
     {
         object GetValue(IDataRecord data, Type propType);
         Task<object> GetValueAsync(IDataRecord data, Type propType);
-        Type TDbMethodManifestMethodType { get; }
     }
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Constructor, AllowMultiple = true)]
     public class DbColumn : Attribute, IDbColumn
     {
         internal const char DefaultDelimiter = ',';
+        internal const int DefaultBufferSize = 100;
         private readonly object _defaultValue;
 
-        private readonly string _name;
-
-        private readonly Type _tDbMethodManifestMethodType;
+        private IEnumerable<string> Columns { get; set; }
 
         internal DbColumn() { }
 
         public DbColumn(string name, char delimiter = DefaultDelimiter)
-            : this(null, name, null, null, delimiter) { }
+            : this(name, null, DefaultBufferSize, delimiter) { }
 
-        public DbColumn(Type tDbMethodManifestMethodType, string name, char delimiter = DefaultDelimiter)
-            : this(tDbMethodManifestMethodType, name, null, delimiter) { }
 
         public DbColumn(string name, int bufferSize)
-            : this(null, name, null, bufferSize) { }
+            : this(name, null, bufferSize) { }
 
-        public DbColumn(Type tDbMethodManifestMethodType, string name, int bufferSize)
-            : this(tDbMethodManifestMethodType, name, null, bufferSize) { }
-
-
+        internal DbColumn(string name, object defaultValue)
+            : this(name, defaultValue, DefaultBufferSize, DefaultDelimiter) { }
         internal DbColumn(string name, object defaultValue, char delimiter = DefaultDelimiter)
-            : this(null, name, defaultValue, null, delimiter) { }
+            : this(name, defaultValue, DefaultBufferSize, delimiter) { }
 
-        internal DbColumn(Type tDbMethodManifestMethodType, string name, object defaultValue, int? bufferSize,
+        internal DbColumn(string name, object defaultValue, int bufferSize = DefaultBufferSize,
             char delimiter = DefaultDelimiter)
         {
             Delimiter = delimiter;
-            _name = name;
+            Columns = name.Split(DefaultDelimiter);
             _defaultValue = defaultValue;
-            BufferSize = bufferSize ?? 0;
-            if (tDbMethodManifestMethodType != null)
-            {
-                CheckTDbMethodManifestMethodType(tDbMethodManifestMethodType);
-                _tDbMethodManifestMethodType = tDbMethodManifestMethodType;
-                BoundToTDbMethodManifestMethodType = true;
-            }
+            BufferSize = bufferSize;
         }
 
         private char Delimiter { get; }
         private int BufferSize { get; }
-
-        public virtual bool BoundToTDbMethodManifestMethodType { get; }
-
-
-        public Type TDbMethodManifestMethodType { get => _tDbMethodManifestMethodType; }     
-        
-
-        private void CheckTDbMethodManifestMethodType(Type tDbMethodManifestMethodType)
-        {
-            if (!tDbMethodManifestMethodType.IsSubclassOf(typeof(DbMethodManifest)))
-                throw new ArgumentException(
-                    $"{tDbMethodManifestMethodType.Name} is not type of {typeof(DbMethodManifest).Name}");
-        }       
-
-            
+    
 
         protected object TryGetValue(IDataRecord data, Type propType)
         {
+            string columnName = Columns.Where(c => data.GetOrdinal(c) >= 0).FirstOrDefault();
             try
             {
-                return data.GetColumn(_name, propType, BufferSize, Delimiter, _defaultValue);
+                return string.IsNullOrWhiteSpace(columnName) ? _defaultValue: data.GetColumn(columnName, propType, BufferSize, Delimiter, _defaultValue);
             }
             catch (Exception e)
             {
-                return DbDataModelBindingError.Create(e, propType, data.GetFieldType(data.GetOrdinal(_name)), _name);
+                return DbDataModelBindingError.Create(e, propType, data.GetFieldType(data.GetOrdinal(columnName)), columnName);
             }
         }
         protected async Task<object> TryGetValueAsync (IDataRecord data, Type propType)
         {
+            string columnName = Columns.Where(c => data.GetOrdinal(c) >= 0).FirstOrDefault();
             try
             {
-                return await data.GetColumnAsync(_name, propType, BufferSize, Delimiter, _defaultValue);                
+                if (string.IsNullOrWhiteSpace(columnName))
+                {
+                    await Task.CompletedTask;
+                    return _defaultValue;
+                }
+                return await data.GetColumnAsync(columnName, propType, BufferSize, Delimiter, _defaultValue);                
             }
             catch (Exception e)
             {
-                 return await DbDataModelBindingError.CreateAsync(e, propType, data.GetFieldType(data.GetOrdinal(_name)), _name);
+                 return await DbDataModelBindingError.CreateAsync(e, propType, data.GetFieldType(data.GetOrdinal(columnName)), columnName);
             }
         }
 

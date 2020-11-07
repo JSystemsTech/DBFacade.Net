@@ -1,5 +1,6 @@
 ﻿using DbFacade.DataLayer.Models.Validators;
-using DbFacadeUnitTests.Validator;
+using DbFacade.Factories;
+using DbFacadeUnitTests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DbFacadeUnitTests.Tests.Validator
@@ -8,53 +9,48 @@ namespace DbFacadeUnitTests.Tests.Validator
     public class LengthEqualsTests : ValidatorTestBase
     {
         [TestMethod]
-        public void EqualTo()
+        public void LengthEquals()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.String, 14)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.LengthEquals(model => model.String, 14));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
-        public void MinLengthFail()
+        public void LengthEqualsFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.String, 20)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.LengthEquals(model => model.String, 20));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
         }
         [TestMethod]
-        public void MinLengthOptionalValue()
+        public void LengthEqualsOptionalValue()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.String, 14, true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.LengthEquals(model => model.String, 14, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
-        public void MinLengthOptionalNull()
+        public void LengthEqualsOptionalNull()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.StringNumNull, 14, true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.LengthEquals(model => model.StringNumNull, 14, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
-        public void MinLengthOptionalFail()
+        public void LengthEqualsOptionalFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.String, 20, true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.LengthEquals(model => model.String, 20, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
@@ -62,57 +58,63 @@ namespace DbFacadeUnitTests.Tests.Validator
 
 
 
+
         [TestMethod]
-        public void EqualToAsync()
+        public void LengthEqualsAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.String, 14)
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsValid(result);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.LengthEqualsAsync(model => model.String, 14));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsValidAsync(result);
+            });
         }
         [TestMethod]
-        public void MinLengthFailAsync()
+        public void LengthEqualsFailAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.String, 20)
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsInvalid(result);
-            HasCorrectErrorCount(result, 1);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.LengthEqualsAsync(model => model.String, 20));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsInvalidAsync(result);
+                await HasCorrectErrorCountAsync(result, 1);
+            });
         }
         [TestMethod]
-        public void MinLengthOptionalValueAsync()
+        public void LengthEqualsOptionalValueAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.String, 14, true)
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsValid(result);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.LengthEqualsAsync(model => model.String, 14, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsValidAsync(result);
+            });
         }
         [TestMethod]
-        public void MinLengthOptionalNullAsync()
+        public void LengthEqualsOptionalNullAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.StringNumNull, 14, true)
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsValid(result);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.LengthEqualsAsync(model => model.StringNumNull, 14, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsValidAsync(result);
+            });
         }
         [TestMethod]
-        public void MinLengthOptionalFailAsync()
+        public void LengthEqualsOptionalFailAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.LengthEquals(model => model.String, 20, true)
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsInvalid(result);
-            HasCorrectErrorCount(result, 1);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.LengthEqualsAsync(model => model.String, 20, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsInvalidAsync(result);
+                await HasCorrectErrorCountAsync(result, 1);
+            });
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
     /// <seealso cref="Rules.IValidationRule{TDbParams}" />
     public partial class ValidationRule<TDbParams> : IValidationRule<TDbParams>
-        where TDbParams : IDbParamsModel
+        where TDbParams : DbParamsModel
     {
         protected ValidationRule() { }
 

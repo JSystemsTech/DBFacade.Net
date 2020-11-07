@@ -1,44 +1,55 @@
 ﻿using System.Collections.Generic;
-using System.Data.Common;
 using System.Threading.Tasks;
-using DbFacade.DataLayer.ConnectionService;
 using DbFacade.DataLayer.Models;
-using DbFacade.DataLayer.Models.Validators;
 
 namespace DbFacade.DataLayer.CommandConfig
 {
-    public interface IDbCommandConfig : ISafeDisposable
+    public interface IDbCommandMethod<TDbParams,TDbDataModel> : ISafeDisposable
+        where TDbDataModel : DbDataModel
+        where TDbParams : DbParamsModel
     {
-        IValidationResult Validate(IDbParamsModel paramsModel);
-        Task<IValidationResult> ValidateAsync(IDbParamsModel paramsModel);
+        
+        IDbResponse<TDbDataModel> Execute(TDbParams parameters);
+        
+        Task<IDbResponse<TDbDataModel>> ExecuteAsync(TDbParams parameters);
+
+        
+        IDbResponse<TDbDataModel> Mock(TDbParams parameters, int returnValue, IDictionary<string, object> outputValues = null);
+        IDbResponse<TDbDataModel> Mock<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null);
+        IDbResponse<TDbDataModel> Mock<T>(TDbParams parameters, T responseData, int returnValue, IDictionary<string, object> outputValues = null);
+        
+        Task<IDbResponse<TDbDataModel>> MockAsync(TDbParams parameters, int returnValue, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> MockAsync<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> MockAsync<T>(TDbParams parameters, T responseData, int returnValue, IDictionary<string, object> outputValues = null);
+    }
+    public interface IParameterlessDbCommandMethod<TDbDataModel>
+        where TDbDataModel : DbDataModel
+    {
+        IDbResponse<TDbDataModel> Execute();
+        Task<IDbResponse<TDbDataModel>> ExecuteAsync();
+        IDbResponse<TDbDataModel> Mock(int returnValue, IDictionary<string, object> outputValues = null);
+        IDbResponse<TDbDataModel> Mock<T>(IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null);
+        IDbResponse<TDbDataModel> Mock<T>(T responseData, int returnValue, IDictionary<string, object> outputValues = null);
+
+        Task<IDbResponse<TDbDataModel>> MockAsync(int returnValue, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> MockAsync<T>(IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse<TDbDataModel>> MockAsync<T>(T responseData, int returnValue, IDictionary<string, object> outputValues = null);
+    }
+    public interface IDbCommandMethod<TDbParams>
+        where TDbParams : DbParamsModel
+    {
+        IDbResponse Execute(TDbParams parameters);
+        Task<IDbResponse> ExecuteAsync(TDbParams parameters);
+        IDbResponse Mock(TDbParams parameters, int returnValue, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse> MockAsync(TDbParams parameters, int returnValue, IDictionary<string, object> outputValues = null);
+    }
+    public interface IDbCommandMethod
+    {
+        IDbResponse Execute();
+        Task<IDbResponse> ExecuteAsync();
+        IDbResponse Mock(int returnValue, IDictionary<string, object> outputValues = null);
+        Task<IDbResponse> MockAsync(int returnValue, IDictionary<string, object> outputValues = null);
     }
 
-    internal interface IDbCommandConfigInternal : IDbCommandConfig
-    {
-        IDbConnectionConfigInternal DbConnectionConfig { get; }
-        IDbCommandText DbCommandText { get; }
-        bool IsTransaction { get; }
-
-        TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel tDbMethodManifestMethodParams,
-            TDbConnection dbConnection)
-            where TDbConnection : DbConnection
-            where TDbCommand : DbCommand
-            where TDbParameter : DbParameter;
-        Task<TDbCommand> GetDbCommandAsync<TDbConnection, TDbCommand, TDbParameter>(IDbParamsModel tDbMethodManifestMethodParams,
-            TDbConnection dbConnection)
-            where TDbConnection : DbConnection
-            where TDbCommand : DbCommand
-            where TDbParameter : DbParameter;
-
-        int GetReturnValue<TDbCommand>(TDbCommand dbCommand)
-            where TDbCommand : DbCommand;
-        Task<int> GetReturnValueAsync<TDbCommand>(TDbCommand dbCommand)
-            where TDbCommand : DbCommand;
-        IDictionary<string, object> GetOutputValues<TDbCommand>(TDbCommand dbCommand)
-            where TDbCommand : DbCommand;
-        Task<IDictionary<string, object>> GetOutputValuesAsync<TDbCommand>(TDbCommand dbCommand)
-            where TDbCommand : DbCommand;
-
-        Task<IDbConnectionConfigInternal> GetDbConnectionConfigAsync();
-    }
+    
 }

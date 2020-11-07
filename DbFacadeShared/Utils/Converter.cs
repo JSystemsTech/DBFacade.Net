@@ -1,11 +1,8 @@
-﻿using DbFacade.Utils;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace DbFacadeShared.Utils
+namespace DbFacade.Utils
 {
     internal class Converter<T>
     {

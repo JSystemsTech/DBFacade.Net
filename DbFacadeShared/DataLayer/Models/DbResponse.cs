@@ -4,39 +4,79 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using System.Xml;
-using DbFacade.DataLayer.Manifest;
 using Newtonsoft.Json;
 
 namespace DbFacade.DataLayer.Models
 {
-    internal class DbResponse<TDbMethodManifestMethod, TDbDataModel> : List<TDbDataModel>, IDbResponse<TDbDataModel>
+    internal class DbResponseFactory<TDbDataModel>
         where TDbDataModel : DbDataModel
-        where TDbMethodManifestMethod : IDbManifestMethod
+    {
+        private static bool IsEmptyDataReturn = typeof(TDbDataModel) == typeof(DbDataModel);
+        public static IDbResponse<TDbDataModel> Create()
+            => !IsEmptyDataReturn ?
+                new DbResponse<TDbDataModel>() :
+                (IDbResponse<TDbDataModel>)new DbResponse();
+        public static IDbResponse<TDbDataModel> Create(int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => !IsEmptyDataReturn ?
+                new DbResponse<TDbDataModel>(returnValue, outputValues) :
+                (IDbResponse<TDbDataModel>)new DbResponse(returnValue, outputValues);
+        public static async Task<IDbResponse<TDbDataModel>> CreateAsync()
+            => !IsEmptyDataReturn ?
+                await DbResponse<TDbDataModel>.CreateAsync() :
+                (IDbResponse<TDbDataModel>) await DbResponse.CreateAsync();
+        public static async Task<IDbResponse<TDbDataModel>> CreateAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
+            => !IsEmptyDataReturn ?
+                await DbResponse<TDbDataModel>.CreateAsync(returnValue, outputValues) :
+                (IDbResponse<TDbDataModel>)await DbResponse.CreateAsync(returnValue, outputValues);
+
+
+    }
+    internal class DbResponse : DbResponse<DbDataModel>, IDbResponse
+    {
+        public DbResponse():base() { }
+        public DbResponse(int returnValue = 0, IDictionary<string, object> outputValues = null) 
+            :base(returnValue, outputValues) { }
+        public static new async Task<DbResponse> CreateAsync()
+        {
+            DbResponse response = new DbResponse();
+            await response.InitializeAsync();
+            return response;
+        }
+        public static new async Task<DbResponse> CreateAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
+        {
+            DbResponse response = new DbResponse();
+            await response.InitializeAsync(returnValue, outputValues);
+            return response;
+        }
+    }
+    internal class DbResponse<TDbDataModel> : List<TDbDataModel>, IDbResponse<TDbDataModel>
+        where TDbDataModel : DbDataModel
     {
         public bool HasDataBindingErrors { get=> this.Any(item=>item.HasDataBindingErrors);}
         public DbResponse()
         {
             IsNull = true;
         }
-        public static async Task<DbResponse<TDbMethodManifestMethod, TDbDataModel>> CreateAsync()
+        public static async Task<DbResponse<TDbDataModel>> CreateAsync()
         {
-            DbResponse<TDbMethodManifestMethod, TDbDataModel> response = new DbResponse<TDbMethodManifestMethod, TDbDataModel>();
+            DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
             await response.InitializeAsync();
             return response;
         }
-        public static async Task<DbResponse<TDbMethodManifestMethod, TDbDataModel>> CreateAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
+        public static async Task<DbResponse<TDbDataModel>> CreateAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
-            DbResponse<TDbMethodManifestMethod, TDbDataModel> response = new DbResponse<TDbMethodManifestMethod, TDbDataModel>();
+            DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
             await response.InitializeAsync(returnValue, outputValues);
             return response;
         }
-        private async Task InitializeAsync()
+        protected async Task InitializeAsync()
         {
             IsNull = true;
             await Task.CompletedTask;
         }
-        private async Task InitializeAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
+        protected async Task InitializeAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
+            IsNull = false;
             ReturnValue = returnValue;
             OutputValues = outputValues;
             await Task.CompletedTask;

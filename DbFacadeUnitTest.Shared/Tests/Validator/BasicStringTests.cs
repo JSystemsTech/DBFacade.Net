@@ -1,5 +1,6 @@
 ﻿using DbFacade.DataLayer.Models.Validators;
-using DbFacadeUnitTests.Validator;
+using DbFacade.Factories;
+using DbFacadeUnitTests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DbFacadeUnitTests.Tests.Validator
@@ -10,21 +11,19 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsNullOrEmpty()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsNullOrEmpty(model => model.StringNumNull),
-                UnitTestRules.IsNullOrEmpty(model => string.Empty)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v=> {
+                v.Add(v.Rules.IsNullOrEmpty(model => model.StringNumNull));
+                v.Add(v.Rules.IsNullOrEmpty(model => string.Empty));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void IsNullOrEmptyFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsNullOrEmpty(model => model.String)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsNullOrEmpty(model => model.String));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
@@ -32,23 +31,21 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsNullOrWhiteSpace()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsNullOrWhiteSpace(model => model.StringNumNull),
-                UnitTestRules.IsNullOrWhiteSpace(model => string.Empty),
-                UnitTestRules.IsNullOrWhiteSpace(model => " "),
-                UnitTestRules.IsNullOrWhiteSpace(model => "      ")
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsNullOrWhiteSpace(model => model.StringNumNull));
+                v.Add(v.Rules.IsNullOrWhiteSpace(model => string.Empty));
+                v.Add(v.Rules.IsNullOrWhiteSpace(model => " "));
+                v.Add(v.Rules.IsNullOrWhiteSpace(model => "      "));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void IsNullOrWhiteSpaceFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsNullOrWhiteSpace(model => model.String)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsNullOrWhiteSpace(model => model.String));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
@@ -60,11 +57,11 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsNullOrEmptyAsync(model => model.StringNumNull),
-                    await UnitTestRules.IsNullOrEmptyAsync(model => string.Empty)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync (await v.Rules.IsNullOrEmptyAsync(model => model.StringNumNull));
+                    await v.AddAsync (await v.Rules.IsNullOrEmptyAsync(model => string.Empty));
+                });
+                var result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -73,10 +70,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsNullOrEmptyAsync(model => model.String)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsNullOrEmptyAsync(model => model.String));
+                });
+                var result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 1);
             });
@@ -87,13 +84,13 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsNullOrWhiteSpaceAsync(model => model.StringNumNull),
-                    await UnitTestRules.IsNullOrWhiteSpaceAsync(model => string.Empty),
-                    await UnitTestRules.IsNullOrWhiteSpaceAsync(model => " "),
-                    await UnitTestRules.IsNullOrWhiteSpaceAsync(model => "      ")
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => model.StringNumNull));
+                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => string.Empty));
+                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => " "));
+                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => "      "));
+                });
+                var result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -102,10 +99,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.IsNullOrWhiteSpaceAsync(model => model.String)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => model.String));
+                });
+                var result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 1);
             });

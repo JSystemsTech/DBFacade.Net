@@ -1,5 +1,4 @@
 ﻿using DbFacade.Utils;
-using DbFacadeShared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace DbFacadeShared.Extensions
+namespace DbFacade.Extensions
 {
     internal static partial class DbDataReaderExtensions
     {

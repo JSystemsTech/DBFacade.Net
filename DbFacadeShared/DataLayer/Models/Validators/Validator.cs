@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DbFacade.DataLayer.Models.Validators.Rules;
+using DbFacade.Factories;
 
 namespace DbFacade.DataLayer.Models.Validators
 {
@@ -13,100 +15,69 @@ namespace DbFacade.DataLayer.Models.Validators
         IEnumerable<IValidationRuleResult> Errors { get; }
     }
 
-    /// <summary>
-    /// </summary>
-    /// <seealso cref="IValidationResult" />
     internal class ValidationResult : IValidationResult
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ValidationResult" /> class.
-        /// </summary>
-        /// <param name="errors">The errors.</param>
         public ValidationResult(IEnumerable<IValidationRuleResult> errors)
         {
             Errors = errors;
         }
 
-        /// <summary>
-        ///     Gets or sets the validation errors.
-        /// </summary>
-        /// <value>
-        ///     The validation errors.
-        /// </value>
         public IEnumerable<IValidationRuleResult> Errors { get; }
 
-        /// <summary>
-        ///     Returns true if ... is valid.
-        /// </summary>
-        /// <returns>
-        ///     <c>true</c> if this instance is valid; otherwise, <c>false</c>.
-        /// </returns>
         public bool IsValid => !Errors.Any();
 
-        /// <summary>
-        ///     Passes the validation.
-        /// </summary>
-        /// <returns></returns>
-        public static ValidationResult PassingValidation()
-        {
-            return new ValidationResult(new List<ValidationRuleResult>());
-        }
+        public static ValidationResult PassingValidation = new ValidationResult(new List<ValidationRuleResult>());
+    }
+    public interface IValidator<TDbParams>
+        where TDbParams : DbParamsModel
+    {
+        int Count { get; }
+        ValidationRuleFactory<TDbParams> Rules { get; }
+        void Add(IValidationRule<TDbParams> rule);
+        Task AddAsync(IValidationRule<TDbParams> rule);
+        IValidationResult Validate(TDbParams paramsModel);
+        Task<IValidationResult> ValidateAsync(TDbParams paramsModel);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
-    /// <seealso cref="System.Collections.Generic.List{IValidationRule&lt;TDbParams&gt;}" />
-    public class Validator<TDbParams> : List<IValidationRule<TDbParams>>
-        where TDbParams : IDbParamsModel
+    internal class Validator<TDbParams> : List<IValidationRule<TDbParams>>, IValidator<TDbParams>
+        where TDbParams : DbParamsModel
     {
-        public static Validator<TDbParams> Create(params IValidationRule<TDbParams>[] rules)
+        public ValidationRuleFactory<TDbParams> Rules { get; private set; }
+        public async Task AddAsync(IValidationRule<TDbParams> rule)
         {
-            Validator<TDbParams> validator = new Validator<TDbParams>();
-            foreach (IValidationRule<TDbParams> rule in rules)
-            {
-                validator.Add(rule);
-            }
-            return validator;
-        }
-        public static async Task<Validator<TDbParams>> CreateAsync(params IValidationRule<TDbParams>[] rules)
-        {
-            Validator<TDbParams> validator = new Validator<TDbParams>();
-            await validator.InitAsync(rules);
-            return validator;
-        }
-        private async Task InitAsync(params IValidationRule<TDbParams>[] rules)
-        {
-            foreach (IValidationRule<TDbParams> rule in rules)
-            {
-                Add(rule);
-            }
+            Add(rule);
             await Task.CompletedTask;
+        }
+        public static Validator<TDbParams> Create(Action<IValidator<TDbParams>> validatorInitializer = null)
+        {
+            Validator<TDbParams> validator = new Validator<TDbParams>();            
+            validator.Rules = new ValidationRuleFactory<TDbParams>();
+            Action<IValidator<TDbParams>> _validatorInitializer =
+                validatorInitializer != null ? validatorInitializer : v => { };
+            _validatorInitializer(validator);
+            return validator;
+        }
+        public static async Task<Validator<TDbParams>> CreateAsync(Func<IValidator<TDbParams>, Task> validatorInitializer = null)
+        {
+            Validator<TDbParams> validator = new Validator<TDbParams>();
+            validator.Rules = await ValidationRuleFactory<TDbParams>.CreateFactoryAsync();
+            Func<IValidator<TDbParams>, Task> _validatorInitializer =
+                validatorInitializer != null ? validatorInitializer : async v => { await Task.CompletedTask; };
+            await _validatorInitializer(validator);           
+            return validator;
         }
 
         public IValidationResult Validate(TDbParams paramsModel)
-        {
-            return ValidateCore(paramsModel);
-        }
+        => new ValidationResult(this.Select(rule => rule.Validate(paramsModel))
+                .Where(result => result.Status == ValidationStatus.FAIL));
+
 
         public async Task<IValidationResult> ValidateAsync(TDbParams paramsModel)
-        {
-            return await ValidateCoreAsync(paramsModel);
-        }
-
-
-        private async Task<IValidationResult> ValidateCoreAsync(TDbParams paramsModel)
         {
             var validationTasks = this.Select(rule => rule.ValidateAsync(paramsModel)).ToArray();
             await Task.WhenAll(validationTasks);
             return new ValidationResult(validationTasks.Where(task => task.Result.Status == ValidationStatus.FAIL)
                 .Select(task => task.Result));
-        }
-
-        private IValidationResult ValidateCore(TDbParams paramsModel)
-        {
-            return new ValidationResult(this.Select(rule => rule.Validate(paramsModel))
-                .Where(result => result.Status == ValidationStatus.FAIL));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DbFacade.DataLayer.Models;
 using DbFacade.DataLayer.Models.Attributes;
+using DbFacadeUnitTests.TestFacade;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;

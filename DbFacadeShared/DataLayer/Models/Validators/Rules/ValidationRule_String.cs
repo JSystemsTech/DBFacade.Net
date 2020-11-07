@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Mail;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -17,124 +16,9 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     }
 
     public abstract partial class ValidationRule<TDbParams>
-        where TDbParams : IDbParamsModel
+        where TDbParams : DbParamsModel
     {
-        public static IValidationRule<TDbParams> Match(Expression<Func<TDbParams, string>> selector,
-            string regexMatchStr, bool isNullable = false)
-        {
-            return new MatchRule(selector, regexMatchStr, isNullable);
-        }
-
-        public static IValidationRule<TDbParams> Match(Expression<Func<TDbParams, string>> selector,
-            string regexMatchStr, RegexOptions options, bool isNullable = false)
-        {
-            return new MatchRule(selector, regexMatchStr, options, isNullable);
-        }
-        public static async Task<IValidationRule<TDbParams>> MatchAsync(Expression<Func<TDbParams, string>> selector,
-            string regexMatchStr, bool isNullable = false)
-        => await MatchRule.CreateAsync(selector, regexMatchStr, isNullable);
-        public static async Task<IValidationRule<TDbParams>> MatchAsync(Expression<Func<TDbParams, string>> selector,
-            string regexMatchStr, RegexOptions options, bool isNullable = false)
-        => await MatchRule.CreateAsync(selector, regexMatchStr, options, isNullable);
-
-
-        public static IValidationRule<TDbParams> IsNDigitString(Expression<Func<TDbParams, string>> selector,
-            int length, bool isNullable = false)
-        {
-            return new IsNDigitStringRule(selector, length, isNullable);
-        }
-        public static async Task<IValidationRule<TDbParams>> IsNDigitStringAsync(Expression<Func<TDbParams, string>> selector,
-            int length, bool isNullable = false)
-        => await IsNDigitStringRule.CreateAsync(selector, length, isNullable);
-
-
-        public static IValidationRule<TDbParams> IsSocialSecurityNumber(Expression<Func<TDbParams, string>> selector,
-            bool allowDashes = true, bool isNullable = false)
-        {
-            return new IsSocialSecurityNumberRule(selector, allowDashes, isNullable);
-        }
-        public static async Task<IValidationRule<TDbParams>> IsSocialSecurityNumberAsync(Expression<Func<TDbParams, string>> selector,
-            bool allowDashes = true, bool isNullable = false)
-        => await IsSocialSecurityNumberRule.CreateAsync(selector, allowDashes, isNullable);
-
-        public static IValidationRule<TDbParams> IsNullOrEmpty(Expression<Func<TDbParams, string>> selector)
-        {
-            return new IsNullOrEmptyRule(selector);
-        }
-        public static async Task<IValidationRule<TDbParams>> IsNullOrEmptyAsync(Expression<Func<TDbParams, string>> selector)
-        => await IsNullOrEmptyRule.CreateAsync(selector);
-
-        public static IValidationRule<TDbParams> IsNotNullOrEmpty(Expression<Func<TDbParams, string>> selector)
-        {
-            return new IsNotNullOrEmptyRule(selector);
-        }
-        public static async Task<IValidationRule<TDbParams>> IsNotNullOrEmptyAsync(Expression<Func<TDbParams, string>> selector)
-        => await IsNotNullOrEmptyRule.CreateAsync(selector);
-
-        public static IValidationRule<TDbParams> IsNullOrWhiteSpace(Expression<Func<TDbParams, string>> selector)
-        {
-            return new IsNullOrWhiteSpaceRule(selector);
-        }
-        public static async Task<IValidationRule<TDbParams>> IsNullOrWhiteSpaceAsync(Expression<Func<TDbParams, string>> selector)
-        => await IsNullOrWhiteSpaceRule.CreateAsync(selector);
-
-        public static IValidationRule<TDbParams> IsNotNullOrWhiteSpace(Expression<Func<TDbParams, string>> selector)
-        {
-            return new IsNotNullOrWhiteSpaceRule(selector);
-        }
-        public static async Task<IValidationRule<TDbParams>> IsNotNullOrWhiteSpaceAsync(Expression<Func<TDbParams, string>> selector)
-        => await IsNotNullOrWhiteSpaceRule.CreateAsync(selector);
-
-        public static IValidationRule<TDbParams> LengthEquals(Expression<Func<TDbParams, string>> selector, int limit,
-            bool isNullable = false)
-        {
-            return new LengthEqualsRule(selector, limit, isNullable);
-        }
-        public static async Task<IValidationRule<TDbParams>> LengthEqualsAsync(Expression<Func<TDbParams, string>> selector, int limit,
-            bool isNullable = false)
-        => await LengthEqualsRule.CreateAsync(selector, limit, isNullable);
-
-        public static IValidationRule<TDbParams> MinLength(Expression<Func<TDbParams, string>> selector, int limit,
-            bool isNullable = false)
-        {
-            return new MinLengthRule(selector, limit, isNullable);
-        }
-        public static async Task<IValidationRule<TDbParams>> MinLengthAsync(Expression<Func<TDbParams, string>> selector, int limit,
-            bool isNullable = false)
-        => await MinLengthRule.CreateAsync(selector, limit, isNullable);
-
-        public static IValidationRule<TDbParams> MaxLength(Expression<Func<TDbParams, string>> selector, int limit,
-            bool isNullable = false)
-        {
-            return new MaxLengthRule(selector, limit, isNullable);
-        }
-        public static async Task<IValidationRule<TDbParams>> MaxLengthAsync(Expression<Func<TDbParams, string>> selector, int limit,
-            bool isNullable = false)
-        => await MaxLengthRule.CreateAsync(selector, limit, isNullable);
-
-        public static IValidationRule<TDbParams> Email(Expression<Func<TDbParams, string>> selector,
-            bool isNullable = false)
-        {
-            return new EmailRule(selector, isNullable);
-        }
-
-        public static IValidationRule<TDbParams> Email(Expression<Func<TDbParams, string>> selector,
-            IEnumerable<string> domains, EmailDomainMode mode, bool isNullable = false)
-        {
-            return new EmailRule(selector, domains, mode, isNullable);
-        }
-
-        public static async Task<IValidationRule<TDbParams>> EmailAsync(Expression<Func<TDbParams, string>> selector,
-            bool isNullable = false)
-        => await EmailRule.CreateAsync(selector, isNullable);
-
-        public static async Task<IValidationRule<TDbParams>> EmailAsync(Expression<Func<TDbParams, string>> selector,
-            IEnumerable<string> domains, EmailDomainMode mode, bool isNullable = false)
-        => await EmailRule.CreateAsync(selector, domains, mode, isNullable);
-
-
-
-        private class MatchRule : ValidationRule<TDbParams>
+        internal class MatchRule : ValidationRule<TDbParams>
         {
             protected MatchRule(){}
             public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr,
@@ -195,7 +79,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
 
         }
 
-        private sealed class IsNDigitStringRule : MatchRule
+        internal sealed class IsNDigitStringRule : MatchRule
         {
             private IsNDigitStringRule() { }
             public IsNDigitStringRule(Expression<Func<TDbParams, string>> selector, int length, bool isNullable = false)
@@ -243,7 +127,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             }
         }
 
-        private sealed class IsSocialSecurityNumberRule : MatchRule
+        internal sealed class IsSocialSecurityNumberRule : MatchRule
         {
             private static readonly string SSNMatch =
                 "^(?!219-09-9999|078-05-1120)((?!666|000|9\\d{2})\\d{3}-?(?!00)\\d{2}-?(?!0{4})\\d{4})$";
@@ -298,7 +182,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             
         }
 
-        private class IsNullOrEmptyRule : ValidationRule<TDbParams>
+        internal sealed class IsNullOrEmptyRule : ValidationRule<TDbParams>
         {
             private IsNullOrEmptyRule(){ }
             public IsNullOrEmptyRule(Expression<Func<TDbParams, string>> selector)
@@ -335,7 +219,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             }
         }
 
-        private class IsNotNullOrEmptyRule : ValidationRule<TDbParams>
+        internal sealed class IsNotNullOrEmptyRule : ValidationRule<TDbParams>
         {
             private IsNotNullOrEmptyRule() { }
             public IsNotNullOrEmptyRule(Expression<Func<TDbParams, string>> selector)
@@ -370,7 +254,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             }
         }
 
-        private class IsNullOrWhiteSpaceRule : ValidationRule<TDbParams>
+        internal sealed class IsNullOrWhiteSpaceRule : ValidationRule<TDbParams>
         {
             private IsNullOrWhiteSpaceRule() { }
             public IsNullOrWhiteSpaceRule(Expression<Func<TDbParams, string>> selector)
@@ -405,7 +289,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             }
         }
 
-        private class IsNotNullOrWhiteSpaceRule : ValidationRule<TDbParams>
+        internal sealed class IsNotNullOrWhiteSpaceRule : ValidationRule<TDbParams>
         {
             private IsNotNullOrWhiteSpaceRule() { }
             public IsNotNullOrWhiteSpaceRule(Expression<Func<TDbParams, string>> selector)
@@ -441,9 +325,9 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
 
         }
 
-        private class LengthEqualsRule : ValidationRule<TDbParams>
+        internal sealed class LengthEqualsRule : ValidationRule<TDbParams>
         {
-            protected LengthEqualsRule() { }
+            private LengthEqualsRule() { }
             public LengthEqualsRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
             {
                 Init(selector, isNullable);
@@ -484,9 +368,9 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             }
         }
 
-        private class MinLengthRule : ValidationRule<TDbParams>
+        internal sealed class MinLengthRule : ValidationRule<TDbParams>
         {
-            protected MinLengthRule() { }
+            private MinLengthRule() { }
             public MinLengthRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
             {
                 Init(selector, isNullable);
@@ -528,9 +412,9 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             }
         }
 
-        private class MaxLengthRule : ValidationRule<TDbParams>
+        internal sealed class MaxLengthRule : ValidationRule<TDbParams>
         {
-            protected MaxLengthRule() { }
+            private MaxLengthRule() { }
             public MaxLengthRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
             {
                 Init(selector, isNullable);
@@ -572,9 +456,9 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             }
         }
 
-        private class EmailRule : ValidationRule<TDbParams>
+        internal sealed class EmailRule : ValidationRule<TDbParams>
         {
-            protected EmailRule() { }
+            private EmailRule() { }
             public EmailRule(Expression<Func<TDbParams, string>> selector, bool isNullable = false)
                 : this(selector, new string[0], EmailDomainMode.AllowAll, isNullable) { }
 

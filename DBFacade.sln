@@ -15,11 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacadeUnitTests", "DbFaca
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbFacadeShared", "DbFacadeShared\DbFacadeShared.shproj", "{CD5F1105-82F7-4333-B29D-36F7DDF4BD52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Core", "DbFacade.Core\DbFacade.Core.csproj", "{4DEBD385-03A2-459F-B873-0265E472E952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade.Core", "DbFacade.Core\DbFacade.Core.csproj", "{4DEBD385-03A2-459F-B873-0265E472E952}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbFacadeUnitTest.Shared", "DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.shproj", "{32EDA780-6A0B-48B4-BC8D-B458E9932BB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacadeUnitTests.Core", "DbFacadeUnitTests.Core\DbFacadeUnitTests.Core.csproj", "{2901F3C4-6CB3-426B-A939-342B06060F12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacadeUnitTests.Core", "DbFacadeUnitTests.Core\DbFacadeUnitTests.Core.csproj", "{2901F3C4-6CB3-426B-A939-342B06060F12}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

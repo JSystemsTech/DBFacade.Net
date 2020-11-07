@@ -1,7 +1,7 @@
 ﻿using DbFacade.DataLayer.Models.Validators;
-using DbFacadeUnitTests.Validator;
+using DbFacade.Factories;
+using DbFacadeUnitTests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.Tests.Validator
 {
@@ -12,20 +12,18 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void Constant()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Required(model => "MyString")
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Required(model => "MyString"));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void ConstantFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Required(model => null)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Required(model => null));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
@@ -33,20 +31,18 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void Method()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Required(model => model.GetStringValue("MyString"))
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Required(model => model.GetStringValue("MyString")));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void MethodFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Required(model => model.GetStringValue(null))
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Required(model => model.GetStringValue(null)));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
@@ -54,20 +50,18 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithNonNullValue()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Required(model => model.String)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Required(model => model.String));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithNullValue()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.Required(model => model.Null)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.Required(model => model.Null));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
@@ -79,10 +73,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.RequiredAsync(model => "MyString")
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.RequiredAsync(model => "MyString"));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -91,10 +85,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.RequiredAsync(model => null)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.RequiredAsync(model => null));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 1);
             });
@@ -104,10 +98,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.RequiredAsync(model => model.GetStringValue("MyString"))
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.RequiredAsync(model => model.GetStringValue("MyString")));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -116,10 +110,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         {            
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.RequiredAsync(model => model.GetStringValue(null))
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.RequiredAsync(model => model.GetStringValue(null)));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 1);
             });
@@ -129,10 +123,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
             RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.RequiredAsync(model => model.String)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.RequiredAsync(model => model.String));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
             });
         }
@@ -141,10 +135,10 @@ namespace DbFacadeUnitTests.Tests.Validator
         {
            RunAsAsyc(async () =>
             {
-                var validator = await UnitTestValidator.CreateAsync(
-                    await UnitTestRules.RequiredAsync(model => model.Null)
-                    );
-                var result = await validator.ValidateAsync(Parameters);
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.RequiredAsync(model => model.Null));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
                 await HasCorrectErrorCountAsync(result, 1);
             });

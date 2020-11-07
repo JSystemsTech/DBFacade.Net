@@ -6,47 +6,10 @@ using System.Threading.Tasks;
 namespace DbFacade.DataLayer.Models.Validators.Rules
 {
     public abstract partial class ValidationRule<TDbParams>
-        where TDbParams : IDbParamsModel
+        where TDbParams : DbParamsModel
     {
         
-
-        public static IValidationRule<TDbParams> IsDateTime(Expression<Func<TDbParams, string>> selector,
-            string dateFormat = null, bool isNullable = false)
-        {
-            return new IsDateTimeRule(selector, dateFormat, isNullable);
-        }
-        public static IValidationRule<TDbParams> IsDateTime(Expression<Func<TDbParams, string>> selector,
-            string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
-        {
-            return new IsDateTimeRule(selector, dateFormat, isNullable, cultureInfo);
-        }
-        public static IValidationRule<TDbParams> IsDateTime(Expression<Func<TDbParams, string>> selector,
-            string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
-        {
-            return new IsDateTimeRule(selector, dateFormat, isNullable, cultureInfo, dateTimeStyles);
-        }
-        public static IValidationRule<TDbParams> IsDateTime(Expression<Func<TDbParams, string>> selector,
-            string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
-        {
-            return new IsDateTimeRule(selector, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
-        }
-
-        public static async Task<IValidationRule<TDbParams>> IsDateTimeAsync(Expression<Func<TDbParams, string>> selector,
-            string dateFormat = null, bool isNullable = false)
-        => await IsDateTimeRule.CreateAsync(selector, dateFormat, isNullable);
-        public static async Task<IValidationRule<TDbParams>> IsDateTimeAsync(Expression<Func<TDbParams, string>> selector,
-            string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
-        => await IsDateTimeRule.CreateAsync(selector, dateFormat, isNullable, cultureInfo);
-        public static async Task<IValidationRule<TDbParams>> IsDateTimeAsync(Expression<Func<TDbParams, string>> selector,
-            string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
-        => await IsDateTimeRule.CreateAsync(selector, dateFormat, isNullable, cultureInfo, dateTimeStyles);
-        public static async Task<IValidationRule<TDbParams>> IsDateTimeAsync(Expression<Func<TDbParams, string>> selector,
-            string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
-        => await IsDateTimeRule.CreateAsync(selector, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
-
-
-
-        private sealed class IsDateTimeRule : ValidationRule<TDbParams>
+        internal sealed class IsDateTimeRule : ValidationRule<TDbParams>
         {
             private IsDateTimeRule() { }
             public IsDateTimeRule(Expression<Func<TDbParams, string>> selector, string dateFormat = null,

@@ -9,15 +9,10 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
     /// <seealso cref="Rules.IValidationRule{DbParams}" />
     public abstract partial class ValidationRule<TDbParams>
-        where TDbParams : IDbParamsModel
+        where TDbParams : DbParamsModel
     {
-        public static IValidationRule<TDbParams> Required(Expression<Func<TDbParams, object>> selector)
-        {
-            return new RequiredRule(selector);
-        }
-        public static async Task<IValidationRule<TDbParams>> RequiredAsync(Expression<Func<TDbParams, object>> selector)
-        => await RequiredRule.CreateAsync(selector);
-        private class RequiredRule : ValidationRule<TDbParams>
+        
+        internal class RequiredRule : ValidationRule<TDbParams>
         {
             private RequiredRule() { }
             public RequiredRule(Expression<Func<TDbParams, object>> selector)

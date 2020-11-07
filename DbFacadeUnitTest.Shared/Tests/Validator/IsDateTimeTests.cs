@@ -1,5 +1,6 @@
 ﻿using DbFacade.DataLayer.Models.Validators;
-using DbFacadeUnitTests.Validator;
+using DbFacade.Factories;
+using DbFacadeUnitTests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DbFacadeUnitTests.Tests.Validator
@@ -10,22 +11,20 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringNum()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.DateTimeString),
-                UnitTestRules.IsDateTime(model => model.DateTimeStringAlt, "dd-MM-yyyy")
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsDateTime(model => model.DateTimeString));
+                v.Add(v.Rules.IsDateTime(model => model.DateTimeStringAlt, DateFormatAlt));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithStringNumFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.StringInvalidDate),
-                UnitTestRules.IsDateTime(model => model.StringInvalidDate, "dd-MM-yyyy")
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsDateTime(model => model.StringInvalidDate));
+                v.Add(v.Rules.IsDateTime(model => model.StringInvalidDate, DateFormatAlt));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 2);
@@ -33,33 +32,30 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptional()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.DateTimeString, null, true),
-                UnitTestRules.IsDateTime(model => model.DateTimeStringAlt, "dd-MM-yyyy", true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsDateTime(model => model.DateTimeString, null, true));
+                v.Add(v.Rules.IsDateTime(model => model.DateTimeStringAlt, DateFormatAlt, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithOptionalNull()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.StringNumNull, null, true),
-                UnitTestRules.IsDateTime(model => model.StringNumNull, "dd-MM-yyyy", true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsDateTime(model => model.StringNumNull, null, true));
+                v.Add(v.Rules.IsDateTime(model => model.StringNumNull, DateFormatAlt, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
         }
         [TestMethod]
         public void WithOptionalFail()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.StringInvalidDate, null, true),
-                UnitTestRules.IsDateTime(model => model.StringInvalidDate, "dd-MM-yyyy", true)
-            };
+            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+                v.Add(v.Rules.IsDateTime(model => model.StringInvalidDate, null, true));
+                v.Add(v.Rules.IsDateTime(model => model.StringInvalidDate, DateFormatAlt, true));
+            });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 2);
@@ -71,59 +67,64 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringNumAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.DateTimeString),
-                UnitTestRules.IsDateTime(model => model.DateTimeStringAlt, "dd-MM-yyyy")
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsValid(result);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.DateTimeString));
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.DateTimeStringAlt, DateFormatAlt));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsValidAsync(result);
+            });
         }
         [TestMethod]
         public void WithStringNumFailAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.StringInvalidDate),
-                UnitTestRules.IsDateTime(model => model.StringInvalidDate, "dd-MM-yyyy")
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsInvalid(result);
-            HasCorrectErrorCount(result, 2);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.StringInvalidDate));
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.StringInvalidDate, DateFormatAlt));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsInvalidAsync(result);
+                await HasCorrectErrorCountAsync(result, 2);
+            });
         }
         [TestMethod]
         public void WithOptionalAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.DateTimeString, null, true),
-                UnitTestRules.IsDateTime(model => model.DateTimeStringAlt, "dd-MM-yyyy", true)
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsValid(result);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.DateTimeString, null, true));
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.DateTimeStringAlt, DateFormatAlt, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsValidAsync(result);
+            });
         }
         [TestMethod]
         public void WithOptionalNullAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.StringNumNull, null, true),
-                UnitTestRules.IsDateTime(model => model.StringNumNull, "dd-MM-yyyy", true)
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsValid(result);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.StringNumNull, null, true));
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.StringNumNull, DateFormatAlt, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsValidAsync(result);
+            });
         }
         [TestMethod]
         public void WithOptionalFailAsync()
         {
-            UnitTestValidator Validator = new UnitTestValidator()
-            {
-                UnitTestRules.IsDateTime(model => model.StringInvalidDate, null, true),
-                UnitTestRules.IsDateTime(model => model.StringInvalidDate, "dd-MM-yyyy", true)
-            };
-            var result = Validator.ValidateAsync(Parameters);
-            IsInvalid(result);
-            HasCorrectErrorCount(result, 2);
+            RunAsAsyc(async () => {
+                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.StringInvalidDate, null, true));
+                    await v.AddAsync(await v.Rules.IsDateTimeAsync(model => model.StringInvalidDate, DateFormatAlt, true));
+                });
+                IValidationResult result = await Validator.ValidateAsync(Parameters);
+                await IsInvalidAsync(result);
+                await HasCorrectErrorCountAsync(result, 2);
+            });
         }
     }
 }

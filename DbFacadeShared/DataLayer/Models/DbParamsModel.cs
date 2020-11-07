@@ -11,7 +11,7 @@ namespace DbFacade.DataLayer.Models
         Test = 1
     }
 
-    public class DbParamsModel : IInternalDbParamsModel
+    public class DbParamsModel 
     {
         public DbParamsModel()
         {
@@ -21,28 +21,28 @@ namespace DbFacade.DataLayer.Models
         public MethodRunMode RunMode { get; private set; }
         public DbDataReader ResponseData { get; protected set; }
         public int ReturnValue { get; protected set; }
-        public IDictionary<string,object> OutputValues { get; protected set; }
+        internal IDictionary<string,object> OutputValues { get; set; }
 
-        public void RunAsTest(int returnValue, IDictionary<string, object> outputValues = null)
+        internal void RunAsTest(int returnValue, IDictionary<string, object> outputValues = null)
         {
             SetRunAsTest<int?>(returnValue, null, null, outputValues);
         }
 
-        public void RunAsTest<T>(IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null)
+        internal void RunAsTest<T>(IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null)
         {
             SetRunAsTest(returnValue, responseData, default, outputValues);
         }
 
-        public void RunAsTest<T>(T responseData, int returnValue, IDictionary<string, object> outputValues = null)
+        internal void RunAsTest<T>(T responseData, int returnValue, IDictionary<string, object> outputValues = null)
         {
             SetRunAsTest(returnValue, null, responseData, outputValues);
         }
 
-        public async Task RunAsTestAsync(int returnValue, IDictionary<string, object> outputValues = null)
+        internal async Task RunAsTestAsync(int returnValue, IDictionary<string, object> outputValues = null)
         => await SetRunAsTestAsync<int?>(returnValue, null, null, outputValues);
-        public async Task RunAsTestAsync<T>(IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null)
+        internal async Task RunAsTestAsync<T>(IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null)
         => await SetRunAsTestAsync(returnValue, responseData, default, outputValues);
-        public async Task RunAsTestAsync<T>(T responseData, int returnValue, IDictionary<string, object> outputValues = null)
+        internal async Task RunAsTestAsync<T>(T responseData, int returnValue, IDictionary<string, object> outputValues = null)
         => await SetRunAsTestAsync(returnValue, null, responseData, outputValues);
 
         private void SetRunAsTest<T>(int returnValue, IEnumerable<T> responseData, T singleResponseValue, IDictionary<string, object> outputValues = null)
@@ -74,13 +74,8 @@ namespace DbFacade.DataLayer.Models
         }
     }
 
-    internal interface IDbFunctionalTestParamsModel
-    {
-        IDbParamsModel ParamsModel { get; }
-    }
-
-    public sealed class MockParamsModel<DbParams> : DbParamsModel, IDbFunctionalTestParamsModel
-        where DbParams : IDbParamsModel
+    public sealed class MockParamsModel<DbParams> : DbParamsModel
+        where DbParams : DbParamsModel
     {
         public MockParamsModel(DbParams model, DbDataReader testResponseData,IDictionary<string, object> outputValues = null)
         :this(model, testResponseData, 0, outputValues){}
@@ -93,7 +88,7 @@ namespace DbFacade.DataLayer.Models
             OutputValues = outputValues;
         }
 
-        public IDbParamsModel ParamsModel { get; }
+        public DbParamsModel ParamsModel { get; }
     }
 
     public class DbParamsModel<T> : DbParamsModel

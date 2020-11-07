@@ -1,11 +1,6 @@
 ﻿using DbFacade.DataLayer.Models;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.ConnectionService.MockDb
 {
@@ -45,12 +40,12 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
             }
             return DbTransaction;
         }
-        private IInternalDbParamsModel ParamsModel { get; set; }
+        private DbParamsModel ParamsModel { get; set; }
         protected override DbCommand CreateDbCommand() {
             DbCommand = new MockDbCommand(this, ParamsModel);
             return DbCommand;
         }
-        public MockDbConnection (IInternalDbParamsModel paramsModel)
+        public MockDbConnection (DbParamsModel paramsModel)
         {
             ParamsModel = paramsModel;
         }

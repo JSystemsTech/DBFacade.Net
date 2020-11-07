@@ -14,7 +14,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         private DbConnection _DbConnection { get; set; }
         private DbParameterCollection _DbParameterCollection { get; set; }
         private DbTransaction _DbTransaction { get; set; }
-        private IInternalDbParamsModel ParamsModel { get; set; }
+        private DbParamsModel ParamsModel { get; set; }
 
         public override string CommandText { get => _CommandText; set => _CommandText = value; }
         public override int CommandTimeout { get => _CommandTimeout; set => _CommandTimeout = value; }
@@ -27,7 +27,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
 
         protected override DbTransaction DbTransaction { get => _DbTransaction; set => _DbTransaction = value; }
 
-        public MockDbCommand(MockDbConnection dbConnection, IInternalDbParamsModel paramsModel)
+        public MockDbCommand(MockDbConnection dbConnection, DbParamsModel paramsModel)
         {
             _DbConnection = dbConnection;
             ParamsModel = paramsModel;

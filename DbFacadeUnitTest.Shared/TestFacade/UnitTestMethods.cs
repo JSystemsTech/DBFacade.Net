@@ -1,119 +1,70 @@
 ﻿using DbFacade.DataLayer.CommandConfig;
-using DbFacade.DataLayer.CommandConfig.Parameters;
-using DbFacade.DataLayer.Manifest;
 using DbFacade.DataLayer.Models;
-using DbFacade.DataLayer.Models.Validators;
-using DbFacade.DataLayer.Models.Validators.Rules;
-using DbFacade.Factories;
-using System.Threading.Tasks;
+using DbFacadeUnitTests.Models;
 
 namespace DbFacadeUnitTests.TestFacade
 {
-    public abstract class UnitTestMethods : DbMethodManifest
+    internal class UnitTestMethods
     {
-        public abstract class UnitTestMethod<TDbParams> : UnitTestMethods
-            where TDbParams : IDbParamsModel
-        {
-            protected sealed class ParamsFactory : DbCommandParameterConfigFactory<TDbParams> { }
-            protected sealed class Params : DbCommandConfigParams<TDbParams> { }
-            protected sealed class ConfigFactory : DbCommandConfigFactory<TDbParams> { }
-            protected sealed class Validator : Validator<TDbParams> { }
-            protected sealed class Rules : ValidationRule<TDbParams> { }
-        }
-        public sealed class TestFetchData : UnitTestMethods
-        {
-            protected override IDbCommandConfig BuildConfig()
-            {
-                return DbCommandConfigFactory.FetchConfig(
-                    UnitTestConnection.TestFetchData
-                );
-            }
-            protected override async Task<IDbCommandConfig> BuildConfigAsync()
-            {
-                return await DbCommandConfigFactory.FetchConfigAsync(
-                    UnitTestConnection.TestFetchData
-                );
-            }
-        }
-        public sealed class TestFetchDataWithOutput : UnitTestMethods
-        {
-            protected override IDbCommandConfig BuildConfig()
-            {
-                return DbCommandConfigFactory.FetchConfig(
-                    UnitTestConnection.TestFetchDataWithOutputParameters,
-                    new DbCommandConfigParams
+        
+        public static readonly IDbCommandMethod TestUnregisteredConnectionCall
+            = UnitTestUnregisteredConnection.TestCommand.CreateMethod();
+
+        public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchData
+            = UnitTestConnection.TestFetchData.CreateParameterlessConfig<FetchData>();
+
+        public static readonly IParameterlessDbCommandMethod<FetchDataWithBadDbColumn> TestFetchDataWithBadDbColumn
+            = UnitTestConnection.TestFetchData.CreateParameterlessConfig<FetchDataWithBadDbColumn>();
+
+        public static readonly IParameterlessDbCommandMethod<FetchDataWithNested> TestFetchDataWithNested
+            = UnitTestConnection.TestFetchData.CreateParameterlessConfig<FetchDataWithNested>();
+
+        public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchDataWithOutput
+            = UnitTestConnection.TestFetchDataWithOutputParameters.CreateParameterlessConfig<FetchData>(
+                p =>{
+                    p.Add("MyStringOutputParam", p.Factory.OutputString(8000));
+                });
+        public static readonly IDbCommandMethod<UnitTestDbParamsForManager, FetchData> TestFetchDataWithModel
+            = UnitTestConnection.TestTransaction.CreateMethod<UnitTestDbParamsForManager, FetchData>();
+
+        public static readonly IDbCommandMethod<DbParamsModel<string>> TestTransaction
+            = UnitTestConnection.TestTransaction.CreateMethod<DbParamsModel<string>>(
+                p =>{
+                    p.Add("MyStringParam", p.Factory.Create(model => model.Param1));
+                },
+                v =>{
+                    v.Add(v.Rules.Required(model => model.Param1));
+                });
+        public static readonly IDbCommandMethod<DbParamsModel<string>> TestTransactionWithOutput
+             = UnitTestConnection.TestTransaction.CreateMethod<DbParamsModel<string>>(
+                 p =>{
+                     p.Add("MyStringParam", p.Factory.Create(model => model.Param1));
+                     p.Add("MyStringOutputParam", p.Factory.OutputString(8000));
+                 },
+                 v =>{
+                     v.Add(v.Rules.Required(model => model.Param1));
+                 });
+        public static readonly IDbCommandMethod<UnitTestDbParamsForManager> TestFetchDataWithModelProcessParams
+             = UnitTestConnection.TestFetchData.CreateMethod<UnitTestDbParamsForManager>(
+                 p => { },
+                 v => { },
+                 p => {
+                    if (p.StopAtStep1)
                     {
-                        {"MyStringOutputParam", DbCommandParameterConfigFactory.OutputString(8000) }
+                        throw new System.Exception("Stopping at step 1");
                     }
-                );
-            }
-            protected override async Task<IDbCommandConfig> BuildConfigAsync()
-            {
-                return await DbCommandConfigFactory.FetchConfigAsync(
-                    UnitTestConnection.TestFetchDataWithOutputParameters,
-                    new DbCommandConfigParams
+                },
+                p => {
+                    if (p.StopAtStep2)
                     {
-                        {"MyStringOutputParam", await DbCommandParameterConfigFactory.OutputStringAsync(8000) }
+                        throw new System.Exception("Stopping at step 2");
                     }
-                );
-            }
-        }
-        public sealed class TestTransaction : UnitTestMethod<DbParamsModel<string>>
-        {
-            protected override IDbCommandConfig BuildConfig()
-            {
-                return ConfigFactory.TransactionConfig(
-                    UnitTestConnection.TestTransaction,
-                    new Params {
+                },
+                p => {
+                    if (p.StopAtStep3)
                     {
-                        "MyStringParam", ParamsFactory.Create(model=>model.Param1) }
-                    },
-                    new Validator() {
-                        Rules.Required(model=>model.Param1)
+                        throw new System.Exception("Stopping at step 3");
                     }
-                );
-            }
-            protected override async Task<IDbCommandConfig> BuildConfigAsync()
-            {
-                return await ConfigFactory.TransactionConfigAsync(
-                    UnitTestConnection.TestTransaction,
-                    new Params {
-                        {"MyStringParam", await ParamsFactory.CreateAsync(model=>model.Param1) }
-                    },
-                    await Validator.CreateAsync(
-                        await Rules.RequiredAsync(model => model.Param1)
-                        )
-                );
-            }
-        }
-        public sealed class TestTransactionWithOutput : UnitTestMethod<DbParamsModel<string>>
-        {
-            protected override IDbCommandConfig BuildConfig()
-            {
-                return ConfigFactory.TransactionConfig(
-                    UnitTestConnection.TestTransaction,
-                    new Params {
-                        {"MyStringParam", ParamsFactory.Create(model=>model.Param1) },
-                        {"MyStringOutputParam", ParamsFactory.OutputString(8000) }
-                    },
-                    new Validator() {
-                        Rules.Required(model=>model.Param1)
-                    }
-                );
-            }
-            protected override async Task<IDbCommandConfig> BuildConfigAsync()
-            {
-                return await ConfigFactory.TransactionConfigAsync(
-                    UnitTestConnection.TestTransaction,
-                    new Params {
-                        {"MyStringParam", await ParamsFactory.CreateAsync(model=>model.Param1) },
-                        {"MyStringOutputParam", await ParamsFactory.OutputStringAsync(8000) }
-                    },
-                    await Validator.CreateAsync(
-                        await Rules.RequiredAsync(model => model.Param1)
-                        )
-                );
-            }
-        }
+                });
     }
 }
