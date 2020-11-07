@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>0.11.0</Version>
+    <Company>JSystemsTech</Company>
+    <Product>DbFacade.Net.Core</Product>
+    <Description>A framework to build a data connection service to SQL databases</Description>
+    <Copyright>Copyright © 2020</Copyright>
+    <PackageId>DbFacade.Core</PackageId>
+    <Authors>JSystemsTech</Authors>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net</PackageTags>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://jsystemstech.azurewebsites.net/DbFacade.Net</PackageProjectUrl>
+    <PackageReleaseNotes>Preview-0.10.0</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <Import Project="..\DbFacadeShared\DbFacadeShared.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <None Remove="icon.jpg" />
+    <None Remove="Meta\DbFacadeLogoNoText.jpg" />
+    <None Include="icon.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.90" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.Odbc" Version="4.7.0" />
+    <PackageReference Include="System.Data.OleDb" Version="4.7.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="C:\Users\jsmc1\source\repos\DomainFacade\DbFacadeShared\Factories\DbConnectionService.cs">
+      <LastGenOutput>DbConnectionService.txt</LastGenOutput>
+    </None>
+    <None Update="C:\Users\jsmc1\source\repos\DomainFacade\DbFacadeShared\Factories\DbConnectionService.tt">
+      <LastGenOutput>DbConnectionService.txt</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

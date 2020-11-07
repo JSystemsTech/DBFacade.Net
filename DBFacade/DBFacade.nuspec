@@ -8,12 +8,18 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://dbfacade.azurewebsites.net</projectUrl>
-    <iconUrl>https://dbfacade.azurewebsites.net</iconUrl>
+    <projectUrl>https://jsystemstech.azurewebsites.net/DbFacade.Net</projectUrl>
+    <icon>icon.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Stable Pre-Release ($version$)</releaseNotes>
+    <releaseNotes>Preview-$version$</releaseNotes>
     <copyright>Copyright 2020</copyright>
-    <tags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net</tags>
+    <tags>DBFacade;DbFacade;dbfacade;domainfacade;DbFacade.Net;DBFacade.Net;dbfacade.net</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.8" />
+    </dependencies>
   </metadata>
+  <files>
+    <file src="icon.jpg" target="" />
+  </files>
 </package>

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>cd5f1105-82f7-4333-b29d-36f7ddf4bd52</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DbFacadeShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\DbCommandConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\IDbCommandConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\DbCommandParameterConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\IDbCommandConfigParams.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\IDbCommandParameterConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbCommandText.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionHandler_Async.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\IDbConnectionConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbCommand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbParameter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbParameterCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbTransaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Attributes\DbColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Attributes\DbColumnDefault.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Attributes\DbDateStringColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Attributes\DbFlagColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Attributes\NestedModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModelBindingError.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbParamsModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\IDbParamsModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\IDbResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\IValidationRule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRuleResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_DateTime.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_Delegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_Compare.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_Numeric.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_Required.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_String.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Validator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\FacadeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ParameterConfigExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DbDataReaderExtensions_Async.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DbDataReaderExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factories\DbCommandParametersConfigFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factories\ValidationRuleFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factories\ValidatorFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SafeDisposable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DbConnectionService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Converter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\GenericInstance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\IMockDbTableRow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\MockDbTable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\PropertySelector.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>32eda780-6a0b-48b4-bc8d-b458e9932bb6</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DbFacadeUnitTest.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FetchData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ResponseData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UnitTestDbParams.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestFacade\UnitTestConnection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestFacade\UnitTestDomainFacade.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestFacade\UnitTestMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Facade\FacadeTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\UnitTestBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\DelegateTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\IsOnTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\BasicStringTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\EmailTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\GreaterThanOrEqualTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\GreaterThanTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\IsAfterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\IsBeforeTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\IsDateTimeTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\IsNDigitStringTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\IsNumberTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\IsOnOrAfterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\IsOnOrBeforeTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\IsSocialSecurityNumberTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\LengthEqualsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\LessThanOrEqualTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\LessThanTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\MatchTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\MaxLengthTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\MinLengthTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\NotEqualToTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\Equals.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\RequiredTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tests\Validator\ValidatorTestBase.cs" />
+  </ItemGroup>
+</Project>

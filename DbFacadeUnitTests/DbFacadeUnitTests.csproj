@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.props')" />
+  <Import Project="..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -30,6 +30,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,13 +40,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MSTest.TestFramework.2.1.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+      <HintPath>..\packages\MSTest.TestFramework.2.1.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MSTest.TestFramework.2.1.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+      <HintPath>..\packages\MSTest.TestFramework.2.1.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,41 +55,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\FetchData.cs" />
-    <Compile Include="Models\ResponseData.cs" />
-    <Compile Include="Models\UnitTestDbParams.cs" />
-    <Compile Include="TestFacade\UnitTestConnection.cs" />
-    <Compile Include="TestFacade\UnitTestDomainFacade.cs" />
-    <Compile Include="TestFacade\UnitTestManager.cs" />
-    <Compile Include="TestFacade\UnitTestMethods.cs" />
-    <Compile Include="Tests\Facade\FacadeTests.cs" />
-    <Compile Include="Tests\UnitTestBase.cs" />
-    <Compile Include="Tests\Validator\BasicStringTests.cs" />
-    <Compile Include="Tests\Validator\DateTimeEquals.cs" />
-    <Compile Include="Tests\Validator\IsBeforeTests.cs" />
-    <Compile Include="Tests\Validator\IsSocialSecurityNumberTests.cs" />
-    <Compile Include="Tests\Validator\IsOnOrBeforeTests.cs" />
-    <Compile Include="Tests\Validator\IsOnOrAfterTests.cs" />
-    <Compile Include="Tests\Validator\IsAfterTests.cs" />
-    <Compile Include="Tests\Validator\IsDateTimeTests.cs" />
-    <Compile Include="Tests\Validator\IsNumberTests.cs" />
-    <Compile Include="Tests\Validator\GreaterThanOrEqualTests.cs" />
-    <Compile Include="Tests\Validator\IsNDigitStringTests.cs" />
-    <Compile Include="Tests\Validator\LessThanOrEqualTests.cs" />
-    <Compile Include="Tests\Validator\LessThanTests.cs" />
-    <Compile Include="Tests\Validator\GreaterThanTests.cs" />
-    <Compile Include="Tests\Validator\MatchTests.cs" />
-    <Compile Include="Tests\Validator\DelegateTests.cs" />
-    <Compile Include="Tests\Validator\LengthEqualsTests.cs" />
-    <Compile Include="Tests\Validator\MinLengthTests.cs" />
-    <Compile Include="Tests\Validator\NotEqualToTests.cs" />
-    <Compile Include="Tests\Validator\NumericEquals.cs" />
-    <Compile Include="Tests\Validator\EmailTests.cs" />
-    <Compile Include="Tests\Validator\MaxLengthTests.cs" />
-    <Compile Include="Tests\Validator\RequiredTests.cs" />
-    <Compile Include="Tests\Validator\ValidatorTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validator\UnitTestValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -100,14 +69,15 @@
       <Name>DbFacade</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems" Label="Shared" />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.props'))" />
-    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.targets'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets'))" />
   </Target>
-  <Import Project="..\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.targets')" />
+  <Import Project="..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets')" />
 </Project>
