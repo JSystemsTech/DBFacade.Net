@@ -1,4 +1,5 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
+using DbFacadeShared.Factories;
 using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.TestFacade
@@ -21,9 +22,9 @@ namespace DbFacadeUnitTests.TestFacade
             return "MyUnitTestConnectionProvider";
         }
 
-        public static IDbCommandConfig TestFetchData = CreateFetchCommand("TestFetchData", "Test Fetch Data");
-        public static IDbCommandConfig TestFetchDataWithOutputParameters = CreateFetchCommand("TestFetchDataWithOutputParameters", "Test Fetch Data with output parameters");
-        public static IDbCommandConfig TestTransaction = CreateTransactionCommand("TestTransaction", "Test Transaction");
+        public static IDbCommandConfig TestFetchData = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestFetchData", "Test Fetch Data");
+        public static IDbCommandConfig TestFetchDataWithOutputParameters = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestFetchDataWithOutputParameters", "Test Fetch Data with output parameters");
+        public static IDbCommandConfig TestTransaction = DbCommandConfigFactory<UnitTestConnection>.CreateTransactionCommand("TestTransaction", "Test Transaction");
     }
 
     internal class UnitTestUnregisteredConnection : SqlConnectionConfig<UnitTestUnregisteredConnection>
@@ -45,6 +46,6 @@ namespace DbFacadeUnitTests.TestFacade
             return "MyUnitTestConnectionProvider";
         }
 
-        public static IDbCommandConfig TestCommand = CreateTransactionCommand("TestCommand", "Test Command");
+        public static IDbCommandConfig TestCommand = DbCommandConfigFactory<UnitTestUnregisteredConnection>.CreateTransactionCommand("TestCommand", "Test Command", false);
     }
 }

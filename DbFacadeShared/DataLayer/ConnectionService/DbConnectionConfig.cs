@@ -76,24 +76,7 @@ namespace DbFacade.DataLayer.ConnectionService
             }
         }        
 
-        protected static IDbCommandConfig CreateFetchCommand(string commandText, string label, bool enforceValidation = false)
-        => DbCommand<TDbConnectionConfig>.Create(commandText, label, CommandType.StoredProcedure, false, enforceValidation);
-        protected static IDbCommandConfig CreateTransactionCommand(string commandText, string label, bool enforceValidation = true)
-        => DbCommand<TDbConnectionConfig>.Create(commandText, label, CommandType.StoredProcedure, true, enforceValidation);
-        protected static IDbCommandConfig CreateFetchCommand(string commandText, string label, CommandType commandType, bool enforceValidation = false)
-        => DbCommand<TDbConnectionConfig>.Create(commandText, label, commandType, false, enforceValidation);
-        protected static IDbCommandConfig CreateTransactionCommand(string commandText, string label, CommandType commandType, bool enforceValidation = true)
-        => DbCommand<TDbConnectionConfig>.Create(commandText, label, commandType, true, enforceValidation);
-
-
-        protected static async Task<IDbCommandConfig> CreateFetchCommandAsync(string commandText, string label, bool enforceValidation = false)
-        => await DbCommand<TDbConnectionConfig>.CreateAsync(commandText, label, CommandType.StoredProcedure, false, enforceValidation);
-        protected static async Task<IDbCommandConfig> CreateTransactionCommandAsync(string commandText, string label, bool enforceValidation = true)
-        => await DbCommand<TDbConnectionConfig>.CreateAsync(commandText, label, CommandType.StoredProcedure, true, enforceValidation);
-        protected static async Task<IDbCommandConfig> CreateFetchCommandAsync(string commandText, string label, CommandType commandType, bool enforceValidation = false)
-        => await DbCommand<TDbConnectionConfig>.CreateAsync(commandText, label, commandType, false, enforceValidation);
-        protected static async Task<IDbCommandConfig> CreateTransactionCommandAsync(string commandText, string label, CommandType commandType, bool enforceValidation = true)
-        => await DbCommand<TDbConnectionConfig>.CreateAsync(commandText, label, commandType, true, enforceValidation);
+        
 
         private IDbConnection ResolveDbConnection(DbParamsModel parameters)
         {

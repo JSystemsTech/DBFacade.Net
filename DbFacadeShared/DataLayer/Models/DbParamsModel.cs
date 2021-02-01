@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 using DbFacade.Utils;
@@ -23,33 +24,34 @@ namespace DbFacade.DataLayer.Models
         public int ReturnValue { get; protected set; }
         internal IDictionary<string,object> OutputValues { get; set; }
 
-        internal void RunAsTest(int returnValue, IDictionary<string, object> outputValues = null)
+        internal void RunAsTest(int returnValue, Action<IDictionary<string, object>> outputValues = null)
         {
             SetRunAsTest<int?>(returnValue, null, null, outputValues);
         }
 
-        internal void RunAsTest<T>(IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null)
+        internal void RunAsTest<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
         {
             SetRunAsTest(returnValue, responseData, default, outputValues);
         }
 
-        internal void RunAsTest<T>(T responseData, int returnValue, IDictionary<string, object> outputValues = null)
+        internal void RunAsTest<T>(T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
         {
             SetRunAsTest(returnValue, null, responseData, outputValues);
         }
 
-        internal async Task RunAsTestAsync(int returnValue, IDictionary<string, object> outputValues = null)
+        internal async Task RunAsTestAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null)
         => await SetRunAsTestAsync<int?>(returnValue, null, null, outputValues);
-        internal async Task RunAsTestAsync<T>(IEnumerable<T> responseData, int returnValue, IDictionary<string, object> outputValues = null)
+        internal async Task RunAsTestAsync<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
         => await SetRunAsTestAsync(returnValue, responseData, default, outputValues);
-        internal async Task RunAsTestAsync<T>(T responseData, int returnValue, IDictionary<string, object> outputValues = null)
+        internal async Task RunAsTestAsync<T>(T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
         => await SetRunAsTestAsync(returnValue, null, responseData, outputValues);
 
-        private void SetRunAsTest<T>(int returnValue, IEnumerable<T> responseData, T singleResponseValue, IDictionary<string, object> outputValues = null)
+        private void SetRunAsTest<T>(int returnValue, IEnumerable<T> responseData, T singleResponseValue, Action<IDictionary<string, object>> outputValues = null)
         {
             RunMode = MethodRunMode.Test;
             ReturnValue = returnValue;
-            OutputValues = outputValues;
+            OutputValues = new Dictionary<string, object>();
+            outputValues?.Invoke(OutputValues);
             var useEmptyTable = responseData == null && singleResponseValue == null;
             var useIEnumerableTable = responseData != null;
 
@@ -58,11 +60,12 @@ namespace DbFacade.DataLayer.Models
                 useIEnumerableTable ? new MockDbTable<T>(responseData).ToDataReader() :
                 new MockDbTable<T>(singleResponseValue).ToDataReader();
         }
-        private async Task SetRunAsTestAsync<T>(int returnValue, IEnumerable<T> responseData, T singleResponseValue, IDictionary<string, object> outputValues = null)
+        private async Task SetRunAsTestAsync<T>(int returnValue, IEnumerable<T> responseData, T singleResponseValue, Action<IDictionary<string, object>> outputValues = null)
         {
             RunMode = MethodRunMode.Test;
             ReturnValue = returnValue;
-            OutputValues = outputValues;
+            OutputValues = new Dictionary<string, object>();
+            outputValues?.Invoke(OutputValues);
             var useEmptyTable = responseData == null && singleResponseValue == null;
             var useIEnumerableTable = responseData != null;
 

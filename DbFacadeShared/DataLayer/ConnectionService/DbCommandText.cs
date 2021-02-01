@@ -13,9 +13,18 @@ namespace DbFacade.DataLayer.ConnectionService
     {
         IDbCommandMethod CreateMethod(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null);
         Task<IDbCommandMethod> CreateMethodAsync(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null);
+
+        [Obsolete("This method is obsolete. Call CreateParameterlessMethod instead.", true)]
         IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessConfig<TDbDataModel>(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
             where TDbDataModel : DbDataModel;
+        [Obsolete("This method is obsolete. Call CreateParameterlessMethodAsync instead.", true)]
         Task<IParameterlessDbCommandMethod<TDbDataModel>> CreateParameterlessConfigAsync<TDbDataModel>(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null)
+            where TDbDataModel : DbDataModel;
+
+
+        IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessMethod<TDbDataModel>(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
+            where TDbDataModel : DbDataModel;
+        Task<IParameterlessDbCommandMethod<TDbDataModel>> CreateParameterlessMethodAsync<TDbDataModel>(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null)
             where TDbDataModel : DbDataModel;
 
         IDbCommandMethod<TDbParams> CreateMethod<TDbParams>(
@@ -75,9 +84,7 @@ namespace DbFacade.DataLayer.ConnectionService
         public string Label { get; protected set; }
         public CommandType CommandType { get; protected set; }
         public bool IsTransaction { get; protected set; }
-        public bool EnforceValidation { get; protected set; }
-        public abstract DbConnectionConfigBase GetConnection();
-        public abstract Task<DbConnectionConfigBase> GetConnectionAsync();
+        public bool RequiresValidation { get; protected set; }
 
     }
     internal class DbCommand<TDbConnectionConfig> : DbCommandSettingsBase, IDbCommandConfig
@@ -88,57 +95,56 @@ namespace DbFacade.DataLayer.ConnectionService
             string label,
             CommandType commandType = CommandType.StoredProcedure,
             bool isTransaction = false,
-            bool enforceValidation = false)
+            bool requiresValidation = false)
         {
             CommandText = commandText;
             Label = label;
             CommandType = commandType;
             IsTransaction = isTransaction;
-            EnforceValidation = enforceValidation;
+            RequiresValidation = requiresValidation;
         }
-        public override DbConnectionConfigBase GetConnection()
-        => DbConnectionService.Get<TDbConnectionConfig>();
-        public override async Task<DbConnectionConfigBase> GetConnectionAsync()
-        => await DbConnectionService.GetAsync<TDbConnectionConfig>();
         
         public static DbCommand<TDbConnectionConfig> Create(
             string commandText,
             string label,
             CommandType commandType = CommandType.StoredProcedure,
             bool isTransaction = false,
-            bool enforceValidation = false) => new DbCommand<TDbConnectionConfig>(commandText, label, commandType, isTransaction, enforceValidation);
+            bool requiresValidation = false) => new DbCommand<TDbConnectionConfig>(commandText, label, commandType, isTransaction, requiresValidation);
         public static async Task<DbCommand<TDbConnectionConfig>> CreateAsync(
             string commandText,
             string label,
             CommandType commandType = CommandType.StoredProcedure,
             bool isTransaction = false,
-            bool enforceValidation = false)
+            bool requiresValidation = false)
         {
-            DbCommand<TDbConnectionConfig> command = new DbCommand<TDbConnectionConfig>(commandText, label, commandType, isTransaction, enforceValidation);
+            DbCommand<TDbConnectionConfig> command = new DbCommand<TDbConnectionConfig>(commandText, label, commandType, isTransaction, requiresValidation);
             await Task.CompletedTask;
             return command;
         }
         public IDbCommandMethod CreateMethod(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
-        => DbCommandMethod.Create(this, parametersInitializer);
+        => DbCommandMethod.Create<TDbConnectionConfig>(this, parametersInitializer);
 
-        
+        [Obsolete("This method is obsolete. Call CreateParameterlessMethod instead.", true)]
         public IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessConfig<TDbDataModel>(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
             where TDbDataModel : DbDataModel
-        => ParameterlessDbCommandMethod<TDbDataModel>.Create(this, parametersInitializer);  
+        => ParameterlessDbCommandMethod<TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer);
+        public IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessMethod<TDbDataModel>(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
+            where TDbDataModel : DbDataModel
+        => ParameterlessDbCommandMethod<TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer);
 
-        
+
         public IDbCommandMethod<TDbParams> CreateMethod<TDbParams>(
          Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null,
         Action<IValidator<TDbParams>> validatorInitializer = null)
          where TDbParams : DbParamsModel
-        => DbCommandMethod<TDbParams>.Create(this, parametersInitializer, validatorInitializer);
+        => DbCommandMethod<TDbParams>.Create<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer);
 
         public IDbCommandMethod<TDbParams> CreateMethod<TDbParams>(
          Action<IDbCommandConfigParams<TDbParams>> parametersInitializer,
         Action<IValidator<TDbParams>> validatorInitializer,
         params Action<TDbParams>[] onBeforeActions)
          where TDbParams : DbParamsModel
-        => DbCommandMethod<TDbParams>.Create(this, parametersInitializer, validatorInitializer, onBeforeActions);
+        => DbCommandMethod<TDbParams>.Create<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer, onBeforeActions);
                 
 
         public IDbCommandMethod<TDbParams, TDbDataModel> CreateMethod<TDbParams, TDbDataModel>(
@@ -146,7 +152,7 @@ namespace DbFacade.DataLayer.ConnectionService
         Action<IValidator<TDbParams>> validatorInitializer = null)
          where TDbParams : DbParamsModel
             where TDbDataModel : DbDataModel
-        => DbCommandMethod<TDbParams, TDbDataModel>.Create(this, parametersInitializer, validatorInitializer);
+        => DbCommandMethod<TDbParams, TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer);
 
         public IDbCommandMethod<TDbParams, TDbDataModel> CreateMethod<TDbParams, TDbDataModel>(
          Action<IDbCommandConfigParams<TDbParams>> parametersInitializer,
@@ -154,33 +160,37 @@ namespace DbFacade.DataLayer.ConnectionService
         params Action<TDbParams>[] onBeforeActions)
          where TDbParams : DbParamsModel
          where TDbDataModel : DbDataModel
-        => DbCommandMethod<TDbParams, TDbDataModel>.Create(this, parametersInitializer, validatorInitializer, onBeforeActions);
+        => DbCommandMethod<TDbParams, TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer, onBeforeActions);
 
 
         public async Task<IDbCommandMethod> CreateMethodAsync(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null)
-        => await DbCommandMethod.CreateAsync(this, parametersInitializer);
+        => await DbCommandMethod.CreateAsync<TDbConnectionConfig>(this, parametersInitializer);
+        [Obsolete("This method is obsolete. Call CreateParameterlessMethodAsync instead.", true)]
         public async Task<IParameterlessDbCommandMethod<TDbDataModel>> CreateParameterlessConfigAsync<TDbDataModel>(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null)
             where TDbDataModel : DbDataModel
-        => await ParameterlessDbCommandMethod<TDbDataModel>.CreateAsync(this, parametersInitializer);
+        => await ParameterlessDbCommandMethod<TDbDataModel>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer);
+        public async Task<IParameterlessDbCommandMethod<TDbDataModel>> CreateParameterlessMethodAsync<TDbDataModel>(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null)
+            where TDbDataModel : DbDataModel
+        => await ParameterlessDbCommandMethod<TDbDataModel>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer);
         public async Task<IDbCommandMethod<TDbParams>> CreateMethodAsync<TDbParams>(
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
         Func<IValidator<TDbParams>, Task> validatorInitializer = null)
             where TDbParams : DbParamsModel
-        => await DbCommandMethod<TDbParams>.CreateAsync(this, parametersInitializer, validatorInitializer);
+        => await DbCommandMethod<TDbParams>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer);
 
         public async Task<IDbCommandMethod<TDbParams>> CreateMethodAsync<TDbParams>(
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
         Func<IValidator<TDbParams>, Task> validatorInitializer,
         params Func<TDbParams,Task>[] onBeforeAsyncActions)
             where TDbParams : DbParamsModel
-        => await DbCommandMethod<TDbParams>.CreateAsync(this, parametersInitializer, validatorInitializer, onBeforeAsyncActions);
+        => await DbCommandMethod<TDbParams>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer, onBeforeAsyncActions);
 
         public async Task<IDbCommandMethod<TDbParams, TDbDataModel>> CreateMethodAsync<TDbParams, TDbDataModel>(
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
         Func<IValidator<TDbParams>, Task> validatorInitializer = null)
             where TDbParams : DbParamsModel
             where TDbDataModel : DbDataModel
-        => await DbCommandMethod<TDbParams, TDbDataModel>.CreateAsync(this, parametersInitializer, validatorInitializer);
+        => await DbCommandMethod<TDbParams, TDbDataModel>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer);
 
         public async Task<IDbCommandMethod<TDbParams, TDbDataModel>> CreateMethodAsync<TDbParams, TDbDataModel>(
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
@@ -188,7 +198,7 @@ namespace DbFacade.DataLayer.ConnectionService
         params Func<TDbParams, Task>[] onBeforeAsyncActions)
             where TDbParams : DbParamsModel
             where TDbDataModel : DbDataModel
-        => await DbCommandMethod<TDbParams, TDbDataModel>.CreateAsync(this, parametersInitializer, validatorInitializer, onBeforeAsyncActions);
+        => await DbCommandMethod<TDbParams, TDbDataModel>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer, onBeforeAsyncActions);
 
     }
 }

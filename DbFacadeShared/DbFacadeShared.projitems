@@ -54,6 +54,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ParameterConfigExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DbDataReaderExtensions_Async.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DbDataReaderExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factories\DbCommandConfigFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\DbCommandParametersConfigFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\ValidationRuleFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\ValidatorFactory.cs" />

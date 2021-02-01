@@ -4,23 +4,25 @@ using DbFacadeUnitTests.Models;
 
 namespace DbFacadeUnitTests.TestFacade
 {
+    internal class UnregisteredConnectionUnitTestMethods
+    {
+        public static readonly IDbCommandMethod TestUnregisteredConnectionCall
+        = UnitTestUnregisteredConnection.TestCommand.CreateMethod();
+    }
+
     internal class UnitTestMethods
     {
-        
-        public static readonly IDbCommandMethod TestUnregisteredConnectionCall
-            = UnitTestUnregisteredConnection.TestCommand.CreateMethod();
-
         public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchData
-            = UnitTestConnection.TestFetchData.CreateParameterlessConfig<FetchData>();
+            = UnitTestConnection.TestFetchData.CreateParameterlessMethod<FetchData>();
 
         public static readonly IParameterlessDbCommandMethod<FetchDataWithBadDbColumn> TestFetchDataWithBadDbColumn
-            = UnitTestConnection.TestFetchData.CreateParameterlessConfig<FetchDataWithBadDbColumn>();
+            = UnitTestConnection.TestFetchData.CreateParameterlessMethod<FetchDataWithBadDbColumn>();
 
         public static readonly IParameterlessDbCommandMethod<FetchDataWithNested> TestFetchDataWithNested
-            = UnitTestConnection.TestFetchData.CreateParameterlessConfig<FetchDataWithNested>();
+            = UnitTestConnection.TestFetchData.CreateParameterlessMethod<FetchDataWithNested>();
 
         public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchDataWithOutput
-            = UnitTestConnection.TestFetchDataWithOutputParameters.CreateParameterlessConfig<FetchData>(
+            = UnitTestConnection.TestFetchDataWithOutputParameters.CreateParameterlessMethod<FetchData>(
                 p =>{
                     p.Add("MyStringOutputParam", p.Factory.OutputString(8000));
                 });
@@ -66,5 +68,6 @@ namespace DbFacadeUnitTests.TestFacade
                         throw new System.Exception("Stopping at step 3");
                     }
                 });
+        
     }
 }

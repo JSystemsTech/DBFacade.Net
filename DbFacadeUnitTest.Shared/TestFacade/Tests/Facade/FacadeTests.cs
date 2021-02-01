@@ -56,11 +56,22 @@ namespace DbFacadeUnitTests.Tests.Facade
                 IDbResponse data = DomainFacade.TestUnregisteredConnectionCall();
                 Assert.Fail();
             }
-            catch(DbConnectionConfigNotRegisteredException e)
+            catch (DbConnectionConfigNotRegisteredException)
             {
                 Assert.IsTrue(true);
             }
-            
+            catch (Exception e)
+            {
+                if(e.InnerException is DbConnectionConfigNotRegisteredException)
+                {
+                    Assert.IsTrue(true);
+                }
+                else
+                {
+                    Assert.Fail();
+                }
+                
+            }
         }
         [TestMethod]
         public void SuccessfullyFetchesData()
@@ -166,7 +177,7 @@ namespace DbFacadeUnitTests.Tests.Facade
                 Assert.AreEqual(1, e.ValidationErrors.Count());
                 Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
                 Assert.AreEqual("Param1 (Property Value) is required.", e.ValidationErrors.First().ErrorMessage);
-            }         
+            }        
         }
         
         
@@ -282,7 +293,7 @@ namespace DbFacadeUnitTests.Tests.Facade
 
                     await Task.CompletedTask;
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     Assert.Fail();
                     await Task.CompletedTask;
