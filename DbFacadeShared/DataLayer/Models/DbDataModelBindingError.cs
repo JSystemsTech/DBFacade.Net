@@ -6,24 +6,25 @@ namespace DbFacade.DataLayer.Models
     public  interface  IDbDataModelBindingError
     {
         string Error { get;}
-        Exception Exception { get; }
-        Type PropertyType { get; }
-        Type ColumnType { get; }
+        string ExceptionMessage { get; }
+        string PropertyType { get; }
+        string ColumnType { get; }
         string ColumnName { get; }
     }
     internal class DbDataModelBindingError: IDbDataModelBindingError
     {
         public string Error { get; private set; }
-        public Exception Exception { get; private set; }
-        public Type PropertyType { get; private set; }
-        public Type ColumnType { get; private set; }
+        internal Exception Exception { get; private set; }
+        public string ExceptionMessage => Exception.Message;
+        public string PropertyType { get; private set; }
+        public string ColumnType { get; private set; }
         public string ColumnName { get; private set; }
 
         public static DbDataModelBindingError Create(Exception e, Type propertyType, Type columnType, string columnName)
         => new DbDataModelBindingError { 
             Exception = e, 
-            PropertyType = propertyType, 
-            ColumnType = columnType, 
+            PropertyType = propertyType.Name, 
+            ColumnType = columnType.Name, 
             ColumnName = columnName,
             Error = $"Error converting Column {columnName}: Expected type {propertyType.Name} Actual {columnType.Name}"
         };
@@ -45,8 +46,8 @@ namespace DbFacade.DataLayer.Models
         {
             DbDataModelBindingError dataBindingError = new DbDataModelBindingError();
             dataBindingError.Exception = e;
-            dataBindingError.PropertyType = propertyType;
-            dataBindingError.ColumnType = columnType;
+            dataBindingError.PropertyType = propertyType.Name;
+            dataBindingError.ColumnType = columnType.Name;
             dataBindingError.ColumnName = columnName;
             dataBindingError.Error = $"Error converting Column {columnName}: Expected type {propertyType.Name} Actual {columnType.Name}";
             await Task.CompletedTask;
