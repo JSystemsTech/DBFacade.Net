@@ -2,7 +2,7 @@
 using System.Data;
 using System.Threading.Tasks;
 
-namespace DbFacadeShared.Factories
+namespace DbFacade.Factories
 {
     public class DbCommandConfigFactory<TDbConnectionConfig>
         where TDbConnectionConfig: DbConnectionConfigBase

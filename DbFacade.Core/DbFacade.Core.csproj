@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net.Core</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
@@ -14,7 +14,7 @@
     <PackageIcon>icon.jpg</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.azurewebsites.net/DbFacade.Net</PackageProjectUrl>
-    <PackageReleaseNotes>Preview-0.11.0</PackageReleaseNotes>
+    <PackageReleaseNotes>Release 1.1.0 - patch issue with serialization</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

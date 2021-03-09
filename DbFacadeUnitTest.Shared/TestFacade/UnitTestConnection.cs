@@ -1,5 +1,5 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
-using DbFacadeShared.Factories;
+using DbFacade.Factories;
 using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.TestFacade

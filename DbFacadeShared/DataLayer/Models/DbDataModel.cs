@@ -14,6 +14,7 @@ namespace DbFacade.DataLayer.Models
     {
         string ToJson();
         Task<string> ToJsonAsync();
+        [JsonIgnore]
         IEnumerable<IDbDataModelBindingError> DataBindingErrors { get; }
         bool HasDataBindingErrors { get;  }
     }
@@ -78,7 +79,7 @@ namespace DbFacade.DataLayer.Models
             await Task.CompletedTask;
             return json;
         }
-
+        [JsonIgnore]
         public IEnumerable<IDbDataModelBindingError> DataBindingErrors { get => _DataBindingErrors; }
         private List<IDbDataModelBindingError> _DataBindingErrors { get; set; }
         private void AddDataBindingError(IDbDataModelBindingError e)
