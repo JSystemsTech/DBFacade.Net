@@ -11,8 +11,8 @@ namespace DbFacade.DataLayer.Models.Attributes
 
     internal interface IDbColumn
     {
-        object GetValue(IDataRecord data, Type propType);
-        Task<object> GetValueAsync(IDataRecord data, Type propType);
+        object GetValue(IDataRecord data, Type propType, object currentValue);
+        Task<object> GetValueAsync(IDataRecord data, Type propType, object currentValue);
     }
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Constructor, AllowMultiple = true)]
     public class DbColumn : Attribute, IDbColumn
@@ -50,29 +50,31 @@ namespace DbFacade.DataLayer.Models.Attributes
         private int BufferSize { get; }
     
 
-        protected object TryGetValue(IDataRecord data, Type propType)
+        protected object TryGetValue(IDataRecord data, Type propType, object currentValue)
         {
-            string columnName = Columns.Where(c => data.GetOrdinal(c) >= 0).FirstOrDefault();
+            string columnName = Columns.FirstOrDefault(c => data.GetOrdinal(c) >= 0);
+            object defaultValue = _defaultValue != null ? _defaultValue : currentValue;
             try
             {
-                return string.IsNullOrWhiteSpace(columnName) ? _defaultValue: data.GetColumn(columnName, propType, BufferSize, Delimiter, _defaultValue);
+                return string.IsNullOrWhiteSpace(columnName) ? defaultValue : data.GetColumn(columnName, propType, BufferSize, Delimiter, defaultValue);
             }
             catch (Exception e)
             {
                 return DbDataModelBindingError.Create(e, propType, data.GetFieldType(data.GetOrdinal(columnName)), columnName);
             }
         }
-        protected async Task<object> TryGetValueAsync (IDataRecord data, Type propType)
+        protected async Task<object> TryGetValueAsync (IDataRecord data, Type propType, object currentValue)
         {
             string columnName = Columns.Where(c => data.GetOrdinal(c) >= 0).FirstOrDefault();
+            object defaultValue = _defaultValue != null ? _defaultValue : currentValue;
             try
             {
                 if (string.IsNullOrWhiteSpace(columnName))
                 {
                     await Task.CompletedTask;
-                    return _defaultValue;
+                    return defaultValue;
                 }
-                return await data.GetColumnAsync(columnName, propType, BufferSize, Delimiter, _defaultValue);                
+                return await data.GetColumnAsync(columnName, propType, BufferSize, Delimiter, defaultValue);                
             }
             catch (Exception e)
             {
@@ -80,9 +82,9 @@ namespace DbFacade.DataLayer.Models.Attributes
             }
         }
 
-        public virtual object GetValue(IDataRecord data, Type propType)
-        => TryGetValue(data, propType);
-        public virtual async Task<object> GetValueAsync(IDataRecord data, Type propType)
-        => await TryGetValueAsync(data, propType);
+        public virtual object GetValue(IDataRecord data, Type propType, object currentValue)
+        => TryGetValue(data, propType, currentValue);
+        public virtual async Task<object> GetValueAsync(IDataRecord data, Type propType, object currentValue)
+        => await TryGetValueAsync(data, propType, currentValue);
     }
 }

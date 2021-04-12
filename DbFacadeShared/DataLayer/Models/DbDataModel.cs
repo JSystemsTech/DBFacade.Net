@@ -18,26 +18,21 @@ namespace DbFacade.DataLayer.Models
         IEnumerable<IDbDataModelBindingError> DataBindingErrors { get; }
         bool HasDataBindingErrors { get;  }
     }
+    internal class DbDataModelPropertyProfile
+    {
+        public Type Type { get; set; }
+        public PropertyInfo Property { get; set; }
+        public DbColumn DbColumn { get; set; }
+        internal static DbDataModelPropertyProfile Create(Type type, PropertyInfo property)
+        => new DbDataModelPropertyProfile()
+        {
+            Type = type,
+            Property = property,
+            DbColumn = property.GetCustomAttributes<DbColumn>() is IEnumerable<DbColumn> colAttrs && colAttrs.Any() ? colAttrs.First() : null
+        };
+    }
     internal static class DbDataModelExtensions
     {
-        public static List<ConstructorInfo> GetConstructorInfo(this Type dbDataModelType)
-        {
-            return dbDataModelType.GetConstructors().ToList().FindAll(constructor =>
-                constructor.GetConstructorDbColumns() is List<DbColumn> columns && columns.Any() &&
-                constructor.GetParameters().Count() == columns.Count
-            );
-        }
-        public static async Task<List<ConstructorInfo>> GetConstructorInfoAsync(this Type dbDataModelType)
-        {
-            List<ConstructorInfo> info = dbDataModelType.GetConstructors().ToList().FindAll(constructor =>
-                constructor.GetCustomAttributes<DbColumn>() is List<DbColumn> columns && columns.Any() &&
-                constructor.GetParameters().Count() == columns.Count
-            );
-            await Task.CompletedTask;
-            return info;
-        }
-        public static List<DbColumn> GetConstructorDbColumns(this ConstructorInfo constructor)
-            => constructor.GetCustomAttributes<DbColumn>().ToList();
         public static List<DbColumn> GetPropertyDbColumns(this PropertyInfo property)
             => property.GetCustomAttributes<DbColumn>().ToList();
 
@@ -50,23 +45,49 @@ namespace DbFacade.DataLayer.Models
             await Task.CompletedTask;
             return columnAttrs;
         }
-        public static IEnumerable<PropertyInfo> GetBindableProperties(this Type type)
-        => type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop => prop.GetPropertyDbColumns().Any());
-
-        public static async Task<IEnumerable<PropertyInfo>> GetBindablePropertiesAsync(this Type type)
+        
+        private static IDictionary<Type, IEnumerable<DbDataModelPropertyProfile>> DbDataModelTypePropertiesMap = new Dictionary<Type, IEnumerable<DbDataModelPropertyProfile>>();
+        private static void AddDbDataModelTypeProperties(Type type)
+            => DbDataModelTypePropertiesMap.Add(type, type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop => prop.GetPropertyDbColumns().Any()).Select(p=> DbDataModelPropertyProfile.Create(type, p)));
+        public static IEnumerable<DbDataModelPropertyProfile> GetBindableProperties(this Type type)
         {
-            IEnumerable<PropertyInfo> properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop => prop.GetPropertyDbColumns().Any());
-            await Task.CompletedTask;
-            return properties;
+            if (!DbDataModelTypePropertiesMap.ContainsKey(type))
+            {
+                AddDbDataModelTypeProperties(type);
+            }
+            
+            return DbDataModelTypePropertiesMap[type];
         }
+
+        public static async Task<IEnumerable<DbDataModelPropertyProfile>> GetBindablePropertiesAsync(this Type type)
+        {
+            if (!DbDataModelTypePropertiesMap.ContainsKey(type))
+            {
+                AddDbDataModelTypeProperties(type);
+            }
+            await Task.CompletedTask;
+            return DbDataModelTypePropertiesMap[type];
+        }
+        private static IDictionary<Type, IEnumerable<PropertyInfo>> DbDataModelTypeNestedPropertiesMap = new Dictionary<Type, IEnumerable<PropertyInfo>>();
+        private static void AddDbDataModelTypeNestedProperties(Type type)
+            => DbDataModelTypeNestedPropertiesMap.Add(type, type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop => prop.PropertyType.IsSubclassOf(typeof(DbDataModel))));
         public static IEnumerable<PropertyInfo> GetNestedProperties(this Type type)
-        => type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop=> prop.PropertyType.IsSubclassOf(typeof(DbDataModel)));
+        {
+            if (!DbDataModelTypeNestedPropertiesMap.ContainsKey(type))
+            {
+                AddDbDataModelTypeNestedProperties(type);
+            }
+            return DbDataModelTypeNestedPropertiesMap[type];
+        }
 
         public static async Task<IEnumerable<PropertyInfo>> GetNestedPropertiesAsync(this Type type)
         {
-            IEnumerable<PropertyInfo> properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(prop => prop.PropertyType.IsSubclassOf(typeof(DbDataModel)));
+            if (!DbDataModelTypeNestedPropertiesMap.ContainsKey(type))
+            {
+                AddDbDataModelTypeNestedProperties(type);
+            }
             await Task.CompletedTask;
-            return properties;
+            return DbDataModelTypeNestedPropertiesMap[type];
         }
     }
     [JsonObject]
@@ -109,108 +130,31 @@ namespace DbFacade.DataLayer.Models
         public static TDbDataModel ToDbDataModel<TDbDataModel>(IDataRecord data)
             where TDbDataModel : DbDataModel 
         {
-            if (typeof(TDbDataModel).GetConstructorInfo().Count > 0)
-                return Create(typeof(TDbDataModel), data) is TDbDataModel tDbDataModel ? tDbDataModel : null;
             var model = GenericInstance.GetInstance<TDbDataModel>();
-            model.Init(data);
+
+            model.InitBase(data);
             return model;
         }
         internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel>(IDataRecord data)
             where TDbDataModel : DbDataModel
         {
-            List<ConstructorInfo> ConstructorInfo = await typeof(TDbDataModel).GetConstructorInfoAsync();
-            if (ConstructorInfo.Count > 0)
-                return await CreateAsync(typeof(TDbDataModel), data) is TDbDataModel tDbDataModel ? tDbDataModel : null; ;
             var model = await GenericInstance.GetInstanceAsync<TDbDataModel>();
-            await model.InitAsync(data);
+            await model.InitBaseAsync(data);
             return model;
         }
 
         
-
-        /// <summary>
-        ///     Creates the specified database data model type.
-        /// </summary>
-        /// <param name="dbDataModelType">Type of the database data model.</param>
-        /// <param name="data">The data.</param>
-        /// <returns></returns>
-        private static IDbDataModel Create(Type dbDataModelType, IDataRecord data)
-        {
-            var constructorInfo = dbDataModelType.GetConstructorInfo();
-            if (constructorInfo.Count > 0)
-            {             
-                
-                try
-                {
-                    var constructor = constructorInfo.First();
-                    var paramInfo = constructor.GetParameters().ToList();
-                    var columns = constructor.GetConstructorDbColumns();
-
-                    var args = paramInfo.Select(param => columns[paramInfo.IndexOf(param)].GetValue(data, param.ParameterType));
-
-                    return GenericInstance.GetInstanceWithArgArray(dbDataModelType, args.ToArray()) is IDbDataModel model
-                    ? model
-                    : null;
-                }
-                catch (Exception e)
-                {
-                    DbDataModel model = (DbDataModel) GenericInstance.GetInstance(dbDataModelType);
-                    model.AddDataBindingError(DbDataModelBindingError.Create(e, dbDataModelType));
-                }
-            }
-            return null;
-        }
-        private static async Task<IDbDataModel> CreateAsync(Type dbDataModelType, IDataRecord data)
-        {
-            var constructorInfo = dbDataModelType.GetConstructorInfo();
-            if (constructorInfo.Count > 0)
-            {
-                try
-                {
-                    var constructor = constructorInfo.First();
-                    var paramInfo = constructor.GetParameters().ToList();
-                    var columns = constructor.GetConstructorDbColumns();
-
-                    var args = paramInfo.Select(param => columns[paramInfo.IndexOf(param)].GetValue(data, param.ParameterType));
-
-                    return await GenericInstance.GetInstanceWithArgArrayAsync(dbDataModelType, args.ToArray()) is IDbDataModel model
-                    ? model
-                    : null;
-                }
-                catch (Exception e)
-                {
-                    DbDataModel model = (DbDataModel) await GenericInstance.GetInstanceAsync(dbDataModelType);
-                    await model.AddDataBindingErrorAsync(await DbDataModelBindingError.CreateAsync(e, dbDataModelType));
-                }
-            }
-            await Task.CompletedTask;
-            return null;
-        }
-        
-
-        
-
         private void PopulateNestedProperties(IDataRecord data)
         {
             foreach (var property in GetType().GetNestedProperties())
             {
-                if (property.PropertyType.GetConstructorInfo().Count > 0)
+                
+                var instance = GenericInstance.GetInstance(property.PropertyType);
+                if (instance is DbDataModel nestedModel)
                 {
-                    if (Create(property.PropertyType, data) is DbDataModel model)
-                    {
-                        property.SetValue(this, model, null);
-                        HasNestedDataBindingErrors = model.HasDataBindingErrors;
-                    }
-                }
-                else
-                {
-                    var instance = GenericInstance.GetInstance(property.PropertyType);
-                    if (instance is DbDataModel nestedModel)
-                    {
-                        nestedModel.Init(data);
-                        property.SetValue(this, instance, null);
-                        HasNestedDataBindingErrors = nestedModel.HasDataBindingErrors;
-                    }
+                    nestedModel.InitBase(data);
+                    property.SetValue(this, instance, null);
+                    HasNestedDataBindingErrors = nestedModel.HasDataBindingErrors;
                 }
             }
         }
@@ -218,87 +162,83 @@ namespace DbFacade.DataLayer.Models
         {
             Type type = GetType();
             foreach (var property in await type.GetNestedPropertiesAsync())
-            {
-                if ((await property.PropertyType.GetConstructorInfoAsync()).Count > 0)
+            {               
+                var instance = await GenericInstance.GetInstanceAsync(property.PropertyType);
+                if (instance is DbDataModel nestedModel)
                 {
-                    if (await CreateAsync(property.PropertyType, data) is DbDataModel model)
-                    {
-                        property.SetValue(this, model, null);
-                        HasNestedDataBindingErrors = model.HasDataBindingErrors;
-                    }
-                    
-                }
-                else
-                {
-                    var instance = await GenericInstance.GetInstanceAsync(property.PropertyType);
-                    if (instance is DbDataModel nestedModel)
-                    {
-                        await nestedModel.InitAsync(data);
-                        property.SetValue(this, instance, null);
-                        HasNestedDataBindingErrors = nestedModel.HasDataBindingErrors;
-                    }
+                    await nestedModel.InitBaseAsync(data);
+                    property.SetValue(this, instance, null);
+                    HasNestedDataBindingErrors = nestedModel.HasDataBindingErrors;
                 }
             }
             await Task.CompletedTask;
         }
-
-        private void Init(IDataRecord data)
+        protected virtual void Init(IDataRecord data)
         {
-            foreach (var property in GetType().GetBindableProperties())
+            foreach (var propertyProfile in GetType().GetBindableProperties())
             {
-                try
-                {
-                    var columnAttribute = property.GetColumnAttribute();
+                var propType = propertyProfile.Property.PropertyType;
+                object value = null;
+                object currentValue = propertyProfile.Property.GetValue(this);
+                if (propertyProfile.DbColumn != null) value = propertyProfile.DbColumn.GetValue(data, propType, currentValue);
 
-                    var propType = property.PropertyType;
-                    object value = null;
-                    if (columnAttribute != null) value = columnAttribute.GetValue(data, propType);
-                    if (value is IDbDataModelBindingError dataBindingError)
-                    {
-                        AddDataBindingError(dataBindingError);
-                    }
-                    else if (value != null) 
-                    { 
-                        property.SetValue(this, value, null);
-                    }
-                }
-                catch (Exception e)
+                if (value is IDbDataModelBindingError dataBindingError)
                 {
-                    AddDataBindingError(DbDataModelBindingError.Create(e, GetType()));
+                    AddDataBindingError(dataBindingError);
+                }
+                else if (value != null)
+                {
+                    propertyProfile.Property.SetValue(this, value, null);
                 }
             }
+        }
+        private void InitBase(IDataRecord data)
+        {
+            try
+            {
+                Init(data);
+            }
+            catch (Exception e)
+            {
+                AddDataBindingError(DbDataModelBindingError.Create(e, GetType()));
+            }
+            
             PopulateNestedProperties(data);
         }
-        private async Task InitAsync(IDataRecord data)
+
+       
+        protected virtual async Task InitAsync(IDataRecord data)
         {
             Type type = GetType();
-            foreach (var property in await type.GetBindablePropertiesAsync())
+            foreach (var propertyProfile in await type.GetBindablePropertiesAsync())
             {
-                try
+                var propType = propertyProfile.Property.PropertyType;
+                object value = null;
+                object currentValue = propertyProfile.Property.GetValue(this);
+                if (propertyProfile.DbColumn != null) value = await propertyProfile.DbColumn.GetValueAsync(data, propType, currentValue);
+                if (value is IDbDataModelBindingError dataBindingError)
                 {
-                    var columnAttribute = await property.GetColumnAttributeAsync();
-
-                    var propType = property.PropertyType;
-                    object value = null;
-                    if (columnAttribute != null) value = await columnAttribute.GetValueAsync(data, propType);
-                    if (value is IDbDataModelBindingError dataBindingError)
-                    {
-                        await AddDataBindingErrorAsync(dataBindingError);
-                    }
-                    else if (value != null)
-                    {
-                        property.SetValue(this, value, null);
-                    }
+                    await AddDataBindingErrorAsync(dataBindingError);
                 }
-                catch (Exception e)
+                else if (value != null)
                 {
-                    await AddDataBindingErrorAsync(await DbDataModelBindingError.CreateAsync(e, GetType()));
+                    propertyProfile.Property.SetValue(this, value, null);
                 }
             }
+        }
+        private async Task InitBaseAsync(IDataRecord data)
+        {
+            try
+            {
+                await InitAsync(data);
+            }
+            catch (Exception e)
+            {
+                await AddDataBindingErrorAsync(await DbDataModelBindingError.CreateAsync(e, GetType()));
+            }
+
             await PopulateNestedPropertiesAsync(data);
             await Task.CompletedTask;
         }
-
-
     }
 }

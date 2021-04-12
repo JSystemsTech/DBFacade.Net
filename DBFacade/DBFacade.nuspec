@@ -12,7 +12,7 @@
     <icon>icon.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Release $version$- Flatten binding error model</releaseNotes>
+    <releaseNotes>Performance improvments and optimize data model initialization performance for large data sets </releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>DBFacade;DbFacade;dbfacade;domainfacade;DbFacade.Net;DBFacade.Net;dbfacade.net</tags>
     <dependencies>

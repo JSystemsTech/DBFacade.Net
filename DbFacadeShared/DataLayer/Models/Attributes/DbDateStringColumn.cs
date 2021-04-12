@@ -42,25 +42,25 @@ namespace DbFacade.DataLayer.Models.Attributes
             _dateTimeStyles = dateTimeStyles;
         }
 
-        public override object GetValue(IDataRecord data, Type propType = null)
+        public override object GetValue(IDataRecord data, Type propType, object currentValue)
         {
             if (propType.Equals(typeof(DateTime)))
-                return GetDateTimeValue(data);
-            if (propType.Equals(typeof(string))) return GetStringValue(data);
+                return GetDateTimeValue(data, currentValue);
+            if (propType.Equals(typeof(string))) return GetStringValue(data, currentValue);
             return null;
         }
-        public override async Task<object> GetValueAsync(IDataRecord data, Type propType = null)
+        public override async Task<object> GetValueAsync(IDataRecord data, Type propType, object currentValue)
         {
             if (propType.Equals(typeof(DateTime)))
-                return await GetDateTimeValueAsync(data);
-            if (propType.Equals(typeof(string))) return await  GetStringValueAsync(data);
+                return await GetDateTimeValueAsync(data, currentValue);
+            if (propType.Equals(typeof(string))) return await  GetStringValueAsync(data, currentValue);
             await Task.CompletedTask;
             return null;
         }
 
-        private string GetStringValue(IDataRecord data)
+        private string GetStringValue(IDataRecord data, object currentValue)
         {
-            var value = TryGetValue(data, typeof(DateTime?));
+            var value = TryGetValue(data, typeof(DateTime?), currentValue);
             if (value is DateTime convertedValue)
             {
                 return convertedValue.ToString(_dateFormat);
@@ -68,9 +68,9 @@ namespace DbFacade.DataLayer.Models.Attributes
             return null;
         }
 
-        private DateTime? GetDateTimeValue(IDataRecord data)
+        private DateTime? GetDateTimeValue(IDataRecord data, object currentValue)
         {
-            var value = TryGetValue(data, typeof(string));
+            var value = TryGetValue(data, typeof(string), currentValue);
             var outValue = new DateTime();
             var hasDate = value is string valueStr && !string.IsNullOrWhiteSpace(valueStr)
                           && DateTime.TryParseExact(valueStr, _dateFormat, _cultureInfo, _dateTimeStyles, out outValue);
@@ -78,9 +78,9 @@ namespace DbFacade.DataLayer.Models.Attributes
             return null;
         }
 
-        private async Task<string> GetStringValueAsync(IDataRecord data)
+        private async Task<string> GetStringValueAsync(IDataRecord data, object currentValue)
         {
-            var value = await TryGetValueAsync(data, typeof(DateTime?));
+            var value = await TryGetValueAsync(data, typeof(DateTime?), currentValue);
             if (value is DateTime convertedValue)
             {
                 await Task.CompletedTask;
@@ -89,9 +89,9 @@ namespace DbFacade.DataLayer.Models.Attributes
             return null;
         }
 
-        private async Task<DateTime?> GetDateTimeValueAsync(IDataRecord data)
+        private async Task<DateTime?> GetDateTimeValueAsync(IDataRecord data, object currentValue)
         {
-            var value = await TryGetValueAsync(data, typeof(string));
+            var value = await TryGetValueAsync(data, typeof(string), currentValue);
             var outValue = new DateTime();
             var hasDate = value is string valueStr && !string.IsNullOrWhiteSpace(valueStr)
                           && DateTime.TryParseExact(valueStr, _dateFormat, _cultureInfo, _dateTimeStyles, out outValue);

@@ -41,13 +41,13 @@ namespace DbFacade.DataLayer.Models.Attributes
         /// ///
         /// <param name="propType">The data.</param>
         /// <returns></returns>
-        public override object GetValue(IDataRecord data, Type propType = null)
+        public override object GetValue(IDataRecord data, Type propType, object currentValue)
         {
-            return TryGetValue(data, _trueValue.GetType()).ToString() == _trueValue.ToString();
+            return TryGetValue(data, _trueValue.GetType(), currentValue).ToString() == _trueValue.ToString();
         }
-        public override async Task<object> GetValueAsync(IDataRecord data, Type propType = null)
+        public override async Task<object> GetValueAsync(IDataRecord data, Type propType, object currentValue)
         {
-            object value = await TryGetValueAsync(data, _trueValue.GetType());
+            object value = await TryGetValueAsync(data, _trueValue.GetType(), currentValue);
             return value.ToString() == _trueValue.ToString();
         }
     }

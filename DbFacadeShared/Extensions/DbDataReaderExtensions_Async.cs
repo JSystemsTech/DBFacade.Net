@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DbFacade.Extensions
 {
-    internal static partial class DbDataReaderExtensions
+    public static partial class DbDataReaderExtensions
     {
         private static async Task<bool> IsIEnumerableAsync(this Type type)
         {
@@ -257,8 +257,6 @@ namespace DbFacade.Extensions
             await Task.CompletedTask;
             return output;
         }
-        private static async Task<object> GetGenericValueAsync(this IDataRecord data, int ordinal, Type t)
-        => await t.ParseToAsync(data.GetString(ordinal));
 
 
         private static async Task<object> GetColumnValueAsync(this IDataRecord data, int ordinal, Type t, int bufferSize,
@@ -288,14 +286,14 @@ namespace DbFacade.Extensions
                    t == typeof(MailAddress) ? await data.GetMailAddressAsync(ordinal):
 
                    t.IsIEnumerable() ? await data.GetIEnumerableAsync(ordinal, t, delimiter) :
-                   await data.GetGenericValueAsync(ordinal, t);
+                   data.GetValue(ordinal);
 
             await Task.CompletedTask;
             return value;
         }
         
 
-        public static async Task<object> GetColumnAsync(this IDataRecord data, int ordinal, Type t, int bufferSize,
+        private static async Task<object> GetColumnAsync(this IDataRecord data, int ordinal, Type t, int bufferSize,
             char delimiter = DefaultDelimiter, object defaultValue = null)
         {
             if(ordinal >= 0 && data.IsDBNull(ordinal))
@@ -305,11 +303,62 @@ namespace DbFacade.Extensions
             }
             return await data.GetColumnValueAsync(ordinal, t, bufferSize, delimiter);
         }
-        public static async Task<object> GetColumnAsync(this IDataRecord data, string columnName, Type t, int bufferSize,
+        internal static async Task<object> GetColumnAsync(this IDataRecord data, string columnName, Type t, int bufferSize,
             char delimiter = DefaultDelimiter, object defaultValue = null)
         {
             int ordinal = data.GetOrdinal(columnName);
             return await data.GetColumnAsync(ordinal, t, bufferSize, delimiter, defaultValue);
+        }
+        private static async Task<int> TryGetOrdinalAsync(this IDataRecord data, string columnName)
+        {
+            try
+            {
+                int ordinal = data.GetOrdinal(columnName);
+                await Task.CompletedTask;
+                return ordinal;
+            }
+            catch
+            {
+                await Task.CompletedTask;
+                return -1;
+            }
+        }
+        public static async Task<byte[]> GetByteArrayColumnAsync<T>(this IDataRecord data, string columnName, int bufferSize)
+        {
+            int ordinal = await data.TryGetOrdinalAsync(columnName);
+            if (ordinal < 0 || data.IsDBNull(ordinal))
+            {
+                await Task.CompletedTask;
+                return new byte[0];
+            }
+            return (byte[])await data.GetByteArrayAsync(ordinal, bufferSize);
+        }
+        public static async Task<char[]> GetCharArrayColumnAsync<T>(this IDataRecord data, string columnName, int bufferSize)
+        {
+            int ordinal = await data.TryGetOrdinalAsync(columnName);
+            if (ordinal < 0 || data.IsDBNull(ordinal))
+            {
+                await Task.CompletedTask;
+                return new char[0];
+            }
+            return (char[])await data.GetCharArrayAsync(ordinal, bufferSize);
+        }
+        
+        public static async Task<IEnumerable<T>> GetEnumerableColumnAsync<T>(this IDataRecord data, string columnName,
+            char delimiter = DefaultDelimiter, IEnumerable<T> defaultValue = default(T[]))
+        {
+            int ordinal = await data.TryGetOrdinalAsync(columnName);
+            if (ordinal < 0 || data.IsDBNull(ordinal))
+            {
+                await Task.CompletedTask;
+                return defaultValue;
+            }
+            return (IEnumerable<T>)await data.GetIEnumerableAsync(ordinal, typeof(T[]), delimiter);
+        }
+        public static async Task<T> GetColumnAsync<T>(this IDataRecord data, string columnName, T defaultValue = default(T))
+        {
+            int ordinal = await data.TryGetOrdinalAsync(columnName);
+            return (T)await data.GetColumnAsync(ordinal, typeof(T), 0, DefaultDelimiter, defaultValue);
         }
 
     }

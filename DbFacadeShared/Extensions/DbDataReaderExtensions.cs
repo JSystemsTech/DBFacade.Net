@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
 
 namespace DbFacade.Extensions
 {
-    internal static partial class DbDataReaderExtensions
+    public static partial class DbDataReaderExtensions
     {
         private const char DefaultDelimiter = ',';
         private delegate object BasicDataConverter(int ordinal);
@@ -223,8 +224,6 @@ namespace DbFacade.Extensions
 
             return output;
         }
-        private static object GetGenericValue(this IDataRecord data, int ordinal, Type t)
-        => t.ParseTo(data.GetString(ordinal));
 
 
         private static object GetColumnValue(this IDataRecord data, int ordinal, Type t, int bufferSize,
@@ -254,18 +253,51 @@ namespace DbFacade.Extensions
                    t == typeof(MailAddress) ? data.GetMailAddress(ordinal):
 
                    t.IsIEnumerable() ? data.GetIEnumerable(ordinal, t, delimiter) :
-                   data.GetGenericValue(ordinal, t);
+                   data.GetValue(ordinal);
         }
         
 
-        public static object GetColumn(this IDataRecord data, int ordinal, Type t, int bufferSize,
+        private static object GetColumn(this IDataRecord data, int ordinal, Type t, int bufferSize,
             char delimiter = DefaultDelimiter, object defaultValue = null)
-        => ordinal >= 0 && data.IsDBNull(ordinal) ? (defaultValue != null ? defaultValue: GenericInstance.GetInstance(t)) : 
+        => ordinal >= 0 && data.IsDBNull(ordinal) ? defaultValue : 
             data.GetColumnValue(ordinal,t, bufferSize, delimiter);
-        public static object GetColumn(this IDataRecord data, string columnName, Type t, int bufferSize,
+        internal static object GetColumn(this IDataRecord data, string columnName, Type t, int bufferSize,
             char delimiter = DefaultDelimiter, object defaultValue = null)
         => data.GetColumn(data.GetOrdinal(columnName), t, bufferSize, delimiter, defaultValue);
 
+        [DebuggerHidden]
+        private static int TryGetOrdinal(this IDataRecord data, string columnName)
+        {
+            try
+            {
+                return data.GetOrdinal(columnName);
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+        public static byte[] GetByteArrayColumn<T>(this IDataRecord data, string columnName, int bufferSize)
+        {
+            int ordinal = data.TryGetOrdinal(columnName);
+            return (ordinal < 0 || data.IsDBNull(ordinal)) ? new byte[0]: (byte[])data.GetByteArray(ordinal, bufferSize);
+        }
+        public static char[] GetCharArrayColumn<T>(this IDataRecord data, string columnName, int bufferSize)
+        {
+            int ordinal = data.TryGetOrdinal(columnName);
+            return (ordinal < 0 || data.IsDBNull(ordinal)) ? new char[0] : (char[])data.GetCharArray(ordinal, bufferSize);
+        }
+        public static IEnumerable<T> GetEnumerableColumn<T>(this IDataRecord data, string columnName, char delimiter = DefaultDelimiter, IEnumerable<T> defaultValue = default(T[]))
+        {
+            int ordinal = data.TryGetOrdinal(columnName);
+            return (ordinal < 0 || data.IsDBNull(ordinal)) ? defaultValue : (IEnumerable<T>)data.GetIEnumerable(ordinal, typeof(T[]), delimiter);
+        }
+        public static T GetColumn<T>(this IDataRecord data, string columnName, T defaultValue = default(T))
+        {
+            int ordinal = data.TryGetOrdinal(columnName);
+            return (T)data.GetColumn(ordinal, typeof(T), 0, DefaultDelimiter, defaultValue);
+        }
 
     }
+    
 }

@@ -263,3 +263,5 @@ __pycache__/
 # Branch Ignored Files
 _sections
 _site
+
+PerformanceTest/
