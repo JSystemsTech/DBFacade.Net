@@ -15,6 +15,9 @@ namespace DbFacadeUnitTests.TestFacade
         public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchData
             = UnitTestConnection.TestFetchData.CreateParameterlessMethod<FetchData>();
 
+        public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchDataAlt
+            = UnitTestConnection.TestFetchDataAlt.CreateParameterlessMethod<FetchData>();
+
         public static readonly IParameterlessDbCommandMethod<FetchDataWithBadDbColumn> TestFetchDataWithBadDbColumn
             = UnitTestConnection.TestFetchData.CreateParameterlessMethod<FetchDataWithBadDbColumn>();
 

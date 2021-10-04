@@ -80,6 +80,19 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Count());
             FetchData model = data.First();
+            Assert.AreEqual(FetchDataEnum.Pass, model.MyEnum);
+            Assert.AreEqual("test string", model.MyString);
+            Assert.IsNotNull(model.PublicKey);
+            Assert.AreNotEqual(new Guid(), model.PublicKey);
+        }
+        [TestMethod]
+        public void SuccessfullyFetchesAltData()
+        {
+            IDbResponse<FetchData> data = DomainFacade.TestFetchDataAlt();
+            Assert.IsNotNull(data);
+            Assert.AreEqual(1, data.Count());
+            FetchData model = data.First();
+            Assert.AreEqual(FetchDataEnum.Pass, model.MyEnum);
             Assert.AreEqual("test string", model.MyString);
             Assert.IsNotNull(model.PublicKey);
             Assert.AreNotEqual(new Guid(), model.PublicKey);
@@ -109,7 +122,7 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.AreEqual(1, data.Count());
             FetchDataWithBadDbColumn model = data.First();
             Assert.IsTrue(model.HasDataBindingErrors);
-            Assert.AreEqual(5, model.DataBindingErrors.Count());
+            Assert.AreEqual(7, model.DataBindingErrors.Count());
             Assert.IsNull(model.MyString);
             Assert.AreEqual( default(int), model.Integer);
             Assert.IsNull(model.IntegerOptional);
@@ -241,6 +254,24 @@ namespace DbFacadeUnitTests.Tests.Facade
                 Assert.IsNotNull(response);
                 Assert.AreEqual(1, response.Count());
                 FetchData model = response.First();
+                Assert.AreEqual(FetchDataEnum.Pass, model.MyEnum);
+                Assert.AreEqual("test string", model.MyString);
+                Assert.IsNotNull(model.PublicKey);
+                Assert.AreNotEqual(new Guid(), model.PublicKey);
+                await Task.CompletedTask;
+            });
+
+        }
+        [TestMethod]
+        public void SuccessfullyFetchesAltDataAsync()
+        {
+            RunAsAsyc(async () =>
+            {
+                IDbResponse<FetchData> response = await DomainFacade.TestFetchDataAltAsync();
+                Assert.IsNotNull(response);
+                Assert.AreEqual(1, response.Count());
+                FetchData model = response.First();
+                Assert.AreEqual(FetchDataEnum.Pass, model.MyEnum);
                 Assert.AreEqual("test string", model.MyString);
                 Assert.IsNotNull(model.PublicKey);
                 Assert.AreNotEqual(new Guid(), model.PublicKey);
@@ -282,7 +313,7 @@ namespace DbFacadeUnitTests.Tests.Facade
                     Assert.AreEqual(1, response.Count());
                     FetchDataWithBadDbColumn model = response.First();
                     Assert.IsTrue(model.HasDataBindingErrors);
-                    Assert.AreEqual(5, model.DataBindingErrors.Count());
+                    Assert.AreEqual(7, model.DataBindingErrors.Count());
                     Assert.IsNull(model.MyString);
                     Assert.AreEqual(default(int), model.Integer);
                     Assert.IsNull(model.IntegerOptional);

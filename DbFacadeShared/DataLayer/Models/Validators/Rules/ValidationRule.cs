@@ -63,6 +63,17 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             IsNullable = isNullable;
             await Task.CompletedTask;
         }
+        private void Init()
+        {
+            GetParamFunc = model => model;
+            PropertyName = $"{typeof(TDbParams).Name} Custom";
+            IsNullable = true;
+        }
+        private async Task InitAsync()
+        {
+            Init();
+            await Task.CompletedTask;
+        }
 
         /// <summary>
         ///     Validates the rule.

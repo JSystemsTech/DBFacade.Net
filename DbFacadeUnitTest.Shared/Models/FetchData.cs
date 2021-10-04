@@ -1,43 +1,74 @@
 ﻿using DbFacade.DataLayer.Models;
-using DbFacade.DataLayer.Models.Attributes;
 using DbFacadeUnitTests.TestFacade;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.Models
 {
+    public enum FetchDataEnum
+    {
+        Fail = 0,
+        Pass = 1,
+    }
     internal class FetchData : DbDataModel
     {
-        [DbColumn("MyString")]
+        public FetchDataEnum MyEnum { get; internal set; }
         public string MyString { get; internal set; }
-        [DbColumn("Integer")]
         public int Integer { get; internal set; }
-        [DbColumn("Integer")]
         public int? IntegerOptional { get; internal set; }
-        [DbColumn("IntegerOptional")]
         public int? IntegerOptionalNull { get; internal set; }
-
-        [DbColumn("PublicKey")]
         public Guid PublicKey { get; internal set; }
-        [DbColumn("MyByte")]
         public byte MyByte { get; internal set; }
-        [DbColumn("MyByte")]
         public int MyByteAsInt { get; internal set; }
+        protected override void Init()
+        {
+            bool isAltCall = IsDbCommand(UnitTestConnection.TestFetchDataAlt);
+            MyEnum = GetColumn<FetchDataEnum>(isAltCall ? "MyEnumAlt" : "MyEnum");
+            MyString = GetColumn<string>(isAltCall ? "MyStringAlt" : "MyString");
+            Integer = GetColumn<int>(isAltCall ? "IntegerAlt" : "Integer");
+            IntegerOptional = GetColumn<int?>(isAltCall ? "IntegerOptionalAlt" : "IntegerOptional");
+            IntegerOptionalNull = GetColumn<int?>(isAltCall ? "IntegerOptionalAlt" : "IntegerOptional");
+            PublicKey = GetColumn<Guid>(isAltCall ? "PublicKeyAlt" : "PublicKey");
+            MyByte = GetColumn<byte>(isAltCall ? "MyByteAlt" : "MyByte");
+            MyByteAsInt = GetColumn<int>(isAltCall ? "MyByteAlt" : "MyByte");
+        }
+        protected override async Task InitAsync()
+        {
+            bool isAltCall = await IsDbCommandAsync(UnitTestConnection.TestFetchDataAlt);
+            MyEnum = await GetColumnAsync<FetchDataEnum>(isAltCall ? "MyEnumAlt" : "MyEnum");
+            MyString = await GetColumnAsync<string>(isAltCall ? "MyStringAlt" : "MyString");
+            Integer = await GetColumnAsync<int>(isAltCall ? "IntegerAlt" : "Integer");
+            IntegerOptional = await GetColumnAsync<int?>(isAltCall ? "IntegerOptionalAlt" : "IntegerOptional");
+            IntegerOptionalNull = await GetColumnAsync<int?>(isAltCall ? "IntegerOptionalAlt" : "IntegerOptional");
+            PublicKey = await GetColumnAsync<Guid>(isAltCall ? "PublicKeyAlt" : "PublicKey");
+            MyByte = await GetColumnAsync<byte>(isAltCall ? "MyByteAlt" : "MyByte");
+            MyByteAsInt = await GetColumnAsync<int>(isAltCall ? "MyByteAlt" : "MyByte");
+        }
     }
-    internal class FetchDataWithBadDbColumn : DbDataModel
+    internal class FetchDataWithBadDbColumn : FetchData
     {
-        [DbColumn("BadMyString")]
-        public string MyString { get; internal set; }
-        [DbColumn("BadInteger")]
-        public int Integer { get; internal set; }
-        [DbColumn("BadInteger")]
-        public int? IntegerOptional { get; internal set; }
-        [DbColumn("BadIntegerOptional")]
-        public int? IntegerOptionalNull { get; internal set; }
-
-        [DbColumn("BadPublicKey")]
-        public Guid PublicKey { get; internal set; }
+        protected override void Init()
+        {
+            MyString = GetColumn<string>("BadMyString");
+            Integer = GetColumn<int>("BadInteger");
+            IntegerOptional = GetColumn<int?>("BadIntegerOptional");
+            IntegerOptionalNull = GetColumn<int?>("BadIntegerOptional");
+            PublicKey = GetColumn<Guid>("BadPublicKey");
+            MyByte = GetColumn<byte>("BadMyByte");
+            MyByteAsInt = GetColumn<int>("BadMyByte");
+        }
+        protected override async Task InitAsync()
+        {
+            MyString = await GetColumnAsync<string>("BadMyString");
+            Integer = await GetColumnAsync<int>("BadInteger");
+            IntegerOptional = await GetColumnAsync<int?>("BadIntegerOptional");
+            IntegerOptionalNull = await GetColumnAsync<int?>("BadIntegerOptional");
+            PublicKey = await GetColumnAsync<Guid>("BadPublicKey");
+            MyByte = await GetColumnAsync<byte>("BadMyByte");
+            MyByteAsInt = await GetColumnAsync<int>("BadMyByte");
+        }
     }
     internal class FetchDataWithNested : DbDataModel
     {
@@ -48,66 +79,105 @@ namespace DbFacadeUnitTests.Models
         public FetchDataEmail EmailData { get; internal set; }
         
         public FetchDataFlags FlagData { get; internal set; }
-
+        protected override void Init()
+        {
+            EnumerableData = CreateNestedModel<FetchDataEnumerable>();
+            DateData = CreateNestedModel<FetchDataDates>();
+            EmailData = CreateNestedModel<FetchDataEmail>();
+            FlagData = CreateNestedModel<FetchDataFlags>();
+        }
+        protected override async Task InitAsync()
+        {
+            EnumerableData = await CreateNestedModelAsync<FetchDataEnumerable>();
+            DateData = await CreateNestedModelAsync<FetchDataDates>();
+            EmailData = await CreateNestedModelAsync<FetchDataEmail>();
+            FlagData = await CreateNestedModelAsync<FetchDataFlags>();
+        }
     }
     internal class FetchDataEnumerable : DbDataModel
     {
-
-
-        [DbColumn("EnumerableData")]
         public IEnumerable<string> Data { get; internal set; }
-
-        [DbColumn("EnumerableData")]
         public IEnumerable<short> ShortData { get; internal set; }
-
-        [DbColumn("EnumerableData")]
         public IEnumerable<int> IntData { get; internal set; }
-
-        [DbColumn("EnumerableData")]
         public IEnumerable<long> LongData { get; internal set; }
-
-        [DbColumn("EnumerableData")]
         public IEnumerable<double> DoubleData { get; internal set; }
-
-        [DbColumn("EnumerableData")]
         public IEnumerable<float> FloatData { get; internal set; }
-
-        [DbColumn("EnumerableData")]
         public IEnumerable<decimal> DecimalData { get; internal set; }
-
-        [DbColumn("EnumerableDataCustom", ';')]
         public IEnumerable<string> DataCustom { get; internal set; }
+
+        protected override void Init()
+        {
+            Data = GetEnumerableColumn<string>("EnumerableData");
+            ShortData = GetEnumerableColumn<short>("EnumerableData");
+            IntData = GetEnumerableColumn<int>("EnumerableData");
+            LongData = GetEnumerableColumn<long>("EnumerableData");
+            DoubleData = GetEnumerableColumn<double>("EnumerableData");
+            FloatData = GetEnumerableColumn<float>("EnumerableData");
+            DecimalData = GetEnumerableColumn<decimal>("EnumerableData");
+            DataCustom = GetEnumerableColumn<string>("EnumerableDataCustom",";");
+        }
+        protected override async Task InitAsync()
+        {
+            Data = await GetEnumerableColumnAsync<string>("EnumerableData");
+            ShortData = await GetEnumerableColumnAsync<short>("EnumerableData");
+            IntData = await GetEnumerableColumnAsync<int>("EnumerableData");
+            LongData = await GetEnumerableColumnAsync<long>("EnumerableData");
+            DoubleData = await GetEnumerableColumnAsync<double>("EnumerableData");
+            FloatData = await GetEnumerableColumnAsync<float>("EnumerableData");
+            DecimalData = await GetEnumerableColumnAsync<decimal>("EnumerableData");
+            DataCustom = await GetEnumerableColumnAsync<string>("EnumerableDataCustom", ";");
+        }
 
     }
     internal class FetchDataDates : DbDataModel
     {
-        [DbDateStringColumn("DateString", "MM/dd/yyyy")]
-        public DateTime DateTimeFromString { get; internal set; }
-
-        [DbDateStringColumn("Date", "MM/dd/yyyy")]
+        public DateTime? DateTimeFromString { get; internal set; }
         public string FormattedDate { get; internal set; }
+        protected override void Init()
+        {
+            DateTimeFromString = GetDateTimeColumn("DateString", "MM/dd/yyyy");
+            FormattedDate = GetFormattedDateTimeStringColumn("Date", "MM/dd/yyyy");
+        }
+        protected override async Task InitAsync()
+        {
+            DateTimeFromString = await GetDateTimeColumnAsync("DateString", "MM/dd/yyyy");
+            FormattedDate = await GetFormattedDateTimeStringColumnAsync("Date", "MM/dd/yyyy");
+        }
     }
     internal class FetchDataEmail : DbDataModel
     {
-        [DbColumn("Email")]
         public MailAddress Email { get; internal set; }
-        [DbColumn("EmailList")]
         public IEnumerable<MailAddress> EmailList { get; internal set; }
-
+        protected override void Init()
+        {
+            Email = GetColumn<MailAddress>("Email");
+            EmailList = GetEnumerableColumn<MailAddress>("EmailList");
+        }
+        protected override async Task InitAsync()
+        {
+            Email = await GetColumnAsync<MailAddress>("Email");
+            EmailList = await GetEnumerableColumnAsync<MailAddress>("EmailList");
+        }
     }
     internal class FetchDataFlags : DbDataModel
     {
-        [DbFlagColumn("Flag", "TRUE")]
         public bool Flag { get; internal set; }
-
-        [DbFlagColumn("FlagInt", 1)]
         public bool FlagInt { get; internal set; }
-
-        [DbFlagColumn("FlagFalse", "TRUE")]
         public bool FlagFalse { get; internal set; }
-
-        [DbFlagColumn("FlagIntFalse", 1)]
         public bool FlagIntFalse { get; internal set; }
-
+        protected override void Init()
+        {
+            Flag = GetFlagColumn("Flag", "TRUE");
+            FlagInt = GetFlagColumn("FlagInt", 1);
+            FlagFalse = GetFlagColumn("FlagFalse", "TRUE");
+            FlagIntFalse = GetFlagColumn("FlagIntFalse", 1);
+        }
+        protected override async Task InitAsync()
+        {
+            Flag = await GetFlagColumnAsync("Flag", "TRUE");
+            FlagInt = await GetFlagColumnAsync("FlagInt", 1);
+            FlagFalse = await GetFlagColumnAsync("FlagFalse", "TRUE");
+            FlagIntFalse = await GetFlagColumnAsync("FlagIntFalse", 1);
+        }
     }
 }

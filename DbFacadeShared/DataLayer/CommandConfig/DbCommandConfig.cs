@@ -24,38 +24,7 @@ namespace DbFacade.DataLayer.CommandConfig
 
         protected Action<TDbParams>[] OnBeforeActions { get; set; }
         protected Func<TDbParams, Task>[] OnBeforeAsyncActions { get; set; }
-        protected DbCommandMethod() { }
-        //protected DbCommandMethod(
-        //    DbCommandSettingsBase dbCommand, 
-        //    IDbCommandConfigParams<TDbParams> dbParams,
-        //    IValidator<TDbParams> validator,
-        //    Action<TDbParams>[] onBeforeActions)
-        //{            
-        //    DbCommandText = dbCommand;
-        //    DbConnectionConfig = dbCommand.GetConnection() is DbConnectionConfigBase dbConnectionConfig ? dbConnectionConfig : null;
-        //    DbParams = dbParams;
-        //    ParamsValidator = validator;
-        //    HasValidation = DbParams.Count > 0 && ParamsValidator.Count > 0;
-        //    MissingValidation = DbParams.Count > 0 && ParamsValidator.Count == 0 && DbCommandText.RequiresValidation;
-        //    OnBeforeActions = onBeforeActions;
-        //}
-        internal static DbCommandMethod<TDbParams, TDbDataModel> Create<TDbConnectionConfig>(
-            DbCommandSettingsBase dbCommand,
-            IDbCommandConfigParams<TDbParams> dbParams,
-            IValidator<TDbParams> validator,
-            Action<TDbParams>[] onBeforeActions)
-            where TDbConnectionConfig : DbConnectionConfigBase
-        {
-            return new DbCommandMethod<TDbParams, TDbDataModel>()
-            {
-                DbCommandText = dbCommand,
-                DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
-                DbParams = dbParams,
-                ParamsValidator = validator,
-                HasValidation = dbParams.Count > 0 && validator.Count > 0,
-                OnBeforeActions = onBeforeActions
-            };
-        }
+        protected DbCommandMethod() { }        
 
         internal static DbCommandMethod<TDbParams, TDbDataModel> Create<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
@@ -252,11 +221,8 @@ namespace DbFacade.DataLayer.CommandConfig
     internal class ParameterlessDbCommandMethod<TDbDataModel> : DbCommandMethod<DbParamsModel, TDbDataModel>, IParameterlessDbCommandMethod<TDbDataModel>
         where TDbDataModel : DbDataModel
     {
-        public ParameterlessDbCommandMethod() { }
-        
-        
-        
-        
+        public ParameterlessDbCommandMethod() { }   
+
         internal static ParameterlessDbCommandMethod<TDbDataModel> Create<TDbConnectionConfig>(
             DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
@@ -283,7 +249,7 @@ namespace DbFacade.DataLayer.CommandConfig
             {
                 DbCommandText = dbCommand,
                 DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
-                DbParams = DbCommandConfigParams<DbParamsModel>.Create(p=> { }),
+                DbParams = await DbCommandConfigParams<DbParamsModel>.CreateAsync(parametersInitializer),
                 ParamsValidator = ValidatorFactory.Create((Action<IValidator<DbParamsModel>>)null)
             };
             await config.InitAsync();
@@ -317,23 +283,7 @@ namespace DbFacade.DataLayer.CommandConfig
             where TDbConnectionConfig : DbConnectionConfigBase
             => Create<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, p => { });
 
-        internal static new DbCommandMethod<TDbParams> Create<TDbConnectionConfig>(
-            DbCommandSettingsBase dbCommand,
-            IDbCommandConfigParams<TDbParams> dbParams,
-            IValidator<TDbParams> validator,
-            Action<TDbParams>[] onBeforeActions)
-            where TDbConnectionConfig : DbConnectionConfigBase
-        {
-            return new DbCommandMethod<TDbParams>()
-            {
-                DbCommandText = dbCommand,
-                DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
-                DbParams = dbParams,
-                ParamsValidator = validator,
-                HasValidation = dbParams.Count > 0 && validator.Count > 0,
-                OnBeforeActions = onBeforeActions
-            };
-        }
+        
         internal new static DbCommandMethod<TDbParams> Create<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<TDbParams>> parametersInitializer,

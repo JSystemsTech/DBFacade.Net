@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net.Core</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
-    <Copyright>Copyright © 2020</Copyright>
+    <Copyright>Copyright © 2021</Copyright>
     <PackageId>DbFacade.Core</PackageId>
     <Authors>JSystemsTech</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -14,7 +14,7 @@
     <PackageIcon>icon.jpg</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.azurewebsites.net/DbFacade.Net</PackageProjectUrl>
-    <PackageReleaseNotes>Performance improvments and optimize data model initialization performance for large data sets</PackageReleaseNotes>
+    <PackageReleaseNotes>Refactor model binding. Remove depreciated code</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

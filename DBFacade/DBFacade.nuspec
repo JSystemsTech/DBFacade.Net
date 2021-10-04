@@ -12,8 +12,8 @@
     <icon>icon.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Performance improvments and optimize data model initialization performance for large data sets </releaseNotes>
-    <copyright>Copyright 2020</copyright>
+    <releaseNotes>Refactor model binding. Remove depreciated code</releaseNotes>
+    <copyright>Copyright 2021</copyright>
     <tags>DBFacade;DbFacade;dbfacade;domainfacade;DbFacade.Net;DBFacade.Net;dbfacade.net</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.8" />

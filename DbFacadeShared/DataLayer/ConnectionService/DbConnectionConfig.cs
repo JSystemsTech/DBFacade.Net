@@ -15,7 +15,7 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace DbFacade.DataLayer.ConnectionService
 {
-    public abstract class DbConnectionConfigBase: IDbConnectionConfig, IAsyncInit
+    public abstract class DbConnectionConfigBase : IDbConnectionConfig, IAsyncInit
     {
         public async Task InitAsync()
         {

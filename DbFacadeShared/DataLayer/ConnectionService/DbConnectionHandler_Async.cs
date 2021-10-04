@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using DbFacade.DataLayer.CommandConfig;
 using DbFacade.DataLayer.Models;
@@ -18,7 +19,9 @@ namespace DbFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
     {
         private static async Task<IDbResponse<TDbDataModel>> BuildRepsonseAsync<TDbDataModel>(
-            int returnValue, DbDataReader dbDataReader = null,
+            Guid commandId,
+            int returnValue, 
+            DbDataReader dbDataReader = null,
             IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
         {
@@ -26,7 +29,10 @@ namespace DbFacade.DataLayer.ConnectionService
             if (responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 while (await dbDataReader.ReadAsync())
-                    _responseObj.Add(await DbDataModel.ToDbDataModelAsync<TDbDataModel>(dbDataReader));
+                    _responseObj.Add(await DbDataModel.ToDbDataModelAsync<TDbDataModel>(
+                        commandId,
+                        Enumerable.Range(0, dbDataReader.FieldCount).ToDictionary(dbDataReader.GetName, dbDataReader.GetValue)
+                        ));
                 dbDataReader.Close();
             }
             return responseObj;
@@ -65,6 +71,7 @@ namespace DbFacade.DataLayer.ConnectionService
 
                                         transaction.Commit();
                                         return await BuildRepsonseAsync<TDbDataModel>(
+                                            config.DbCommandText.CommandId,
                                             await dbCommand.GetReturnValueAsync(),
                                             null,
                                             await dbCommand.GetOutputValuesAsync());
@@ -76,6 +83,7 @@ namespace DbFacade.DataLayer.ConnectionService
                             using (var dbDataReader = await dbCommand.ExecuteReaderAsync() as TDbDataReader)
                             {
                                 return await BuildRepsonseAsync<TDbDataModel>(
+                                    config.DbCommandText.CommandId,
                                     await dbCommand.GetReturnValueAsync(),
                                     dbDataReader,
                                     await dbCommand.GetOutputValuesAsync());

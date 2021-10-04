@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using DbFacade.DataLayer.CommandConfig;
 using DbFacade.DataLayer.Models;
 using DbFacade.Exceptions;
@@ -17,6 +18,7 @@ namespace DbFacade.DataLayer.ConnectionService
         where TDbDataReader : DbDataReader
     {
         private static IDbResponse<TDbDataModel> BuildRepsonse<TDbDataModel>(
+            Guid commandId,
             int returnValue,
             DbDataReader dbDataReader = null,
             IDictionary<string, object> outputValues = null)
@@ -26,7 +28,10 @@ namespace DbFacade.DataLayer.ConnectionService
             if(responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 while (dbDataReader.Read())
-                    _responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel>(dbDataReader));
+                    _responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel>(
+                        commandId,
+                        Enumerable.Range(0, dbDataReader.FieldCount).ToDictionary(dbDataReader.GetName, dbDataReader.GetValue)
+                        ));
                 dbDataReader.Close();
             }
             return responseObj;
@@ -65,6 +70,7 @@ namespace DbFacade.DataLayer.ConnectionService
 
                                         transaction.Commit();
                                         return BuildRepsonse<TDbDataModel>(
+                                            config.DbCommandText.CommandId,
                                             dbCommand.GetReturnValue(), null,
                                             dbCommand.GetOutputValues());
                                     }
@@ -75,6 +81,7 @@ namespace DbFacade.DataLayer.ConnectionService
                             using (var dbDataReader = dbCommand.ExecuteReader() as TDbDataReader)
                             {
                                 return BuildRepsonse<TDbDataModel>(
+                                    config.DbCommandText.CommandId,
                                     dbCommand.GetReturnValue(),
                                     dbDataReader,
                                     dbCommand.GetOutputValues());

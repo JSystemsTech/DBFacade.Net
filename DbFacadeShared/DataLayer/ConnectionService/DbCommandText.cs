@@ -11,16 +11,11 @@ namespace DbFacade.DataLayer.ConnectionService
 {
     public interface IDbCommandConfig
     {
+        Guid CommandId { get; }
         IDbCommandMethod CreateMethod(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null);
         Task<IDbCommandMethod> CreateMethodAsync(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null);
 
-        [Obsolete("This method is obsolete. Call CreateParameterlessMethod instead.", true)]
-        IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessConfig<TDbDataModel>(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
-            where TDbDataModel : DbDataModel;
-        [Obsolete("This method is obsolete. Call CreateParameterlessMethodAsync instead.", true)]
-        Task<IParameterlessDbCommandMethod<TDbDataModel>> CreateParameterlessConfigAsync<TDbDataModel>(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null)
-            where TDbDataModel : DbDataModel;
-
+        
 
         IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessMethod<TDbDataModel>(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
             where TDbDataModel : DbDataModel;
@@ -80,6 +75,7 @@ namespace DbFacade.DataLayer.ConnectionService
 
     }
     internal abstract class DbCommandSettingsBase{
+        public Guid CommandId { get; protected set; }
         public string CommandText { get; protected set; }
         public string Label { get; protected set; }
         public CommandType CommandType { get; protected set; }
@@ -97,6 +93,7 @@ namespace DbFacade.DataLayer.ConnectionService
             bool isTransaction = false,
             bool requiresValidation = false)
         {
+            CommandId = Guid.NewGuid();
             CommandText = commandText;
             Label = label;
             CommandType = commandType;
@@ -124,10 +121,6 @@ namespace DbFacade.DataLayer.ConnectionService
         public IDbCommandMethod CreateMethod(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
         => DbCommandMethod.Create<TDbConnectionConfig>(this, parametersInitializer);
 
-        [Obsolete("This method is obsolete. Call CreateParameterlessMethod instead.", true)]
-        public IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessConfig<TDbDataModel>(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
-            where TDbDataModel : DbDataModel
-        => ParameterlessDbCommandMethod<TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer);
         public IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessMethod<TDbDataModel>(Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
             where TDbDataModel : DbDataModel
         => ParameterlessDbCommandMethod<TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer);
@@ -165,10 +158,7 @@ namespace DbFacade.DataLayer.ConnectionService
 
         public async Task<IDbCommandMethod> CreateMethodAsync(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null)
         => await DbCommandMethod.CreateAsync<TDbConnectionConfig>(this, parametersInitializer);
-        [Obsolete("This method is obsolete. Call CreateParameterlessMethodAsync instead.", true)]
-        public async Task<IParameterlessDbCommandMethod<TDbDataModel>> CreateParameterlessConfigAsync<TDbDataModel>(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null)
-            where TDbDataModel : DbDataModel
-        => await ParameterlessDbCommandMethod<TDbDataModel>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer);
+        
         public async Task<IParameterlessDbCommandMethod<TDbDataModel>> CreateParameterlessMethodAsync<TDbDataModel>(Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null)
             where TDbDataModel : DbDataModel
         => await ParameterlessDbCommandMethod<TDbDataModel>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer);

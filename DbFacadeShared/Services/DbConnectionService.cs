@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace DbFacade.Services
 {
-    public sealed class DbConnectionService
+    public static class DbConnectionService
     {
         private static ConcurrentDictionary<Type, DbConnectionConfigBase> connectionConfigs = new ConcurrentDictionary<Type, DbConnectionConfigBase>();
-        public async Task InitAsync()
-        {
-            await Task.CompletedTask;
-        }
+        
         internal static TDbConnectionConfig Get<TDbConnectionConfig>()
             where TDbConnectionConfig : DbConnectionConfigBase
         {
@@ -23,7 +20,7 @@ namespace DbFacade.Services
             }
             throw new DbConnectionConfigNotRegisteredException(type);
         }
-        public static void Register<TDbConnectionConfig>(TDbConnectionConfig config)
+        public static void Register<TDbConnectionConfig>(this TDbConnectionConfig config)
             where TDbConnectionConfig : DbConnectionConfigBase
         {
             connectionConfigs.GetOrAdd(typeof(TDbConnectionConfig), config);
@@ -41,7 +38,7 @@ namespace DbFacade.Services
             await Task.CompletedTask;
             throw new DbConnectionConfigNotRegisteredException(type);
         }
-        public static async Task RegisterAsync<TDbConnectionConfig>(TDbConnectionConfig config)
+        public static async Task RegisterAsync<TDbConnectionConfig>(this TDbConnectionConfig config)
             where TDbConnectionConfig : DbConnectionConfigBase
         {
             connectionConfigs.GetOrAdd(typeof(TDbConnectionConfig), config);

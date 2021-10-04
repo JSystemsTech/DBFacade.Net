@@ -357,6 +357,13 @@ namespace DbFacade.Factories
         public async Task<IValidationRule<TDbParams>> DelegateAsync<T>(Expression<Func<TDbParams, T>> selector,
             Func<T, Task<bool>> handler)
         => await ValidationRule<TDbParams>.DelegateRule<T>.CreateAsync(selector, handler);
+
+        public IValidationRule<TDbParams> Delegate(Func<TDbParams, bool> handler, Func<string, string> errorMessageHandler)
+        => new ValidationRule<TDbParams>.DelegateRule(handler, errorMessageHandler);
+
+        public async Task<IValidationRule<TDbParams>> DelegateAsync(Func<TDbParams, Task<bool>> handler, Func<string, string> errorMessageHandler)
+        => await ValidationRule<TDbParams>.DelegateRule.CreateAsync(handler, errorMessageHandler);
+        
         #endregion
 
         #region Numeric

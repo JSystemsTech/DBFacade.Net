@@ -11,12 +11,13 @@ namespace DbFacadeUnitTests.TestFacade
     {
         public UnitTestDomainFacade()
         {
-            UnitTestConnection connection = new UnitTestConnection(1);
-            DbConnectionService.Register(connection);
+            new UnitTestConnection(1).Register();
         }
         public IDbResponse TestUnregisteredConnectionCall()=> UnregisteredConnectionUnitTestMethods.TestUnregisteredConnectionCall.Mock(1);
         public IDbResponse<FetchData> TestFetchData()
-            => UnitTestMethods.TestFetchData.Mock(new ResponseData { MyString = "test string" }, 0);
+            => UnitTestMethods.TestFetchData.Mock(new ResponseData { MyString = "test string",MyEnum=1 }, 0);
+        public IDbResponse<FetchData> TestFetchDataAlt()
+            => UnitTestMethods.TestFetchDataAlt.Mock(new ResponseDataAlt { MyStringAlt = "test string", MyEnumAlt = 1 }, 0);
         public IDbResponse<FetchDataWithBadDbColumn> TestFetchDataWithBadDbColumn()
             => UnitTestMethods.TestFetchDataWithBadDbColumn.Mock(new ResponseData { MyString = "test string" }, 0);
         public IDbResponse<FetchDataWithNested> TestFetchDataWithNested()
@@ -33,7 +34,9 @@ namespace DbFacadeUnitTests.TestFacade
         #region Async Calls
         public async Task<IDbResponse> TestUnregisteredConnectionCallAsync() => await UnregisteredConnectionUnitTestMethods.TestUnregisteredConnectionCall.MockAsync(1);
         public async Task<IDbResponse<FetchData>> TestFetchDataAsync()
-            => await UnitTestMethods.TestFetchData.MockAsync(new ResponseData { MyString = "test string" }, 0);
+            => await UnitTestMethods.TestFetchData.MockAsync(new ResponseData { MyString = "test string", MyEnum = 1 }, 0);
+        public async Task<IDbResponse<FetchData>> TestFetchDataAltAsync()
+            => await UnitTestMethods.TestFetchDataAlt.MockAsync(new ResponseDataAlt { MyStringAlt = "test string", MyEnumAlt = 1 }, 0);
         public async Task<IDbResponse<FetchDataWithBadDbColumn>> TestFetchDataWithBadDbColumnAsync()
             => await UnitTestMethods.TestFetchDataWithBadDbColumn.MockAsync(new ResponseData { MyString = "test string" }, 0);
         public async Task<IDbResponse<FetchDataWithNested>> TestFetchDataWithNestedAsync()

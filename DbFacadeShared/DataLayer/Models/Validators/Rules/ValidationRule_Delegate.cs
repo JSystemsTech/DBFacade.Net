@@ -15,6 +15,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         {
             private Func<T, bool> DelegateRuleHandler{ get; set; }
             private Func<T, Task<bool>> DelegateRuleHandlerAsync { get; set; }
+
             private DelegateRule(){}
 
             public DelegateRule(Expression<Func<TDbParams, T>> selector, Func<T, bool> handler)
@@ -42,11 +43,50 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
 
             protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
             {
+                string message = $"{propertyName} expecting delegate to pass validation";
                 await Task.CompletedTask;
-                return $"{propertyName} expecting delegate to pass validation";
+                return message;
             }
             
 
+        }
+        internal class DelegateRule : ValidationRule<TDbParams>
+        {
+            private Func<TDbParams, bool> DelegateRuleHandler { get; set; }
+            private Func<TDbParams, Task<bool>> DelegateRuleHandlerAsync { get; set; }
+
+            private Func<string, string> ErrorMessageHandler { get; set; }
+            private DelegateRule() { }
+
+            public DelegateRule(Func<TDbParams, bool> handler, Func<string, string> errorMessageHandler)
+            {
+                Init();
+                ErrorMessageHandler = errorMessageHandler;
+                DelegateRuleHandler = handler;
+            }
+            public static async Task<DelegateRule> CreateAsync(Func<TDbParams, Task<bool>> handler, Func<string, string> errorMessageHandler)
+            {
+                DelegateRule rule = new DelegateRule();
+                rule.ErrorMessageHandler = errorMessageHandler;
+                rule.DelegateRuleHandlerAsync = handler;
+                await rule.InitAsync();
+                return rule;
+            }
+            protected override bool ValidateRule()
+            => DelegateRuleHandler((TDbParams)ParamsValue);
+
+            protected override async Task<bool> ValidateRuleAsync()
+            => await DelegateRuleHandlerAsync((TDbParams)ParamsValue);
+
+            protected override string GetErrorMessageCore(string propertyName)
+            => ErrorMessageHandler(propertyName);
+
+            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            {
+                string message = ErrorMessageHandler(propertyName);
+                await Task.CompletedTask;
+                return message;
+            }
         }
     }
 }

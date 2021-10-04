@@ -29,6 +29,9 @@ namespace DbFacadeUnitTests.Tests.Validator
                 v.Add(v.Rules.Delegate(model => model.String, Validates));
                 v.Add(v.Rules.Delegate(model => model.String, value => true));
                 v.Add(v.Rules.Delegate(model => model.Short, value => value == 10));
+                v.Add(v.Rules.Delegate(model => {
+                    return Validates(model.String) || model.Short == 10;
+                }, p=> "Did not pass custom validation"));
             });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
@@ -40,10 +43,13 @@ namespace DbFacadeUnitTests.Tests.Validator
                 v.Add(v.Rules.Delegate(model => model.String, Invalidates));
                 v.Add(v.Rules.Delegate(model => model.String, value => false));
                 v.Add(v.Rules.Delegate(model => model.Short, value => value == 11));
+                v.Add(v.Rules.Delegate(model => {
+                    return Invalidates(model.String) || model.Short == 11;
+                }, p => "Did not pass custom validation"));
             });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
-            HasCorrectErrorCount(result, 3);
+            HasCorrectErrorCount(result, 4);
         }
 
 
@@ -56,6 +62,10 @@ namespace DbFacadeUnitTests.Tests.Validator
                     await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, ValidatesAsync));
                     await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, async value => await Task.Run(() => true)));
                     await v.AddAsync(await v.Rules.DelegateAsync(model => model.Short, async value => await Task.Run(() => value == 10)));
+                    await v.AddAsync(await v.Rules.DelegateAsync(async model => await Task.Run(() =>
+                    {
+                        return Validates(model.String) || model.Short == 10;
+                    }), p => "Did not pass custom validation"));
                 });
                 var result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
@@ -71,10 +81,14 @@ namespace DbFacadeUnitTests.Tests.Validator
                     await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, InvalidatesAsync));
                     await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, async value => await Task.Run(() => false)));
                     await v.AddAsync(await v.Rules.DelegateAsync(model => model.Short, async value => await Task.Run(() => value == 11)));
+                    await v.AddAsync(await v.Rules.DelegateAsync(async model => await Task.Run(() =>
+                    {
+                        return Invalidates(model.String) || model.Short == 11;
+                    }), p => "Did not pass custom validation"));
                 });
                 var result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);
-                await HasCorrectErrorCountAsync(result, 3);
+                await HasCorrectErrorCountAsync(result, 4);
             });
         }
     }        
