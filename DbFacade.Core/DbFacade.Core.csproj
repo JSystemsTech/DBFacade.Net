@@ -13,7 +13,7 @@
     <PackageTags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net</PackageTags>
     <PackageIcon>icon.jpg</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://jsystemstech.azurewebsites.net/DbFacade.Net</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/JSystemsTech/DBFacade.Net</PackageProjectUrl>
     <PackageReleaseNotes>Refactor model binding. Remove depreciated code</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
