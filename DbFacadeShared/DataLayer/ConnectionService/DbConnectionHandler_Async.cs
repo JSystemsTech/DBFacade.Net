@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -29,10 +30,14 @@ namespace DbFacade.DataLayer.ConnectionService
             if (responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 while (await dbDataReader.ReadAsync())
-                    _responseObj.Add(await DbDataModel.ToDbDataModelAsync<TDbDataModel>(
-                        commandId,
-                        Enumerable.Range(0, dbDataReader.FieldCount).ToDictionary(dbDataReader.GetName, dbDataReader.GetValue)
-                        ));
+                {
+                    ConcurrentDictionary<string, object> dataRow = new ConcurrentDictionary<string, object>();
+                    foreach (int ordinal in Enumerable.Range(0, dbDataReader.FieldCount))
+                    {
+                        dataRow.TryAdd(dbDataReader.GetName(ordinal), dbDataReader.GetValue(ordinal));
+                    }
+                    _responseObj.Add(await DbDataModel.ToDbDataModelAsync<TDbDataModel>(commandId, dataRow));
+                }                    
                 dbDataReader.Close();
             }
             return responseObj;
