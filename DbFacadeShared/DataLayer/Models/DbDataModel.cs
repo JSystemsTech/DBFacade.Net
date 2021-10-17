@@ -36,9 +36,9 @@ namespace DbFacade.DataLayer.Models
         [JsonIgnore]
         public bool HasDataBindingErrors { get => DataBindingErrors != null && DataBindingErrors.Any(); }
         [JsonIgnore]
-        private IDictionary<string, object> Data { get; set; }
+        internal IDictionary<string, object> Data { get; set; }
         [JsonIgnore]
-        private  Guid CommandId { get; set; }
+        internal Guid CommandId { get; set; }
 
         protected bool IsDbCommand(IDbCommandConfig config) => config.CommandId == CommandId;
         internal static TDbDataModel ToDbDataModel<TDbDataModel>(Guid commandId, IDictionary<string, object> data)
@@ -140,4 +140,6 @@ namespace DbFacade.DataLayer.Models
             where T: IComparable
         => GetColumn<T>(col).CompareTo(trueValue) == 0;
     }
+
+    
 }

@@ -25,8 +25,8 @@ namespace DbFacade.Extensions
                 if (parameter != null)
                 {
                     parameter.Direction = paramConfig.ParameterDirection;
-                    parameter.ParameterName = $"@{config.Key}";                    
-
+                    parameter.ParameterName = $"@{config.Key}";
+                    parameter.DbType = paramConfig.DbType;
                     if (parameter.Direction != ParameterDirection.ReturnValue)
                     {
                         parameter.IsNullable = paramConfig.IsNullable;
@@ -38,7 +38,7 @@ namespace DbFacade.Extensions
                     }
                     else if(parameter.Direction == ParameterDirection.Output)
                     {
-                        parameter.Size = paramConfig.OutputSize;
+                        parameter.Size = paramConfig.OutputSize is int outputSize ? outputSize : int.MaxValue;
                     }
                 }
                 dbCommand.Parameters.Add(parameter);
@@ -59,20 +59,18 @@ namespace DbFacade.Extensions
                 {
                     parameter.Direction = paramConfig.ParameterDirection;
                     parameter.ParameterName = $"@{config.Key}";
-                    parameter.IsNullable = paramConfig.IsNullable;
-
+                    parameter.DbType = paramConfig.DbType;
                     if (parameter.Direction != ParameterDirection.ReturnValue)
                     {
                         parameter.IsNullable = paramConfig.IsNullable;
                     }
-                    if (parameter.Direction == ParameterDirection.Input)
-                    {
-                        parameter.DbType = paramConfig.DbType;
+                    if (parameter.Direction == ParameterDirection.Input)                    {
+                        
                         parameter.Value = await paramConfig.ValueAsync(model);
                     }
                     else if (parameter.Direction == ParameterDirection.Output)
                     {
-                        parameter.Size = paramConfig.OutputSize;
+                        parameter.Size = paramConfig.OutputSize is int outputSize ? outputSize : int.MaxValue;
                     }
                     dbCommand.Parameters.Add(parameter);
                 }                

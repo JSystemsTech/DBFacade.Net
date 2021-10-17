@@ -108,9 +108,6 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.IsNotNull(model.PublicKey);
             Assert.AreNotEqual(new Guid(), model.PublicKey);
 
-            Assert.IsNotNull(data.OutputValues);
-            Assert.IsTrue(data.OutputValues.Count > 0);
-            Assert.IsTrue(data.OutputValues.ContainsKey("MyStringOutputParam"));
             Assert.AreEqual(data.GetOutputValue("MyStringOutputParam"), "output response");
             Assert.AreEqual(data.GetOutputValue<string>("MyStringOutputParam"), "output response");
         }
@@ -171,9 +168,6 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.IsFalse(response.IsNull);
             Assert.AreEqual(10, response.ReturnValue);
 
-            Assert.IsNotNull(response.OutputValues);
-            Assert.IsTrue(response.OutputValues.Count > 0);
-            Assert.IsTrue(response.OutputValues.ContainsKey("MyStringOutputParam"));
             Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
             Assert.AreEqual(response.GetOutputValue<string>("MyStringOutputParam"), "output response");
         }
@@ -292,9 +286,6 @@ namespace DbFacadeUnitTests.Tests.Facade
                 Assert.IsNotNull(model.PublicKey);
                 Assert.AreNotEqual(new Guid(), model.PublicKey);
 
-                Assert.IsNotNull(response.OutputValues);
-                Assert.IsTrue(response.OutputValues.Count > 0);
-                Assert.IsTrue(response.OutputValues.ContainsKey("MyStringOutputParam"));
                 Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
                 Assert.AreEqual(response.GetOutputValue<string>("MyStringOutputParam"), "output response");
 
@@ -382,9 +373,6 @@ namespace DbFacadeUnitTests.Tests.Facade
                 Assert.IsFalse(response.IsNull);
                 Assert.AreEqual(10, response.ReturnValue);
 
-                Assert.IsNotNull(response.OutputValues);
-                Assert.IsTrue(response.OutputValues.Count > 0);
-                Assert.IsTrue(response.OutputValues.ContainsKey("MyStringOutputParam"));
                 Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
                 Assert.AreEqual(response.GetOutputValue<string>("MyStringOutputParam"), "output response");
                 await Task.CompletedTask;

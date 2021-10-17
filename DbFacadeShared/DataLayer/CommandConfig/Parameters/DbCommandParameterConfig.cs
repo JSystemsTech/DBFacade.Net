@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         public DbType DbType { get; protected set; }
         public bool IsNullable { get; set; }
         public bool IsOutput { get; private set; }
-        public int OutputSize { get; protected set; }
+        public int? OutputSize { get; protected set; }
         public ParameterDirection ParameterDirection { get; protected set; }
 
 
@@ -90,14 +91,14 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
             await Task.CompletedTask;
             return dbType;
         }
-        internal static DbCommandParameterConfig<TDbParams> CreateOutput(DbType dbType, int size)
+        internal static DbCommandParameterConfig<TDbParams> CreateOutput(DbType dbType, int? size = null)
         {
             DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>(dbType, true);
             config.OutputSize = size;
             config.ParameterDirection = ParameterDirection.Output;
             return config;
         }
-        internal static async Task<DbCommandParameterConfig<TDbParams>> CreateOutputAsync(DbType dbType, int size)
+        internal static async Task<DbCommandParameterConfig<TDbParams>> CreateOutputAsync(DbType dbType, int? size = null)
         {
             DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>();
             await config.InitAsync(dbType, true);

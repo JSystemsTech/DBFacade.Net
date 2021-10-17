@@ -23,6 +23,7 @@ namespace DbFacadeUnitTests.Models
         public string Flag = "TRUE";
         public int FlagIntFalse = 0;
         public string FlagFalse = "FALSE";
+        public char MyChar = 'c';
     }
     class ResponseDataAlt
     {

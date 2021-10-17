@@ -36,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\IDbParamsModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\IDbResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\OutputDbDataModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\IValidationRule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRuleResult.cs" />

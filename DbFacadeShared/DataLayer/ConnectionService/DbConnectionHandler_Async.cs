@@ -26,7 +26,7 @@ namespace DbFacade.DataLayer.ConnectionService
             IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
         {
-            var responseObj = await DbResponseFactory<TDbDataModel>.CreateAsync(returnValue, outputValues);
+            var responseObj = await DbResponseFactory<TDbDataModel>.CreateAsync(commandId, returnValue, outputValues);
             if (responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 while (await dbDataReader.ReadAsync())

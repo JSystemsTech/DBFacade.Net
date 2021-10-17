@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,40 +13,40 @@ namespace DbFacade.DataLayer.Models
         where TDbDataModel : DbDataModel
     {
         private static bool IsEmptyDataReturn = typeof(TDbDataModel) == typeof(DbDataModel);
-        public static IDbResponse<TDbDataModel> Create()
+        public static IDbResponse<TDbDataModel> Create(Guid commandId)
             => !IsEmptyDataReturn ?
-                new DbResponse<TDbDataModel>() :
-                (IDbResponse<TDbDataModel>)new DbResponse();
-        public static IDbResponse<TDbDataModel> Create(int returnValue = 0, IDictionary<string, object> outputValues = null)
+                new DbResponse<TDbDataModel>(commandId) :
+                (IDbResponse<TDbDataModel>)new DbResponse(commandId);
+        public static IDbResponse<TDbDataModel> Create(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
             => !IsEmptyDataReturn ?
-                new DbResponse<TDbDataModel>(returnValue, outputValues) :
-                (IDbResponse<TDbDataModel>)new DbResponse(returnValue, outputValues);
-        public static async Task<IDbResponse<TDbDataModel>> CreateAsync()
+                new DbResponse<TDbDataModel>(commandId, returnValue, outputValues) :
+                (IDbResponse<TDbDataModel>)new DbResponse(commandId, returnValue, outputValues);
+        public static async Task<IDbResponse<TDbDataModel>> CreateAsync(Guid commandId)
             => !IsEmptyDataReturn ?
-                await DbResponse<TDbDataModel>.CreateAsync() :
-                (IDbResponse<TDbDataModel>) await DbResponse.CreateAsync();
-        public static async Task<IDbResponse<TDbDataModel>> CreateAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
+                await DbResponse<TDbDataModel>.CreateAsync(commandId) :
+                (IDbResponse<TDbDataModel>) await DbResponse.CreateAsync(commandId);
+        public static async Task<IDbResponse<TDbDataModel>> CreateAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
             => !IsEmptyDataReturn ?
-                await DbResponse<TDbDataModel>.CreateAsync(returnValue, outputValues) :
-                (IDbResponse<TDbDataModel>)await DbResponse.CreateAsync(returnValue, outputValues);
+                await DbResponse<TDbDataModel>.CreateAsync(commandId, returnValue, outputValues) :
+                (IDbResponse<TDbDataModel>)await DbResponse.CreateAsync(commandId, returnValue, outputValues);
 
 
     }
     internal class DbResponse : DbResponse<DbDataModel>, IDbResponse
     {
-        public DbResponse():base() { }
-        public DbResponse(int returnValue = 0, IDictionary<string, object> outputValues = null) 
-            :base(returnValue, outputValues) { }
-        public static new async Task<DbResponse> CreateAsync()
+        public DbResponse(Guid commandId) :base(commandId) { }
+        public DbResponse(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null) 
+            :base(commandId, returnValue, outputValues) { }
+        public static new async Task<DbResponse> CreateAsync(Guid commandId)
         {
-            DbResponse response = new DbResponse();
-            await response.InitializeAsync();
+            DbResponse response = new DbResponse(commandId);
+            await response.InitializeAsync(commandId);
             return response;
         }
-        public static new async Task<DbResponse> CreateAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
+        public static new async Task<DbResponse> CreateAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
-            DbResponse response = new DbResponse();
-            await response.InitializeAsync(returnValue, outputValues);
+            DbResponse response = new DbResponse(commandId);
+            await response.InitializeAsync(commandId, returnValue, outputValues);
             return response;
         }
     }
@@ -53,54 +54,83 @@ namespace DbFacade.DataLayer.Models
         where TDbDataModel : DbDataModel
     {
         public bool HasDataBindingErrors { get=> this.Any(item=>item.HasDataBindingErrors);}
+        private IDictionary<string, object> OutputValues { get; set; }
+        public bool IsNull { get; private set; }
+        public Guid CommandId { get; private set; }
         public DbResponse()
         {
             IsNull = true;
         }
-        public static async Task<DbResponse<TDbDataModel>> CreateAsync()
-        {
-            DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
-            await response.InitializeAsync();
-            return response;
-        }
-        public static async Task<DbResponse<TDbDataModel>> CreateAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
-        {
-            DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
-            await response.InitializeAsync(returnValue, outputValues);
-            return response;
-        }
-        protected async Task InitializeAsync()
+        public DbResponse(Guid commandId)
         {
             IsNull = true;
+            CommandId = commandId;
+        }
+        public static async Task<DbResponse<TDbDataModel>> CreateAsync(Guid commandId)
+        {
+            DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
+            await response.InitializeAsync(commandId);
+            return response;
+        }
+        public static async Task<DbResponse<TDbDataModel>> CreateAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
+        {
+            DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
+            await response.InitializeAsync(commandId,returnValue, outputValues);
+            return response;
+        }
+        protected async Task InitializeAsync(Guid commandId)
+        {
+            IsNull = true;
+            CommandId = commandId;
             await Task.CompletedTask;
         }
-        protected async Task InitializeAsync(int returnValue = 0, IDictionary<string, object> outputValues = null)
+        protected async Task InitializeAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             IsNull = false;
+            CommandId = commandId;
             ReturnValue = returnValue;
             OutputValues = outputValues;
             await Task.CompletedTask;
         }
-        public DbResponse(int returnValue = 0, IDictionary<string, object> outputValues = null)
+        public DbResponse(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             ReturnValue = returnValue;
             OutputValues = outputValues;
+            CommandId = commandId;
         }
 
         public int ReturnValue { get; private set; }
         public object GetOutputValue(string key)
         {
-            object value;
-            if(OutputValues != null && OutputValues.TryGetValue(key, out value))
+            object value = null;
+            if (OutputValues != null && OutputValues.TryGetValue(key, out object val))
             {
-                return value;
+                value = val;
             }
-            return null;
+            return value;
         }
         public T GetOutputValue<T>(string key)
-        => GetOutputValue(key) is T value ? value : default(T);
-        public IDictionary<string, object> OutputValues { get; private set; }
-        public bool IsNull { get; private set; }
+        => OutputDbDataModel<T>.ToDbDataModel(CommandId, OutputValues, key).Value;
+        public T GetOutputModel<T>() where T: DbDataModel
+        => DbDataModel.ToDbDataModel<T>(CommandId, OutputValues);
+
+        public async Task<object> GetOutputValueAsync(string key)
+        {
+            object value = null;
+            if (OutputValues != null && OutputValues.TryGetValue(key, out object val))
+            {
+                value = val;
+            }
+            await Task.CompletedTask;
+            return value;
+        }
+        public async Task<T> GetOutputValueAsync<T>(string key)
+        {
+            var model = await OutputDbDataModel<T>.ToDbDataModelAsync(CommandId, OutputValues, key);
+            return model.Value;
+        }
+        public async Task<T> GetOutputModelAsync<T>() where T : DbDataModel
+        => await DbDataModel.ToDbDataModelAsync<T>(CommandId, OutputValues);
 
         public string ToJson()
         {

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net.Core</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
@@ -14,7 +14,7 @@
     <PackageIcon>icon.jpg</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/JSystemsTech/DBFacade.Net</PackageProjectUrl>
-    <PackageReleaseNotes>Refactor model binding. Remove depreciated code</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix issue with output parameters always returning strings. Refactor output parameters to use DbDataModel</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

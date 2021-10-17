@@ -63,11 +63,17 @@ namespace DbFacade.DataLayer.Models
         where TDbDataModel : DbDataModel
     {
         int ReturnValue { get; }
-        IDictionary<string, object> OutputValues { get; }
-        object GetOutputValue(string key);
-        T GetOutputValue<T>(string key);
         bool IsNull { get; }
         bool HasDataBindingErrors { get; }
+        Guid CommandId { get; }
+
+        object GetOutputValue(string key);
+        T GetOutputValue<T>(string key);
+        T GetOutputModel<T>() where T : DbDataModel;
+
+        Task<object> GetOutputValueAsync(string key);
+        Task<T> GetOutputValueAsync<T>(string key);
+        Task<T> GetOutputModelAsync<T>() where T : DbDataModel;
     }
     public interface IDbResponse : IDbResponse<DbDataModel> { }
 }

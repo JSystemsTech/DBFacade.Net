@@ -25,7 +25,7 @@ namespace DbFacade.DataLayer.ConnectionService
             IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
         {
-            var responseObj = DbResponseFactory<TDbDataModel>.Create(returnValue, outputValues);
+            var responseObj = DbResponseFactory<TDbDataModel>.Create(commandId, returnValue, outputValues);
             if(responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 while (dbDataReader.Read())

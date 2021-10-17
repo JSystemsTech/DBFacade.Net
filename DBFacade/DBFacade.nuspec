@@ -12,7 +12,7 @@
     <icon>icon.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Refactor model binding. Remove depreciated code</releaseNotes>
+    <releaseNotes>Fix issue with output parameters always returning strings. Refactor output parameters to use DbDataModel</releaseNotes>
     <copyright>Copyright 2021</copyright>
     <tags>DBFacade;DbFacade;dbfacade;domainfacade;DbFacade.Net;DBFacade.Net;dbfacade.net</tags>
     <dependencies>

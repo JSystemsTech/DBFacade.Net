@@ -16,6 +16,7 @@ namespace DbFacadeUnitTests.Models
     {
         public FetchDataEnum MyEnum { get; internal set; }
         public string MyString { get; internal set; }
+        public string MyChar { get; internal set; }
         public int Integer { get; internal set; }
         public int? IntegerOptional { get; internal set; }
         public int? IntegerOptionalNull { get; internal set; }
@@ -27,6 +28,7 @@ namespace DbFacadeUnitTests.Models
             bool isAltCall = IsDbCommand(UnitTestConnection.TestFetchDataAlt);
             MyEnum = GetColumn<FetchDataEnum>(isAltCall ? "MyEnumAlt" : "MyEnum");
             MyString = GetColumn<string>(isAltCall ? "MyStringAlt" : "MyString");
+            MyChar = GetColumn<string>(isAltCall ? "MyCharAlt" : "MyChar");
             Integer = GetColumn<int>(isAltCall ? "IntegerAlt" : "Integer");
             IntegerOptional = GetColumn<int?>(isAltCall ? "IntegerOptionalAlt" : "IntegerOptional");
             IntegerOptionalNull = GetColumn<int?>(isAltCall ? "IntegerOptionalAlt" : "IntegerOptional");

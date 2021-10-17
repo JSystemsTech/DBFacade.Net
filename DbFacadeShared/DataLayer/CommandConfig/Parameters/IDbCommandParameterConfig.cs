@@ -15,7 +15,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         bool IsNullable { get; }
         ParameterDirection ParameterDirection { get;}
         bool IsOutput { get; }
-        int OutputSize { get; }
+        int? OutputSize { get; }
         object Value(TDbParams model);
         Task<object> ValueAsync(TDbParams model);
     }
