@@ -12,14 +12,14 @@ namespace DbFacadeUnitTests.Models
         bool StopAtStep2 { get; }
         bool StopAtStep3 { get; }
     }
-    public class UnitTestDbParamsForManager : DbParamsModel, IUnitTestDbParamsModel
+    public class UnitTestDbParamsForManager : IUnitTestDbParamsModel
     {
         public bool IsValidModel { get; internal set; }
         public bool StopAtStep1 { get; internal set; }
         public bool StopAtStep2 { get; internal set; }
         public bool StopAtStep3 { get; internal set; }
     }
-    public class UnitTestDbParams : DbParamsModel
+    public class UnitTestDbParams
     {
         public object Null = null;
         public object EmptyString = string.Empty;

@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 namespace DbFacade.DataLayer.Models.Validators.Rules
 {
     public abstract partial class ValidationRule<TDbParams>
-        where TDbParams : DbParamsModel
     {
         
         internal sealed class IsDateTimeRule : ValidationRule<TDbParams>
         {
             private IsDateTimeRule() { }
-            public IsDateTimeRule(Expression<Func<TDbParams, string>> selector, string dateFormat = null,
+            public IsDateTimeRule(Func<TDbParams, string> selector, string dateFormat = null,
                 bool isNullable = false, CultureInfo cultureInfo = null, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
             {
                 DateFormat = dateFormat;
@@ -21,7 +20,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 Init(selector, isNullable);
             }
             public static async Task<IsDateTimeRule>CreateAsync(
-                Expression<Func<TDbParams, string>> selector,
+                Func<TDbParams, string> selector,
                 string dateFormat = null, 
                 bool isNullable = false,                 
                 CultureInfo cultureInfo = null, 
@@ -85,12 +84,12 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 await Task.CompletedTask;
                 return dateTime;
             }
-            protected override string GetErrorMessageCore(string propertyName)
-            => $"{propertyName} is not a Valid DateTime.";
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override string GetErrorMessageCore()
+            => $"not a Valid DateTime.";
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} is not a Valid DateTime.";
+                return $"not a Valid DateTime.";
             }
 
             protected override bool ValidateRule()

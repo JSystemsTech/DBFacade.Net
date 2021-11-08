@@ -7,9 +7,8 @@ using DbFacade.Utils;
 
 namespace DbFacade.Factories
 {
-    public delegate T DelegateHandler<TDbParams, T>(TDbParams value) where TDbParams : DbParamsModel;
+    public delegate T DelegateHandler<TDbParams, T>(TDbParams value);
     public sealed class DbCommandParameterConfigFactory<TDbParams>
-        where TDbParams : DbParamsModel
     {
         internal static async Task<DbCommandParameterConfigFactory<TDbParams>> CreateAsync()
         {

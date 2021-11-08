@@ -16,39 +16,38 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     }
 
     public abstract partial class ValidationRule<TDbParams>
-        where TDbParams : DbParamsModel
     {
         internal class MatchRule : ValidationRule<TDbParams>
         {
             protected MatchRule(){}
-            public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr,
+            public MatchRule(Func<TDbParams, string> selector, string regexMatchStr,
                 bool isNullable = false) : this(selector, regexMatchStr, RegexOptions.IgnoreCase, isNullable) { }
-            public MatchRule(Expression<Func<TDbParams, string>> selector, string regexMatchStr, RegexOptions options,
+            public MatchRule(Func<TDbParams, string> selector, string regexMatchStr, RegexOptions options,
                 bool isNullable = false)
             {
                 Init(selector, isNullable);
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
             }
-            public static async Task<MatchRule> CreateAsync(Expression<Func<TDbParams, string>> selector, string regexMatchStr, RegexOptions options,
+            public static async Task<MatchRule> CreateAsync(Func<TDbParams, string> selector, string regexMatchStr, RegexOptions options,
                 bool isNullable = false)
             {
                 MatchRule rule = new MatchRule();
                 await rule.InitAsync(selector, regexMatchStr, options, isNullable);                
                 return rule;
             }
-            public static async Task<MatchRule> CreateAsync(Expression<Func<TDbParams, string>> selector, string regexMatchStr,
+            public static async Task<MatchRule> CreateAsync(Func<TDbParams, string> selector, string regexMatchStr,
                 bool isNullable = false)
             => await CreateAsync(selector, regexMatchStr, RegexOptions.IgnoreCase, isNullable);
 
-            protected async Task InitAsync(Expression<Func<TDbParams, string>> selector, string regexMatchStr, RegexOptions options,
+            protected async Task InitAsync(Func<TDbParams, string> selector, string regexMatchStr, RegexOptions options,
                 bool isNullable = false)
             {
                 MatchStr = regexMatchStr;
                 RegexOptions = options;
                 await InitAsync(selector, isNullable);
             }
-            protected async Task InitAsync(Expression<Func<TDbParams, string>> selector, string regexMatchStr,
+            protected async Task InitAsync(Func<TDbParams, string> selector, string regexMatchStr,
                 bool isNullable = false)
             {
                 await InitAsync(selector, regexMatchStr, RegexOptions.IgnoreCase, isNullable);
@@ -68,13 +67,13 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return val;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
-            => $"{propertyName} does not match the expression.";
+            protected override string GetErrorMessageCore()
+            => $"does not match the expression.";
 
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} does not match the expression."; 
+                return $"does not match the expression."; 
             }
 
         }
@@ -82,18 +81,18 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         internal sealed class IsNDigitStringRule : MatchRule
         {
             private IsNDigitStringRule() { }
-            public IsNDigitStringRule(Expression<Func<TDbParams, string>> selector, int length, bool isNullable = false)
+            public IsNDigitStringRule(Func<TDbParams, string> selector, int length, bool isNullable = false)
                 : base(selector, $"(?<!\\d)\\d{{{length}}}(?!\\d)", isNullable)
             {
                 Length = length;
             }
-            public static async Task<IsNDigitStringRule> CreateAsync(Expression<Func<TDbParams, string>> selector, int length, bool isNullable = false)
+            public static async Task<IsNDigitStringRule> CreateAsync(Func<TDbParams, string> selector, int length, bool isNullable = false)
             {
                 IsNDigitStringRule rule = new IsNDigitStringRule();
                 await rule.InitAsync(selector, length, isNullable);
                 return rule;
             }
-            private async Task InitAsync(Expression<Func<TDbParams, string>> selector, int length, bool isNullable = false)
+            private async Task InitAsync(Func<TDbParams, string>  selector, int length, bool isNullable = false)
             {
                 Length = length;
                 await InitAsync(selector, $"(?<!\\d)\\d{{{length}}}(?!\\d)", isNullable);
@@ -112,16 +111,16 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return isLengthN && baseValidation;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             => (Length <= 0 || ParamsValue.ToString().Length != Length) ?
-                $"Length of {propertyName} is not equal to {Length}":
-                $"{propertyName} is not a {Length} digit string";
+                $"Length is not equal to {Length}":
+                $"not a {Length} digit string";
 
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 string message = (Length <= 0 || ParamsValue.ToString().Length != Length) ?
-                $"Length of {propertyName} is not equal to {Length}" :
-                $"{propertyName} is not a {Length} digit string";
+                $"Length is not equal to {Length}" :
+                $"not a {Length} digit string";
                 await Task.CompletedTask;
                 return message;
             }
@@ -136,11 +135,11 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 "^(?!219099999|078051120)((?!666|000|9\\d{2})\\d{3}?(?!00)\\d{2}?(?!0{4})\\d{4})$";
 
             private IsSocialSecurityNumberRule(){}
-            public IsSocialSecurityNumberRule(Expression<Func<TDbParams, string>> selector, bool allowDashes = true,
+            public IsSocialSecurityNumberRule(Func<TDbParams, string> selector, bool allowDashes = true,
                 bool isNullable = false) : base(selector, SSNMatchNoDashes, isNullable) {
                 AllowDashes = allowDashes;
             }
-            public static async Task<IsSocialSecurityNumberRule> CreateAsync(Expression<Func<TDbParams, string>> selector, bool allowDashes = true,
+            public static async Task<IsSocialSecurityNumberRule> CreateAsync(Func<TDbParams, string> selector, bool allowDashes = true,
                 bool isNullable = false)
             {
                 IsSocialSecurityNumberRule rule = new IsSocialSecurityNumberRule();
@@ -172,12 +171,12 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return isValid;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
-            => $"{propertyName} is not a valid Social Security Number";
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override string GetErrorMessageCore()
+            => $"not a valid Social Security Number";
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} is not a valid Social Security Number";
+                return $"not a valid Social Security Number";
             }
             
         }
@@ -185,11 +184,11 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         internal sealed class IsNullOrEmptyRule : ValidationRule<TDbParams>
         {
             private IsNullOrEmptyRule(){ }
-            public IsNullOrEmptyRule(Expression<Func<TDbParams, string>> selector)
+            public IsNullOrEmptyRule(Func<TDbParams, string> selector)
             {
                 Init(selector, true);
             }
-            public static async Task<IsNullOrEmptyRule> CreateAsync(Expression<Func<TDbParams, string>> selector)
+            public static async Task<IsNullOrEmptyRule> CreateAsync(Func<TDbParams, string> selector)
             {
                 IsNullOrEmptyRule rule = new IsNullOrEmptyRule();
                 await rule.InitAsync(selector, true);
@@ -208,25 +207,25 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return isValid;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} expecting value to be null or empty";
+                return $"expecting value to be null or empty";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} expecting value to be null or empty";
+                return $"expecting value to be null or empty";
             }
         }
 
         internal sealed class IsNotNullOrEmptyRule : ValidationRule<TDbParams>
         {
             private IsNotNullOrEmptyRule() { }
-            public IsNotNullOrEmptyRule(Expression<Func<TDbParams, string>> selector)
+            public IsNotNullOrEmptyRule(Func<TDbParams, string> selector)
             {
                 Init(selector, true);
             }
-            public static async Task<IsNotNullOrEmptyRule> CreateAsync(Expression<Func<TDbParams, string>> selector)
+            public static async Task<IsNotNullOrEmptyRule> CreateAsync(Func<TDbParams, string> selector)
             {
                 IsNotNullOrEmptyRule rule = new IsNotNullOrEmptyRule();
                 await rule.InitAsync(selector, true);
@@ -243,25 +242,25 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return isValid;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} expecting value to not be null or empty";
+                return $"expecting value to not be null or empty";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} expecting value to not be null or empty";
+                return $"expecting value to not be null or empty";
             }
         }
 
         internal sealed class IsNullOrWhiteSpaceRule : ValidationRule<TDbParams>
         {
             private IsNullOrWhiteSpaceRule() { }
-            public IsNullOrWhiteSpaceRule(Expression<Func<TDbParams, string>> selector)
+            public IsNullOrWhiteSpaceRule(Func<TDbParams, string> selector)
             {
                 Init(selector, true);
             }
-            public static async Task<IsNullOrWhiteSpaceRule> CreateAsync(Expression<Func<TDbParams, string>> selector)
+            public static async Task<IsNullOrWhiteSpaceRule> CreateAsync(Func<TDbParams, string> selector)
             {
                 IsNullOrWhiteSpaceRule rule = new IsNullOrWhiteSpaceRule();
                 await rule.InitAsync(selector, true);
@@ -278,25 +277,25 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return isValid;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} expecting value to be null or white space";
+                return $"expecting value to be null or white space";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} expecting value to be null or white space";
+                return $"expecting value to be null or white space";
             }
         }
 
         internal sealed class IsNotNullOrWhiteSpaceRule : ValidationRule<TDbParams>
         {
             private IsNotNullOrWhiteSpaceRule() { }
-            public IsNotNullOrWhiteSpaceRule(Expression<Func<TDbParams, string>> selector)
+            public IsNotNullOrWhiteSpaceRule(Func<TDbParams, string> selector)
             {
                 Init(selector, true);
             }
-            public static async Task<IsNotNullOrWhiteSpaceRule> CreateAsync(Expression<Func<TDbParams, string>> selector)
+            public static async Task<IsNotNullOrWhiteSpaceRule> CreateAsync(Func<TDbParams, string> selector)
             {
                 IsNotNullOrWhiteSpaceRule rule = new IsNotNullOrWhiteSpaceRule();
                 await rule.InitAsync(selector, true);
@@ -313,14 +312,14 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return isValid;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} expecting value to not be null or white space";
+                return $"expecting value to not be null or white space";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} expecting value to not be null or white space";
+                return $"expecting value to not be null or white space";
             }
 
         }
@@ -328,18 +327,18 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         internal sealed class LengthEqualsRule : ValidationRule<TDbParams>
         {
             private LengthEqualsRule() { }
-            public LengthEqualsRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
+            public LengthEqualsRule(Func<TDbParams, string> selector, int limit, bool isNullable = false)
             {
                 Init(selector, isNullable);
                 LimitValue = limit;
             }
-            public static async Task<LengthEqualsRule> CreateAsync(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
+            public static async Task<LengthEqualsRule> CreateAsync(Func<TDbParams, string> selector, int limit, bool isNullable = false)
             {
                 LengthEqualsRule rule = new LengthEqualsRule();
                 await rule.InitAsync(selector, limit, isNullable);
                 return rule;
             }
-            public async Task InitAsync(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
+            public async Task InitAsync(Func<TDbParams, string> selector, int limit, bool isNullable = false)
             {
                 LimitValue = limit;
                 await InitAsync(selector, isNullable);
@@ -357,32 +356,32 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return isValid;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} expecting text length to  equal to {LimitValue}";
+                return $"expecting text length to  equal to {LimitValue}";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} expecting text length to  equal to {LimitValue}";
+                return $"expecting text length to  equal to {LimitValue}";
             }
         }
 
         internal sealed class MinLengthRule : ValidationRule<TDbParams>
         {
             private MinLengthRule() { }
-            public MinLengthRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
+            public MinLengthRule(Func<TDbParams, string> selector, int limit, bool isNullable = false)
             {
                 Init(selector, isNullable);
                 LimitValue = limit;
             }
-            public static async Task<MinLengthRule> CreateAsync(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
+            public static async Task<MinLengthRule> CreateAsync(Func<TDbParams, string> selector, int limit, bool isNullable = false)
             {
                 MinLengthRule rule = new MinLengthRule();
                 await rule.InitAsync(selector, limit, isNullable);
                 return rule;
             }
-            public async Task InitAsync(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
+            public async Task InitAsync(Func<TDbParams, string> selector, int limit, bool isNullable = false)
             {
                 LimitValue = limit;
                 await InitAsync(selector, isNullable);
@@ -401,32 +400,32 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return isValid;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} expecting text length to be greater than or equal to {LimitValue}";
+                return $"expecting text length to be greater than or equal to {LimitValue}";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} expecting text length to be greater than or equal to {LimitValue}";
+                return $"expecting text length to be greater than or equal to {LimitValue}";
             }
         }
 
         internal sealed class MaxLengthRule : ValidationRule<TDbParams>
         {
             private MaxLengthRule() { }
-            public MaxLengthRule(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
+            public MaxLengthRule(Func<TDbParams, string> selector, int limit, bool isNullable = false)
             {
                 Init(selector, isNullable);
                 LimitValue = limit;
             }
-            public static async Task<MaxLengthRule> CreateAsync(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
+            public static async Task<MaxLengthRule> CreateAsync(Func<TDbParams, string> selector, int limit, bool isNullable = false)
             {
                 MaxLengthRule rule = new MaxLengthRule();
                 await rule.InitAsync(selector, limit, isNullable);
                 return rule;
             }
-            public async Task InitAsync(Expression<Func<TDbParams, string>> selector, int limit, bool isNullable = false)
+            public async Task InitAsync(Func<TDbParams, string> selector, int limit, bool isNullable = false)
             {
                 LimitValue = limit;
                 await InitAsync(selector, isNullable);
@@ -445,33 +444,33 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return isValid;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} expecting text length to be less than or equal to {LimitValue}";
+                return $"expecting text length to be less than or equal to {LimitValue}";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} expecting text length to be less than or equal to {LimitValue}";
+                return $"expecting text length to be less than or equal to {LimitValue}";
             }
         }
 
         internal sealed class EmailRule : ValidationRule<TDbParams>
         {
             private EmailRule() { }
-            public EmailRule(Expression<Func<TDbParams, string>> selector, bool isNullable = false)
+            public EmailRule(Func<TDbParams, string> selector, bool isNullable = false)
                 : this(selector, new string[0], EmailDomainMode.AllowAll, isNullable) { }
 
-            public EmailRule(Expression<Func<TDbParams, string>> selector, IEnumerable<string> domains,
+            public EmailRule(Func<TDbParams, string> selector, IEnumerable<string> domains,
                 EmailDomainMode mode, bool isNullable = false)
             {
                 Init(selector, isNullable);
                 Domains = domains;
                 Mode = mode;
             }
-            public static async Task<EmailRule> CreateAsync(Expression<Func<TDbParams, string>> selector, bool isNullable = false)
+            public static async Task<EmailRule> CreateAsync(Func<TDbParams, string> selector, bool isNullable = false)
             => await CreateAsync(selector, new string[0], EmailDomainMode.AllowAll, isNullable);
-            public static async Task<EmailRule> CreateAsync(Expression<Func<TDbParams, string>> selector, IEnumerable<string> domains,
+            public static async Task<EmailRule> CreateAsync(Func<TDbParams, string> selector, IEnumerable<string> domains,
                 EmailDomainMode mode, bool isNullable = false) {
                 EmailRule rule = new EmailRule();
                 rule.Domains = domains;
@@ -527,14 +526,14 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 }
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} is an invalid email address";
+                return $"invalid email address";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} is an invalid email address";
+                return $"invalid email address";
             }
         }
     }

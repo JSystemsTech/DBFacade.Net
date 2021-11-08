@@ -21,15 +21,13 @@ namespace DbFacade.DataLayer.ConnectionService
         {
             await Task.CompletedTask;
         }
-        internal abstract IDbConnection GetDbConnection(DbParamsModel parameters, MockResponseData mockResponseData = null);
-        internal abstract Task<IDbConnection> GetDbConnectionAsync(DbParamsModel parameters, MockResponseData mockResponseData = null);
+        internal abstract IDbConnection GetDbConnection(object parameters, MockResponseData mockResponseData = null);
+        internal abstract Task<IDbConnection> GetDbConnectionAsync(object parameters, MockResponseData mockResponseData = null);
         internal abstract IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters, MockResponseData mockResponseData = null)
-            where TDbDataModel : DbDataModel
-            where TDbParams : DbParamsModel;
+            where TDbDataModel : DbDataModel;
 
         internal abstract Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters, MockResponseData mockResponseData = null)
-            where TDbDataModel : DbDataModel
-            where TDbParams : DbParamsModel;
+            where TDbDataModel : DbDataModel;
     }
     public abstract class DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter,TDbConnectionConfig>: DbConnectionConfigBase
         where TDbDataReader : DbDataReader
@@ -41,8 +39,8 @@ namespace DbFacade.DataLayer.ConnectionService
 
     {
         
-        internal override sealed IDbConnection GetDbConnection(DbParamsModel parameters, MockResponseData mockResponseData = null) => ResolveDbConnection(mockResponseData);
-        internal override sealed async Task<IDbConnection> GetDbConnectionAsync(DbParamsModel parameters, MockResponseData mockResponseData = null) => await ResolveDbConnectionAsync(mockResponseData);
+        internal override sealed IDbConnection GetDbConnection(object parameters, MockResponseData mockResponseData = null) => ResolveDbConnection(mockResponseData);
+        internal override sealed async Task<IDbConnection> GetDbConnectionAsync(object parameters, MockResponseData mockResponseData = null) => await ResolveDbConnectionAsync(mockResponseData);
         internal override sealed IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig,TDbParams parameters, MockResponseData mockResponseData = null)
         {
               if (commandConfig.DbConnectionConfig == this)

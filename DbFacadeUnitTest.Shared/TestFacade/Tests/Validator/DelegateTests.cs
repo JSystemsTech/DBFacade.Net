@@ -31,7 +31,7 @@ namespace DbFacadeUnitTests.Tests.Validator
                 v.Add(v.Rules.Delegate(model => model.Short, value => value == 10));
                 v.Add(v.Rules.Delegate(model => {
                     return Validates(model.String) || model.Short == 10;
-                }, p=> "Did not pass custom validation"));
+                }, "Did not pass custom validation"));
             });
             IValidationResult result = Validator.Validate(Parameters);
             IsValid(result);
@@ -45,7 +45,7 @@ namespace DbFacadeUnitTests.Tests.Validator
                 v.Add(v.Rules.Delegate(model => model.Short, value => value == 11));
                 v.Add(v.Rules.Delegate(model => {
                     return Invalidates(model.String) || model.Short == 11;
-                }, p => "Did not pass custom validation"));
+                }, "Did not pass custom validation"));
             });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
@@ -65,7 +65,7 @@ namespace DbFacadeUnitTests.Tests.Validator
                     await v.AddAsync(await v.Rules.DelegateAsync(async model => await Task.Run(() =>
                     {
                         return Validates(model.String) || model.Short == 10;
-                    }), p => "Did not pass custom validation"));
+                    }), "Did not pass custom validation"));
                 });
                 var result = await Validator.ValidateAsync(Parameters);
                 await IsValidAsync(result);
@@ -84,7 +84,7 @@ namespace DbFacadeUnitTests.Tests.Validator
                     await v.AddAsync(await v.Rules.DelegateAsync(async model => await Task.Run(() =>
                     {
                         return Invalidates(model.String) || model.Short == 11;
-                    }), p => "Did not pass custom validation"));
+                    }), "Did not pass custom validation"));
                 });
                 var result = await Validator.ValidateAsync(Parameters);
                 await IsInvalidAsync(result);

@@ -23,11 +23,11 @@ namespace DbFacadeUnitTests.TestFacade
         public IDbResponse<FetchDataWithNested> TestFetchDataWithNested()
             => UnitTestMethods.TestFetchDataWithNested.Mock(new ResponseData[] { new ResponseData { MyString = "test string" } }, 0);
         public IDbResponse TestTransaction(string value)
-            => UnitTestMethods.TestTransaction.Mock(new DbParamsModel<string>(value), 10);
+            => UnitTestMethods.TestTransaction.Mock(value, 10);
         public IDbResponse<FetchData> TestFetchDataWithOutput()
             => UnitTestMethods.TestFetchDataWithOutput.Mock(new ResponseData[] { new ResponseData { MyString = "test string" }}, 1, ov=> { ov.Add("MyStringOutputParam", "output response"); });
         public IDbResponse TestTransactionWithOutput(string value)
-           => UnitTestMethods.TestTransactionWithOutput.Mock(new DbParamsModel<string>(value), 10, ov => { ov.Add("MyStringOutputParam", "output response"); });
+           => UnitTestMethods.TestTransactionWithOutput.Mock(value, 10, ov => { ov.Add("MyStringOutputParam", "output response"); });
         public IDbResponse TestFetchDataWithModelProcessParams(bool stopAtStep1, bool stopAtStep2, bool stopAtStep3)
            => UnitTestMethods.TestFetchDataWithModelProcessParams.Mock(new UnitTestDbParamsForManager() { StopAtStep1 = stopAtStep1, StopAtStep2 = stopAtStep2, StopAtStep3 = stopAtStep3 }, 0);
 
@@ -42,11 +42,11 @@ namespace DbFacadeUnitTests.TestFacade
         public async Task<IDbResponse<FetchDataWithNested>> TestFetchDataWithNestedAsync()
             => await UnitTestMethods.TestFetchDataWithNested.MockAsync(new ResponseData[] { new ResponseData { MyString = "test string" } }, 0);
         public async Task<IDbResponse> TestTransactionAsync(string value)
-            => await UnitTestMethods.TestTransaction.MockAsync(new DbParamsModel<string>(value), 10);
+            => await UnitTestMethods.TestTransaction.MockAsync(value, 10);
         public async Task<IDbResponse<FetchData>> TestFetchDataWithOutputAsync()
             => await UnitTestMethods.TestFetchDataWithOutput.MockAsync(new ResponseData[] { new ResponseData { MyString = "test string" } }, 1, ov => { ov.Add("MyStringOutputParam", "output response"); });
         public async Task<IDbResponse> TestTransactionWithOutputAsync(string value)
-           => await UnitTestMethods.TestTransactionWithOutput.MockAsync(new DbParamsModel<string>(value), 10, ov => { ov.Add("MyStringOutputParam", "output response"); });
+           => await UnitTestMethods.TestTransactionWithOutput.MockAsync(value, 10, ov => { ov.Add("MyStringOutputParam", "output response"); });
         public async Task<IDbResponse> TestFetchDataWithModelProcessParamsAsync(bool stopAtStep1, bool stopAtStep2, bool stopAtStep3)
            => await UnitTestMethods.TestFetchDataWithModelProcessParams.MockAsync(new UnitTestDbParamsForManager() { StopAtStep1 = stopAtStep1, StopAtStep2 = stopAtStep2, StopAtStep3 = stopAtStep3 }, 0);
         #endregion

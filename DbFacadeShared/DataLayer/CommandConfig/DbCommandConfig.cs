@@ -12,7 +12,6 @@ using DbFacade.Services;
 namespace DbFacade.DataLayer.CommandConfig
 {
     internal class DbCommandMethod<TDbParams, TDbDataModel> : SafeDisposableBase, IDbCommandMethod<TDbParams, TDbDataModel>
-        where TDbParams : DbParamsModel
         where TDbDataModel : DbDataModel
     {
         public DbConnectionConfigBase DbConnectionConfig { get; protected set; }
@@ -62,7 +61,7 @@ namespace DbFacade.DataLayer.CommandConfig
         {
             HasValidation = DbParams.Count > 0 && ParamsValidator.Count > 0;
             MissingValidation = DbParams.Count > 0 && ParamsValidator.Count == 0 && DbCommandText.RequiresValidation;
-            OnBeforeAsyncActions = new Func<DbParamsModel, Task>[0];
+            OnBeforeAsyncActions = new Func<TDbParams, Task>[0];
             await Task.CompletedTask;
         }
         protected async Task InitAsync<TDbConnectionConfig>(DbCommandSettingsBase dbCommand,
@@ -107,7 +106,7 @@ namespace DbFacade.DataLayer.CommandConfig
         {
             if (MissingValidation)
             {
-                throw new FacadeException($"Validation required for {paramsModel.GetType().Name} for command '{DbCommandText.Label}'");
+                throw new FacadeException($"Validation required for {(paramsModel is TDbParams pm? pm.GetType().Name: "(null)")} for command '{DbCommandText.Label}'");
             }
             var validationResult = HasValidation
                 ? ParamsValidator.Validate(paramsModel)
@@ -115,7 +114,7 @@ namespace DbFacade.DataLayer.CommandConfig
             if (!validationResult.IsValid)
             {
                 throw new ValidationException<TDbParams>(validationResult, paramsModel,
-                    $"{paramsModel.GetType().Name} values failed to pass validation for command '{DbCommandText.Label}'");
+                    $"{(paramsModel is TDbParams pm ? pm.GetType().Name : "(null)")} values failed to pass validation for command '{DbCommandText.Label}'");
             }
             try
             {
@@ -137,7 +136,7 @@ namespace DbFacade.DataLayer.CommandConfig
         {
             if (MissingValidation)
             {
-                throw new FacadeException($"Validation required for {paramsModel.GetType().Name} for command '{DbCommandText.Label}'");
+                throw new FacadeException($"Validation required for {(paramsModel is TDbParams pm ? pm.GetType().Name : "(null)")} for command '{DbCommandText.Label}'");
             }
             var validationResult = HasValidation
                 ? await ParamsValidator.ValidateAsync(paramsModel)
@@ -145,7 +144,7 @@ namespace DbFacade.DataLayer.CommandConfig
             if (!validationResult.IsValid)
             {
                 throw new ValidationException<TDbParams>(validationResult, paramsModel,
-                    $"{paramsModel.GetType().Name} values failed to pass validation for command '{DbCommandText.Label}'");
+                    $"{(paramsModel is TDbParams pm ? pm.GetType().Name : "(null)")} values failed to pass validation for command '{DbCommandText.Label}'");
             }
             try
             {
@@ -196,22 +195,22 @@ namespace DbFacade.DataLayer.CommandConfig
         }
     }
 
-    internal class ParameterlessDbCommandMethod<TDbDataModel> : DbCommandMethod<DbParamsModel, TDbDataModel>, IParameterlessDbCommandMethod<TDbDataModel>
+    internal class ParameterlessDbCommandMethod<TDbDataModel> : DbCommandMethod<object, TDbDataModel>, IParameterlessDbCommandMethod<TDbDataModel>
         where TDbDataModel : DbDataModel
     {
         public ParameterlessDbCommandMethod() { }   
 
         internal static ParameterlessDbCommandMethod<TDbDataModel> Create<TDbConnectionConfig>(
             DbCommandSettingsBase dbCommand,
-            Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null)
+            Action<IDbCommandConfigParams<object>> parametersInitializer = null)
             where TDbConnectionConfig : DbConnectionConfigBase
         {
             return new ParameterlessDbCommandMethod<TDbDataModel>()
             {
                 DbCommandText = dbCommand,
                 DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
-                DbParams = DbCommandConfigParams<DbParamsModel>.Create(parametersInitializer),
-                ParamsValidator = ValidatorFactory.Create((Action<IValidator<DbParamsModel>>)null)
+                DbParams = DbCommandConfigParams<object>.Create(parametersInitializer),
+                ParamsValidator = ValidatorFactory.Create((Action<IValidator<object>>)null)
             };
         }
 
@@ -219,7 +218,7 @@ namespace DbFacade.DataLayer.CommandConfig
 
         internal static async Task<ParameterlessDbCommandMethod<TDbDataModel>> CreateAsync<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
-            Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null
+            Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null
             )
             where TDbConnectionConfig : DbConnectionConfigBase
         {
@@ -227,26 +226,25 @@ namespace DbFacade.DataLayer.CommandConfig
             {
                 DbCommandText = dbCommand,
                 DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
-                DbParams = await DbCommandConfigParams<DbParamsModel>.CreateAsync(parametersInitializer),
-                ParamsValidator = ValidatorFactory.Create((Action<IValidator<DbParamsModel>>)null)
+                DbParams = await DbCommandConfigParams<object>.CreateAsync(parametersInitializer),
+                ParamsValidator = ValidatorFactory.Create((Action<IValidator<object>>)null)
             };
             await config.InitAsync();
             return config;
         }
 
-        public IDbResponse<TDbDataModel> Execute() => Execute(new DbParamsModel());
-        public async Task<IDbResponse<TDbDataModel>> ExecuteAsync() => await ExecuteAsync(new DbParamsModel());
-        public IDbResponse<TDbDataModel> Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(new DbParamsModel(), returnValue,outputValues);
-        public IDbResponse<TDbDataModel> Mock<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(new DbParamsModel(), responseData, returnValue,outputValues);
+        public IDbResponse<TDbDataModel> Execute() => Execute(null);
+        public async Task<IDbResponse<TDbDataModel>> ExecuteAsync() => await ExecuteAsync(null);
+        public IDbResponse<TDbDataModel> Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(null, returnValue,outputValues);
+        public IDbResponse<TDbDataModel> Mock<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(null, responseData, returnValue,outputValues);
 
-        public async Task<IDbResponse<TDbDataModel>> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(new DbParamsModel(), returnValue,outputValues);
+        public async Task<IDbResponse<TDbDataModel>> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(null, returnValue,outputValues);
 
-        public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(new DbParamsModel(), responseData, returnValue,outputValues);
+        public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(null, responseData, returnValue,outputValues);
 
         #endregion
     }
     internal class DbCommandMethod<TDbParams> : DbCommandMethod<TDbParams, DbDataModel>, IDbCommandMethod<TDbParams>
-        where TDbParams : DbParamsModel
     {
         public DbCommandMethod() { }
         
@@ -313,14 +311,14 @@ namespace DbFacade.DataLayer.CommandConfig
 
 
     }
-    internal class DbCommandMethod : DbCommandMethod<DbParamsModel, DbDataModel>, IDbCommandMethod
+    internal class DbCommandMethod : DbCommandMethod<object, DbDataModel>, IDbCommandMethod
     {
         public DbCommandMethod() { }
         
         internal static DbCommandMethod Create<TDbConnectionConfig>(
             DbCommandSettingsBase dbCommand,
-            IDbCommandConfigParams<DbParamsModel> dbParams,
-            IValidator<DbParamsModel> validator)
+            IDbCommandConfigParams<object> dbParams,
+            IValidator<object> validator)
             where TDbConnectionConfig : DbConnectionConfigBase
         {
             return new DbCommandMethod()
@@ -330,17 +328,17 @@ namespace DbFacade.DataLayer.CommandConfig
                 DbParams = dbParams,
                 ParamsValidator = validator,
                 HasValidation = dbParams.Count > 0 && validator.Count > 0,
-                OnBeforeActions = new Action<DbParamsModel>[0]
+                OnBeforeActions = new Action<object>[0]
             };
         }
         internal static DbCommandMethod Create<TDbConnectionConfig>(
                DbCommandSettingsBase dbCommand,
-                Action<IDbCommandConfigParams<DbParamsModel>> parametersInitializer = null
+                Action<IDbCommandConfigParams<object>> parametersInitializer = null
                 )
             where TDbConnectionConfig : DbConnectionConfigBase
         {
-            DbCommandConfigParams<DbParamsModel> dbParams = DbCommandConfigParams<DbParamsModel>.Create(parametersInitializer);
-            IValidator<DbParamsModel> validator = ValidatorFactory.Create((Action<IValidator<DbParamsModel>>)null);
+            DbCommandConfigParams<object> dbParams = DbCommandConfigParams<object>.Create(parametersInitializer);
+            IValidator<object> validator = ValidatorFactory.Create((Action<IValidator<object>>)null);
             return Create<TDbConnectionConfig>(dbCommand, dbParams, validator);
         }
 
@@ -348,21 +346,21 @@ namespace DbFacade.DataLayer.CommandConfig
 
         internal static async Task<DbCommandMethod> CreateAsync<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
-            Func<IDbCommandConfigParams<DbParamsModel>, Task> parametersInitializer = null
+            Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null
             )
             where TDbConnectionConfig : DbConnectionConfigBase
         {
-            DbCommandConfigParams<DbParamsModel> dbParams = await DbCommandConfigParams<DbParamsModel>.CreateAsync(parametersInitializer);
-            IValidator<DbParamsModel> validator = await ValidatorFactory.CreateAsync((Func<IValidator<DbParamsModel>, Task>)null);
+            DbCommandConfigParams<object> dbParams = await DbCommandConfigParams<object>.CreateAsync(parametersInitializer);
+            IValidator<object> validator = await ValidatorFactory.CreateAsync((Func<IValidator<object>, Task>)null);
             DbCommandMethod config = new DbCommandMethod();
-            await config.InitAsync<TDbConnectionConfig>(dbCommand, dbParams, validator, new Func<DbParamsModel, Task>[0]);
+            await config.InitAsync<TDbConnectionConfig>(dbCommand, dbParams, validator, new Func<object, Task>[0]);
             return config;
         }
         #endregion
-        public IDbResponse Execute() => (IDbResponse)Execute(new DbParamsModel());
-        public async Task<IDbResponse> ExecuteAsync() => (IDbResponse)await ExecuteAsync(new DbParamsModel());
-        public IDbResponse Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)Mock(new DbParamsModel(), returnValue,outputValues);
-        public async Task<IDbResponse> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)await MockAsync(new DbParamsModel(), returnValue,outputValues);
+        public IDbResponse Execute() => (IDbResponse)Execute(null);
+        public async Task<IDbResponse> ExecuteAsync() => (IDbResponse)await ExecuteAsync(null);
+        public IDbResponse Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)Mock(null, returnValue,outputValues);
+        public async Task<IDbResponse> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)await MockAsync(null, returnValue,outputValues);
 
 
     }

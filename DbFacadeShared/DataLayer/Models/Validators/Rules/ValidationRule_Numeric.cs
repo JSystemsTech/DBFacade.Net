@@ -11,11 +11,10 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
     /// <seealso cref="Rules.IValidationRule{TDbParams}" />
     public abstract partial class ValidationRule<TDbParams>
-        where TDbParams : DbParamsModel
     {
         
 
-        public static IValidationRule<TDbParams> IsNumber(Expression<Func<TDbParams, string>> selector,
+        public static IValidationRule<TDbParams> IsNumber(Func<TDbParams, string> selector,
             bool isNullable = false)
         {
             return new IsNumeric(selector, isNullable);
@@ -32,12 +31,12 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 NumberStyles.AllowParentheses;
             
             private IsNumeric() {}
-            public IsNumeric(Expression<Func<TDbParams, string>> selector, bool isNullable = false)
+            public IsNumeric(Func<TDbParams, string> selector, bool isNullable = false)
             {
                 Init(selector, isNullable);
             }
 
-            public static async Task<IsNumeric> CreateAsync(Expression<Func<TDbParams, string>> selector, bool isNullable = false)
+            public static async Task<IsNumeric> CreateAsync(Func<TDbParams, string> selector, bool isNullable = false)
             {
                 IsNumeric rule = new IsNumeric();
                 await rule.InitAsync(selector, isNullable);
@@ -55,14 +54,14 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 await Task.CompletedTask;
                 return isNumber;
             }
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} is not a number.";
+                return $"not a number.";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} is not a number.";
+                return $"not a number.";
             }
         }
 

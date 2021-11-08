@@ -46,7 +46,6 @@ namespace DbFacade.DataLayer.ConnectionService
         public static IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(
             DbCommandMethod<TDbParams, TDbDataModel> config, TDbParams parameters, MockResponseData mockResponseData = null)
             where TDbDataModel : DbDataModel
-            where TDbParams : DbParamsModel
         {
             using (TDbConnection dbConnection = config.DbConnectionConfig.GetDbConnection(parameters, mockResponseData) as TDbConnection)
             {

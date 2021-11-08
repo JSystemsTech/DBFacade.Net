@@ -34,7 +34,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModel_Async.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbParamsModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbResponse.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\IDbParamsModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\IDbResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\OutputDbDataModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\IValidationRule.cs" />

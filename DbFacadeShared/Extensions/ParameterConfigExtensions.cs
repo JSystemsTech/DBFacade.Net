@@ -17,7 +17,6 @@ namespace DbFacade.Extensions
             TDbParams model)
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
-            where TDbParams : DbParamsModel
         {
             if (config.Value is IInternalDbCommandParameterConfig<TDbParams> paramConfig)
             {
@@ -50,7 +49,6 @@ namespace DbFacade.Extensions
             TDbParams model)            
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
-            where TDbParams : DbParamsModel
         {
             if (config.Value is IInternalDbCommandParameterConfig<TDbParams> paramConfig)
             {
@@ -86,7 +84,6 @@ namespace DbFacade.Extensions
            )
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
-            where TDbParams : DbParamsModel
         {
             foreach (var config in dbParams)
             {
@@ -99,7 +96,6 @@ namespace DbFacade.Extensions
             TDbParams model)
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
-            where TDbParams : DbParamsModel
         {
             foreach (var config in dbParams)
             {
@@ -173,7 +169,6 @@ namespace DbFacade.Extensions
             where TDbConnection : DbConnection
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
-            where TDbParams : DbParamsModel
         {
             var dbCommand = dbConnection.CreateCommand() as TDbCommand;
             dbCommand.AddParams<TDbCommand, TDbParameter, TDbParams>(dbParams, model);
@@ -190,7 +185,6 @@ namespace DbFacade.Extensions
             where TDbConnection : DbConnection
             where TDbCommand : DbCommand
             where TDbParameter : DbParameter
-            where TDbParams : DbParamsModel
         {
             var dbCommand = dbConnection.CreateCommand() as TDbCommand;
             await dbCommand.AddParamsAsync<TDbCommand, TDbParameter, TDbParams>(dbParams, model);

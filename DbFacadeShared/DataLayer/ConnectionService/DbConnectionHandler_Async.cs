@@ -45,7 +45,6 @@ namespace DbFacade.DataLayer.ConnectionService
 
         public static async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> config, TDbParams parameters, MockResponseData mockResponseData)
             where TDbDataModel : DbDataModel
-            where TDbParams : DbParamsModel
         {
             var connectionConfig = config.DbConnectionConfig;
             using (var dbConnection = await connectionConfig.GetDbConnectionAsync(parameters, mockResponseData) as TDbConnection)

@@ -32,22 +32,22 @@ namespace DbFacadeUnitTests.TestFacade
         public static readonly IDbCommandMethod<UnitTestDbParamsForManager, FetchData> TestFetchDataWithModel
             = UnitTestConnection.TestTransaction.CreateMethod<UnitTestDbParamsForManager, FetchData>();
 
-        public static readonly IDbCommandMethod<DbParamsModel<string>> TestTransaction
-            = UnitTestConnection.TestTransaction.CreateMethod<DbParamsModel<string>>(
+        public static readonly IDbCommandMethod<string> TestTransaction
+            = UnitTestConnection.TestTransaction.CreateMethod<string>(
                 p =>{
-                    p.Add("MyStringParam", p.Factory.Create(model => model.Param1));
+                    p.Add("MyStringParam", p.Factory.Create(model => model));
                 },
                 v =>{
-                    v.Add(v.Rules.Required(model => model.Param1));
+                    v.Add(v.Rules.Required(model => model));
                 });
-        public static readonly IDbCommandMethod<DbParamsModel<string>> TestTransactionWithOutput
-             = UnitTestConnection.TestTransaction.CreateMethod<DbParamsModel<string>>(
+        public static readonly IDbCommandMethod<string> TestTransactionWithOutput
+             = UnitTestConnection.TestTransaction.CreateMethod<string>(
                  p =>{
-                     p.Add("MyStringParam", p.Factory.Create(model => model.Param1));
+                     p.Add("MyStringParam", p.Factory.Create(model => model));
                      p.Add("MyStringOutputParam", p.Factory.OutputString(8000));
                  },
                  v =>{
-                     v.Add(v.Rules.Required(model => model.Param1));
+                     v.Add(v.Rules.Required(model => model));
                  });
         public static readonly IDbCommandMethod<UnitTestDbParamsForManager> TestFetchDataWithModelProcessParams
              = UnitTestConnection.TestFetchData.CreateMethod<UnitTestDbParamsForManager>(

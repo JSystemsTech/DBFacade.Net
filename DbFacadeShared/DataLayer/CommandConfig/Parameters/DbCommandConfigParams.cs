@@ -11,7 +11,6 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     internal class DbCommandConfigParams<TDbParams> : Dictionary<string, IDbCommandParameterConfig<TDbParams>>,
         IDbCommandConfigParams<TDbParams>
-        where TDbParams : DbParamsModel
     {
         private static string ReturnParamDefault = "DbFacade_DbCallReturn";
 
@@ -70,5 +69,5 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
 
         
     }
-    internal class DbCommandConfigParams : DbCommandConfigParams<DbParamsModel> { }
+    internal class DbCommandConfigParams : DbCommandConfigParams<object> { }
 }

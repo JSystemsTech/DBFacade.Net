@@ -41,7 +41,7 @@ namespace DbFacade.Exceptions
         
     }
 
-    public class ValidationException<DbParams> : FacadeException where DbParams : DbParamsModel
+    public class ValidationException<DbParams> : FacadeException
     {
         internal ValidationException(IValidationResult validationResult, DbParams parameters, string errorMessage) : base(
             errorMessage)

@@ -5,7 +5,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     /// <summary>
     /// </summary>
     /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
-    public interface IValidationRule<TDbParams> where TDbParams : DbParamsModel
+    public interface IValidationRule<TDbParams>
     {
         /// <summary>
         ///     Validates the specified parameters model.

@@ -9,31 +9,30 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
     /// <seealso cref="Rules.IValidationRule{DbParams}" />
     public abstract partial class ValidationRule<TDbParams>
-        where TDbParams : DbParamsModel
     {
         
         internal class RequiredRule : ValidationRule<TDbParams>
         {
             private RequiredRule() { }
-            public RequiredRule(Expression<Func<TDbParams, object>> selector)
+            public RequiredRule(Func<TDbParams, object> selector)
             {
                 Init(selector, false);
             }
-            public static async Task<RequiredRule> CreateAsync(Expression<Func<TDbParams, object>> selector)
+            public static async Task<RequiredRule> CreateAsync(Func<TDbParams, object> selector)
             {
                 RequiredRule rule = new RequiredRule();
                 await rule.InitAsync(selector, false);
                 return rule;
             }
 
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
-                return $"{propertyName} is required.";
+                return $"is required.";
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
-                return $"{propertyName} is required.";
+                return $"is required.";
             }
         }
     }

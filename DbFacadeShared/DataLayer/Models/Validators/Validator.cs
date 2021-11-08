@@ -29,7 +29,6 @@ namespace DbFacade.DataLayer.Models.Validators
         public static ValidationResult PassingValidation = new ValidationResult(new List<ValidationRuleResult>());
     }
     public interface IValidator<TDbParams>
-        where TDbParams : DbParamsModel
     {
         int Count { get; }
         ValidationRuleFactory<TDbParams> Rules { get; }
@@ -40,7 +39,6 @@ namespace DbFacade.DataLayer.Models.Validators
     }
 
     internal class Validator<TDbParams> : List<IValidationRule<TDbParams>>, IValidator<TDbParams>
-        where TDbParams : DbParamsModel
     {
         public ValidationRuleFactory<TDbParams> Rules { get; private set; }
         public async Task AddAsync(IValidationRule<TDbParams> rule)

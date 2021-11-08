@@ -179,11 +179,11 @@ namespace DbFacadeUnitTests.Tests.Facade
                 IDbResponse<DbDataModel> response = DomainFacade.TestTransaction(null);
                 Assert.Fail();
             }
-            catch(ValidationException<DbParamsModel<string>> e)
+            catch(ValidationException<string> e)
             {
                 Assert.AreEqual(1, e.ValidationErrors.Count());
                 Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
-                Assert.AreEqual("Param1 (Property Value) is required.", e.ValidationErrors.First().ErrorMessage);
+                Assert.AreEqual("is required.", e.ValidationErrors.First().ErrorMessage);
             }        
         }
         
@@ -389,20 +389,20 @@ namespace DbFacadeUnitTests.Tests.Facade
                     Assert.Fail();
                     await Task.CompletedTask;
                 }
-                catch (ValidationException<DbParamsModel<string>> e)
+                catch (ValidationException<string> e)
                 {
                     Assert.AreEqual(1, e.ValidationErrors.Count());
                     Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
-                    Assert.AreEqual("Param1 (Property Value) is required.", e.ValidationErrors.First().ErrorMessage);
+                    Assert.AreEqual("is required.", e.ValidationErrors.First().ErrorMessage);
                     await Task.CompletedTask;
                 }
                 catch (Exception ex)
                 {
-                    if (ex.InnerException is ValidationException<DbParamsModel<string>> e)
+                    if (ex.InnerException is ValidationException<string> e)
                     {
                         Assert.AreEqual(1, e.ValidationErrors.Count());
                         Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
-                        Assert.AreEqual("Param1 (Property Value) is required.", e.ValidationErrors.First().ErrorMessage);
+                        Assert.AreEqual("is required.", e.ValidationErrors.First().ErrorMessage);
                         await Task.CompletedTask;
                     }
                     else

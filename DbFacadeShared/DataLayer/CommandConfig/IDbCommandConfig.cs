@@ -7,7 +7,6 @@ namespace DbFacade.DataLayer.CommandConfig
 {
     public interface IDbCommandMethod<TDbParams,TDbDataModel> : ISafeDisposable
         where TDbDataModel : DbDataModel
-        where TDbParams : DbParamsModel
     {
         
         IDbResponse<TDbDataModel> Execute(TDbParams parameters);
@@ -33,7 +32,6 @@ namespace DbFacade.DataLayer.CommandConfig
         Task<IDbResponse<TDbDataModel>> MockAsync<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null);
     }
     public interface IDbCommandMethod<TDbParams>
-        where TDbParams : DbParamsModel
     {
         IDbResponse Execute(TDbParams parameters);
         Task<IDbResponse> ExecuteAsync(TDbParams parameters);

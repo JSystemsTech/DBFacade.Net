@@ -11,7 +11,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
     /// <seealso cref="Rules.IValidationRule{TDbParams}" />
     public partial class ValidationRule<TDbParams> : IValidationRule<TDbParams>
-        where TDbParams : DbParamsModel
     {
         protected ValidationRule() { }
 
@@ -50,23 +49,20 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         
         
 
-        private void Init<T>(Expression<Func<TDbParams, T>> selector, bool isNullable)
+        private void Init<T>(Func<TDbParams, T> selector, bool isNullable)
         {
-            GetParamFunc = model => selector.Compile()(model);
-            PropertyName = PropertySelector<TDbParams>.GetPropertyName(selector);
+            GetParamFunc = model => selector(model);
             IsNullable = isNullable;
         }
-        private async Task InitAsync<T>(Expression<Func<TDbParams, T>> selector, bool isNullable)
+        private async Task InitAsync<T>(Func<TDbParams, T> selector, bool isNullable)
         {
-            GetParamFunc = model => selector.Compile()(model);
-            PropertyName = PropertySelector<TDbParams>.GetPropertyName(selector);
+            GetParamFunc = model => selector(model);
             IsNullable = isNullable;
             await Task.CompletedTask;
         }
         private void Init()
         {
             GetParamFunc = model => model;
-            PropertyName = $"{typeof(TDbParams).Name} Custom";
             IsNullable = true;
         }
         private async Task InitAsync()
@@ -94,18 +90,18 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         /// </summary>
         /// <returns></returns>
         private string GetErrorMessage()
-        => GetErrorMessageCore(PropertyName);
+        => GetErrorMessageCore();
         private async Task<string> GetErrorMessageAsync()
-        => await GetErrorMessageCoreAsync(PropertyName);
+        => await GetErrorMessageCoreAsync();
 
         /// <summary>
         ///     Gets the error message core.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
-        protected virtual string GetErrorMessageCore(string propertyName)
+        protected virtual string GetErrorMessageCore()
         => string.Empty;
-        protected virtual async Task<string> GetErrorMessageCoreAsync(string propertyName)
+        protected virtual async Task<string> GetErrorMessageCoreAsync()
         {
             await Task.CompletedTask;
             return string.Empty;
@@ -113,11 +109,11 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
 
         private class ValidationRuleInstance : ValidationRule<TDbParams>
         {
-            protected override string GetErrorMessageCore(string propertyName)
+            protected override string GetErrorMessageCore()
             {
                 return string.Empty;
             }
-            protected override async Task<string> GetErrorMessageCoreAsync(string propertyName)
+            protected override async Task<string> GetErrorMessageCoreAsync()
             {
                 await Task.CompletedTask;
                 return string.Empty;
