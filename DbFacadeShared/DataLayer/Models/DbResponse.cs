@@ -15,12 +15,16 @@ namespace DbFacade.DataLayer.Models
         private static bool IsEmptyDataReturn = typeof(TDbDataModel) == typeof(DbDataModel);
         public static IDbResponse<TDbDataModel> Create(Guid commandId)
             => !IsEmptyDataReturn ?
-                new DbResponse<TDbDataModel>(commandId) :
-                (IDbResponse<TDbDataModel>)new DbResponse(commandId);
+                new DbResponse<TDbDataModel>(commandId,null) :
+                (IDbResponse<TDbDataModel>)new DbResponse(commandId, null);
         public static IDbResponse<TDbDataModel> Create(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
             => !IsEmptyDataReturn ?
                 new DbResponse<TDbDataModel>(commandId, returnValue, outputValues) :
                 (IDbResponse<TDbDataModel>)new DbResponse(commandId, returnValue, outputValues);
+        public static IDbResponse<TDbDataModel> CreateErrorResponse(Guid commandId, Exception error)
+            => !IsEmptyDataReturn ?
+                new DbResponse<TDbDataModel>(commandId, error) :
+                (IDbResponse<TDbDataModel>)new DbResponse(commandId, error);
         public static async Task<IDbResponse<TDbDataModel>> CreateAsync(Guid commandId)
             => !IsEmptyDataReturn ?
                 await DbResponse<TDbDataModel>.CreateAsync(commandId) :
@@ -29,24 +33,32 @@ namespace DbFacade.DataLayer.Models
             => !IsEmptyDataReturn ?
                 await DbResponse<TDbDataModel>.CreateAsync(commandId, returnValue, outputValues) :
                 (IDbResponse<TDbDataModel>)await DbResponse.CreateAsync(commandId, returnValue, outputValues);
-
-
+        public static async Task<IDbResponse<TDbDataModel>> CreateErrorResponseAsync(Guid commandId, Exception error)
+            => !IsEmptyDataReturn ?
+                await DbResponse<TDbDataModel>.CreateErrorResponseAsync(commandId, error) :
+                (IDbResponse<TDbDataModel>)await DbResponse.CreateErrorResponseAsync(commandId, error);
     }
     internal class DbResponse : DbResponse<DbDataModel>, IDbResponse
     {
-        public DbResponse(Guid commandId) :base(commandId) { }
+        public DbResponse(Guid commandId, Exception error = null) :base(commandId, error) { }
         public DbResponse(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null) 
             :base(commandId, returnValue, outputValues) { }
         public static new async Task<DbResponse> CreateAsync(Guid commandId)
         {
-            DbResponse response = new DbResponse(commandId);
-            await response.InitializeAsync(commandId);
+            DbResponse response = new DbResponse(commandId, null);
+            await response.InitializeAsync(commandId, null);
             return response;
         }
         public static new async Task<DbResponse> CreateAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
-            DbResponse response = new DbResponse(commandId);
+            DbResponse response = new DbResponse(commandId, null);
             await response.InitializeAsync(commandId, returnValue, outputValues);
+            return response;
+        }
+        public static new async Task<DbResponse> CreateErrorResponseAsync(Guid commandId, Exception error)
+        {
+            DbResponse response = new DbResponse(commandId, error);
+            await response.InitializeAsync(commandId, error);
             return response;
         }
     }
@@ -57,19 +69,22 @@ namespace DbFacade.DataLayer.Models
         private IDictionary<string, object> OutputValues { get; set; }
         public bool IsNull { get; private set; }
         public Guid CommandId { get; private set; }
+        public Exception Error { get; private set; }
+        public bool HasError => Error is Exception;
         public DbResponse()
         {
             IsNull = true;
         }
-        public DbResponse(Guid commandId)
+        public DbResponse(Guid commandId, Exception error = null)
         {
             IsNull = true;
             CommandId = commandId;
+            Error = error;
         }
         public static async Task<DbResponse<TDbDataModel>> CreateAsync(Guid commandId)
         {
             DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
-            await response.InitializeAsync(commandId);
+            await response.InitializeAsync(commandId, null);
             return response;
         }
         public static async Task<DbResponse<TDbDataModel>> CreateAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
@@ -78,10 +93,17 @@ namespace DbFacade.DataLayer.Models
             await response.InitializeAsync(commandId,returnValue, outputValues);
             return response;
         }
-        protected async Task InitializeAsync(Guid commandId)
+        public static async Task<DbResponse<TDbDataModel>> CreateErrorResponseAsync(Guid commandId, Exception error)
+        {
+            DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
+            await response.InitializeAsync(commandId, error);            
+            return response;
+        }
+        protected async Task InitializeAsync(Guid commandId, Exception error = null)
         {
             IsNull = true;
             CommandId = commandId;
+            Error = error;
             await Task.CompletedTask;
         }
         protected async Task InitializeAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)

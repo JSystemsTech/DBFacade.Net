@@ -9,10 +9,18 @@ namespace DbFacadeUnitTests.TestFacade
 
     internal class UnitTestDomainFacade
     {
+        public string CurrentErrorMessage { get; private set; }
         public UnitTestDomainFacade()
         {
-            new UnitTestConnection(1).Register();
+            Init();
         }
+        private void Init()
+        {
+            new UnitTestConnection(ex=> {
+                CurrentErrorMessage = ex.Message;
+            }).Register();
+        }
+
         public IDbResponse TestUnregisteredConnectionCall()=> UnregisteredConnectionUnitTestMethods.TestUnregisteredConnectionCall.Mock(1);
         public IDbResponse<FetchData> TestFetchData()
             => UnitTestMethods.TestFetchData.Mock(new ResponseData[] { new ResponseData { MyString = "test string", MyEnum = 1 } }, 0);

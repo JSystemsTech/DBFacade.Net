@@ -1,12 +1,15 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
+using DbFacade.Exceptions;
 using DbFacade.Factories;
+using System;
 using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.TestFacade
 {
     internal class UnitTestConnection : SqlConnectionConfig<UnitTestConnection>
     {
-        public UnitTestConnection(int test) { }
+        private Action<Exception> ErrorHandler { get; set; }
+        public UnitTestConnection(Action<Exception> errorHandler) { ErrorHandler = errorHandler;  }
         protected override string GetDbConnectionString() => "MyUnitTestConnectionString";
 
         protected override string GetDbConnectionProvider() => "MyUnitTestConnectionProvider";
@@ -21,6 +24,15 @@ namespace DbFacadeUnitTests.TestFacade
             await Task.CompletedTask;
             return "MyUnitTestConnectionProvider";
         }
+
+        protected override void OnError(Exception ex)
+        => ErrorHandler(ex);
+        protected override async Task OnErrorAsync(Exception ex)
+        {
+            ErrorHandler(ex);
+            await Task.CompletedTask;
+        }
+
 
         public static IDbCommandConfig TestFetchData = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestFetchData", "Test Fetch Data");
         public static IDbCommandConfig TestFetchDataAlt = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestFetchData", "Test Fetch Data");

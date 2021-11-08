@@ -43,7 +43,9 @@ namespace DbFacade.DataLayer.ConnectionService
         internal override sealed async Task<IDbConnection> GetDbConnectionAsync(object parameters, MockResponseData mockResponseData = null) => await ResolveDbConnectionAsync(mockResponseData);
         internal override sealed IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig,TDbParams parameters, MockResponseData mockResponseData = null)
         {
-              if (commandConfig.DbConnectionConfig == this)
+            try
+            {
+                if (commandConfig.DbConnectionConfig == this)
                 {
                     commandConfig.OnBefore(parameters);
                     return mockResponseData != null ?
@@ -56,21 +58,66 @@ namespace DbFacade.DataLayer.ConnectionService
                 {
                     throw new FacadeException($"'{GetType().Name}' does not support command '{commandConfig.DbCommandText.Label}'");
                 }
-            }       
+            }
+            catch (ValidationException<TDbParams> valEx)
+            {
+                OnValidationError(valEx);
+                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText.CommandId, valEx);
+            }
+            catch (SQLExecutionException SQLEx)
+            {
+                OnSQLExecutionError(SQLEx);
+                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText.CommandId, SQLEx);
+            }
+            catch (FacadeException fEx)
+            {
+                OnFacadeError(fEx);
+                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText.CommandId, fEx);
+            }
+            catch (Exception ex)
+            {
+                OnError(ex);
+                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText.CommandId, ex);
+            }
+        }       
 
         internal override sealed async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters, MockResponseData mockResponseData = null)
         {
-            if (commandConfig.DbConnectionConfig == this) {
-            await commandConfig.OnBeforeAsync(parameters);
-            return mockResponseData != null ?
-                 await DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader>
-                      .ExecuteDbActionAsync(commandConfig, parameters, mockResponseData) :
-                 await DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
-                      .ExecuteDbActionAsync(commandConfig, parameters, mockResponseData);
-            }
-            else
+            try
             {
-                throw new FacadeException($"'{GetType().Name}' does not support command '{commandConfig.DbCommandText.Label}'");
+                if (commandConfig.DbConnectionConfig == this)
+                {
+                    await commandConfig.OnBeforeAsync(parameters);
+                    return mockResponseData != null ?
+                         await DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader>
+                              .ExecuteDbActionAsync(commandConfig, parameters, mockResponseData) :
+                         await DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
+                              .ExecuteDbActionAsync(commandConfig, parameters, mockResponseData);
+                }
+                else
+                {
+                    throw new FacadeException($"'{GetType().Name}' does not support command '{commandConfig.DbCommandText.Label}'");
+                }
+            }
+            catch (ValidationException<TDbParams> valEx)
+            {
+                await OnValidationErrorAsync(valEx);
+                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText.CommandId, valEx);
+            }
+            catch (SQLExecutionException SQLEx)
+            {
+                await OnSQLExecutionErrorAsync(SQLEx);
+                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText.CommandId, SQLEx);
+            }
+            catch (FacadeException fEx)
+            {
+                await OnFacadeErrorAsync(fEx);
+                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText.CommandId, fEx);
+            }
+            catch (Exception ex)
+            {
+                await OnErrorAsync(ex);
+                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText.CommandId, ex);
             }
         }        
 
@@ -122,6 +169,15 @@ namespace DbFacade.DataLayer.ConnectionService
             await Task.CompletedTask;
             throw new NotImplementedException("You must impliment the method GetDbConnectionProviderAsync");
         }
+        protected virtual void OnError(Exception ex) { }
+        protected virtual void OnValidationError<TDbParams>(ValidationException<TDbParams> ex) => OnError(ex);
+        protected virtual void OnSQLExecutionError(SQLExecutionException ex) => OnError(ex);
+        protected virtual void OnFacadeError(FacadeException ex) => OnError(ex);
+
+        protected virtual async Task OnErrorAsync(Exception ex) { await Task.CompletedTask;  }
+        protected virtual async Task OnValidationErrorAsync<TDbParams>(ValidationException<TDbParams> ex) => await OnErrorAsync(ex);
+        protected virtual async Task OnSQLExecutionErrorAsync(SQLExecutionException ex) => await OnErrorAsync(ex);
+        protected virtual async Task OnFacadeErrorAsync(FacadeException ex) => await OnErrorAsync(ex);
     }
     public abstract class
         SqlConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<SqlDataReader, SqlConnection, SqlCommand,

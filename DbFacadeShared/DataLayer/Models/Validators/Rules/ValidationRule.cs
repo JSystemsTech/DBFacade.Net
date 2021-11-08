@@ -17,7 +17,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         protected object ParamsValue { get; private set; }
         protected Func<TDbParams, object> GetParamFunc { get; private set; }
 
-        private string PropertyName { get; set; }
         protected bool IsNullable { get; private set; }
         public IValidationRuleResult Validate(TDbParams paramsModel)
         {

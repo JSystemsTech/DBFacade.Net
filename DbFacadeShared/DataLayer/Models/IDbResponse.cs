@@ -66,7 +66,8 @@ namespace DbFacade.DataLayer.Models
         bool IsNull { get; }
         bool HasDataBindingErrors { get; }
         Guid CommandId { get; }
-
+        Exception Error { get; }
+        bool HasError { get; }
         object GetOutputValue(string key);
         T GetOutputValue<T>(string key);
         T GetOutputModel<T>() where T : DbDataModel;

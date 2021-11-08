@@ -174,63 +174,60 @@ namespace DbFacadeUnitTests.Tests.Facade
         [TestMethod]
         public void CatchesValidationError()
         {
-            try
-            {
-                IDbResponse<DbDataModel> response = DomainFacade.TestTransaction(null);
-                Assert.Fail();
-            }
-            catch(ValidationException<string> e)
+            IDbResponse<DbDataModel> response = DomainFacade.TestTransaction(null);
+            if (response.Error is ValidationException<string> e)
             {
                 Assert.AreEqual(1, e.ValidationErrors.Count());
                 Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
                 Assert.AreEqual("is required.", e.ValidationErrors.First().ErrorMessage);
-            }        
+            }
+            else
+            {
+                Assert.Fail();
+            }
         }
         
         
         [TestMethod]
         public void CustomFacadeVerifyStopsAtStep1()
         {
-            try
-            {
-                IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(true, false, false);
-                Assert.Fail();
-            }
-            catch (Exception e)
+            IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(true, false, false);
+            if (response.Error is Exception e)
             {
                 Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
                 Assert.AreEqual("Stopping at step 1", e.InnerException.Message);
-                
             }
-
+            else
+            {
+                Assert.Fail();
+            }
         }
         [TestMethod]
         public void CustomFacadeVerifyStopsAtStep2()
         {
-            try
-            {
-                IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(false, true, false);
-                Assert.Fail();
-            }
-            catch (Exception e)
+            IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(false, true, false);
+            if (response.Error is Exception e)
             {
                 Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
                 Assert.AreEqual("Stopping at step 2", e.InnerException.Message);
             }
-
+            else
+            {
+                Assert.Fail();
+            }
         }
         [TestMethod]
         public void CustomFacadeVerifyStopsAtStep3()
         {
-            try
-            {
-                IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(false, false, true);
-                Assert.Fail();
-            }
-            catch (Exception e)
+            IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(false, false, true);
+            if (response.Error is Exception e)
             {
                 Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
                 Assert.AreEqual("Stopping at step 3", e.InnerException.Message);
+            }
+            else
+            {
+                Assert.Fail();
             }
         }
 
@@ -383,35 +380,19 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                try
-                {
-                    IDbResponse<DbDataModel> response = await DomainFacade.TestTransactionAsync(null);
-                    Assert.Fail();
-                    await Task.CompletedTask;
-                }
-                catch (ValidationException<string> e)
+                IDbResponse<DbDataModel> response = await DomainFacade.TestTransactionAsync(null);
+                if (response.Error is ValidationException<string> e)
                 {
                     Assert.AreEqual(1, e.ValidationErrors.Count());
                     Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
                     Assert.AreEqual("is required.", e.ValidationErrors.First().ErrorMessage);
                     await Task.CompletedTask;
                 }
-                catch (Exception ex)
+                else
                 {
-                    if (ex.InnerException is ValidationException<string> e)
-                    {
-                        Assert.AreEqual(1, e.ValidationErrors.Count());
-                        Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
-                        Assert.AreEqual("is required.", e.ValidationErrors.First().ErrorMessage);
-                        await Task.CompletedTask;
-                    }
-                    else
-                    {
-                        Assert.Fail();
-                        await Task.CompletedTask;
-                    }
+                    Assert.Fail();
+                    await Task.CompletedTask;
                 }
-
             });
         }
         
@@ -421,19 +402,18 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                try
-                {
-                    IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(true, false, false);
-                    Assert.Fail();
-                    await Task.CompletedTask;
-                }
-                catch (Exception e)
+                IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(true, false, false);
+                if (response.Error is Exception e)
                 {
                     Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
                     Assert.AreEqual("Stopping at step 1", e.InnerException.Message);
                     await Task.CompletedTask;
                 }
-
+                else
+                {
+                    Assert.Fail();
+                    await Task.CompletedTask;
+                }
             });
 
         }
@@ -442,19 +422,18 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                try
-                {
-                    IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(false, true, false);
-                    Assert.Fail();
-                    await Task.CompletedTask;
-                }
-                catch (Exception e)
+                IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(false, true, false);
+                if (response.Error is Exception e)
                 {
                     Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
                     Assert.AreEqual("Stopping at step 2", e.InnerException.Message);
                     await Task.CompletedTask;
                 }
-
+                else
+                {
+                    Assert.Fail();
+                    await Task.CompletedTask;
+                }
             });
         }
         [TestMethod]
@@ -462,16 +441,16 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                try
-                {
-                    IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(false, false, true);
-                    Assert.Fail();
-                    await Task.CompletedTask;
-                }
-                catch (Exception e)
+                IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(false, false, true);
+                if (response.Error is Exception e)
                 {
                     Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
                     Assert.AreEqual("Stopping at step 3", e.InnerException.Message);
+                    await Task.CompletedTask;
+                }
+                else
+                {
+                    Assert.Fail();
                     await Task.CompletedTask;
                 }
             });
