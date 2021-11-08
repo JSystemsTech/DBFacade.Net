@@ -17,11 +17,9 @@ namespace DbFacade.DataLayer.CommandConfig
         
         IDbResponse<TDbDataModel> Mock(TDbParams parameters, int returnValue, Action<IDictionary<string, object>> outputValues = null);
         IDbResponse<TDbDataModel> Mock<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null);
-        IDbResponse<TDbDataModel> Mock<T>(TDbParams parameters, T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null);
         
         Task<IDbResponse<TDbDataModel>> MockAsync(TDbParams parameters, int returnValue, Action<IDictionary<string, object>> outputValues = null);
         Task<IDbResponse<TDbDataModel>> MockAsync<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null);
-        Task<IDbResponse<TDbDataModel>> MockAsync<T>(TDbParams parameters, T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null);
     }
     public interface IParameterlessDbCommandMethod<TDbDataModel>
         where TDbDataModel : DbDataModel
@@ -30,11 +28,9 @@ namespace DbFacade.DataLayer.CommandConfig
         Task<IDbResponse<TDbDataModel>> ExecuteAsync();
         IDbResponse<TDbDataModel> Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null);
         IDbResponse<TDbDataModel> Mock<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null);
-        IDbResponse<TDbDataModel> Mock<T>(T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null);
 
         Task<IDbResponse<TDbDataModel>> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null);
         Task<IDbResponse<TDbDataModel>> MockAsync<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null);
-        Task<IDbResponse<TDbDataModel>> MockAsync<T>(T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null);
     }
     public interface IDbCommandMethod<TDbParams>
         where TDbParams : DbParamsModel

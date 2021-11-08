@@ -62,7 +62,7 @@ namespace DbFacade.Utils
 
         public MockDbTable<T> AddRows(IEnumerable<T> models)
         {
-            foreach (var model in models) AddRow(model);
+            foreach (T model in models) AddRow(model);
             return this;
         }
 

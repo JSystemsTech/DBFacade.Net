@@ -43,12 +43,12 @@ namespace DbFacade.DataLayer.ConnectionService
             return responseObj;
         }
 
-        public static async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> config, TDbParams parameters)
+        public static async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> config, TDbParams parameters, MockResponseData mockResponseData)
             where TDbDataModel : DbDataModel
             where TDbParams : DbParamsModel
         {
             var connectionConfig = config.DbConnectionConfig;
-            using (var dbConnection = await connectionConfig.GetDbConnectionAsync(parameters) as TDbConnection)
+            using (var dbConnection = await connectionConfig.GetDbConnectionAsync(parameters, mockResponseData) as TDbConnection)
             {
                 if (dbConnection != null)
                 {
@@ -108,8 +108,6 @@ namespace DbFacade.DataLayer.ConnectionService
 
                 throw new FacadeException("Invalid Connection Definition");
             }
-
-            throw new FacadeException("Invalid Config");
         }
     }
 }

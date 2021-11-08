@@ -14,7 +14,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         private DbConnection _DbConnection { get; set; }
         private DbParameterCollection _DbParameterCollection { get; set; }
         private DbTransaction _DbTransaction { get; set; }
-        private DbParamsModel ParamsModel { get; set; }
+        private MockResponseData MockResponseData { get; set; }
 
         public override string CommandText { get => _CommandText; set => _CommandText = value; }
         public override int CommandTimeout { get => _CommandTimeout; set => _CommandTimeout = value; }
@@ -27,10 +27,10 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
 
         protected override DbTransaction DbTransaction { get => _DbTransaction; set => _DbTransaction = value; }
 
-        public MockDbCommand(MockDbConnection dbConnection, DbParamsModel paramsModel)
+        public MockDbCommand(MockDbConnection dbConnection, MockResponseData mockResponseData)
         {
+            MockResponseData = mockResponseData;
             _DbConnection = dbConnection;
-            ParamsModel = paramsModel;
             _DbParameterCollection = new MockDbParameterCollection();
         }
          
@@ -47,16 +47,16 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         {
             if(_DbParameterCollection is MockDbParameterCollection mockDbParameterCollection)
             {
-                if(mockDbParameterCollection.GetReturnValueParam() is MockDbParameter param && param != null)
+                if(mockDbParameterCollection.GetReturnValueParam() is MockDbParameter param)
                 {
-                    param.Value = ParamsModel.ReturnValue;
+                    param.Value = MockResponseData.ReturnValue;
                 }
-                if(ParamsModel.OutputValues != null)
+                if(MockResponseData.OutputValues != null)
                 {                    
                     foreach (MockDbParameter outputParam in mockDbParameterCollection.GetOutputParams())
                     {
                         object value;
-                        if (ParamsModel.OutputValues.TryGetValue(outputParam.ParameterNameAsKey(), out value))
+                        if (MockResponseData.OutputValues.TryGetValue(outputParam.ParameterNameAsKey(), out value))
                         {
                             outputParam.Value = value;
                         }
@@ -67,7 +67,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
         {
             SetResponse();
-            return ParamsModel.ResponseData;
+            return MockResponseData.ResponseData;
         }
     }
 }

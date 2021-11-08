@@ -88,7 +88,7 @@ namespace DbFacade.Extensions
             where TDbParameter : DbParameter
             where TDbParams : DbParamsModel
         {
-            foreach (KeyValuePair<string, IDbCommandParameterConfig<TDbParams>> config in dbParams)
+            foreach (var config in dbParams)
             {
                 dbCommand.AddParameter<TDbCommand, TDbParameter, TDbParams>(config, model);
             }
@@ -101,7 +101,7 @@ namespace DbFacade.Extensions
             where TDbParameter : DbParameter
             where TDbParams : DbParamsModel
         {
-            foreach (KeyValuePair<string, IDbCommandParameterConfig<TDbParams>> config in dbParams)
+            foreach (var config in dbParams)
             {
                 await dbCommand.AddParameterAsync<TDbCommand, TDbParameter, TDbParams>(config, model);
             }

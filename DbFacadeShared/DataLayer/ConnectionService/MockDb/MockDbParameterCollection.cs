@@ -95,8 +95,10 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         {
             if (value is MockDbParameter parameter && index  >= 0 && index < Count)
             {
-                bool hasExistingRecord = Contains(parameter);
-                if(!hasExistingRecord || (hasExistingRecord && Parameters.ElementAtOrDefault(index).ParameterName == parameter.ParameterName))
+                bool hasExistingRecord = 
+                    Contains(parameter) || 
+                    Parameters.ElementAtOrDefault(index) is MockDbParameter elParam && elParam.ParameterName == parameter.ParameterName;
+                if(!hasExistingRecord)
                 {
                     Parameters[index] = parameter;
                 }                

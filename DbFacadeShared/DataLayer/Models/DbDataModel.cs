@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using DbFacade.DataLayer.ConnectionService;
 using DbFacade.Utils;
+using DbFacadeShared.Extensions;
 using Newtonsoft.Json;
 
 namespace DbFacade.DataLayer.Models
@@ -28,10 +29,10 @@ namespace DbFacade.DataLayer.Models
         [JsonIgnore]
         public IEnumerable<IDbDataModelBindingError> DataBindingErrors { get => _DataBindingErrors; }
         private List<IDbDataModelBindingError> _DataBindingErrors { get; set; }
-        private void AddDataBindingError(IDbDataModelBindingError e)
+        private void AddDataBindingError(Exception ex)
         {
             _DataBindingErrors = _DataBindingErrors ?? new List<IDbDataModelBindingError>();
-            _DataBindingErrors.Add(e);
+            _DataBindingErrors.Add(DbDataModelBindingError.Create(ex.InnerException,GetType()));
         }
         [JsonIgnore]
         public bool HasDataBindingErrors { get => DataBindingErrors != null && DataBindingErrors.Any(); }
@@ -60,85 +61,38 @@ namespace DbFacade.DataLayer.Models
             return model;
         }
         protected virtual void Init() { }
-        private T Parse<T>(object value, T defaultValue = default)
+
+        private T TryGetColumn<T>(Func<T> handler)
         {
             try
             {
-                Type returnType = typeof(T);
-                Type underlyingType = Nullable.GetUnderlyingType(returnType);
-                Type castType = underlyingType != null ? underlyingType : returnType;
-                if (value is T tVal)
-                {
-                    return tVal;
-                }
-                if (castType == typeof(string))
-                {
-                    return (T)(object)value.ToString();
-                }
-                else if (castType == typeof(MailAddress))
-                {
-                    return (T)(object)new MailAddress(value.ToString());
-                }
-                return IsEnum(castType, value) && value != null && value is int intValue ?
-                    (T)Enum.ToObject(castType, intValue) :
-                    (T)Convert.ChangeType(value, castType);
+                return handler();
             }
-            catch
+            catch (Exception ex)
             {
-                return defaultValue;
-            }
-        }
-        private string GetColumnName(string col)
-            => Data.ContainsKey(col) ? col :
-            Data.Keys.FirstOrDefault(key => string.Equals(key, col, StringComparison.CurrentCultureIgnoreCase));
-        private static bool IsEnum(Type enumType, object value)
-        {
-            try
-            {
-                return Enum.IsDefined(enumType, value);
-            }
-            catch
-            {
-                return false;
+                AddDataBindingError(ex);
+                return default(T);
             }
         }
         protected T GetColumn<T>(string col, Func<string, T> convert, T defaultValue = default)
-            => GetColumn<T, string>(col, convert, defaultValue);
+            => TryGetColumn(() => Data.GetValue<T, string>(col, convert, defaultValue));
         protected T GetColumn<T, TParse>(string col, Func<TParse, T> convert, T defaultValue = default)
             where TParse : IComparable
-        {
-            TParse defaultParseValue = default(TParse);
-            TParse parseValue = GetColumn(col, defaultParseValue);
-            return parseValue.CompareTo(defaultParseValue) == 0 ? defaultValue : convert(parseValue);
-        }
+            => TryGetColumn(() => Data.GetValue(col, convert, defaultValue));
         protected T GetColumn<T>(string col, T defaultValue = default)
-        {
-            string name = GetColumnName(col);
-            if(name == null)
-            {
-                AddDataBindingError(DbDataModelBindingError.Create(new Exception($"No column named '{col}' exists"), GetType()));
-            }
-            return name != null &&
-                Data.TryGetValue(name, out object value) && 
-                value != null && 
-                value != DBNull.Value ? 
-                Parse(value, defaultValue) : defaultValue;
-        }
-        
+            => TryGetColumn(() => Data.GetValue(col, defaultValue));
+
         protected DateTime? GetDateTimeColumn(string col, string format, DateTimeStyles style = DateTimeStyles.None)
-            => GetDateTimeColumn(col,format, CultureInfo.InvariantCulture, style);
+            => TryGetColumn(() => Data.GetDateTimeValue(col,format, style));
         protected DateTime? GetDateTimeColumn(string col, string format, IFormatProvider provider, DateTimeStyles style = DateTimeStyles.None)
-        => GetColumn(col, value =>
-            !string.IsNullOrWhiteSpace(value) &&
-            DateTime.TryParseExact(value, format, provider, style, out DateTime outValue) ? outValue : (DateTime?)null        
-            );
+            => TryGetColumn(() => Data.GetDateTimeValue(col, format, provider, style));
         protected string GetFormattedDateTimeStringColumn(string col, string format)
-        => GetColumn<DateTime?>(col) is DateTime convertedValue  ? convertedValue.ToString(format): null;
+            => TryGetColumn(() => Data.GetFormattedDateTimeStringValue(col, format));
         protected IEnumerable<T> GetEnumerableColumn<T>(string col, string delimeter = ",")
-        => GetColumn(col, value => value.Split(delimeter.ToArray()).Select(v => Parse<T>(v)));
+            => TryGetColumn(() =>Data.GetEnumerableValue<T>(col,delimeter));
         protected bool GetFlagColumn<T>(string col, T trueValue)
             where T: IComparable
-        => GetColumn<T>(col).CompareTo(trueValue) == 0;
+            => TryGetColumn(() => Data.GetFlagValue<T>(col, trueValue));
     }
 
     

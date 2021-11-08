@@ -24,7 +24,7 @@ namespace DbFacade.DataLayer.CommandConfig
 
         protected Action<TDbParams>[] OnBeforeActions { get; set; }
         protected Func<TDbParams, Task>[] OnBeforeAsyncActions { get; set; }
-        protected DbCommandMethod() { }        
+        protected DbCommandMethod() { }
 
         internal static DbCommandMethod<TDbParams, TDbDataModel> Create<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
@@ -32,7 +32,7 @@ namespace DbFacade.DataLayer.CommandConfig
             Action<IValidator<TDbParams>> validatorInitializer = null
             ) where TDbConnectionConfig : DbConnectionConfigBase
         => Create<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, p => { });
-        
+
         internal static DbCommandMethod<TDbParams, TDbDataModel> Create<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<TDbParams>> parametersInitializer,
@@ -41,7 +41,7 @@ namespace DbFacade.DataLayer.CommandConfig
             ) where TDbConnectionConfig : DbConnectionConfigBase
         {
             DbCommandConfigParams<TDbParams> dbParams = DbCommandConfigParams<TDbParams>.Create(parametersInitializer);
-            IValidator<TDbParams> validator = ValidatorFactory.Create(validatorInitializer);            
+            IValidator<TDbParams> validator = ValidatorFactory.Create(validatorInitializer);
             return new DbCommandMethod<TDbParams, TDbDataModel>()
             {
                 DbCommandText = dbCommand,
@@ -118,7 +118,7 @@ namespace DbFacade.DataLayer.CommandConfig
                     $"{paramsModel.GetType().Name} values failed to pass validation for command '{DbCommandText.Label}'");
             }
             try
-            {                
+            {
                 if (OnBeforeActions != null)
                 {
                     foreach (Action<TDbParams> handler in OnBeforeActions)
@@ -127,10 +127,10 @@ namespace DbFacade.DataLayer.CommandConfig
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new FacadeException($"An Error occured before calling '{DbCommandText.Label}'", e);
-            } 
+            }
         }
 
         public async Task OnBeforeAsync(TDbParams paramsModel)
@@ -149,7 +149,7 @@ namespace DbFacade.DataLayer.CommandConfig
             }
             try
             {
-                if(OnBeforeAsyncActions != null)
+                if (OnBeforeAsyncActions != null)
                 {
                     foreach (Func<TDbParams, Task> handler in OnBeforeAsyncActions)
                     {
@@ -172,42 +172,20 @@ namespace DbFacade.DataLayer.CommandConfig
         }
 
         public IDbResponse<TDbDataModel> Execute(TDbParams parameters)
-        => DbConnectionConfig.ExecuteDbAction(this, parameters);
-
+            => DbConnectionConfig.ExecuteDbAction(this, parameters);
         public async Task<IDbResponse<TDbDataModel>> ExecuteAsync(TDbParams parameters)
-        => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters);
+            => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters);
 
-        public IDbResponse<TDbDataModel> Mock(TDbParams parameters,int returnValue, Action<IDictionary<string, object>> outputValues = null)
-        {
-            parameters.RunAsTest(returnValue,outputValues);
-            return Execute(parameters);
-        }
+        public IDbResponse<TDbDataModel> Mock(TDbParams parameters, int returnValue, Action<IDictionary<string, object>> outputValues = null)
+            => DbConnectionConfig.ExecuteDbAction(this, parameters, MockResponseData.Create(outputValues, returnValue));
         public IDbResponse<TDbDataModel> Mock<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
-        {
-            parameters.RunAsTest(responseData, returnValue,outputValues);
-            return Execute(parameters);
-        }
-        public IDbResponse<TDbDataModel> Mock<T>(TDbParams parameters, T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
-        {
-            parameters.RunAsTest(responseData, returnValue,outputValues);
-            return Execute(parameters);
-        }
+            => DbConnectionConfig.ExecuteDbAction(this, parameters, MockResponseData.Create(responseData, outputValues, returnValue));
 
         public async Task<IDbResponse<TDbDataModel>> MockAsync(TDbParams parameters, int returnValue, Action<IDictionary<string, object>> outputValues = null)
-        {
-            await parameters.RunAsTestAsync(returnValue,outputValues);
-            return await ExecuteAsync(parameters);
-        }
+            => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters, await MockResponseData.CreateAsync(outputValues, returnValue));
         public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
-        {
-            await parameters.RunAsTestAsync(responseData, returnValue,outputValues);
-            return await ExecuteAsync(parameters);
-        }
-        public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(TDbParams parameters, T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
-        {
-            await parameters.RunAsTestAsync(responseData, returnValue,outputValues);
-            return await ExecuteAsync(parameters);
-        }
+            => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters, await MockResponseData.CreateAsync(responseData, outputValues, returnValue));
+        
 
         protected override void OnDispose(bool calledFromDispose)
         {
@@ -260,13 +238,10 @@ namespace DbFacade.DataLayer.CommandConfig
         public async Task<IDbResponse<TDbDataModel>> ExecuteAsync() => await ExecuteAsync(new DbParamsModel());
         public IDbResponse<TDbDataModel> Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(new DbParamsModel(), returnValue,outputValues);
         public IDbResponse<TDbDataModel> Mock<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(new DbParamsModel(), responseData, returnValue,outputValues);
-        public IDbResponse<TDbDataModel> Mock<T>(T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(new DbParamsModel(), responseData, returnValue,outputValues);
 
         public async Task<IDbResponse<TDbDataModel>> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(new DbParamsModel(), returnValue,outputValues);
 
         public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(new DbParamsModel(), responseData, returnValue,outputValues);
-
-        public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(T responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(new DbParamsModel(), responseData, returnValue,outputValues);
 
         #endregion
     }

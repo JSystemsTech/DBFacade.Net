@@ -40,14 +40,14 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
             }
             return DbTransaction;
         }
-        private DbParamsModel ParamsModel { get; set; }
+        private MockResponseData MockResponseData { get; set; }
         protected override DbCommand CreateDbCommand() {
-            DbCommand = new MockDbCommand(this, ParamsModel);
+            DbCommand = new MockDbCommand(this, MockResponseData);
             return DbCommand;
         }
-        public MockDbConnection (DbParamsModel paramsModel)
+        public MockDbConnection (MockResponseData mockResponseData)
         {
-            ParamsModel = paramsModel;
+            MockResponseData = mockResponseData;
         }
     }
 }

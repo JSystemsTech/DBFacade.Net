@@ -15,17 +15,17 @@ namespace DbFacadeUnitTests.TestFacade
         }
         public IDbResponse TestUnregisteredConnectionCall()=> UnregisteredConnectionUnitTestMethods.TestUnregisteredConnectionCall.Mock(1);
         public IDbResponse<FetchData> TestFetchData()
-            => UnitTestMethods.TestFetchData.Mock(new ResponseData { MyString = "test string",MyEnum=1 }, 0);
+            => UnitTestMethods.TestFetchData.Mock(new ResponseData[] { new ResponseData { MyString = "test string", MyEnum = 1 } }, 0);
         public IDbResponse<FetchData> TestFetchDataAlt()
-            => UnitTestMethods.TestFetchDataAlt.Mock(new ResponseDataAlt { MyStringAlt = "test string", MyEnumAlt = 1 }, 0);
+            => UnitTestMethods.TestFetchDataAlt.Mock(new ResponseDataAlt[] { new ResponseDataAlt { MyStringAlt = "test string", MyEnumAlt = 1 } }, 0);
         public IDbResponse<FetchDataWithBadDbColumn> TestFetchDataWithBadDbColumn()
-            => UnitTestMethods.TestFetchDataWithBadDbColumn.Mock(new ResponseData { MyString = "test string" }, 0);
+            => UnitTestMethods.TestFetchDataWithBadDbColumn.Mock(new ResponseData[] { new ResponseData { MyString = "test string" } }, 0);
         public IDbResponse<FetchDataWithNested> TestFetchDataWithNested()
-            => UnitTestMethods.TestFetchDataWithNested.Mock(new ResponseData { MyString = "test string" }, 0);
+            => UnitTestMethods.TestFetchDataWithNested.Mock(new ResponseData[] { new ResponseData { MyString = "test string" } }, 0);
         public IDbResponse TestTransaction(string value)
             => UnitTestMethods.TestTransaction.Mock(new DbParamsModel<string>(value), 10);
         public IDbResponse<FetchData> TestFetchDataWithOutput()
-            => UnitTestMethods.TestFetchDataWithOutput.Mock(new ResponseData { MyString = "test string" }, 1, ov=> { ov.Add("MyStringOutputParam", "output response"); });
+            => UnitTestMethods.TestFetchDataWithOutput.Mock(new ResponseData[] { new ResponseData { MyString = "test string" }}, 1, ov=> { ov.Add("MyStringOutputParam", "output response"); });
         public IDbResponse TestTransactionWithOutput(string value)
            => UnitTestMethods.TestTransactionWithOutput.Mock(new DbParamsModel<string>(value), 10, ov => { ov.Add("MyStringOutputParam", "output response"); });
         public IDbResponse TestFetchDataWithModelProcessParams(bool stopAtStep1, bool stopAtStep2, bool stopAtStep3)
@@ -34,17 +34,17 @@ namespace DbFacadeUnitTests.TestFacade
         #region Async Calls
         public async Task<IDbResponse> TestUnregisteredConnectionCallAsync() => await UnregisteredConnectionUnitTestMethods.TestUnregisteredConnectionCall.MockAsync(1);
         public async Task<IDbResponse<FetchData>> TestFetchDataAsync()
-            => await UnitTestMethods.TestFetchData.MockAsync(new ResponseData { MyString = "test string", MyEnum = 1 }, 0);
+            => await UnitTestMethods.TestFetchData.MockAsync(new ResponseData[] { new ResponseData { MyString = "test string", MyEnum = 1 } }, 0);
         public async Task<IDbResponse<FetchData>> TestFetchDataAltAsync()
-            => await UnitTestMethods.TestFetchDataAlt.MockAsync(new ResponseDataAlt { MyStringAlt = "test string", MyEnumAlt = 1 }, 0);
+            => await UnitTestMethods.TestFetchDataAlt.MockAsync(new ResponseDataAlt[] { new ResponseDataAlt { MyStringAlt = "test string", MyEnumAlt = 1 } }, 0);
         public async Task<IDbResponse<FetchDataWithBadDbColumn>> TestFetchDataWithBadDbColumnAsync()
-            => await UnitTestMethods.TestFetchDataWithBadDbColumn.MockAsync(new ResponseData { MyString = "test string" }, 0);
+            => await UnitTestMethods.TestFetchDataWithBadDbColumn.MockAsync(new ResponseData[] { new ResponseData { MyString = "test string" } }, 0);
         public async Task<IDbResponse<FetchDataWithNested>> TestFetchDataWithNestedAsync()
-            => await UnitTestMethods.TestFetchDataWithNested.MockAsync(new ResponseData { MyString = "test string" }, 0);
+            => await UnitTestMethods.TestFetchDataWithNested.MockAsync(new ResponseData[] { new ResponseData { MyString = "test string" } }, 0);
         public async Task<IDbResponse> TestTransactionAsync(string value)
             => await UnitTestMethods.TestTransaction.MockAsync(new DbParamsModel<string>(value), 10);
         public async Task<IDbResponse<FetchData>> TestFetchDataWithOutputAsync()
-            => await UnitTestMethods.TestFetchDataWithOutput.MockAsync(new ResponseData { MyString = "test string" }, 1, ov => { ov.Add("MyStringOutputParam", "output response"); });
+            => await UnitTestMethods.TestFetchDataWithOutput.MockAsync(new ResponseData[] { new ResponseData { MyString = "test string" } }, 1, ov => { ov.Add("MyStringOutputParam", "output response"); });
         public async Task<IDbResponse> TestTransactionWithOutputAsync(string value)
            => await UnitTestMethods.TestTransactionWithOutput.MockAsync(new DbParamsModel<string>(value), 10, ov => { ov.Add("MyStringOutputParam", "output response"); });
         public async Task<IDbResponse> TestFetchDataWithModelProcessParamsAsync(bool stopAtStep1, bool stopAtStep2, bool stopAtStep3)
