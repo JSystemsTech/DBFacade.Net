@@ -1,6 +1,5 @@
 ﻿using DbFacade.DataLayer.CommandConfig.Parameters;
 using DbFacade.DataLayer.ConnectionService;
-using DbFacade.DataLayer.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -9,8 +8,20 @@ using System.Threading.Tasks;
 
 namespace DbFacade.Extensions
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal static class ParameterConfigExtensions
     {
+        /// <summary>
+        /// Adds the parameter.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
+        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="config">The configuration.</param>
+        /// <param name="model">The model.</param>
         public static void AddParameter<TDbCommand, TDbParameter, TDbParams>(
             this TDbCommand dbCommand, 
             KeyValuePair<string, IDbCommandParameterConfig<TDbParams>> config,
@@ -43,6 +54,15 @@ namespace DbFacade.Extensions
                 dbCommand.Parameters.Add(parameter);
             }
         }
+        /// <summary>
+        /// Adds the parameter asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
+        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="config">The configuration.</param>
+        /// <param name="model">The model.</param>
         public static async Task AddParameterAsync<TDbCommand, TDbParameter, TDbParams>(
             this TDbCommand dbCommand,
             KeyValuePair<string, IDbCommandParameterConfig<TDbParams>> config,
@@ -77,6 +97,15 @@ namespace DbFacade.Extensions
         }
 
 
+        /// <summary>
+        /// Adds the parameters.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
+        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="dbParams">The database parameters.</param>
+        /// <param name="model">The model.</param>
         public static void AddParams<TDbCommand, TDbParameter, TDbParams>(
             this TDbCommand dbCommand,
             IDbCommandConfigParams<TDbParams> dbParams,
@@ -90,6 +119,15 @@ namespace DbFacade.Extensions
                 dbCommand.AddParameter<TDbCommand, TDbParameter, TDbParams>(config, model);
             }
         }
+        /// <summary>
+        /// Adds the parameters asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
+        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="dbParams">The database parameters.</param>
+        /// <param name="model">The model.</param>
         public static async Task AddParamsAsync<TDbCommand, TDbParameter, TDbParams>(
             this TDbCommand dbCommand,
             IDbCommandConfigParams<TDbParams> dbParams,
@@ -104,18 +142,42 @@ namespace DbFacade.Extensions
         }
 
 
+        /// <summary>
+        /// Gets the return value.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
         public static int GetReturnValue<TDbCommand>(this TDbCommand dbCommand)
             where TDbCommand : DbCommand
             => GetReturnValueParam(dbCommand) is DbParameter parameter && parameter.Value is int value ? value : -1;
 
+        /// <summary>
+        /// Gets the return value parameter.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
         private static DbParameter GetReturnValueParam<TDbCommand>(this TDbCommand dbCommand)
             where TDbCommand : DbCommand
         => dbCommand.Parameters.Cast<DbParameter>().Where(entry => entry.Direction == ParameterDirection.ReturnValue).FirstOrDefault();
 
+        /// <summary>
+        /// Gets the return value asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
         public static async Task<int> GetReturnValueAsync<TDbCommand>(this TDbCommand dbCommand)
             where TDbCommand : DbCommand
             => await GetReturnValueParamAsync(dbCommand) is DbParameter parameter && parameter.Value is int value ? value : -1;
 
+        /// <summary>
+        /// Gets the return value parameter asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
         private static async Task<DbParameter> GetReturnValueParamAsync<TDbCommand>(this TDbCommand dbCommand)
             where TDbCommand : DbCommand
         {
@@ -124,9 +186,21 @@ namespace DbFacade.Extensions
             return parameter;
         }
 
+        /// <summary>
+        /// Gets the output parameters.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
         private static IEnumerable<DbParameter> GetOutputParams<TDbCommand>(this TDbCommand dbCommand)
             where TDbCommand : DbCommand
         => dbCommand.Parameters.Cast<DbParameter>().Where(entry => entry.Direction == ParameterDirection.Output);
+        /// <summary>
+        /// Gets the output values.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
         public static IDictionary<string, object> GetOutputValues<TDbCommand>(this TDbCommand dbCommand)
             where TDbCommand : DbCommand
         {
@@ -138,6 +212,12 @@ namespace DbFacade.Extensions
             }
             return outputValues;
         }
+        /// <summary>
+        /// Gets the output parameters asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
         private static async Task<IEnumerable<DbParameter>> GetOutputParamsAsync<TDbCommand>(this TDbCommand dbCommand)
             where TDbCommand : DbCommand
         {
@@ -146,6 +226,12 @@ namespace DbFacade.Extensions
             return parameters;
         }
 
+        /// <summary>
+        /// Gets the output values asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
         public static async Task<IDictionary<string, object>> GetOutputValuesAsync<TDbCommand>(this TDbCommand dbCommand)
             where TDbCommand : DbCommand
         {
@@ -160,6 +246,18 @@ namespace DbFacade.Extensions
         }
 
 
+        /// <summary>
+        /// Gets the database command.
+        /// </summary>
+        /// <typeparam name="TDbConnection">The type of the database connection.</typeparam>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
+        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+        /// <param name="dbConnection">The database connection.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
+        /// <param name="dbParams">The database parameters.</param>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
         public static TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter, TDbParams>(
             this TDbConnection dbConnection,
             DbCommandSettingsBase dbCommandSettings,
@@ -176,6 +274,18 @@ namespace DbFacade.Extensions
             dbCommand.CommandType = dbCommandSettings.CommandType;
             return dbCommand;
         }
+        /// <summary>
+        /// Gets the database command asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbConnection">The type of the database connection.</typeparam>
+        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
+        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+        /// <param name="dbConnection">The database connection.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
+        /// <param name="dbParams">The database parameters.</param>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
         public static async Task<TDbCommand> GetDbCommandAsync<TDbConnection, TDbCommand, TDbParameter, TDbParams>(
             this TDbConnection dbConnection,
             DbCommandSettingsBase dbCommandSettings,

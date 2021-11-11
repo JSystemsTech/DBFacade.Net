@@ -32,7 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModelBindingError.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModel_Async.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbParamsModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\MockResponseData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\IDbResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\OutputDbDataModel.cs" />

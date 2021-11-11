@@ -1,26 +1,46 @@
-﻿using System;
+﻿using DbFacade.Factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DbFacade.DataLayer.Models;
-using DbFacade.Factories;
 
 namespace DbFacade.DataLayer.CommandConfig.Parameters
 {
-    /// <summary></summary>
+    /// <summary>
+    /// 
+    /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     internal class DbCommandConfigParams<TDbParams> : Dictionary<string, IDbCommandParameterConfig<TDbParams>>,
         IDbCommandConfigParams<TDbParams>
     {
+        /// <summary>
+        /// The return parameter default
+        /// </summary>
         private static string ReturnParamDefault = "DbFacade_DbCallReturn";
 
+        /// <summary>
+        /// Gets the factory.
+        /// </summary>
+        /// <value>
+        /// The factory.
+        /// </value>
         public DbCommandParameterConfigFactory<TDbParams> Factory { get; private set; }
 
+        /// <summary>
+        /// Adds the asynchronous.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public async Task AddAsync(string key, IDbCommandParameterConfig<TDbParams> value)
         {
             Add(key, value);
             await Task.CompletedTask;
         }
+        /// <summary>
+        /// Creates the specified parameters initializer.
+        /// </summary>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <returns></returns>
         public static DbCommandConfigParams<TDbParams> Create(Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null)
         {
             DbCommandConfigParams<TDbParams> dbParams = new DbCommandConfigParams<TDbParams>();
@@ -31,6 +51,11 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
             dbParams.ResolveReturnValueParameter();            
             return dbParams;
         }
+        /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <returns></returns>
         public static async Task<DbCommandConfigParams<TDbParams>> CreateAsync(Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null)
         {
             DbCommandConfigParams<TDbParams> dbParams = new DbCommandConfigParams<TDbParams>();
@@ -41,6 +66,9 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
             await dbParams.ResolveReturnValueParameterAsync();            
             return dbParams;
         }
+        /// <summary>
+        /// Resolves the return value parameter.
+        /// </summary>
         private void ResolveReturnValueParameter()
         {
             bool hasReturnValue = this.Any(
@@ -53,6 +81,9 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
                 Add(ReturnParamDefault, DbCommandParameterConfig<TDbParams>.CreateReturnValue());
             }
         }
+        /// <summary>
+        /// Resolves the return value parameter asynchronous.
+        /// </summary>
         private async Task ResolveReturnValueParameterAsync()
         {
             bool hasReturnValue = this.Any(
@@ -69,5 +100,8 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
 
         
     }
+    /// <summary>
+    /// 
+    /// </summary>
     internal class DbCommandConfigParams : DbCommandConfigParams<object> { }
 }

@@ -1,16 +1,24 @@
-﻿using System;
+﻿using DbFacade.DataLayer.CommandConfig;
+using DbFacade.DataLayer.Models;
+using DbFacade.Exceptions;
+using DbFacade.Extensions;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using DbFacade.DataLayer.CommandConfig;
-using DbFacade.DataLayer.Models;
-using DbFacade.Exceptions;
-using DbFacade.Extensions;
 
 namespace DbFacade.DataLayer.ConnectionService
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDbConnection">The type of the database connection.</typeparam>
+    /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
+    /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
+    /// <typeparam name="TDbTransaction">The type of the database transaction.</typeparam>
+    /// <typeparam name="TDbDataReader">The type of the database data reader.</typeparam>
     internal partial class DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
         where TDbConnection : DbConnection
         where TDbCommand : DbCommand
@@ -18,6 +26,15 @@ namespace DbFacade.DataLayer.ConnectionService
         where TDbTransaction : DbTransaction
         where TDbDataReader : DbDataReader
     {
+        /// <summary>
+        /// Builds the repsonse.
+        /// </summary>
+        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
+        /// <param name="commandId">The command identifier.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="dbDataReader">The database data reader.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         private static IDbResponse<TDbDataModel> BuildRepsonse<TDbDataModel>(
             Guid commandId,
             int returnValue,

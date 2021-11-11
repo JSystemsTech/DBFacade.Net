@@ -1,30 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DbFacade.DataLayer.CommandConfig.Parameters;
+﻿using DbFacade.DataLayer.CommandConfig.Parameters;
 using DbFacade.DataLayer.ConnectionService;
 using DbFacade.DataLayer.Models;
 using DbFacade.DataLayer.Models.Validators;
 using DbFacade.Exceptions;
 using DbFacade.Factories;
 using DbFacade.Services;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.CommandConfig
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+    /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
     internal class DbCommandMethod<TDbParams, TDbDataModel> : SafeDisposableBase, IDbCommandMethod<TDbParams, TDbDataModel>
         where TDbDataModel : DbDataModel
     {
+        /// <summary>
+        /// Gets or sets the database connection configuration.
+        /// </summary>
+        /// <value>
+        /// The database connection configuration.
+        /// </value>
         public DbConnectionConfigBase DbConnectionConfig { get; protected set; }
+        /// <summary>
+        /// Gets or sets the database parameters.
+        /// </summary>
+        /// <value>
+        /// The database parameters.
+        /// </value>
         public IDbCommandConfigParams<TDbParams> DbParams { get; protected set; }
+        /// <summary>
+        /// Gets or sets the parameters validator.
+        /// </summary>
+        /// <value>
+        /// The parameters validator.
+        /// </value>
         protected IValidator<TDbParams> ParamsValidator { get; set; }
+        /// <summary>
+        /// Gets or sets the database command text.
+        /// </summary>
+        /// <value>
+        /// The database command text.
+        /// </value>
         public DbCommandSettingsBase DbCommandText { get; protected set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance has validation.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance has validation; otherwise, <c>false</c>.
+        /// </value>
         protected bool HasValidation { get; set; }
+        /// <summary>
+        /// Gets a value indicating whether [missing validation].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [missing validation]; otherwise, <c>false</c>.
+        /// </value>
         protected bool MissingValidation { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the on before actions.
+        /// </summary>
+        /// <value>
+        /// The on before actions.
+        /// </value>
         protected Action<TDbParams>[] OnBeforeActions { get; set; }
+        /// <summary>
+        /// Gets or sets the on before asynchronous actions.
+        /// </summary>
+        /// <value>
+        /// The on before asynchronous actions.
+        /// </value>
         protected Func<TDbParams, Task>[] OnBeforeAsyncActions { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbCommandMethod{TDbParams, TDbDataModel}"/> class.
+        /// </summary>
         protected DbCommandMethod() { }
 
+        /// <summary>
+        /// Creates the specified database command.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <returns></returns>
         internal static DbCommandMethod<TDbParams, TDbDataModel> Create<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null,
@@ -32,6 +96,15 @@ namespace DbFacade.DataLayer.CommandConfig
             ) where TDbConnectionConfig : DbConnectionConfigBase
         => Create<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, p => { });
 
+        /// <summary>
+        /// Creates the specified database command.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <param name="onBeforeActions">The on before actions.</param>
+        /// <returns></returns>
         internal static DbCommandMethod<TDbParams, TDbDataModel> Create<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<TDbParams>> parametersInitializer,
@@ -57,6 +130,9 @@ namespace DbFacade.DataLayer.CommandConfig
 
         #region Async Methods
 
+        /// <summary>
+        /// Initializes the asynchronous.
+        /// </summary>
         protected async Task InitAsync()
         {
             HasValidation = DbParams.Count > 0 && ParamsValidator.Count > 0;
@@ -64,6 +140,14 @@ namespace DbFacade.DataLayer.CommandConfig
             OnBeforeAsyncActions = new Func<TDbParams, Task>[0];
             await Task.CompletedTask;
         }
+        /// <summary>
+        /// Initializes the asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="dbParams">The database parameters.</param>
+        /// <param name="validator">The validator.</param>
+        /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
         protected async Task InitAsync<TDbConnectionConfig>(DbCommandSettingsBase dbCommand,
             IDbCommandConfigParams<TDbParams> dbParams,
             IValidator<TDbParams> validator,
@@ -80,12 +164,29 @@ namespace DbFacade.DataLayer.CommandConfig
             OnBeforeAsyncActions = onBeforeAsyncActions;
 
         }
+        /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <returns></returns>
         internal static async Task<DbCommandMethod<TDbParams, TDbDataModel>> CreateAsync<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
             Func<IValidator<TDbParams>, Task> validatorInitializer = null
             ) where TDbConnectionConfig : DbConnectionConfigBase
         => await CreateAsync<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, async p => { await Task.CompletedTask; });
+        /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
+        /// <returns></returns>
         internal static async Task<DbCommandMethod<TDbParams, TDbDataModel>> CreateAsync<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
@@ -170,36 +271,99 @@ namespace DbFacade.DataLayer.CommandConfig
             }
         }
 
+        /// <summary>
+        /// Executes the specified parameters.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
         public IDbResponse<TDbDataModel> Execute(TDbParams parameters)
             => DbConnectionConfig.ExecuteDbAction(this, parameters);
+        /// <summary>
+        /// Executes the asynchronous.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
         public async Task<IDbResponse<TDbDataModel>> ExecuteAsync(TDbParams parameters)
             => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters);
 
+        /// <summary>
+        /// Mocks the specified parameters.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public IDbResponse<TDbDataModel> Mock(TDbParams parameters, int returnValue, Action<IDictionary<string, object>> outputValues = null)
             => DbConnectionConfig.ExecuteDbAction(this, parameters, MockResponseData.Create(outputValues, returnValue));
+        /// <summary>
+        /// Mocks the specified parameters.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="responseData">The response data.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public IDbResponse<TDbDataModel> Mock<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
             => DbConnectionConfig.ExecuteDbAction(this, parameters, MockResponseData.Create(responseData, outputValues, returnValue));
 
+        /// <summary>
+        /// Mocks the asynchronous.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public async Task<IDbResponse<TDbDataModel>> MockAsync(TDbParams parameters, int returnValue, Action<IDictionary<string, object>> outputValues = null)
             => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters, await MockResponseData.CreateAsync(outputValues, returnValue));
+        /// <summary>
+        /// Mocks the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="responseData">The response data.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
             => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters, await MockResponseData.CreateAsync(responseData, outputValues, returnValue));
-        
 
+
+        /// <summary>
+        /// Called when [dispose].
+        /// </summary>
+        /// <param name="calledFromDispose">if set to <c>true</c> [called from dispose].</param>
         protected override void OnDispose(bool calledFromDispose)
         {
         }
 
+        /// <summary>
+        /// Called when [dispose complete].
+        /// </summary>
         protected override void OnDisposeComplete()
         {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
     internal class ParameterlessDbCommandMethod<TDbDataModel> : DbCommandMethod<object, TDbDataModel>, IParameterlessDbCommandMethod<TDbDataModel>
         where TDbDataModel : DbDataModel
     {
-        public ParameterlessDbCommandMethod() { }   
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ParameterlessDbCommandMethod{TDbDataModel}"/> class.
+        /// </summary>
+        public ParameterlessDbCommandMethod() { }
 
+        /// <summary>
+        /// Creates the specified database command.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <returns></returns>
         internal static ParameterlessDbCommandMethod<TDbDataModel> Create<TDbConnectionConfig>(
             DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<object>> parametersInitializer = null)
@@ -216,6 +380,13 @@ namespace DbFacade.DataLayer.CommandConfig
 
         #region Async Methods
 
+        /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <returns></returns>
         internal static async Task<ParameterlessDbCommandMethod<TDbDataModel>> CreateAsync<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null
@@ -233,21 +404,72 @@ namespace DbFacade.DataLayer.CommandConfig
             return config;
         }
 
+        /// <summary>
+        /// Executes this instance.
+        /// </summary>
+        /// <returns></returns>
         public IDbResponse<TDbDataModel> Execute() => Execute(null);
+        /// <summary>
+        /// Executes the asynchronous.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IDbResponse<TDbDataModel>> ExecuteAsync() => await ExecuteAsync(null);
+        /// <summary>
+        /// Mocks the specified return value.
+        /// </summary>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public IDbResponse<TDbDataModel> Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(null, returnValue,outputValues);
+        /// <summary>
+        /// Mocks the specified response data.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="responseData">The response data.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public IDbResponse<TDbDataModel> Mock<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(null, responseData, returnValue,outputValues);
 
+        /// <summary>
+        /// Mocks the asynchronous.
+        /// </summary>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public async Task<IDbResponse<TDbDataModel>> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(null, returnValue,outputValues);
 
+        /// <summary>
+        /// Mocks the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="responseData">The response data.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(null, responseData, returnValue,outputValues);
 
         #endregion
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     internal class DbCommandMethod<TDbParams> : DbCommandMethod<TDbParams, DbDataModel>, IDbCommandMethod<TDbParams>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbCommandMethod{TDbParams}"/> class.
+        /// </summary>
         public DbCommandMethod() { }
-        
+
+        /// <summary>
+        /// Creates the specified database command.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <returns></returns>
         internal static new DbCommandMethod<TDbParams> Create<TDbConnectionConfig>(
                DbCommandSettingsBase dbCommand,
                 Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null,
@@ -256,7 +478,16 @@ namespace DbFacade.DataLayer.CommandConfig
             where TDbConnectionConfig : DbConnectionConfigBase
             => Create<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, p => { });
 
-        
+
+        /// <summary>
+        /// Creates the specified database command.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <param name="onBeforeActions">The on before actions.</param>
+        /// <returns></returns>
         internal new static DbCommandMethod<TDbParams> Create<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<TDbParams>> parametersInitializer,
@@ -281,12 +512,29 @@ namespace DbFacade.DataLayer.CommandConfig
 
         #region Async Methods
 
+        /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <returns></returns>
         internal static new async Task<DbCommandMethod<TDbParams>> CreateAsync<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
             Func<IValidator<TDbParams>, Task> validatorInitializer = null
             ) where TDbConnectionConfig : DbConnectionConfigBase
         => await CreateAsync<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, async p => { await Task.CompletedTask; });
+        /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
+        /// <returns></returns>
         internal static new async Task<DbCommandMethod<TDbParams>> CreateAsync<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
@@ -303,18 +551,56 @@ namespace DbFacade.DataLayer.CommandConfig
 
 
         #endregion
+        /// <summary>
+        /// Executes the specified parameters.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
         public new IDbResponse Execute(TDbParams parameters) => (IDbResponse)base.Execute(parameters);
+        /// <summary>
+        /// Executes the asynchronous.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
         public new async Task<IDbResponse> ExecuteAsync(TDbParams parameters) => (IDbResponse)await base.ExecuteAsync(parameters);
+        /// <summary>
+        /// Mocks the specified parameters.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public new IDbResponse Mock(TDbParams parameters,int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)base.Mock(parameters, returnValue,outputValues);
 
+        /// <summary>
+        /// Mocks the asynchronous.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public new async Task<IDbResponse> MockAsync(TDbParams parameters,int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)await base.MockAsync(parameters, returnValue,outputValues);
 
 
     }
+    /// <summary>
+    /// 
+    /// </summary>
     internal class DbCommandMethod : DbCommandMethod<object, DbDataModel>, IDbCommandMethod
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbCommandMethod"/> class.
+        /// </summary>
         public DbCommandMethod() { }
-        
+
+        /// <summary>
+        /// Creates the specified database command.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="dbParams">The database parameters.</param>
+        /// <param name="validator">The validator.</param>
+        /// <returns></returns>
         internal static DbCommandMethod Create<TDbConnectionConfig>(
             DbCommandSettingsBase dbCommand,
             IDbCommandConfigParams<object> dbParams,
@@ -331,6 +617,13 @@ namespace DbFacade.DataLayer.CommandConfig
                 OnBeforeActions = new Action<object>[0]
             };
         }
+        /// <summary>
+        /// Creates the specified database command.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <returns></returns>
         internal static DbCommandMethod Create<TDbConnectionConfig>(
                DbCommandSettingsBase dbCommand,
                 Action<IDbCommandConfigParams<object>> parametersInitializer = null
@@ -344,6 +637,13 @@ namespace DbFacade.DataLayer.CommandConfig
 
         #region Async Methods
 
+        /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        /// <returns></returns>
         internal static async Task<DbCommandMethod> CreateAsync<TDbConnectionConfig>(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null
@@ -357,9 +657,29 @@ namespace DbFacade.DataLayer.CommandConfig
             return config;
         }
         #endregion
+        /// <summary>
+        /// Executes this instance.
+        /// </summary>
+        /// <returns></returns>
         public IDbResponse Execute() => (IDbResponse)Execute(null);
+        /// <summary>
+        /// Executes the asynchronous.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IDbResponse> ExecuteAsync() => (IDbResponse)await ExecuteAsync(null);
+        /// <summary>
+        /// Mocks the specified return value.
+        /// </summary>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public IDbResponse Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)Mock(null, returnValue,outputValues);
+        /// <summary>
+        /// Mocks the asynchronous.
+        /// </summary>
+        /// <param name="returnValue">The return value.</param>
+        /// <param name="outputValues">The output values.</param>
+        /// <returns></returns>
         public async Task<IDbResponse> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)await MockAsync(null, returnValue,outputValues);
 
 

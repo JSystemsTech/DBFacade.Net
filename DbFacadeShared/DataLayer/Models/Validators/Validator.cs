@@ -1,51 +1,140 @@
-﻿using System;
+﻿using DbFacade.DataLayer.Models.Validators.Rules;
+using DbFacade.Factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DbFacade.DataLayer.Models.Validators.Rules;
-using DbFacade.Factories;
 
 namespace DbFacade.DataLayer.Models.Validators
 {
     /// <summary>
+    /// 
     /// </summary>
     public interface IValidationResult
     {
+        /// <summary>
+        /// Returns true if ... is valid.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
+        /// </value>
         bool IsValid { get; }
+        /// <summary>
+        /// Gets the errors.
+        /// </summary>
+        /// <value>
+        /// The errors.
+        /// </value>
         IEnumerable<IValidationRuleResult> Errors { get; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     internal class ValidationResult : IValidationResult
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValidationResult"/> class.
+        /// </summary>
+        /// <param name="errors">The errors.</param>
         public ValidationResult(IEnumerable<IValidationRuleResult> errors)
         {
             Errors = errors;
         }
 
+        /// <summary>
+        /// Gets the errors.
+        /// </summary>
+        /// <value>
+        /// The errors.
+        /// </value>
         public IEnumerable<IValidationRuleResult> Errors { get; }
 
+        /// <summary>
+        /// Returns true if ... is valid.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
+        /// </value>
         public bool IsValid => !Errors.Any();
 
+        /// <summary>
+        /// The passing validation
+        /// </summary>
         public static ValidationResult PassingValidation = new ValidationResult(new List<ValidationRuleResult>());
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     public interface IValidator<TDbParams>
     {
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
         int Count { get; }
+        /// <summary>
+        /// Gets the rules.
+        /// </summary>
+        /// <value>
+        /// The rules.
+        /// </value>
         ValidationRuleFactory<TDbParams> Rules { get; }
+        /// <summary>
+        /// Adds the specified rule.
+        /// </summary>
+        /// <param name="rule">The rule.</param>
         void Add(IValidationRule<TDbParams> rule);
+        /// <summary>
+        /// Adds the asynchronous.
+        /// </summary>
+        /// <param name="rule">The rule.</param>
+        /// <returns></returns>
         Task AddAsync(IValidationRule<TDbParams> rule);
+        /// <summary>
+        /// Validates the specified parameters model.
+        /// </summary>
+        /// <param name="paramsModel">The parameters model.</param>
+        /// <returns></returns>
         IValidationResult Validate(TDbParams paramsModel);
+        /// <summary>
+        /// Validates the asynchronous.
+        /// </summary>
+        /// <param name="paramsModel">The parameters model.</param>
+        /// <returns></returns>
         Task<IValidationResult> ValidateAsync(TDbParams paramsModel);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     internal class Validator<TDbParams> : List<IValidationRule<TDbParams>>, IValidator<TDbParams>
     {
+        /// <summary>
+        /// Gets the rules.
+        /// </summary>
+        /// <value>
+        /// The rules.
+        /// </value>
         public ValidationRuleFactory<TDbParams> Rules { get; private set; }
+        /// <summary>
+        /// Adds the asynchronous.
+        /// </summary>
+        /// <param name="rule">The rule.</param>
         public async Task AddAsync(IValidationRule<TDbParams> rule)
         {
             Add(rule);
             await Task.CompletedTask;
         }
+        /// <summary>
+        /// Creates the specified validator initializer.
+        /// </summary>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <returns></returns>
         public static Validator<TDbParams> Create(Action<IValidator<TDbParams>> validatorInitializer = null)
         {
             Validator<TDbParams> validator = new Validator<TDbParams>();            
@@ -55,6 +144,11 @@ namespace DbFacade.DataLayer.Models.Validators
             _validatorInitializer(validator);
             return validator;
         }
+        /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <param name="validatorInitializer">The validator initializer.</param>
+        /// <returns></returns>
         public static async Task<Validator<TDbParams>> CreateAsync(Func<IValidator<TDbParams>, Task> validatorInitializer = null)
         {
             Validator<TDbParams> validator = new Validator<TDbParams>();
@@ -65,11 +159,21 @@ namespace DbFacade.DataLayer.Models.Validators
             return validator;
         }
 
+        /// <summary>
+        /// Validates the specified parameters model.
+        /// </summary>
+        /// <param name="paramsModel">The parameters model.</param>
+        /// <returns></returns>
         public IValidationResult Validate(TDbParams paramsModel)
         => new ValidationResult(this.Select(rule => rule.Validate(paramsModel))
                 .Where(result => result.Status == ValidationStatus.FAIL));
 
 
+        /// <summary>
+        /// Validates the asynchronous.
+        /// </summary>
+        /// <param name="paramsModel">The parameters model.</param>
+        /// <returns></returns>
         public async Task<IValidationResult> ValidateAsync(TDbParams paramsModel)
         {
             var validationTasks = this.Select(rule => rule.ValidateAsync(paramsModel)).ToArray();

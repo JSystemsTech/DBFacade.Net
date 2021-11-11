@@ -1,6 +1,7 @@
 ﻿namespace DbFacade.DataLayer.ConnectionService
 {
-    public interface IDbConnectionConfig { }
-
-    
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IDbConnectionConfig { }    
 }
