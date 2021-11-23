@@ -88,7 +88,7 @@ namespace DbFacadeShared.Extensions
         /// <param name="convert">The convert.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        internal static T GetValue<T>(this IDictionary<string, object> data, string key, Func<string, T> convert, T defaultValue = default)
+        internal static (T value, string error) GetValue<T>(this IDictionary<string, object> data, string key, Func<string, T> convert, T defaultValue = default)
             => data.GetValue<T, string>(key, convert, defaultValue);
         /// <summary>
         /// Gets the value.
@@ -100,25 +100,24 @@ namespace DbFacadeShared.Extensions
         /// <param name="convert">The convert.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        internal static T GetValue<T, TParse>(this IDictionary<string, object> data, string key, Func<TParse, T> convert, T defaultValue = default)
+        internal static (T value, string error) GetValue<T, TParse>(this IDictionary<string, object> data, string key, Func<TParse, T> convert, T defaultValue = default)
             where TParse : IComparable
         {
             TParse defaultParseValue = default(TParse);
-            TParse parseValue = data.GetValue(key, defaultParseValue);
-            return parseValue.CompareTo(defaultParseValue) == 0 ? defaultValue : convert(parseValue);
+            var result = data.GetValue(key, defaultParseValue);
+            return result.value.CompareTo(defaultParseValue) == 0 ? (defaultValue, result.error) : (convert(result.value), result.error);
         }
-        internal static T GetValue<T>(this IDictionary<string, object> data, string key, T defaultValue = default)
+        internal static (T value, string error) GetValue<T>(this IDictionary<string, object> data, string key, T defaultValue = default)
         {
             string name = data.GetName(key);
             if (name == null)
             {
-                throw new KeyNotFoundException($"No data entry named '{key}' exists");
+                return (defaultValue, $"No data entry named '{key}' exists");
             }
-            return name != null &&
-                data.TryGetValue(name, out object value) &&
+            return (data.TryGetValue(name, out object value) &&
                 value != null &&
                 value != DBNull.Value ?
-                Parse(value, defaultValue) : defaultValue;
+                Parse(value, defaultValue) : defaultValue,null);
         }
 
         /// <summary>
@@ -129,7 +128,7 @@ namespace DbFacadeShared.Extensions
         /// <param name="format">The format.</param>
         /// <param name="style">The style.</param>
         /// <returns></returns>
-        internal static DateTime? GetDateTimeValue(this IDictionary<string, object> data, string key, string format, DateTimeStyles style = DateTimeStyles.None)
+        internal static (DateTime? value, string error) GetDateTimeValue(this IDictionary<string, object> data, string key, string format, DateTimeStyles style = DateTimeStyles.None)
             => data.GetDateTimeValue(key, format, CultureInfo.InvariantCulture, style);
         /// <summary>
         /// Gets the date time value.
@@ -140,7 +139,7 @@ namespace DbFacadeShared.Extensions
         /// <param name="provider">The provider.</param>
         /// <param name="style">The style.</param>
         /// <returns></returns>
-        internal static DateTime? GetDateTimeValue(this IDictionary<string, object> data, string key, string format, IFormatProvider provider, DateTimeStyles style = DateTimeStyles.None)
+        internal static (DateTime? value, string error) GetDateTimeValue(this IDictionary<string, object> data, string key, string format, IFormatProvider provider, DateTimeStyles style = DateTimeStyles.None)
         => data.GetValue(key, value =>
             !string.IsNullOrWhiteSpace(value) &&
             DateTime.TryParseExact(value, format, provider, style, out DateTime outValue) ? outValue : (DateTime?)null
@@ -152,8 +151,12 @@ namespace DbFacadeShared.Extensions
         /// <param name="key">The key.</param>
         /// <param name="format">The format.</param>
         /// <returns></returns>
-        internal static string GetFormattedDateTimeStringValue(this IDictionary<string, object> data, string key, string format)
-        => data.GetValue<DateTime?>(key) is DateTime convertedValue ? convertedValue.ToString(format) : null;
+        internal static (string value, string error) GetFormattedDateTimeStringValue(this IDictionary<string, object> data, string key, string format)
+        {
+            var result = data.GetValue<DateTime?>(key);
+            return result.value is DateTime convertedValue ? (convertedValue.ToString(format), result.error) : (null, result.error);
+        }
+        
         /// <summary>
         /// Gets the enumerable value.
         /// </summary>
@@ -162,7 +165,7 @@ namespace DbFacadeShared.Extensions
         /// <param name="key">The key.</param>
         /// <param name="delimeter">The delimeter.</param>
         /// <returns></returns>
-        internal static IEnumerable<T> GetEnumerableValue<T>(this IDictionary<string, object> data, string key, string delimeter = ",")
+        internal static (IEnumerable<T> value, string error) GetEnumerableValue<T>(this IDictionary<string, object> data, string key, string delimeter = ",")
         => data.GetValue(key, value => value.Split(delimeter.ToArray()).Select(v => Parse<T>(v)));
         /// <summary>
         /// Gets the flag value.
@@ -172,9 +175,12 @@ namespace DbFacadeShared.Extensions
         /// <param name="key">The key.</param>
         /// <param name="trueValue">The true value.</param>
         /// <returns></returns>
-        internal static bool GetFlagValue<T>(this IDictionary<string, object> data, string key, T trueValue)
+        internal static (bool value, string error) GetFlagValue<T>(this IDictionary<string, object> data, string key, T trueValue)
             where T : IComparable
-        => data.GetValue<T>(key).CompareTo(trueValue) == 0;
+        {
+            var result = data.GetValue<T>(key);
+            return (result.value.CompareTo(trueValue) == 0, result.error);
+        }
 
 
         /// <summary>
@@ -186,7 +192,7 @@ namespace DbFacadeShared.Extensions
         /// <param name="convert">The convert.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        internal static async Task<T> GetValueAsync<T>(this IDictionary<string, object> data, string key, Func<string, T> convert, T defaultValue = default)
+        internal static async Task<(T value, string error)> GetValueAsync<T>(this IDictionary<string, object> data, string key, Func<string, T> convert, T defaultValue = default)
             => await data.GetValueAsync<T, string>(key, convert, defaultValue);
         /// <summary>
         /// Gets the value asynchronous.
@@ -198,10 +204,10 @@ namespace DbFacadeShared.Extensions
         /// <param name="convert">The convert.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        internal static async Task<T> GetValueAsync<T, TParse>(this IDictionary<string, object> data, string key, Func<TParse, T> convert, T defaultValue = default)
+        internal static async Task<(T value, string error)> GetValueAsync<T, TParse>(this IDictionary<string, object> data, string key, Func<TParse, T> convert, T defaultValue = default)
             where TParse : IComparable
         {
-            T result = data.GetValue(key, convert, defaultValue);
+            (T value, string error) result = data.GetValue(key, convert, defaultValue);
             await Task.CompletedTask;
             return result;
         }
@@ -213,9 +219,9 @@ namespace DbFacadeShared.Extensions
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        internal static async Task<T> GetValueAsync<T>(this IDictionary<string, object> data, string key, T defaultValue = default)
+        internal static async Task<(T value, string error)> GetValueAsync<T>(this IDictionary<string, object> data, string key, T defaultValue = default)
         {
-            T result = data.GetValue(key, defaultValue);
+            (T value, string error) result = data.GetValue(key, defaultValue);
             await Task.CompletedTask;
             return result;
         }
@@ -227,9 +233,9 @@ namespace DbFacadeShared.Extensions
         /// <param name="key">The key.</param>
         /// <param name="delimeter">The delimeter.</param>
         /// <returns></returns>
-        internal static async Task<IEnumerable<T>> GetEnumerableValueAsync<T>(this IDictionary<string, object> data, string key, string delimeter = ",")
+        internal static async Task<(IEnumerable<T> value, string error)> GetEnumerableValueAsync<T>(this IDictionary<string, object> data, string key, string delimeter = ",")
         {
-            IEnumerable<T> result = data.GetEnumerableValue<T>(key, delimeter);
+            (IEnumerable<T> value, string error) result = data.GetEnumerableValue<T>(key, delimeter);
             await Task.CompletedTask;
             return result;
         }
@@ -241,7 +247,7 @@ namespace DbFacadeShared.Extensions
         /// <param name="format">The format.</param>
         /// <param name="style">The style.</param>
         /// <returns></returns>
-        internal static async Task<DateTime?> GetDateTimeValueAsync(this IDictionary<string, object> data, string key, string format, DateTimeStyles style = DateTimeStyles.None)
+        internal static async Task<(DateTime? value, string error)> GetDateTimeValueAsync(this IDictionary<string, object> data, string key, string format, DateTimeStyles style = DateTimeStyles.None)
             => await data.GetDateTimeValueAsync(key, format, CultureInfo.InvariantCulture, style);
         /// <summary>
         /// Gets the date time value asynchronous.
@@ -252,9 +258,9 @@ namespace DbFacadeShared.Extensions
         /// <param name="provider">The provider.</param>
         /// <param name="style">The style.</param>
         /// <returns></returns>
-        internal static async Task<DateTime?> GetDateTimeValueAsync(this IDictionary<string, object> data, string key, string format, IFormatProvider provider, DateTimeStyles style = DateTimeStyles.None)
+        internal static async Task<(DateTime? value, string error)> GetDateTimeValueAsync(this IDictionary<string, object> data, string key, string format, IFormatProvider provider, DateTimeStyles style = DateTimeStyles.None)
         {
-            DateTime? result = data.GetDateTimeValue(key, format, provider, style);
+            (DateTime? value, string error) result = data.GetDateTimeValue(key, format, provider, style);
             await Task.CompletedTask;
             return result;
         }
@@ -265,9 +271,9 @@ namespace DbFacadeShared.Extensions
         /// <param name="key">The key.</param>
         /// <param name="format">The format.</param>
         /// <returns></returns>
-        internal static async Task<string> GetFormattedDateTimeStringValueAsync(this IDictionary<string, object> data, string key, string format)
+        internal static async Task<(string value, string error)> GetFormattedDateTimeStringValueAsync(this IDictionary<string, object> data, string key, string format)
         {
-            string result = data.GetFormattedDateTimeStringValue(key, format);
+            (string value, string error) result = data.GetFormattedDateTimeStringValue(key, format);
             await Task.CompletedTask;
             return result;
         }
@@ -279,10 +285,10 @@ namespace DbFacadeShared.Extensions
         /// <param name="key">The key.</param>
         /// <param name="trueValue">The true value.</param>
         /// <returns></returns>
-        internal static async Task<bool> GetFlagValueAsync<T>(this IDictionary<string, object> data, string key, T trueValue)
+        internal static async Task<(bool value, string error)> GetFlagValueAsync<T>(this IDictionary<string, object> data, string key, T trueValue)
             where T : IComparable
         {
-            bool result = data.GetFlagValue(key, trueValue);
+            (bool value, string error) result = data.GetFlagValue(key, trueValue);
             await Task.CompletedTask;
             return result;
         }

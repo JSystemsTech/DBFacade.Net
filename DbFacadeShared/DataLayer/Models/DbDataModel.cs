@@ -33,7 +33,7 @@ namespace DbFacade.DataLayer.Models
         /// The data binding errors.
         /// </value>
         [JsonIgnore]
-        IEnumerable<IDbDataModelBindingError> DataBindingErrors { get; }
+        IEnumerable<string> DataBindingErrors { get; }
         /// <summary>
         /// Gets a value indicating whether this instance has data binding errors.
         /// </summary>
@@ -62,22 +62,22 @@ namespace DbFacade.DataLayer.Models
         /// The data binding errors.
         /// </value>
         [JsonIgnore]
-        public IEnumerable<IDbDataModelBindingError> DataBindingErrors { get => _DataBindingErrors; }
+        public IEnumerable<string> DataBindingErrors { get => _DataBindingErrors; }
         /// <summary>
         /// Gets or sets the data binding errors.
         /// </summary>
         /// <value>
         /// The data binding errors.
         /// </value>
-        private List<IDbDataModelBindingError> _DataBindingErrors { get; set; }
+        private List<string> _DataBindingErrors { get; set; }
         /// <summary>
         /// Adds the data binding error.
         /// </summary>
         /// <param name="ex">The ex.</param>
-        private void AddDataBindingError(Exception ex)
+        private void AddDataBindingError(string error)
         {
-            _DataBindingErrors = _DataBindingErrors ?? new List<IDbDataModelBindingError>();
-            _DataBindingErrors.Add(DbDataModelBindingError.Create(ex.InnerException,GetType()));
+            _DataBindingErrors = _DataBindingErrors ?? new List<string>();
+            _DataBindingErrors.Add(error);
         }
         /// <summary>
         /// Gets a value indicating whether this instance has data binding errors.
@@ -147,23 +147,20 @@ namespace DbFacade.DataLayer.Models
         /// </summary>
         protected virtual void Init() { }
 
-        /// <summary>
-        /// Tries the get column.
-        /// </summary>
+        /// <summary>Tries the get column.</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="handler">The handler.</param>
-        /// <returns></returns>
-        private T TryGetColumn<T>(Func<T> handler)
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        private T TryGetColumn<T>(Func<(T value, string error)> handler)
         {
-            try
+            var result = handler();
+            if (!string.IsNullOrWhiteSpace(result.error))
             {
-                return handler();
+                AddDataBindingError(result.error);
             }
-            catch (Exception ex)
-            {
-                AddDataBindingError(ex);
-                return default(T);
-            }
+            return result.value;
         }
         /// <summary>
         /// Gets the column.

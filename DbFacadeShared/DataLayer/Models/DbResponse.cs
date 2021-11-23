@@ -185,7 +185,7 @@ namespace DbFacade.DataLayer.Models
         /// <value>
         ///   <c>true</c> if this instance has error; otherwise, <c>false</c>.
         /// </value>
-        public bool HasError => Error is Exception;
+        public bool HasError => Error == null;
         /// <summary>
         /// Initializes a new instance of the <see cref="DbResponse{TDbDataModel}"/> class.
         /// </summary>

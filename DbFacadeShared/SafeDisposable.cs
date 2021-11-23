@@ -17,7 +17,7 @@ namespace DbFacade
     /// <summary>
     /// 
     /// </summary>
-    public abstract class SafeDisposableBase : ISafeDisposable
+    internal abstract class SafeDisposableBase : ISafeDisposable
     {
         #region IDisposable Support
 

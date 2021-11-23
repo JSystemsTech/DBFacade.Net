@@ -69,11 +69,12 @@ namespace DbFacade.DataLayer.Models
         /// <summary>
         /// Adds the data binding error asynchronous.
         /// </summary>
-        /// <param name="ex">The ex.</param>
-        private async Task AddDataBindingErrorAsync(Exception ex)
+        /// <param name="error">The error.</param>
+        private async Task AddDataBindingErrorAsync(string error)
         {
-            _DataBindingErrors = _DataBindingErrors ?? new List<IDbDataModelBindingError>();
-            _DataBindingErrors.Add(await DbDataModelBindingError.CreateAsync(ex.InnerException, GetType()));
+            _DataBindingErrors = _DataBindingErrors ?? new List<string>();
+            _DataBindingErrors.Add(error);
+            await Task.CompletedTask;
         }
         /// <summary>
         /// Tries the get column asynchronous.
@@ -81,16 +82,14 @@ namespace DbFacade.DataLayer.Models
         /// <typeparam name="T"></typeparam>
         /// <param name="handler">The handler.</param>
         /// <returns></returns>
-        private async Task<T> TryGetColumnAsync<T>(Func<Task<T>> handler)
+        private async Task<T> TryGetColumnAsync<T>(Func<Task<(T value, string error)>> handler)
         {
-            try{
-                return await handler();
-            }
-            catch(Exception ex)
+            var result = await handler();
+            if (!string.IsNullOrWhiteSpace(result.error))
             {
-                await AddDataBindingErrorAsync(ex);
-                return default(T);
+                await AddDataBindingErrorAsync(result.error);
             }
+            return result.value;
         }
         /// <summary>
         /// Gets the column asynchronous.
