@@ -12,7 +12,7 @@
     <icon>icon.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Refactored data binding error capture</releaseNotes>
+    <releaseNotes>Fix issue with return value not populating</releaseNotes>
     <copyright>Copyright 2021</copyright>
     <tags>DBFacade;DbFacade;dbfacade;domainfacade;DbFacade.Net;DBFacade.Net;dbfacade.net</tags>
     <dependencies>

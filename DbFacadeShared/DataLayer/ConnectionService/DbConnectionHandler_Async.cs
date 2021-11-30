@@ -38,12 +38,11 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <returns></returns>
         private static async Task<IDbResponse<TDbDataModel>> BuildRepsonseAsync<TDbDataModel>(
             Guid commandId,
-            int returnValue, 
             DbDataReader dbDataReader = null,
             IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
         {
-            var responseObj = await DbResponseFactory<TDbDataModel>.CreateAsync(commandId, returnValue, outputValues);
+            var responseObj = await DbResponseFactory<TDbDataModel>.CreateAsync(commandId, default(int), outputValues);
             if (responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 while (await dbDataReader.ReadAsync())
@@ -69,6 +68,7 @@ namespace DbFacade.DataLayer.ConnectionService
                 if (dbConnection != null)
                 {
                     await dbConnection.OpenAsync();
+                    IDbResponse<TDbDataModel> response;
                     using (var dbCommand =
                         await dbConnection.GetDbCommandAsync<TDbConnection, TDbCommand, TDbParameter, TDbParams>(config.DbCommandText, config.DbParams, parameters))
                     {
@@ -91,24 +91,34 @@ namespace DbFacade.DataLayer.ConnectionService
                                         }
 
                                         transaction.Commit();
-                                        return await BuildRepsonseAsync<TDbDataModel>(
+                                        response = await BuildRepsonseAsync<TDbDataModel>(
                                             config.DbCommandText.CommandId,
-                                            await dbCommand.GetReturnValueAsync(),
                                             null,
                                             await dbCommand.GetOutputValuesAsync());
+                                        if (response is DbResponse<TDbDataModel> transactionResp)
+                                        {
+                                            transactionResp.ReturnValue = await dbCommand.GetReturnValueAsync();
+                                        }
+                                        return response;
                                     }
-
-                                    throw new FacadeException("Invalid Transaction Definition");
+                                    else
+                                    {
+                                        throw new FacadeException("Invalid Transaction Definition");
+                                    }                                    
                                 }
 
                             using (var dbDataReader = await dbCommand.ExecuteReaderAsync() as TDbDataReader)
                             {
-                                return await BuildRepsonseAsync<TDbDataModel>(
+                                response = await BuildRepsonseAsync<TDbDataModel>(
                                     config.DbCommandText.CommandId,
-                                    await dbCommand.GetReturnValueAsync(),
                                     dbDataReader,
                                     await dbCommand.GetOutputValuesAsync());
                             }
+                            if (response is DbResponse<TDbDataModel> resp)
+                            {
+                                resp.ReturnValue = await dbCommand.GetReturnValueAsync();
+                            }
+                            return response;
                         }
                         catch (SqlException sqlEx)
                         {

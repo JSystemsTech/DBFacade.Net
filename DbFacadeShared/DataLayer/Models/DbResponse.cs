@@ -285,7 +285,7 @@ namespace DbFacade.DataLayer.Models
         /// <value>
         /// The return value.
         /// </value>
-        public int ReturnValue { get; private set; }
+        public int ReturnValue { get; internal set; }
         /// <summary>
         /// Gets the output value.
         /// </summary>

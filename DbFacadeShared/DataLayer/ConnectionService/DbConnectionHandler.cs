@@ -5,6 +5,7 @@ using DbFacade.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
@@ -37,12 +38,11 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <returns></returns>
         private static IDbResponse<TDbDataModel> BuildRepsonse<TDbDataModel>(
             Guid commandId,
-            int returnValue,
             DbDataReader dbDataReader = null,
             IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
         {
-            var responseObj = DbResponseFactory<TDbDataModel>.Create(commandId, returnValue, outputValues);
+            var responseObj = DbResponseFactory<TDbDataModel>.Create(commandId, default(int), outputValues);
             if(responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 while (dbDataReader.Read())
@@ -69,9 +69,11 @@ namespace DbFacade.DataLayer.ConnectionService
                 if (dbConnection != null)
                 {
                     dbConnection.Open();
+                    IDbResponse<TDbDataModel> response;
                     using (var dbCommand =
                         dbConnection.GetDbCommand<TDbConnection, TDbCommand, TDbParameter, TDbParams>(config.DbCommandText, config.DbParams, parameters))
                     {
+                        
                         try
                         {
                             if (config.DbCommandText.IsTransaction)
@@ -91,23 +93,38 @@ namespace DbFacade.DataLayer.ConnectionService
                                         }
 
                                         transaction.Commit();
-                                        return BuildRepsonse<TDbDataModel>(
-                                            config.DbCommandText.CommandId,
-                                            dbCommand.GetReturnValue(), null,
+                                        response = BuildRepsonse<TDbDataModel>(
+                                            config.DbCommandText.CommandId, 
+                                            null,
                                             dbCommand.GetOutputValues());
+                                        if (response is DbResponse<TDbDataModel> transactionResp)
+                                        {
+                                            transactionResp.ReturnValue = dbCommand.GetReturnValue();
+                                        }
+
+                                        return response;
+                                    }
+                                    else
+                                    {
+                                        throw new FacadeException("Invalid Transaction Definition");
                                     }
 
-                                    throw new FacadeException("Invalid Transaction Definition");
+                                    
                                 }
-
+                            
                             using (var dbDataReader = dbCommand.ExecuteReader() as TDbDataReader)
                             {
-                                return BuildRepsonse<TDbDataModel>(
+                                response = BuildRepsonse<TDbDataModel>(
                                     config.DbCommandText.CommandId,
-                                    dbCommand.GetReturnValue(),
                                     dbDataReader,
-                                    dbCommand.GetOutputValues());
+                                    dbCommand.GetOutputValues()); 
                             }
+                            if(response is DbResponse<TDbDataModel> resp)
+                            {
+                                resp.ReturnValue = dbCommand.GetReturnValue();
+                            }
+                            
+                            return response;
                         }
                         catch (SqlException sqlEx)
                         {
