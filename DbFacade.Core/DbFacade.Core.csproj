@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.6.1</Version>
+    <Version>1.6.2</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net.Core</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
@@ -11,26 +11,25 @@
     <Authors>JSystemsTech</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net</PackageTags>
-    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageIcon>images\icon.jpg</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/JSystemsTech/DBFacade.Net</PackageProjectUrl>
-    <PackageReleaseNotes>Fix issue with return value not populating</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix HasError incorrectly marked as true</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <Import Project="..\DbFacadeShared\DbFacadeShared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <None Remove="icon.jpg" />
     <None Remove="Meta\DbFacadeLogoNoText.jpg" />
-    <None Include="icon.jpg">
+    <None Include="..\icon.jpg">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>images\icon.jpg</PackagePath>
+      <Visible>False</Visible>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="icon.jpg" />
+    
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +52,13 @@
     </None>
     <None Update="C:\Users\jsmc1\source\repos\DomainFacade\DbFacadeShared\Factories\DbConnectionService.tt">
       <LastGenOutput>DbConnectionService.txt</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Include files in package -->
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 

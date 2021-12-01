@@ -9,10 +9,11 @@
     <owners>$author$</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/JSystemsTech/DBFacade.Net</projectUrl>
-    <icon>icon.jpg</icon>
+    <icon>images\icon.jpg</icon>
+    <readme>docs\README.md</readme>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Fix issue with return value not populating</releaseNotes>
+    <releaseNotes>Fix HasError incorrectly marked as true</releaseNotes>
     <copyright>Copyright 2021</copyright>
     <tags>DBFacade;DbFacade;dbfacade;domainfacade;DbFacade.Net;DBFacade.Net;dbfacade.net</tags>
     <dependencies>
@@ -20,6 +21,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="icon.jpg" target="" />
+    <file src="..\icon.jpg" target="images\"/>
+    <file src="..\README.md" target="docs\" />
   </files>
 </package>
