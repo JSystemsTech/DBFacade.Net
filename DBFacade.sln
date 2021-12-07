@@ -27,6 +27,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTest", "Performa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documentation", "Documentation\Documentation.csproj", "{ABB1318A-E848-401E-923A-286191B3863E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5DC4AAAF-AE75-4FB8-8DD3-06D351ABBD3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{7974BB0D-9F65-4CF7-A4FA-BDEF5AD6122C}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\NetFxCI.yml = .github\workflows\NetFxCI.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems*{2901f3c4-6cb3-426b-a939-342b06060f12}*SharedItemsImports = 5
@@ -66,6 +73,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5DC4AAAF-AE75-4FB8-8DD3-06D351ABBD3F} = {289AC024-FD51-40CB-9C88-44B64ABD90FB}
+		{7974BB0D-9F65-4CF7-A4FA-BDEF5AD6122C} = {5DC4AAAF-AE75-4FB8-8DD3-06D351ABBD3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {422FA976-93A1-4C2B-B82D-46D5F0C75E54}

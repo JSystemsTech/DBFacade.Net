@@ -24,4 +24,4 @@ jobs:
       run: nuget restore DBFacade.sln
       
     - name: Build Solution
-      run: msbuild DBFacade.sln 
+      run: msbuild DBFacade.sln /p:Configuration=Release
