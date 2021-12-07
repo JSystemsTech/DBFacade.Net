@@ -1,4 +1,5 @@
 # DbFacade
+[![.NET](https://github.com/JSystemsTech/DBFacade.Net/actions/workflows/NetFxCI.yml/badge.svg?branch=master)](https://github.com/JSystemsTech/DBFacade.Net/actions/workflows/NetFxCI.yml)
  [![NuGet](https://img.shields.io/nuget/v/DbFacade?label=nuget%20DbFacade)](https://nuget.org/packages/DbFacade) [![NuGet](https://img.shields.io/badge/Target%20Framework-.NET%20Framework%204.8-blue)](https://nuget.org/packages/DbFacade)
   [![NuGet](https://img.shields.io/nuget/v/DbFacade.Core?label=nuget%20DbFacade.Core)](https://nuget.org/packages/DbFacade.Core) [![Target Framework](https://img.shields.io/badge/Target%20Framework-.NET%20Core%203.1-blue)](https://nuget.org/packages/DbFacade.Core)
 ## About
