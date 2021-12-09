@@ -52,44 +52,5 @@ namespace DbFacadeUnitTests.Tests.Validator
             HasCorrectErrorCount(result, 4);
         }
 
-
-        [TestMethod]
-        public void DelegateAsync()
-        {
-            RunAsAsyc(async () =>
-            {
-                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
-                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, ValidatesAsync));
-                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, async value => await Task.Run(() => true)));
-                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.Short, async value => await Task.Run(() => value == 10)));
-                    await v.AddAsync(await v.Rules.DelegateAsync(async model => await Task.Run(() =>
-                    {
-                        return Validates(model.String) || model.Short == 10;
-                    }), "Did not pass custom validation"));
-                });
-                var result = await Validator.ValidateAsync(Parameters);
-                await IsValidAsync(result);
-            });
-        }
-        
-        [TestMethod]
-        public void DelegateFailAsync()
-        {
-            RunAsAsyc(async () =>
-            {
-                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
-                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, InvalidatesAsync));
-                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.String, async value => await Task.Run(() => false)));
-                    await v.AddAsync(await v.Rules.DelegateAsync(model => model.Short, async value => await Task.Run(() => value == 11)));
-                    await v.AddAsync(await v.Rules.DelegateAsync(async model => await Task.Run(() =>
-                    {
-                        return Invalidates(model.String) || model.Short == 11;
-                    }), "Did not pass custom validation"));
-                });
-                var result = await Validator.ValidateAsync(Parameters);
-                await IsInvalidAsync(result);
-                await HasCorrectErrorCountAsync(result, 4);
-            });
-        }
     }        
 }

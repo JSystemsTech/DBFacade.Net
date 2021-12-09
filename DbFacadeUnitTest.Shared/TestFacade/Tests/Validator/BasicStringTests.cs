@@ -49,63 +49,8 @@ namespace DbFacadeUnitTests.Tests.Validator
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);
             HasCorrectErrorCount(result, 1);
-        }
+        } 
+
         
-
-        [TestMethod]
-        public void IsNullOrEmptyAsync()
-        {
-            RunAsAsyc(async () =>
-            {
-                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
-                    await v.AddAsync (await v.Rules.IsNullOrEmptyAsync(model => model.StringNumNull));
-                    await v.AddAsync (await v.Rules.IsNullOrEmptyAsync(model => string.Empty));
-                });
-                var result = await Validator.ValidateAsync(Parameters);
-                await IsValidAsync(result);
-            });
-        }
-        [TestMethod]
-        public void IsNullOrEmptyFailAsync()
-        {
-            RunAsAsyc(async () =>
-            {
-                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
-                    await v.AddAsync(await v.Rules.IsNullOrEmptyAsync(model => model.String));
-                });
-                var result = await Validator.ValidateAsync(Parameters);
-                await IsInvalidAsync(result);
-                await HasCorrectErrorCountAsync(result, 1);
-            });
-        }
-
-        [TestMethod]
-        public void IsNullOrWhiteSpaceAsync()
-        {
-            RunAsAsyc(async () =>
-            {
-                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
-                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => model.StringNumNull));
-                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => string.Empty));
-                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => " "));
-                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => "      "));
-                });
-                var result = await Validator.ValidateAsync(Parameters);
-                await IsValidAsync(result);
-            });
-        }
-        [TestMethod]
-        public void IsNullOrWhiteSpaceFailAsync()
-        {
-            RunAsAsyc(async () =>
-            {
-                IValidator<UnitTestDbParams> Validator = await ValidatorFactory.CreateAsync<UnitTestDbParams>(async v => {
-                    await v.AddAsync(await v.Rules.IsNullOrWhiteSpaceAsync(model => model.String));
-                });
-                var result = await Validator.ValidateAsync(Parameters);
-                await IsInvalidAsync(result);
-                await HasCorrectErrorCountAsync(result, 1);
-            });
-        }
     }        
 }
