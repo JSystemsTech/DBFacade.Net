@@ -46,10 +46,28 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Advanced\Connection\ErrorHandling.md" />
+    <None Include="Advanced\Connection\IDbCommandConfig.md" />
+    <None Include="Advanced\Connection\Types.md" />
+    <None Include="Advanced\index.md" />
+    <None Include="Advanced\Methods\Types.md" />
+    <None Include="Advanced\Methods\Validation.md" />
+    <None Include="Advanced\toc.md" />
     <None Include="api\index.md" />
+    <None Include="articles\GettingStarted.md" />
     <None Include="articles\intro.md" />
     <None Include="articles\toc.md" />
     <None Include="docfx.json" />
+    <None Include="GettingStarted\DeclareMethods.md" />
+    <None Include="GettingStarted\index.md" />
+    <None Include="GettingStarted\SetupConnection.md" />
+    <None Include="GettingStarted\toc.md" />
     <None Include="index.md" />
     <None Include="packages.config" />
     <None Include="templates\custom_default\conceptual.html.primary.tmpl" />
@@ -150,6 +168,9 @@
     <None Include="_exported_templates\default\UniversalReference.html.primary.tmpl" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GettingStarted\DefineModels.md" />
+    <None Include="GettingStarted\DomainFacade.md" />
+    <None Include="Advanced\Methods\Parameters.md" />
     <Content Include="templates\custom_default\common.js" />
     <Content Include="templates\custom_default\conceptual.extension.js" />
     <Content Include="templates\custom_default\conceptual.html.primary.js" />

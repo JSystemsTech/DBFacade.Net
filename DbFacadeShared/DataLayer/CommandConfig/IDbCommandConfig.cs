@@ -10,7 +10,7 @@ namespace DbFacade.DataLayer.CommandConfig
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-    public interface IDbCommandMethod<TDbParams,TDbDataModel> : ISafeDisposable
+    public interface IDbCommandMethod<TDbParams,TDbDataModel>
         where TDbDataModel : DbDataModel
     {
 

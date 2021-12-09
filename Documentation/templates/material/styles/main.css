@@ -1,6 +1,6 @@
 /* COLOR VARIABLES*/
 :root {
-  --header-bg-color: #0d47a1;
+  --header-bg-color: #000000; /*#0d47a1;*/
   --header-ft-color: #fff;
   --highlight-light: #5e92f3;
   --highlight-dark: #003c8f;
@@ -303,4 +303,12 @@ pre {
   margin-top: 15px;
   box-shadow: var(--card-box-shadow);
   max-width: 700px;
+}
+
+.d-inline-block {
+    display: inline-block !important;
+}
+
+.align-text-top {
+    vertical-align: text-top !important;
 }

@@ -27,7 +27,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     }
 
     /// <summary>
-    /// 
+    ///   <br />
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     public abstract partial class ValidationRule<TDbParams>

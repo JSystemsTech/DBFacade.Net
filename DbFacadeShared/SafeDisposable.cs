@@ -2,22 +2,11 @@
 
 namespace DbFacade
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public interface ISafeDisposable : IDisposable
-    {
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="calledFromDispose"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        void Dispose(bool calledFromDispose);
-    }
 
     /// <summary>
-    /// 
+    ///   <br />
     /// </summary>
-    internal abstract class SafeDisposableBase : ISafeDisposable
+    internal abstract class SafeDisposableBase : IDisposable
     {
         #region IDisposable Support
 

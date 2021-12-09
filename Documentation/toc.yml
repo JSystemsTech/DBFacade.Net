@@ -1,6 +1,8 @@
 
-- name: Articles
-  href: articles/
-- name: API Documentation
+- name: Getting Started
+  href: GettingStarted/  
+- name: Advanced
+  href: Advanced/
+- name: Docs
   href: obj/api/
   homepage: api/index.md

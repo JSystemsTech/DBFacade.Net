@@ -29,6 +29,9 @@
         "files": [
           "api/*.md",
           "articles/**.md",
+          "GettingStarted/**.md",
+          "Advanced/**.md",
+          "Advanced/**/**.md",
           "toc.yml",
           "*.md"
         ],
@@ -47,7 +50,7 @@
           "obj/**",
           "_site/**"
         ],
-        "dest": "resources"
+        "dest": ""
       }
     ],
     "overwrite": [
@@ -63,9 +66,11 @@
     ],
     "globalMetadata": {
       "_appTitle": "DbFacade",
-      "_appLogoPath": "resources/images/logo.jpg",
-      "_appFooter": "Copyright © JSystemsTech 2021"
+      "_appLogoPath": "images/icon.jpg",
+      "_appFooter": "Copyright &copy; JSystemsTech 2021",
+      "_enableSearch": "true"
     },
+    "postProcessors": [ "ExtractSearchIndex" ],
     "dest": "_site",
     "template": [ "templates/custom_default", "templates/material" ]
   }
