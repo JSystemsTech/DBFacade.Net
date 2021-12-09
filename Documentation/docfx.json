@@ -68,7 +68,6 @@
       "_enableSearch": "true"
     },
     "postProcessors": [ "ExtractSearchIndex" ],
-    "src":  "../",
     "dest": "docs",
     "template": [ "templates/custom_default", "templates/material" ]
   }
