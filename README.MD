@@ -21,14 +21,14 @@ Then `DbFacade` is the solution! DbFacade builds upon `ADO.NET` and simplifies s
 ```bash
 Install-Package DbFacade
 ```
-The latest version can also be downloaded directly from NuGet.org at: https://www.nuget.org/packages/DbFacade/
+The latest version can also be downloaded directly from NuGet.org [Here](https://www.nuget.org/packages/DbFacade/)
 
 ###### .Net Core
 
 ```bash
 Install-Package DbFacade.Core
 ```
-The latest version can also be downloaded directly from NuGet.org at: https://www.nuget.org/packages/DbFacade.Core/
+The latest version can also be downloaded directly from NuGet.org [Here](https://www.nuget.org/packages/DbFacade.Core/)
 
 ## Documentation
-For the latest README updates and documentation please visit https://github.com/JSystemsTech/DBFacade.Net 
+Read full Documentation [Here](https://jsystemstech.github.io/DBFacade.Net/index.html) 
