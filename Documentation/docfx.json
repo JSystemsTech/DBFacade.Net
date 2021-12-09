@@ -36,8 +36,7 @@
           "*.md"
         ],
         "exclude": [
-          "obj/**",
-          "docs/**"
+          "obj/**"
         ]
       }
     ],
@@ -47,8 +46,7 @@
           "images/**"
         ],
         "exclude": [
-          "obj/**",
-          "docs/**"
+          "obj/**"
         ],
         "dest": ""
       }
@@ -59,8 +57,7 @@
           "apidoc/**.md"
         ],
         "exclude": [
-          "obj/**",
-          "docs/**"
+          "obj/**"
         ]
       }
     ],
@@ -71,6 +68,7 @@
       "_enableSearch": "true"
     },
     "postProcessors": [ "ExtractSearchIndex" ],
+    "src":  "../",
     "dest": "docs",
     "template": [ "templates/custom_default", "templates/material" ]
   }
