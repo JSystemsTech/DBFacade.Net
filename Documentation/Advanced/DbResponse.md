@@ -46,4 +46,4 @@ MyOutputDataModel model = await MyDbResonse.GetOutputModelAsync<MyOutputDataMode
 If the method execution call fires an exception the error is captured and set in the `Error` property and the `HasError` property  is set to `true`.
 
 ## HasDataBindingErrors
-If any of the data models have data binding errors the `HasDataBindingErrors` will be sert to `true`
+If any of the data models have data binding errors the `HasDataBindingErrors` will be set to `true`
