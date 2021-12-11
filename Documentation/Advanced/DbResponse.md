@@ -26,7 +26,7 @@ public class MyOutputDataModel : DbDataModel
 
     protected override void Init()
     {
-        Value = GetColumn<string>("OutputParametername");
+        Value = GetColumn<string>("OutputParameterName");
     }
     protected override async Task InitAsync()
     {
