@@ -55,6 +55,8 @@
     <None Include="Advanced\Connection\ErrorHandling.md" />
     <None Include="Advanced\Connection\IDbCommandConfig.md" />
     <None Include="Advanced\Connection\Types.md" />
+    <None Include="Advanced\DbDataModel\NestedModels.md" />
+    <None Include="Advanced\DbResponse.md" />
     <None Include="Advanced\index.md" />
     <None Include="Advanced\Methods\Types.md" />
     <None Include="Advanced\Methods\Validation.md" />
@@ -171,6 +173,7 @@
     <None Include="GettingStarted\DefineModels.md" />
     <None Include="GettingStarted\DomainFacade.md" />
     <None Include="Advanced\Methods\Parameters.md" />
+    <None Include="Advanced\DbDataModel\GettingColumnValues.md" />
     <Content Include="templates\custom_default\common.js" />
     <Content Include="templates\custom_default\conceptual.extension.js" />
     <Content Include="templates\custom_default\conceptual.html.primary.js" />

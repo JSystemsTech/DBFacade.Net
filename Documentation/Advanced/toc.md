@@ -7,3 +7,7 @@
 ##[Types](Methods/Types.md)
 ##[Parameters](Methods/Parameters.md)
 ##[Validation](Methods/Validation.md)
+#DbDataModel
+##[Getting Column Values](DbDataModel/GettingColumnValues.md)
+##[Nested Models](DbDataModel/NestedModels.md)
+#[DbResponse](DbResponse.md)

@@ -50,6 +50,42 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Advanced/DbDataModel/GettingColumnValues.md",
+      "output": {
+        ".html": {
+          "relative_path": "Advanced/DbDataModel/GettingColumnValues.html",
+          "hash": "sUExO2AosYqPRrhDUgX9Ug7SWDt+oqEFXBK9ntkJNMU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Advanced/DbDataModel/NestedModels.md",
+      "output": {
+        ".html": {
+          "relative_path": "Advanced/DbDataModel/NestedModels.html",
+          "hash": "F47pnDsdm8InAEAroVav2yVovggwILt+/XFxD5NVsck="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Advanced/DbResponse.md",
+      "output": {
+        ".html": {
+          "relative_path": "Advanced/DbResponse.html",
+          "hash": "zL+2l/u/ZCDxZkGHF0bmdYgbHDpMzuUgEjHUzaUp2MM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Advanced/Methods/Parameters.md",
       "output": {
         ".html": {
@@ -93,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/index.html",
-          "hash": "lANKjQgN4xdWuqfpmHb4UpYodFZoSSStTtqW4iDmpfE="
+          "hash": "xoRrWPScfOxN+kJCID7F4XiiUUD5aaKTUKNQ8ujst9A="
         }
       },
       "is_incremental": false,
@@ -105,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/toc.html",
-          "hash": "Gqp+FXpjf11YMb6U28EmhbcUPRx+fyPldG5WXGHh1dk="
+          "hash": "fXsYxltpKz3fjEGEV+ZnClz5OXkPYgKc44FMGZ/I0Os="
         }
       },
       "is_incremental": false,
@@ -942,23 +978,25 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Disable incremental build by force rebuild option.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "ForceRebuild"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 16,
-          "skipped_file_count": 16
+          "total_file_count": 19,
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 55,
-          "skipped_file_count": 55
+          "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

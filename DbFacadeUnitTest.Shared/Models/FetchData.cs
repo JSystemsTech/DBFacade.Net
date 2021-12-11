@@ -60,6 +60,7 @@ namespace DbFacadeUnitTests.Models
             PublicKey = GetColumn<Guid>("BadPublicKey");
             MyByte = GetColumn<byte>("BadMyByte");
             MyByteAsInt = GetColumn<int>("BadMyByte");
+            
         }
         protected override async Task InitAsync()
         {
