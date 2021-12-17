@@ -230,7 +230,19 @@ namespace DbFacadeUnitTests.Tests.Facade
                 Assert.Fail();
             }
         }
-
+        [TestMethod]
+        public void VerifyFetchCallAsTransaction()
+        {
+            IDbResponse response = DomainFacade.TestNoData();
+            if (response.Error is Exception e)
+            {
+                Assert.Fail();
+            }
+            else
+            {
+                Assert.IsFalse(response.HasError);
+            }
+        }
 
 
 
@@ -454,6 +466,26 @@ namespace DbFacadeUnitTests.Tests.Facade
                     await Task.CompletedTask;
                 }
             });
+        }
+
+        [TestMethod]
+        public void VerifyFetchCallAsTransactionAsync()
+        {
+            RunAsAsyc(async () =>
+            {
+                IDbResponse response = await DomainFacade.TestNoDataAsync();
+                if (response.Error is Exception e)
+                {
+                    Assert.Fail();
+                    await Task.CompletedTask;
+                }
+                else
+                {
+                    Assert.IsFalse(response.HasError); 
+                    await Task.CompletedTask;
+                }
+            });
+            
         }
     }
 }

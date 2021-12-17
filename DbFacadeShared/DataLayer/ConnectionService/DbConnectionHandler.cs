@@ -45,16 +45,19 @@ namespace DbFacade.DataLayer.ConnectionService
             var responseObj = DbResponseFactory<TDbDataModel>.Create(commandId, default(int), outputValues);
             if(responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
-                while (dbDataReader.Read())
+                //ignore setting data when data type is the abstract base class
+                if (typeof(TDbDataModel) != typeof(DbDataModel))
                 {
-                    ConcurrentDictionary<string, object> dataRow = new ConcurrentDictionary<string, object>();
-                    foreach(int ordinal in Enumerable.Range(0, dbDataReader.FieldCount))
+                    while (dbDataReader.Read())
                     {
-                        dataRow.TryAdd(dbDataReader.GetName(ordinal), dbDataReader.GetValue(ordinal));
+                        ConcurrentDictionary<string, object> dataRow = new ConcurrentDictionary<string, object>();
+                        foreach (int ordinal in Enumerable.Range(0, dbDataReader.FieldCount))
+                        {
+                            dataRow.TryAdd(dbDataReader.GetName(ordinal), dbDataReader.GetValue(ordinal));
+                        }
+                        _responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel>(commandId, dataRow));
                     }
-                    _responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel>(commandId,dataRow));
-                }
-                    
+                } 
                 dbDataReader.Close();
             }
             return responseObj;

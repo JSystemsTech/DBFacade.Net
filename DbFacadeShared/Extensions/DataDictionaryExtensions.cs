@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
@@ -12,6 +14,61 @@ namespace DbFacadeShared.Extensions
     /// </summary>
     internal static class DataDictionaryExtensions
     {
+        /// <summary>The converters</summary>
+        private static readonly ConcurrentDictionary<Type, TypeConverter> Converters
+        = new ConcurrentDictionary<Type, TypeConverter>();
+        /// <summary>Changes the type.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        private static T ChangeType<T>(object value)
+        {
+            if (typeof(T).IsPrimitive)
+            {
+                return (T)ResolveTypeConverter<T>().ConvertFrom(value);
+            }
+            else if (value is string strValue)
+            {
+                try
+                {
+                    object convertedValue = typeof(T) == typeof(Guid) ? Guid.Parse(strValue) :
+                    typeof(T) == typeof(Guid?)  ? (!string.IsNullOrWhiteSpace(strValue)? Guid.Parse(strValue): (Guid?)null)  :
+                    typeof(T) == typeof(DateTime) ? DateTime.Parse(strValue) :
+                    typeof(T) == typeof(DateTime?) ? (!string.IsNullOrWhiteSpace(strValue) ? DateTime.Parse(strValue) : (DateTime?)null) :
+                    typeof(T) == typeof(TimeSpan) || typeof(T) == typeof(TimeSpan?) ? TimeSpan.Parse(strValue) :
+                    typeof(T) == typeof(TimeSpan?) ? (!string.IsNullOrWhiteSpace(strValue) ? TimeSpan.Parse(strValue) : (TimeSpan?)null) :
+                    Convert.ChangeType(value, typeof(T));
+                    return (T)convertedValue;
+                }
+                catch
+                {
+                    return default(T);
+                }
+
+            }
+            else
+            {
+                return (T)Convert.ChangeType(value, typeof(T));
+            }
+        }
+
+        /// <summary>Resolves the type converter.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        private static TypeConverter ResolveTypeConverter<T>()
+        {
+            if (Converters.TryGetValue(typeof(T), out TypeConverter tc))
+            {
+                return tc;
+            }
+            TypeConverter newTC = TypeDescriptor.GetConverter(typeof(T));
+            Converters.TryAdd(typeof(T), newTC);
+            return newTC;
+        }
         /// <summary>
         /// Parses the specified value.
         /// </summary>
@@ -42,9 +99,13 @@ namespace DbFacadeShared.Extensions
                 {
                     return (T)(object)new MailAddress(value.ToString());
                 }
+                else if (value is string strVal && int.TryParse(strVal, out int intVal) && IsEnum(castType, intVal))
+                {
+                    return (T)Enum.ToObject(castType, intVal);
+                }
                 return IsEnum(castType, value) && value is int intValue ?
                     (T)Enum.ToObject(castType, intValue) :
-                    (T)Convert.ChangeType(value, castType);
+                    ChangeType<T>(value);
             }
             catch
             {

@@ -8,12 +8,12 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/JSystemsTech/DBFacade.Net</projectUrl>
+    <projectUrl>https://jsystemstech.github.io/DBFacade.Net/</projectUrl>
     <icon>images\icon.jpg</icon>
     <readme>docs\README.md</readme>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Fix HasError incorrectly marked as true</releaseNotes>
+    <releaseNotes>Improve type converter. Update dependant libraries. Fix issue with DbDataReader parse. Remove depreciated code.</releaseNotes>
     <copyright>Copyright 2021</copyright>
     <tags>DBFacade;DbFacade;dbfacade;domainfacade;DbFacade.Net;DBFacade.Net;dbfacade.net</tags>
     <dependencies>

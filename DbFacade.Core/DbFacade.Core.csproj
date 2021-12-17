@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.6.2</Version>
+    <Version>1.7.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net.Core</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
@@ -14,8 +14,8 @@
     <PackageIcon>images\icon.jpg</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://github.com/JSystemsTech/DBFacade.Net</PackageProjectUrl>
-    <PackageReleaseNotes>Fix HasError incorrectly marked as true</PackageReleaseNotes>
+    <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
+    <PackageReleaseNotes>Improve type converter. Update dependant libraries. Fix issue with DbDataReader parse. Remove depreciated code.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl />
   </PropertyGroup>

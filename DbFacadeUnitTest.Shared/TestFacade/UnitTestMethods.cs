@@ -1,6 +1,7 @@
 ﻿using DbFacade.DataLayer.CommandConfig;
 using DbFacade.DataLayer.Models;
 using DbFacadeUnitTests.Models;
+using System;
 
 namespace DbFacadeUnitTests.TestFacade
 {
@@ -28,6 +29,10 @@ namespace DbFacadeUnitTests.TestFacade
             = UnitTestConnection.TestFetchDataWithOutputParameters.CreateParameterlessMethod<FetchData>(
                 p =>{
                     p.Add("MyStringOutputParam", p.Factory.OutputString(8000));
+                });
+        public static readonly IDbCommandMethod<Guid> TestNoData
+            = UnitTestConnection.TestNoData.CreateMethod<Guid>(p =>{
+                    p.Add("Guid", p.Factory.Create(m=>m));
                 });
         public static readonly IDbCommandMethod<UnitTestDbParamsForManager, FetchData> TestFetchDataWithModel
             = UnitTestConnection.TestTransaction.CreateMethod<UnitTestDbParamsForManager, FetchData>();

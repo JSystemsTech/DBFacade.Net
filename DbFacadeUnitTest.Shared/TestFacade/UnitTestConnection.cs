@@ -38,6 +38,7 @@ namespace DbFacadeUnitTests.TestFacade
         public static IDbCommandConfig TestFetchDataAlt = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestFetchData", "Test Fetch Data");
         public static IDbCommandConfig TestFetchDataWithOutputParameters = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestFetchDataWithOutputParameters", "Test Fetch Data with output parameters");
         public static IDbCommandConfig TestTransaction = DbCommandConfigFactory<UnitTestConnection>.CreateTransactionCommand("TestTransaction", "Test Transaction");
+        public static IDbCommandConfig TestNoData = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestTransaction", "Test Transaction");
     }
 
     internal class UnitTestUnregisteredConnection : SqlConnectionConfig<UnitTestUnregisteredConnection>

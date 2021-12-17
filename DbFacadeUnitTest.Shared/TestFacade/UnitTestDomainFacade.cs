@@ -1,6 +1,7 @@
 ﻿using DbFacade.DataLayer.Models;
 using DbFacade.Services;
 using DbFacadeUnitTests.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -38,6 +39,8 @@ namespace DbFacadeUnitTests.TestFacade
            => UnitTestMethods.TestTransactionWithOutput.Mock(value, 10, ov => { ov.Add("MyStringOutputParam", "output response"); });
         public IDbResponse TestFetchDataWithModelProcessParams(bool stopAtStep1, bool stopAtStep2, bool stopAtStep3)
            => UnitTestMethods.TestFetchDataWithModelProcessParams.Mock(new UnitTestDbParamsForManager() { StopAtStep1 = stopAtStep1, StopAtStep2 = stopAtStep2, StopAtStep3 = stopAtStep3 }, 0);
+        public IDbResponse TestNoData()
+            => UnitTestMethods.TestNoData.Mock(Guid.NewGuid(), 0);
 
         #region Async Calls
         public async Task<IDbResponse> TestUnregisteredConnectionCallAsync() => await UnregisteredConnectionUnitTestMethods.TestUnregisteredConnectionCall.MockAsync(1);
@@ -57,6 +60,9 @@ namespace DbFacadeUnitTests.TestFacade
            => await UnitTestMethods.TestTransactionWithOutput.MockAsync(value, 10, ov => { ov.Add("MyStringOutputParam", "output response"); });
         public async Task<IDbResponse> TestFetchDataWithModelProcessParamsAsync(bool stopAtStep1, bool stopAtStep2, bool stopAtStep3)
            => await UnitTestMethods.TestFetchDataWithModelProcessParams.MockAsync(new UnitTestDbParamsForManager() { StopAtStep1 = stopAtStep1, StopAtStep2 = stopAtStep2, StopAtStep3 = stopAtStep3 }, 0);
+
+        public async Task<IDbResponse> TestNoDataAsync()
+            => await UnitTestMethods.TestNoData.MockAsync(Guid.NewGuid(), 0);
         #endregion
     }
 }
