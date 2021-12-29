@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.7.0</Version>
+    <Version>1.8.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net.Core</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
@@ -15,7 +15,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Improve type converter. Update dependant libraries. Fix issue with DbDataReader parse. Remove depreciated code.</PackageReleaseNotes>
+    <PackageReleaseNotes>Improve error handling. Remove depreciated code.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl />
   </PropertyGroup>

@@ -1,4 +1,5 @@
-﻿using DbFacade.Utils;
+﻿using DbFacade.DataLayer.ConnectionService;
+using DbFacade.Utils;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -32,11 +33,11 @@ namespace DbFacade.DataLayer.Models
         /// <param name="data">The data.</param>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        internal static OutputDbDataModel<T> ToDbDataModel(Guid commandId, IDictionary<string, object> data, string name)
+        internal static OutputDbDataModel<T> ToDbDataModel(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data, string name)
         {
             var model = GenericInstance.GetInstance<OutputDbDataModel<T>>();
             model.Data = data;
-            model.CommandId = commandId;
+            model.DbCommandSettings = dbCommandSettings;
             model.Name = name;
             model.Init();
             return model;
@@ -48,11 +49,11 @@ namespace DbFacade.DataLayer.Models
         /// <param name="data">The data.</param>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        internal static async Task<OutputDbDataModel<T>> ToDbDataModelAsync(Guid commandId, IDictionary<string, object> data, string name)
+        internal static async Task<OutputDbDataModel<T>> ToDbDataModelAsync(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data, string name)
         {
             var model = await GenericInstance.GetInstanceAsync<OutputDbDataModel<T>>();
             model.Data = data;
-            model.CommandId = commandId;
+            model.DbCommandSettings = dbCommandSettings;
             model.Name = name;
             await model.InitAsync();
             return model;

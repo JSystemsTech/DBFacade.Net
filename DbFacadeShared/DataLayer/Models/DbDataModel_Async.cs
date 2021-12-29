@@ -32,7 +32,7 @@ namespace DbFacade.DataLayer.Models
         /// </returns>
         protected async Task<bool> IsDbCommandAsync(IDbCommandConfig config)
         {
-            bool result = config.CommandId == CommandId;
+            bool result = config.CommandId == DbCommandSettings.CommandId;
             await Task.CompletedTask;
             return result;
         }
@@ -40,15 +40,15 @@ namespace DbFacade.DataLayer.Models
         /// Converts to dbdatamodelasync.
         /// </summary>
         /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel>(Guid commandId, IDictionary<string, object> data)
+        internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data)
             where TDbDataModel : DbDataModel
         {
             var model = await GenericInstance.GetInstanceAsync<TDbDataModel>();
             model.Data = data;
-            model.CommandId = commandId;
+            model.DbCommandSettings = dbCommandSettings;
             await model.InitAsync();
             return model;
         }
@@ -62,7 +62,7 @@ namespace DbFacade.DataLayer.Models
         {
             var model = await GenericInstance.GetInstanceAsync<TDbDataModel>();
             model.Data = Data;
-            model.CommandId = CommandId;
+            model.DbCommandSettings = DbCommandSettings;
             await model.InitAsync();
             return model;
         }

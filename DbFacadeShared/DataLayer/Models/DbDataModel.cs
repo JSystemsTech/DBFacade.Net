@@ -73,7 +73,7 @@ namespace DbFacade.DataLayer.Models
         /// <summary>
         /// Adds the data binding error.
         /// </summary>
-        /// <param name="ex">The ex.</param>
+        /// <param name="error">The error.</param>
         private void AddDataBindingError(string error)
         {
             _DataBindingErrors = _DataBindingErrors ?? new List<string>();
@@ -95,14 +95,15 @@ namespace DbFacade.DataLayer.Models
         /// </value>
         [JsonIgnore]
         internal IDictionary<string, object> Data { get; set; }
+
         /// <summary>
-        /// Gets or sets the command identifier.
+        /// Gets or sets the database command settings.
         /// </summary>
         /// <value>
-        /// The command identifier.
+        /// The database command settings.
         /// </value>
         [JsonIgnore]
-        internal Guid CommandId { get; set; }
+        protected IDbCommandSettings DbCommandSettings { get; set; }
 
         /// <summary>
         /// Determines whether [is database command] [the specified configuration].
@@ -111,20 +112,20 @@ namespace DbFacade.DataLayer.Models
         /// <returns>
         ///   <c>true</c> if [is database command] [the specified configuration]; otherwise, <c>false</c>.
         /// </returns>
-        protected bool IsDbCommand(IDbCommandConfig config) => config.CommandId == CommandId;
+        protected bool IsDbCommand(IDbCommandConfig config) => config.CommandId == DbCommandSettings.CommandId;
         /// <summary>
         /// Converts to dbdatamodel.
         /// </summary>
         /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        internal static TDbDataModel ToDbDataModel<TDbDataModel>(Guid commandId, IDictionary<string, object> data)
+        internal static TDbDataModel ToDbDataModel<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data)
             where TDbDataModel : DbDataModel 
         {
             var model = GenericInstance.GetInstance<TDbDataModel>();
             model.Data = data;
-            model.CommandId = commandId;
+            model.DbCommandSettings = dbCommandSettings;
             model.Init();
             return model;
         }
@@ -138,7 +139,7 @@ namespace DbFacade.DataLayer.Models
         {
             var model = GenericInstance.GetInstance<TDbDataModel>();
             model.Data = Data;
-            model.CommandId = CommandId;
+            model.DbCommandSettings = DbCommandSettings;
             model.Init();
             return model;
         }
@@ -147,7 +148,9 @@ namespace DbFacade.DataLayer.Models
         /// </summary>
         protected virtual void Init() { }
 
-        /// <summary>Tries the get column.</summary>
+        /// <summary>
+        /// Tries the get column.
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="handler">The handler.</param>
         /// <returns>

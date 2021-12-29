@@ -83,7 +83,6 @@ namespace DbFacade.DataLayer.ConnectionService
         where TDbConnectionConfig : DbConnectionConfigBase
 
     {
-
         /// <summary>
         /// Gets the database connection.
         /// </summary>
@@ -118,23 +117,23 @@ namespace DbFacade.DataLayer.ConnectionService
             }
             catch (ValidationException<TDbParams> valEx)
             {
-                OnValidationError(valEx);
-                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText.CommandId, valEx);
+                OnValidationError(valEx, commandConfig.DbCommandText);
+                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText, valEx);
             }
             catch (SQLExecutionException SQLEx)
             {
-                OnSQLExecutionError(SQLEx);
-                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText.CommandId, SQLEx);
+                OnSQLExecutionError(SQLEx, commandConfig.DbCommandText);
+                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText, SQLEx);
             }
             catch (FacadeException fEx)
             {
-                OnFacadeError(fEx);
-                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText.CommandId, fEx);
+                OnFacadeError(fEx, commandConfig.DbCommandText);
+                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText, fEx);
             }
             catch (Exception ex)
             {
-                OnError(ex);
-                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText.CommandId, ex);
+                OnError(ex, commandConfig.DbCommandText);
+                return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText, ex);
             }
         }       
 
@@ -158,23 +157,23 @@ namespace DbFacade.DataLayer.ConnectionService
             }
             catch (ValidationException<TDbParams> valEx)
             {
-                await OnValidationErrorAsync(valEx);
-                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText.CommandId, valEx);
+                await OnValidationErrorAsync(valEx, commandConfig.DbCommandText);
+                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText, valEx);
             }
             catch (SQLExecutionException SQLEx)
             {
-                await OnSQLExecutionErrorAsync(SQLEx);
-                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText.CommandId, SQLEx);
+                await OnSQLExecutionErrorAsync(SQLEx, commandConfig.DbCommandText);
+                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText, SQLEx);
             }
             catch (FacadeException fEx)
             {
-                await OnFacadeErrorAsync(fEx);
-                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText.CommandId, fEx);
+                await OnFacadeErrorAsync(fEx, commandConfig.DbCommandText);
+                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText, fEx);
             }
             catch (Exception ex)
             {
-                await OnErrorAsync(ex);
-                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText.CommandId, ex);
+                await OnErrorAsync(ex, commandConfig.DbCommandText);
+                return await DbResponseFactory<TDbDataModel>.CreateErrorResponseAsync(commandConfig.DbCommandText, ex);
             }
         }
 
@@ -240,45 +239,53 @@ namespace DbFacade.DataLayer.ConnectionService
         /// Called when [error].
         /// </summary>
         /// <param name="ex">The ex.</param>
-        protected virtual void OnError(Exception ex) { }
+        /// <param name="commandSettings">The command settings.</param>
+        protected virtual void OnError(Exception ex, IDbCommandSettings commandSettings) { }
         /// <summary>
         /// Called when [validation error].
         /// </summary>
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="ex">The ex.</param>
-        protected virtual void OnValidationError<TDbParams>(ValidationException<TDbParams> ex) => OnError(ex);
+        /// <param name="commandSettings">The command settings.</param>
+        protected virtual void OnValidationError<TDbParams>(ValidationException<TDbParams> ex, IDbCommandSettings commandSettings) => OnError(ex, commandSettings);
         /// <summary>
         /// Called when [SQL execution error].
         /// </summary>
         /// <param name="ex">The ex.</param>
-        protected virtual void OnSQLExecutionError(SQLExecutionException ex) => OnError(ex);
+        /// <param name="commandSettings">The command settings.</param>
+        protected virtual void OnSQLExecutionError(SQLExecutionException ex, IDbCommandSettings commandSettings) => OnError(ex, commandSettings);
         /// <summary>
         /// Called when [facade error].
         /// </summary>
         /// <param name="ex">The ex.</param>
-        protected virtual void OnFacadeError(FacadeException ex) => OnError(ex);
+        /// <param name="commandSettings">The command settings.</param>
+        protected virtual void OnFacadeError(FacadeException ex, IDbCommandSettings commandSettings) => OnError(ex, commandSettings);
 
         /// <summary>
         /// Called when [error asynchronous].
         /// </summary>
         /// <param name="ex">The ex.</param>
-        protected virtual async Task OnErrorAsync(Exception ex) { await Task.CompletedTask;  }
+        /// <param name="commandSettings">The command settings.</param>
+        protected virtual async Task OnErrorAsync(Exception ex, IDbCommandSettings commandSettings) { await Task.CompletedTask;  }
         /// <summary>
         /// Called when [validation error asynchronous].
         /// </summary>
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="ex">The ex.</param>
-        protected virtual async Task OnValidationErrorAsync<TDbParams>(ValidationException<TDbParams> ex) => await OnErrorAsync(ex);
+        /// <param name="commandSettings">The command settings.</param>
+        protected virtual async Task OnValidationErrorAsync<TDbParams>(ValidationException<TDbParams> ex, IDbCommandSettings commandSettings) => await OnErrorAsync(ex, commandSettings);
         /// <summary>
         /// Called when [SQL execution error asynchronous].
         /// </summary>
         /// <param name="ex">The ex.</param>
-        protected virtual async Task OnSQLExecutionErrorAsync(SQLExecutionException ex) => await OnErrorAsync(ex);
+        /// <param name="commandSettings">The command settings.</param>
+        protected virtual async Task OnSQLExecutionErrorAsync(SQLExecutionException ex, IDbCommandSettings commandSettings) => await OnErrorAsync(ex, commandSettings);
         /// <summary>
         /// Called when [facade error asynchronous].
         /// </summary>
         /// <param name="ex">The ex.</param>
-        protected virtual async Task OnFacadeErrorAsync(FacadeException ex) => await OnErrorAsync(ex);
+        /// <param name="commandSettings">The command settings.</param>
+        protected virtual async Task OnFacadeErrorAsync(FacadeException ex, IDbCommandSettings commandSettings) => await OnErrorAsync(ex, commandSettings);
     }
     /// <summary>
     /// 

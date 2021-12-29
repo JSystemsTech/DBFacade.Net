@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DbFacade.DataLayer.ConnectionService;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -264,6 +265,10 @@ namespace DbFacade.DataLayer.Models
         /// The command identifier.
         /// </value>
         Guid CommandId { get; }
+
+        /// <summary>Gets the database command settings.</summary>
+        /// <value>The database command settings.</value>
+        IDbCommandSettings DbCommandSettings { get; }
         /// <summary>
         /// Gets the error.
         /// </summary>

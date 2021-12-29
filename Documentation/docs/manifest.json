@@ -392,7 +392,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html",
-          "hash": "I2UPX2KmcSZ8MjxEp4TxePHvltMSvKTeQAlVUFTy4bg="
+          "hash": "z8jA+4OYTIaqR6dGtCoDwE12c2NG/cyuk099haeNFGc="
         }
       },
       "is_incremental": false,
@@ -416,7 +416,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.DefaultConnectionConfig-1.html",
-          "hash": "3+IXpEglPIhNKd6VmFnrHvZjqH21liQ7vg8lAmaU15Q="
+          "hash": "AmgXaPwsFowJpNtv0E+kSqSZmGLVLwvojspi2s0RqBY="
         }
       },
       "is_incremental": false,
@@ -428,7 +428,19 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html",
-          "hash": "77D8vsf2FKtENTIKzXeNm2353D4TEZNPfG+yTsu6QDA="
+          "hash": "rb6+mw/nEr8uvUt568y5+qAtbaV9zdYoT5V++j74NQo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html",
+          "hash": "5mJntvfxxn8YC+auKTWUFumrfd4MXEhZ0vmXXe2QwRA="
         }
       },
       "is_incremental": false,
@@ -452,7 +464,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.OdbcConnectionConfig-1.html",
-          "hash": "I1Fw9PYtBsoimlQl7Fv28nuk5So3WfLTrMmxstFDYZk="
+          "hash": "bJdoIK1hvg2TSpdiyozpKgFEFwKD2E1yWDmgFD/L2PU="
         }
       },
       "is_incremental": false,
@@ -464,7 +476,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.OleDbConnectionConfig-1.html",
-          "hash": "5o5n5mpXYu3TiB4G2IjVnENjmuE5NTg/DFZkd0YOGKQ="
+          "hash": "FXA2ltf9kGaFnUqV2pAbdNW5hWn7h1c4UcoQuTsykzg="
         }
       },
       "is_incremental": false,
@@ -476,7 +488,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.OracleConnectionConfig-1.html",
-          "hash": "IWNfsDrruWGGSZf236a7k588jVGCdDvLY01A2ottRGg="
+          "hash": "EH+val9jKjOJ+jw4cTSJ8Y/8yAEDlpACkb684ngDSeI="
         }
       },
       "is_incremental": false,
@@ -488,7 +500,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.SqLiteConnectionConfig-1.html",
-          "hash": "EP3Z430jDgEDJfZnjlxpIpYBqq0GDOgOB/NhGCBke90="
+          "hash": "WSV9Ub1R5uKI/SjpRC0pJv2MhEmJ6fcSlk3ukI6HMEc="
         }
       },
       "is_incremental": false,
@@ -500,7 +512,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.SqlConnectionConfig-1.html",
-          "hash": "ccNLho6amGlV51qMEqMhlY4bozjF7DmElRRDZxjXNTw="
+          "hash": "nmjUG+folaedbXlL1DF1hKUVtpcg2GgMqk9caXDY+c8="
         }
       },
       "is_incremental": false,
@@ -512,7 +524,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.html",
-          "hash": "p/229H8hxQ0Cv7C+TY8GNHH5Fl5gRtBrzw2BY1e+Smc="
+          "hash": "ScmY1xsrPuZuXBKGInJF4jKZhht9rgj3AlFM7nstKbI="
         }
       },
       "is_incremental": false,
@@ -524,7 +536,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.DbDataModel.html",
-          "hash": "KFFMp/obWiRQZ0pAsGuFZiDC/FL3pVqIrrns5fKMgFg="
+          "hash": "pbBSZJwMYCqkMInJ4abzKGs3e0Zf5bFrcyxxfugct50="
         }
       },
       "is_incremental": false,
@@ -548,7 +560,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IDbResponse-1.html",
-          "hash": "xNAYJ9rb5m5h4EotLqePe7upW86GSJ3SKZfwYcyrCHc="
+          "hash": "OZMW1O1O7MBobgedKq1K4WLwKmU+oj32+gx4T07cNf8="
         }
       },
       "is_incremental": false,
@@ -560,7 +572,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IDbResponse.html",
-          "hash": "lsVyGALc6bWPMXwFh0B/ilxbyo5FchrN+65a4oLbUXY="
+          "hash": "4wjJ0AsRDg1XLwg1eDTchzRZPqu/8OeQKMPR1xbjnnA="
         }
       },
       "is_incremental": false,
@@ -572,7 +584,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IJsonSerializable-1.html",
-          "hash": "wz5xoj8LQhOvWyWgkWlkQuqo0q7x+z7anDCiAdIEmDw="
+          "hash": "+G+6fgdtLiMsSoNceNbfI7rauzBOvBw+FgapsZMh1TM="
         }
       },
       "is_incremental": false,
@@ -584,7 +596,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IReadOnlyDbCollection-1.html",
-          "hash": "S0+tl2kF29lob+uFYccahuTcELXRPdirqmvxfK1A668="
+          "hash": "eCm0ifqq+8c4LOxwK/Bc3NucVphpzZJmDuazpTHZaKM="
         }
       },
       "is_incremental": false,
@@ -596,7 +608,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IXMLSerializable-1.html",
-          "hash": "eDVbLloF2F0kQMJljlOnmKmX0YX1T6BcMVaCfvn36h0="
+          "hash": "+lDVXcIcLSaGyhIHFFCJ0Be2ZNoxx+14+GAKuCASjNc="
         }
       },
       "is_incremental": false,
@@ -812,7 +824,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Factories.DbCommandConfigFactory-1.html",
-          "hash": "V6Dmr6SqmIri7qjDoOFUabNupPWhwgVELOm09wqJ3y8="
+          "hash": "XoCzp+5BQyEGWc/70uqy4nGBu6k6oQHYfKo8WFglmzM="
         }
       },
       "is_incremental": false,
@@ -956,7 +968,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "AKuatMwiItybCtJGBtsMHm3xe6G/HFCenVR0O44a6Xw="
+          "hash": "UUVDFOq7Q68VCcTWOdRaxuM1dkLU/PNTo1Jn/XkhsWU="
         }
       },
       "is_incremental": false,
@@ -978,23 +990,25 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Disable incremental build by force rebuild option.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "ForceRebuild"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 19,
-          "skipped_file_count": 19
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 55,
-          "skipped_file_count": 55
+          "total_file_count": 56,
+          "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

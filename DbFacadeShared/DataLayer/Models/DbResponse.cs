@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DbFacade.DataLayer.ConnectionService;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,63 +24,63 @@ namespace DbFacade.DataLayer.Models
         /// <summary>
         /// Creates the specified command identifier.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        public static IDbResponse<TDbDataModel> Create(Guid commandId)
+        public static IDbResponse<TDbDataModel> Create(IDbCommandSettings dbCommandSettings)
             => !IsEmptyDataReturn ?
-                new DbResponse<TDbDataModel>(commandId,null) :
-                (IDbResponse<TDbDataModel>)new DbResponse(commandId, null);
+                new DbResponse<TDbDataModel>(dbCommandSettings, null) :
+                (IDbResponse<TDbDataModel>)new DbResponse(dbCommandSettings, null);
         /// <summary>
         /// Creates the specified command identifier.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="returnValue">The return value.</param>
         /// <param name="outputValues">The output values.</param>
         /// <returns></returns>
-        public static IDbResponse<TDbDataModel> Create(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
+        public static IDbResponse<TDbDataModel> Create(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null)
             => !IsEmptyDataReturn ?
-                new DbResponse<TDbDataModel>(commandId, returnValue, outputValues) :
-                (IDbResponse<TDbDataModel>)new DbResponse(commandId, returnValue, outputValues);
+                new DbResponse<TDbDataModel>(dbCommandSettings, returnValue, outputValues) :
+                (IDbResponse<TDbDataModel>)new DbResponse(dbCommandSettings, returnValue, outputValues);
         /// <summary>
         /// Creates the error response.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="error">The error.</param>
         /// <returns></returns>
-        public static IDbResponse<TDbDataModel> CreateErrorResponse(Guid commandId, Exception error)
+        public static IDbResponse<TDbDataModel> CreateErrorResponse(IDbCommandSettings dbCommandSettings, Exception error)
             => !IsEmptyDataReturn ?
-                new DbResponse<TDbDataModel>(commandId, error) :
-                (IDbResponse<TDbDataModel>)new DbResponse(commandId, error);
+                new DbResponse<TDbDataModel>(dbCommandSettings, error) :
+                (IDbResponse<TDbDataModel>)new DbResponse(dbCommandSettings, error);
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        public static async Task<IDbResponse<TDbDataModel>> CreateAsync(Guid commandId)
+        public static async Task<IDbResponse<TDbDataModel>> CreateAsync(IDbCommandSettings dbCommandSettings)
             => !IsEmptyDataReturn ?
-                await DbResponse<TDbDataModel>.CreateAsync(commandId) :
-                (IDbResponse<TDbDataModel>) await DbResponse.CreateAsync(commandId);
+                await DbResponse<TDbDataModel>.CreateAsync(dbCommandSettings) :
+                (IDbResponse<TDbDataModel>) await DbResponse.CreateAsync(dbCommandSettings);
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="returnValue">The return value.</param>
         /// <param name="outputValues">The output values.</param>
         /// <returns></returns>
-        public static async Task<IDbResponse<TDbDataModel>> CreateAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
+        public static async Task<IDbResponse<TDbDataModel>> CreateAsync(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null)
             => !IsEmptyDataReturn ?
-                await DbResponse<TDbDataModel>.CreateAsync(commandId, returnValue, outputValues) :
-                (IDbResponse<TDbDataModel>)await DbResponse.CreateAsync(commandId, returnValue, outputValues);
+                await DbResponse<TDbDataModel>.CreateAsync(dbCommandSettings, returnValue, outputValues) :
+                (IDbResponse<TDbDataModel>)await DbResponse.CreateAsync(dbCommandSettings, returnValue, outputValues);
         /// <summary>
         /// Creates the error response asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="error">The error.</param>
         /// <returns></returns>
-        public static async Task<IDbResponse<TDbDataModel>> CreateErrorResponseAsync(Guid commandId, Exception error)
+        public static async Task<IDbResponse<TDbDataModel>> CreateErrorResponseAsync(IDbCommandSettings dbCommandSettings, Exception error)
             => !IsEmptyDataReturn ?
-                await DbResponse<TDbDataModel>.CreateErrorResponseAsync(commandId, error) :
-                (IDbResponse<TDbDataModel>)await DbResponse.CreateErrorResponseAsync(commandId, error);
+                await DbResponse<TDbDataModel>.CreateErrorResponseAsync(dbCommandSettings, error) :
+                (IDbResponse<TDbDataModel>)await DbResponse.CreateErrorResponseAsync(dbCommandSettings, error);
     }
     /// <summary>
     /// 
@@ -87,53 +88,53 @@ namespace DbFacade.DataLayer.Models
     internal class DbResponse : DbResponse<DbDataModel>, IDbResponse
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbResponse"/> class.
+        /// Initializes a new instance of the <see cref="DbResponse" /> class.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="error">The error.</param>
-        public DbResponse(Guid commandId, Exception error = null) :base(commandId, error) { }
+        public DbResponse(IDbCommandSettings dbCommandSettings, Exception error = null) :base(dbCommandSettings, error) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbResponse"/> class.
+        /// Initializes a new instance of the <see cref="DbResponse" /> class.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="returnValue">The return value.</param>
         /// <param name="outputValues">The output values.</param>
-        public DbResponse(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null) 
-            :base(commandId, returnValue, outputValues) { }
+        public DbResponse(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null) 
+            :base(dbCommandSettings, returnValue, outputValues) { }
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        public static new async Task<DbResponse> CreateAsync(Guid commandId)
+        public static new async Task<DbResponse> CreateAsync(IDbCommandSettings dbCommandSettings)
         {
-            DbResponse response = new DbResponse(commandId, null);
-            await response.InitializeAsync(commandId, null);
+            DbResponse response = new DbResponse(dbCommandSettings, null);
+            await response.InitializeAsync(dbCommandSettings, null);
             return response;
         }
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="returnValue">The return value.</param>
         /// <param name="outputValues">The output values.</param>
         /// <returns></returns>
-        public static new async Task<DbResponse> CreateAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
+        public static new async Task<DbResponse> CreateAsync(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
-            DbResponse response = new DbResponse(commandId, null);
-            await response.InitializeAsync(commandId, returnValue, outputValues);
+            DbResponse response = new DbResponse(dbCommandSettings, null);
+            await response.InitializeAsync(dbCommandSettings, returnValue, outputValues);
             return response;
         }
         /// <summary>
         /// Creates the error response asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="error">The error.</param>
         /// <returns></returns>
-        public static new async Task<DbResponse> CreateErrorResponseAsync(Guid commandId, Exception error)
+        public static new async Task<DbResponse> CreateErrorResponseAsync(IDbCommandSettings dbCommandSettings, Exception error)
         {
-            DbResponse response = new DbResponse(commandId, error);
-            await response.InitializeAsync(commandId, error);
+            DbResponse response = new DbResponse(dbCommandSettings, error);
+            await response.InitializeAsync(dbCommandSettings, error);
             return response;
         }
     }
@@ -171,7 +172,14 @@ namespace DbFacade.DataLayer.Models
         /// <value>
         /// The command identifier.
         /// </value>
-        public Guid CommandId { get; private set; }
+        public Guid CommandId => DbCommandSettings.CommandId;
+        /// <summary>
+        /// Gets the database command settings.
+        /// </summary>
+        /// <value>
+        /// The database command settings.
+        /// </value>
+        public IDbCommandSettings DbCommandSettings { get; private set; }
         /// <summary>
         /// Gets the error.
         /// </summary>
@@ -187,96 +195,96 @@ namespace DbFacade.DataLayer.Models
         /// </value>
         public bool HasError => Error != null;
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbResponse{TDbDataModel}"/> class.
+        /// Initializes a new instance of the <see cref="DbResponse{TDbDataModel}" /> class.
         /// </summary>
         public DbResponse()
         {
             IsNull = true;
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbResponse{TDbDataModel}"/> class.
+        /// Initializes a new instance of the <see cref="DbResponse{TDbDataModel}" /> class.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="error">The error.</param>
-        public DbResponse(Guid commandId, Exception error = null)
+        public DbResponse(IDbCommandSettings dbCommandSettings, Exception error = null)
         {
             IsNull = true;
-            CommandId = commandId;
+            DbCommandSettings = dbCommandSettings;
             Error = error;
         }
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        public static async Task<DbResponse<TDbDataModel>> CreateAsync(Guid commandId)
+        public static async Task<DbResponse<TDbDataModel>> CreateAsync(IDbCommandSettings dbCommandSettings)
         {
             DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
-            await response.InitializeAsync(commandId, null);
+            await response.InitializeAsync(dbCommandSettings, null);
             return response;
         }
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="returnValue">The return value.</param>
         /// <param name="outputValues">The output values.</param>
         /// <returns></returns>
-        public static async Task<DbResponse<TDbDataModel>> CreateAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
+        public static async Task<DbResponse<TDbDataModel>> CreateAsync(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
-            await response.InitializeAsync(commandId,returnValue, outputValues);
+            await response.InitializeAsync(dbCommandSettings, returnValue, outputValues);
             return response;
         }
         /// <summary>
         /// Creates the error response asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="error">The error.</param>
         /// <returns></returns>
-        public static async Task<DbResponse<TDbDataModel>> CreateErrorResponseAsync(Guid commandId, Exception error)
+        public static async Task<DbResponse<TDbDataModel>> CreateErrorResponseAsync(IDbCommandSettings dbCommandSettings, Exception error)
         {
             DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
-            await response.InitializeAsync(commandId, error);            
+            await response.InitializeAsync(dbCommandSettings, error);            
             return response;
         }
         /// <summary>
         /// Initializes the asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="error">The error.</param>
-        protected async Task InitializeAsync(Guid commandId, Exception error = null)
+        protected async Task InitializeAsync(IDbCommandSettings dbCommandSettings, Exception error = null)
         {
             IsNull = true;
-            CommandId = commandId;
+            DbCommandSettings = dbCommandSettings;
             Error = error;
             await Task.CompletedTask;
         }
         /// <summary>
         /// Initializes the asynchronous.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="returnValue">The return value.</param>
         /// <param name="outputValues">The output values.</param>
-        protected async Task InitializeAsync(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
+        protected async Task InitializeAsync(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             IsNull = false;
-            CommandId = commandId;
+            DbCommandSettings = dbCommandSettings;
             ReturnValue = returnValue;
             OutputValues = outputValues;
             await Task.CompletedTask;
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbResponse{TDbDataModel}"/> class.
+        /// Initializes a new instance of the <see cref="DbResponse{TDbDataModel}" /> class.
         /// </summary>
-        /// <param name="commandId">The command identifier.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="returnValue">The return value.</param>
         /// <param name="outputValues">The output values.</param>
-        public DbResponse(Guid commandId, int returnValue = 0, IDictionary<string, object> outputValues = null)
+        public DbResponse(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             ReturnValue = returnValue;
             OutputValues = outputValues;
-            CommandId = commandId;
+            DbCommandSettings = dbCommandSettings;
         }
 
         /// <summary>
@@ -307,14 +315,14 @@ namespace DbFacade.DataLayer.Models
         /// <param name="key">The key.</param>
         /// <returns></returns>
         public T GetOutputValue<T>(string key)
-        => OutputDbDataModel<T>.ToDbDataModel(CommandId, OutputValues, key).Value;
+        => OutputDbDataModel<T>.ToDbDataModel(DbCommandSettings, OutputValues, key).Value;
         /// <summary>
         /// Gets the output model.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public T GetOutputModel<T>() where T: DbDataModel
-        => DbDataModel.ToDbDataModel<T>(CommandId, OutputValues);
+        => DbDataModel.ToDbDataModel<T>(DbCommandSettings, OutputValues);
 
         /// <summary>
         /// Gets the output value asynchronous.
@@ -339,7 +347,7 @@ namespace DbFacade.DataLayer.Models
         /// <returns></returns>
         public async Task<T> GetOutputValueAsync<T>(string key)
         {
-            var model = await OutputDbDataModel<T>.ToDbDataModelAsync(CommandId, OutputValues, key);
+            var model = await OutputDbDataModel<T>.ToDbDataModelAsync(DbCommandSettings, OutputValues, key);
             return model.Value;
         }
         /// <summary>
@@ -348,7 +356,7 @@ namespace DbFacade.DataLayer.Models
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public async Task<T> GetOutputModelAsync<T>() where T : DbDataModel
-        => await DbDataModel.ToDbDataModelAsync<T>(CommandId, OutputValues);
+        => await DbDataModel.ToDbDataModelAsync<T>(DbCommandSettings, OutputValues);
 
         /// <summary>
         /// Converts to json.

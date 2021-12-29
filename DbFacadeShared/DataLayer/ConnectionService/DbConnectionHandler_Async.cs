@@ -31,18 +31,17 @@ namespace DbFacade.DataLayer.ConnectionService
         /// Builds the repsonse asynchronous.
         /// </summary>
         /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="commandId">The command identifier.</param>
-        /// <param name="returnValue">The return value.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="dbDataReader">The database data reader.</param>
         /// <param name="outputValues">The output values.</param>
         /// <returns></returns>
         private static async Task<IDbResponse<TDbDataModel>> BuildRepsonseAsync<TDbDataModel>(
-            Guid commandId,
+            IDbCommandSettings dbCommandSettings,
             DbDataReader dbDataReader = null,
             IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
         {
-            var responseObj = await DbResponseFactory<TDbDataModel>.CreateAsync(commandId, default(int), outputValues);
+            var responseObj = await DbResponseFactory<TDbDataModel>.CreateAsync(dbCommandSettings, default(int), outputValues);
             if (responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 //ignore setting data when data type is the abstract base class
@@ -55,7 +54,7 @@ namespace DbFacade.DataLayer.ConnectionService
                         {
                             dataRow.TryAdd(dbDataReader.GetName(ordinal), dbDataReader.GetValue(ordinal));
                         }
-                        _responseObj.Add(await DbDataModel.ToDbDataModelAsync<TDbDataModel>(commandId, dataRow));
+                        _responseObj.Add(await DbDataModel.ToDbDataModelAsync<TDbDataModel>(dbCommandSettings, dataRow));
                     }
                 }                                        
                 dbDataReader.Close();
@@ -96,7 +95,7 @@ namespace DbFacade.DataLayer.ConnectionService
 
                                         transaction.Commit();
                                         response = await BuildRepsonseAsync<TDbDataModel>(
-                                            config.DbCommandText.CommandId,
+                                            config.DbCommandText,
                                             null,
                                             await dbCommand.GetOutputValuesAsync());
                                         if (response is DbResponse<TDbDataModel> transactionResp)
@@ -114,7 +113,7 @@ namespace DbFacade.DataLayer.ConnectionService
                             using (var dbDataReader = await dbCommand.ExecuteReaderAsync() as TDbDataReader)
                             {
                                 response = await BuildRepsonseAsync<TDbDataModel>(
-                                    config.DbCommandText.CommandId,
+                                    config.DbCommandText,
                                     dbDataReader,
                                     await dbCommand.GetOutputValuesAsync());
                             }

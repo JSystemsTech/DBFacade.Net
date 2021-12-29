@@ -486,14 +486,14 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).GetDbConnectionStringAsync
   nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.GetDbConnectionStringAsync
   nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).GetDbConnectionStringAsync
-- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnError(System.Exception)
-  name: OnError(Exception)
-  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnError_System_Exception_
-  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnError(System.Exception)
-  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnError(System.Exception)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnError(System.Exception)
-  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnError(Exception)
-  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnError(Exception)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnError(System.Exception,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name: OnError(Exception, IDbCommandSettings)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnError_System_Exception_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnError(System.Exception,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnError(System.Exception, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnError(System.Exception, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnError(Exception, IDbCommandSettings)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnError(Exception, IDbCommandSettings)
 - uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnError*
   name: OnError
   href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnError_
@@ -503,14 +503,14 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnError
   nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnError
   nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnError
-- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnErrorAsync(System.Exception)
-  name: OnErrorAsync(Exception)
-  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnErrorAsync_System_Exception_
-  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnErrorAsync(System.Exception)
-  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnErrorAsync(System.Exception)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnErrorAsync(System.Exception)
-  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnErrorAsync(Exception)
-  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnErrorAsync(Exception)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnErrorAsync(System.Exception,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name: OnErrorAsync(Exception, IDbCommandSettings)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnErrorAsync_System_Exception_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnErrorAsync(System.Exception,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnErrorAsync(System.Exception, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnErrorAsync(System.Exception, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnErrorAsync(Exception, IDbCommandSettings)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnErrorAsync(Exception, IDbCommandSettings)
 - uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnErrorAsync*
   name: OnErrorAsync
   href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnErrorAsync_
@@ -520,14 +520,14 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnErrorAsync
   nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnErrorAsync
   nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnErrorAsync
-- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeError(DbFacade.Exceptions.FacadeException)
-  name: OnFacadeError(FacadeException)
-  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeError_DbFacade_Exceptions_FacadeException_
-  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeError(DbFacade.Exceptions.FacadeException)
-  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeError(DbFacade.Exceptions.FacadeException)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeError(DbFacade.Exceptions.FacadeException)
-  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeError(FacadeException)
-  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeError(FacadeException)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeError(DbFacade.Exceptions.FacadeException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name: OnFacadeError(FacadeException, IDbCommandSettings)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeError_DbFacade_Exceptions_FacadeException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeError(DbFacade.Exceptions.FacadeException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeError(DbFacade.Exceptions.FacadeException, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeError(DbFacade.Exceptions.FacadeException, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeError(FacadeException, IDbCommandSettings)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeError(FacadeException, IDbCommandSettings)
 - uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeError*
   name: OnFacadeError
   href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeError_
@@ -537,14 +537,14 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeError
   nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeError
   nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeError
-- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException)
-  name: OnFacadeErrorAsync(FacadeException)
-  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeErrorAsync_DbFacade_Exceptions_FacadeException_
-  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException)
-  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException)
-  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeErrorAsync(FacadeException)
-  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeErrorAsync(FacadeException)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name: OnFacadeErrorAsync(FacadeException, IDbCommandSettings)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeErrorAsync_DbFacade_Exceptions_FacadeException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeErrorAsync(FacadeException, IDbCommandSettings)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeErrorAsync(FacadeException, IDbCommandSettings)
 - uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeErrorAsync*
   name: OnFacadeErrorAsync
   href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeErrorAsync_
@@ -554,14 +554,14 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeErrorAsync
   nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnFacadeErrorAsync
   nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnFacadeErrorAsync
-- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException)
-  name: OnSQLExecutionError(SQLExecutionException)
-  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionError_DbFacade_Exceptions_SQLExecutionException_
-  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException)
-  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException)
-  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnSQLExecutionError(SQLExecutionException)
-  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionError(SQLExecutionException)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name: OnSQLExecutionError(SQLExecutionException, IDbCommandSettings)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionError_DbFacade_Exceptions_SQLExecutionException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnSQLExecutionError(SQLExecutionException, IDbCommandSettings)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionError(SQLExecutionException, IDbCommandSettings)
 - uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionError*
   name: OnSQLExecutionError
   href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionError_
@@ -571,14 +571,14 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionError
   nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnSQLExecutionError
   nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionError
-- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException)
-  name: OnSQLExecutionErrorAsync(SQLExecutionException)
-  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionErrorAsync_DbFacade_Exceptions_SQLExecutionException_
-  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException)
-  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException)
-  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnSQLExecutionErrorAsync(SQLExecutionException)
-  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionErrorAsync(SQLExecutionException)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name: OnSQLExecutionErrorAsync(SQLExecutionException, IDbCommandSettings)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionErrorAsync_DbFacade_Exceptions_SQLExecutionException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnSQLExecutionErrorAsync(SQLExecutionException, IDbCommandSettings)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnSQLExecutionErrorAsync(SQLExecutionException, IDbCommandSettings)
 - uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionErrorAsync*
   name: OnSQLExecutionErrorAsync
   href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionErrorAsync_
@@ -597,15 +597,15 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationError
   nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationError
   nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationError
-- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationError``1(DbFacade.Exceptions.ValidationException{``0})
-  name: OnValidationError<TDbParams>(ValidationException<TDbParams>)
-  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationError__1_DbFacade_Exceptions_ValidationException___0__
-  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationError``1(DbFacade.Exceptions.ValidationException{``0})
-  name.vb: OnValidationError(Of TDbParams)(ValidationException(Of TDbParams))
-  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationError<TDbParams>(DbFacade.Exceptions.ValidationException<TDbParams>)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationError(Of TDbParams)(DbFacade.Exceptions.ValidationException(Of TDbParams))
-  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationError<TDbParams>(ValidationException<TDbParams>)
-  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationError(Of TDbParams)(ValidationException(Of TDbParams))
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationError``1(DbFacade.Exceptions.ValidationException{``0},DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name: OnValidationError<TDbParams>(ValidationException<TDbParams>, IDbCommandSettings)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationError__1_DbFacade_Exceptions_ValidationException___0__DbFacade_DataLayer_ConnectionService_IDbCommandSettings_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationError``1(DbFacade.Exceptions.ValidationException{``0},DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name.vb: OnValidationError(Of TDbParams)(ValidationException(Of TDbParams), IDbCommandSettings)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationError<TDbParams>(DbFacade.Exceptions.ValidationException<TDbParams>, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationError(Of TDbParams)(DbFacade.Exceptions.ValidationException(Of TDbParams), DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationError<TDbParams>(ValidationException<TDbParams>, IDbCommandSettings)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationError(Of TDbParams)(ValidationException(Of TDbParams), IDbCommandSettings)
 - uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationErrorAsync*
   name: OnValidationErrorAsync
   href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationErrorAsync_
@@ -615,15 +615,15 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationErrorAsync
   nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationErrorAsync
   nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationErrorAsync
-- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationErrorAsync``1(DbFacade.Exceptions.ValidationException{``0})
-  name: OnValidationErrorAsync<TDbParams>(ValidationException<TDbParams>)
-  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationErrorAsync__1_DbFacade_Exceptions_ValidationException___0__
-  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationErrorAsync``1(DbFacade.Exceptions.ValidationException{``0})
-  name.vb: OnValidationErrorAsync(Of TDbParams)(ValidationException(Of TDbParams))
-  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationErrorAsync<TDbParams>(DbFacade.Exceptions.ValidationException<TDbParams>)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationErrorAsync(Of TDbParams)(DbFacade.Exceptions.ValidationException(Of TDbParams))
-  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationErrorAsync<TDbParams>(ValidationException<TDbParams>)
-  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationErrorAsync(Of TDbParams)(ValidationException(Of TDbParams))
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationErrorAsync``1(DbFacade.Exceptions.ValidationException{``0},DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name: OnValidationErrorAsync<TDbParams>(ValidationException<TDbParams>, IDbCommandSettings)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationErrorAsync__1_DbFacade_Exceptions_ValidationException___0__DbFacade_DataLayer_ConnectionService_IDbCommandSettings_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationErrorAsync``1(DbFacade.Exceptions.ValidationException{``0},DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  name.vb: OnValidationErrorAsync(Of TDbParams)(ValidationException(Of TDbParams), IDbCommandSettings)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationErrorAsync<TDbParams>(DbFacade.Exceptions.ValidationException<TDbParams>, DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationErrorAsync(Of TDbParams)(DbFacade.Exceptions.ValidationException(Of TDbParams), DbFacade.DataLayer.ConnectionService.IDbCommandSettings)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.OnValidationErrorAsync<TDbParams>(ValidationException<TDbParams>, IDbCommandSettings)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).OnValidationErrorAsync(Of TDbParams)(ValidationException(Of TDbParams), IDbCommandSettings)
 - uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase
   name: DbConnectionConfigBase
   href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html
@@ -723,58 +723,6 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethod(Of TDbParams, TDbDataModel)(System.Action(Of DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams(Of TDbParams)), System.Action(Of DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams)), System.Action(Of TDbParams)())
   nameWithType: IDbCommandConfig.CreateMethod<TDbParams, TDbDataModel>(Action<IDbCommandConfigParams<TDbParams>>, Action<IValidator<TDbParams>>, Action<TDbParams>[])
   nameWithType.vb: IDbCommandConfig.CreateMethod(Of TDbParams, TDbDataModel)(Action(Of IDbCommandConfigParams(Of TDbParams)), Action(Of IValidator(Of TDbParams)), Action(Of TDbParams)())
-- uid: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{System.Object},System.Threading.Tasks.Task})
-  name: CreateMethodAsync(Func<IDbCommandConfigParams<Object>, Task>)
-  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html#DbFacade_DataLayer_ConnectionService_IDbCommandConfig_CreateMethodAsync_System_Func_DbFacade_DataLayer_CommandConfig_Parameters_IDbCommandConfigParams_System_Object__System_Threading_Tasks_Task__
-  commentId: M:DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{System.Object},System.Threading.Tasks.Task})
-  name.vb: CreateMethodAsync(Func(Of IDbCommandConfigParams(Of Object), Task))
-  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync(System.Func<DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams<System.Object>, System.Threading.Tasks.Task>)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync(System.Func(Of DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams(Of System.Object), System.Threading.Tasks.Task))
-  nameWithType: IDbCommandConfig.CreateMethodAsync(Func<IDbCommandConfigParams<Object>, Task>)
-  nameWithType.vb: IDbCommandConfig.CreateMethodAsync(Func(Of IDbCommandConfigParams(Of Object), Task))
-- uid: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync*
-  name: CreateMethodAsync
-  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html#DbFacade_DataLayer_ConnectionService_IDbCommandConfig_CreateMethodAsync_
-  commentId: Overload:DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync
-  isSpec: "True"
-  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync
-  nameWithType: IDbCommandConfig.CreateMethodAsync
-- uid: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync``1(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{``0},System.Threading.Tasks.Task},System.Func{DbFacade.DataLayer.Models.Validators.IValidator{``0},System.Threading.Tasks.Task})
-  name: CreateMethodAsync<TDbParams>(Func<IDbCommandConfigParams<TDbParams>, Task>, Func<IValidator<TDbParams>, Task>)
-  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html#DbFacade_DataLayer_ConnectionService_IDbCommandConfig_CreateMethodAsync__1_System_Func_DbFacade_DataLayer_CommandConfig_Parameters_IDbCommandConfigParams___0__System_Threading_Tasks_Task__System_Func_DbFacade_DataLayer_Models_Validators_IValidator___0__System_Threading_Tasks_Task__
-  commentId: M:DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync``1(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{``0},System.Threading.Tasks.Task},System.Func{DbFacade.DataLayer.Models.Validators.IValidator{``0},System.Threading.Tasks.Task})
-  name.vb: CreateMethodAsync(Of TDbParams)(Func(Of IDbCommandConfigParams(Of TDbParams), Task), Func(Of IValidator(Of TDbParams), Task))
-  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync<TDbParams>(System.Func<DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams<TDbParams>, System.Threading.Tasks.Task>, System.Func<DbFacade.DataLayer.Models.Validators.IValidator<TDbParams>, System.Threading.Tasks.Task>)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync(Of TDbParams)(System.Func(Of DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams(Of TDbParams), System.Threading.Tasks.Task), System.Func(Of DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams), System.Threading.Tasks.Task))
-  nameWithType: IDbCommandConfig.CreateMethodAsync<TDbParams>(Func<IDbCommandConfigParams<TDbParams>, Task>, Func<IValidator<TDbParams>, Task>)
-  nameWithType.vb: IDbCommandConfig.CreateMethodAsync(Of TDbParams)(Func(Of IDbCommandConfigParams(Of TDbParams), Task), Func(Of IValidator(Of TDbParams), Task))
-- uid: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync``1(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{``0},System.Threading.Tasks.Task},System.Func{DbFacade.DataLayer.Models.Validators.IValidator{``0},System.Threading.Tasks.Task},System.Func{``0,System.Threading.Tasks.Task}[])
-  name: CreateMethodAsync<TDbParams>(Func<IDbCommandConfigParams<TDbParams>, Task>, Func<IValidator<TDbParams>, Task>, Func<TDbParams, Task>[])
-  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html#DbFacade_DataLayer_ConnectionService_IDbCommandConfig_CreateMethodAsync__1_System_Func_DbFacade_DataLayer_CommandConfig_Parameters_IDbCommandConfigParams___0__System_Threading_Tasks_Task__System_Func_DbFacade_DataLayer_Models_Validators_IValidator___0__System_Threading_Tasks_Task__System_Func___0_System_Threading_Tasks_Task____
-  commentId: M:DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync``1(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{``0},System.Threading.Tasks.Task},System.Func{DbFacade.DataLayer.Models.Validators.IValidator{``0},System.Threading.Tasks.Task},System.Func{``0,System.Threading.Tasks.Task}[])
-  name.vb: CreateMethodAsync(Of TDbParams)(Func(Of IDbCommandConfigParams(Of TDbParams), Task), Func(Of IValidator(Of TDbParams), Task), Func(Of TDbParams, Task)())
-  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync<TDbParams>(System.Func<DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams<TDbParams>, System.Threading.Tasks.Task>, System.Func<DbFacade.DataLayer.Models.Validators.IValidator<TDbParams>, System.Threading.Tasks.Task>, System.Func<TDbParams, System.Threading.Tasks.Task>[])
-  fullName.vb: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync(Of TDbParams)(System.Func(Of DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams(Of TDbParams), System.Threading.Tasks.Task), System.Func(Of DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams), System.Threading.Tasks.Task), System.Func(Of TDbParams, System.Threading.Tasks.Task)())
-  nameWithType: IDbCommandConfig.CreateMethodAsync<TDbParams>(Func<IDbCommandConfigParams<TDbParams>, Task>, Func<IValidator<TDbParams>, Task>, Func<TDbParams, Task>[])
-  nameWithType.vb: IDbCommandConfig.CreateMethodAsync(Of TDbParams)(Func(Of IDbCommandConfigParams(Of TDbParams), Task), Func(Of IValidator(Of TDbParams), Task), Func(Of TDbParams, Task)())
-- uid: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync``2(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{``0},System.Threading.Tasks.Task},System.Func{DbFacade.DataLayer.Models.Validators.IValidator{``0},System.Threading.Tasks.Task})
-  name: CreateMethodAsync<TDbParams, TDbDataModel>(Func<IDbCommandConfigParams<TDbParams>, Task>, Func<IValidator<TDbParams>, Task>)
-  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html#DbFacade_DataLayer_ConnectionService_IDbCommandConfig_CreateMethodAsync__2_System_Func_DbFacade_DataLayer_CommandConfig_Parameters_IDbCommandConfigParams___0__System_Threading_Tasks_Task__System_Func_DbFacade_DataLayer_Models_Validators_IValidator___0__System_Threading_Tasks_Task__
-  commentId: M:DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync``2(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{``0},System.Threading.Tasks.Task},System.Func{DbFacade.DataLayer.Models.Validators.IValidator{``0},System.Threading.Tasks.Task})
-  name.vb: CreateMethodAsync(Of TDbParams, TDbDataModel)(Func(Of IDbCommandConfigParams(Of TDbParams), Task), Func(Of IValidator(Of TDbParams), Task))
-  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync<TDbParams, TDbDataModel>(System.Func<DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams<TDbParams>, System.Threading.Tasks.Task>, System.Func<DbFacade.DataLayer.Models.Validators.IValidator<TDbParams>, System.Threading.Tasks.Task>)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync(Of TDbParams, TDbDataModel)(System.Func(Of DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams(Of TDbParams), System.Threading.Tasks.Task), System.Func(Of DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams), System.Threading.Tasks.Task))
-  nameWithType: IDbCommandConfig.CreateMethodAsync<TDbParams, TDbDataModel>(Func<IDbCommandConfigParams<TDbParams>, Task>, Func<IValidator<TDbParams>, Task>)
-  nameWithType.vb: IDbCommandConfig.CreateMethodAsync(Of TDbParams, TDbDataModel)(Func(Of IDbCommandConfigParams(Of TDbParams), Task), Func(Of IValidator(Of TDbParams), Task))
-- uid: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync``2(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{``0},System.Threading.Tasks.Task},System.Func{DbFacade.DataLayer.Models.Validators.IValidator{``0},System.Threading.Tasks.Task},System.Func{``0,System.Threading.Tasks.Task}[])
-  name: CreateMethodAsync<TDbParams, TDbDataModel>(Func<IDbCommandConfigParams<TDbParams>, Task>, Func<IValidator<TDbParams>, Task>, Func<TDbParams, Task>[])
-  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html#DbFacade_DataLayer_ConnectionService_IDbCommandConfig_CreateMethodAsync__2_System_Func_DbFacade_DataLayer_CommandConfig_Parameters_IDbCommandConfigParams___0__System_Threading_Tasks_Task__System_Func_DbFacade_DataLayer_Models_Validators_IValidator___0__System_Threading_Tasks_Task__System_Func___0_System_Threading_Tasks_Task____
-  commentId: M:DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync``2(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{``0},System.Threading.Tasks.Task},System.Func{DbFacade.DataLayer.Models.Validators.IValidator{``0},System.Threading.Tasks.Task},System.Func{``0,System.Threading.Tasks.Task}[])
-  name.vb: CreateMethodAsync(Of TDbParams, TDbDataModel)(Func(Of IDbCommandConfigParams(Of TDbParams), Task), Func(Of IValidator(Of TDbParams), Task), Func(Of TDbParams, Task)())
-  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync<TDbParams, TDbDataModel>(System.Func<DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams<TDbParams>, System.Threading.Tasks.Task>, System.Func<DbFacade.DataLayer.Models.Validators.IValidator<TDbParams>, System.Threading.Tasks.Task>, System.Func<TDbParams, System.Threading.Tasks.Task>[])
-  fullName.vb: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateMethodAsync(Of TDbParams, TDbDataModel)(System.Func(Of DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams(Of TDbParams), System.Threading.Tasks.Task), System.Func(Of DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams), System.Threading.Tasks.Task), System.Func(Of TDbParams, System.Threading.Tasks.Task)())
-  nameWithType: IDbCommandConfig.CreateMethodAsync<TDbParams, TDbDataModel>(Func<IDbCommandConfigParams<TDbParams>, Task>, Func<IValidator<TDbParams>, Task>, Func<TDbParams, Task>[])
-  nameWithType.vb: IDbCommandConfig.CreateMethodAsync(Of TDbParams, TDbDataModel)(Func(Of IDbCommandConfigParams(Of TDbParams), Task), Func(Of IValidator(Of TDbParams), Task), Func(Of TDbParams, Task)())
 - uid: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateParameterlessMethod*
   name: CreateParameterlessMethod
   href: api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html#DbFacade_DataLayer_ConnectionService_IDbCommandConfig_CreateParameterlessMethod_
@@ -791,22 +739,51 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateParameterlessMethod(Of TDbDataModel)(System.Action(Of DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams(Of System.Object)))
   nameWithType: IDbCommandConfig.CreateParameterlessMethod<TDbDataModel>(Action<IDbCommandConfigParams<Object>>)
   nameWithType.vb: IDbCommandConfig.CreateParameterlessMethod(Of TDbDataModel)(Action(Of IDbCommandConfigParams(Of Object)))
-- uid: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateParameterlessMethodAsync*
-  name: CreateParameterlessMethodAsync
-  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html#DbFacade_DataLayer_ConnectionService_IDbCommandConfig_CreateParameterlessMethodAsync_
-  commentId: Overload:DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateParameterlessMethodAsync
+- uid: DbFacade.DataLayer.ConnectionService.IDbCommandSettings
+  name: IDbCommandSettings
+  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html
+  commentId: T:DbFacade.DataLayer.ConnectionService.IDbCommandSettings
+  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandSettings
+  nameWithType: IDbCommandSettings
+- uid: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandId
+  name: CommandId
+  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html#DbFacade_DataLayer_ConnectionService_IDbCommandSettings_CommandId
+  commentId: P:DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandId
+  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandId
+  nameWithType: IDbCommandSettings.CommandId
+- uid: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandId*
+  name: CommandId
+  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html#DbFacade_DataLayer_ConnectionService_IDbCommandSettings_CommandId_
+  commentId: Overload:DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandId
   isSpec: "True"
-  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateParameterlessMethodAsync
-  nameWithType: IDbCommandConfig.CreateParameterlessMethodAsync
-- uid: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateParameterlessMethodAsync``1(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{System.Object},System.Threading.Tasks.Task})
-  name: CreateParameterlessMethodAsync<TDbDataModel>(Func<IDbCommandConfigParams<Object>, Task>)
-  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html#DbFacade_DataLayer_ConnectionService_IDbCommandConfig_CreateParameterlessMethodAsync__1_System_Func_DbFacade_DataLayer_CommandConfig_Parameters_IDbCommandConfigParams_System_Object__System_Threading_Tasks_Task__
-  commentId: M:DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateParameterlessMethodAsync``1(System.Func{DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams{System.Object},System.Threading.Tasks.Task})
-  name.vb: CreateParameterlessMethodAsync(Of TDbDataModel)(Func(Of IDbCommandConfigParams(Of Object), Task))
-  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateParameterlessMethodAsync<TDbDataModel>(System.Func<DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams<System.Object>, System.Threading.Tasks.Task>)
-  fullName.vb: DbFacade.DataLayer.ConnectionService.IDbCommandConfig.CreateParameterlessMethodAsync(Of TDbDataModel)(System.Func(Of DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams(Of System.Object), System.Threading.Tasks.Task))
-  nameWithType: IDbCommandConfig.CreateParameterlessMethodAsync<TDbDataModel>(Func<IDbCommandConfigParams<Object>, Task>)
-  nameWithType.vb: IDbCommandConfig.CreateParameterlessMethodAsync(Of TDbDataModel)(Func(Of IDbCommandConfigParams(Of Object), Task))
+  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandId
+  nameWithType: IDbCommandSettings.CommandId
+- uid: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandText
+  name: CommandText
+  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html#DbFacade_DataLayer_ConnectionService_IDbCommandSettings_CommandText
+  commentId: P:DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandText
+  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandText
+  nameWithType: IDbCommandSettings.CommandText
+- uid: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandText*
+  name: CommandText
+  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html#DbFacade_DataLayer_ConnectionService_IDbCommandSettings_CommandText_
+  commentId: Overload:DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandText
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.CommandText
+  nameWithType: IDbCommandSettings.CommandText
+- uid: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.Label
+  name: Label
+  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html#DbFacade_DataLayer_ConnectionService_IDbCommandSettings_Label
+  commentId: P:DbFacade.DataLayer.ConnectionService.IDbCommandSettings.Label
+  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.Label
+  nameWithType: IDbCommandSettings.Label
+- uid: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.Label*
+  name: Label
+  href: api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html#DbFacade_DataLayer_ConnectionService_IDbCommandSettings_Label_
+  commentId: Overload:DbFacade.DataLayer.ConnectionService.IDbCommandSettings.Label
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.ConnectionService.IDbCommandSettings.Label
+  nameWithType: IDbCommandSettings.Label
 - uid: DbFacade.DataLayer.ConnectionService.IDbConnectionConfig
   name: IDbConnectionConfig
   href: api/DbFacade.DataLayer.ConnectionService.IDbConnectionConfig.html
@@ -915,6 +892,19 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.Models.DbDataModel.DataBindingErrors
   nameWithType: DbDataModel.DataBindingErrors
+- uid: DbFacade.DataLayer.Models.DbDataModel.DbCommandSettings
+  name: DbCommandSettings
+  href: api/DbFacade.DataLayer.Models.DbDataModel.html#DbFacade_DataLayer_Models_DbDataModel_DbCommandSettings
+  commentId: P:DbFacade.DataLayer.Models.DbDataModel.DbCommandSettings
+  fullName: DbFacade.DataLayer.Models.DbDataModel.DbCommandSettings
+  nameWithType: DbDataModel.DbCommandSettings
+- uid: DbFacade.DataLayer.Models.DbDataModel.DbCommandSettings*
+  name: DbCommandSettings
+  href: api/DbFacade.DataLayer.Models.DbDataModel.html#DbFacade_DataLayer_Models_DbDataModel_DbCommandSettings_
+  commentId: Overload:DbFacade.DataLayer.Models.DbDataModel.DbCommandSettings
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.Models.DbDataModel.DbCommandSettings
+  nameWithType: DbDataModel.DbCommandSettings
 - uid: DbFacade.DataLayer.Models.DbDataModel.GetColumn*
   name: GetColumn
   href: api/DbFacade.DataLayer.Models.DbDataModel.html#DbFacade_DataLayer_Models_DbDataModel_GetColumn_
@@ -1292,6 +1282,23 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).CommandId
   nameWithType: IDbResponse<TDbDataModel>.CommandId
   nameWithType.vb: IDbResponse(Of TDbDataModel).CommandId
+- uid: DbFacade.DataLayer.Models.IDbResponse`1.DbCommandSettings
+  name: DbCommandSettings
+  href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_DbCommandSettings
+  commentId: P:DbFacade.DataLayer.Models.IDbResponse`1.DbCommandSettings
+  fullName: DbFacade.DataLayer.Models.IDbResponse<TDbDataModel>.DbCommandSettings
+  fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).DbCommandSettings
+  nameWithType: IDbResponse<TDbDataModel>.DbCommandSettings
+  nameWithType.vb: IDbResponse(Of TDbDataModel).DbCommandSettings
+- uid: DbFacade.DataLayer.Models.IDbResponse`1.DbCommandSettings*
+  name: DbCommandSettings
+  href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_DbCommandSettings_
+  commentId: Overload:DbFacade.DataLayer.Models.IDbResponse`1.DbCommandSettings
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.Models.IDbResponse<TDbDataModel>.DbCommandSettings
+  fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).DbCommandSettings
+  nameWithType: IDbResponse<TDbDataModel>.DbCommandSettings
+  nameWithType.vb: IDbResponse(Of TDbDataModel).DbCommandSettings
 - uid: DbFacade.DataLayer.Models.IDbResponse`1.Error
   name: Error
   href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_Error
@@ -2667,31 +2674,6 @@ references:
   fullName.vb: DbFacade.Factories.DbCommandConfigFactory(Of TDbConnectionConfig).CreateFetchCommand
   nameWithType: DbCommandConfigFactory<TDbConnectionConfig>.CreateFetchCommand
   nameWithType.vb: DbCommandConfigFactory(Of TDbConnectionConfig).CreateFetchCommand
-- uid: DbFacade.Factories.DbCommandConfigFactory`1.CreateFetchCommandAsync(System.String,System.String,System.Boolean)
-  name: CreateFetchCommandAsync(String, String, Boolean)
-  href: api/DbFacade.Factories.DbCommandConfigFactory-1.html#DbFacade_Factories_DbCommandConfigFactory_1_CreateFetchCommandAsync_System_String_System_String_System_Boolean_
-  commentId: M:DbFacade.Factories.DbCommandConfigFactory`1.CreateFetchCommandAsync(System.String,System.String,System.Boolean)
-  fullName: DbFacade.Factories.DbCommandConfigFactory<TDbConnectionConfig>.CreateFetchCommandAsync(System.String, System.String, System.Boolean)
-  fullName.vb: DbFacade.Factories.DbCommandConfigFactory(Of TDbConnectionConfig).CreateFetchCommandAsync(System.String, System.String, System.Boolean)
-  nameWithType: DbCommandConfigFactory<TDbConnectionConfig>.CreateFetchCommandAsync(String, String, Boolean)
-  nameWithType.vb: DbCommandConfigFactory(Of TDbConnectionConfig).CreateFetchCommandAsync(String, String, Boolean)
-- uid: DbFacade.Factories.DbCommandConfigFactory`1.CreateFetchCommandAsync(System.String,System.String,System.Data.CommandType,System.Boolean)
-  name: CreateFetchCommandAsync(String, String, CommandType, Boolean)
-  href: api/DbFacade.Factories.DbCommandConfigFactory-1.html#DbFacade_Factories_DbCommandConfigFactory_1_CreateFetchCommandAsync_System_String_System_String_System_Data_CommandType_System_Boolean_
-  commentId: M:DbFacade.Factories.DbCommandConfigFactory`1.CreateFetchCommandAsync(System.String,System.String,System.Data.CommandType,System.Boolean)
-  fullName: DbFacade.Factories.DbCommandConfigFactory<TDbConnectionConfig>.CreateFetchCommandAsync(System.String, System.String, System.Data.CommandType, System.Boolean)
-  fullName.vb: DbFacade.Factories.DbCommandConfigFactory(Of TDbConnectionConfig).CreateFetchCommandAsync(System.String, System.String, System.Data.CommandType, System.Boolean)
-  nameWithType: DbCommandConfigFactory<TDbConnectionConfig>.CreateFetchCommandAsync(String, String, CommandType, Boolean)
-  nameWithType.vb: DbCommandConfigFactory(Of TDbConnectionConfig).CreateFetchCommandAsync(String, String, CommandType, Boolean)
-- uid: DbFacade.Factories.DbCommandConfigFactory`1.CreateFetchCommandAsync*
-  name: CreateFetchCommandAsync
-  href: api/DbFacade.Factories.DbCommandConfigFactory-1.html#DbFacade_Factories_DbCommandConfigFactory_1_CreateFetchCommandAsync_
-  commentId: Overload:DbFacade.Factories.DbCommandConfigFactory`1.CreateFetchCommandAsync
-  isSpec: "True"
-  fullName: DbFacade.Factories.DbCommandConfigFactory<TDbConnectionConfig>.CreateFetchCommandAsync
-  fullName.vb: DbFacade.Factories.DbCommandConfigFactory(Of TDbConnectionConfig).CreateFetchCommandAsync
-  nameWithType: DbCommandConfigFactory<TDbConnectionConfig>.CreateFetchCommandAsync
-  nameWithType.vb: DbCommandConfigFactory(Of TDbConnectionConfig).CreateFetchCommandAsync
 - uid: DbFacade.Factories.DbCommandConfigFactory`1.CreateTransactionCommand(System.String,System.String,System.Boolean)
   name: CreateTransactionCommand(String, String, Boolean)
   href: api/DbFacade.Factories.DbCommandConfigFactory-1.html#DbFacade_Factories_DbCommandConfigFactory_1_CreateTransactionCommand_System_String_System_String_System_Boolean_
@@ -2717,31 +2699,6 @@ references:
   fullName.vb: DbFacade.Factories.DbCommandConfigFactory(Of TDbConnectionConfig).CreateTransactionCommand
   nameWithType: DbCommandConfigFactory<TDbConnectionConfig>.CreateTransactionCommand
   nameWithType.vb: DbCommandConfigFactory(Of TDbConnectionConfig).CreateTransactionCommand
-- uid: DbFacade.Factories.DbCommandConfigFactory`1.CreateTransactionCommandAsync(System.String,System.String,System.Boolean)
-  name: CreateTransactionCommandAsync(String, String, Boolean)
-  href: api/DbFacade.Factories.DbCommandConfigFactory-1.html#DbFacade_Factories_DbCommandConfigFactory_1_CreateTransactionCommandAsync_System_String_System_String_System_Boolean_
-  commentId: M:DbFacade.Factories.DbCommandConfigFactory`1.CreateTransactionCommandAsync(System.String,System.String,System.Boolean)
-  fullName: DbFacade.Factories.DbCommandConfigFactory<TDbConnectionConfig>.CreateTransactionCommandAsync(System.String, System.String, System.Boolean)
-  fullName.vb: DbFacade.Factories.DbCommandConfigFactory(Of TDbConnectionConfig).CreateTransactionCommandAsync(System.String, System.String, System.Boolean)
-  nameWithType: DbCommandConfigFactory<TDbConnectionConfig>.CreateTransactionCommandAsync(String, String, Boolean)
-  nameWithType.vb: DbCommandConfigFactory(Of TDbConnectionConfig).CreateTransactionCommandAsync(String, String, Boolean)
-- uid: DbFacade.Factories.DbCommandConfigFactory`1.CreateTransactionCommandAsync(System.String,System.String,System.Data.CommandType,System.Boolean)
-  name: CreateTransactionCommandAsync(String, String, CommandType, Boolean)
-  href: api/DbFacade.Factories.DbCommandConfigFactory-1.html#DbFacade_Factories_DbCommandConfigFactory_1_CreateTransactionCommandAsync_System_String_System_String_System_Data_CommandType_System_Boolean_
-  commentId: M:DbFacade.Factories.DbCommandConfigFactory`1.CreateTransactionCommandAsync(System.String,System.String,System.Data.CommandType,System.Boolean)
-  fullName: DbFacade.Factories.DbCommandConfigFactory<TDbConnectionConfig>.CreateTransactionCommandAsync(System.String, System.String, System.Data.CommandType, System.Boolean)
-  fullName.vb: DbFacade.Factories.DbCommandConfigFactory(Of TDbConnectionConfig).CreateTransactionCommandAsync(System.String, System.String, System.Data.CommandType, System.Boolean)
-  nameWithType: DbCommandConfigFactory<TDbConnectionConfig>.CreateTransactionCommandAsync(String, String, CommandType, Boolean)
-  nameWithType.vb: DbCommandConfigFactory(Of TDbConnectionConfig).CreateTransactionCommandAsync(String, String, CommandType, Boolean)
-- uid: DbFacade.Factories.DbCommandConfigFactory`1.CreateTransactionCommandAsync*
-  name: CreateTransactionCommandAsync
-  href: api/DbFacade.Factories.DbCommandConfigFactory-1.html#DbFacade_Factories_DbCommandConfigFactory_1_CreateTransactionCommandAsync_
-  commentId: Overload:DbFacade.Factories.DbCommandConfigFactory`1.CreateTransactionCommandAsync
-  isSpec: "True"
-  fullName: DbFacade.Factories.DbCommandConfigFactory<TDbConnectionConfig>.CreateTransactionCommandAsync
-  fullName.vb: DbFacade.Factories.DbCommandConfigFactory(Of TDbConnectionConfig).CreateTransactionCommandAsync
-  nameWithType: DbCommandConfigFactory<TDbConnectionConfig>.CreateTransactionCommandAsync
-  nameWithType.vb: DbCommandConfigFactory(Of TDbConnectionConfig).CreateTransactionCommandAsync
 - uid: DbFacade.Factories.DbCommandParameterConfigFactory`1
   name: DbCommandParameterConfigFactory<TDbParams>
   href: api/DbFacade.Factories.DbCommandParameterConfigFactory-1.html

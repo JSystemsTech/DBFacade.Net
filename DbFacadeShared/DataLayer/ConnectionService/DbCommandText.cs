@@ -26,12 +26,6 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <returns></returns>
         IDbCommandMethod CreateMethod(Action<IDbCommandConfigParams<object>> parametersInitializer = null);
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <returns></returns>
-        Task<IDbCommandMethod> CreateMethodAsync(Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null);
 
 
 
@@ -43,14 +37,7 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <returns></returns>
         IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessMethod<TDbDataModel>(Action<IDbCommandConfigParams<object>> parametersInitializer = null)
             where TDbDataModel : DbDataModel;
-        /// <summary>
-        /// Creates the parameterless method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <returns></returns>
-        Task<IParameterlessDbCommandMethod<TDbDataModel>> CreateParameterlessMethodAsync<TDbDataModel>(Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null)
-            where TDbDataModel : DbDataModel;
+        
 
         /// <summary>
         /// Creates the method.
@@ -104,66 +91,31 @@ namespace DbFacade.DataLayer.ConnectionService
         Action<IValidator<TDbParams>> validatorInitializer,
         params Action<TDbParams>[] onBeforeActions)
          where TDbDataModel : DbDataModel;
-
-
-
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <returns></returns>
-        Task<IDbCommandMethod<TDbParams>> CreateMethodAsync<TDbParams>(
-            Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
-        Func<IValidator<TDbParams>, Task> validatorInitializer = null);
-
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
-        /// <returns></returns>
-        Task<IDbCommandMethod<TDbParams>> CreateMethodAsync<TDbParams>(
-            Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
-        Func<IValidator<TDbParams>, Task> validatorInitializer,
-        params Func<TDbParams, Task>[] onBeforeAsyncActions);
-
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <returns></returns>
-        Task<IDbCommandMethod<TDbParams, TDbDataModel>> CreateMethodAsync<TDbParams, TDbDataModel>(
-            Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
-        Func<IValidator<TDbParams>, Task> validatorInitializer = null)
-            where TDbDataModel : DbDataModel;
-
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
-        /// <returns></returns>
-        Task<IDbCommandMethod<TDbParams, TDbDataModel>> CreateMethodAsync<TDbParams, TDbDataModel>(
-            Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
-        Func<IValidator<TDbParams>, Task> validatorInitializer,
-        params Func<TDbParams, Task>[] onBeforeAsyncActions)
-            where TDbDataModel : DbDataModel;
-
+        
     }
+    public interface IDbCommandSettings {
+        public Guid CommandId { get; }
+        /// <summary>
+        /// Gets or sets the command text.
+        /// </summary>
+        /// <value>
+        /// The command text.
+        /// </value>
+        public string CommandText { get; }
+        /// <summary>
+        /// Gets or sets the label.
+        /// </summary>
+        /// <value>
+        /// The label.
+        /// </value>
+        public string Label { get; }
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    internal abstract class DbCommandSettingsBase{
+    internal abstract class DbCommandSettingsBase: IDbCommandSettings
+    {
         /// <summary>
         /// Gets or sets the command identifier.
         /// </summary>
@@ -253,26 +205,7 @@ namespace DbFacade.DataLayer.ConnectionService
             CommandType commandType = CommandType.StoredProcedure,
             bool isTransaction = false,
             bool requiresValidation = false) => new DbCommand<TDbConnectionConfig>(commandText, label, commandType, isTransaction, requiresValidation);
-        /// <summary>
-        /// Creates the asynchronous.
-        /// </summary>
-        /// <param name="commandText">The command text.</param>
-        /// <param name="label">The label.</param>
-        /// <param name="commandType">Type of the command.</param>
-        /// <param name="isTransaction">if set to <c>true</c> [is transaction].</param>
-        /// <param name="requiresValidation">if set to <c>true</c> [requires validation].</param>
-        /// <returns></returns>
-        public static async Task<DbCommand<TDbConnectionConfig>> CreateAsync(
-            string commandText,
-            string label,
-            CommandType commandType = CommandType.StoredProcedure,
-            bool isTransaction = false,
-            bool requiresValidation = false)
-        {
-            DbCommand<TDbConnectionConfig> command = new DbCommand<TDbConnectionConfig>(commandText, label, commandType, isTransaction, requiresValidation);
-            await Task.CompletedTask;
-            return command;
-        }
+        
         /// <summary>
         /// Creates the method.
         /// </summary>
@@ -348,80 +281,6 @@ namespace DbFacade.DataLayer.ConnectionService
         params Action<TDbParams>[] onBeforeActions)
          where TDbDataModel : DbDataModel
         => DbCommandMethod<TDbParams, TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer, onBeforeActions);
-
-
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <returns></returns>
-        public async Task<IDbCommandMethod> CreateMethodAsync(Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null)
-        => await DbCommandMethod.CreateAsync<TDbConnectionConfig>(this, parametersInitializer);
-
-        /// <summary>
-        /// Creates the parameterless method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <returns></returns>
-        public async Task<IParameterlessDbCommandMethod<TDbDataModel>> CreateParameterlessMethodAsync<TDbDataModel>(Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null)
-            where TDbDataModel : DbDataModel
-        => await ParameterlessDbCommandMethod<TDbDataModel>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer);
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <returns></returns>
-        public async Task<IDbCommandMethod<TDbParams>> CreateMethodAsync<TDbParams>(
-            Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
-        Func<IValidator<TDbParams>, Task> validatorInitializer = null)
-        => await DbCommandMethod<TDbParams>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer);
-
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
-        /// <returns></returns>
-        public async Task<IDbCommandMethod<TDbParams>> CreateMethodAsync<TDbParams>(
-            Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
-        Func<IValidator<TDbParams>, Task> validatorInitializer,
-        params Func<TDbParams,Task>[] onBeforeAsyncActions)
-        => await DbCommandMethod<TDbParams>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer, onBeforeAsyncActions);
-
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <returns></returns>
-        public async Task<IDbCommandMethod<TDbParams, TDbDataModel>> CreateMethodAsync<TDbParams, TDbDataModel>(
-            Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
-        Func<IValidator<TDbParams>, Task> validatorInitializer = null)
-            where TDbDataModel : DbDataModel
-        => await DbCommandMethod<TDbParams, TDbDataModel>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer);
-
-        /// <summary>
-        /// Creates the method asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
-        /// <returns></returns>
-        public async Task<IDbCommandMethod<TDbParams, TDbDataModel>> CreateMethodAsync<TDbParams, TDbDataModel>(
-            Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
-        Func<IValidator<TDbParams>, Task> validatorInitializer,
-        params Func<TDbParams, Task>[] onBeforeAsyncActions)
-            where TDbDataModel : DbDataModel
-        => await DbCommandMethod<TDbParams, TDbDataModel>.CreateAsync<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer, onBeforeAsyncActions);
-
+        
     }
 }

@@ -25,9 +25,9 @@ namespace DbFacadeUnitTests.TestFacade
             return "MyUnitTestConnectionProvider";
         }
 
-        protected override void OnError(Exception ex)
+        protected override void OnError(Exception ex, IDbCommandSettings dbCommandSettings)
         => ErrorHandler(ex);
-        protected override async Task OnErrorAsync(Exception ex)
+        protected override async Task OnErrorAsync(Exception ex, IDbCommandSettings dbCommandSettings)
         {
             ErrorHandler(ex);
             await Task.CompletedTask;

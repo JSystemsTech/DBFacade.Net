@@ -31,18 +31,17 @@ namespace DbFacade.DataLayer.ConnectionService
         /// Builds the repsonse.
         /// </summary>
         /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-        /// <param name="commandId">The command identifier.</param>
-        /// <param name="returnValue">The return value.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="dbDataReader">The database data reader.</param>
         /// <param name="outputValues">The output values.</param>
         /// <returns></returns>
         private static IDbResponse<TDbDataModel> BuildRepsonse<TDbDataModel>(
-            Guid commandId,
+            IDbCommandSettings dbCommandSettings,
             DbDataReader dbDataReader = null,
             IDictionary<string, object> outputValues = null)
             where TDbDataModel : DbDataModel
         {
-            var responseObj = DbResponseFactory<TDbDataModel>.Create(commandId, default(int), outputValues);
+            var responseObj = DbResponseFactory<TDbDataModel>.Create(dbCommandSettings, default(int), outputValues);
             if(responseObj is List<TDbDataModel> _responseObj && dbDataReader != null)
             {
                 //ignore setting data when data type is the abstract base class
@@ -55,7 +54,7 @@ namespace DbFacade.DataLayer.ConnectionService
                         {
                             dataRow.TryAdd(dbDataReader.GetName(ordinal), dbDataReader.GetValue(ordinal));
                         }
-                        _responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel>(commandId, dataRow));
+                        _responseObj.Add(DbDataModel.ToDbDataModel<TDbDataModel>(dbCommandSettings, dataRow));
                     }
                 } 
                 dbDataReader.Close();
@@ -97,7 +96,7 @@ namespace DbFacade.DataLayer.ConnectionService
 
                                         transaction.Commit();
                                         response = BuildRepsonse<TDbDataModel>(
-                                            config.DbCommandText.CommandId, 
+                                            config.DbCommandText, 
                                             null,
                                             dbCommand.GetOutputValues());
                                         if (response is DbResponse<TDbDataModel> transactionResp)
@@ -118,7 +117,7 @@ namespace DbFacade.DataLayer.ConnectionService
                             using (var dbDataReader = dbCommand.ExecuteReader() as TDbDataReader)
                             {
                                 response = BuildRepsonse<TDbDataModel>(
-                                    config.DbCommandText.CommandId,
+                                    config.DbCommandText,
                                     dbDataReader,
                                     dbCommand.GetOutputValues()); 
                             }
