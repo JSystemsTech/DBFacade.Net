@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Connection/ErrorHandling.html",
-          "hash": "HpY48FDCaqcxQIRdSoPNUC+wq0Dn1CSs9SYj615U//0="
+          "hash": "Wauh9s/8HjFf1wDPi7ErSK7EubUB4097ESOm5WRAZZU="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Connection/IDbCommandConfig.html",
-          "hash": "sN4MOI19aDDQdb1qojR76yi8wFr3dNzHOOil/93qKHo="
+          "hash": "RU54eGiYHnH2q5GCwN7uBzsFsKVKirxJs5YrbjdVnBY="
         }
       },
       "is_incremental": false,
@@ -42,43 +42,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Connection/Types.html",
-          "hash": "OiSzq9H4bqdUogfKlpPXkWrbY/IXhSMCU0R43YrWM5w="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "Advanced/DbDataModel/GettingColumnValues.md",
-      "output": {
-        ".html": {
-          "relative_path": "Advanced/DbDataModel/GettingColumnValues.html",
-          "hash": "sUExO2AosYqPRrhDUgX9Ug7SWDt+oqEFXBK9ntkJNMU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "Advanced/DbDataModel/NestedModels.md",
-      "output": {
-        ".html": {
-          "relative_path": "Advanced/DbDataModel/NestedModels.html",
-          "hash": "F47pnDsdm8InAEAroVav2yVovggwILt+/XFxD5NVsck="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "Advanced/DbResponse.md",
-      "output": {
-        ".html": {
-          "relative_path": "Advanced/DbResponse.html",
-          "hash": "Mb13flR2b/y4V0NSnMakSXbH3ta8imcHA8kDLZCiIXs="
+          "hash": "6I0RpCkWiQ3RPV6jHhFYXqz6wWjblaEXB0O2sBVVLLk="
         }
       },
       "is_incremental": false,
@@ -90,7 +54,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Methods/Parameters.html",
-          "hash": "SuXPw1IODwr30DRXvWqx3bQnYgpQOQfouSjYAYQmfRQ="
+          "hash": "knVQNRdOP/lbhqdVtE/1aTupeVmxP7U+tdywxq8wvYs="
         }
       },
       "is_incremental": false,
@@ -102,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Methods/Types.html",
-          "hash": "GclI/9iEvlnAvUwoFhowOd+yv5/nSqNeNb4ddWuO65g="
+          "hash": "SRvSMeElN0lRSy1o/ZuvM0sdOtn7M35CQydHiuRUSt4="
         }
       },
       "is_incremental": false,
@@ -117,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Methods/Validation.html",
-          "hash": "JHmXvH6gHjjke8XoozGKZ3IRGT5uWYAoEBjOTwGKJIk="
+          "hash": "lcQgq1mgXqGL5ibBX8ZcfStIKGeLB9EPDjyAt8pMDKw="
         }
       },
       "is_incremental": false,
@@ -129,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/index.html",
-          "hash": "xoRrWPScfOxN+kJCID7F4XiiUUD5aaKTUKNQ8ujst9A="
+          "hash": "FGnLJ43gO09py+InMgmD1vRHfz0KvgXDqoiyB3psVac="
         }
       },
       "is_incremental": false,
@@ -141,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/toc.html",
-          "hash": "fXsYxltpKz3fjEGEV+ZnClz5OXkPYgKc44FMGZ/I0Os="
+          "hash": "Gqp+FXpjf11YMb6U28EmhbcUPRx+fyPldG5WXGHh1dk="
         }
       },
       "is_incremental": false,
@@ -153,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/DeclareMethods.html",
-          "hash": "I4YZhgTQj4XBtDxS8I8p/K15DALjnNwdPZoFPZhmRdg="
+          "hash": "xw88zXc6z5pnExTpOkanYdQnUm4hsdE3poFcgMbP7hY="
         }
       },
       "is_incremental": false,
@@ -165,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/DefineModels.html",
-          "hash": "X/A46wRqF8TQqnxd+ttsehjpmdnhxVUnyT+Iv0tZDR0="
+          "hash": "Zy5umsWHlb2gNP77bzC+G0U/6E/oKZO7MGaU3zsfEbQ="
         }
       },
       "is_incremental": false,
@@ -177,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/DomainFacade.html",
-          "hash": "bvoAdqoRKMSG6HGpaHyOISOWM9bB0AyIKiWWwztScNA="
+          "hash": "W6ND5FDUA7qUHGB0Cpcxi5XTOA5HmaN+RA2OAbLnY10="
         }
       },
       "is_incremental": false,
@@ -189,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/SetupConnection.html",
-          "hash": "2eiuhpIY742ZrhOZitQhoIw9lYEIUW969wYDL99cHuQ="
+          "hash": "NsDj5budbXNBNNg2B/UHLUja4iG0sYMgrtBt/TJkaP0="
         }
       },
       "is_incremental": false,
@@ -201,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/index.html",
-          "hash": "XLMBrGZ+/jwhMD0hJTyky+m8agSbeV0xDLKd3Z9FGO4="
+          "hash": "57KA3AYYRBhFMm3k27sltRPX/Hs62+03sOPAHAQcNIM="
         }
       },
       "is_incremental": false,
@@ -225,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "Oz3yqvaKby4qE2qTmH2VilFuon9bmL4pEptdg/S3K6M="
+          "hash": "iWHaRk3uXzkrvRhavBK6rDKNPYVPns6TiDDKAocwWEo="
         }
       },
       "is_incremental": false,
@@ -237,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/GettingStarted.html",
-          "hash": "vkJtVSncUP6pbS+nISo66m2GC5An9Q6njXwm0SMmKas="
+          "hash": "3iK93MtKq/+mch14r+N8GGQHoH+RowCyihPeqE7NDgA="
         }
       },
       "is_incremental": false,
@@ -249,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "Mtc59ra2TFFeuYT4Jvbgvfi9OJDFA+Css5MA4tLZnvA="
+          "hash": "GzcpVtXe+Jf4xYaRqRsmuIaBolzYOJ4eB/NN04rjU2Q="
         }
       },
       "is_incremental": false,
@@ -284,7 +248,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "Wk3O43w6eq9hqXwvBb6uf6YlISEn0VhzUrd0gOd/uGc="
+          "hash": "KSyhe9F8q00Vtl5V8VP0q97ShOm0LfF7G9dBP1mB6YQ="
         }
       },
       "is_incremental": false,
@@ -296,7 +260,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-1.html",
-          "hash": "KP7YJ3WThEcnlcWTkCbeFhHh2qY1yHdWL5HmbNkEeAA="
+          "hash": "YVdv+HN663Gj+hb6r3Sll6PQ3Nw1/dnGYl9XUMtOW1w="
         }
       },
       "is_incremental": false,
@@ -308,7 +272,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html",
-          "hash": "O5TdV8DyQN9xOkoM0SJx5/AiKTlp7isoJ/mpjyuRBJE="
+          "hash": "IFxQhByR29vaJJUSPc39NYcaneFrnp+HRIUogtOx8xQ="
         }
       },
       "is_incremental": false,
@@ -320,7 +284,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html",
-          "hash": "JoYln3aw+HiSjMKmCom0MKLsRQ/YALBlk+6bYCiqGDo="
+          "hash": "SW/YkX+f3vfctTWgCZr/3Swhjz8ZxEKUKflbBOKZQjE="
         }
       },
       "is_incremental": false,
@@ -332,7 +296,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html",
-          "hash": "3/EXu2HPOS487YnoqnB+HBvSfeqqSe40YJCvK605REo="
+          "hash": "CrrjqghPE6bXgVsC8wdxYIR7OAXUqqNevYU9UMLVqtQ="
         }
       },
       "is_incremental": false,
@@ -344,7 +308,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams-1.html",
-          "hash": "XFVWWRvkxay/hQvVT+yMn9QAM4cxK2jVL+7EfjJnrqM="
+          "hash": "lJ4Tr9/u04kDEqZu94NUy4pnThD9i6Uw8QlAHOyiqTc="
         }
       },
       "is_incremental": false,
@@ -356,7 +320,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandParameterConfig-1.html",
-          "hash": "6Bv/HfJ2pZH6pfO6GmY30rykCys4JhmO2rZEx/tSn8o="
+          "hash": "E0KBzkBTLLaZE23ZIqWoAqg0Q4tYYL1fEqbdrBTW4s8="
         }
       },
       "is_incremental": false,
@@ -368,7 +332,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.Parameters.html",
-          "hash": "L+RgcZPfWHyVNttfCMlB/htQyJOPPIcT7Bm0ahs10Do="
+          "hash": "LrGgZDUMEets8anKALRU7rpbWiPgLn8R2n4CpKF6wKQ="
         }
       },
       "is_incremental": false,
@@ -380,7 +344,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.html",
-          "hash": "5SBApx+dJXCCikJstfGiwVYwfzCcnLEqvcYebVjTdyw="
+          "hash": "jd1pNeXF8RzzAongtqNxzYnYbbTnL6M7e21UPqf7beo="
         }
       },
       "is_incremental": false,
@@ -392,7 +356,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html",
-          "hash": "I2UPX2KmcSZ8MjxEp4TxePHvltMSvKTeQAlVUFTy4bg="
+          "hash": "BsJIWU8mkYebHF52XfCYVFhGja4qvT3M9wnuQrviWZw="
         }
       },
       "is_incremental": false,
@@ -404,7 +368,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html",
-          "hash": "wQzXyLR8xGkBDd7iPo029cZ3jq4p2PFOP3kCK7yVBEg="
+          "hash": "a05YPS9WICWJnz2eNI6zDMg42sQ73V08oHXnURAhTao="
         }
       },
       "is_incremental": false,
@@ -416,7 +380,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.DefaultConnectionConfig-1.html",
-          "hash": "3+IXpEglPIhNKd6VmFnrHvZjqH21liQ7vg8lAmaU15Q="
+          "hash": "RN0vQXot/Us+/UkWf3s/Vbc7X4UL81Nikxf71cTPJMk="
         }
       },
       "is_incremental": false,
@@ -428,7 +392,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html",
-          "hash": "77D8vsf2FKtENTIKzXeNm2353D4TEZNPfG+yTsu6QDA="
+          "hash": "0mW6AUW+dbtE4tE9zMURHsEZPkKuwaPDkOHFUjNxYbc="
         }
       },
       "is_incremental": false,
@@ -440,7 +404,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.IDbConnectionConfig.html",
-          "hash": "PiGbLblFErbQPdpxmegVhisJOx5cqYmPN3pty/RT23Y="
+          "hash": "ICvmiA1exLE0owGEUsIwPh7nz0D5Xjd3khUUH9yBBTA="
         }
       },
       "is_incremental": false,
@@ -452,7 +416,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.OdbcConnectionConfig-1.html",
-          "hash": "I1Fw9PYtBsoimlQl7Fv28nuk5So3WfLTrMmxstFDYZk="
+          "hash": "6mEU+xXjOMkoXIRGftAEup5jUIFIZcui4jEeeRunvbo="
         }
       },
       "is_incremental": false,
@@ -464,7 +428,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.OleDbConnectionConfig-1.html",
-          "hash": "5o5n5mpXYu3TiB4G2IjVnENjmuE5NTg/DFZkd0YOGKQ="
+          "hash": "r32JnFfV/44C0Iv/EIOm7uIJWy0MSTIYd9JyncFpWaA="
         }
       },
       "is_incremental": false,
@@ -476,7 +440,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.OracleConnectionConfig-1.html",
-          "hash": "IWNfsDrruWGGSZf236a7k588jVGCdDvLY01A2ottRGg="
+          "hash": "VzixdBH84m0vkRzsn0ffuVBTQ3+x0DIWResEf+LRKW4="
         }
       },
       "is_incremental": false,
@@ -488,7 +452,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.SqLiteConnectionConfig-1.html",
-          "hash": "EP3Z430jDgEDJfZnjlxpIpYBqq0GDOgOB/NhGCBke90="
+          "hash": "mt4lTqlQxh8VQchMUeuKw7vjjfiFp4NlqRO6ru4BrQ4="
         }
       },
       "is_incremental": false,
@@ -500,7 +464,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.SqlConnectionConfig-1.html",
-          "hash": "ccNLho6amGlV51qMEqMhlY4bozjF7DmElRRDZxjXNTw="
+          "hash": "Rt0AOstWaQGHnqjGIlRcEXafB8qt457WVBEayp6cf3I="
         }
       },
       "is_incremental": false,
@@ -512,7 +476,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.html",
-          "hash": "p/229H8hxQ0Cv7C+TY8GNHH5Fl5gRtBrzw2BY1e+Smc="
+          "hash": "sp85APQF4tFsCPWg8FRrD/5GEsCkaTqEL7RwXNInnXM="
         }
       },
       "is_incremental": false,
@@ -524,7 +488,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.DbDataModel.html",
-          "hash": "KFFMp/obWiRQZ0pAsGuFZiDC/FL3pVqIrrns5fKMgFg="
+          "hash": "f9r8iwnUyGoPemsIAaFkCrEyLI3h7m+XPQkbUs9v1es="
         }
       },
       "is_incremental": false,
@@ -536,7 +500,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IDbDataModel.html",
-          "hash": "i66KaejYlHk5E1po/QN9jEzpV+F10u/lliXtAr7NG8I="
+          "hash": "sEuf0+Ns5t+mUFxOUcgWlIihuFjFIGx9ggFcFb5Hr3o="
         }
       },
       "is_incremental": false,
@@ -548,7 +512,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IDbResponse-1.html",
-          "hash": "xNAYJ9rb5m5h4EotLqePe7upW86GSJ3SKZfwYcyrCHc="
+          "hash": "hcIv8YFMbaRf9M2HwzKLo/UI8WvvvT6t3YfzSW5a0nk="
         }
       },
       "is_incremental": false,
@@ -560,7 +524,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IDbResponse.html",
-          "hash": "lsVyGALc6bWPMXwFh0B/ilxbyo5FchrN+65a4oLbUXY="
+          "hash": "D72p0loWEDqPBQeCcVC1WzlAYiGRJwq8Tvy5XI0cOd0="
         }
       },
       "is_incremental": false,
@@ -572,7 +536,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IJsonSerializable-1.html",
-          "hash": "wz5xoj8LQhOvWyWgkWlkQuqo0q7x+z7anDCiAdIEmDw="
+          "hash": "ynAIyFk7HJVzHEwh8dA+9rkhVlAd23H1mkGnKvJOdyM="
         }
       },
       "is_incremental": false,
@@ -584,7 +548,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IReadOnlyDbCollection-1.html",
-          "hash": "S0+tl2kF29lob+uFYccahuTcELXRPdirqmvxfK1A668="
+          "hash": "+baQtllRBtLaKwCNnrifTlJfb7vNM1JDsjMkUQDlGrA="
         }
       },
       "is_incremental": false,
@@ -596,7 +560,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IXMLSerializable-1.html",
-          "hash": "eDVbLloF2F0kQMJljlOnmKmX0YX1T6BcMVaCfvn36h0="
+          "hash": "9BwK2uOfswwd1sk0JvqGB2ITc87g8Ux8i7wf1HWIl98="
         }
       },
       "is_incremental": false,
@@ -608,7 +572,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.IValidationResult.html",
-          "hash": "og5/jQcx6HA8aMsDl6IKgIw+9u7jNkqUyKHl7oIKz+o="
+          "hash": "h9M4Y6ukZTN/DdoXVym78TdW5TKWQM/N3+/OOZEClJs="
         }
       },
       "is_incremental": false,
@@ -620,7 +584,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.IValidator-1.html",
-          "hash": "2+jnzVxxwTfx7Q/RN2Y4IdhkTq6pYnucka+SOz3AOco="
+          "hash": "gCDLJnzfSCkqrtrBfomqAL9zFTZyf6QdqYxp8MSKXzs="
         }
       },
       "is_incremental": false,
@@ -632,7 +596,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.EmailDomainMode.html",
-          "hash": "0M27NzRgJHVawhTZKKVYDES5OqE9Ooe82goUfeLzrVc="
+          "hash": "yO79MAQGCEPVSPmuocjiYb9WCFpTQUknXGkMcwtkrjU="
         }
       },
       "is_incremental": false,
@@ -644,7 +608,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.IValidationRule-1.html",
-          "hash": "/+IOdEZIs0PdAfcBtb3wEsdwunIrDOgZOAyw0Mkbkb4="
+          "hash": "BM3MkasgN0ucNciHLLqFSdrj5zwm3leSou28ywJBC5s="
         }
       },
       "is_incremental": false,
@@ -656,7 +620,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.IValidationRuleResult.html",
-          "hash": "YAIU/ZtCAvY6d3nVxSr5oicDc5ULwof29Gb7c6ifsLE="
+          "hash": "OwrLL4GY+aM6TFX9mpS+qIlbQ94OKHIXxNe/M8aj4Uk="
         }
       },
       "is_incremental": false,
@@ -668,7 +632,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.DelegateRuleHandler-1.html",
-          "hash": "sLFQYuWDqqdi2/t4NXhSwR6wO85RaJKhQqwy0Js63b8="
+          "hash": "LEE3ZM34CZw9WVMMZp9pgQmOFBDxaEHHSlIjVQY0e2A="
         }
       },
       "is_incremental": false,
@@ -680,7 +644,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.DelegateRuleHandlerAsync-1.html",
-          "hash": "9Z1Uky7E+w9/+ls+IQQPvElYnKGk/mpxAnvS0jJjkbs="
+          "hash": "AGpjhB9SxTszGy151whJNAccLRH+nZMrPRByW9p+r7E="
         }
       },
       "is_incremental": false,
@@ -692,7 +656,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.html",
-          "hash": "hKoII9gbiOFHSyHOpHdq3siDYg+xvcZba541wvXHbr4="
+          "hash": "aBbiBEktTKthrGrGuBJJoXQvFY6nCYpvRBZeCpAOT2A="
         }
       },
       "is_incremental": false,
@@ -704,7 +668,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.ValidationStatus.html",
-          "hash": "DKvKAi5Pc77kCnLrloHXBwF0o0nGLAzU/oWpwWSaFp8="
+          "hash": "pyA4AYCtf2bfhaO5qzAwMCQXHGcbu7CgrgsTrzEUP/Q="
         }
       },
       "is_incremental": false,
@@ -716,7 +680,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.html",
-          "hash": "F8eZPw4WzmegWg1PDIVY7q1mNvExpXZz0gb5Xn98Zqk="
+          "hash": "QGzbI7UjN507h4u3SUts+RS6JAyRbTGDmedBZgUfmgM="
         }
       },
       "is_incremental": false,
@@ -728,7 +692,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.html",
-          "hash": "Yt/qaOlyaMEKu0JR2xOTrgoHWEMxDdaXQv+SkpDQpdo="
+          "hash": "IaQPnHAgoAOxpro/YpSqgVdGd8igSdGj1VJ/RFry974="
         }
       },
       "is_incremental": false,
@@ -740,7 +704,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.html",
-          "hash": "noM6A81rptdiht1A/PkZqdyNdyMDkWK9Pl2zXyG3Ihg="
+          "hash": "V6w4BmormzAaPZhBKk/4oH2lbldRjMMrZztaUb9tfCc="
         }
       },
       "is_incremental": false,
@@ -752,7 +716,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Exceptions.DbConnectionConfigNotRegisteredException.html",
-          "hash": "dSNENWLrzbbbEQugdXgFpj7FgaYCtEvNwf8L5KT1kVQ="
+          "hash": "ihgADlVYice7FgwipEcSWqH3wGGT3EHHlD8ZrRlRiuE="
         }
       },
       "is_incremental": false,
@@ -764,7 +728,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Exceptions.FacadeException.html",
-          "hash": "b/PyuwMfkqlAa/01OAHLwCJT9+zdmKBuObc/r3pExqI="
+          "hash": "gyWNEntVt+Vz2jnR55Ac6DY4hztNIiIFzRErmlFPt2Q="
         }
       },
       "is_incremental": false,
@@ -776,7 +740,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Exceptions.SQLExecutionException.html",
-          "hash": "5k2YElF4uMZ0L4IcniOz4RFdw7Olsa4kynQyAnvF9+c="
+          "hash": "ZhTxLAtNLlqD9aizQo+dWWK/QxfnGPVAqISL3yMrMfc="
         }
       },
       "is_incremental": false,
@@ -788,7 +752,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Exceptions.ValidationException-1.html",
-          "hash": "7gMWUQbt5tK+JctjoZb93QP0TFe+OsV0tq+X7HxSPFw="
+          "hash": "9XFF/iQST2dEHk/NNpWKDAydNl3u4Q/ngOyhHAK0bCw="
         }
       },
       "is_incremental": false,
@@ -800,7 +764,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Exceptions.html",
-          "hash": "/03dETeY6NkC5RDdH5BkK5swZa9+zpumXQaX8MSGSnU="
+          "hash": "HWO5kbvJ3jrvNfnleSmqgC51Qz2RSWIYsIyvmqBnjzM="
         }
       },
       "is_incremental": false,
@@ -812,7 +776,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Factories.DbCommandConfigFactory-1.html",
-          "hash": "V6Dmr6SqmIri7qjDoOFUabNupPWhwgVELOm09wqJ3y8="
+          "hash": "qWl7BQoxH5GW++mHExKviZIruh/26aLE88DaaHWSLNI="
         }
       },
       "is_incremental": false,
@@ -824,7 +788,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Factories.DbCommandParameterConfigFactory-1.html",
-          "hash": "fFvqkRScCH1YwyxwR4wMaQs0Rlf3gieZDtqYVfDBu3g="
+          "hash": "lJgF+KO6ugQiMUOi/hBKjboFO6sQZgFwWBPgBtOlvVo="
         }
       },
       "is_incremental": false,
@@ -836,7 +800,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Factories.DelegateHandler-2.html",
-          "hash": "1+/tKuL3yGJrp155l6UMC88GSuEeVYIWoUWqIvVc1kk="
+          "hash": "zarX9BlvDu6r709Iql9ac+Bj1h2HSHkoYK2ksIFUiHA="
         }
       },
       "is_incremental": false,
@@ -848,7 +812,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Factories.ValidationRuleFactory-1.html",
-          "hash": "idtBMNqlUXlX+eOZINS9LtnLQfCnQnzTjnxEE1SYCN8="
+          "hash": "VxTcv8MQ5vVJzHcWjgfSYHuwRAttWzerPBNby5qGJBw="
         }
       },
       "is_incremental": false,
@@ -860,7 +824,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Factories.ValidatorFactory.html",
-          "hash": "hDRM4NSmuq+NDq6B0BxY4sSGwuPN3/e4MCZ6Cw0ZrCE="
+          "hash": "QDulQev1g3kMTN/q6UxyDiJyJY7pSWbm0dt+9Lc09g4="
         }
       },
       "is_incremental": false,
@@ -872,7 +836,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Factories.html",
-          "hash": "410IjtDTwVZqudiqdhkjYzEKUObLBWj6qnhIee3AK8s="
+          "hash": "aCM/k05JZ0kQdOGW+21UsIry84CB7oX4mRmxKcCxMZw="
         }
       },
       "is_incremental": false,
@@ -884,7 +848,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Services.DbConnectionService.html",
-          "hash": "EjJuONoylIsJiATtbvUphd/H4vtk9I/k8ks57rpzssk="
+          "hash": "3AdUnCc8oVCgmUSUP6WWNxt/t+HcYqFGkjAu5VOrWqo="
         }
       },
       "is_incremental": false,
@@ -896,7 +860,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Services.html",
-          "hash": "LNGH65Md4H5VL/DEwAuxUGmjNoe0k8XtT3PBnzBRAqk="
+          "hash": "m4PP9C/JR1umh2NbIO1vFpsJp5pIaNdVXVyZSBTsAVY="
         }
       },
       "is_incremental": false,
@@ -908,7 +872,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Utils.IAsyncInit.html",
-          "hash": "LiJigNCwtzRDQktwugMa2FSYZMhR7gYwdu+lLZKh/ow="
+          "hash": "X17akYh5XLKXBmq+2SGqzMEzyztCLLK5o0hX5o30VIg="
         }
       },
       "is_incremental": false,
@@ -920,7 +884,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Utils.IMockDbTableRow.html",
-          "hash": "0jEjTmY/sAfKIUDEplAIM5Cbq0Qc1igohbDdYDBlRrE="
+          "hash": "uqXu/dHp1rgEQTUYSmePFqwZZIe4Vb3r11qbUrnVYg4="
         }
       },
       "is_incremental": false,
@@ -932,7 +896,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Utils.InstanceCreatorService.html",
-          "hash": "CbINoZGAkyXHwQAgEcd+0NIFhB/EBHBj+VGkIWIbjSU="
+          "hash": "ptxVSMOF5T9asVzeDZcW7mjoZzzb6+enPhNP8vkXM4U="
         }
       },
       "is_incremental": false,
@@ -944,7 +908,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Utils.html",
-          "hash": "dpq9sb3UMZlkPHO5PskalNnwF8UrBoBK4+TWe22BWLA="
+          "hash": "qso3VTBasWP0rNTizvb3i1tnmqM5AsvoGJ0QjbG/lbs="
         }
       },
       "is_incremental": false,
@@ -979,17 +943,17 @@
     {
       "status": {
         "can_incremental": false,
-        "details": "Disable incremental build by force rebuild option.",
+        "details": "Cannot build incrementally because config changed.",
         "incrementalPhase": "build",
         "total_file_count": 0,
         "skipped_file_count": 0,
-        "full_build_reason_code": "ForceRebuild"
+        "full_build_reason_code": "ConfigChanged"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 19,
+          "total_file_count": 16,
           "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
