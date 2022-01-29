@@ -17,42 +17,33 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         internal class RequiredRule : ValidationRule<TDbParams>
         {
             /// <summary>
-            /// Prevents a default instance of the <see cref="RequiredRule"/> class from being created.
+            /// Prevents a default instance of the <see cref="RequiredRule" /> class from being created.
             /// </summary>
             private RequiredRule() { }
             /// <summary>
-            /// Initializes a new instance of the <see cref="RequiredRule"/> class.
+            /// Initializes a new instance of the <see cref="RequiredRule" /> class.
             /// </summary>
             /// <param name="selector">The selector.</param>
             public RequiredRule(Func<TDbParams, object> selector)
             {
                 Init(selector, false);
             }
-            /// <summary>
-            /// Creates the asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <returns></returns>
-            public static async Task<RequiredRule> CreateAsync(Func<TDbParams, object> selector)
-            {
-                RequiredRule rule = new RequiredRule();
-                await rule.InitAsync(selector, false);
-                return rule;
-            }
 
             /// <summary>
             /// Gets the error message core.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override string GetErrorMessageCore()
+            protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
                 return $"is required.";
             }
             /// <summary>
             /// Gets the error message core asynchronous.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync()
+            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
             {
                 await Task.CompletedTask;
                 return $"is required.";

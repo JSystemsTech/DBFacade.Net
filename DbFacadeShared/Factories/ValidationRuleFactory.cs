@@ -34,6 +34,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> Equals<T>(Func<TDbParams, T> selector, T compareValue)
+       => ValidationRule<TDbParams>.CompareRule<T>.CreateIsEqual(selector, m => compareValue);
+        /// <summary>
+        /// Equalses the specified selector.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> Equals<T>(Func<TDbParams, T> selector, Func<TDbParams, T> compareValue)
        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsEqual(selector, compareValue);
         /// <summary>
         /// Nots the equal to.
@@ -43,6 +52,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> NotEqualTo<T>(Func<TDbParams, T> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsNotEqual(selector, m => compareValue);
+        /// <summary>
+        /// Nots the equal to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> NotEqualTo<T>(Func<TDbParams, T> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsNotEqual(selector, compareValue);
         /// <summary>
         /// Greaters the than.
@@ -52,6 +70,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> GreaterThan<T>(Func<TDbParams, T> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsGreaterThan(selector, m => compareValue);
+        /// <summary>
+        /// Greaters the than.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> GreaterThan<T>(Func<TDbParams, T> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsGreaterThan(selector, compareValue);
         /// <summary>
         /// Greaters the than or equal.
@@ -61,6 +88,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> GreaterThanOrEqual<T>(Func<TDbParams, T> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsGreaterThanOrEqualTo(selector, m => compareValue);
+        /// <summary>
+        /// Greaters the than or equal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> GreaterThanOrEqual<T>(Func<TDbParams, T> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsGreaterThanOrEqualTo(selector, compareValue);
         /// <summary>
         /// Lesses the than.
@@ -70,6 +106,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> LessThan<T>(Func<TDbParams, T> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsLessThan(selector, m=>compareValue);
+        /// <summary>
+        /// Lesses the than.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> LessThan<T>(Func<TDbParams, T> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsLessThan(selector, compareValue);
         /// <summary>
         /// Lesses the than or equal.
@@ -79,6 +124,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> LessThanOrEqual<T>(Func<TDbParams, T> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsLessThanOrEqualTo(selector, m=> compareValue);
+        /// <summary>
+        /// Lesses the than or equal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> LessThanOrEqual<T>(Func<TDbParams, T> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsLessThanOrEqualTo(selector, compareValue);
 
 
@@ -90,6 +144,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> Equals<T>(Func<TDbParams, string> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsEqual(selector, m=>compareValue);
+        /// <summary>
+        /// Equalses the specified selector.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> Equals<T>(Func<TDbParams, string> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsEqual(selector, compareValue);
         /// <summary>
         /// Nots the equal to.
@@ -99,6 +162,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> NotEqualTo<T>(Func<TDbParams, string> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsNotEqual(selector, m=>compareValue);
+        /// <summary>
+        /// Nots the equal to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> NotEqualTo<T>(Func<TDbParams, string> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsNotEqual(selector, compareValue);
         /// <summary>
         /// Greaters the than.
@@ -108,6 +180,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> GreaterThan<T>(Func<TDbParams, string> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsGreaterThan(selector, m=>compareValue);
+        /// <summary>
+        /// Greaters the than.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> GreaterThan<T>(Func<TDbParams, string> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsGreaterThan(selector, compareValue);
         /// <summary>
         /// Greaters the than or equal.
@@ -117,6 +198,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> GreaterThanOrEqual<T>(Func<TDbParams, string> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsGreaterThanOrEqualTo(selector, m=>compareValue);
+        /// <summary>
+        /// Greaters the than or equal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> GreaterThanOrEqual<T>(Func<TDbParams, string> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsGreaterThanOrEqualTo(selector, compareValue);
         /// <summary>
         /// Lesses the than.
@@ -126,6 +216,15 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> LessThan<T>(Func<TDbParams, string> selector, T compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsLessThan(selector, m=>compareValue);
+        /// <summary>
+        /// Lesses the than.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> LessThan<T>(Func<TDbParams, string> selector, Func<TDbParams, T> compareValue)
         => ValidationRule<TDbParams>.CompareRule<T>.CreateIsLessThan(selector, compareValue);
         /// <summary>
         /// Lesses the than or equal.
@@ -135,7 +234,17 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> LessThanOrEqual<T>(Func<TDbParams, string> selector, T compareValue)
-        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsLessThanOrEqualTo(selector, compareValue);  
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsLessThanOrEqualTo(selector, m=> compareValue);
+
+        /// <summary>
+        /// Lesses the than or equal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> LessThanOrEqual<T>(Func<TDbParams, string> selector, Func<TDbParams, T> compareValue)
+        => ValidationRule<TDbParams>.CompareRule<T>.CreateIsLessThanOrEqualTo(selector, compareValue);
 
 
         #region DateTime Equals
@@ -148,6 +257,16 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOn(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, m=> compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether the specified selector is on.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOn(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether the specified selector is on.
@@ -159,6 +278,17 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOn(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, m=>compareValue, dateFormat, isNullable, cultureInfo);
+        /// <summary>
+        /// Determines whether the specified selector is on.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOn(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, compareValue, dateFormat, isNullable, cultureInfo);
         /// <summary>
         /// Determines whether the specified selector is on.
@@ -171,6 +301,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOn(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, m=>compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is on.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOn(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether the specified selector is on.
@@ -182,6 +324,17 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOn(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is on.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOn(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
 
         /// <summary>
@@ -191,6 +344,14 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOn(Func<TDbParams, DateTime?> selector, DateTime compareValue)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, m=>compareValue, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether the specified selector is on.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOn(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, compareValue, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether the specified selector is on.
@@ -200,6 +361,15 @@ namespace DbFacade.Factories
         /// <param name="cultureInfo">The culture information.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOn(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, m=>compareValue, cultureInfo);
+        /// <summary>
+        /// Determines whether the specified selector is on.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOn(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, compareValue, cultureInfo);
         /// <summary>
         /// Determines whether the specified selector is on.
@@ -210,6 +380,16 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOn(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, m=>compareValue, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is on.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOn(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, compareValue, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether the specified selector is on.
@@ -219,9 +399,18 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOn(Func<TDbParams, DateTime?> selector, DateTime compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, m=>compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is on.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOn(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsEqual(selector, compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
 
-        
+
         #endregion
 
         #region DateTime NotEqualTo
@@ -234,6 +423,16 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether [is not on] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether [is not on] [the specified selector].
@@ -245,6 +444,17 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, m=>compareValue, dateFormat, isNullable, cultureInfo);
+        /// <summary>
+        /// Determines whether [is not on] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, compareValue, dateFormat, isNullable, cultureInfo);
         /// <summary>
         /// Determines whether [is not on] [the specified selector].
@@ -257,6 +467,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, m=>compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is not on] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether [is not on] [the specified selector].
@@ -268,8 +490,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is not on] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
-
         /// <summary>
         /// Determines whether [is not on] [the specified selector].
         /// </summary>
@@ -277,6 +509,14 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, DateTime?> selector, DateTime compareValue)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, m=>compareValue, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether [is not on] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, compareValue, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether [is not on] [the specified selector].
@@ -286,6 +526,15 @@ namespace DbFacade.Factories
         /// <param name="cultureInfo">The culture information.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, m=>compareValue, cultureInfo);
+        /// <summary>
+        /// Determines whether [is not on] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, compareValue, cultureInfo);
         /// <summary>
         /// Determines whether [is not on] [the specified selector].
@@ -296,6 +545,16 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, m=>compareValue, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is not on] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, compareValue, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether [is not on] [the specified selector].
@@ -305,7 +564,16 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, DateTime?> selector, DateTime compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, compareValue, CultureInfo.InvariantCulture, dateTimeStyles);        
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, m=>compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is not on] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsNotOn(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsNotEqual(selector, compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
 
         #endregion
 
@@ -320,6 +588,16 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsAfter(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether the specified selector is after.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether the specified selector is after.
@@ -331,6 +609,17 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsAfter(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, m=>compareValue, dateFormat, isNullable, cultureInfo);
+        /// <summary>
+        /// Determines whether the specified selector is after.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, compareValue, dateFormat, isNullable, cultureInfo);
         /// <summary>
         /// Determines whether the specified selector is after.
@@ -343,6 +632,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsAfter(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, m=>compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is after.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether the specified selector is after.
@@ -354,6 +655,17 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsAfter(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is after.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
 
         /// <summary>
@@ -363,6 +675,14 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsAfter(Func<TDbParams, DateTime?> selector, DateTime compareValue)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, m=>compareValue, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether the specified selector is after.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, compareValue, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether the specified selector is after.
@@ -372,6 +692,15 @@ namespace DbFacade.Factories
         /// <param name="cultureInfo">The culture information.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsAfter(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, m=>compareValue, cultureInfo);
+        /// <summary>
+        /// Determines whether the specified selector is after.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, compareValue, cultureInfo);
         /// <summary>
         /// Determines whether the specified selector is after.
@@ -382,6 +711,16 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsAfter(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, m=>compareValue, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is after.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, compareValue, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether the specified selector is after.
@@ -391,8 +730,17 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsAfter(Func<TDbParams, DateTime?> selector, DateTime compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, m=>compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is after.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsAfter(selector, compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
-        
+
         #endregion
 
         #region DateTime OnOrAfter
@@ -405,6 +753,16 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether [is on or after] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether [is on or after] [the specified selector].
@@ -416,6 +774,17 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, m=>compareValue, dateFormat, isNullable, cultureInfo);
+        /// <summary>
+        /// Determines whether [is on or after] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, compareValue, dateFormat, isNullable, cultureInfo);
         /// <summary>
         /// Determines whether [is on or after] [the specified selector].
@@ -428,6 +797,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, m=>compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is on or after] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Called when [or after].
@@ -439,8 +820,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> OnOrAfter(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Called when [or after].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> OnOrAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
-
         /// <summary>
         /// Determines whether [is on or after] [the specified selector].
         /// </summary>
@@ -448,6 +839,14 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, DateTime?> selector, DateTime compareValue)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, m=>compareValue, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether [is on or after] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, compareValue, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether [is on or after] [the specified selector].
@@ -457,6 +856,15 @@ namespace DbFacade.Factories
         /// <param name="cultureInfo">The culture information.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, m=>compareValue, cultureInfo);
+        /// <summary>
+        /// Determines whether [is on or after] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, compareValue, cultureInfo);
         /// <summary>
         /// Determines whether [is on or after] [the specified selector].
@@ -467,6 +875,16 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, m=>compareValue, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is on or after] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, compareValue, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether [is on or after] [the specified selector].
@@ -476,6 +894,15 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, DateTime?> selector, DateTime compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, m=>compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is on or after] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrAfter(selector, compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
 
         #endregion
@@ -490,6 +917,16 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsBefore(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether the specified selector is before.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether the specified selector is before.
@@ -501,6 +938,17 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsBefore(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, m=>compareValue, dateFormat, isNullable, cultureInfo);
+        /// <summary>
+        /// Determines whether the specified selector is before.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, compareValue, dateFormat, isNullable, cultureInfo);
         /// <summary>
         /// Determines whether the specified selector is before.
@@ -513,6 +961,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsBefore(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, m=>compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is before.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether the specified selector is before.
@@ -524,8 +984,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsBefore(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is before.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
-
         /// <summary>
         /// Determines whether the specified selector is before.
         /// </summary>
@@ -533,6 +1003,14 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsBefore(Func<TDbParams, DateTime?> selector, DateTime compareValue)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, m=>compareValue, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether the specified selector is before.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, compareValue, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether the specified selector is before.
@@ -542,6 +1020,15 @@ namespace DbFacade.Factories
         /// <param name="cultureInfo">The culture information.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsBefore(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, m=>compareValue, cultureInfo);
+        /// <summary>
+        /// Determines whether the specified selector is before.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, compareValue, cultureInfo);
         /// <summary>
         /// Determines whether the specified selector is before.
@@ -552,6 +1039,16 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsBefore(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, m=>compareValue, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is before.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, compareValue, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether the specified selector is before.
@@ -561,8 +1058,17 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsBefore(Func<TDbParams, DateTime?> selector, DateTime compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, m=>compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether the specified selector is before.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsBefore(selector, compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
-        
+
         #endregion
 
         #region DateTime IsOnOrBefore
@@ -575,6 +1081,16 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether [is on or before] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether [is on or before] [the specified selector].
@@ -586,7 +1102,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
-        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, compareValue, dateFormat, isNullable, cultureInfo);
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, m=>compareValue, dateFormat, isNullable, cultureInfo);
+        /// <summary>
+        /// Determines whether [is on or before] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, bool isNullable = false)
+       => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, compareValue, dateFormat, isNullable, cultureInfo);
         /// <summary>
         /// Determines whether [is on or before] [the specified selector].
         /// </summary>
@@ -598,6 +1125,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, m=>compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is on or before] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, compareValue, dateFormat, isNullable, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether [is on or before] [the specified selector].
@@ -609,8 +1148,18 @@ namespace DbFacade.Factories
         /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, string> selector, DateTime compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, m=>compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is on or before] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateFormat">The date format.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> compareValue, string dateFormat, DateTimeStyles dateTimeStyles, bool isNullable = false)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, compareValue, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
-
         /// <summary>
         /// Determines whether [is on or before] [the specified selector].
         /// </summary>
@@ -618,6 +1167,14 @@ namespace DbFacade.Factories
         /// <param name="compareValue">The compare value.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, DateTime?> selector, DateTime compareValue)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, m=>compareValue, CultureInfo.InvariantCulture);
+        /// <summary>
+        /// Determines whether [is on or before] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, compareValue, CultureInfo.InvariantCulture);
         /// <summary>
         /// Determines whether [is on or before] [the specified selector].
@@ -627,6 +1184,15 @@ namespace DbFacade.Factories
         /// <param name="cultureInfo">The culture information.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, m=>compareValue, cultureInfo);
+        /// <summary>
+        /// Determines whether [is on or before] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, compareValue, cultureInfo);
         /// <summary>
         /// Determines whether [is on or before] [the specified selector].
@@ -637,6 +1203,16 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, DateTime?> selector, DateTime compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, m=>compareValue, cultureInfo, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is on or before] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, CultureInfo cultureInfo, DateTimeStyles dateTimeStyles)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, compareValue, cultureInfo, dateTimeStyles);
         /// <summary>
         /// Determines whether [is on or before] [the specified selector].
@@ -646,6 +1222,15 @@ namespace DbFacade.Factories
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns></returns>
         public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, DateTime?> selector, DateTime compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+        => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, m=>compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
+        /// <summary>
+        /// Determines whether [is on or before] [the specified selector].
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <param name="dateTimeStyles">The date time styles.</param>
+        /// <returns></returns>
+        public IValidationRule<TDbParams> IsOnOrBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> compareValue, DateTimeStyles dateTimeStyles = DateTimeStyles.None)
         => ValidationRule<TDbParams>.CompareDateRule.CreateIsOnOrBefore(selector, compareValue, CultureInfo.InvariantCulture, dateTimeStyles);
 
         #endregion
@@ -707,7 +1292,7 @@ namespace DbFacade.Factories
             return new ValidationRule<TDbParams>.IsDateTimeRule(selector, dateFormat, isNullable, CultureInfo.InvariantCulture, dateTimeStyles);
         }
 
-        
+
 
         #endregion
 
@@ -722,7 +1307,7 @@ namespace DbFacade.Factories
         public IValidationRule<TDbParams> Delegate<T>(Func<TDbParams, T> selector, Func<T, bool> handler)
         => new ValidationRule<TDbParams>.DelegateRule<T>(selector, handler);
 
-        
+
         /// <summary>
         /// Delegates the specified handler.
         /// </summary>
@@ -745,7 +1330,7 @@ namespace DbFacade.Factories
             bool isNullable = false)
         =>  new ValidationRule<TDbParams>.IsNumeric(selector, isNullable);
 
-        
+
 
         #endregion
 
@@ -758,7 +1343,7 @@ namespace DbFacade.Factories
         public IValidationRule<TDbParams> Required(Func<TDbParams, object> selector)
         => new ValidationRule<TDbParams>.RequiredRule(selector);
 
-        
+
         #endregion
 
         #region String
@@ -788,8 +1373,8 @@ namespace DbFacade.Factories
         {
             return new ValidationRule<TDbParams>.MatchRule(selector, regexMatchStr, options, isNullable);
         }
-        
-        
+
+
         /// <summary>
         /// Determines whether [is n digit string] [the specified selector].
         /// </summary>
@@ -826,7 +1411,7 @@ namespace DbFacade.Factories
         {
             return new ValidationRule<TDbParams>.IsNullOrEmptyRule(selector);
         }
-        
+
 
         /// <summary>
         /// Determines whether [is not null or empty] [the specified selector].
@@ -837,7 +1422,7 @@ namespace DbFacade.Factories
         {
             return new ValidationRule<TDbParams>.IsNotNullOrEmptyRule(selector);
         }
-        
+
 
         /// <summary>
         /// Determines whether [is null or white space] [the specified selector].
@@ -848,7 +1433,7 @@ namespace DbFacade.Factories
         {
             return new ValidationRule<TDbParams>.IsNullOrWhiteSpaceRule(selector);
         }
-        
+
 
         /// <summary>
         /// Determines whether [is not null or white space] [the specified selector].
@@ -859,7 +1444,7 @@ namespace DbFacade.Factories
         {
             return new ValidationRule<TDbParams>.IsNotNullOrWhiteSpaceRule(selector);
         }
-        
+
 
         /// <summary>
         /// Lengthes the equals.
@@ -873,7 +1458,7 @@ namespace DbFacade.Factories
         {
             return new ValidationRule<TDbParams>.LengthEqualsRule(selector, limit, isNullable);
         }
-        
+
 
         /// <summary>
         /// Minimums the length.
@@ -887,7 +1472,7 @@ namespace DbFacade.Factories
         {
             return new ValidationRule<TDbParams>.MinLengthRule(selector, limit, isNullable);
         }
-        
+
 
         /// <summary>
         /// Maximums the length.
@@ -901,7 +1486,7 @@ namespace DbFacade.Factories
         {
             return new ValidationRule<TDbParams>.MaxLengthRule(selector, limit, isNullable);
         }
-        
+
 
         /// <summary>
         /// Emails the specified selector.

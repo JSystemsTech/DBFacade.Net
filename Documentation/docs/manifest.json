@@ -688,23 +688,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.DelegateRuleHandlerAsync-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.DelegateRuleHandlerAsync-1.html",
-          "hash": "9Z1Uky7E+w9/+ls+IQQPvElYnKGk/mpxAnvS0jJjkbs="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.yml",
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.html",
-          "hash": "hKoII9gbiOFHSyHOpHdq3siDYg+xvcZba541wvXHbr4="
+          "hash": "/ap4ynIW1YmJll8+QbJ1m6aRnq2mP9tucD3KxJMRxKU="
         }
       },
       "is_incremental": false,
@@ -728,7 +716,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.Validators.Rules.html",
-          "hash": "F8eZPw4WzmegWg1PDIVY7q1mNvExpXZz0gb5Xn98Zqk="
+          "hash": "2GLfVr8zHQELZdHO5RnBSN0zWob21FIjtXqyLH0X8Zc="
         }
       },
       "is_incremental": false,
@@ -860,7 +848,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Factories.ValidationRuleFactory-1.html",
-          "hash": "idtBMNqlUXlX+eOZINS9LtnLQfCnQnzTjnxEE1SYCN8="
+          "hash": "GcIZojA1yeGOIWB8ygQVO3msyHbvyw5KqEfe9xsAu3o="
         }
       },
       "is_incremental": false,
@@ -968,7 +956,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "UUVDFOq7Q68VCcTWOdRaxuM1dkLU/PNTo1Jn/XkhsWU="
+          "hash": "04ImKnPuAcD5nyGO5B9oORZ80HeSSVFnkSHx3KNH9iM="
         }
       },
       "is_incremental": false,
@@ -1007,7 +995,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 56,
+          "total_file_count": 55,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

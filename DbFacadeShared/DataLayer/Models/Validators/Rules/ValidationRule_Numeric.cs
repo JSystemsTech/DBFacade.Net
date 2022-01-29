@@ -42,11 +42,11 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 NumberStyles.AllowParentheses;
 
             /// <summary>
-            /// Prevents a default instance of the <see cref="IsNumeric"/> class from being created.
+            /// Prevents a default instance of the <see cref="IsNumeric" /> class from being created.
             /// </summary>
             private IsNumeric() {}
             /// <summary>
-            /// Initializes a new instance of the <see cref="IsNumeric"/> class.
+            /// Initializes a new instance of the <see cref="IsNumeric" /> class.
             /// </summary>
             /// <param name="selector">The selector.</param>
             /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
@@ -54,24 +54,12 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 Init(selector, isNullable);
             }
-
-            /// <summary>
-            /// Creates the asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <returns></returns>
-            public static async Task<IsNumeric> CreateAsync(Func<TDbParams, string> selector, bool isNullable = false)
-            {
-                IsNumeric rule = new IsNumeric();
-                await rule.InitAsync(selector, isNullable);
-                return rule;
-            }
             /// <summary>
             /// Validates the rule.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override bool ValidateRule()
+            protected override bool ValidateRule(TDbParams paramsModel)
             {
                 double result;
                 return double.TryParse(ParamsValue.ToString(), NumberStyles, System.Globalization.CultureInfo.CurrentCulture, out result);
@@ -79,8 +67,9 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <summary>
             /// Validates the rule asynchronous.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync()
+            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
             {
                 double result;
                 bool isNumber = double.TryParse(ParamsValue.ToString(), NumberStyles, System.Globalization.CultureInfo.CurrentCulture, out result);
@@ -90,16 +79,18 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <summary>
             /// Gets the error message core.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override string GetErrorMessageCore()
+            protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
                 return $"not a number.";
             }
             /// <summary>
             /// Gets the error message core asynchronous.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync()
+            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
             {
                 await Task.CompletedTask;
                 return $"not a number.";

@@ -22,7 +22,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         {
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="CompareRule`1"/> class.
+            /// Initializes a new instance of the <see cref="CompareRule`1" /> class.
             /// </summary>
             protected CompareRule() { }
             /// <summary>
@@ -32,13 +32,14 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// The type of the compare.
             /// </value>
             private string CompareType { get; set; }
+
             /// <summary>
-            /// Gets the limit.
+            /// Gets the get limit.
             /// </summary>
             /// <value>
-            /// The limit.
+            /// The get limit.
             /// </value>
-            protected T Limit { get; private set; }
+            protected Func<TDbParams, T> GetLimit { get; private set; }
 
             /// <summary>
             /// Gets the comaparitor.
@@ -195,19 +196,21 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// Creates the specified selector.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="comaparitor">The comaparitor.</param>
+            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <returns></returns>
             private static CompareRule<T> Create(
-                Func<TDbParams, T> selector, 
-                T limit,
+                Func<TDbParams, T> selector,
+                Func<TDbParams, T> getLimit,
                 Func<T, T, bool> comaparitor,
+                Func<T, T, Task<bool>> comparitorAsync,
                 string compareType
                 )
             {
                 CompareRule<T> rule = new CompareRule<T>();
-                rule.Init(limit, comaparitor, compareType);
+                rule.Init(getLimit, comaparitor, comparitorAsync, compareType);
                 rule.Init(selector, GenericInstance.IsNullableType<T>());
                 return rule;
             }
@@ -215,19 +218,21 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// Creates the specified selector.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="comaparitor">The comaparitor.</param>
+            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <returns></returns>
             private static CompareRule<T> Create(
                 Func<TDbParams, string> selector,
-                T limit,
+                Func<TDbParams, T> getLimit,
                 Func<T, T, bool> comaparitor,
+                Func<T, T, Task<bool>> comparitorAsync,
                 string compareType
                 )
             {
                 CompareRule<T> rule = new CompareRule<T>();
-                rule.Init(limit, comaparitor, compareType);
+                rule.Init(getLimit, comaparitor, comparitorAsync, compareType);
                 rule.Init(selector, true);
                 return rule;
             }
@@ -235,18 +240,21 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <summary>
             /// Initializes the specified limit.
             /// </summary>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="comaparitor">The comaparitor.</param>
+            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             protected void Init(
-                T limit,
+                Func<TDbParams, T> getLimit,
                 Func<T, T, bool> comaparitor,
+                Func<T, T, Task<bool>> comparitorAsync,
                 string compareType
                 )
             {
-                Limit = limit;
+                GetLimit = getLimit;
                 CompareType = compareType;
                 Comaparitor = comaparitor;
+                ComaparitorAsync = comparitorAsync;
             }
 
 
@@ -254,267 +262,111 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// Creates the is equal.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsEqual(Func<TDbParams, T> selector, T limit)
-                => Create(selector, limit, IsEqualTo, "to be equal to");
+            public static CompareRule<T> CreateIsEqual(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsEqualTo,IsEqualToAsync, "to be equal to");
             /// <summary>
             /// Creates the is not equal.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsNotEqual(Func<TDbParams, T> selector, T limit)
-                => Create(selector, limit, IsNotEqual, "to not be equal to");
+            public static CompareRule<T> CreateIsNotEqual(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsNotEqual, IsNotEqualAsync, "to not be equal to");
             /// <summary>
             /// Creates the is greater than.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsGreaterThan(Func<TDbParams, T> selector, T limit)
-                => Create(selector, limit, IsGreatorThan, "to be greater than");
+            public static CompareRule<T> CreateIsGreaterThan(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsGreatorThan, IsGreatorThanAsync, "to be greater than");
             /// <summary>
             /// Creates the is greater than or equal to.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsGreaterThanOrEqualTo(Func<TDbParams, T> selector, T limit)
-                => Create(selector, limit, IsGreaterThanOrEqualTo, "to be greater than or equal to");
+            public static CompareRule<T> CreateIsGreaterThanOrEqualTo(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsGreaterThanOrEqualTo, IsGreaterThanOrEqualToAsync, "to be greater than or equal to");
             /// <summary>
             /// Creates the is less than.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsLessThan(Func<TDbParams, T> selector, T limit)
-                => Create(selector, limit, IsLessThan, "to be less than");
+            public static CompareRule<T> CreateIsLessThan(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsLessThan, IsLessThanAsync, "to be less than");
             /// <summary>
             /// Creates the is less than or equal to.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsLessThanOrEqualTo(Func<TDbParams, T> selector, T limit)
-                => Create(selector, limit, IsLessThanOrEqualTo, "to be less than or equal to");
+            public static CompareRule<T> CreateIsLessThanOrEqualTo(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsLessThanOrEqualTo, IsLessThanOrEqualToAsync, "to be less than or equal to");
 
 
             /// <summary>
             /// Creates the is equal.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsEqual(Func<TDbParams, string> selector, T limit)
-                => Create(selector, limit, IsEqualTo, "to be equal to");
+            public static CompareRule<T> CreateIsEqual(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsEqualTo, IsEqualToAsync, "to be equal to");
             /// <summary>
             /// Creates the is not equal.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsNotEqual(Func<TDbParams, string> selector, T limit)
-                => Create(selector, limit, IsNotEqual, "to not be equal to");
+            public static CompareRule<T> CreateIsNotEqual(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsNotEqual, IsNotEqualAsync, "to not be equal to");
             /// <summary>
             /// Creates the is greater than.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsGreaterThan(Func<TDbParams, string> selector, T limit)
-                => Create(selector, limit, IsGreatorThan, "to be greater than");
+            public static CompareRule<T> CreateIsGreaterThan(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsGreatorThan, IsGreatorThanAsync, "to be greater than");
             /// <summary>
             /// Creates the is greater than or equal to.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsGreaterThanOrEqualTo(Func<TDbParams, string> selector, T limit)
-                => Create(selector, limit, IsGreaterThanOrEqualTo, "to be greater than or equal to");
+            public static CompareRule<T> CreateIsGreaterThanOrEqualTo(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsGreaterThanOrEqualTo, IsGreaterThanOrEqualToAsync, "to be greater than or equal to");
             /// <summary>
             /// Creates the is less than.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsLessThan(Func<TDbParams, string> selector, T limit)
-                => Create(selector, limit, IsLessThan, "to be less than");
+            public static CompareRule<T> CreateIsLessThan(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsLessThan, IsLessThanAsync, "to be less than");
             /// <summary>
             /// Creates the is less than or equal to.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <returns></returns>
-            public static CompareRule<T> CreateIsLessThanOrEqualTo(Func<TDbParams, string> selector, T limit)
-                => Create(selector, limit, IsLessThanOrEqualTo, "to be less than or equal to");
-
-
-
-            /// <summary>
-            /// Creates the asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="comaparitor">The comaparitor.</param>
-            /// <param name="compareType">Type of the compare.</param>
-            /// <returns></returns>
-            private static async Task<CompareRule<T>> CreateAsync(
-                Func<TDbParams, T> selector,
-                T limit,
-                Func<T, T, Task<bool>> comaparitor,
-                string compareType
-                )
-            {
-                CompareRule<T> rule = new CompareRule<T>();
-                await rule.InitAsync(limit, comaparitor, compareType);
-                await rule.InitAsync(selector, await GenericInstance.IsNullableTypeAsync<T>());
-                return rule;
-            }
-            /// <summary>
-            /// Creates the asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="comaparitor">The comaparitor.</param>
-            /// <param name="compareType">Type of the compare.</param>
-            /// <returns></returns>
-            private static async Task<CompareRule<T>> CreateAsync(
-                Func<TDbParams, string> selector,
-                T limit,
-                Func<T, T, Task<bool>> comaparitor,
-                string compareType
-                )
-            {
-                CompareRule<T> rule = new CompareRule<T>();
-                await rule.InitAsync(limit, comaparitor, compareType);
-                await rule.InitAsync(selector, true);
-                return rule;
-            }
-            /// <summary>
-            /// Initializes the asynchronous.
-            /// </summary>
-            /// <param name="limit">The limit.</param>
-            /// <param name="comaparitor">The comaparitor.</param>
-            /// <param name="compareType">Type of the compare.</param>
-            protected virtual async Task InitAsync(
-                T limit,
-                Func<T, T, Task<bool>> comaparitor,
-                string compareType
-                )
-            {
-                Limit = limit;
-                CompareType = compareType;
-                ComaparitorAsync = comaparitor;
-                await Task.CompletedTask;
-            }
-
-            /// <summary>
-            /// Creates the is equal asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsEqualAsync(Func<TDbParams, T> selector, T limit)
-                => await CreateAsync(selector, limit, IsEqualToAsync, "to be equal to");
-            /// <summary>
-            /// Creates the is not equal asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsNotEqualAsync(Func<TDbParams, T> selector, T limit)
-                => await CreateAsync(selector, limit, IsNotEqualAsync, "to not be equal to");
-            /// <summary>
-            /// Creates the is greater than asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsGreaterThanAsync(Func<TDbParams, T> selector, T limit)
-                => await CreateAsync(selector, limit, IsGreatorThanAsync, "to be greater than");
-            /// <summary>
-            /// Creates the is greater than or equal to asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsGreaterThanOrEqualToAsync(Func<TDbParams, T> selector, T limit)
-                => await CreateAsync(selector, limit, IsGreaterThanOrEqualToAsync, "to be greater than or equal to");
-            /// <summary>
-            /// Creates the is less than asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsLessThanAsync(Func<TDbParams, T> selector, T limit)
-                => await CreateAsync(selector, limit, IsLessThanAsync, "to be less than");
-            /// <summary>
-            /// Creates the is less than or equal to asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsLessThanOrEqualToAsync(Func<TDbParams, T> selector, T limit)
-                => await CreateAsync(selector, limit, IsLessThanOrEqualToAsync, "to be less than or equal to");
-
-            /// <summary>
-            /// Creates the is equal asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsEqualAsync(Func<TDbParams, string> selector, T limit)
-                => await CreateAsync(selector, limit, IsEqualToAsync, "to be equal to");
-            /// <summary>
-            /// Creates the is not equal asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsNotEqualAsync(Func<TDbParams, string> selector, T limit)
-                => await CreateAsync(selector, limit, IsNotEqualAsync, "to not be equal to");
-            /// <summary>
-            /// Creates the is greater than asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsGreaterThanAsync(Func<TDbParams, string> selector, T limit)
-                => await CreateAsync(selector, limit, IsGreatorThanAsync, "to be greater than");
-            /// <summary>
-            /// Creates the is greater than or equal to asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsGreaterThanOrEqualToAsync(Func<TDbParams, string> selector, T limit)
-                => await CreateAsync(selector, limit, IsGreaterThanOrEqualToAsync, "to be greater than or equal to");
-            /// <summary>
-            /// Creates the is less than asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsLessThanAsync(Func<TDbParams, string> selector, T limit)
-                => await CreateAsync(selector, limit, IsLessThanAsync, "to be less than");
-            /// <summary>
-            /// Creates the is less than or equal to asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            public static async Task<CompareRule<T>> CreateIsLessThanOrEqualToAsync(Func<TDbParams, string> selector, T limit)
-                => await CreateAsync(selector, limit, IsLessThanOrEqualToAsync, "to be less than or equal to");
+            public static CompareRule<T> CreateIsLessThanOrEqualTo(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
+                => Create(selector, getLimit, IsLessThanOrEqualTo, IsLessThanOrEqualToAsync, "to be less than or equal to");
 
 
             /// <summary>
             /// Validates the rule.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override bool ValidateRule()
+            protected override bool ValidateRule(TDbParams paramsModel)
             {
-                if(ParamsValue is string val)
+                T limit = GetLimit(paramsModel);
+                if (ParamsValue is string val)
                 {
                     if (!Converter<T>.CanConvertFromString)
                     {
@@ -523,21 +375,23 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                     try
                     {                        
                         T convertedValue = Converter<T>.FromString(val);
-                        return Comaparitor(convertedValue, Limit);
+                        return Comaparitor(convertedValue, limit);
                     }
                     catch
                     {
                         return false;
                     }
                 }
-                return Comaparitor((T)ParamsValue, Limit);
+                return Comaparitor((T)ParamsValue, limit);
             }
             /// <summary>
             /// Validates the rule asynchronous.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync()
+            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
             {
+                T limit = GetLimit(paramsModel);
                 if (ParamsValue is string val)
                 {
                     if (!Converter<T>.CanConvertFromString)
@@ -548,7 +402,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                     try
                     {
                         T convertedValue = await Converter<T>.FromStringAsync(val);
-                        return await ComaparitorAsync(convertedValue, Limit);
+                        return await ComaparitorAsync(convertedValue, limit);
                     }
                     catch
                     {
@@ -556,16 +410,17 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                         return false;
                     }
                 }
-                return await ComaparitorAsync((T)ParamsValue, Limit);
+                return await ComaparitorAsync((T)ParamsValue, limit);
             }
 
             /// <summary>
             /// Gets the error message core.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override string GetErrorMessageCore()
+            protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"expecting value {CompareType} {Limit}";
+                return $"expecting value {CompareType} {GetLimit(paramsModel)}";
             }
 
         }
@@ -575,7 +430,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         internal class CompareDateRule : CompareRule<DateTime> 
         {
             /// <summary>
-            /// Prevents a default instance of the <see cref="CompareDateRule"/> class from being created.
+            /// Prevents a default instance of the <see cref="CompareDateRule" /> class from being created.
             /// </summary>
             private CompareDateRule() { }
             /// <summary>
@@ -604,23 +459,25 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// Creates the specified selector.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="comparitor">The comparitor.</param>
+            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
             /// <returns></returns>
             private static CompareDateRule Create(
                 Func<TDbParams, DateTime?> selector,
-                DateTime limit,
+                Func<TDbParams, DateTime> getLimit,
                 Func<DateTime, DateTime, bool> comparitor,
+                Func<DateTime, DateTime, Task<bool>> comparitorAsync,
                 string compareType,
                 CultureInfo cultureInfo = null,
                 DateTimeStyles dateTimeStyles = DateTimeStyles.None
                 )
             {
                 CompareDateRule rule = new CompareDateRule();
-                rule.Init(limit, comparitor, compareType, cultureInfo, dateTimeStyles);
+                rule.Init(getLimit, comparitor, comparitorAsync, compareType, cultureInfo, dateTimeStyles);
                 rule.Init(selector, true);
                 return rule;
             }
@@ -628,8 +485,9 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// Creates the specified selector.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="comparitor">The comparitor.</param>
+            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
@@ -638,8 +496,9 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             private static CompareDateRule Create(
                 Func<TDbParams, string> selector,
-                DateTime limit,
+                Func<TDbParams, DateTime> getLimit,
                 Func<DateTime, DateTime, bool> comparitor,
+                Func<DateTime, DateTime, Task<bool>> comparitorAsync,
                 string compareType,
                 CultureInfo cultureInfo = null,
                 DateTimeStyles dateTimeStyles = DateTimeStyles.None,
@@ -648,22 +507,24 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 )
             {
                 CompareDateRule rule = new CompareDateRule();
-                rule.Init(limit, comparitor, compareType, cultureInfo, dateTimeStyles, dateFormat);
+                rule.Init(getLimit, comparitor, comparitorAsync, compareType, cultureInfo, dateTimeStyles, dateFormat);
                 rule.Init(selector, isNullable);
                 return rule;
             }
             /// <summary>
             /// Initializes the specified limit.
             /// </summary>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="comparitor">The comparitor.</param>
+            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
             /// <param name="dateFormat">The date format.</param>
             private void Init(
-                DateTime limit,
+                Func<TDbParams, DateTime> getLimit,
                 Func<DateTime, DateTime, bool> comparitor,
+                Func<DateTime, DateTime, Task<bool>> comparitorAsync,
                 string compareType, 
                 CultureInfo cultureInfo = null,
                 DateTimeStyles dateTimeStyles = DateTimeStyles.None,
@@ -673,392 +534,164 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 CultureInfo = cultureInfo is CultureInfo ci ? ci : CultureInfo.InvariantCulture;
                 DateTimeStyles = dateTimeStyles;
                 DateFormat = dateFormat;
-                base.Init(limit, comparitor, compareType);
+                base.Init(getLimit, comparitor, comparitorAsync, compareType);
             }
+
             /// <summary>
-            /// Creates the asynchronous.
+            /// Creates the is equal.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="comparitor">The comparitor.</param>
-            /// <param name="compareType">Type of the compare.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
             /// <returns></returns>
-            private static async Task<CompareDateRule> CreateAsync(
-                Func<TDbParams, DateTime?> selector,
-                DateTime limit,
-                Func<DateTime, DateTime, Task<bool>> comparitor,
-                string compareType,
-                CultureInfo cultureInfo = null,
-                DateTimeStyles dateTimeStyles = DateTimeStyles.None
-                )
-            {
-                CompareDateRule rule = new CompareDateRule();
-                await rule.InitAsync(limit, comparitor, compareType, cultureInfo, dateTimeStyles);
-                await rule.InitAsync(selector, true);
-                return rule;
-            }
+            public static CompareDateRule CreateIsEqual(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+                => Create(selector, getLimit, IsEqualTo, IsEqualToAsync, "to be equal to", cultureInfo, dateTimeStyles);
             /// <summary>
-            /// Creates the asynchronous.
+            /// Creates the is not equal.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="comparitor">The comparitor.</param>
-            /// <param name="compareType">Type of the compare.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
             /// <returns></returns>
-            private static async Task<CompareDateRule> CreateAsync(
-                Func<TDbParams, string> selector,
-                DateTime limit,
-                Func<DateTime, DateTime, Task<bool>> comparitor,
-                string compareType,
-                CultureInfo cultureInfo = null,
-                DateTimeStyles dateTimeStyles = DateTimeStyles.None,
-                string dateFormat = null,
-                bool isNullable = true
-                )
-            {
-                CompareDateRule rule = new CompareDateRule();
-                await rule.InitAsync(limit, comparitor, compareType, cultureInfo, dateTimeStyles, dateFormat);
-                await rule.InitAsync(selector, isNullable);
-                return rule;
-            }
+            public static CompareDateRule CreateIsNotEqual(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+                => Create(selector, getLimit, IsNotEqual, IsNotEqualAsync, "to not be equal to", cultureInfo, dateTimeStyles);
             /// <summary>
-            /// Initializes the asynchronous.
+            /// Creates the is after.
             /// </summary>
-            /// <param name="limit">The limit.</param>
-            /// <param name="comparitor">The comparitor.</param>
-            /// <param name="compareType">Type of the compare.</param>
+            /// <param name="selector">The selector.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <param name="dateFormat">The date format.</param>
-            private async Task InitAsync(
-                DateTime limit,
-                Func<DateTime, DateTime, Task<bool>> comparitor,
-                string compareType,
-                CultureInfo cultureInfo = null,
-                DateTimeStyles dateTimeStyles = DateTimeStyles.None,
-                string dateFormat = null
-                )
-            {
-                CultureInfo = cultureInfo is CultureInfo ci ? ci : CultureInfo.InvariantCulture;
-                DateTimeStyles = dateTimeStyles;
-                DateFormat = dateFormat;
-                await base.InitAsync(limit, comparitor, compareType);
-            }
+            /// <returns></returns>
+            public static CompareDateRule CreateIsAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+                => Create(selector, getLimit, IsGreatorThan, IsGreatorThanAsync, "to be after", cultureInfo, dateTimeStyles);
+            /// <summary>
+            /// Creates the is on or after.
+            /// </summary>
+            /// <param name="selector">The selector.</param>
+            /// <param name="getLimit">The get limit.</param>
+            /// <param name="cultureInfo">The culture information.</param>
+            /// <param name="dateTimeStyles">The date time styles.</param>
+            /// <returns></returns>
+            public static CompareDateRule CreateIsOnOrAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+                => Create(selector, getLimit, IsGreaterThanOrEqualTo, IsGreaterThanOrEqualToAsync, "to be greater than or equal to", cultureInfo, dateTimeStyles);
+            /// <summary>
+            /// Creates the is before.
+            /// </summary>
+            /// <param name="selector">The selector.</param>
+            /// <param name="getLimit">The get limit.</param>
+            /// <param name="cultureInfo">The culture information.</param>
+            /// <param name="dateTimeStyles">The date time styles.</param>
+            /// <returns></returns>
+            public static CompareDateRule CreateIsBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+                => Create(selector, getLimit, IsLessThan, IsLessThanAsync, "to be less than", cultureInfo, dateTimeStyles);
+            /// <summary>
+            /// Creates the is on or before.
+            /// </summary>
+            /// <param name="selector">The selector.</param>
+            /// <param name="getLimit">The get limit.</param>
+            /// <param name="cultureInfo">The culture information.</param>
+            /// <param name="dateTimeStyles">The date time styles.</param>
+            /// <returns></returns>
+            public static CompareDateRule CreateIsOnOrBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
+            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
+                => Create(selector, getLimit, IsLessThanOrEqualTo, IsLessThanOrEqualToAsync, "to be less than or equal to", cultureInfo, dateTimeStyles);
 
 
             /// <summary>
             /// Creates the is equal.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
+            /// <param name="dateFormat">The date format.</param>
+            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
             /// <returns></returns>
-            public static CompareDateRule CreateIsEqual(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
+            public static CompareDateRule CreateIsEqual(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
+                bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsEqualTo, "to be equal to", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsEqualTo, IsEqualToAsync, "to be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is not equal.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
+            /// <param name="dateFormat">The date format.</param>
+            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
             /// <returns></returns>
-            public static CompareDateRule CreateIsNotEqual(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
+            public static CompareDateRule CreateIsNotEqual(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
+                bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsNotEqual, "to not be equal to", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsNotEqual, IsNotEqualAsync, "to not be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is after.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
+            /// <param name="dateFormat">The date format.</param>
+            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
             /// <returns></returns>
-            public static CompareDateRule CreateIsAfter(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
+            public static CompareDateRule CreateIsAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
+                bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsGreatorThan, "to be after", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsGreatorThan, IsGreatorThanAsync, "to be after", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is on or after.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
+            /// <param name="dateFormat">The date format.</param>
+            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
             /// <returns></returns>
-            public static CompareDateRule CreateIsOnOrAfter(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
+            public static CompareDateRule CreateIsOnOrAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
+                bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsGreaterThanOrEqualTo, "to be greater than or equal to", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsGreaterThanOrEqualTo, IsGreaterThanOrEqualToAsync, "to be greater than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is before.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
+            /// <param name="dateFormat">The date format.</param>
+            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
             /// <returns></returns>
-            public static CompareDateRule CreateIsBefore(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
+            public static CompareDateRule CreateIsBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
+                bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsLessThan, "to be less than", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsLessThan, IsLessThanAsync, "to be less than", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is on or before.
             /// </summary>
             /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static CompareDateRule CreateIsOnOrBefore(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsLessThanOrEqualTo, "to be less than or equal to", cultureInfo, dateTimeStyles);
-
-
-            /// <summary>
-            /// Creates the is equal.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
+            /// <param name="getLimit">The get limit.</param>
             /// <param name="dateFormat">The date format.</param>
             /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
             /// <returns></returns>
-            public static CompareDateRule CreateIsEqual(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
+            public static CompareDateRule CreateIsOnOrBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
                 bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsEqualTo, "to be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is not equal.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static CompareDateRule CreateIsNotEqual(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsNotEqual, "to not be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is after.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static CompareDateRule CreateIsAfter(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsGreatorThan, "to be after", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is on or after.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static CompareDateRule CreateIsOnOrAfter(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsGreaterThanOrEqualTo, "to be greater than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is before.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static CompareDateRule CreateIsBefore(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsLessThan, "to be less than", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is on or before.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static CompareDateRule CreateIsOnOrBefore(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, limit, IsLessThanOrEqualTo, "to be less than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
+                => Create(selector, getLimit, IsLessThanOrEqualTo, IsLessThanOrEqualToAsync, "to be less than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
 
 
 
-            /// <summary>
-            /// Creates the is equal asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsEqualAsync(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
-           DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-               => await CreateAsync(selector, limit, IsEqualToAsync, "to be equal to", cultureInfo, dateTimeStyles);
-            /// <summary>
-            /// Creates the is not equal asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsNotEqualAsync(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsNotEqualAsync, "to not be equal to", cultureInfo, dateTimeStyles);
-            /// <summary>
-            /// Creates the is after asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsAfterAsync(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsGreatorThanAsync, "to be after", cultureInfo, dateTimeStyles);
-            /// <summary>
-            /// Creates the is on or after asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsOnOrAfterAsync(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsGreaterThanOrEqualToAsync, "to be greater than or equal to", cultureInfo, dateTimeStyles);
-            /// <summary>
-            /// Creates the is before asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsBeforeAsync(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsLessThanAsync, "to be less than", cultureInfo, dateTimeStyles);
-            /// <summary>
-            /// Creates the is on or before asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsOnOrBeforeAsync(Func<TDbParams, DateTime?> selector, DateTime limit, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsLessThanOrEqualToAsync, "to be less than or equal to", cultureInfo, dateTimeStyles);
-
-
-            /// <summary>
-            /// Creates the is equal asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsEqualAsync(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsEqualToAsync, "to be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is not equal asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsNotEqualAsync(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsNotEqualAsync, "to not be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is after asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsAfterAsync(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsGreatorThanAsync, "to be after", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is on or after asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsOnOrAfterAsync(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsGreaterThanOrEqualToAsync, "to be greater than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is before asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsBeforeAsync(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsLessThanAsync, "to be less than", cultureInfo, dateTimeStyles, dateFormat, isNullable);
-            /// <summary>
-            /// Creates the is on or before asynchronous.
-            /// </summary>
-            /// <param name="selector">The selector.</param>
-            /// <param name="limit">The limit.</param>
-            /// <param name="dateFormat">The date format.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <param name="cultureInfo">The culture information.</param>
-            /// <param name="dateTimeStyles">The date time styles.</param>
-            /// <returns></returns>
-            public static async Task<CompareDateRule> CreateIsOnOrBeforeAsync(Func<TDbParams, string> selector, DateTime limit, string dateFormat,
-                bool isNullable = true, CultureInfo cultureInfo = null,
-            DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => await CreateAsync(selector, limit, IsLessThanOrEqualToAsync, "to be less than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
 
             /// <summary>
             /// Gets the date time from string.
@@ -1126,19 +759,21 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <summary>
             /// Validates the rule.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override bool ValidateRule()
-            => GetDateTime() is DateTime date ? Comaparitor(date, Limit) : false;
+            protected override bool ValidateRule(TDbParams paramsModel)
+            => GetDateTime() is DateTime date ? Comaparitor(date, GetLimit(paramsModel)) : false;
             /// <summary>
             /// Validates the rule asynchronous.
             /// </summary>
+            /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync()
+            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
             {
                 DateTime? dateTime = await GetDateTimeAsync();
                 if (dateTime is DateTime date)
                 {
-                    return await ComaparitorAsync(date, Limit);
+                    return await ComaparitorAsync(date, GetLimit(paramsModel));
                 }
                 return false;
             }
