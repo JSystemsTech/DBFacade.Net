@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title> | DbFacade </title>
+    <title>Nested Models | DbFacade </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content=" | DbFacade ">
+    <meta name="title" content="Nested Models | DbFacade ">
     <meta name="generator" content="docfx 2.58.9.0">
     
     <link rel="shortcut icon" href="../../images/icon.jpg">
@@ -77,8 +77,37 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="nested-models">Nested Models</h1>
 
-</article>
+<p>Sometimes you will have to design data models with inner model nesting.
+DbFacade supports that design pattern.</p>
+<pre><code class="lang-csharp">public class MyDataModel : DbDataModel
+{
+    public MyNestedDataModel MyNestedDataModel { get; private set; }
+
+    protected override void Init()
+    {
+        MyNestedDataModel = CreateNestedModel&lt;MyNestedDataModel&gt;();
+    }
+    protected override async Task InitAsync()
+    {
+        MyNestedDataModel = await CreateNestedModelAsync&lt;MyNestedDataModel&gt;();
+    }
+}
+public class MyNestedDataModel : DbDataModel
+{
+    public string Value { get; private set; }
+
+    protected override void Init()
+    {
+        Value = GetColumn&lt;string&gt;(&quot;ColumnName&quot;);
+    }
+    protected override async Task InitAsync()
+    {
+        Value = await GetColumnAsync&lt;string&gt;(&quot;ColumnName&quot;);
+    }
+}
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
@@ -86,7 +115,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Documentation/Advanced/DbDataModel/GetttingColumnValues.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Documentation/Advanced/DbDataModel/NestedModels.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

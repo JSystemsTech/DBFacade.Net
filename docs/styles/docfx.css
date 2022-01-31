@@ -715,8 +715,8 @@ body .toc{
 .affix ul > li.active > ul,
 .affix ul > li.active > a:before,
 .affix ul > li > a:hover:before {
-  display: block;
-  white-space: nowrap;
+    display: block;
+    overflow-y: auto;
 }
 .codewrapper {
   position: relative;
