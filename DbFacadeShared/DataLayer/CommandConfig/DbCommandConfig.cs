@@ -286,48 +286,7 @@ namespace DbFacade.DataLayer.CommandConfig
         public async Task<IDbResponse<TDbDataModel>> ExecuteAsync(TDbParams parameters)
             => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters);
 
-        /// <summary>
-        /// Mocks the specified parameters.
-        /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public IDbResponse<TDbDataModel> Mock(TDbParams parameters, int returnValue, Action<IDictionary<string, object>> outputValues = null)
-            => DbConnectionConfig.ExecuteDbAction(this, parameters, MockResponseData.Create(outputValues, returnValue));
-        /// <summary>
-        /// Mocks the specified parameters.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="responseData">The response data.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public IDbResponse<TDbDataModel> Mock<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
-            => DbConnectionConfig.ExecuteDbAction(this, parameters, MockResponseData.Create(responseData, outputValues, returnValue));
-
-        /// <summary>
-        /// Mocks the asynchronous.
-        /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public async Task<IDbResponse<TDbDataModel>> MockAsync(TDbParams parameters, int returnValue, Action<IDictionary<string, object>> outputValues = null)
-            => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters, await MockResponseData.CreateAsync(outputValues, returnValue));
-        /// <summary>
-        /// Mocks the asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="responseData">The response data.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(TDbParams parameters, IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null)
-            => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters, await MockResponseData.CreateAsync(responseData, outputValues, returnValue));
-
+        
 
         /// <summary>
         /// Called when [dispose].
@@ -414,41 +373,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// </summary>
         /// <returns></returns>
         public async Task<IDbResponse<TDbDataModel>> ExecuteAsync() => await ExecuteAsync(null);
-        /// <summary>
-        /// Mocks the specified return value.
-        /// </summary>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public IDbResponse<TDbDataModel> Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(null, returnValue,outputValues);
-        /// <summary>
-        /// Mocks the specified response data.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="responseData">The response data.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public IDbResponse<TDbDataModel> Mock<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => Mock(null, responseData, returnValue,outputValues);
-
-        /// <summary>
-        /// Mocks the asynchronous.
-        /// </summary>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public async Task<IDbResponse<TDbDataModel>> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(null, returnValue,outputValues);
-
-        /// <summary>
-        /// Mocks the asynchronous.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="responseData">The response data.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public async Task<IDbResponse<TDbDataModel>> MockAsync<T>(IEnumerable<T> responseData, int returnValue, Action<IDictionary<string, object>> outputValues = null) => await MockAsync(null, responseData, returnValue,outputValues);
-
+        
         #endregion
     }
     /// <summary>
@@ -563,25 +488,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
         public new async Task<IDbResponse> ExecuteAsync(TDbParams parameters) => (IDbResponse)await base.ExecuteAsync(parameters);
-        /// <summary>
-        /// Mocks the specified parameters.
-        /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public new IDbResponse Mock(TDbParams parameters,int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)base.Mock(parameters, returnValue,outputValues);
-
-        /// <summary>
-        /// Mocks the asynchronous.
-        /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public new async Task<IDbResponse> MockAsync(TDbParams parameters,int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)await base.MockAsync(parameters, returnValue,outputValues);
-
-
+        
     }
     /// <summary>
     /// 
@@ -667,21 +574,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// </summary>
         /// <returns></returns>
         public async Task<IDbResponse> ExecuteAsync() => (IDbResponse)await ExecuteAsync(null);
-        /// <summary>
-        /// Mocks the specified return value.
-        /// </summary>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public IDbResponse Mock(int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)Mock(null, returnValue,outputValues);
-        /// <summary>
-        /// Mocks the asynchronous.
-        /// </summary>
-        /// <param name="returnValue">The return value.</param>
-        /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        public async Task<IDbResponse> MockAsync(int returnValue, Action<IDictionary<string, object>> outputValues = null) => (IDbResponse)await MockAsync(null, returnValue,outputValues);
-
+        
 
     }
 }

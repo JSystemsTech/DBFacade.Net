@@ -8,13 +8,14 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     /// </summary>
     /// <typeparam name="TDbParams">The type of the b parameters.</typeparam>
     /// <seealso cref="Rules.IValidationRule{TDbParams}" />
-    public partial class ValidationRule<TDbParams> : IValidationRule<TDbParams>
+    public partial class ValidationRule<TDbParams> : IValidationRuleInternal<TDbParams>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationRule{TDbParams}" /> class.
         /// </summary>
         protected ValidationRule() { }
 
+        private string ParameterName { get; set; }
         /// <summary>
         /// Gets the parameters value.
         /// </summary>
@@ -135,14 +136,14 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         /// <param name="paramsModel">The parameters model.</param>
         /// <returns></returns>
         private string GetErrorMessage(TDbParams paramsModel)
-        => GetErrorMessageCore(paramsModel);
+        => $"{ParameterName} {GetErrorMessageCore(paramsModel)}";
         /// <summary>
         /// Gets the error message asynchronous.
         /// </summary>
         /// <param name="paramsModel">The parameters model.</param>
         /// <returns></returns>
         private async Task<string> GetErrorMessageAsync(TDbParams paramsModel)
-        => await GetErrorMessageCoreAsync(paramsModel);
+        => $"{ParameterName} {await GetErrorMessageCoreAsync(paramsModel)}";
 
         /// <summary>
         /// Gets the error message core.
@@ -160,6 +161,11 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         {
             await Task.CompletedTask;
             return string.Empty;
+        }
+
+        public void SetParameterName(string parameterName)
+        {
+            ParameterName = parameterName;
         }
 
         /// <summary>

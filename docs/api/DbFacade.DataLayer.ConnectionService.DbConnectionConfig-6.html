@@ -108,6 +108,12 @@
       <a class="xref" href="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_InitAsync">DbConnectionConfigBase.InitAsync()</a>
     </div>
     <div>
+      <a class="xref" href="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_MockDataResponseDictionary">DbConnectionConfigBase.MockDataResponseDictionary</a>
+    </div>
+    <div>
+      <a class="xref" href="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_UseMockConnection">DbConnectionConfigBase.UseMockConnection</a>
+    </div>
+    <div>
       <span class="xref">System.Object.ToString()</span>
     </div>
     <div>
@@ -176,18 +182,325 @@
       </tr>
     </tbody>
   </table>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_Dbo" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.Dbo">Dbo</h4>
+  <div class="markdown level1 summary"><p>The dbo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IDbCommandConfigSchemaFactory Dbo</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DbFacade.Factories.IDbCommandConfigSchemaFactory.html">IDbCommandConfigSchemaFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
   </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionProvider.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.GetDbConnectionProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L224">View Source</a>
-  </span>
+  
+  
+  <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateFetchCommand_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand*"></a>
+  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateFetchCommand_System_String_System_String_System_Boolean_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand(System.String,System.String,System.Boolean)">CreateFetchCommand(String, String, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates the fetch command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IDbCommandConfig CreateFetchCommand(string commandText, string label, bool requiresValidation = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">commandText</span></td>
+        <td><p>The command text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">label</span></td>
+        <td><p>The label.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">requiresValidation</span></td>
+        <td><p>if set to <code>true</code> [requires validation].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html">IDbCommandConfig</a></td>
+        <td><p><br></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateFetchCommand_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand*"></a>
+  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateFetchCommand_System_String_System_String_System_Data_CommandType_System_Boolean_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand(System.String,System.String,System.Data.CommandType,System.Boolean)">CreateFetchCommand(String, String, CommandType, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates the fetch command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IDbCommandConfig CreateFetchCommand(string commandText, string label, CommandType commandType, bool requiresValidation = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">commandText</span></td>
+        <td><p>The command text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">label</span></td>
+        <td><p>The label.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Data.CommandType</span></td>
+        <td><span class="parametername">commandType</span></td>
+        <td><p>Type of the command.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">requiresValidation</span></td>
+        <td><p>if set to <code>true</code> [requires validation].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html">IDbCommandConfig</a></td>
+        <td><p><br></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateSchemaFactory_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateSchemaFactory*"></a>
+  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateSchemaFactory_System_String_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateSchemaFactory(System.String)">CreateSchemaFactory(String)</h4>
+  <div class="markdown level1 summary"><p>Creates the schema factory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static IDbCommandConfigSchemaFactory CreateSchemaFactory(string schema)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">schema</span></td>
+        <td><p>The schema.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DbFacade.Factories.IDbCommandConfigSchemaFactory.html">IDbCommandConfigSchemaFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateTransactionCommand_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand*"></a>
+  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateTransactionCommand_System_String_System_String_System_Boolean_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand(System.String,System.String,System.Boolean)">CreateTransactionCommand(String, String, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates the transaction command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IDbCommandConfig CreateTransactionCommand(string commandText, string label, bool requiresValidation = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">commandText</span></td>
+        <td><p>The command text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">label</span></td>
+        <td><p>The label.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">requiresValidation</span></td>
+        <td><p>if set to <code>true</code> [requires validation].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html">IDbCommandConfig</a></td>
+        <td><p><br></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateTransactionCommand_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand*"></a>
+  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateTransactionCommand_System_String_System_String_System_Data_CommandType_System_Boolean_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand(System.String,System.String,System.Data.CommandType,System.Boolean)">CreateTransactionCommand(String, String, CommandType, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates the transaction command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IDbCommandConfig CreateTransactionCommand(string commandText, string label, CommandType commandType, bool requiresValidation = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">commandText</span></td>
+        <td><p>The command text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">label</span></td>
+        <td><p>The label.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Data.CommandType</span></td>
+        <td><span class="parametername">commandType</span></td>
+        <td><p>Type of the command.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">requiresValidation</span></td>
+        <td><p>if set to <code>true</code> [requires validation].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html">IDbCommandConfig</a></td>
+        <td><p><br></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionProvider_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.GetDbConnectionProvider*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionProvider" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.GetDbConnectionProvider">GetDbConnectionProvider()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the database connection provider.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -208,16 +521,28 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionProviderAsync.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.GetDbConnectionProviderAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L233">View Source</a>
-  </span>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.NotImplementedException</span></td>
+        <td><p>You must impliment the method GetDbConnectionProvider</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionProviderAsync_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.GetDbConnectionProviderAsync*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionProviderAsync" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.GetDbConnectionProviderAsync">GetDbConnectionProviderAsync()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the database connection provider asynchronous.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -238,16 +563,28 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionString.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.GetDbConnectionString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L220">View Source</a>
-  </span>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.NotImplementedException</span></td>
+        <td><p>You must impliment the method GetDbConnectionProviderAsync</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionString_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.GetDbConnectionString*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionString" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.GetDbConnectionString">GetDbConnectionString()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the database connection string.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -268,16 +605,28 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionStringAsync.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.GetDbConnectionStringAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L228">View Source</a>
-  </span>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.NotImplementedException</span></td>
+        <td><p>You must impliment the method GetDbConnectionString</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionStringAsync_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.GetDbConnectionStringAsync*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionStringAsync" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.GetDbConnectionStringAsync">GetDbConnectionStringAsync()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the database connection string asynchronous.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -298,13 +647,24 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnError_System_Exception_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.OnError(System.Exception%2CDbFacade.DataLayer.ConnectionService.IDbCommandSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L243">View Source</a>
-  </span>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.NotImplementedException</span></td>
+        <td><p>You must impliment the method GetDbConnectionStringAsync</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnError_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnError*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnError_System_Exception_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnError(System.Exception,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)">OnError(Exception, IDbCommandSettings)</h4>
   <div class="markdown level1 summary"><p>Called when [error].</p>
@@ -338,13 +698,8 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnErrorAsync_System_Exception_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.OnErrorAsync(System.Exception%2CDbFacade.DataLayer.ConnectionService.IDbCommandSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L269">View Source</a>
-  </span>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnErrorAsync_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnErrorAsync*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnErrorAsync_System_Exception_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnErrorAsync(System.Exception,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)">OnErrorAsync(Exception, IDbCommandSettings)</h4>
   <div class="markdown level1 summary"><p>Called when [error asynchronous].</p>
@@ -393,13 +748,8 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeError_DbFacade_Exceptions_FacadeException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.OnFacadeError(DbFacade.Exceptions.FacadeException%2CDbFacade.DataLayer.ConnectionService.IDbCommandSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L262">View Source</a>
-  </span>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeError_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeError*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeError_DbFacade_Exceptions_FacadeException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeError(DbFacade.Exceptions.FacadeException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)">OnFacadeError(FacadeException, IDbCommandSettings)</h4>
   <div class="markdown level1 summary"><p>Called when [facade error].</p>
@@ -433,13 +783,8 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeErrorAsync_DbFacade_Exceptions_FacadeException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException%2CDbFacade.DataLayer.ConnectionService.IDbCommandSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L288">View Source</a>
-  </span>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeErrorAsync_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeErrorAsync*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnFacadeErrorAsync_DbFacade_Exceptions_FacadeException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnFacadeErrorAsync(DbFacade.Exceptions.FacadeException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)">OnFacadeErrorAsync(FacadeException, IDbCommandSettings)</h4>
   <div class="markdown level1 summary"><p>Called when [facade error asynchronous].</p>
@@ -488,13 +833,8 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionError_DbFacade_Exceptions_SQLExecutionException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException%2CDbFacade.DataLayer.ConnectionService.IDbCommandSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L256">View Source</a>
-  </span>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionError_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionError*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionError_DbFacade_Exceptions_SQLExecutionException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionError(DbFacade.Exceptions.SQLExecutionException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)">OnSQLExecutionError(SQLExecutionException, IDbCommandSettings)</h4>
   <div class="markdown level1 summary"><p>Called when [SQL execution error].</p>
@@ -528,13 +868,8 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionErrorAsync_DbFacade_Exceptions_SQLExecutionException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException%2CDbFacade.DataLayer.ConnectionService.IDbCommandSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L282">View Source</a>
-  </span>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionErrorAsync_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionErrorAsync*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnSQLExecutionErrorAsync_DbFacade_Exceptions_SQLExecutionException_DbFacade_DataLayer_ConnectionService_IDbCommandSettings_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnSQLExecutionErrorAsync(DbFacade.Exceptions.SQLExecutionException,DbFacade.DataLayer.ConnectionService.IDbCommandSettings)">OnSQLExecutionErrorAsync(SQLExecutionException, IDbCommandSettings)</h4>
   <div class="markdown level1 summary"><p>Called when [SQL execution error asynchronous].</p>
@@ -583,13 +918,8 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationError__1_DbFacade_Exceptions_ValidationException___0__DbFacade_DataLayer_ConnectionService_IDbCommandSettings_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.OnValidationError%60%601(DbFacade.Exceptions.ValidationException%7B%60%600%7D%2CDbFacade.DataLayer.ConnectionService.IDbCommandSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L250">View Source</a>
-  </span>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationError_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationError*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationError__1_DbFacade_Exceptions_ValidationException___0__DbFacade_DataLayer_ConnectionService_IDbCommandSettings_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationError``1(DbFacade.Exceptions.ValidationException{``0},DbFacade.DataLayer.ConnectionService.IDbCommandSettings)">OnValidationError&lt;TDbParams&gt;(ValidationException&lt;TDbParams&gt;, IDbCommandSettings)</h4>
   <div class="markdown level1 summary"><p>Called when [validation error].</p>
@@ -639,13 +969,8 @@
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationErrorAsync__1_DbFacade_Exceptions_ValidationException___0__DbFacade_DataLayer_ConnectionService_IDbCommandSettings_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606.OnValidationErrorAsync%60%601(DbFacade.Exceptions.ValidationException%7B%60%600%7D%2CDbFacade.DataLayer.ConnectionService.IDbCommandSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L276">View Source</a>
-  </span>
+  
+  
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationErrorAsync_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationErrorAsync*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_OnValidationErrorAsync__1_DbFacade_Exceptions_ValidationException___0__DbFacade_DataLayer_ConnectionService_IDbCommandSettings_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.OnValidationErrorAsync``1(DbFacade.Exceptions.ValidationException{``0},DbFacade.DataLayer.ConnectionService.IDbCommandSettings)">OnValidationErrorAsync&lt;TDbParams&gt;(ValidationException&lt;TDbParams&gt;, IDbCommandSettings)</h4>
   <div class="markdown level1 summary"><p>Called when [validation error asynchronous].</p>
@@ -731,12 +1056,6 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfig%606%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L77" class="contribution-link">View Source</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

@@ -34,11 +34,11 @@ namespace DbFacadeUnitTests.TestFacade
         }
 
 
-        public static IDbCommandConfig TestFetchData = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestFetchData", "Test Fetch Data");
-        public static IDbCommandConfig TestFetchDataAlt = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestFetchData", "Test Fetch Data");
-        public static IDbCommandConfig TestFetchDataWithOutputParameters = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestFetchDataWithOutputParameters", "Test Fetch Data with output parameters");
-        public static IDbCommandConfig TestTransaction = DbCommandConfigFactory<UnitTestConnection>.CreateTransactionCommand("TestTransaction", "Test Transaction");
-        public static IDbCommandConfig TestNoData = DbCommandConfigFactory<UnitTestConnection>.CreateFetchCommand("TestTransaction", "Test Transaction");
+        public static IDbCommandConfig TestFetchData = Dbo.CreateFetchCommand("TestFetchData", "Test Fetch Data");
+        public static IDbCommandConfig TestFetchDataAlt = Dbo.CreateFetchCommand("TestFetchData", "Test Fetch Data");
+        public static IDbCommandConfig TestFetchDataWithOutputParameters = Dbo.CreateFetchCommand("TestFetchDataWithOutputParameters", "Test Fetch Data with output parameters");
+        public static IDbCommandConfig TestTransaction = Dbo.CreateTransactionCommand("TestTransaction", "Test Transaction");
+        public static IDbCommandConfig TestNoData = Dbo.CreateFetchCommand("TestTransaction", "Test Transaction");
     }
 
     internal class UnitTestUnregisteredConnection : SqlConnectionConfig<UnitTestUnregisteredConnection>
@@ -60,6 +60,6 @@ namespace DbFacadeUnitTests.TestFacade
             return "MyUnitTestConnectionProvider";
         }
 
-        public static IDbCommandConfig TestCommand = DbCommandConfigFactory<UnitTestUnregisteredConnection>.CreateTransactionCommand("TestCommand", "Test Command", false);
+        public static IDbCommandConfig TestCommand = Dbo.CreateTransactionCommand("TestCommand", "Test Command", false);
     }
 }

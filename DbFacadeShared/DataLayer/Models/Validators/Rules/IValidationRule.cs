@@ -22,4 +22,16 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
         /// <returns></returns>
         Task<IValidationRuleResult> ValidateAsync(TDbParams paramsModel);
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+    internal interface IValidationRuleInternal<TDbParams>: IValidationRule<TDbParams>
+    {
+        /// <summary>
+        /// Sets the name of the parameter.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        void SetParameterName(string parameterName);
+    }
 }

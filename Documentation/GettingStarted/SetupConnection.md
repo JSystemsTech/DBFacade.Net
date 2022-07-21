@@ -47,7 +47,7 @@ Create a `MyProjectSQLConnection.cs` class file in `MyProjectDirectory/DomainLay
 ## Add Command Configurations
 Add a SQL stored procedure command definition to class `MyProjectSQLConnection` as a static property as follows
 ```csharp
-    public static IDbCommandConfig GetSampleData = DbCommandConfigFactory<MyProjectSQLConnection>.CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
+    public static IDbCommandConfig GetSampleData = CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
 ```
 
 ## Complete Class Code
@@ -82,7 +82,7 @@ Add a SQL stored procedure command definition to class `MyProjectSQLConnection` 
         public static void RegisterConnection(string connectionString, string providerName) 
         => new MyProjectSQLConnection(connectionString, providerName).Register();
 
-        public static IDbCommandConfig GetSampleData = DbCommandConfigFactory<MyProjectSQLConnection>.CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
     }
 ```
 

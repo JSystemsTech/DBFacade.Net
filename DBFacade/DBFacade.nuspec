@@ -13,7 +13,7 @@
     <readme>docs\README.md</readme>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Improve validation helpers</releaseNotes>
+    <releaseNotes>Release 1.10.0 Fix error handling bugs. Refactor unit testing calls. Refactor command creation methods. Add more error debugging information.</releaseNotes>
     <copyright>Copyright 2021</copyright>
     <tags>DBFacade;DbFacade;dbfacade;domainfacade;DbFacade.Net;DBFacade.Net;dbfacade.net</tags>
     <dependencies>

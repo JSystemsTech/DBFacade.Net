@@ -9,14 +9,85 @@ using System.Threading.Tasks;
 
 namespace DbFacadeShared.Extensions
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    internal static class Types
+    {
+        public static Type Byte = typeof(byte);
+        public static Type ByteOptional = typeof(byte?);
+        public static Type Sbyte = typeof(sbyte);
+        public static Type SbyteOptional = typeof(sbyte?);
+        public static Type Short = typeof(short);
+        public static Type ShortOptional = typeof(short?);
+        public static Type Ushort = typeof(ushort);
+        public static Type UshortOptional = typeof(ushort?);
+        public static Type Int = typeof(int);
+        public static Type IntOptional = typeof(int?);
+        public static Type Uint = typeof(uint);
+        public static Type UintOptional = typeof(uint?);
+        public static Type Long = typeof(long);
+        public static Type LongOptional = typeof(long?);
+        public static Type Ulong = typeof(ulong);
+        public static Type UlongOptional = typeof(ulong?);
+        public static Type Float = typeof(float);
+        public static Type FloatOptional = typeof(float?);
+        public static Type Double = typeof(double);
+        public static Type DoubleOptional = typeof(double?);
+        public static Type Decimal = typeof(decimal);
+        public static Type DecimalOptional = typeof(decimal?);
+        public static Type DateTime = typeof(DateTime);
+        public static Type DateTimeOptional = typeof(DateTime?);
+        public static Type TimeSpan = typeof(TimeSpan);
+        public static Type TimeSpanOptional = typeof(TimeSpan?);
+        public static Type Guid = typeof(Guid);
+        public static Type GuidOptional = typeof(Guid?);
+        public static Type Char = typeof(char);
+        public static Type CharOptional = typeof(char?);
+        public static Type Bool = typeof(bool);
+        public static Type BoolOptional = typeof(bool?);
+        public static Type String = typeof(string);
+
+
+    }
     internal static class DataDictionaryExtensions
     {
+        
         /// <summary>The converters</summary>
         private static readonly ConcurrentDictionary<Type, TypeConverter> Converters
         = new ConcurrentDictionary<Type, TypeConverter>();
+        private static readonly IDictionary<Type, Func<string, object>> StringConverters = new Dictionary<Type, Func<string, object>>() {
+            { Types.Guid, str=>  Guid.TryParse(str, out Guid value) ? value: default(Guid) },
+            { Types.GuidOptional, str=>  Guid.TryParse(str, out Guid value) ? value: default(Guid?) },
+            { Types.DateTime, str=>  DateTime.TryParse(str, out DateTime value) ? value: default(DateTime) },
+            { Types.DateTimeOptional, str=>  DateTime.TryParse(str, out DateTime value) ? value: default(DateTime?) },
+            { Types.TimeSpan, str=>  TimeSpan.TryParse(str, out TimeSpan value) ? value: default(TimeSpan) },
+            { Types.TimeSpanOptional, str=>  TimeSpan.TryParse(str, out TimeSpan value) ? value: default(TimeSpan?) },
+            { Types.Byte, str=>  byte.TryParse(str, out byte value) ? value: default(byte) },
+            { Types.ByteOptional, str=>  byte.TryParse(str, out byte value) ? value: default(byte?) },
+            { Types.Sbyte, str=>  sbyte.TryParse(str, out sbyte value) ? value: default(sbyte) },
+            { Types.SbyteOptional, str=>  sbyte.TryParse(str, out sbyte value) ? value: default(sbyte?) },
+            { Types.Short, str=>  short.TryParse(str, out short value) ? value: default(short) },
+            { Types.ShortOptional, str=>  short.TryParse(str, out short value) ? value: default(short?) },
+            { Types.Ushort, str=>  ushort.TryParse(str, out ushort value) ? value: default(ushort) },
+            { Types.UshortOptional, str=>  ushort.TryParse(str, out ushort value) ? value: default(ushort?) },
+            { Types.Int, str=>  int.TryParse(str, out int value) ? value: default(int) },
+            { Types.IntOptional, str=>  int.TryParse(str, out int value) ? value: default(int?) },
+            { Types.Uint, str=>  uint.TryParse(str, out uint value) ? value: default(uint) },
+            { Types.UintOptional, str=>  uint.TryParse(str, out uint value) ? value: default(uint?) },
+            { Types.Long, str=>  long.TryParse(str, out long value) ? value: default(long) },
+            { Types.LongOptional, str=>  long.TryParse(str, out long value) ? value: default(long?) },
+            { Types.Ulong, str=>  ulong.TryParse(str, out ulong value) ? value: default(ulong) },
+            { Types.UlongOptional, str=>  ulong.TryParse(str, out ulong value) ? value: default(ulong?) },
+            { Types.Float, str=>  float.TryParse(str, out float value) ? value: default(float) },
+            { Types.FloatOptional, str=>  float.TryParse(str, out float value) ? value: default(float?) },
+            { Types.Double, str=>  double.TryParse(str, out double value) ? value: default(double) },
+            { Types.DoubleOptional, str=>  double.TryParse(str, out double value) ? value: default(double?) },
+            { Types.Decimal, str=>  decimal.TryParse(str, out decimal value) ? value: default(decimal) },
+            { Types.DecimalOptional, str=>  decimal.TryParse(str, out decimal value) ? value: default(decimal?) },
+            { Types.Char, str=>  char.TryParse(str, out char value) ? value: default(char) },
+            { Types.CharOptional, str=>  char.TryParse(str, out char value) ? value: default(char?) },
+            { Types.Bool, str=>  bool.TryParse(str, out bool value) ? value: default(bool) },
+            { Types.BoolOptional, str=>  bool.TryParse(str, out bool value) ? value: default(bool?) }
+        };
+
         /// <summary>Changes the type.</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value">The value.</param>
@@ -27,18 +98,15 @@ namespace DbFacadeShared.Extensions
         {
             if (typeof(T).IsPrimitive)
             {
-                return (T)ResolveTypeConverter<T>().ConvertFrom(value);
+                TypeConverter newTC = ResolveTypeConverter<T>();
+                object convertedValue = newTC.ConvertFrom(value);
+                return (T)convertedValue;
             }
             else if (value is string strValue)
             {
                 try
                 {
-                    object convertedValue = typeof(T) == typeof(Guid) ? Guid.Parse(strValue) :
-                    typeof(T) == typeof(Guid?)  ? (!string.IsNullOrWhiteSpace(strValue)? Guid.Parse(strValue): (Guid?)null)  :
-                    typeof(T) == typeof(DateTime) ? DateTime.Parse(strValue) :
-                    typeof(T) == typeof(DateTime?) ? (!string.IsNullOrWhiteSpace(strValue) ? DateTime.Parse(strValue) : (DateTime?)null) :
-                    typeof(T) == typeof(TimeSpan) || typeof(T) == typeof(TimeSpan?) ? TimeSpan.Parse(strValue) :
-                    typeof(T) == typeof(TimeSpan?) ? (!string.IsNullOrWhiteSpace(strValue) ? TimeSpan.Parse(strValue) : (TimeSpan?)null) :
+                    object convertedValue = StringConverters.TryGetValue(typeof(T), out Func<string, object> converter) ? converter(strValue) :
                     Convert.ChangeType(value, typeof(T));
                     return (T)convertedValue;
                 }
@@ -48,6 +116,7 @@ namespace DbFacadeShared.Extensions
                 }
 
             }
+            
             else
             {
                 return (T)Convert.ChangeType(value, typeof(T));

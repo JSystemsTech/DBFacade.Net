@@ -2,9 +2,11 @@
 using DbFacade.DataLayer.ConnectionService.MockDb;
 using DbFacade.DataLayer.Models;
 using DbFacade.Exceptions;
+using DbFacade.Factories;
 using DbFacade.Utils;
 using Oracle.ManagedDataAccess.Client;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
@@ -30,17 +32,15 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <summary>
         /// Gets the database connection.
         /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="mockResponseData">The mock response data.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        internal abstract IDbConnection GetDbConnection(object parameters, MockResponseData mockResponseData = null);
+        internal abstract IDbConnection GetDbConnection(IDbCommandSettings dbCommandSettings);
         /// <summary>
         /// Gets the database connection asynchronous.
         /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="mockResponseData">The mock response data.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        internal abstract Task<IDbConnection> GetDbConnectionAsync(object parameters, MockResponseData mockResponseData = null);
+        internal abstract Task<IDbConnection> GetDbConnectionAsync(IDbCommandSettings dbCommandSettings);
         /// <summary>
         /// Executes the database action.
         /// </summary>
@@ -48,9 +48,8 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="commandConfig">The command configuration.</param>
         /// <param name="parameters">The parameters.</param>
-        /// <param name="mockResponseData">The mock response data.</param>
         /// <returns></returns>
-        internal abstract IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters, MockResponseData mockResponseData = null)
+        internal abstract IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters)
             where TDbDataModel : DbDataModel;
 
         /// <summary>
@@ -60,10 +59,39 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="commandConfig">The command configuration.</param>
         /// <param name="parameters">The parameters.</param>
-        /// <param name="mockResponseData">The mock response data.</param>
         /// <returns></returns>
-        internal abstract Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters, MockResponseData mockResponseData = null)
+        internal abstract Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters)
             where TDbDataModel : DbDataModel;
+
+        /// <summary>
+        /// Gets or sets the mock data response dictionary.
+        /// </summary>
+        /// <value>
+        /// The mock data response dictionary.
+        /// </value>
+        protected IDictionary<Guid, MockResponseData> MockDataResponseDictionary { get; set; }
+        /// <summary>
+        /// Enables the mock mode.
+        /// </summary>
+        /// <param name="mockDataResponseDictionary">The mock data response dictionary.</param>
+        internal void EnableMockMode(IDictionary<Guid, MockResponseData> mockDataResponseDictionary)
+        {
+            MockDataResponseDictionary = mockDataResponseDictionary;
+        }
+        /// <summary>
+        /// Disables the mock mode.
+        /// </summary>
+        internal void DisableMockMode()
+        {
+            MockDataResponseDictionary = null;
+        }
+        /// <summary>
+        /// Gets a value indicating whether [use mock connection].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [use mock connection]; otherwise, <c>false</c>.
+        /// </value>
+        protected bool UseMockConnection => MockDataResponseDictionary != null;
     }
     /// <summary>
     /// 
@@ -86,29 +114,37 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <summary>
         /// Gets the database connection.
         /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="mockResponseData">The mock response data.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        internal override sealed IDbConnection GetDbConnection(object parameters, MockResponseData mockResponseData = null) => ResolveDbConnection(mockResponseData);
+        internal override sealed IDbConnection GetDbConnection(IDbCommandSettings dbCommandSettings) => ResolveDbConnection(dbCommandSettings);
         /// <summary>
         /// Gets the database connection asynchronous.
         /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="mockResponseData">The mock response data.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        internal override sealed async Task<IDbConnection> GetDbConnectionAsync(object parameters, MockResponseData mockResponseData = null) => await ResolveDbConnectionAsync(mockResponseData);
-        internal override sealed IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig,TDbParams parameters, MockResponseData mockResponseData = null)
+        internal override sealed async Task<IDbConnection> GetDbConnectionAsync(IDbCommandSettings dbCommandSettings) => await ResolveDbConnectionAsync(dbCommandSettings);
+
+
+        /// <summary>
+        /// Executes the database action.
+        /// </summary>
+        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
+        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+        /// <param name="commandConfig">The command configuration.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
+        /// <exception cref="FacadeException">'{GetType().Name}' does not support command '{commandConfig.DbCommandText.Label}'</exception>
+        internal override sealed IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig,TDbParams parameters)
         {
             try
             {
                 if (commandConfig.DbConnectionConfig == this)
                 {
                     commandConfig.OnBefore(parameters);
-                    return mockResponseData != null ?
-                  DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader>
-                      .ExecuteDbAction(commandConfig, parameters, mockResponseData) :
-                  DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
-                      .ExecuteDbAction(commandConfig, parameters, mockResponseData);
+                    return UseMockConnection ? DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader>
+                      .ExecuteDbAction(commandConfig, parameters) :
+                      DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
+                      .ExecuteDbAction(commandConfig, parameters);
                 }
                 else
                 {
@@ -135,20 +171,28 @@ namespace DbFacade.DataLayer.ConnectionService
                 OnError(ex, commandConfig.DbCommandText);
                 return DbResponseFactory<TDbDataModel>.CreateErrorResponse(commandConfig.DbCommandText, ex);
             }
-        }       
+        }
 
-        internal override sealed async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters, MockResponseData mockResponseData = null)
+        /// <summary>
+        /// Executes the database action asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
+        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+        /// <param name="commandConfig">The command configuration.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
+        /// <exception cref="FacadeException">'{GetType().Name}' does not support command '{commandConfig.DbCommandText.Label}'</exception>
+        internal override sealed async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters)
         {
             try
             {
                 if (commandConfig.DbConnectionConfig == this)
                 {
                     await commandConfig.OnBeforeAsync(parameters);
-                    return mockResponseData != null ?
-                         await DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader>
-                              .ExecuteDbActionAsync(commandConfig, parameters, mockResponseData) :
-                         await DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
-                              .ExecuteDbActionAsync(commandConfig, parameters, mockResponseData);
+                    return UseMockConnection ? await DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader>
+                       .ExecuteDbActionAsync(commandConfig, parameters) :
+                       await DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
+                              .ExecuteDbActionAsync(commandConfig, parameters);                    
                 }
                 else
                 {
@@ -182,12 +226,20 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <summary>
         /// Resolves the database connection.
         /// </summary>
-        /// <param name="mockResponseData">The mock response data.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        private IDbConnection ResolveDbConnection(MockResponseData mockResponseData = null)
+        private IDbConnection ResolveDbConnection(IDbCommandSettings dbCommandSettings)
         {
-            IDbConnection resolvedDbConnection = mockResponseData != null ? new MockDbConnection(mockResponseData) :
-            DbProviderFactories.GetFactory(GetDbConnectionProvider()).CreateConnection() is TDbConnection dbConnection ? dbConnection : default(IDbConnection);
+            IDbConnection resolvedDbConnection;
+            if (UseMockConnection)
+            {
+                bool hasValue = MockDataResponseDictionary.TryGetValue(dbCommandSettings.CommandId, out MockResponseData mockResponseData);
+                resolvedDbConnection = new MockDbConnection(hasValue ? mockResponseData : MockResponseData.Create());
+            }
+            else
+            {
+                resolvedDbConnection = DbProviderFactories.GetFactory(GetDbConnectionProvider()).CreateConnection() is TDbConnection dbConnection ? dbConnection : default(IDbConnection);
+            }
 
             if (resolvedDbConnection != default(IDbConnection))
             {
@@ -200,13 +252,23 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <summary>
         /// Resolves the database connection asynchronous.
         /// </summary>
-        /// <param name="mockResponseData">The mock response data.</param>
+        /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
-        private async Task<IDbConnection> ResolveDbConnectionAsync(MockResponseData mockResponseData = null)
+        private async Task<IDbConnection> ResolveDbConnectionAsync(IDbCommandSettings dbCommandSettings)
         {
-            IDbConnection resolvedDbConnection = mockResponseData != null ? new MockDbConnection(mockResponseData) :
-                DbProviderFactories.GetFactory(await GetDbConnectionProviderAsync()).CreateConnection() is TDbConnection dbConnection ? dbConnection : 
+
+            IDbConnection resolvedDbConnection;
+            if (UseMockConnection)
+            {
+                bool hasValue = MockDataResponseDictionary.TryGetValue(dbCommandSettings.CommandId, out MockResponseData mockResponseData);
+                resolvedDbConnection = new MockDbConnection(hasValue ? mockResponseData : MockResponseData.Create());
+            }
+            else
+            {
+                resolvedDbConnection = DbProviderFactories.GetFactory(await GetDbConnectionProviderAsync()).CreateConnection() is TDbConnection dbConnection ? dbConnection :
                 default(IDbConnection);
+            }
+
             
             if (resolvedDbConnection != default(IDbConnection))
             {
@@ -217,19 +279,39 @@ namespace DbFacade.DataLayer.ConnectionService
             return null;
         }
 
+        /// <summary>
+        /// Gets the database connection string.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException">You must impliment the method GetDbConnectionString</exception>
         protected virtual string GetDbConnectionString()
         {
             throw new NotImplementedException("You must impliment the method GetDbConnectionString");
         }
+        /// <summary>
+        /// Gets the database connection provider.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException">You must impliment the method GetDbConnectionProvider</exception>
         protected virtual string GetDbConnectionProvider()
         {
             throw new NotImplementedException("You must impliment the method GetDbConnectionProvider");
         }
+        /// <summary>
+        /// Gets the database connection string asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException">You must impliment the method GetDbConnectionStringAsync</exception>
         protected virtual async Task<string> GetDbConnectionStringAsync()
         {
             await Task.CompletedTask;
             throw new NotImplementedException("You must impliment the method GetDbConnectionStringAsync");
         }
+        /// <summary>
+        /// Gets the database connection provider asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException">You must impliment the method GetDbConnectionProviderAsync</exception>
         protected virtual async Task<string> GetDbConnectionProviderAsync()
         {
             await Task.CompletedTask;
@@ -286,6 +368,58 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <param name="ex">The ex.</param>
         /// <param name="commandSettings">The command settings.</param>
         protected virtual async Task OnFacadeErrorAsync(FacadeException ex, IDbCommandSettings commandSettings) => await OnErrorAsync(ex, commandSettings);
+
+
+        /// <summary>Creates the fetch command.</summary>
+        /// <param name="commandText">The command text.</param>
+        /// <param name="label">The label.</param>
+        /// <param name="requiresValidation">if set to <c>true</c> [requires validation].</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public static IDbCommandConfig CreateFetchCommand(string commandText, string label, bool requiresValidation = false)
+        => DbCommand<TDbConnectionConfig>.Create(commandText, label, CommandType.StoredProcedure, false, requiresValidation);
+        /// <summary>Creates the transaction command.</summary>
+        /// <param name="commandText">The command text.</param>
+        /// <param name="label">The label.</param>
+        /// <param name="requiresValidation">if set to <c>true</c> [requires validation].</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public static IDbCommandConfig CreateTransactionCommand(string commandText, string label, bool requiresValidation = true)
+        => DbCommand<TDbConnectionConfig>.Create(commandText, label, CommandType.StoredProcedure, true, requiresValidation);
+        /// <summary>Creates the fetch command.</summary>
+        /// <param name="commandText">The command text.</param>
+        /// <param name="label">The label.</param>
+        /// <param name="commandType">Type of the command.</param>
+        /// <param name="requiresValidation">if set to <c>true</c> [requires validation].</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public static IDbCommandConfig CreateFetchCommand(string commandText, string label, CommandType commandType, bool requiresValidation = false)
+        => DbCommand<TDbConnectionConfig>.Create(commandText, label, commandType, false, requiresValidation);
+        /// <summary>Creates the transaction command.</summary>
+        /// <param name="commandText">The command text.</param>
+        /// <param name="label">The label.</param>
+        /// <param name="commandType">Type of the command.</param>
+        /// <param name="requiresValidation">if set to <c>true</c> [requires validation].</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public static IDbCommandConfig CreateTransactionCommand(string commandText, string label, CommandType commandType, bool requiresValidation = true)
+        => DbCommand<TDbConnectionConfig>.Create(commandText, label, commandType, true, requiresValidation);
+
+        /// <summary>
+        /// Creates the schema factory.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <returns></returns>
+        protected static IDbCommandConfigSchemaFactory CreateSchemaFactory(string schema)
+            => new DbCommandConfigSchemaFactory<TDbConnectionConfig>(schema);
+        /// <summary>
+        /// The dbo
+        /// </summary>
+        public static IDbCommandConfigSchemaFactory Dbo = CreateSchemaFactory("dbo");
     }
     /// <summary>
     /// 

@@ -26,6 +26,10 @@ namespace DbFacade.DataLayer.Models.Validators
         /// The errors.
         /// </value>
         IEnumerable<IValidationRuleResult> Errors { get; }
+
+        /// <summary>Gets the error summary.</summary>
+        /// <value>The error summary.</value>
+        string ErrorSummary { get; }
     }
 
     /// <summary>
@@ -58,6 +62,10 @@ namespace DbFacade.DataLayer.Models.Validators
         /// </value>
         public bool IsValid => !Errors.Any();
 
+        /// <summary>Gets the error summary.</summary>
+        /// <value>The error summary.</value>
+        public string ErrorSummary => string.Join(", ", Errors.Where(m=> m.Status == ValidationStatus.FAIL).Select(x => x.ErrorMessage).ToArray());
+
         /// <summary>
         /// The passing validation
         /// </summary>
@@ -87,13 +95,14 @@ namespace DbFacade.DataLayer.Models.Validators
         /// Adds the specified rule.
         /// </summary>
         /// <param name="rule">The rule.</param>
-        void Add(IValidationRule<TDbParams> rule);
+        /// 
+        void Add(IValidationRule<TDbParams> rule, string parameterName = "Unspecified Parameter");
         /// <summary>
         /// Adds the asynchronous.
         /// </summary>
         /// <param name="rule">The rule.</param>
         /// <returns></returns>
-        Task AddAsync(IValidationRule<TDbParams> rule);
+        Task AddAsync(IValidationRule<TDbParams> rule, string parameterName = "Unspecified Parameter");
         /// <summary>
         /// Validates the specified parameters model.
         /// </summary>
@@ -121,14 +130,29 @@ namespace DbFacade.DataLayer.Models.Validators
         /// The rules.
         /// </value>
         public ValidationRuleFactory<TDbParams> Rules { get; private set; }
-        /// <summary>
-        /// Adds the asynchronous.
-        /// </summary>
+        /// <summary>Adds the asynchronous.</summary>
         /// <param name="rule">The rule.</param>
-        public async Task AddAsync(IValidationRule<TDbParams> rule)
+        /// <param name="parameterName"></param>
+        public async Task AddAsync(IValidationRule<TDbParams> rule, string parameterName = "Unspecified Parameter")
         {
-            Add(rule);
+            if (rule is IValidationRuleInternal<TDbParams> internalRule)
+            {
+                internalRule.SetParameterName(parameterName);
+            }
+            base.Add(rule);
             await Task.CompletedTask;
+        }
+
+        /// <summary>Adds the specified rule.</summary>
+        /// <param name="rule">The rule.</param>
+        /// <param name="parameterName">Name of the parameter.</param>
+        public void Add(IValidationRule<TDbParams> rule, string parameterName = "Unspecified Parameter")
+        {
+            if (rule is IValidationRuleInternal<TDbParams> internalRule)
+            {
+                internalRule.SetParameterName(parameterName);
+            }
+            base.Add(rule);
         }
         /// <summary>
         /// Creates the specified validator initializer.

@@ -1,4 +1,5 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
+using DbFacadeShared.DataLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -283,6 +284,12 @@ namespace DbFacade.DataLayer.Models
         ///   <c>true</c> if this instance has error; otherwise, <c>false</c>.
         /// </value>
         bool HasError { get; }
+        /// <summary>Gets the error message.</summary>
+        /// <value>The error message.</value>
+        string ErrorMessage { get; }
+        /// <summary>Gets the error details.</summary>
+        /// <value>The error details.</value>
+        string ErrorDetails { get; }
         /// <summary>
         /// Gets the output value.
         /// </summary>
@@ -322,6 +329,10 @@ namespace DbFacade.DataLayer.Models
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         Task<T> GetOutputModelAsync<T>() where T : DbDataModel;
+
+        /// <summary>Gets the data sets.</summary>
+        /// <value>The data sets.</value>
+        IEnumerable<IDbDataSet> DataSets { get; }
     }
     /// <summary>
     /// 

@@ -91,20 +91,20 @@ replicate for each call on the DomainFacade file.</p>
     ...
     //Handle any Error
     //Generally the most common one to use
-    protected override void OnError(Exception ex) { 
+    protected override void OnError(Exception ex, IDbCommandSettings commandSettings) { 
         //Run custom logic to log error
     }
     //Handle method Validation Errors
-    protected override void OnValidationError&lt;TDbParams&gt;(ValidationException&lt;TDbParams&gt; ex) { 
+    protected override void OnValidationError&lt;TDbParams&gt;(ValidationException&lt;TDbParams&gt; ex, IDbCommandSettings commandSettings) { 
         //Run custom logic to log error
     }
     //Handle SQL execution Errors
-    protected override void OnSQLExecutionError(SQLExecutionException ex) { 
+    protected override void OnSQLExecutionError(SQLExecutionException ex, IDbCommandSettings commandSettings) { 
         //Run custom logic to log error
     }
     //Handle rare Facade Error. 
     //This shouldn&#39;t normally be hit all that often when an error occurs, so this is best used in debug mode.
-    protected override void OnFacadeError(FacadeException ex) { 
+    protected override void OnFacadeError(FacadeException ex, IDbCommandSettings commandSettings) { 
         //Run custom logic to log error
     }
     ...
@@ -115,20 +115,20 @@ replicate for each call on the DomainFacade file.</p>
     ...
     //Handle any Error
     //Generally the most common one to use
-    protected override async Task OnErrorAsync(Exception ex) { 
+    protected override async Task OnErrorAsync(Exception ex, IDbCommandSettings commandSettings) { 
         //Run custom logic to log error
     }
     //Handle method Validation Errors
-    protected override async Task OnValidationErrorAsync&lt;TDbParams&gt;(ValidationException&lt;TDbParams&gt; ex) { 
+    protected override async Task OnValidationErrorAsync&lt;TDbParams&gt;(ValidationException&lt;TDbParams&gt; ex, IDbCommandSettings commandSettings) { 
         //Run custom logic to log error
     }
     //Handle SQL execution Errors
-    protected override async Task OnSQLExecutionErrorAsync(SQLExecutionException ex) { 
+    protected override async Task OnSQLExecutionErrorAsync(SQLExecutionException ex, IDbCommandSettings commandSettings) { 
         //Run custom logic to log error
     }
     //Handle rare Facade Error. 
     //This shouldn&#39;t normally be hit all that often when an error occurs, so this is best used in debug mode.
-    protected override async Task OnFacadeErrorAsync(FacadeException ex) { 
+    protected override async Task OnFacadeErrorAsync(FacadeException ex, IDbCommandSettings commandSettings) { 
         //Run custom logic to log error
     }
     ...
@@ -144,9 +144,6 @@ or if you only want to handle specific types of exceptions then the other method
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Documentation/Advanced/Connection/ErrorHandling.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

@@ -81,28 +81,43 @@
 
 <h2 id="fetch-command">Fetch Command</h2>
 <p>Add a SQL stored procedure command definition to class <code>MyProjectSQLConnection</code> as a static property as follows</p>
-<pre><code class="lang-csharp">    public static IDbCommandConfig GetSampleData = DbCommandConfigFactory&lt;MyProjectSQLConnection&gt;.CreateFetchCommand(&quot;[dbo].[SampleData_Get]&quot;, &quot;Get Sample Data&quot;);
+<pre><code class="lang-csharp">    public static IDbCommandConfig GetSampleData = CreateFetchCommand(&quot;[dbo].[SampleData_Get]&quot;, &quot;Get Sample Data&quot;);
 </code></pre><h2 id="transaction-command">Transaction Command</h2>
 <p>If you have a stored procedure that you want to execute as a transaction then you can declare it as follows.
 <div class="NOTE">
   <h5>NOTE</h5>
   <p>Transaction commands parameter validation is enforced on methods.</p>
 </div></p>
-<pre><code class="lang-csharp">public static IDbCommandConfig GetSampleData = DbCommandConfigFactory&lt;MyProjectSQLConnection&gt;.CreateTransactionCommand(&quot;[dbo].[My_Transaction]&quot;, &quot;My Transaction);
+<pre><code class="lang-csharp">public static IDbCommandConfig GetSampleData = CreateTransactionCommand(&quot;[dbo].[My_Transaction]&quot;, &quot;My Transaction);
 </code></pre><div class="WARNING">
   <h5>WARNING</h5>
   <p>Some Db connection types do not support transations. Please consult appropriate ADO.NET documentation for more information.</p>
   <p>If transactions are not supported then use a fetch command instead</p>
-</div></article>
+</div>
+
+<h2 id="schema-command-config-factories">Schema Command Config Factories</h2>
+<p>Add a IDbCommandConfigSchemaFactory object definition to class <code>MyProjectSQLConnection</code> as a static property, 
+and then add a SQL stored procedure command definition to class <code>MyProjectSQLConnection</code> as a static property as follows</p>
+<pre><code class="lang-csharp">    private static IDbCommandConfigSchemaFactory MySchema = CreateSchemaFactory(&quot;MySchema&quot;);
+    public static IDbCommandConfig GetOtherSampleData = MySchema.CreateFetchCommand(&quot;SampleData_Get_Other&quot;, &quot;Get Other Sample Data&quot;);
+</code></pre><p>Why use this over calling the standard &#39;MyProjectSQLConnection.CreateFetchCommand&#39;?
+It is up to you which you which option you prefer. Both are valid, but here are some of the benefits</p>
+<ol>
+<li>You define the target schema name once.</li>
+<li>You only need to worry about the name of the stored procedure</li>
+<li>The command text will automatically be fully qualified and formated 
+AKA <code>MySchema.CreateFetchCommand(&quot;SampleData_Get_Other&quot;, &quot;Get Other Sample Data&quot;)</code> calculates the command text to <code>[MySchema].[SampleData_Get_Other]</code></li>
+<li>Less time spent on writing out the full command text especially if you have many calls to define</li>
+<li>The default schema for most databases is <code>dbo</code> so that Factory instance is already available to use. </li>
+</ol>
+<pre><code class="lang-csharp">    public static IDbCommandConfig GetSampleData = Dbo.CreateFetchCommand(&quot;SampleData_Get&quot;, &quot;Get Sample Data&quot;);
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Documentation/Advanced/Connection/IDbCommandConfig.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

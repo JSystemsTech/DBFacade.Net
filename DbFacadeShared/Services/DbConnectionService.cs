@@ -1,7 +1,9 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
+using DbFacade.DataLayer.Models;
 using DbFacade.Exceptions;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DbFacade.Services
@@ -15,7 +17,13 @@ namespace DbFacade.Services
         /// The connection configs
         /// </summary>
         private static ConcurrentDictionary<Type, DbConnectionConfigBase> connectionConfigs = new ConcurrentDictionary<Type, DbConnectionConfigBase>();
-        
+
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <returns></returns>
+        /// <exception cref="DbConnectionConfigNotRegisteredException"></exception>
         internal static TDbConnectionConfig Get<TDbConnectionConfig>()
             where TDbConnectionConfig : DbConnectionConfigBase
         {
@@ -36,7 +44,38 @@ namespace DbFacade.Services
         {
             connectionConfigs.GetOrAdd(typeof(TDbConnectionConfig), config);
         }
+        /// <summary>
+        /// Enables the mock mode.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <param name="mockDataResponseDictionary">The mock data response dictionary.</param>
+        public static void EnableMockMode<TDbConnectionConfig>(IDictionary<Guid, MockResponseData> mockDataResponseDictionary)
+            where TDbConnectionConfig : DbConnectionConfigBase
+        {
+            if(connectionConfigs.TryGetValue(typeof(TDbConnectionConfig), out DbConnectionConfigBase config))
+            {
+                config.EnableMockMode(mockDataResponseDictionary);
+            }
+        }
+        /// <summary>
+        /// Disables the mock mode.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        public static void DisableMockMode<TDbConnectionConfig>()
+            where TDbConnectionConfig : DbConnectionConfigBase
+        {
+            if (connectionConfigs.TryGetValue(typeof(TDbConnectionConfig), out DbConnectionConfigBase config))
+            {
+                config.DisableMockMode();
+            }
+        }
 
+        /// <summary>
+        /// Gets the asynchronous.
+        /// </summary>
+        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+        /// <returns></returns>
+        /// <exception cref="DbConnectionConfigNotRegisteredException"></exception>
         internal static async Task<TDbConnectionConfig> GetAsync<TDbConnectionConfig>()
             where TDbConnectionConfig : DbConnectionConfigBase
         {

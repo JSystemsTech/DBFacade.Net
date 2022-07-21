@@ -182,6 +182,18 @@ article h4 {
 .toc .nav > li > a {
   color: var(--font-color);
 }
+.bs-docs-sidebar .nav.bs-docs-sidenav {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.bs-docs-sidebar .nav.level1.bs-docs-sidenav .nav.level3.bs-docs-sidenav {
+    max-height: 300px;
+    overflow-y: auto;
+}
+.affix ul > li > a {
+    overflow-wrap: anywhere;
+}
 
 .sidefilter {
   background-color: #fff;

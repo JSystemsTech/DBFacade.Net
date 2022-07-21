@@ -108,8 +108,8 @@ namespace DbFacadeUnitTests.Tests.Validator
         public void WithStringOptionalValueFail()
         {
             IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
-                v.Add(v.Rules.IsAfter(model => model.DateTimeString, InvalidDateTimeValue, DateFormat, true));
-                v.Add(v.Rules.IsAfter(model => model.DateTimeStringAlt, InvalidDateTimeValueAlt, DateFormatAlt, true));
+                v.Add(v.Rules.IsAfter(model => model.DateTimeString, InvalidDateTimeValue, DateFormat, true), "DateTimeString");
+                v.Add(v.Rules.IsAfter(model => model.DateTimeStringAlt, InvalidDateTimeValueAlt, DateFormatAlt, true), "DateTimeStringAlt");
             });
             IValidationResult result = Validator.Validate(Parameters);
             IsInvalid(result);

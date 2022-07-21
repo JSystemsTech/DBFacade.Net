@@ -36,6 +36,8 @@ namespace DbFacade.Exceptions
         /// </summary>
         /// <returns></returns>
         public virtual string Name()=> "FacadeException";
+
+        public virtual string ErrorDetails => InnerException is Exception innerException ? $"{innerException.Message}": "";
         
     }
     /// <summary>
@@ -64,15 +66,22 @@ namespace DbFacade.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="SQLExecutionException"/> class.
         /// </summary>
-        /// <param name="errorMessage">The error message.</param>
         /// <param name="sqlMethod">The SQL method.</param>
         /// <param name="innerException">The inner exception.</param>
-        internal SQLExecutionException(string errorMessage, DbCommandSettingsBase sqlMethod, SqlException innerException) : base(
-            errorMessage, innerException)
+        internal SQLExecutionException(DbCommandSettingsBase sqlMethod, SqlException innerException) : base(
+            "A SQL Error has occurred", innerException)
         {
             CommandText = sqlMethod.CommandText;
         }
-
+        /// <summary>Initializes a new instance of the <see cref="SQLExecutionException" /> class.</summary>
+        /// <param name="message">The message.</param>
+        /// <param name="sqlMethod">The SQL method.</param>
+        /// <param name="innerException">The inner exception.</param>
+        internal SQLExecutionException(string message, DbCommandSettingsBase sqlMethod, Exception innerException) : base(
+            message, innerException)
+        {
+            CommandText = sqlMethod.CommandText;
+        }
         /// <summary>
         /// Gets the command text.
         /// </summary>
@@ -112,14 +121,14 @@ namespace DbFacade.Exceptions
         /// <value>
         /// The validation errors.
         /// </value>
-        public IEnumerable<IValidationRuleResult> ValidationErrors { get; private set; }
+        public IEnumerable<IValidationRuleResult> ValidationErrors => ValidationResult.Errors;
         /// <summary>
         /// Gets the count.
         /// </summary>
         /// <value>
         /// The count.
         /// </value>
-        public int Count { get; private set; }
+        public int Count => ValidationErrors.Count();
         /// <summary>
         /// Gets the parameters.
         /// </summary>
@@ -134,6 +143,10 @@ namespace DbFacade.Exceptions
         /// <returns></returns>
         public override string Name()=> "ValidationException";
 
+        /// <summary>Gets or sets the validation result.</summary>
+        /// <value>The validation result.</value>
+        private IValidationResult ValidationResult { get; set; }
+
 
         /// <summary>
         /// Initializes the specified validation result.
@@ -142,9 +155,12 @@ namespace DbFacade.Exceptions
         /// <param name="parameters">The parameters.</param>
         private void Init(IValidationResult validationResult, DbParams parameters)
         {
-            ValidationErrors = validationResult.Errors;
-            Count = validationResult.Errors.Count();
+            ValidationResult = validationResult;
             Parameters = parameters;
         }
+
+
+
+        public override string ErrorDetails => $"{ValidationResult.ErrorSummary}";
     }
 }

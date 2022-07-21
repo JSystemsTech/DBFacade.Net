@@ -84,9 +84,11 @@
     p =&gt; {
         p.Add(&quot;Guid&quot;, p.Factory.Create(m =&gt; m.Guid));
         p.Add(&quot;String&quot;, p.Factory.Create(m =&gt; m.String));
+        p.Add(&quot;Details&quot;, p.Factory.Create(m =&gt; m.Details));
     },
     v =&gt; {
-        v.Add(v.Rules.Required(m =&gt; m.String));
+        v.Add(v.Rules.Required(m =&gt; m.String), &quot;String&quot;); // will set the parameter name to &quot;String&quot;
+        v.Add(v.Rules.Required(m =&gt; m.Details)); // will set the parameter name to &quot;Unspecified Pramameter&quot; default value
     });
 </code></pre><p>For doumentation on all available rules see <a href="../../api/DbFacade.Factories.ValidationRuleFactory-1.html">Rules</a></p>
 </article>
@@ -96,9 +98,6 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Documentation/Advanced/Methods/Validation.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

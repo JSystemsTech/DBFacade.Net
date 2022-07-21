@@ -49,7 +49,14 @@ namespace DbFacade.DataLayer.Models
             var model = await GenericInstance.GetInstanceAsync<TDbDataModel>();
             model.Data = data;
             model.DbCommandSettings = dbCommandSettings;
-            await model.InitAsync();
+            try
+            {
+                await model.InitAsync();
+            }
+            catch (Exception ex)
+            {
+                await model.AddDataBindingErrorAsync(ex.Message);
+            }
             return model;
         }
         /// <summary>
@@ -63,7 +70,14 @@ namespace DbFacade.DataLayer.Models
             var model = await GenericInstance.GetInstanceAsync<TDbDataModel>();
             model.Data = Data;
             model.DbCommandSettings = DbCommandSettings;
-            await model.InitAsync();
+            try
+            {
+                await model.InitAsync();
+            }
+            catch (Exception ex)
+            {
+                await model.AddDataBindingErrorAsync(ex.Message);
+            }
             return model;
         }
         /// <summary>

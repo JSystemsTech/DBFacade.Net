@@ -31,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbTransaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModel_Async.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\MockResponseData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\IDbResponse.cs" />

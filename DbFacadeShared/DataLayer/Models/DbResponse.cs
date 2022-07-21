@@ -1,4 +1,6 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
+using DbFacade.Exceptions;
+using DbFacadeShared.DataLayer.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -159,7 +161,9 @@ namespace DbFacade.DataLayer.Models
         /// The output values.
         /// </value>
         private IDictionary<string, object> OutputValues { get; set; }
-        /// <summary>
+
+        /// <summary>The output values default</summary>
+        private static IDictionary<string, object> OutputValuesDefault = new Dictionary<string, object>();
         /// Gets a value indicating whether this instance is null.
         /// </summary>
         /// <value>
@@ -194,6 +198,13 @@ namespace DbFacade.DataLayer.Models
         ///   <c>true</c> if this instance has error; otherwise, <c>false</c>.
         /// </value>
         public bool HasError => Error != null;
+
+        /// <summary>Gets the error message.</summary>
+        /// <value>The error message.</value>
+        public string ErrorMessage => HasError ? Error.Message : "";
+        /// <summary>Gets the error details.</summary>
+        /// <value>The error details.</value>
+        public string ErrorDetails => HasError && Error is FacadeException ex ? ex.ErrorDetails : "";
         /// <summary>
         /// Initializes a new instance of the <see cref="DbResponse{TDbDataModel}" /> class.
         /// </summary>
@@ -271,7 +282,7 @@ namespace DbFacade.DataLayer.Models
             IsNull = false;
             DbCommandSettings = dbCommandSettings;
             ReturnValue = returnValue;
-            OutputValues = outputValues;
+            OutputValues = outputValues != null ? outputValues: OutputValuesDefault;
             await Task.CompletedTask;
         }
         /// <summary>
@@ -283,7 +294,7 @@ namespace DbFacade.DataLayer.Models
         public DbResponse(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null)
         {
             ReturnValue = returnValue;
-            OutputValues = outputValues;
+            OutputValues = outputValues != null ? outputValues : OutputValuesDefault;
             DbCommandSettings = dbCommandSettings;
         }
 
@@ -302,7 +313,7 @@ namespace DbFacade.DataLayer.Models
         public object GetOutputValue(string key)
         {
             object value = null;
-            if (OutputValues != null && OutputValues.TryGetValue(key, out object val))
+            if (OutputValues.TryGetValue(key, out object val))
             {
                 value = val;
             }
@@ -332,7 +343,7 @@ namespace DbFacade.DataLayer.Models
         public async Task<object> GetOutputValueAsync(string key)
         {
             object value = null;
-            if (OutputValues != null && OutputValues.TryGetValue(key, out object val))
+            if (OutputValues.TryGetValue(key, out object val))
             {
                 value = val;
             }
@@ -461,6 +472,16 @@ namespace DbFacade.DataLayer.Models
             List<TDbDataModel> list = ToList();
             await Task.CompletedTask;
             return list;
+        }
+        public IEnumerable<IDbDataSet> DataSets { get; private set; }
+
+        internal void InitDataSets(IEnumerable<IDbDataSet> dataSets)
+        {
+            DataSets = dataSets;
+            if (DataSets.Count() > 0)
+            {
+                AddRange(DataSets.First().ToDbDataModelList<TDbDataModel>());
+            }
         }
     }
 }

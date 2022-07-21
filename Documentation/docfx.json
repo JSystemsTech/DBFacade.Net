@@ -32,6 +32,7 @@
           "GettingStarted/**.md",
           "Advanced/**.md",
           "Advanced/**/**.md",
+          "ReleaseNotes/**.md",
           "toc.yml",
           "*.md"
         ],

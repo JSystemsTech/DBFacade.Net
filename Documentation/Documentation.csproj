@@ -56,6 +56,7 @@
     <None Include="Advanced\Connection\IDbCommandConfig.md" />
     <None Include="Advanced\Connection\Types.md" />
     <None Include="Advanced\DbDataModel\NestedModels.md" />
+    <None Include="Advanced\UnitTesting.md" />
     <None Include="Advanced\DbResponse.md" />
     <None Include="Advanced\index.md" />
     <None Include="Advanced\Methods\Types.md" />
@@ -72,6 +73,8 @@
     <None Include="GettingStarted\toc.md" />
     <None Include="index.md" />
     <None Include="packages.config" />
+    <None Include="ReleaseNotes\index.md" />
+    <None Include="ReleaseNotes\toc.md" />
     <None Include="templates\custom_default\conceptual.html.primary.tmpl" />
     <None Include="templates\custom_default\fonts\glyphicons-halflings-regular.eot" />
     <None Include="templates\custom_default\fonts\glyphicons-halflings-regular.ttf" />

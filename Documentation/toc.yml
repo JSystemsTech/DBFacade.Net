@@ -6,3 +6,6 @@
 - name: Docs
   href: obj/api/
   homepage: api/index.md
+- name: Release Notes
+  href: ReleaseNotes/
+ 

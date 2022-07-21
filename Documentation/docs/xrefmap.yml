@@ -39,38 +39,6 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync
   nameWithType: IDbCommandMethod.ExecuteAsync
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Mock(System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: Mock(Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_Mock_System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Mock(System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: Mock(Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Mock(System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Mock(System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IDbCommandMethod.Mock(Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IDbCommandMethod.Mock(Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Mock*
-  name: Mock
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_Mock_
-  commentId: Overload:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Mock
-  isSpec: "True"
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Mock
-  nameWithType: IDbCommandMethod.Mock
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.MockAsync(System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: MockAsync(Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_MockAsync_System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.MockAsync(System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: MockAsync(Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.MockAsync(System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.MockAsync(System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IDbCommandMethod.MockAsync(Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IDbCommandMethod.MockAsync(Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.MockAsync*
-  name: MockAsync
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_MockAsync_
-  commentId: Overload:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.MockAsync
-  isSpec: "True"
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.MockAsync
-  nameWithType: IDbCommandMethod.MockAsync
 - uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`1
   name: IDbCommandMethod<TDbParams>
   href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-1.html
@@ -114,42 +82,6 @@ references:
   fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams).ExecuteAsync
   nameWithType: IDbCommandMethod<TDbParams>.ExecuteAsync
   nameWithType.vb: IDbCommandMethod(Of TDbParams).ExecuteAsync
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`1.Mock(`0,System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: Mock(TDbParams, Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_1_Mock__0_System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`1.Mock(`0,System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: Mock(TDbParams, Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams>.Mock(TDbParams, System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams).Mock(TDbParams, System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IDbCommandMethod<TDbParams>.Mock(TDbParams, Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IDbCommandMethod(Of TDbParams).Mock(TDbParams, Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`1.Mock*
-  name: Mock
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_1_Mock_
-  commentId: Overload:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`1.Mock
-  isSpec: "True"
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams>.Mock
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams).Mock
-  nameWithType: IDbCommandMethod<TDbParams>.Mock
-  nameWithType.vb: IDbCommandMethod(Of TDbParams).Mock
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`1.MockAsync(`0,System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: MockAsync(TDbParams, Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_1_MockAsync__0_System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`1.MockAsync(`0,System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: MockAsync(TDbParams, Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams>.MockAsync(TDbParams, System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams).MockAsync(TDbParams, System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IDbCommandMethod<TDbParams>.MockAsync(TDbParams, Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IDbCommandMethod(Of TDbParams).MockAsync(TDbParams, Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`1.MockAsync*
-  name: MockAsync
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_1_MockAsync_
-  commentId: Overload:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`1.MockAsync
-  isSpec: "True"
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams>.MockAsync
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams).MockAsync
-  nameWithType: IDbCommandMethod<TDbParams>.MockAsync
-  nameWithType.vb: IDbCommandMethod(Of TDbParams).MockAsync
 - uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2
   name: IDbCommandMethod<TDbParams, TDbDataModel>
   href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html
@@ -193,60 +125,6 @@ references:
   fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams, TDbDataModel).ExecuteAsync
   nameWithType: IDbCommandMethod<TDbParams, TDbDataModel>.ExecuteAsync
   nameWithType.vb: IDbCommandMethod(Of TDbParams, TDbDataModel).ExecuteAsync
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.Mock(`0,System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: Mock(TDbParams, Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_2_Mock__0_System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.Mock(`0,System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: Mock(TDbParams, Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams, TDbDataModel>.Mock(TDbParams, System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams, TDbDataModel).Mock(TDbParams, System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IDbCommandMethod<TDbParams, TDbDataModel>.Mock(TDbParams, Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IDbCommandMethod(Of TDbParams, TDbDataModel).Mock(TDbParams, Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.Mock*
-  name: Mock
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_2_Mock_
-  commentId: Overload:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.Mock
-  isSpec: "True"
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams, TDbDataModel>.Mock
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams, TDbDataModel).Mock
-  nameWithType: IDbCommandMethod<TDbParams, TDbDataModel>.Mock
-  nameWithType.vb: IDbCommandMethod(Of TDbParams, TDbDataModel).Mock
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.Mock``1(`0,System.Collections.Generic.IEnumerable{``0},System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: Mock<T>(TDbParams, IEnumerable<T>, Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_2_Mock__1__0_System_Collections_Generic_IEnumerable___0__System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.Mock``1(`0,System.Collections.Generic.IEnumerable{``0},System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: Mock(Of T)(TDbParams, IEnumerable(Of T), Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams, TDbDataModel>.Mock<T>(TDbParams, System.Collections.Generic.IEnumerable<T>, System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams, TDbDataModel).Mock(Of T)(TDbParams, System.Collections.Generic.IEnumerable(Of T), System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IDbCommandMethod<TDbParams, TDbDataModel>.Mock<T>(TDbParams, IEnumerable<T>, Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IDbCommandMethod(Of TDbParams, TDbDataModel).Mock(Of T)(TDbParams, IEnumerable(Of T), Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.MockAsync(`0,System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: MockAsync(TDbParams, Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_2_MockAsync__0_System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.MockAsync(`0,System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: MockAsync(TDbParams, Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams, TDbDataModel>.MockAsync(TDbParams, System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams, TDbDataModel).MockAsync(TDbParams, System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IDbCommandMethod<TDbParams, TDbDataModel>.MockAsync(TDbParams, Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IDbCommandMethod(Of TDbParams, TDbDataModel).MockAsync(TDbParams, Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.MockAsync*
-  name: MockAsync
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_2_MockAsync_
-  commentId: Overload:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.MockAsync
-  isSpec: "True"
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams, TDbDataModel>.MockAsync
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams, TDbDataModel).MockAsync
-  nameWithType: IDbCommandMethod<TDbParams, TDbDataModel>.MockAsync
-  nameWithType.vb: IDbCommandMethod(Of TDbParams, TDbDataModel).MockAsync
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.MockAsync``1(`0,System.Collections.Generic.IEnumerable{``0},System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: MockAsync<T>(TDbParams, IEnumerable<T>, Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_2_MockAsync__1__0_System_Collections_Generic_IEnumerable___0__System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod`2.MockAsync``1(`0,System.Collections.Generic.IEnumerable{``0},System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: MockAsync(Of T)(TDbParams, IEnumerable(Of T), Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod<TDbParams, TDbDataModel>.MockAsync<T>(TDbParams, System.Collections.Generic.IEnumerable<T>, System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod(Of TDbParams, TDbDataModel).MockAsync(Of T)(TDbParams, System.Collections.Generic.IEnumerable(Of T), System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IDbCommandMethod<TDbParams, TDbDataModel>.MockAsync<T>(TDbParams, IEnumerable<T>, Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IDbCommandMethod(Of TDbParams, TDbDataModel).MockAsync(Of T)(TDbParams, IEnumerable(Of T), Int32, Action(Of IDictionary(Of String, Object)))
 - uid: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1
   name: IParameterlessDbCommandMethod<TDbDataModel>
   href: api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html
@@ -290,60 +168,6 @@ references:
   fullName.vb: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod(Of TDbDataModel).ExecuteAsync
   nameWithType: IParameterlessDbCommandMethod<TDbDataModel>.ExecuteAsync
   nameWithType.vb: IParameterlessDbCommandMethod(Of TDbDataModel).ExecuteAsync
-- uid: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.Mock(System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: Mock(Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IParameterlessDbCommandMethod_1_Mock_System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.Mock(System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: Mock(Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod<TDbDataModel>.Mock(System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod(Of TDbDataModel).Mock(System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IParameterlessDbCommandMethod<TDbDataModel>.Mock(Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IParameterlessDbCommandMethod(Of TDbDataModel).Mock(Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.Mock*
-  name: Mock
-  href: api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IParameterlessDbCommandMethod_1_Mock_
-  commentId: Overload:DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.Mock
-  isSpec: "True"
-  fullName: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod<TDbDataModel>.Mock
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod(Of TDbDataModel).Mock
-  nameWithType: IParameterlessDbCommandMethod<TDbDataModel>.Mock
-  nameWithType.vb: IParameterlessDbCommandMethod(Of TDbDataModel).Mock
-- uid: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.Mock``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: Mock<T>(IEnumerable<T>, Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IParameterlessDbCommandMethod_1_Mock__1_System_Collections_Generic_IEnumerable___0__System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.Mock``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: Mock(Of T)(IEnumerable(Of T), Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod<TDbDataModel>.Mock<T>(System.Collections.Generic.IEnumerable<T>, System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod(Of TDbDataModel).Mock(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IParameterlessDbCommandMethod<TDbDataModel>.Mock<T>(IEnumerable<T>, Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IParameterlessDbCommandMethod(Of TDbDataModel).Mock(Of T)(IEnumerable(Of T), Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.MockAsync(System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: MockAsync(Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IParameterlessDbCommandMethod_1_MockAsync_System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.MockAsync(System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: MockAsync(Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod<TDbDataModel>.MockAsync(System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod(Of TDbDataModel).MockAsync(System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IParameterlessDbCommandMethod<TDbDataModel>.MockAsync(Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IParameterlessDbCommandMethod(Of TDbDataModel).MockAsync(Int32, Action(Of IDictionary(Of String, Object)))
-- uid: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.MockAsync*
-  name: MockAsync
-  href: api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IParameterlessDbCommandMethod_1_MockAsync_
-  commentId: Overload:DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.MockAsync
-  isSpec: "True"
-  fullName: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod<TDbDataModel>.MockAsync
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod(Of TDbDataModel).MockAsync
-  nameWithType: IParameterlessDbCommandMethod<TDbDataModel>.MockAsync
-  nameWithType.vb: IParameterlessDbCommandMethod(Of TDbDataModel).MockAsync
-- uid: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.MockAsync``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name: MockAsync<T>(IEnumerable<T>, Int32, Action<IDictionary<String, Object>>)
-  href: api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html#DbFacade_DataLayer_CommandConfig_IParameterlessDbCommandMethod_1_MockAsync__1_System_Collections_Generic_IEnumerable___0__System_Int32_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___
-  commentId: M:DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod`1.MockAsync``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}})
-  name.vb: MockAsync(Of T)(IEnumerable(Of T), Int32, Action(Of IDictionary(Of String, Object)))
-  fullName: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod<TDbDataModel>.MockAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Int32, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod(Of TDbDataModel).MockAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Int32, System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)))
-  nameWithType: IParameterlessDbCommandMethod<TDbDataModel>.MockAsync<T>(IEnumerable<T>, Int32, Action<IDictionary<String, Object>>)
-  nameWithType.vb: IParameterlessDbCommandMethod(Of TDbDataModel).MockAsync(Of T)(IEnumerable(Of T), Int32, Action(Of IDictionary(Of String, Object)))
 - uid: DbFacade.DataLayer.CommandConfig.Parameters
   name: DbFacade.DataLayer.CommandConfig.Parameters
   href: api/DbFacade.DataLayer.CommandConfig.Parameters.html
@@ -418,6 +242,81 @@ references:
   fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig)
   nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>
   nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand(System.String,System.String,System.Boolean)
+  name: CreateFetchCommand(String, String, Boolean)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateFetchCommand_System_String_System_String_System_Boolean_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand(System.String,System.String,System.Boolean)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateFetchCommand(System.String, System.String, System.Boolean)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateFetchCommand(System.String, System.String, System.Boolean)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateFetchCommand(String, String, Boolean)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateFetchCommand(String, String, Boolean)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand(System.String,System.String,System.Data.CommandType,System.Boolean)
+  name: CreateFetchCommand(String, String, CommandType, Boolean)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateFetchCommand_System_String_System_String_System_Data_CommandType_System_Boolean_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand(System.String,System.String,System.Data.CommandType,System.Boolean)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateFetchCommand(System.String, System.String, System.Data.CommandType, System.Boolean)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateFetchCommand(System.String, System.String, System.Data.CommandType, System.Boolean)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateFetchCommand(String, String, CommandType, Boolean)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateFetchCommand(String, String, CommandType, Boolean)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand*
+  name: CreateFetchCommand
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateFetchCommand_
+  commentId: Overload:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateFetchCommand
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateFetchCommand
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateFetchCommand
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateFetchCommand
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateFetchCommand
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateSchemaFactory(System.String)
+  name: CreateSchemaFactory(String)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateSchemaFactory_System_String_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateSchemaFactory(System.String)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateSchemaFactory(System.String)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateSchemaFactory(System.String)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateSchemaFactory(String)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateSchemaFactory(String)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateSchemaFactory*
+  name: CreateSchemaFactory
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateSchemaFactory_
+  commentId: Overload:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateSchemaFactory
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateSchemaFactory
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateSchemaFactory
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateSchemaFactory
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateSchemaFactory
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand(System.String,System.String,System.Boolean)
+  name: CreateTransactionCommand(String, String, Boolean)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateTransactionCommand_System_String_System_String_System_Boolean_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand(System.String,System.String,System.Boolean)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateTransactionCommand(System.String, System.String, System.Boolean)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateTransactionCommand(System.String, System.String, System.Boolean)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateTransactionCommand(String, String, Boolean)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateTransactionCommand(String, String, Boolean)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand(System.String,System.String,System.Data.CommandType,System.Boolean)
+  name: CreateTransactionCommand(String, String, CommandType, Boolean)
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateTransactionCommand_System_String_System_String_System_Data_CommandType_System_Boolean_
+  commentId: M:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand(System.String,System.String,System.Data.CommandType,System.Boolean)
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateTransactionCommand(System.String, System.String, System.Data.CommandType, System.Boolean)
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateTransactionCommand(System.String, System.String, System.Data.CommandType, System.Boolean)
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateTransactionCommand(String, String, CommandType, Boolean)
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateTransactionCommand(String, String, CommandType, Boolean)
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand*
+  name: CreateTransactionCommand
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_CreateTransactionCommand_
+  commentId: Overload:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.CreateTransactionCommand
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateTransactionCommand
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateTransactionCommand
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.CreateTransactionCommand
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).CreateTransactionCommand
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.Dbo
+  name: Dbo
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_Dbo
+  commentId: F:DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.Dbo
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.Dbo
+  fullName.vb: DbFacade.DataLayer.ConnectionService.DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).Dbo
+  nameWithType: DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig>.Dbo
+  nameWithType.vb: DbConnectionConfig(Of TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig).Dbo
 - uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfig`6.GetDbConnectionProvider
   name: GetDbConnectionProvider()
   href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfig_6_GetDbConnectionProvider
@@ -643,6 +542,32 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.InitAsync
   nameWithType: DbConnectionConfigBase.InitAsync
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.MockDataResponseDictionary
+  name: MockDataResponseDictionary
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_MockDataResponseDictionary
+  commentId: P:DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.MockDataResponseDictionary
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.MockDataResponseDictionary
+  nameWithType: DbConnectionConfigBase.MockDataResponseDictionary
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.MockDataResponseDictionary*
+  name: MockDataResponseDictionary
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_MockDataResponseDictionary_
+  commentId: Overload:DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.MockDataResponseDictionary
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.MockDataResponseDictionary
+  nameWithType: DbConnectionConfigBase.MockDataResponseDictionary
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.UseMockConnection
+  name: UseMockConnection
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_UseMockConnection
+  commentId: P:DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.UseMockConnection
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.UseMockConnection
+  nameWithType: DbConnectionConfigBase.UseMockConnection
+- uid: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.UseMockConnection*
+  name: UseMockConnection
+  href: api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html#DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_UseMockConnection_
+  commentId: Overload:DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.UseMockConnection
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.UseMockConnection
+  nameWithType: DbConnectionConfigBase.UseMockConnection
 - uid: DbFacade.DataLayer.ConnectionService.DefaultConnectionConfig`1
   name: DefaultConnectionConfig<TDbConnectionConfig>
   href: api/DbFacade.DataLayer.ConnectionService.DefaultConnectionConfig-1.html
@@ -1282,6 +1207,23 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).CommandId
   nameWithType: IDbResponse<TDbDataModel>.CommandId
   nameWithType.vb: IDbResponse(Of TDbDataModel).CommandId
+- uid: DbFacade.DataLayer.Models.IDbResponse`1.DataSets
+  name: DataSets
+  href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_DataSets
+  commentId: P:DbFacade.DataLayer.Models.IDbResponse`1.DataSets
+  fullName: DbFacade.DataLayer.Models.IDbResponse<TDbDataModel>.DataSets
+  fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).DataSets
+  nameWithType: IDbResponse<TDbDataModel>.DataSets
+  nameWithType.vb: IDbResponse(Of TDbDataModel).DataSets
+- uid: DbFacade.DataLayer.Models.IDbResponse`1.DataSets*
+  name: DataSets
+  href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_DataSets_
+  commentId: Overload:DbFacade.DataLayer.Models.IDbResponse`1.DataSets
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.Models.IDbResponse<TDbDataModel>.DataSets
+  fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).DataSets
+  nameWithType: IDbResponse<TDbDataModel>.DataSets
+  nameWithType.vb: IDbResponse(Of TDbDataModel).DataSets
 - uid: DbFacade.DataLayer.Models.IDbResponse`1.DbCommandSettings
   name: DbCommandSettings
   href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_DbCommandSettings
@@ -1316,6 +1258,40 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).Error
   nameWithType: IDbResponse<TDbDataModel>.Error
   nameWithType.vb: IDbResponse(Of TDbDataModel).Error
+- uid: DbFacade.DataLayer.Models.IDbResponse`1.ErrorDetails
+  name: ErrorDetails
+  href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_ErrorDetails
+  commentId: P:DbFacade.DataLayer.Models.IDbResponse`1.ErrorDetails
+  fullName: DbFacade.DataLayer.Models.IDbResponse<TDbDataModel>.ErrorDetails
+  fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).ErrorDetails
+  nameWithType: IDbResponse<TDbDataModel>.ErrorDetails
+  nameWithType.vb: IDbResponse(Of TDbDataModel).ErrorDetails
+- uid: DbFacade.DataLayer.Models.IDbResponse`1.ErrorDetails*
+  name: ErrorDetails
+  href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_ErrorDetails_
+  commentId: Overload:DbFacade.DataLayer.Models.IDbResponse`1.ErrorDetails
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.Models.IDbResponse<TDbDataModel>.ErrorDetails
+  fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).ErrorDetails
+  nameWithType: IDbResponse<TDbDataModel>.ErrorDetails
+  nameWithType.vb: IDbResponse(Of TDbDataModel).ErrorDetails
+- uid: DbFacade.DataLayer.Models.IDbResponse`1.ErrorMessage
+  name: ErrorMessage
+  href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_ErrorMessage
+  commentId: P:DbFacade.DataLayer.Models.IDbResponse`1.ErrorMessage
+  fullName: DbFacade.DataLayer.Models.IDbResponse<TDbDataModel>.ErrorMessage
+  fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).ErrorMessage
+  nameWithType: IDbResponse<TDbDataModel>.ErrorMessage
+  nameWithType.vb: IDbResponse(Of TDbDataModel).ErrorMessage
+- uid: DbFacade.DataLayer.Models.IDbResponse`1.ErrorMessage*
+  name: ErrorMessage
+  href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_ErrorMessage_
+  commentId: Overload:DbFacade.DataLayer.Models.IDbResponse`1.ErrorMessage
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.Models.IDbResponse<TDbDataModel>.ErrorMessage
+  fullName.vb: DbFacade.DataLayer.Models.IDbResponse(Of TDbDataModel).ErrorMessage
+  nameWithType: IDbResponse<TDbDataModel>.ErrorMessage
+  nameWithType.vb: IDbResponse(Of TDbDataModel).ErrorMessage
 - uid: DbFacade.DataLayer.Models.IDbResponse`1.GetOutputModel*
   name: GetOutputModel
   href: api/DbFacade.DataLayer.Models.IDbResponse-1.html#DbFacade_DataLayer_Models_IDbResponse_1_GetOutputModel_
@@ -1937,6 +1913,43 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.IXMLSerializable(Of TDbDataModel).SerializeAsync
   nameWithType: IXMLSerializable<TDbDataModel>.SerializeAsync
   nameWithType.vb: IXMLSerializable(Of TDbDataModel).SerializeAsync
+- uid: DbFacade.DataLayer.Models.MockResponseData
+  name: MockResponseData
+  href: api/DbFacade.DataLayer.Models.MockResponseData.html
+  commentId: T:DbFacade.DataLayer.Models.MockResponseData
+  fullName: DbFacade.DataLayer.Models.MockResponseData
+  nameWithType: MockResponseData
+- uid: DbFacade.DataLayer.Models.MockResponseData.Create(System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}},System.Nullable{System.Int32})
+  name: Create(Action<IDictionary<String, Object>>, Nullable<Int32>)
+  href: api/DbFacade.DataLayer.Models.MockResponseData.html#DbFacade_DataLayer_Models_MockResponseData_Create_System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___System_Nullable_System_Int32__
+  commentId: M:DbFacade.DataLayer.Models.MockResponseData.Create(System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}},System.Nullable{System.Int32})
+  name.vb: Create(Action(Of IDictionary(Of String, Object)), Nullable(Of Int32))
+  fullName: DbFacade.DataLayer.Models.MockResponseData.Create(System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>, System.Nullable<System.Int32>)
+  fullName.vb: DbFacade.DataLayer.Models.MockResponseData.Create(System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)), System.Nullable(Of System.Int32))
+  nameWithType: MockResponseData.Create(Action<IDictionary<String, Object>>, Nullable<Int32>)
+  nameWithType.vb: MockResponseData.Create(Action(Of IDictionary(Of String, Object)), Nullable(Of Int32))
+- uid: DbFacade.DataLayer.Models.MockResponseData.Create(System.Int32)
+  name: Create(Int32)
+  href: api/DbFacade.DataLayer.Models.MockResponseData.html#DbFacade_DataLayer_Models_MockResponseData_Create_System_Int32_
+  commentId: M:DbFacade.DataLayer.Models.MockResponseData.Create(System.Int32)
+  fullName: DbFacade.DataLayer.Models.MockResponseData.Create(System.Int32)
+  nameWithType: MockResponseData.Create(Int32)
+- uid: DbFacade.DataLayer.Models.MockResponseData.Create*
+  name: Create
+  href: api/DbFacade.DataLayer.Models.MockResponseData.html#DbFacade_DataLayer_Models_MockResponseData_Create_
+  commentId: Overload:DbFacade.DataLayer.Models.MockResponseData.Create
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.Models.MockResponseData.Create
+  nameWithType: MockResponseData.Create
+- uid: DbFacade.DataLayer.Models.MockResponseData.Create``1(System.Collections.Generic.IEnumerable{``0},System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}},System.Nullable{System.Int32})
+  name: Create<T>(IEnumerable<T>, Action<IDictionary<String, Object>>, Nullable<Int32>)
+  href: api/DbFacade.DataLayer.Models.MockResponseData.html#DbFacade_DataLayer_Models_MockResponseData_Create__1_System_Collections_Generic_IEnumerable___0__System_Action_System_Collections_Generic_IDictionary_System_String_System_Object___System_Nullable_System_Int32__
+  commentId: M:DbFacade.DataLayer.Models.MockResponseData.Create``1(System.Collections.Generic.IEnumerable{``0},System.Action{System.Collections.Generic.IDictionary{System.String,System.Object}},System.Nullable{System.Int32})
+  name.vb: Create(Of T)(IEnumerable(Of T), Action(Of IDictionary(Of String, Object)), Nullable(Of Int32))
+  fullName: DbFacade.DataLayer.Models.MockResponseData.Create<T>(System.Collections.Generic.IEnumerable<T>, System.Action<System.Collections.Generic.IDictionary<System.String, System.Object>>, System.Nullable<System.Int32>)
+  fullName.vb: DbFacade.DataLayer.Models.MockResponseData.Create(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Action(Of System.Collections.Generic.IDictionary(Of System.String, System.Object)), System.Nullable(Of System.Int32))
+  nameWithType: MockResponseData.Create<T>(IEnumerable<T>, Action<IDictionary<String, Object>>, Nullable<Int32>)
+  nameWithType.vb: MockResponseData.Create(Of T)(IEnumerable(Of T), Action(Of IDictionary(Of String, Object)), Nullable(Of Int32))
 - uid: DbFacade.DataLayer.Models.Validators
   name: DbFacade.DataLayer.Models.Validators
   href: api/DbFacade.DataLayer.Models.Validators.html
@@ -1962,6 +1975,19 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.Models.Validators.IValidationResult.Errors
   nameWithType: IValidationResult.Errors
+- uid: DbFacade.DataLayer.Models.Validators.IValidationResult.ErrorSummary
+  name: ErrorSummary
+  href: api/DbFacade.DataLayer.Models.Validators.IValidationResult.html#DbFacade_DataLayer_Models_Validators_IValidationResult_ErrorSummary
+  commentId: P:DbFacade.DataLayer.Models.Validators.IValidationResult.ErrorSummary
+  fullName: DbFacade.DataLayer.Models.Validators.IValidationResult.ErrorSummary
+  nameWithType: IValidationResult.ErrorSummary
+- uid: DbFacade.DataLayer.Models.Validators.IValidationResult.ErrorSummary*
+  name: ErrorSummary
+  href: api/DbFacade.DataLayer.Models.Validators.IValidationResult.html#DbFacade_DataLayer_Models_Validators_IValidationResult_ErrorSummary_
+  commentId: Overload:DbFacade.DataLayer.Models.Validators.IValidationResult.ErrorSummary
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.Models.Validators.IValidationResult.ErrorSummary
+  nameWithType: IValidationResult.ErrorSummary
 - uid: DbFacade.DataLayer.Models.Validators.IValidationResult.IsValid
   name: IsValid
   href: api/DbFacade.DataLayer.Models.Validators.IValidationResult.html#DbFacade_DataLayer_Models_Validators_IValidationResult_IsValid
@@ -1984,15 +2010,15 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams)
   nameWithType: IValidator<TDbParams>
   nameWithType.vb: IValidator(Of TDbParams)
-- uid: DbFacade.DataLayer.Models.Validators.IValidator`1.Add(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule{`0})
-  name: Add(IValidationRule<TDbParams>)
-  href: api/DbFacade.DataLayer.Models.Validators.IValidator-1.html#DbFacade_DataLayer_Models_Validators_IValidator_1_Add_DbFacade_DataLayer_Models_Validators_Rules_IValidationRule__0__
-  commentId: M:DbFacade.DataLayer.Models.Validators.IValidator`1.Add(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule{`0})
-  name.vb: Add(IValidationRule(Of TDbParams))
-  fullName: DbFacade.DataLayer.Models.Validators.IValidator<TDbParams>.Add(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule<TDbParams>)
-  fullName.vb: DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams).Add(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule(Of TDbParams))
-  nameWithType: IValidator<TDbParams>.Add(IValidationRule<TDbParams>)
-  nameWithType.vb: IValidator(Of TDbParams).Add(IValidationRule(Of TDbParams))
+- uid: DbFacade.DataLayer.Models.Validators.IValidator`1.Add(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule{`0},System.String)
+  name: Add(IValidationRule<TDbParams>, String)
+  href: api/DbFacade.DataLayer.Models.Validators.IValidator-1.html#DbFacade_DataLayer_Models_Validators_IValidator_1_Add_DbFacade_DataLayer_Models_Validators_Rules_IValidationRule__0__System_String_
+  commentId: M:DbFacade.DataLayer.Models.Validators.IValidator`1.Add(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule{`0},System.String)
+  name.vb: Add(IValidationRule(Of TDbParams), String)
+  fullName: DbFacade.DataLayer.Models.Validators.IValidator<TDbParams>.Add(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule<TDbParams>, System.String)
+  fullName.vb: DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams).Add(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule(Of TDbParams), System.String)
+  nameWithType: IValidator<TDbParams>.Add(IValidationRule<TDbParams>, String)
+  nameWithType.vb: IValidator(Of TDbParams).Add(IValidationRule(Of TDbParams), String)
 - uid: DbFacade.DataLayer.Models.Validators.IValidator`1.Add*
   name: Add
   href: api/DbFacade.DataLayer.Models.Validators.IValidator-1.html#DbFacade_DataLayer_Models_Validators_IValidator_1_Add_
@@ -2002,15 +2028,15 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams).Add
   nameWithType: IValidator<TDbParams>.Add
   nameWithType.vb: IValidator(Of TDbParams).Add
-- uid: DbFacade.DataLayer.Models.Validators.IValidator`1.AddAsync(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule{`0})
-  name: AddAsync(IValidationRule<TDbParams>)
-  href: api/DbFacade.DataLayer.Models.Validators.IValidator-1.html#DbFacade_DataLayer_Models_Validators_IValidator_1_AddAsync_DbFacade_DataLayer_Models_Validators_Rules_IValidationRule__0__
-  commentId: M:DbFacade.DataLayer.Models.Validators.IValidator`1.AddAsync(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule{`0})
-  name.vb: AddAsync(IValidationRule(Of TDbParams))
-  fullName: DbFacade.DataLayer.Models.Validators.IValidator<TDbParams>.AddAsync(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule<TDbParams>)
-  fullName.vb: DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams).AddAsync(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule(Of TDbParams))
-  nameWithType: IValidator<TDbParams>.AddAsync(IValidationRule<TDbParams>)
-  nameWithType.vb: IValidator(Of TDbParams).AddAsync(IValidationRule(Of TDbParams))
+- uid: DbFacade.DataLayer.Models.Validators.IValidator`1.AddAsync(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule{`0},System.String)
+  name: AddAsync(IValidationRule<TDbParams>, String)
+  href: api/DbFacade.DataLayer.Models.Validators.IValidator-1.html#DbFacade_DataLayer_Models_Validators_IValidator_1_AddAsync_DbFacade_DataLayer_Models_Validators_Rules_IValidationRule__0__System_String_
+  commentId: M:DbFacade.DataLayer.Models.Validators.IValidator`1.AddAsync(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule{`0},System.String)
+  name.vb: AddAsync(IValidationRule(Of TDbParams), String)
+  fullName: DbFacade.DataLayer.Models.Validators.IValidator<TDbParams>.AddAsync(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule<TDbParams>, System.String)
+  fullName.vb: DbFacade.DataLayer.Models.Validators.IValidator(Of TDbParams).AddAsync(DbFacade.DataLayer.Models.Validators.Rules.IValidationRule(Of TDbParams), System.String)
+  nameWithType: IValidator<TDbParams>.AddAsync(IValidationRule<TDbParams>, String)
+  nameWithType.vb: IValidator(Of TDbParams).AddAsync(IValidationRule(Of TDbParams), String)
 - uid: DbFacade.DataLayer.Models.Validators.IValidator`1.AddAsync*
   name: AddAsync
   href: api/DbFacade.DataLayer.Models.Validators.IValidator-1.html#DbFacade_DataLayer_Models_Validators_IValidator_1_AddAsync_
@@ -2361,6 +2387,23 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.Validators.Rules.ValidationRule(Of TDbParams).ParamsValue
   nameWithType: ValidationRule<TDbParams>.ParamsValue
   nameWithType.vb: ValidationRule(Of TDbParams).ParamsValue
+- uid: DbFacade.DataLayer.Models.Validators.Rules.ValidationRule`1.SetParameterName(System.String)
+  name: SetParameterName(String)
+  href: api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.html#DbFacade_DataLayer_Models_Validators_Rules_ValidationRule_1_SetParameterName_System_String_
+  commentId: M:DbFacade.DataLayer.Models.Validators.Rules.ValidationRule`1.SetParameterName(System.String)
+  fullName: DbFacade.DataLayer.Models.Validators.Rules.ValidationRule<TDbParams>.SetParameterName(System.String)
+  fullName.vb: DbFacade.DataLayer.Models.Validators.Rules.ValidationRule(Of TDbParams).SetParameterName(System.String)
+  nameWithType: ValidationRule<TDbParams>.SetParameterName(String)
+  nameWithType.vb: ValidationRule(Of TDbParams).SetParameterName(String)
+- uid: DbFacade.DataLayer.Models.Validators.Rules.ValidationRule`1.SetParameterName*
+  name: SetParameterName
+  href: api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.html#DbFacade_DataLayer_Models_Validators_Rules_ValidationRule_1_SetParameterName_
+  commentId: Overload:DbFacade.DataLayer.Models.Validators.Rules.ValidationRule`1.SetParameterName
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.Models.Validators.Rules.ValidationRule<TDbParams>.SetParameterName
+  fullName.vb: DbFacade.DataLayer.Models.Validators.Rules.ValidationRule(Of TDbParams).SetParameterName
+  nameWithType: ValidationRule<TDbParams>.SetParameterName
+  nameWithType.vb: ValidationRule(Of TDbParams).SetParameterName
 - uid: DbFacade.DataLayer.Models.Validators.Rules.ValidationRule`1.Validate(`0)
   name: Validate(TDbParams)
   href: api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.html#DbFacade_DataLayer_Models_Validators_Rules_ValidationRule_1_Validate__0_
@@ -2503,6 +2546,19 @@ references:
   isSpec: "True"
   fullName: DbFacade.Exceptions.FacadeException.FacadeException
   nameWithType: FacadeException.FacadeException
+- uid: DbFacade.Exceptions.FacadeException.ErrorDetails
+  name: ErrorDetails
+  href: api/DbFacade.Exceptions.FacadeException.html#DbFacade_Exceptions_FacadeException_ErrorDetails
+  commentId: P:DbFacade.Exceptions.FacadeException.ErrorDetails
+  fullName: DbFacade.Exceptions.FacadeException.ErrorDetails
+  nameWithType: FacadeException.ErrorDetails
+- uid: DbFacade.Exceptions.FacadeException.ErrorDetails*
+  name: ErrorDetails
+  href: api/DbFacade.Exceptions.FacadeException.html#DbFacade_Exceptions_FacadeException_ErrorDetails_
+  commentId: Overload:DbFacade.Exceptions.FacadeException.ErrorDetails
+  isSpec: "True"
+  fullName: DbFacade.Exceptions.FacadeException.ErrorDetails
+  nameWithType: FacadeException.ErrorDetails
 - uid: DbFacade.Exceptions.FacadeException.Name
   name: Name()
   href: api/DbFacade.Exceptions.FacadeException.html#DbFacade_Exceptions_FacadeException_Name
@@ -2574,6 +2630,23 @@ references:
   fullName.vb: DbFacade.Exceptions.ValidationException(Of DbParams).Count
   nameWithType: ValidationException<DbParams>.Count
   nameWithType.vb: ValidationException(Of DbParams).Count
+- uid: DbFacade.Exceptions.ValidationException`1.ErrorDetails
+  name: ErrorDetails
+  href: api/DbFacade.Exceptions.ValidationException-1.html#DbFacade_Exceptions_ValidationException_1_ErrorDetails
+  commentId: P:DbFacade.Exceptions.ValidationException`1.ErrorDetails
+  fullName: DbFacade.Exceptions.ValidationException<DbParams>.ErrorDetails
+  fullName.vb: DbFacade.Exceptions.ValidationException(Of DbParams).ErrorDetails
+  nameWithType: ValidationException<DbParams>.ErrorDetails
+  nameWithType.vb: ValidationException(Of DbParams).ErrorDetails
+- uid: DbFacade.Exceptions.ValidationException`1.ErrorDetails*
+  name: ErrorDetails
+  href: api/DbFacade.Exceptions.ValidationException-1.html#DbFacade_Exceptions_ValidationException_1_ErrorDetails_
+  commentId: Overload:DbFacade.Exceptions.ValidationException`1.ErrorDetails
+  isSpec: "True"
+  fullName: DbFacade.Exceptions.ValidationException<DbParams>.ErrorDetails
+  fullName.vb: DbFacade.Exceptions.ValidationException(Of DbParams).ErrorDetails
+  nameWithType: ValidationException<DbParams>.ErrorDetails
+  nameWithType.vb: ValidationException(Of DbParams).ErrorDetails
 - uid: DbFacade.Exceptions.ValidationException`1.Name
   name: Name()
   href: api/DbFacade.Exceptions.ValidationException-1.html#DbFacade_Exceptions_ValidationException_1_Name
@@ -3307,6 +3380,38 @@ references:
   fullName.vb: DbFacade.Factories.DelegateHandler(Of TDbParams, T)
   nameWithType: DelegateHandler<TDbParams, T>
   nameWithType.vb: DelegateHandler(Of TDbParams, T)
+- uid: DbFacade.Factories.IDbCommandConfigSchemaFactory
+  name: IDbCommandConfigSchemaFactory
+  href: api/DbFacade.Factories.IDbCommandConfigSchemaFactory.html
+  commentId: T:DbFacade.Factories.IDbCommandConfigSchemaFactory
+  fullName: DbFacade.Factories.IDbCommandConfigSchemaFactory
+  nameWithType: IDbCommandConfigSchemaFactory
+- uid: DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateFetchCommand(System.String,System.String,System.Boolean)
+  name: CreateFetchCommand(String, String, Boolean)
+  href: api/DbFacade.Factories.IDbCommandConfigSchemaFactory.html#DbFacade_Factories_IDbCommandConfigSchemaFactory_CreateFetchCommand_System_String_System_String_System_Boolean_
+  commentId: M:DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateFetchCommand(System.String,System.String,System.Boolean)
+  fullName: DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateFetchCommand(System.String, System.String, System.Boolean)
+  nameWithType: IDbCommandConfigSchemaFactory.CreateFetchCommand(String, String, Boolean)
+- uid: DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateFetchCommand*
+  name: CreateFetchCommand
+  href: api/DbFacade.Factories.IDbCommandConfigSchemaFactory.html#DbFacade_Factories_IDbCommandConfigSchemaFactory_CreateFetchCommand_
+  commentId: Overload:DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateFetchCommand
+  isSpec: "True"
+  fullName: DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateFetchCommand
+  nameWithType: IDbCommandConfigSchemaFactory.CreateFetchCommand
+- uid: DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateTransactionCommand(System.String,System.String,System.Boolean)
+  name: CreateTransactionCommand(String, String, Boolean)
+  href: api/DbFacade.Factories.IDbCommandConfigSchemaFactory.html#DbFacade_Factories_IDbCommandConfigSchemaFactory_CreateTransactionCommand_System_String_System_String_System_Boolean_
+  commentId: M:DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateTransactionCommand(System.String,System.String,System.Boolean)
+  fullName: DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateTransactionCommand(System.String, System.String, System.Boolean)
+  nameWithType: IDbCommandConfigSchemaFactory.CreateTransactionCommand(String, String, Boolean)
+- uid: DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateTransactionCommand*
+  name: CreateTransactionCommand
+  href: api/DbFacade.Factories.IDbCommandConfigSchemaFactory.html#DbFacade_Factories_IDbCommandConfigSchemaFactory_CreateTransactionCommand_
+  commentId: Overload:DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateTransactionCommand
+  isSpec: "True"
+  fullName: DbFacade.Factories.IDbCommandConfigSchemaFactory.CreateTransactionCommand
+  nameWithType: IDbCommandConfigSchemaFactory.CreateTransactionCommand
 - uid: DbFacade.Factories.ValidationRuleFactory`1
   name: ValidationRuleFactory<TDbParams>
   href: api/DbFacade.Factories.ValidationRuleFactory-1.html
@@ -4904,6 +5009,38 @@ references:
   commentId: T:DbFacade.Services.DbConnectionService
   fullName: DbFacade.Services.DbConnectionService
   nameWithType: DbConnectionService
+- uid: DbFacade.Services.DbConnectionService.DisableMockMode*
+  name: DisableMockMode
+  href: api/DbFacade.Services.DbConnectionService.html#DbFacade_Services_DbConnectionService_DisableMockMode_
+  commentId: Overload:DbFacade.Services.DbConnectionService.DisableMockMode
+  isSpec: "True"
+  fullName: DbFacade.Services.DbConnectionService.DisableMockMode
+  nameWithType: DbConnectionService.DisableMockMode
+- uid: DbFacade.Services.DbConnectionService.DisableMockMode``1
+  name: DisableMockMode<TDbConnectionConfig>()
+  href: api/DbFacade.Services.DbConnectionService.html#DbFacade_Services_DbConnectionService_DisableMockMode__1
+  commentId: M:DbFacade.Services.DbConnectionService.DisableMockMode``1
+  name.vb: DisableMockMode(Of TDbConnectionConfig)()
+  fullName: DbFacade.Services.DbConnectionService.DisableMockMode<TDbConnectionConfig>()
+  fullName.vb: DbFacade.Services.DbConnectionService.DisableMockMode(Of TDbConnectionConfig)()
+  nameWithType: DbConnectionService.DisableMockMode<TDbConnectionConfig>()
+  nameWithType.vb: DbConnectionService.DisableMockMode(Of TDbConnectionConfig)()
+- uid: DbFacade.Services.DbConnectionService.EnableMockMode*
+  name: EnableMockMode
+  href: api/DbFacade.Services.DbConnectionService.html#DbFacade_Services_DbConnectionService_EnableMockMode_
+  commentId: Overload:DbFacade.Services.DbConnectionService.EnableMockMode
+  isSpec: "True"
+  fullName: DbFacade.Services.DbConnectionService.EnableMockMode
+  nameWithType: DbConnectionService.EnableMockMode
+- uid: DbFacade.Services.DbConnectionService.EnableMockMode``1(System.Collections.Generic.IDictionary{System.Guid,DbFacade.DataLayer.Models.MockResponseData})
+  name: EnableMockMode<TDbConnectionConfig>(IDictionary<Guid, MockResponseData>)
+  href: api/DbFacade.Services.DbConnectionService.html#DbFacade_Services_DbConnectionService_EnableMockMode__1_System_Collections_Generic_IDictionary_System_Guid_DbFacade_DataLayer_Models_MockResponseData__
+  commentId: M:DbFacade.Services.DbConnectionService.EnableMockMode``1(System.Collections.Generic.IDictionary{System.Guid,DbFacade.DataLayer.Models.MockResponseData})
+  name.vb: EnableMockMode(Of TDbConnectionConfig)(IDictionary(Of Guid, MockResponseData))
+  fullName: DbFacade.Services.DbConnectionService.EnableMockMode<TDbConnectionConfig>(System.Collections.Generic.IDictionary<System.Guid, DbFacade.DataLayer.Models.MockResponseData>)
+  fullName.vb: DbFacade.Services.DbConnectionService.EnableMockMode(Of TDbConnectionConfig)(System.Collections.Generic.IDictionary(Of System.Guid, DbFacade.DataLayer.Models.MockResponseData))
+  nameWithType: DbConnectionService.EnableMockMode<TDbConnectionConfig>(IDictionary<Guid, MockResponseData>)
+  nameWithType.vb: DbConnectionService.EnableMockMode(Of TDbConnectionConfig)(IDictionary(Of Guid, MockResponseData))
 - uid: DbFacade.Services.DbConnectionService.Register*
   name: Register
   href: api/DbFacade.Services.DbConnectionService.html#DbFacade_Services_DbConnectionService_Register_
@@ -4989,3 +5126,47 @@ references:
   fullName.vb: DbFacade.Utils.InstanceCreatorService.AddCreator(Of T)(System.Func(Of T))
   nameWithType: InstanceCreatorService.AddCreator<T>(Func<T>)
   nameWithType.vb: InstanceCreatorService.AddCreator(Of T)(Func(Of T))
+- uid: DbFacadeShared.DataLayer.Models
+  name: DbFacadeShared.DataLayer.Models
+  href: api/DbFacadeShared.DataLayer.Models.html
+  commentId: N:DbFacadeShared.DataLayer.Models
+  fullName: DbFacadeShared.DataLayer.Models
+  nameWithType: DbFacadeShared.DataLayer.Models
+- uid: DbFacadeShared.DataLayer.Models.IDbDataSet
+  name: IDbDataSet
+  href: api/DbFacadeShared.DataLayer.Models.IDbDataSet.html
+  commentId: T:DbFacadeShared.DataLayer.Models.IDbDataSet
+  fullName: DbFacadeShared.DataLayer.Models.IDbDataSet
+  nameWithType: IDbDataSet
+- uid: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelList*
+  name: ToDbDataModelList
+  href: api/DbFacadeShared.DataLayer.Models.IDbDataSet.html#DbFacadeShared_DataLayer_Models_IDbDataSet_ToDbDataModelList_
+  commentId: Overload:DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelList
+  isSpec: "True"
+  fullName: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelList
+  nameWithType: IDbDataSet.ToDbDataModelList
+- uid: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelList``1
+  name: ToDbDataModelList<TDbDataModel>()
+  href: api/DbFacadeShared.DataLayer.Models.IDbDataSet.html#DbFacadeShared_DataLayer_Models_IDbDataSet_ToDbDataModelList__1
+  commentId: M:DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelList``1
+  name.vb: ToDbDataModelList(Of TDbDataModel)()
+  fullName: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelList<TDbDataModel>()
+  fullName.vb: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelList(Of TDbDataModel)()
+  nameWithType: IDbDataSet.ToDbDataModelList<TDbDataModel>()
+  nameWithType.vb: IDbDataSet.ToDbDataModelList(Of TDbDataModel)()
+- uid: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelListAsync*
+  name: ToDbDataModelListAsync
+  href: api/DbFacadeShared.DataLayer.Models.IDbDataSet.html#DbFacadeShared_DataLayer_Models_IDbDataSet_ToDbDataModelListAsync_
+  commentId: Overload:DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelListAsync
+  isSpec: "True"
+  fullName: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelListAsync
+  nameWithType: IDbDataSet.ToDbDataModelListAsync
+- uid: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelListAsync``1
+  name: ToDbDataModelListAsync<TDbDataModel>()
+  href: api/DbFacadeShared.DataLayer.Models.IDbDataSet.html#DbFacadeShared_DataLayer_Models_IDbDataSet_ToDbDataModelListAsync__1
+  commentId: M:DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelListAsync``1
+  name.vb: ToDbDataModelListAsync(Of TDbDataModel)()
+  fullName: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelListAsync<TDbDataModel>()
+  fullName.vb: DbFacadeShared.DataLayer.Models.IDbDataSet.ToDbDataModelListAsync(Of TDbDataModel)()
+  nameWithType: IDbDataSet.ToDbDataModelListAsync<TDbDataModel>()
+  nameWithType.vb: IDbDataSet.ToDbDataModelListAsync(Of TDbDataModel)()

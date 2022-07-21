@@ -126,7 +126,14 @@ namespace DbFacade.DataLayer.Models
             var model = GenericInstance.GetInstance<TDbDataModel>();
             model.Data = data;
             model.DbCommandSettings = dbCommandSettings;
-            model.Init();
+            try
+            {
+                model.Init();
+            }
+            catch (Exception ex)
+            {
+                model.AddDataBindingError(ex.Message);
+            }
             return model;
         }
         /// <summary>
@@ -140,7 +147,14 @@ namespace DbFacade.DataLayer.Models
             var model = GenericInstance.GetInstance<TDbDataModel>();
             model.Data = Data;
             model.DbCommandSettings = DbCommandSettings;
-            model.Init();
+            try
+            {
+                model.Init();
+            }
+            catch(Exception ex)
+            {
+                model.AddDataBindingError(ex.Message);
+            }
             return model;
         }
         /// <summary>
