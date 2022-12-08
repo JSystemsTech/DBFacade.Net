@@ -4,11 +4,11 @@ using DbFacade.DataLayer.Models;
 using DbFacade.Exceptions;
 using DbFacade.Factories;
 using DbFacade.Utils;
+using DbFacadeShared.DataLayer.ConnectionService.MockDb;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Data.Odbc;
 using System.Data.OleDb;
 using System.Data.SqlClient;
@@ -41,6 +41,18 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <param name="dbCommandSettings">The database command settings.</param>
         /// <returns></returns>
         internal abstract Task<IDbConnection> GetDbConnectionAsync(IDbCommandSettings dbCommandSettings);
+
+        /// <summary>Gets the database data adapter.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        protected abstract IDbDataAdapter GetDbDataAdapter();
+        /// <summary>Creates the database connection.</summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        protected abstract IDbConnection CreateDbConnection(string connectionString);
         /// <summary>
         /// Executes the database action.
         /// </summary>
@@ -48,9 +60,11 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="commandConfig">The command configuration.</param>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        internal abstract IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters)
+        internal abstract IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters, bool rawDataOnly = false)
             where TDbDataModel : DbDataModel;
+
 
         /// <summary>
         /// Executes the database action asynchronous.
@@ -59,9 +73,11 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="commandConfig">The command configuration.</param>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        internal abstract Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters)
+        internal abstract Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters, bool rawDataOnly = false)
             where TDbDataModel : DbDataModel;
+
 
         /// <summary>
         /// Gets or sets the mock data response dictionary.
@@ -94,20 +110,16 @@ namespace DbFacade.DataLayer.ConnectionService
         protected bool UseMockConnection => MockDataResponseDictionary != null;
     }
     /// <summary>
-    /// 
+    ///   <br />
     /// </summary>
     /// <typeparam name="TDbDataReader">The type of the database data reader.</typeparam>
     /// <typeparam name="TDbConnection">The type of the database connection.</typeparam>
     /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
     /// <typeparam name="TDbTransaction">The type of the database transaction.</typeparam>
     /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
+    /// <typeparam name="TDbDataAdapter">The type of the database data adapter.</typeparam>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
-    public abstract class DbConnectionConfig<TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter,TDbConnectionConfig>: DbConnectionConfigBase
-        where TDbDataReader : DbDataReader
-        where TDbConnection : DbConnection
-        where TDbCommand : DbCommand
-        where TDbTransaction : DbTransaction
-        where TDbParameter : DbParameter
+    public abstract class DbConnectionConfig<TDbConnectionConfig> : DbConnectionConfigBase
         where TDbConnectionConfig : DbConnectionConfigBase
 
     {
@@ -124,7 +136,7 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <returns></returns>
         internal override sealed async Task<IDbConnection> GetDbConnectionAsync(IDbCommandSettings dbCommandSettings) => await ResolveDbConnectionAsync(dbCommandSettings);
 
-
+       
         /// <summary>
         /// Executes the database action.
         /// </summary>
@@ -132,19 +144,17 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="commandConfig">The command configuration.</param>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
         /// <exception cref="FacadeException">'{GetType().Name}' does not support command '{commandConfig.DbCommandText.Label}'</exception>
-        internal override sealed IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig,TDbParams parameters)
+        internal override sealed IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig,TDbParams parameters, bool rawDataOnly = false)
         {
             try
             {
                 if (commandConfig.DbConnectionConfig == this)
                 {
                     commandConfig.OnBefore(parameters);
-                    return UseMockConnection ? DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader>
-                      .ExecuteDbAction(commandConfig, parameters) :
-                      DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
-                      .ExecuteDbAction(commandConfig, parameters);
+                    return DbConnectionHandler<TDbDataModel, TDbParams>.ExecuteDbAction(commandConfig, parameters, rawDataOnly, () => UseMockConnection ? new MockDataAdapter(): GetDbDataAdapter());
                 }
                 else
                 {
@@ -173,6 +183,7 @@ namespace DbFacade.DataLayer.ConnectionService
             }
         }
 
+
         /// <summary>
         /// Executes the database action asynchronous.
         /// </summary>
@@ -180,19 +191,17 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="commandConfig">The command configuration.</param>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
         /// <exception cref="FacadeException">'{GetType().Name}' does not support command '{commandConfig.DbCommandText.Label}'</exception>
-        internal override sealed async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters)
+        internal override sealed async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> commandConfig, TDbParams parameters, bool rawDataOnly = false)
         {
             try
             {
                 if (commandConfig.DbConnectionConfig == this)
                 {
                     await commandConfig.OnBeforeAsync(parameters);
-                    return UseMockConnection ? await DbConnectionHandler<MockDbConnection, MockDbCommand, MockDbParameter, MockDbTransaction, DbDataReader>
-                       .ExecuteDbActionAsync(commandConfig, parameters) :
-                       await DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
-                              .ExecuteDbActionAsync(commandConfig, parameters);                    
+                    return await DbConnectionHandler<TDbDataModel, TDbParams>.ExecuteDbActionAsync(commandConfig, parameters, rawDataOnly, () => UseMockConnection ? new MockDataAdapter() : GetDbDataAdapter());                    
                 }
                 else
                 {
@@ -230,24 +239,12 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <returns></returns>
         private IDbConnection ResolveDbConnection(IDbCommandSettings dbCommandSettings)
         {
-            IDbConnection resolvedDbConnection;
             if (UseMockConnection)
             {
                 bool hasValue = MockDataResponseDictionary.TryGetValue(dbCommandSettings.CommandId, out MockResponseData mockResponseData);
-                resolvedDbConnection = new MockDbConnection(hasValue ? mockResponseData : MockResponseData.Create());
+                return new MockDbConnection(hasValue ? mockResponseData : MockResponseData.Create());
             }
-            else
-            {
-                resolvedDbConnection = DbProviderFactories.GetFactory(GetDbConnectionProvider()).CreateConnection() is TDbConnection dbConnection ? dbConnection : default(IDbConnection);
-            }
-
-            if (resolvedDbConnection != default(IDbConnection))
-            {
-                resolvedDbConnection.ConnectionString = GetDbConnectionString();
-                return resolvedDbConnection;
-            }
-
-            return null;
+            return CreateDbConnection(GetDbConnectionString());
         }
         /// <summary>
         /// Resolves the database connection asynchronous.
@@ -265,18 +262,11 @@ namespace DbFacade.DataLayer.ConnectionService
             }
             else
             {
-                resolvedDbConnection = DbProviderFactories.GetFactory(await GetDbConnectionProviderAsync()).CreateConnection() is TDbConnection dbConnection ? dbConnection :
-                default(IDbConnection);
+                resolvedDbConnection = CreateDbConnection(await GetDbConnectionStringAsync());
             }
-
             
-            if (resolvedDbConnection != default(IDbConnection))
-            {
-                resolvedDbConnection.ConnectionString = await GetDbConnectionStringAsync();
-                return resolvedDbConnection;
-            }
             await Task.CompletedTask;
-            return null;
+            return resolvedDbConnection;
         }
 
         /// <summary>
@@ -288,15 +278,7 @@ namespace DbFacade.DataLayer.ConnectionService
         {
             throw new NotImplementedException("You must impliment the method GetDbConnectionString");
         }
-        /// <summary>
-        /// Gets the database connection provider.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException">You must impliment the method GetDbConnectionProvider</exception>
-        protected virtual string GetDbConnectionProvider()
-        {
-            throw new NotImplementedException("You must impliment the method GetDbConnectionProvider");
-        }
+        
         /// <summary>
         /// Gets the database connection string asynchronous.
         /// </summary>
@@ -307,16 +289,7 @@ namespace DbFacade.DataLayer.ConnectionService
             await Task.CompletedTask;
             throw new NotImplementedException("You must impliment the method GetDbConnectionStringAsync");
         }
-        /// <summary>
-        /// Gets the database connection provider asynchronous.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException">You must impliment the method GetDbConnectionProviderAsync</exception>
-        protected virtual async Task<string> GetDbConnectionProviderAsync()
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException("You must impliment the method GetDbConnectionProviderAsync");
-        }
+        
         /// <summary>
         /// Called when [error].
         /// </summary>
@@ -370,7 +343,9 @@ namespace DbFacade.DataLayer.ConnectionService
         protected virtual async Task OnFacadeErrorAsync(FacadeException ex, IDbCommandSettings commandSettings) => await OnErrorAsync(ex, commandSettings);
 
 
-        /// <summary>Creates the fetch command.</summary>
+        /// <summary>
+        /// Creates the fetch command.
+        /// </summary>
         /// <param name="commandText">The command text.</param>
         /// <param name="label">The label.</param>
         /// <param name="requiresValidation">if set to <c>true</c> [requires validation].</param>
@@ -379,7 +354,9 @@ namespace DbFacade.DataLayer.ConnectionService
         /// </returns>
         public static IDbCommandConfig CreateFetchCommand(string commandText, string label, bool requiresValidation = false)
         => DbCommand<TDbConnectionConfig>.Create(commandText, label, CommandType.StoredProcedure, false, requiresValidation);
-        /// <summary>Creates the transaction command.</summary>
+        /// <summary>
+        /// Creates the transaction command.
+        /// </summary>
         /// <param name="commandText">The command text.</param>
         /// <param name="label">The label.</param>
         /// <param name="requiresValidation">if set to <c>true</c> [requires validation].</param>
@@ -388,7 +365,9 @@ namespace DbFacade.DataLayer.ConnectionService
         /// </returns>
         public static IDbCommandConfig CreateTransactionCommand(string commandText, string label, bool requiresValidation = true)
         => DbCommand<TDbConnectionConfig>.Create(commandText, label, CommandType.StoredProcedure, true, requiresValidation);
-        /// <summary>Creates the fetch command.</summary>
+        /// <summary>
+        /// Creates the fetch command.
+        /// </summary>
         /// <param name="commandText">The command text.</param>
         /// <param name="label">The label.</param>
         /// <param name="commandType">Type of the command.</param>
@@ -398,7 +377,9 @@ namespace DbFacade.DataLayer.ConnectionService
         /// </returns>
         public static IDbCommandConfig CreateFetchCommand(string commandText, string label, CommandType commandType, bool requiresValidation = false)
         => DbCommand<TDbConnectionConfig>.Create(commandText, label, commandType, false, requiresValidation);
-        /// <summary>Creates the transaction command.</summary>
+        /// <summary>
+        /// Creates the transaction command.
+        /// </summary>
         /// <param name="commandText">The command text.</param>
         /// <param name="label">The label.</param>
         /// <param name="commandType">Type of the command.</param>
@@ -426,9 +407,20 @@ namespace DbFacade.DataLayer.ConnectionService
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
     public abstract class
-        SqlConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<SqlDataReader, SqlConnection, SqlCommand,
-            SqlTransaction, SqlParameter, TDbConnectionConfig> where TDbConnectionConfig : DbConnectionConfigBase
+        SqlConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<TDbConnectionConfig> where TDbConnectionConfig : DbConnectionConfigBase
     {
+        protected sealed override IDbDataAdapter GetDbDataAdapter() => new SqlDataAdapter();
+        protected sealed override IDbConnection CreateDbConnection(string connectionString)
+            => GetCredential() is SqlCredential credential ?
+            new SqlConnection(connectionString, credential) :
+            new SqlConnection(connectionString);
+        
+
+        /// <summary>Gets the credential.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        protected virtual SqlCredential GetCredential() => null;
     }
 
     /// <summary>
@@ -436,10 +428,11 @@ namespace DbFacade.DataLayer.ConnectionService
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
     public abstract class
-        SqLiteConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<SQLiteDataReader, SQLiteConnection,
-            SQLiteCommand, SQLiteTransaction, SQLiteParameter, TDbConnectionConfig>
+        SqLiteConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<TDbConnectionConfig>
         where TDbConnectionConfig : DbConnectionConfigBase
     {
+        protected sealed override IDbDataAdapter GetDbDataAdapter() => new SQLiteDataAdapter();
+        protected sealed override IDbConnection CreateDbConnection(string connectionString) => new SQLiteConnection(connectionString);
     }
 
     /// <summary>
@@ -447,9 +440,10 @@ namespace DbFacade.DataLayer.ConnectionService
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
     public abstract class
-        OleDbConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<OleDbDataReader, OleDbConnection, OleDbCommand,
-            OleDbTransaction, OleDbParameter, TDbConnectionConfig> where TDbConnectionConfig : DbConnectionConfigBase
+        OleDbConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<TDbConnectionConfig> where TDbConnectionConfig : DbConnectionConfigBase
     {
+        protected sealed override IDbDataAdapter GetDbDataAdapter() => new OleDbDataAdapter();
+        protected sealed override IDbConnection CreateDbConnection(string connectionString) => new OleDbConnection(connectionString);
     }
 
     /// <summary>
@@ -457,9 +451,10 @@ namespace DbFacade.DataLayer.ConnectionService
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
     public abstract class
-        OdbcConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<OdbcDataReader, OdbcConnection, OdbcCommand,
-            OdbcTransaction, OdbcParameter, TDbConnectionConfig> where TDbConnectionConfig : DbConnectionConfigBase
+        OdbcConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<TDbConnectionConfig> where TDbConnectionConfig : DbConnectionConfigBase
     {
+        protected sealed override IDbDataAdapter GetDbDataAdapter() => new OdbcDataAdapter();
+        protected sealed override IDbConnection CreateDbConnection(string connectionString) => new OdbcConnection(connectionString);
     }
 
     /// <summary>
@@ -467,19 +462,20 @@ namespace DbFacade.DataLayer.ConnectionService
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
     public abstract class
-        OracleConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<OracleDataReader, OracleConnection,
-            OracleCommand, OracleTransaction, OracleParameter, TDbConnectionConfig>
+        OracleConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<TDbConnectionConfig>
         where TDbConnectionConfig : DbConnectionConfigBase
     {
-    }
+        protected sealed override IDbDataAdapter GetDbDataAdapter() => new OracleDataAdapter();
+        protected sealed override IDbConnection CreateDbConnection(string connectionString) 
+            => GetCredential() is OracleCredential credential ? 
+            new OracleConnection(connectionString, credential): 
+            new OracleConnection(connectionString);
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
-    public abstract class
-        DefaultConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<DbDataReader, DbConnection, DbCommand,
-            DbTransaction, DbParameter, TDbConnectionConfig> where TDbConnectionConfig : DbConnectionConfigBase
-    {
+
+        /// <summary>Gets the credential.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        protected virtual OracleCredential GetCredential() => null;
     }
 }

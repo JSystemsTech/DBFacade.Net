@@ -77,7 +77,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// </value>
         protected Func<TDbParams, Task>[] OnBeforeAsyncActions { get; set; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbCommandMethod{TDbParams, TDbDataModel}"/> class.
+        /// Initializes a new instance of the <see cref="DbCommandMethod{TDbParams, TDbDataModel}" /> class.
         /// </summary>
         protected DbCommandMethod() { }
 
@@ -124,8 +124,6 @@ namespace DbFacade.DataLayer.CommandConfig
                 OnBeforeActions = onBeforeActions
             };
         }
-
-
 
 
         #region Async Methods
@@ -203,6 +201,16 @@ namespace DbFacade.DataLayer.CommandConfig
         #endregion
 
 
+        /// <summary>
+        /// Called when [before].
+        /// </summary>
+        /// <param name="paramsModel">The parameters model.</param>
+        /// <exception cref="FacadeException">
+        /// Validation required for {(paramsModel is TDbParams pm? pm.GetType().Name: "(null)")} for command '{DbCommandText.Label}'
+        /// or
+        /// An Error occured before calling '{DbCommandText.Label}'
+        /// </exception>
+        /// <exception cref="ValidationException&lt;TDbParams&gt;"></exception>
         public void OnBefore(TDbParams paramsModel)
         {
             if (MissingValidation)
@@ -233,6 +241,16 @@ namespace DbFacade.DataLayer.CommandConfig
             }
         }
 
+        /// <summary>
+        /// Called when [before asynchronous].
+        /// </summary>
+        /// <param name="paramsModel">The parameters model.</param>
+        /// <exception cref="FacadeException">
+        /// Validation required for {(paramsModel is TDbParams pm ? pm.GetType().Name : "(null)")} for command '{DbCommandText.Label}'
+        /// or
+        /// An Error occured before calling '{DbCommandText.Label}'
+        /// </exception>
+        /// <exception cref="ValidationException&lt;TDbParams&gt;"></exception>
         public async Task OnBeforeAsync(TDbParams paramsModel)
         {
             if (MissingValidation)
@@ -275,18 +293,20 @@ namespace DbFacade.DataLayer.CommandConfig
         /// Executes the specified parameters.
         /// </summary>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        public IDbResponse<TDbDataModel> Execute(TDbParams parameters)
-            => DbConnectionConfig.ExecuteDbAction(this, parameters);
+        public IDbResponse<TDbDataModel> Execute(TDbParams parameters, bool rawDataOnly = false)
+            => DbConnectionConfig.ExecuteDbAction(this, parameters, rawDataOnly);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        public async Task<IDbResponse<TDbDataModel>> ExecuteAsync(TDbParams parameters)
-            => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters);
+        public async Task<IDbResponse<TDbDataModel>> ExecuteAsync(TDbParams parameters, bool rawDataOnly = false)
+            => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters, rawDataOnly);
 
-        
+
 
         /// <summary>
         /// Called when [dispose].
@@ -312,7 +332,7 @@ namespace DbFacade.DataLayer.CommandConfig
         where TDbDataModel : DbDataModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParameterlessDbCommandMethod{TDbDataModel}"/> class.
+        /// Initializes a new instance of the <see cref="ParameterlessDbCommandMethod{TDbDataModel}" /> class.
         /// </summary>
         public ParameterlessDbCommandMethod() { }
 
@@ -328,6 +348,7 @@ namespace DbFacade.DataLayer.CommandConfig
             Action<IDbCommandConfigParams<object>> parametersInitializer = null)
             where TDbConnectionConfig : DbConnectionConfigBase
         {
+            DbCommandConfigParams<object> dbParmas = DbCommandConfigParams<object>.Create(parametersInitializer);
             return new ParameterlessDbCommandMethod<TDbDataModel>()
             {
                 DbCommandText = dbCommand,
@@ -352,6 +373,7 @@ namespace DbFacade.DataLayer.CommandConfig
             )
             where TDbConnectionConfig : DbConnectionConfigBase
         {
+            DbCommandConfigParams<object> dbParams = await DbCommandConfigParams<object>.CreateAsync(parametersInitializer);
             ParameterlessDbCommandMethod<TDbDataModel> config = new ParameterlessDbCommandMethod<TDbDataModel>()
             {
                 DbCommandText = dbCommand,
@@ -366,13 +388,15 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Executes this instance.
         /// </summary>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        public IDbResponse<TDbDataModel> Execute() => Execute(null);
+        public IDbResponse<TDbDataModel> Execute(bool rawDataOnly = false) => Execute(null, rawDataOnly);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        public async Task<IDbResponse<TDbDataModel>> ExecuteAsync() => await ExecuteAsync(null);
+        public async Task<IDbResponse<TDbDataModel>> ExecuteAsync(bool rawDataOnly = false) => await ExecuteAsync(null, rawDataOnly);
         
         #endregion
     }
@@ -383,7 +407,7 @@ namespace DbFacade.DataLayer.CommandConfig
     internal class DbCommandMethod<TDbParams> : DbCommandMethod<TDbParams, DbDataModel>, IDbCommandMethod<TDbParams>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbCommandMethod{TDbParams}"/> class.
+        /// Initializes a new instance of the <see cref="DbCommandMethod{TDbParams}" /> class.
         /// </summary>
         public DbCommandMethod() { }
 
@@ -480,14 +504,16 @@ namespace DbFacade.DataLayer.CommandConfig
         /// Executes the specified parameters.
         /// </summary>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        public new IDbResponse Execute(TDbParams parameters) => (IDbResponse)base.Execute(parameters);
+        public new IDbResponse Execute(TDbParams parameters,bool rawDataOnly = false) => (IDbResponse)base.Execute(parameters, rawDataOnly);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        public new async Task<IDbResponse> ExecuteAsync(TDbParams parameters) => (IDbResponse)await base.ExecuteAsync(parameters);
+        public new async Task<IDbResponse> ExecuteAsync(TDbParams parameters, bool rawDataOnly = false) => (IDbResponse)await base.ExecuteAsync(parameters, rawDataOnly);
         
     }
     /// <summary>
@@ -496,7 +522,7 @@ namespace DbFacade.DataLayer.CommandConfig
     internal class DbCommandMethod : DbCommandMethod<object, DbDataModel>, IDbCommandMethod
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbCommandMethod"/> class.
+        /// Initializes a new instance of the <see cref="DbCommandMethod" /> class.
         /// </summary>
         public DbCommandMethod() { }
 
@@ -539,7 +565,9 @@ namespace DbFacade.DataLayer.CommandConfig
         {
             DbCommandConfigParams<object> dbParams = DbCommandConfigParams<object>.Create(parametersInitializer);
             IValidator<object> validator = ValidatorFactory.Create((Action<IValidator<object>>)null);
-            return Create<TDbConnectionConfig>(dbCommand, dbParams, validator);
+            var config = Create<TDbConnectionConfig>(dbCommand, dbParams, validator);
+
+            return config;
         }
 
         #region Async Methods
@@ -568,12 +596,12 @@ namespace DbFacade.DataLayer.CommandConfig
         /// Executes this instance.
         /// </summary>
         /// <returns></returns>
-        public IDbResponse Execute() => (IDbResponse)Execute(null);
+        public IDbResponse Execute() => (IDbResponse)Execute(null,true);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
         /// <returns></returns>
-        public async Task<IDbResponse> ExecuteAsync() => (IDbResponse)await ExecuteAsync(null);
+        public async Task<IDbResponse> ExecuteAsync() => (IDbResponse)await ExecuteAsync(null,true);
         
 
     }

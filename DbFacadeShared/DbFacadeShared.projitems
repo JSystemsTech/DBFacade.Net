@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionHandler_Async.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\IDbConnectionConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDataAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbCommand.cs">
       <SubType>Component</SubType>
     </Compile>

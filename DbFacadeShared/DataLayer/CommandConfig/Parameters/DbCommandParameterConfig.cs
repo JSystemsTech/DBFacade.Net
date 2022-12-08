@@ -50,6 +50,9 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         ///   <c>true</c> if this instance is output; otherwise, <c>false</c>.
         /// </value>
         public bool IsOutput { get; private set; }
+        /// <summary>Gets the type of the output.</summary>
+        /// <value>The type of the output.</value>
+        public Type OutputType { get; private set; }
         /// <summary>
         /// Gets or sets the size of the output.
         /// </summary>
@@ -116,11 +119,12 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         /// <param name="dbType">Type of the database.</param>
         /// <param name="size">The size.</param>
         /// <returns></returns>
-        internal static DbCommandParameterConfig<TDbParams> CreateOutput(DbType dbType, int? size = null)
+        internal static DbCommandParameterConfig<TDbParams> CreateOutput<N>(DbType dbType, int? size = null)
         {
             DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>(dbType, true);
             config.OutputSize = size;
             config.ParameterDirection = ParameterDirection.Output;
+            config.OutputType = typeof(N);
             return config;
         }
         

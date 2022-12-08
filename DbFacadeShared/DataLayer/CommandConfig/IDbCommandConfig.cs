@@ -1,6 +1,6 @@
 ﻿using DbFacade.DataLayer.Models;
-using System;
 using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.CommandConfig
@@ -18,18 +18,18 @@ namespace DbFacade.DataLayer.CommandConfig
         /// Executes the specified parameters.
         /// </summary>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        IDbResponse<TDbDataModel> Execute(TDbParams parameters);
+        IDbResponse<TDbDataModel> Execute(TDbParams parameters, bool rawDataOnly = false);
 
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        Task<IDbResponse<TDbDataModel>> ExecuteAsync(TDbParams parameters);
+        Task<IDbResponse<TDbDataModel>> ExecuteAsync(TDbParams parameters, bool rawDataOnly = false);
 
-
-        
     }
     /// <summary>
     /// 
@@ -41,14 +41,16 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Executes this instance.
         /// </summary>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        IDbResponse<TDbDataModel> Execute();
+        IDbResponse<TDbDataModel> Execute(bool rawDataOnly = false);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        Task<IDbResponse<TDbDataModel>> ExecuteAsync();
-        
+        Task<IDbResponse<TDbDataModel>> ExecuteAsync(bool rawDataOnly = false);
+
     }
     /// <summary>
     /// 
@@ -60,15 +62,17 @@ namespace DbFacade.DataLayer.CommandConfig
         /// Executes the specified parameters.
         /// </summary>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        IDbResponse Execute(TDbParams parameters);
+        IDbResponse Execute(TDbParams parameters,bool rawDataOnly = false);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        Task<IDbResponse> ExecuteAsync(TDbParams parameters);
-       
+        Task<IDbResponse> ExecuteAsync(TDbParams parameters, bool rawDataOnly = false);
+
     }
     /// <summary>
     /// 
@@ -85,7 +89,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// </summary>
         /// <returns></returns>
         Task<IDbResponse> ExecuteAsync();
-        
+
     }
 
     

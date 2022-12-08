@@ -2,7 +2,7 @@
 using DbFacade.DataLayer.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace DbFacadeShared.DataLayer.Models
@@ -10,7 +10,7 @@ namespace DbFacadeShared.DataLayer.Models
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbDataSet: IEnumerable<IDictionary<string, object>>
+    public interface IDbDataSet
     {
         /// <summary>
         /// Converts to dbdatamodellist.
@@ -28,7 +28,7 @@ namespace DbFacadeShared.DataLayer.Models
     /// <summary>
     ///   <br />
     /// </summary>
-    internal class DbDataSet: List<IDictionary<string, object>>, IDbDataSet
+    internal class DbDataSet: IDbDataSet
     {
         /// <summary>
         /// Gets or sets the database command settings.
@@ -39,12 +39,22 @@ namespace DbFacadeShared.DataLayer.Models
         [JsonIgnore]
         private IDbCommandSettings DbCommandSettings { get; set; }
 
-        /// <summary>
-        /// Creates the specified database command settings.
-        /// </summary>
-        /// <param name="dbCommandSettings">The database command settings.</param>
-        /// <returns></returns>
-        internal static DbDataSet Create(IDbCommandSettings dbCommandSettings) => new DbDataSet() { DbCommandSettings = dbCommandSettings };
+        public DataTable DataTable { get; private set; }
+        private static IDbDataSet Create(IDbCommandSettings dbCommandSettings, DataTable dt)
+        {
+            DbDataSet dataSet = new DbDataSet() { DbCommandSettings = dbCommandSettings, DataTable = dt };
+            
+            return dataSet;
+        }
+        public static IEnumerable<IDbDataSet> CreateDataSets(IDbCommandSettings dbCommandSettings, DataSet dataSet)
+        {
+            List<IDbDataSet> dataSets = new List<IDbDataSet>();
+            foreach (DataTable dt in dataSet.Tables)
+            {
+                dataSets.Add(Create(dbCommandSettings, dt)); //Add first set of Data
+            }
+            return dataSets;
+        }
         /// <summary>
         /// Converts to dbdatamodellist.
         /// </summary>
@@ -52,7 +62,15 @@ namespace DbFacadeShared.DataLayer.Models
         /// <returns></returns>
         public IEnumerable<TDbDataModel> ToDbDataModelList<TDbDataModel>()
             where TDbDataModel : DbDataModel
-        => this.Select(dataRow => DbDataModel.ToDbDataModel<TDbDataModel>(DbCommandSettings, dataRow));
+        {
+            List<TDbDataModel> data = new List<TDbDataModel>();
+            foreach (DataRow dataRow in DataTable.Rows)
+            {
+               TDbDataModel model = DbDataModel.ToDbDataModel<TDbDataModel>(DbCommandSettings, dataRow);
+               data.Add(model);
+            }
+            return data;
+        }
 
         /// <summary>
         /// Converts to dbdatamodellistasync.
@@ -63,7 +81,7 @@ namespace DbFacadeShared.DataLayer.Models
             where TDbDataModel : DbDataModel
         {
             List<TDbDataModel> data = new List<TDbDataModel>();
-            foreach(var dataRow in this)
+            foreach (DataRow dataRow in DataTable.Rows)
             {
                 TDbDataModel model = await DbDataModel.ToDbDataModelAsync<TDbDataModel>(DbCommandSettings, dataRow);
                 data.Add(model);

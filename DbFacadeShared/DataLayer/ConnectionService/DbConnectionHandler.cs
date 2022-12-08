@@ -4,95 +4,65 @@ using DbFacade.Exceptions;
 using DbFacade.Extensions;
 using DbFacadeShared.DataLayer.Models;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace DbFacade.DataLayer.ConnectionService
 {
     /// <summary>
-    /// 
+    ///   <br />
     /// </summary>
-    /// <typeparam name="TDbConnection">The type of the database connection.</typeparam>
-    /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
-    /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
-    /// <typeparam name="TDbTransaction">The type of the database transaction.</typeparam>
-    /// <typeparam name="TDbDataReader">The type of the database data reader.</typeparam>
-    internal partial class DbConnectionHandler<TDbConnection, TDbCommand, TDbParameter, TDbTransaction, TDbDataReader>
-        where TDbConnection : DbConnection
-        where TDbCommand : DbCommand
-        where TDbParameter : DbParameter
-        where TDbTransaction : DbTransaction
-        where TDbDataReader : DbDataReader
+    /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
+    /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
+    internal partial class DbConnectionHandler<TDbDataModel, TDbParams>
+        where TDbDataModel : DbDataModel
     {
-        private static IDbDataSet GetNextDataSet(IDbCommandSettings dbCommandSettings, DbDataReader dbDataReader)
-        {
-            DbDataSet dataSet = DbDataSet.Create(dbCommandSettings);
-            if (dbDataReader.HasRows)
-            {                
-                while (dbDataReader.Read())
-                {
-                    ConcurrentDictionary<string, object> dataRow = new ConcurrentDictionary<string, object>();
-                    foreach (int ordinal in Enumerable.Range(0, dbDataReader.FieldCount))
-                    {
-                        dataRow.TryAdd(dbDataReader.GetName(ordinal), dbDataReader.GetValue(ordinal));
-                    }
-                    dataSet.Add(dataRow);
-                }                
-            }
-            return dataSet;
-        }
-        private static IEnumerable<IDbDataSet> GetDataSets(IDbCommandSettings dbCommandSettings, DbDataReader dbDataReader)
-        {
-            List<IDbDataSet> dataSets = new List<IDbDataSet>();
-            dataSets.Add(GetNextDataSet(dbCommandSettings,dbDataReader)); //Add first set of Data
-            while (dbDataReader.NextResult()) //Add remaining sets of Data is they exist
-            {
-                dataSets.Add(GetNextDataSet(dbCommandSettings,dbDataReader)); //Add first set of Data
-            }
-            return dataSets;
-        }
         /// <summary>
         /// Builds the repsonse.
         /// </summary>
-        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <param name="dbCommandSettings">The database command settings.</param>
-        /// <param name="dbDataReader">The database data reader.</param>
+        /// <param name="ds">The ds.</param>
         /// <param name="outputValues">The output values.</param>
-        /// <returns></returns>
-        private static IDbResponse<TDbDataModel> BuildRepsonse<TDbDataModel>(
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        private static IDbResponse<TDbDataModel> BuildRepsonse(
+            bool rawDataOnly,
             IDbCommandSettings dbCommandSettings,
-            DbDataReader dbDataReader = null,
+            DataSet ds = null,
             IDictionary<string, object> outputValues = null)
-            where TDbDataModel : DbDataModel
         {
             var responseObj = DbResponseFactory<TDbDataModel>.Create(dbCommandSettings, default(int), outputValues);
-            if(responseObj is DbResponse<TDbDataModel> _responseObj && dbDataReader != null)
+            if (responseObj is DbResponse<TDbDataModel> _responseObj && ds != null)
             {
-                //ignore setting data when data type is the abstract base class
-                
-                if (typeof(TDbDataModel) != typeof(DbDataModel))
-                {
-                    _responseObj.InitDataSets(GetDataSets(dbCommandSettings,dbDataReader));
-                } 
-                dbDataReader.Close();
+                _responseObj.InitDataSets(DbDataSet.CreateDataSets(dbCommandSettings, ds), ds, rawDataOnly);
             }
             return responseObj;
         }
-        private static IDbResponse<TDbDataModel> ExecuteTransaction<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> config, TDbConnection dbConnection, TDbCommand dbCommand)
-        where TDbDataModel : DbDataModel
+        /// <summary>
+        /// Executes the transaction.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <param name="dbConnection">The database connection.</param>
+        /// <param name="dbCommand">The database command.</param>
+        /// <returns></returns>
+        /// <exception cref="SQLExecutionException">Unable to create transaction object for type {typeof(TDbTransaction).Name}
+        /// or
+        /// or
+        /// Unknown Error</exception>
+        /// <exception cref="FacadeException">Invalid Transaction Definition</exception>
+        private static IDbResponse<TDbDataModel> ExecuteTransaction(DbCommandMethod<TDbParams, TDbDataModel> config, IDbConnection dbConnection, IDbCommand dbCommand)
         {
-            TDbTransaction transaction;
+            IDbTransaction transaction;
             try
             {
-                transaction = dbConnection.BeginTransaction() as TDbTransaction;
+                transaction = dbConnection.BeginTransaction();
             }
             catch (Exception ex)
             {
-                throw new SQLExecutionException($"Unable to create transaction object for type {typeof(TDbTransaction).Name}", config.DbCommandText, ex);
+                throw new SQLExecutionException($"Unable to create transaction", config.DbCommandText, ex);
             }
             using (transaction)
             {
@@ -115,7 +85,8 @@ namespace DbFacade.DataLayer.ConnectionService
                     }
 
                     transaction.Commit();
-                    IDbResponse<TDbDataModel> response = BuildRepsonse<TDbDataModel>(
+                    IDbResponse<TDbDataModel> response = BuildRepsonse(
+                        true,
                         config.DbCommandText,
                         null,
                         dbCommand.GetOutputValues());
@@ -134,24 +105,34 @@ namespace DbFacade.DataLayer.ConnectionService
 
             }
         }
-        private static IDbResponse<TDbDataModel> ExecuteQuery<TDbDataModel, TDbParams>(DbCommandMethod<TDbParams, TDbDataModel> config, TDbConnection dbConnection, TDbCommand dbCommand)
-        where TDbDataModel : DbDataModel
+        /// <summary>
+        /// Executes the query.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
+        /// <param name="createDbDataAdapter">The create database data adapter.</param>
+        /// <returns></returns>
+        /// <exception cref="SQLExecutionException">Unknown Error</exception>
+        private static IDbResponse<TDbDataModel> ExecuteQuery(DbCommandMethod<TDbParams, TDbDataModel> config, IDbCommand dbCommand, bool rawDataOnly, Func<IDbDataAdapter> createDbDataAdapter)
         {
             IDbResponse<TDbDataModel> response;
             try
             {
-                using (var dbDataReader = dbCommand.ExecuteReader() as TDbDataReader)
-                {
-                    response = BuildRepsonse<TDbDataModel>(
-                        config.DbCommandText,
-                        dbDataReader,
-                        dbCommand.GetOutputValues());
-                }
+                DataSet ds = new DataSet($"{config.DbCommandText.Label} Result DataSet");
+                IDbDataAdapter da = createDbDataAdapter();
+                da.SelectCommand = dbCommand;
+                da.Fill(ds);
+
+                response = BuildRepsonse(
+                    rawDataOnly,
+                config.DbCommandText,
+                    ds,
+                    dbCommand.GetOutputValues());
                 if (response is DbResponse<TDbDataModel> resp)
                 {
                     resp.ReturnValue = dbCommand.GetReturnValue();
                 }
-
                 return response;
             }
             catch (SqlException sqlEx)
@@ -160,14 +141,24 @@ namespace DbFacade.DataLayer.ConnectionService
             }
             catch (Exception ex)
             {
+                
                 throw new SQLExecutionException("Unknown Error", config.DbCommandText, ex);
             }
         }
-        public static IDbResponse<TDbDataModel> ExecuteDbAction<TDbDataModel, TDbParams>(
-            DbCommandMethod<TDbParams, TDbDataModel> config, TDbParams parameters)
-            where TDbDataModel : DbDataModel
+        /// <summary>
+        /// Executes the database action.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
+        /// <param name="createDbDataAdapter">The create database data adapter.</param>
+        /// <returns></returns>
+        /// <exception cref="SQLExecutionException">Unable to open Connection</exception>
+        /// <exception cref="FacadeException">Invalid Connection Definition</exception>
+        public static IDbResponse<TDbDataModel> ExecuteDbAction(
+            DbCommandMethod<TDbParams, TDbDataModel> config, TDbParams parameters, bool rawDataOnly, Func<IDbDataAdapter> createDbDataAdapter)
         {
-            using (TDbConnection dbConnection = config.DbConnectionConfig.GetDbConnection(config.DbCommandText) as TDbConnection)
+            using (IDbConnection dbConnection = config.DbConnectionConfig.GetDbConnection(config.DbCommandText))
             {
                 if (dbConnection != null)
                 {
@@ -180,11 +171,11 @@ namespace DbFacade.DataLayer.ConnectionService
                         throw new SQLExecutionException("Unable to open Connection", config.DbCommandText, ex);
                     }
                     using (var dbCommand =
-                        dbConnection.GetDbCommand<TDbConnection, TDbCommand, TDbParameter, TDbParams>(config.DbCommandText, config.DbParams, parameters))
-                    {
+                        dbConnection.GetDbCommand(config.DbCommandText, config.DbParams, parameters))
+                    {                        
                         return config.DbCommandText.IsTransaction ?
                             ExecuteTransaction(config, dbConnection, dbCommand) :
-                            ExecuteQuery(config, dbConnection, dbCommand);                        
+                            ExecuteQuery(config, dbCommand,rawDataOnly, createDbDataAdapter);                        
                     }
                 }
 

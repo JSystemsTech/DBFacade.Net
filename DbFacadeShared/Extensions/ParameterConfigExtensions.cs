@@ -16,22 +16,18 @@ namespace DbFacade.Extensions
         /// <summary>
         /// Adds the parameter.
         /// </summary>
-        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
-        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="config">The configuration.</param>
         /// <param name="model">The model.</param>
-        public static void AddParameter<TDbCommand, TDbParameter, TDbParams>(
-            this TDbCommand dbCommand, 
+        public static void AddParameter<TDbParams>(
+            this IDbCommand dbCommand, 
             KeyValuePair<string, IDbCommandParameterConfig<TDbParams>> config,
             TDbParams model)
-            where TDbCommand : DbCommand
-            where TDbParameter : DbParameter
         {
             if (config.Value is IInternalDbCommandParameterConfig<TDbParams> paramConfig)
             {
-                var parameter = dbCommand.CreateParameter() as TDbParameter;
+                IDbDataParameter parameter = dbCommand.CreateParameter();
                 if (parameter != null)
                 {
                     parameter.Direction = paramConfig.ParameterDirection;
@@ -39,7 +35,10 @@ namespace DbFacade.Extensions
                     parameter.DbType = paramConfig.DbType;
                     if (parameter.Direction != ParameterDirection.ReturnValue)
                     {
-                        parameter.IsNullable = paramConfig.IsNullable;
+                        if(parameter is DbParameter dbParameter)
+                        {
+                            dbParameter.IsNullable = paramConfig.IsNullable;
+                        }                        
                     }
                     if (parameter.Direction == ParameterDirection.Input)
                     {
@@ -57,22 +56,18 @@ namespace DbFacade.Extensions
         /// <summary>
         /// Adds the parameter asynchronous.
         /// </summary>
-        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
-        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="config">The configuration.</param>
         /// <param name="model">The model.</param>
-        public static async Task AddParameterAsync<TDbCommand, TDbParameter, TDbParams>(
-            this TDbCommand dbCommand,
+        public static async Task AddParameterAsync<TDbParams>(
+            this IDbCommand dbCommand,
             KeyValuePair<string, IDbCommandParameterConfig<TDbParams>> config,
-            TDbParams model)            
-            where TDbCommand : DbCommand
-            where TDbParameter : DbParameter
+            TDbParams model)
         {
             if (config.Value is IInternalDbCommandParameterConfig<TDbParams> paramConfig)
             {
-                var parameter = dbCommand.CreateParameter() as TDbParameter;
+                var parameter = dbCommand.CreateParameter();
                 if (parameter != null)
                 {
                     parameter.Direction = paramConfig.ParameterDirection;
@@ -80,7 +75,10 @@ namespace DbFacade.Extensions
                     parameter.DbType = paramConfig.DbType;
                     if (parameter.Direction != ParameterDirection.ReturnValue)
                     {
-                        parameter.IsNullable = paramConfig.IsNullable;
+                        if(parameter is DbParameter dbParameter)
+                        {
+                            dbParameter.IsNullable = paramConfig.IsNullable;
+                        }                        
                     }
                     if (parameter.Direction == ParameterDirection.Input)                    {
                         
@@ -100,44 +98,36 @@ namespace DbFacade.Extensions
         /// <summary>
         /// Adds the parameters.
         /// </summary>
-        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
-        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="dbParams">The database parameters.</param>
         /// <param name="model">The model.</param>
-        public static void AddParams<TDbCommand, TDbParameter, TDbParams>(
-            this TDbCommand dbCommand,
+        public static void AddParams<TDbParams>(
+            this IDbCommand dbCommand,
             IDbCommandConfigParams<TDbParams> dbParams,
             TDbParams model
            )
-            where TDbCommand : DbCommand
-            where TDbParameter : DbParameter
         {
             foreach (var config in dbParams)
             {
-                dbCommand.AddParameter<TDbCommand, TDbParameter, TDbParams>(config, model);
+                dbCommand.AddParameter(config, model);
             }
         }
         /// <summary>
         /// Adds the parameters asynchronous.
         /// </summary>
-        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
-        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="dbParams">The database parameters.</param>
         /// <param name="model">The model.</param>
-        public static async Task AddParamsAsync<TDbCommand, TDbParameter, TDbParams>(
-            this TDbCommand dbCommand,
+        public static async Task AddParamsAsync<TDbParams>(
+            this IDbCommand dbCommand,
             IDbCommandConfigParams<TDbParams> dbParams,
             TDbParams model)
-            where TDbCommand : DbCommand
-            where TDbParameter : DbParameter
         {
             foreach (var config in dbParams)
             {
-                await dbCommand.AddParameterAsync<TDbCommand, TDbParameter, TDbParams>(config, model);
+                await dbCommand.AddParameterAsync(config, model);
             }
         }
 
@@ -148,9 +138,8 @@ namespace DbFacade.Extensions
         /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <returns></returns>
-        public static int GetReturnValue<TDbCommand>(this TDbCommand dbCommand)
-            where TDbCommand : DbCommand
-            => GetReturnValueParam(dbCommand) is DbParameter parameter && parameter.Value is int value ? value : -1;
+        public static int GetReturnValue(this IDbCommand dbCommand)
+            => GetReturnValueParam(dbCommand) is IDbDataParameter parameter && parameter.Value is int value ? value : -1;
 
         /// <summary>
         /// Gets the return value parameter.
@@ -158,9 +147,19 @@ namespace DbFacade.Extensions
         /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <returns></returns>
-        private static DbParameter GetReturnValueParam<TDbCommand>(this TDbCommand dbCommand)
-            where TDbCommand : DbCommand
-        => dbCommand.Parameters.Cast<DbParameter>().Where(entry => entry.Direction == ParameterDirection.ReturnValue).FirstOrDefault();
+        private static IDbDataParameter GetReturnValueParam(this IDbCommand dbCommand)
+        {
+            IDbDataParameter parameter = null;
+            foreach (IDbDataParameter dbParameter in dbCommand.Parameters)
+            {
+                if (dbParameter.Direction == ParameterDirection.ReturnValue)
+                {                    
+                    parameter = dbParameter;
+                    break;
+                }
+            }
+            return parameter;
+        }
 
         /// <summary>
         /// Gets the return value asynchronous.
@@ -168,9 +167,8 @@ namespace DbFacade.Extensions
         /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <returns></returns>
-        public static async Task<int> GetReturnValueAsync<TDbCommand>(this TDbCommand dbCommand)
-            where TDbCommand : DbCommand
-            => await GetReturnValueParamAsync(dbCommand) is DbParameter parameter && parameter.Value is int value ? value : -1;
+        public static async Task<int> GetReturnValueAsync(this IDbCommand dbCommand)
+            => await GetReturnValueParamAsync(dbCommand) is IDbDataParameter parameter && parameter.Value is int value ? value : -1;
 
         /// <summary>
         /// Gets the return value parameter asynchronous.
@@ -178,10 +176,9 @@ namespace DbFacade.Extensions
         /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <returns></returns>
-        private static async Task<DbParameter> GetReturnValueParamAsync<TDbCommand>(this TDbCommand dbCommand)
-            where TDbCommand : DbCommand
+        private static async Task<IDbDataParameter> GetReturnValueParamAsync(this IDbCommand dbCommand)
         {
-            DbParameter parameter = dbCommand.Parameters.Cast<DbParameter>().Where(entry => entry.Direction == ParameterDirection.ReturnValue).FirstOrDefault();
+            IDbDataParameter parameter = dbCommand.GetReturnValueParam();
             await Task.CompletedTask;
             return parameter;
         }
@@ -189,39 +186,43 @@ namespace DbFacade.Extensions
         /// <summary>
         /// Gets the output parameters.
         /// </summary>
-        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <returns></returns>
-        private static IEnumerable<DbParameter> GetOutputParams<TDbCommand>(this TDbCommand dbCommand)
-            where TDbCommand : DbCommand
-        => dbCommand.Parameters.Cast<DbParameter>().Where(entry => entry.Direction == ParameterDirection.Output);
+        private static IEnumerable<IDbDataParameter> GetOutputParams(this IDbCommand dbCommand)
+        {
+            List<IDbDataParameter> list = new List<IDbDataParameter>();
+            foreach(IDbDataParameter parameter in dbCommand.Parameters)
+            {
+                if(parameter.Direction == ParameterDirection.Output)
+                {
+                    list.Add(parameter);
+                }
+            }
+            return list;
+        }
         /// <summary>
         /// Gets the output values.
         /// </summary>
-        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <returns></returns>
-        public static IDictionary<string, object> GetOutputValues<TDbCommand>(this TDbCommand dbCommand)
-            where TDbCommand : DbCommand
+        public static IDictionary<string, object> GetOutputValues(this IDbCommand dbCommand)
         {
             Dictionary<string, object> outputValues = new Dictionary<string, object>();
-            foreach (DbParameter outputParam in GetOutputParams(dbCommand))
+            foreach (IDbDataParameter outputParam in GetOutputParams(dbCommand))
             {
                 string key = outputParam.ParameterName.Replace("@", string.Empty);
-                outputValues.Add(key, dbCommand.Parameters[outputParam.ParameterName].Value);
+                outputValues.Add(key, outputParam.Value);
             }
             return outputValues;
         }
         /// <summary>
         /// Gets the output parameters asynchronous.
         /// </summary>
-        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <returns></returns>
-        private static async Task<IEnumerable<DbParameter>> GetOutputParamsAsync<TDbCommand>(this TDbCommand dbCommand)
-            where TDbCommand : DbCommand
+        private static async Task<IEnumerable<IDbDataParameter>> GetOutputParamsAsync(this IDbCommand dbCommand)
         {
-            IEnumerable<DbParameter> parameters = dbCommand.Parameters.Cast<DbParameter>().Where(entry => entry.Direction == ParameterDirection.Output);
+            IEnumerable<IDbDataParameter> parameters = dbCommand.GetOutputParams();
             await Task.CompletedTask;
             return parameters;
         }
@@ -232,14 +233,13 @@ namespace DbFacade.Extensions
         /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <returns></returns>
-        public static async Task<IDictionary<string, object>> GetOutputValuesAsync<TDbCommand>(this TDbCommand dbCommand)
-            where TDbCommand : DbCommand
+        public static async Task<IDictionary<string, object>> GetOutputValuesAsync(this IDbCommand dbCommand)
         {
             Dictionary<string, object> outputValues = new Dictionary<string, object>();
-            foreach (DbParameter outputParam in await GetOutputParamsAsync(dbCommand))
+            foreach (IDbDataParameter outputParam in await GetOutputParamsAsync(dbCommand))
             {
                 string key = outputParam.ParameterName.Replace("@", string.Empty);
-                outputValues.Add(key, dbCommand.Parameters[outputParam.ParameterName].Value);
+                outputValues.Add(key, outputParam.Value);
             }
             await Task.CompletedTask;
             return outputValues;
@@ -249,27 +249,21 @@ namespace DbFacade.Extensions
         /// <summary>
         /// Gets the database command.
         /// </summary>
-        /// <typeparam name="TDbConnection">The type of the database connection.</typeparam>
-        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
-        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="dbConnection">The database connection.</param>
         /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="dbParams">The database parameters.</param>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        public static TDbCommand GetDbCommand<TDbConnection, TDbCommand, TDbParameter, TDbParams>(
-            this TDbConnection dbConnection,
+        public static IDbCommand GetDbCommand<TDbParams>(
+            this IDbConnection dbConnection,
             DbCommandSettingsBase dbCommandSettings,
             IDbCommandConfigParams<TDbParams> dbParams,
             TDbParams model
             )
-            where TDbConnection : DbConnection
-            where TDbCommand : DbCommand
-            where TDbParameter : DbParameter
         {
-            var dbCommand = dbConnection.CreateCommand() as TDbCommand;
-            dbCommand.AddParams<TDbCommand, TDbParameter, TDbParams>(dbParams, model);
+            var dbCommand = dbConnection.CreateCommand();
+            dbCommand.AddParams(dbParams, model);
             dbCommand.CommandText = dbCommandSettings.CommandText;
             dbCommand.CommandType = dbCommandSettings.CommandType;
             return dbCommand;
@@ -277,27 +271,21 @@ namespace DbFacade.Extensions
         /// <summary>
         /// Gets the database command asynchronous.
         /// </summary>
-        /// <typeparam name="TDbConnection">The type of the database connection.</typeparam>
-        /// <typeparam name="TDbCommand">The type of the database command.</typeparam>
-        /// <typeparam name="TDbParameter">The type of the database parameter.</typeparam>
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="dbConnection">The database connection.</param>
         /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="dbParams">The database parameters.</param>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        public static async Task<TDbCommand> GetDbCommandAsync<TDbConnection, TDbCommand, TDbParameter, TDbParams>(
-            this TDbConnection dbConnection,
+        public static async Task<IDbCommand> GetDbCommandAsync<TDbParams>(
+            this IDbConnection dbConnection,
             DbCommandSettingsBase dbCommandSettings,
             IDbCommandConfigParams<TDbParams> dbParams,
             TDbParams model
             )
-            where TDbConnection : DbConnection
-            where TDbCommand : DbCommand
-            where TDbParameter : DbParameter
         {
-            var dbCommand = dbConnection.CreateCommand() as TDbCommand;
-            await dbCommand.AddParamsAsync<TDbCommand, TDbParameter, TDbParams>(dbParams, model);
+            var dbCommand = dbConnection.CreateCommand();
+            await dbCommand.AddParamsAsync(dbParams, model);
             dbCommand.CommandText = dbCommandSettings.CommandText;
             dbCommand.CommandType = dbCommandSettings.CommandType;
             await Task.CompletedTask;

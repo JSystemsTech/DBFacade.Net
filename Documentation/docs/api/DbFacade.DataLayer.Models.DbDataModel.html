@@ -224,6 +224,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected TDbDataModel CreateNestedModel&lt;TDbDataModel&gt;()
+
     where TDbDataModel : DbDataModel</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -267,6 +268,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected async Task&lt;TDbDataModel&gt; CreateNestedModelAsync&lt;TDbDataModel&gt;()
+
     where TDbDataModel : DbDataModel</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -446,6 +448,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected T GetColumn&lt;T, TParse&gt;(string col, Func&lt;TParse, T&gt; convert, T defaultValue = null)
+
     where TParse : IComparable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -659,6 +662,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected async Task&lt;T&gt; GetColumnAsync&lt;T, TParse&gt;(string col, Func&lt;TParse, T&gt; convert, T defaultValue = null)
+
     where TParse : IComparable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1102,6 +1106,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected bool GetFlagColumn&lt;T&gt;(string col, T trueValue)
+
     where T : IComparable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1168,6 +1173,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected async Task&lt;bool&gt; GetFlagColumnAsync&lt;T&gt;(string col, T trueValue)
+
     where T : IComparable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

@@ -179,7 +179,7 @@ namespace DbFacadeUnitTests.Tests.Facade
             {
                 Assert.AreEqual(1, e.ValidationErrors.Count());
                 Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
-                Assert.AreEqual("is required.", e.ValidationErrors.First().ErrorMessage);
+                Assert.AreEqual("Unspecified Parameter is required.", e.ValidationErrors.First().ErrorMessage);
             }
             else
             {
@@ -397,7 +397,7 @@ namespace DbFacadeUnitTests.Tests.Facade
                 {
                     Assert.AreEqual(1, e.ValidationErrors.Count());
                     Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
-                    Assert.AreEqual("is required.", e.ValidationErrors.First().ErrorMessage);
+                    Assert.AreEqual("Unspecified Parameter is required.", e.ValidationErrors.First().ErrorMessage);
                     await Task.CompletedTask;
                 }
                 else

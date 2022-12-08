@@ -2,6 +2,7 @@
 using DbFacade.Utils;
 using System;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Threading.Tasks;
 
 namespace DbFacade.Factories
@@ -166,7 +167,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputByte(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Byte, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<byte>(DbType.Byte, size);
 
 
         /// <summary>
@@ -175,7 +176,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputSByte(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.SByte, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<sbyte>(DbType.SByte, size);
 
 
         /// <summary>
@@ -184,7 +185,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputInt16(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Int16, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<short>(DbType.Int16, size);
 
 
         /// <summary>
@@ -193,7 +194,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputInt32(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Int32, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<int>(DbType.Int32, size);
 
 
         /// <summary>
@@ -202,7 +203,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputInt64(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Int64, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<long>(DbType.Int64, size);
 
 
         /// <summary>
@@ -211,7 +212,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputUInt16(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.UInt16, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<ushort>(DbType.UInt16, size);
 
 
         /// <summary>
@@ -220,7 +221,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputUInt32(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.UInt32, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<uint>(DbType.UInt32, size);
 
 
         /// <summary>
@@ -229,7 +230,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputUInt64(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.UInt64, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<ulong>(DbType.UInt64, size);
 
 
         /// <summary>
@@ -238,7 +239,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputSingle(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Single, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<float>(DbType.Single, size);
 
 
         /// <summary>
@@ -247,7 +248,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputDouble(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Double, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<double>(DbType.Double, size);
 
 
         /// <summary>
@@ -256,7 +257,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputDecimal(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Decimal, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<decimal>(DbType.Decimal, size);
 
 
         /// <summary>
@@ -265,7 +266,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputBoolean(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Boolean, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<bool>(DbType.Boolean, size);
 
 
         /// <summary>
@@ -274,7 +275,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputGuid(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Guid, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<Guid>(DbType.Guid, size);
 
 
         /// <summary>
@@ -283,7 +284,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputTimeSpan(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Time, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<TimeSpan>(DbType.Time, size);
 
 
         /// <summary>
@@ -292,7 +293,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputDateTime(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.DateTime, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<DateTime>(DbType.DateTime, size);
 
 
         /// <summary>
@@ -301,7 +302,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputDateTime2(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.DateTime2, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<DateTime>(DbType.DateTime2, size);
 
 
         /// <summary>
@@ -310,7 +311,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputDateTimeOffset(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.DateTimeOffset, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<DateTimeOffset>(DbType.DateTimeOffset, size);
 
 
         /// <summary>
@@ -319,7 +320,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputBinary(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Binary, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<byte[]>(DbType.Binary, size);
 
 
         /// <summary>
@@ -328,7 +329,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputChar(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.StringFixedLength, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<char>(DbType.StringFixedLength, size);
 
 
         /// <summary>
@@ -337,7 +338,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputString(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.String, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<string>(DbType.String, size);
 
 
         /// <summary>
@@ -346,7 +347,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputCharArray(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.String, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<char[]> (DbType.String, size);
 
 
         /// <summary>
@@ -355,7 +356,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputAnsiStringFixedLength(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.AnsiStringFixedLength, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<char>(DbType.AnsiStringFixedLength, size);
 
 
         /// <summary>
@@ -364,7 +365,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputAnsiString(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.AnsiString, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<string>(DbType.AnsiString, size);
 
 
         /// <summary>
@@ -373,7 +374,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputXml(int? size = null)
-            => DbCommandParameterConfig<TDbParams>.CreateOutput(DbType.Xml, size);
+            => DbCommandParameterConfig<TDbParams>.CreateOutput<SqlXml>(DbType.Xml, size);
 
 
     }

@@ -314,6 +314,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">IDbCommandMethod&lt;TDbParams, TDbDataModel&gt; CreateMethod&lt;TDbParams, TDbDataModel&gt;(Action&lt;IDbCommandConfigParams&lt;TDbParams&gt;&gt; parametersInitializer = null, Action&lt;IValidator&lt;TDbParams&gt;&gt; validatorInitializer = null)
+
     where TDbDataModel : DbDataModel</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -386,6 +387,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">IDbCommandMethod&lt;TDbParams, TDbDataModel&gt; CreateMethod&lt;TDbParams, TDbDataModel&gt;(Action&lt;IDbCommandConfigParams&lt;TDbParams&gt;&gt; parametersInitializer, Action&lt;IValidator&lt;TDbParams&gt;&gt; validatorInitializer, params Action&lt;TDbParams&gt;[] onBeforeActions)
+
     where TDbDataModel : DbDataModel</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -464,6 +466,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">IParameterlessDbCommandMethod&lt;TDbDataModel&gt; CreateParameterlessMethod&lt;TDbDataModel&gt;(Action&lt;IDbCommandConfigParams&lt;object&gt;&gt; parametersInitializer = null)
+
     where TDbDataModel : DbDataModel</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

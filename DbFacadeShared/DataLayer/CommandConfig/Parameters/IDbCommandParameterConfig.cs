@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.CommandConfig.Parameters
@@ -44,6 +45,9 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         ///   <c>true</c> if this instance is output; otherwise, <c>false</c>.
         /// </value>
         bool IsOutput { get; }
+        /// <summary>Gets the type of the output.</summary>
+        /// <value>The type of the output.</value>
+        Type OutputType { get; }
         /// <summary>
         /// Gets the size of the output.
         /// </summary>

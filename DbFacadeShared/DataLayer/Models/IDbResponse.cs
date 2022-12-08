@@ -2,6 +2,7 @@
 using DbFacadeShared.DataLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
@@ -333,9 +334,13 @@ namespace DbFacade.DataLayer.Models
         /// <summary>Gets the data sets.</summary>
         /// <value>The data sets.</value>
         IEnumerable<IDbDataSet> DataSets { get; }
+        /// <summary>Gets the data set.</summary>
+        /// <value>The data set.</value>
+        DataSet DataSet { get; }
     }
     /// <summary>
     /// 
     /// </summary>
     public interface IDbResponse : IDbResponse<DbDataModel> { }
+
 }

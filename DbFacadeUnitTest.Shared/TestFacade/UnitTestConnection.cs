@@ -12,17 +12,9 @@ namespace DbFacadeUnitTests.TestFacade
         public UnitTestConnection(Action<Exception> errorHandler) { ErrorHandler = errorHandler;  }
         protected override string GetDbConnectionString() => "MyUnitTestConnectionString";
 
-        protected override string GetDbConnectionProvider() => "MyUnitTestConnectionProvider";
-
         protected override async Task<string> GetDbConnectionStringAsync() {
             await Task.CompletedTask;
             return "MyUnitTestConnectionString";
-        }
-
-        protected override async Task<string> GetDbConnectionProviderAsync()
-        {
-            await Task.CompletedTask;
-            return "MyUnitTestConnectionProvider";
         }
 
         protected override void OnError(Exception ex, IDbCommandSettings dbCommandSettings)
@@ -46,18 +38,10 @@ namespace DbFacadeUnitTests.TestFacade
         public UnitTestUnregisteredConnection(int test) { }
         protected override string GetDbConnectionString() => "MyUnitTestConnectionString";
 
-        protected override string GetDbConnectionProvider() => "MyUnitTestConnectionProvider";
-
         protected override async Task<string> GetDbConnectionStringAsync()
         {
             await Task.CompletedTask;
             return "MyUnitTestConnectionString";
-        }
-
-        protected override async Task<string> GetDbConnectionProviderAsync()
-        {
-            await Task.CompletedTask;
-            return "MyUnitTestConnectionProvider";
         }
 
         public static IDbCommandConfig TestCommand = Dbo.CreateTransactionCommand("TestCommand", "Test Command", false);

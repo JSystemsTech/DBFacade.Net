@@ -4,6 +4,7 @@ using DbFacadeShared.Extensions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Threading.Tasks;
 namespace DbFacade.DataLayer.Models
@@ -43,7 +44,17 @@ namespace DbFacade.DataLayer.Models
         /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data)
+        internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel>(IDbCommandSettings dbCommandSettings, DataRow data)
+            where TDbDataModel : DbDataModel
+        => await ToDbDataModelAsync<TDbDataModel>(dbCommandSettings, data.ToDictionary());
+        /// <summary>Converts to dbdatamodelasync.</summary>
+        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
+        /// <param name="dbCommandSettings">The database command settings.</param>
+        /// <param name="data">The data.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string,object> data)
             where TDbDataModel : DbDataModel
         {
             var model = await GenericInstance.GetInstanceAsync<TDbDataModel>();

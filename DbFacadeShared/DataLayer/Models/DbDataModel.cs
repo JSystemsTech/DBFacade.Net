@@ -94,7 +94,7 @@ namespace DbFacade.DataLayer.Models
         /// The data.
         /// </value>
         [JsonIgnore]
-        internal IDictionary<string, object> Data { get; set; }
+        internal IDictionary<string,object> Data { get; set; }
 
         /// <summary>
         /// Gets or sets the database command settings.
@@ -120,8 +120,18 @@ namespace DbFacade.DataLayer.Models
         /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        internal static TDbDataModel ToDbDataModel<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data)
-            where TDbDataModel : DbDataModel 
+        internal static TDbDataModel ToDbDataModel<TDbDataModel>(IDbCommandSettings dbCommandSettings, DataRow data)
+            where TDbDataModel : DbDataModel
+        => ToDbDataModel<TDbDataModel>(dbCommandSettings, data.ToDictionary());
+        /// <summary>Converts to dbdatamodel.</summary>
+        /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
+        /// <param name="dbCommandSettings">The database command settings.</param>
+        /// <param name="data">The data.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        internal static TDbDataModel ToDbDataModel<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string,object> data)
+            where TDbDataModel : DbDataModel
         {
             var model = GenericInstance.GetInstance<TDbDataModel>();
             model.Data = data;

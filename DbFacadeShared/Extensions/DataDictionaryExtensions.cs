@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
@@ -180,6 +181,16 @@ namespace DbFacadeShared.Extensions
             {
                 return defaultValue;
             }
+        }
+        public static IDictionary<string, object> ToDictionary(this DataRow dataRow)
+        {
+            ConcurrentDictionary<string, object> result = new ConcurrentDictionary<string, object>();
+            foreach (DataColumn column in dataRow.Table.Columns)
+            {
+                var value = dataRow[column.ColumnName] == DBNull.Value ? null : dataRow[column.ColumnName];
+                result.TryAdd(column.ColumnName, value);
+            }
+            return result;
         }
         /// <summary>
         /// Gets the name.
