@@ -132,6 +132,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void DisableMockMode&lt;TDbConnectionConfig&gt;()
+
     where TDbConnectionConfig : DbConnectionConfigBase</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -160,6 +161,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void EnableMockMode&lt;TDbConnectionConfig&gt;(IDictionary&lt;Guid, MockResponseData&gt; mockDataResponseDictionary)
+
     where TDbConnectionConfig : DbConnectionConfigBase</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -206,6 +208,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void Register&lt;TDbConnectionConfig&gt;(this TDbConnectionConfig config)
+
     where TDbConnectionConfig : DbConnectionConfigBase</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -252,6 +255,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static async Task RegisterAsync&lt;TDbConnectionConfig&gt;(this TDbConnectionConfig config)
+
     where TDbConnectionConfig : DbConnectionConfigBase</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

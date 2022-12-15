@@ -107,43 +107,17 @@
     ...
 }
 </code></pre><h2 id="custom-connection-type">Custom Connection Type</h2>
-<p>If you are trying to connect to a database type that is not listed above you define your own connection type.</p>
+<p>If you are trying to connect to a database type that is not listed above you may define your own connection type.</p>
 <h3 id="create-base-abstract-class">Create Base abstract class</h3>
-<pre><code class="lang-csharp">public abstract class CustomConnectionConfig&lt;TDbConnectionConfig&gt; : 
-DbConnectionConfig&lt;CustomDataReader, CustomConnection, CustomCommand, CustomTransaction, CustomParameter, TDbConnectionConfig&gt;
-where TDbConnectionConfig : DbConnectionConfigBase {}
-</code></pre><p>Note to extend DbConnectionConfig, the declared generic types must impliment ADO.NET classes as follows</p>
-<table>
-<thead>
-<tr>
-<th>Generic Type</th>
-<th>Must extend ADO.NET class</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CustomDataReader</td>
-<td>DbDataReader</td>
-</tr>
-<tr>
-<td>CustomConnection</td>
-<td>DbConnection</td>
-</tr>
-<tr>
-<td>CustomCommand</td>
-<td>DbCommand</td>
-</tr>
-<tr>
-<td>CustomTransaction</td>
-<td>DbTransaction</td>
-</tr>
-<tr>
-<td>CustomParameter</td>
-<td>DbParameter</td>
-</tr>
-</tbody>
-</table>
-<h3 id="create-the-connection-class">Create the Connection class</h3>
+<pre><code class="lang-csharp">public abstract class CustomConnectionConfig&lt;TDbConnectionConfig&gt; : DbConnectionConfig
+where TDbConnectionConfig : DbConnectionConfigBase 
+{
+    protected sealed override IDbDataAdapter GetDbDataAdapter() =&gt; new CustomDataAdapter();
+
+    protected sealed override IDbConnection CreateDbConnection(string connectionString) =&gt; new CustomDbConnection(connectionString);
+
+}
+</code></pre><h3 id="create-the-connection-class">Create the Connection class</h3>
 <pre><code class="lang-csharp">internal class MyProjectCustomConnection : CustomConnectionConfig&lt;MyProjectCustomConnection&gt;
 {
     ...
@@ -155,6 +129,9 @@ where TDbConnectionConfig : DbConnectionConfigBase {}
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Documentation/Advanced/Connection/Types.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

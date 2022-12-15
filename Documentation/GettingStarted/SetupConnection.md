@@ -16,16 +16,13 @@ Create a `MyProjectSQLConnection.cs` class file in `MyProjectDirectory/DomainLay
     internal class MyProjectSQLConnection : SqlConnectionConfig<MyProjectSQLConnection>
     {
         private string ConnectionString { get; set; }
-        private string ProviderName { get; set; }
 
-        private MyProjectSQLConnection(string connectionString, string providerName) 
+        private MyProjectSQLConnection(string connectionString) 
         { 
             ConnectionString = connectionString;
-            ProviderName = providerName;
         }        
         
         protected override string GetDbConnectionString() => ConnectionString;
-        protected override string GetDbConnectionProvider() => ProviderName;
 
         protected override async Task<string> GetDbConnectionStringAsync()
         {
@@ -33,14 +30,8 @@ Create a `MyProjectSQLConnection.cs` class file in `MyProjectDirectory/DomainLay
             return ConnectionString;
         }
 
-        protected override async Task<string> GetDbConnectionProviderAsync()
-        {
-            await Task.CompletedTask;
-            return ProviderName;
-        }
-
-        public static void RegisterConnection(string connectionString, string providerName) 
-        => new MyProjectSQLConnection(connectionString, providerName).Register();
+        public static void RegisterConnection(string connectionString) 
+        => new MyProjectSQLConnection(connectionString).Register();
     }
 ```
 
@@ -56,16 +47,13 @@ Add a SQL stored procedure command definition to class `MyProjectSQLConnection` 
     internal class MyProjectSQLConnection : SqlConnectionConfig<MyProjectSQLConnection>
     {
         private string ConnectionString { get; set; }
-        private string ProviderName { get; set; }
 
-        private MyProjectSQLConnection(string connectionString, string providerName) 
+        private MyProjectSQLConnection(string connectionString) 
         { 
             ConnectionString = connectionString;
-            ProviderName = providerName;
         }        
         
         protected override string GetDbConnectionString() => ConnectionString;
-        protected override string GetDbConnectionProvider() => ProviderName;
 
         protected override async Task<string> GetDbConnectionStringAsync()
         {
@@ -73,14 +61,68 @@ Add a SQL stored procedure command definition to class `MyProjectSQLConnection` 
             return ConnectionString;
         }
 
-        protected override async Task<string> GetDbConnectionProviderAsync()
+        public static void RegisterConnection(string connectionString) 
+        => new MyProjectSQLConnection(connectionString).Register();
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
+    }
+```
+
+## Speciallized Setup for Connection types that support for a credential object 
+'OracleConnectionConfig' and 'SqlConnectionConfig' types support an aditional optional credendial object  
+
+Add a SQL stored procedure command definition to class `MyProjectSQLConnection` as a static property as follows
+```csharp
+    internal class MyProjectSQLConnection : SqlConnectionConfig<MyProjectSQLConnection>
+    {
+        private string ConnectionString { get; set; }        
+        private SqlCredential Credential { get; set; }
+
+        private MyProjectSQLConnection(string connectionString, SqlCredential credential) 
+        { 
+            ConnectionString = connectionString;
+            Credential = credential;
+        }    
+        
+        protected override SqlCredential GetCredential() => credential;
+        
+        protected override string GetDbConnectionString() => ConnectionString;
+
+        protected override async Task<string> GetDbConnectionStringAsync()
         {
             await Task.CompletedTask;
-            return ProviderName;
+            return ConnectionString;
         }
 
-        public static void RegisterConnection(string connectionString, string providerName) 
-        => new MyProjectSQLConnection(connectionString, providerName).Register();
+        public static void RegisterConnection(string connectionString, SqlCredential credential) 
+        => new MyProjectSQLConnection(connectionString, credential).Register();
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
+    }
+
+    internal class MyProjectOracleConnection : OracleConnectionConfig<MyProjectOracleConnection>
+    {
+        private string ConnectionString { get; set; }
+        private OracleCredential Credential { get; set; }
+
+        private MyProjectSQLConnection(string connectionString, OracleCredential credential) 
+        { 
+            ConnectionString = connectionString;
+            Credential = credential;
+        }    
+        
+        protected override OracleCredential GetCredential() => Credential;
+        
+        protected override string GetDbConnectionString() => ConnectionString;
+
+        protected override async Task<string> GetDbConnectionStringAsync()
+        {
+            await Task.CompletedTask;
+            return ConnectionString;
+        }
+
+        public static void RegisterConnection(string connectionString, OracleCredential credential) 
+        => new MyProjectSQLConnection(connectionString, credential).Register();
 
         public static IDbCommandConfig GetSampleData = CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
     }

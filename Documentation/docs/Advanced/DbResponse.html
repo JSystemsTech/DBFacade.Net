@@ -114,7 +114,14 @@ IEnumerable&lt;MyDataModel&gt; data = MyDbResonse.DataSets.ElementAt(index).ToDb
 </code></pre><p>or with <code>async</code></p>
 <pre><code class="lang-csharp">int index = 1; //index 0 is always the first data set and is already a part of the response;
 IEnumerable&lt;MyDataModel&gt; data = await MyDbResonse.DataSets.ElementAt(index).ToDbDataModelListAsync&lt;MyDataModel&gt;();
-</code></pre><h2 id="error">Error</h2>
+</code></pre><h2 id="raw-dataset-object">Raw DataSet Object</h2>
+<p>If you have a need for accessing the raw C# &#39;DataTable&#39; type objects you can access them in the following way:</p>
+<pre><code class="lang-csharp">int index = 1; //index 0 is always the first data set and is already a part of the response;
+IEnumerable&lt;MyDataModel&gt; data = MyDbResonse.DataSets.ElementAt(index).ToDbDataModelList&lt;MyDataModel&gt;();
+</code></pre><p>Note that this is the raw data response from the database call. You do not have access to any of the specialized column parser extensions that the &#39;DbDataModel&#39; type class provides.</p>
+<p>This is especially useful if you are importing data into another service.
+Ex. the Aspose libraries make use of a DataTable to construct a MS Office table object.</p>
+<h2 id="error">Error</h2>
 <p>If the method execution call fires an exception the error is captured and set in the <code>Error</code> property and the <code>HasError</code> property  is set to <code>true</code>.</p>
 <h2 id="error-message">Error Message</h2>
 <p>If the method execution call fires an exception the error is captured and the <code>ErrorMessage</code> property is set to the value of the <code>Message</code> property of the error</p>

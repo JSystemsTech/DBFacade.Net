@@ -43,22 +43,19 @@ internal class MyProjectOracleConnection : OracleConnectionConfig<MyProjectOracl
 }
 ```
 ## Custom Connection Type
-If you are trying to connect to a database type that is not listed above you define your own connection type.
+If you are trying to connect to a database type that is not listed above you may define your own connection type.
 
 ### Create Base abstract class
 ```csharp
-public abstract class CustomConnectionConfig<TDbConnectionConfig> : 
-DbConnectionConfig<CustomDataReader, CustomConnection, CustomCommand, CustomTransaction, CustomParameter, TDbConnectionConfig>
-where TDbConnectionConfig : DbConnectionConfigBase {}
+public abstract class CustomConnectionConfig<TDbConnectionConfig> : DbConnectionConfig
+where TDbConnectionConfig : DbConnectionConfigBase 
+{
+    protected sealed override IDbDataAdapter GetDbDataAdapter() => new CustomDataAdapter();
+    
+    protected sealed override IDbConnection CreateDbConnection(string connectionString) => new CustomDbConnection(connectionString);
+
+}
 ```
-Note to extend DbConnectionConfig, the declared generic types must impliment ADO.NET classes as follows
-| Generic Type      | Must extend ADO.NET class |
-| ----------- | ----------- |
-| CustomDataReader      | DbDataReader       |
-| CustomConnection   | DbConnection        |
-| CustomCommand   | DbCommand        |
-| CustomTransaction   | DbTransaction        |
-| CustomParameter   | DbParameter        |
 
 ### Create the Connection class
 ```csharp

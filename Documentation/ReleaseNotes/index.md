@@ -1,5 +1,16 @@
 ﻿# Release Notes
 
+## 1.11.0
+### Features Added
+- Added Access to raw C# 'DataSet' object
+- Added support for defining a credential object for DbConnection types that support it
+
+### Features Depreciated/Removed
+- Depreciated GetDbConnectionProvider and GetDbConnectionProviderAsync methods from TDbConnectionConfig classes. Replaced with CreateDbConnection method which in most use cases will already be built in.
+
+### Issues Resolved
+- Resolved issiue with output parameter values being set to null when actual values exist
+
 ## 1.10.0
 ### Features Added
 - Added Ability to define Db Schema command builder factories

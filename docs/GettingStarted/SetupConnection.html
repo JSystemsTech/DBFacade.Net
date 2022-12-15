@@ -90,16 +90,13 @@
 <pre><code class="lang-csharp">    internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
     {
         private string ConnectionString { get; set; }
-        private string ProviderName { get; set; }
 
-        private MyProjectSQLConnection(string connectionString, string providerName) 
+        private MyProjectSQLConnection(string connectionString) 
         { 
             ConnectionString = connectionString;
-            ProviderName = providerName;
         }        
 
         protected override string GetDbConnectionString() =&gt; ConnectionString;
-        protected override string GetDbConnectionProvider() =&gt; ProviderName;
 
         protected override async Task&lt;string&gt; GetDbConnectionStringAsync()
         {
@@ -107,14 +104,8 @@
             return ConnectionString;
         }
 
-        protected override async Task&lt;string&gt; GetDbConnectionProviderAsync()
-        {
-            await Task.CompletedTask;
-            return ProviderName;
-        }
-
-        public static void RegisterConnection(string connectionString, string providerName) 
-        =&gt; new MyProjectSQLConnection(connectionString, providerName).Register();
+        public static void RegisterConnection(string connectionString) 
+        =&gt; new MyProjectSQLConnection(connectionString).Register();
     }
 </code></pre><h2 id="add-command-configurations">Add Command Configurations</h2>
 <p>Add a SQL stored procedure command definition to class <code>MyProjectSQLConnection</code> as a static property as follows</p>
@@ -123,16 +114,13 @@
 <pre><code class="lang-csharp">    internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
     {
         private string ConnectionString { get; set; }
-        private string ProviderName { get; set; }
 
-        private MyProjectSQLConnection(string connectionString, string providerName) 
+        private MyProjectSQLConnection(string connectionString) 
         { 
             ConnectionString = connectionString;
-            ProviderName = providerName;
         }        
 
         protected override string GetDbConnectionString() =&gt; ConnectionString;
-        protected override string GetDbConnectionProvider() =&gt; ProviderName;
 
         protected override async Task&lt;string&gt; GetDbConnectionStringAsync()
         {
@@ -140,14 +128,64 @@
             return ConnectionString;
         }
 
-        protected override async Task&lt;string&gt; GetDbConnectionProviderAsync()
+        public static void RegisterConnection(string connectionString) 
+        =&gt; new MyProjectSQLConnection(connectionString).Register();
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand(&quot;[dbo].[SampleData_Get]&quot;, &quot;Get Sample Data&quot;);
+    }
+</code></pre><h2 id="speciallized-setup-for-connection-types-that-support-for-a-credential-object">Speciallized Setup for Connection types that support for a credential object</h2>
+<p>&#39;OracleConnectionConfig&#39; and &#39;SqlConnectionConfig&#39; types support an aditional optional credendial object  </p>
+<p>Add a SQL stored procedure command definition to class <code>MyProjectSQLConnection</code> as a static property as follows</p>
+<pre><code class="lang-csharp">    internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
+    {
+        private string ConnectionString { get; set; }        
+        private SqlCredential Credential { get; set; }
+
+        private MyProjectSQLConnection(string connectionString, SqlCredential credential) 
+        { 
+            ConnectionString = connectionString;
+            Credential = credential;
+        }    
+
+        protected override SqlCredential GetCredential() =&gt; credential;
+
+        protected override string GetDbConnectionString() =&gt; ConnectionString;
+
+        protected override async Task&lt;string&gt; GetDbConnectionStringAsync()
         {
             await Task.CompletedTask;
-            return ProviderName;
+            return ConnectionString;
         }
 
-        public static void RegisterConnection(string connectionString, string providerName) 
-        =&gt; new MyProjectSQLConnection(connectionString, providerName).Register();
+        public static void RegisterConnection(string connectionString, SqlCredential credential) 
+        =&gt; new MyProjectSQLConnection(connectionString, credential).Register();
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand(&quot;[dbo].[SampleData_Get]&quot;, &quot;Get Sample Data&quot;);
+    }
+
+    internal class MyProjectOracleConnection : OracleConnectionConfig&lt;MyProjectOracleConnection&gt;
+    {
+        private string ConnectionString { get; set; }
+        private OracleCredential Credential { get; set; }
+
+        private MyProjectSQLConnection(string connectionString, OracleCredential credential) 
+        { 
+            ConnectionString = connectionString;
+            Credential = credential;
+        }    
+
+        protected override OracleCredential GetCredential() =&gt; Credential;
+
+        protected override string GetDbConnectionString() =&gt; ConnectionString;
+
+        protected override async Task&lt;string&gt; GetDbConnectionStringAsync()
+        {
+            await Task.CompletedTask;
+            return ConnectionString;
+        }
+
+        public static void RegisterConnection(string connectionString, OracleCredential credential) 
+        =&gt; new MyProjectSQLConnection(connectionString, credential).Register();
 
         public static IDbCommandConfig GetSampleData = CreateFetchCommand(&quot;[dbo].[SampleData_Get]&quot;, &quot;Get Sample Data&quot;);
     }
@@ -158,6 +196,9 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Documentation/GettingStarted/SetupConnection.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

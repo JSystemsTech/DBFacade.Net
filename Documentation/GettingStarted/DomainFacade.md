@@ -34,10 +34,9 @@ internal class DomainFacade: IDomainFacade
 {
     public DomainFacade(){
         string connectionString = "MyConnectionString"; // Get this value from a configuration source in real code;
-        string providerName = "MyProviderName"; // Get this value from a configuration source in real code;
 
         // MyProjectSQLConnection must be registered before any calls can be made
-        MyProjectSQLConnection.RegisterConnection(string connectionString, string providerName);
+        MyProjectSQLConnection.RegisterConnection(string connectionString);
     }
 
     public IDbResponse<SampleDataModel> GetSampleData(GetSampleDataParameters parameters)
@@ -77,15 +76,14 @@ Since your project code will likely call the DomainFacade object many times cons
 In Core projects this can be done with dependancy injection.
 
 ## Core Specific Notes
-When using the Core version of this library you may need to include some extra code in `Startup.cs` to configure the provider types.
-Please consult the official .NET Core doumentation about registering client factories and adding Connection strings for the latest information.
+When using the Core version of this library you may need to include some extra code in `Startup.cs` to configure the connection strings.
+Please consult the official .NET Core doumentation about adding Connection strings for the latest information.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     ...
         
-    DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
     services.AddConnectionStrings(connectionStrings =>
     {
         connectionStrings.MySQLConnectionString = connectionStrings.GetSqlConnection(

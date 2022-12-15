@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Connection/ErrorHandling.html",
-          "hash": "7wUElTvvxnRA8hqDh1FrrhinWXhOMmwYebDforkE2i8="
+          "hash": "AbkXFGybiTq9uDumnTFOdnJbup+jxh3csnllGLoDvn8="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Connection/IDbCommandConfig.html",
-          "hash": "Z+bqkYX1SpcfKPEch3s5ozwZ7dncNFHvJ/kmw911h8E="
+          "hash": "wp5JWbDfqYtPoz6SKFQWUlUUIWDDwHU6nf7XPoOjsk4="
         }
       },
       "is_incremental": false,
@@ -42,7 +42,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Connection/Types.html",
-          "hash": "OWqx/kKmrBoVelqueimRNmkzxMomf9biSEDMKB6JUtE="
+          "hash": "2sjYAx/zLWBtMbjuhoU8QYwmNY9BJKhvn2aTT9ALk8M="
         }
       },
       "is_incremental": false,
@@ -54,7 +54,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/DbDataModel/GettingColumnValues.html",
-          "hash": "Lj2SC/tQZkdILJafUFPN22goagGrnBgR3THSluQFcMw="
+          "hash": "sUExO2AosYqPRrhDUgX9Ug7SWDt+oqEFXBK9ntkJNMU="
         }
       },
       "is_incremental": false,
@@ -66,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/DbDataModel/NestedModels.html",
-          "hash": "Q8WSTLhQhAB6xzREkb/JeyjZGnHOJ0K1RfDWcMh9zQo="
+          "hash": "F47pnDsdm8InAEAroVav2yVovggwILt+/XFxD5NVsck="
         }
       },
       "is_incremental": false,
@@ -78,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/DbResponse.html",
-          "hash": "SQSWf11Xj+unTQPRyGWyP/nFuWszZch8NNPVahTXIBI="
+          "hash": "oIThTK3dnEi2QTDCUXQJK/iJVY+QgfPhjdnzIZxPtCU="
         }
       },
       "is_incremental": false,
@@ -90,7 +90,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Methods/Parameters.html",
-          "hash": "2D1310p8Zvs5iU9FQvj3hSNAzvliSxxP4H8W3PT9oos="
+          "hash": "SuXPw1IODwr30DRXvWqx3bQnYgpQOQfouSjYAYQmfRQ="
         }
       },
       "is_incremental": false,
@@ -102,7 +102,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Methods/Types.html",
-          "hash": "y+d+tuti/LxHIN6Xf8S2G+DPWzT7jEi559P2CKHXSmE="
+          "hash": "GclI/9iEvlnAvUwoFhowOd+yv5/nSqNeNb4ddWuO65g="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/Methods/Validation.html",
-          "hash": "vMyVg9rMVJGBaRoqBMmUIvejhJhiCZV/c5LZH5ZKR8s="
+          "hash": "ypmROHnhzqc1NDcyywJuC8G2IFgt5F8VBSu2h8D0fGU="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/UnitTesting.html",
-          "hash": "afNGzc43gIB8nv6oPqXUH2UsUlpbttQ76NjmbOYWI64="
+          "hash": "H+XS5JNywWbD3JYt+Cubpmq5bXP9lOOOA7S/zuq9uTg="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "Advanced/index.html",
-          "hash": "5SrHRMq/iCs1QAi+ITZY//4ch1nRc+WiZql7KGCd4Rc="
+          "hash": "xoRrWPScfOxN+kJCID7F4XiiUUD5aaKTUKNQ8ujst9A="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/DeclareMethods.html",
-          "hash": "88OuPm2ufASlEXyshMjT9Bhc5UQ2l1+vSBzjb96B3K0="
+          "hash": "I4YZhgTQj4XBtDxS8I8p/K15DALjnNwdPZoFPZhmRdg="
         }
       },
       "is_incremental": false,
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/DefineModels.html",
-          "hash": "SSlPCVUnIoJIRuU5itz+bKo5EjWha40feyeaBj3WLyQ="
+          "hash": "X/A46wRqF8TQqnxd+ttsehjpmdnhxVUnyT+Iv0tZDR0="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/DomainFacade.html",
-          "hash": "spsWFCFYyq2IQ3en3ezWmgXiDzAgYrifTylDYh2hlzU="
+          "hash": "X6fRx/J+naAzAuxDzIAU+UJjkmxwX9YtF+G5/c5sb5M="
         }
       },
       "is_incremental": false,
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/SetupConnection.html",
-          "hash": "5CcXzcEBFzkCfMCNu4QTnCkoRHN8FRlT9cDzTjilJ1w="
+          "hash": "BM80Xjgoye07rTL1g8QIdODHA3jL4E59WyHW9mJNgPw="
         }
       },
       "is_incremental": false,
@@ -213,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/index.html",
-          "hash": "Oq+rCE8bG3i7mH9iaJbCuPhVZwPgfgJg5xDW0/KVwhs="
+          "hash": "XLMBrGZ+/jwhMD0hJTyky+m8agSbeV0xDLKd3Z9FGO4="
         }
       },
       "is_incremental": false,
@@ -237,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "ReleaseNotes/index.html",
-          "hash": "2X9br6xzq8aPITNDqVEp/0Q74BRvSyDUGE4FUph/0ZI="
+          "hash": "YtrE4u/N385he9JZRpE2JZ3SulZv8tchgcctu2QZ3Mg="
         }
       },
       "is_incremental": false,
@@ -261,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "xeyEou+ckRQK+jFaQadpLQfpWmsdNsRsCDf6PbxgIyk="
+          "hash": "Oz3yqvaKby4qE2qTmH2VilFuon9bmL4pEptdg/S3K6M="
         }
       },
       "is_incremental": false,
@@ -273,7 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/GettingStarted.html",
-          "hash": "Qv8+hprpXjF3OmVkAQlm8wiHfjHN49PsAdMHElmkfcI="
+          "hash": "vkJtVSncUP6pbS+nISo66m2GC5An9Q6njXwm0SMmKas="
         }
       },
       "is_incremental": false,
@@ -285,7 +285,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "NTLiMR4cTc9DVtWMGEUo7qIo2Mr9D/Zg1KimSwEiBlM="
+          "hash": "Mtc59ra2TFFeuYT4Jvbgvfi9OJDFA+Css5MA4tLZnvA="
         }
       },
       "is_incremental": false,
@@ -320,7 +320,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "TLKXiexBngwjhsNVGWxmRKdCKOZXSitcVoVT06vaWyg="
+          "hash": "Wk3O43w6eq9hqXwvBb6uf6YlISEn0VhzUrd0gOd/uGc="
         }
       },
       "is_incremental": false,
@@ -344,7 +344,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html",
-          "hash": "DMHczfXgl0sJo16TVLPIJDU/vHdxGzqaQEyNWopBaJw="
+          "hash": "Bk+IKTlZ5fAEGtki5ECQnci97ZQAl5DALjxwx6MLCfw="
         }
       },
       "is_incremental": false,
@@ -368,7 +368,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html",
-          "hash": "8T8IEGr88cpVZO/JwmmqyJj++4UBnxgC9k6mcs/+1eY="
+          "hash": "NFaca4xaQqUhbf7NXkbO1YNvo5m49yRGO2vYCv5ipvs="
         }
       },
       "is_incremental": false,
@@ -464,7 +464,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html",
-          "hash": "56a6y7v/gSZigiRbFQ5wldFV/IjHB5rCwR0M688zGW8="
+          "hash": "stltZZQGGL33tkTjqpapLj0X1bQv/G7t/hNGYN68Vxg="
         }
       },
       "is_incremental": false,
@@ -572,7 +572,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.DbDataModel.html",
-          "hash": "8HhjfRm3ZrsOdSJ78Z+wCG5WVje+J4w0tP+imiwQBCA="
+          "hash": "XVtellEnxs0w6pRIKxp2sg6ayTVyYz1QbpF6JH4A3zY="
         }
       },
       "is_incremental": false,
@@ -596,7 +596,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IDbResponse-1.html",
-          "hash": "7d/4Kv0YOvmQdl5TUJnz+ffE+JJn269qKzzpqyJa84Y="
+          "hash": "Y8mO2NZ3qg7mp+wJKJUnXJ5vConpM/vXdRjAuKk+wMU="
         }
       },
       "is_incremental": false,
@@ -620,7 +620,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IJsonSerializable-1.html",
-          "hash": "JJ9wyYBoKp1XxNMZ03Y1H9D4Noz0/zQwrDV+QQg1Gbc="
+          "hash": "c7HANN9LiCqNtMHcv49bLgrcDSHwbQ5NHg+jN4gkqk8="
         }
       },
       "is_incremental": false,
@@ -632,7 +632,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IReadOnlyDbCollection-1.html",
-          "hash": "7JSaOL3ncj+YB+FpMkcdYB8SDrDsznWscm5W9J3vddg="
+          "hash": "Pac3CUKcHtt7TzVN0TM+g84tX0Lbl4APESKsFvT92HY="
         }
       },
       "is_incremental": false,
@@ -644,7 +644,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.DataLayer.Models.IXMLSerializable-1.html",
-          "hash": "w/L7GnthJNlmYzjqw9o8a1Po90vgIM6F4S/dGC4dtOg="
+          "hash": "3M6D1PsASevEi4q3VapR4fINUUqxrpWbgyXHC+bcayE="
         }
       },
       "is_incremental": false,
@@ -860,7 +860,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Factories.DbCommandConfigFactory-1.html",
-          "hash": "O0CAJf4FX3iPJQ0tCAFcxGwrQVnlij8EfPobMYuEJSw="
+          "hash": "XtEHNudI0gidq5WTth7cM+6/oxGruWGmlhrNzHqo2hs="
         }
       },
       "is_incremental": false,
@@ -944,7 +944,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacade.Services.DbConnectionService.html",
-          "hash": "aJSAm0EjIgYEHZRJi1x8LSroOc1nTxqFgl9wE6L45xM="
+          "hash": "o9yu5kmP/STm/vJ5cOjAJW4CtC6EGYL518Bj8bb8whk="
         }
       },
       "is_incremental": false,
@@ -1016,7 +1016,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DbFacadeShared.DataLayer.Models.IDbDataSet.html",
-          "hash": "sWLpGmlkzkqbo0EthOpTnsaW9FHafZDDNqHkJt687N4="
+          "hash": "3+p4vWUBxuA9JY2ZDZoHjSoD04avfIYE2e/k7gmJFb8="
         }
       },
       "is_incremental": false,
@@ -1062,25 +1062,23 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": false,
-        "details": "Disable incremental build by force rebuild option.",
+        "can_incremental": true,
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0,
-        "full_build_reason_code": "ForceRebuild"
+        "skipped_file_count": 0
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": false,
+          "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 21,
-          "skipped_file_count": 0
+          "skipped_file_count": 16
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
+          "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 59,
-          "skipped_file_count": 0
+          "skipped_file_count": 59
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

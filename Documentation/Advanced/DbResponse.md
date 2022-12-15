@@ -52,6 +52,18 @@ or with `async`
 int index = 1; //index 0 is always the first data set and is already a part of the response;
 IEnumerable<MyDataModel> data = await MyDbResonse.DataSets.ElementAt(index).ToDbDataModelListAsync<MyDataModel>();
 ```
+
+## Raw DataSet Object
+If you have a need for accessing the raw C# 'DataTable' type objects you can access them in the following way:
+```csharp
+int index = 1; //index 0 is always the first data set and is already a part of the response;
+IEnumerable<MyDataModel> data = MyDbResonse.DataSets.ElementAt(index).ToDbDataModelList<MyDataModel>();
+```
+Note that this is the raw data response from the database call. You do not have access to any of the specialized column parser extensions that the 'DbDataModel' type class provides.
+
+This is especially useful if you are importing data into another service.
+Ex. the Aspose libraries make use of a DataTable to construct a MS Office table object.
+
 ## Error
 If the method execution call fires an exception the error is captured and set in the `Error` property and the `HasError` property  is set to `true`.
 
