@@ -225,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/toc.html",
-          "hash": "e4/9um70f8uMBIIsF6cf2KFq6MHXQLpQpfM6uG/5ndo="
+          "hash": "8pk5kmk7T5ubUXG/BVKd4A8xHJNQi+RGglwYpOuU6JA="
         }
       },
       "is_incremental": false,
@@ -1072,7 +1072,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 21,
-          "skipped_file_count": 16
+          "skipped_file_count": 21
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
