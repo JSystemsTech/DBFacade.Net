@@ -1,6 +1,6 @@
 ﻿using DbFacade.DataLayer.Models;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.CommandConfig
@@ -10,7 +10,7 @@ namespace DbFacade.DataLayer.CommandConfig
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-    public interface IDbCommandMethod<TDbParams,TDbDataModel>
+    public interface IDbCommandMethod<TDbParams, TDbDataModel>
         where TDbDataModel : DbDataModel
     {
 
@@ -64,7 +64,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <param name="parameters">The parameters.</param>
         /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        IDbResponse Execute(TDbParams parameters,bool rawDataOnly = false);
+        IDbResponse Execute(TDbParams parameters, bool rawDataOnly = false);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
@@ -92,5 +92,5 @@ namespace DbFacade.DataLayer.CommandConfig
 
     }
 
-    
+
 }

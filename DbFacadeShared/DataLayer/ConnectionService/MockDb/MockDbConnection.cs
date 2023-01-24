@@ -7,7 +7,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
     /// <summary>
     /// 
     /// </summary>
-    internal class MockDbConnection: DbConnection
+    internal class MockDbConnection : DbConnection
     {
         /// <summary>
         /// Gets or sets the connection string.
@@ -106,7 +106,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
         {
             DbTransaction = new MockDbTransaction(this, isolationLevel);
-            if(DbCommand != null)
+            if (DbCommand != null)
             {
                 DbCommand.Transaction = DbTransaction;
             }
@@ -123,7 +123,8 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// Creates the database command.
         /// </summary>
         /// <returns></returns>
-        protected override DbCommand CreateDbCommand() {
+        protected override DbCommand CreateDbCommand()
+        {
             DbCommand = new MockDbCommand(this, MockResponseData);
             return DbCommand;
         }
@@ -131,7 +132,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// Initializes a new instance of the <see cref="MockDbConnection"/> class.
         /// </summary>
         /// <param name="mockResponseData">The mock response data.</param>
-        public MockDbConnection (MockResponseData mockResponseData)
+        public MockDbConnection(MockResponseData mockResponseData)
         {
             MockResponseData = mockResponseData;
         }

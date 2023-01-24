@@ -40,7 +40,7 @@ namespace DbFacade.DataLayer.Models
         /// <value>
         ///   <c>true</c> if this instance has data binding errors; otherwise, <c>false</c>.
         /// </value>
-        bool HasDataBindingErrors { get;  }
+        bool HasDataBindingErrors { get; }
     }
 
     /// <summary>
@@ -48,13 +48,13 @@ namespace DbFacade.DataLayer.Models
     /// </summary>
     [JsonObject]
     [Serializable]
-    public abstract partial class DbDataModel: IDbDataModel
+    public abstract partial class DbDataModel : IDbDataModel
     {
         /// <summary>
         /// Converts to json.
         /// </summary>
         /// <returns></returns>
-        public string ToJson()=> JsonConvert.SerializeObject(this);
+        public string ToJson() => JsonConvert.SerializeObject(this);
         /// <summary>
         /// Gets the data binding errors.
         /// </summary>
@@ -94,7 +94,7 @@ namespace DbFacade.DataLayer.Models
         /// The data.
         /// </value>
         [JsonIgnore]
-        internal IDictionary<string,object> Data { get; set; }
+        internal IDictionary<string, object> Data { get; set; }
 
         /// <summary>
         /// Gets or sets the database command settings.
@@ -130,7 +130,7 @@ namespace DbFacade.DataLayer.Models
         /// <returns>
         ///   <br />
         /// </returns>
-        internal static TDbDataModel ToDbDataModel<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string,object> data)
+        internal static TDbDataModel ToDbDataModel<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data)
             where TDbDataModel : DbDataModel
         {
             var model = GenericInstance.GetInstance<TDbDataModel>();
@@ -161,7 +161,7 @@ namespace DbFacade.DataLayer.Models
             {
                 model.Init();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 model.AddDataBindingError(ex.Message);
             }
@@ -229,7 +229,7 @@ namespace DbFacade.DataLayer.Models
         /// <param name="style">The style.</param>
         /// <returns></returns>
         protected DateTime? GetDateTimeColumn(string col, string format, DateTimeStyles style = DateTimeStyles.None)
-            => TryGetColumn(() => Data.GetDateTimeValue(col,format, style));
+            => TryGetColumn(() => Data.GetDateTimeValue(col, format, style));
         /// <summary>
         /// Gets the date time column.
         /// </summary>
@@ -256,7 +256,7 @@ namespace DbFacade.DataLayer.Models
         /// <param name="delimeter">The delimeter.</param>
         /// <returns></returns>
         protected IEnumerable<T> GetEnumerableColumn<T>(string col, string delimeter = ",")
-            => TryGetColumn(() =>Data.GetEnumerableValue<T>(col,delimeter));
+            => TryGetColumn(() => Data.GetEnumerableValue<T>(col, delimeter));
         /// <summary>
         /// Gets the flag column.
         /// </summary>
@@ -265,9 +265,9 @@ namespace DbFacade.DataLayer.Models
         /// <param name="trueValue">The true value.</param>
         /// <returns></returns>
         protected bool GetFlagColumn<T>(string col, T trueValue)
-            where T: IComparable
+            where T : IComparable
             => TryGetColumn(() => Data.GetFlagValue<T>(col, trueValue));
     }
 
-    
+
 }

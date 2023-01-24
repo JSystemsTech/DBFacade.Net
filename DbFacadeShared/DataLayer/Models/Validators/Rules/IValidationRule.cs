@@ -26,7 +26,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
     /// 
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    internal interface IValidationRuleInternal<TDbParams>: IValidationRule<TDbParams>
+    internal interface IValidationRuleInternal<TDbParams> : IValidationRule<TDbParams>
     {
         /// <summary>
         /// Sets the name of the parameter.

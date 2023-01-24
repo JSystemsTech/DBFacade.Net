@@ -4,6 +4,8 @@ using DbFacade.Exceptions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DbFacade.Services
@@ -44,6 +46,25 @@ namespace DbFacade.Services
         {
             connectionConfigs.GetOrAdd(typeof(TDbConnectionConfig), config);
         }
+        private static ConcurrentDictionary<Type, IDictionary<string, Guid>> CommandIdMaps = new ConcurrentDictionary<Type, IDictionary<string, Guid>>();
+        private static IDictionary<string, Guid> GetCommandIdMap<T>()
+        {
+            if (CommandIdMaps.TryGetValue(typeof(T), out IDictionary<string, Guid> map))
+            {
+                return map;
+            }
+            ConcurrentDictionary<string, Guid> dic = new ConcurrentDictionary<string, Guid>();
+            IEnumerable<FieldInfo> commands = typeof(T).GetFields(BindingFlags.Static | BindingFlags.Public)
+                .Where(fi => fi.FieldType.GetInterfaces().Contains(typeof(IDbCommandConfig)));
+
+            foreach (FieldInfo fi in commands)
+            {
+                dic.TryAdd(fi.Name, fi.GetValue(null) is IDbCommandConfig cmd ? cmd.CommandId : default);
+            }
+            CommandIdMaps.TryAdd(typeof(T), dic);
+            return dic;
+        }
+
         /// <summary>
         /// Enables the mock mode.
         /// </summary>
@@ -52,7 +73,7 @@ namespace DbFacade.Services
         public static void EnableMockMode<TDbConnectionConfig>(IDictionary<Guid, MockResponseData> mockDataResponseDictionary)
             where TDbConnectionConfig : DbConnectionConfigBase
         {
-            if(connectionConfigs.TryGetValue(typeof(TDbConnectionConfig), out DbConnectionConfigBase config))
+            if (connectionConfigs.TryGetValue(typeof(TDbConnectionConfig), out DbConnectionConfigBase config))
             {
                 config.EnableMockMode(mockDataResponseDictionary);
             }

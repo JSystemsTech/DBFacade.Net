@@ -141,7 +141,7 @@ namespace DbFacade.DataLayer.ConnectionService
             }
             catch (Exception ex)
             {
-                
+
                 throw new SQLExecutionException("Unknown Error", config.DbCommandText, ex);
             }
         }
@@ -172,10 +172,10 @@ namespace DbFacade.DataLayer.ConnectionService
                     }
                     using (var dbCommand =
                         dbConnection.GetDbCommand(config.DbCommandText, config.DbParams, parameters))
-                    {                        
+                    {
                         return config.DbCommandText.IsTransaction ?
                             ExecuteTransaction(config, dbConnection, dbCommand) :
-                            ExecuteQuery(config, dbCommand,rawDataOnly, createDbDataAdapter);                        
+                            ExecuteQuery(config, dbCommand, rawDataOnly, createDbDataAdapter);
                     }
                 }
 

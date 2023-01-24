@@ -3,5 +3,5 @@
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbConnectionConfig { }    
+    public interface IDbConnectionConfig { }
 }

@@ -63,7 +63,7 @@ namespace DbFacade.DataLayer.Models
         public static async Task<IDbResponse<TDbDataModel>> CreateAsync(IDbCommandSettings dbCommandSettings)
             => !IsEmptyDataReturn ?
                 await DbResponse<TDbDataModel>.CreateAsync(dbCommandSettings) :
-                (IDbResponse<TDbDataModel>) await DbResponse.CreateAsync(dbCommandSettings);
+                (IDbResponse<TDbDataModel>)await DbResponse.CreateAsync(dbCommandSettings);
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
@@ -87,7 +87,7 @@ namespace DbFacade.DataLayer.Models
                 (IDbResponse<TDbDataModel>)await DbResponse.CreateErrorResponseAsync(dbCommandSettings, error);
 
     }
-   
+
     /// <summary>
     /// 
     /// </summary>
@@ -98,15 +98,15 @@ namespace DbFacade.DataLayer.Models
         /// </summary>
         /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="error">The error.</param>
-        public DbResponse(IDbCommandSettings dbCommandSettings, Exception error = null) :base(dbCommandSettings, error) { }
+        public DbResponse(IDbCommandSettings dbCommandSettings, Exception error = null) : base(dbCommandSettings, error) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DbResponse" /> class.
         /// </summary>
         /// <param name="dbCommandSettings">The database command settings.</param>
         /// <param name="returnValue">The return value.</param>
         /// <param name="outputValues">The output values.</param>
-        public DbResponse(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null) 
-            :base(dbCommandSettings, returnValue, outputValues) { }
+        public DbResponse(IDbCommandSettings dbCommandSettings, int returnValue = 0, IDictionary<string, object> outputValues = null)
+            : base(dbCommandSettings, returnValue, outputValues) { }
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
@@ -157,7 +157,7 @@ namespace DbFacade.DataLayer.Models
         /// <value>
         ///   <c>true</c> if this instance has data binding errors; otherwise, <c>false</c>.
         /// </value>
-        public bool HasDataBindingErrors { get=> this.Any(item=>item.HasDataBindingErrors);}
+        public bool HasDataBindingErrors { get => this.Any(item => item.HasDataBindingErrors); }
         /// <summary>
         /// Gets or sets the output values.
         /// </summary>
@@ -258,7 +258,7 @@ namespace DbFacade.DataLayer.Models
         public static async Task<DbResponse<TDbDataModel>> CreateErrorResponseAsync(IDbCommandSettings dbCommandSettings, Exception error)
         {
             DbResponse<TDbDataModel> response = new DbResponse<TDbDataModel>();
-            await response.InitializeAsync(dbCommandSettings, error);            
+            await response.InitializeAsync(dbCommandSettings, error);
             return response;
         }
         /// <summary>
@@ -327,7 +327,7 @@ namespace DbFacade.DataLayer.Models
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetOutputModel<T>() where T: DbDataModel
+        public T GetOutputModel<T>() where T : DbDataModel
         => DbDataModel.ToDbDataModel<T>(DbCommandSettings, OutputValues);
 
         /// <summary>
@@ -438,7 +438,7 @@ namespace DbFacade.DataLayer.Models
             using (var xmlWriter = XmlWriter.Create(textWriter))
             {
                 await SerializeAsync(xmlWriter);
-            }            
+            }
         }
 
         /// <summary>

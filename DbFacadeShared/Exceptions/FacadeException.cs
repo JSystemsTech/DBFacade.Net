@@ -35,10 +35,10 @@ namespace DbFacade.Exceptions
         /// Names this instance.
         /// </summary>
         /// <returns></returns>
-        public virtual string Name()=> "FacadeException";
+        public virtual string Name() => "FacadeException";
 
-        public virtual string ErrorDetails => InnerException is Exception innerException ? $"{innerException.Message}": "";
-        
+        public virtual string ErrorDetails => InnerException is Exception innerException ? $"{innerException.Message}" : "";
+
     }
     /// <summary>
     /// 
@@ -49,7 +49,7 @@ namespace DbFacade.Exceptions
         /// Initializes a new instance of the <see cref="DbConnectionConfigNotRegisteredException"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        internal DbConnectionConfigNotRegisteredException(Type type): base($"{type.Name} has not been registered yet") { }
+        internal DbConnectionConfigNotRegisteredException(Type type) : base($"{type.Name} has not been registered yet") { }
 
         /// <summary>
         /// Names this instance.
@@ -94,8 +94,8 @@ namespace DbFacade.Exceptions
         /// Names this instance.
         /// </summary>
         /// <returns></returns>
-        public override string Name()=> "SQLExecutionException";
-        
+        public override string Name() => "SQLExecutionException";
+
     }
 
     /// <summary>
@@ -141,7 +141,7 @@ namespace DbFacade.Exceptions
         /// Names this instance.
         /// </summary>
         /// <returns></returns>
-        public override string Name()=> "ValidationException";
+        public override string Name() => "ValidationException";
 
         /// <summary>Gets or sets the validation result.</summary>
         /// <value>The validation result.</value>

@@ -10,7 +10,7 @@ namespace DbFacade.Factories
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
     public class DbCommandConfigFactory<TDbConnectionConfig>
-        where TDbConnectionConfig: DbConnectionConfigBase
+        where TDbConnectionConfig : DbConnectionConfigBase
     {
 
         /// <summary>Creates the fetch command.</summary>
@@ -58,7 +58,7 @@ namespace DbFacade.Factories
         [Obsolete("use {TDbConnectionConfig}.CreateTransactionCommand(string commandText, string label, CommandType commandType, bool requiresValidation = true) instead", false)]
         public static IDbCommandConfig CreateTransactionCommand(string commandText, string label, CommandType commandType, bool requiresValidation = true)
         => DbCommand<TDbConnectionConfig>.Create(commandText, label, commandType, true, requiresValidation);
-        
+
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ namespace DbFacade.Factories
     /// 
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
-    internal class DbCommandConfigSchemaFactory<TDbConnectionConfig>: IDbCommandConfigSchemaFactory
+    internal class DbCommandConfigSchemaFactory<TDbConnectionConfig> : IDbCommandConfigSchemaFactory
         where TDbConnectionConfig : DbConnectionConfigBase
     {
         /// <summary>
@@ -111,7 +111,7 @@ namespace DbFacade.Factories
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        private string FormatCommandTextPart(string value) => $"{(value.StartsWith("[") ? "":"[")}{value}{(value.EndsWith("]") ? "" : "]")}";
+        private string FormatCommandTextPart(string value) => $"{(value.StartsWith("[") ? "" : "[")}{value}{(value.EndsWith("]") ? "" : "]")}";
         /// <summary>
         /// Gets the command text.
         /// </summary>

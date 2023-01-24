@@ -215,7 +215,7 @@ namespace DbFacade.DataLayer.CommandConfig
         {
             if (MissingValidation)
             {
-                throw new FacadeException($"Validation required for {(paramsModel is TDbParams pm? pm.GetType().Name: "(null)")} for command '{DbCommandText.Label}'");
+                throw new FacadeException($"Validation required for {(paramsModel is TDbParams pm ? pm.GetType().Name : "(null)")} for command '{DbCommandText.Label}'");
             }
             var validationResult = HasValidation
                 ? ParamsValidator.Validate(paramsModel)
@@ -397,7 +397,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
         public async Task<IDbResponse<TDbDataModel>> ExecuteAsync(bool rawDataOnly = false) => await ExecuteAsync(null, rawDataOnly);
-        
+
         #endregion
     }
     /// <summary>
@@ -506,7 +506,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <param name="parameters">The parameters.</param>
         /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
-        public new IDbResponse Execute(TDbParams parameters,bool rawDataOnly = false) => (IDbResponse)base.Execute(parameters, rawDataOnly);
+        public new IDbResponse Execute(TDbParams parameters, bool rawDataOnly = false) => (IDbResponse)base.Execute(parameters, rawDataOnly);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
@@ -514,7 +514,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
         public new async Task<IDbResponse> ExecuteAsync(TDbParams parameters, bool rawDataOnly = false) => (IDbResponse)await base.ExecuteAsync(parameters, rawDataOnly);
-        
+
     }
     /// <summary>
     /// 
@@ -596,13 +596,13 @@ namespace DbFacade.DataLayer.CommandConfig
         /// Executes this instance.
         /// </summary>
         /// <returns></returns>
-        public IDbResponse Execute() => (IDbResponse)Execute(null,true);
+        public IDbResponse Execute() => (IDbResponse)Execute(null, true);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
         /// <returns></returns>
-        public async Task<IDbResponse> ExecuteAsync() => (IDbResponse)await ExecuteAsync(null,true);
-        
+        public async Task<IDbResponse> ExecuteAsync() => (IDbResponse)await ExecuteAsync(null, true);
+
 
     }
 }

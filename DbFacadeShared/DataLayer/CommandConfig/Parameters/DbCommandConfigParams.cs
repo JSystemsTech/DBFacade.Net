@@ -48,7 +48,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
             Action<IDbCommandConfigParams<TDbParams>> _parametersInitializer =
                 parametersInitializer != null ? parametersInitializer : p => { };
             _parametersInitializer(dbParams);
-            dbParams.ResolveReturnValueParameter();            
+            dbParams.ResolveReturnValueParameter();
             return dbParams;
         }
         /// <summary>
@@ -63,7 +63,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
             Func<IDbCommandConfigParams<TDbParams>, Task> _parametersInitializer =
                 parametersInitializer != null ? parametersInitializer : async p => { await Task.CompletedTask; };
             await _parametersInitializer(dbParams);
-            await dbParams.ResolveReturnValueParameterAsync();            
+            await dbParams.ResolveReturnValueParameterAsync();
             return dbParams;
         }
         /// <summary>
@@ -97,7 +97,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
             }
             await Task.CompletedTask;
         }
-        
+
 
     }
     /// <summary>

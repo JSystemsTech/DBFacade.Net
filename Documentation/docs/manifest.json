@@ -213,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "GettingStarted/index.html",
-          "hash": "XLMBrGZ+/jwhMD0hJTyky+m8agSbeV0xDLKd3Z9FGO4="
+          "hash": "m7+FIztm4URykDWqE6+zCPLfCC48noiICRiqo7tOzhw="
         }
       },
       "is_incremental": false,
@@ -320,7 +320,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "Wk3O43w6eq9hqXwvBb6uf6YlISEn0VhzUrd0gOd/uGc="
+          "hash": "2rLAsj3VjDOAstNXwJbbMDSRFOD7caU3pcTb4QQWPlM="
         }
       },
       "is_incremental": false,
@@ -1062,23 +1062,25 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Disable incremental build by force rebuild option.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "ForceRebuild"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 21,
-          "skipped_file_count": 21
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 59,
-          "skipped_file_count": 59
+          "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

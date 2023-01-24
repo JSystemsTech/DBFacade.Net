@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30225.117
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade", "DBFacade\DbFacade.csproj", "{3E7E0BA8-19D9-44E2-B126-E1B5FB148CAB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{289AC024-FD51-40CB-9C88-44B64ABD90FB}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
@@ -13,11 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.MD = README.MD
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacadeUnitTests", "DbFacadeUnitTests\DbFacadeUnitTests.csproj", "{422E2016-4A1D-491B-B3CB-732B8E86835A}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbFacadeShared", "DbFacadeShared\DbFacadeShared.shproj", "{CD5F1105-82F7-4333-B29D-36F7DDF4BD52}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade.Core", "DbFacade.Core\DbFacade.Core.csproj", "{4DEBD385-03A2-459F-B873-0265E472E952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade", "DbFacade.Core\DbFacade.csproj", "{4DEBD385-03A2-459F-B873-0265E472E952}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbFacadeUnitTest.Shared", "DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.shproj", "{32EDA780-6A0B-48B4-BC8D-B458E9932BB6}"
 EndProject
@@ -34,28 +30,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\NetFxCI.yml = .github\workflows\NetFxCI.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Oracle", "DbFacade.Oracle\DbFacade.Oracle.csproj", "{F5E70C61-6867-4F51-9671-B032AEBE5114}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.SQLite", "DbFacade.SQLite\DbFacade.SQLite.csproj", "{5D82C231-9AB6-453A-AC5E-0BE9F78FAF07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Odbc", "DbFacade.Odbc\DbFacade.Odbc.csproj", "{23A4322A-B607-4D26-AD4D-1094E0865264}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.OleDb", "DbFacade.OleDb\DbFacade.OleDb.csproj", "{9579945C-4D02-4D06-9872-9AC969E973E4}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems*{2901f3c4-6cb3-426b-a939-342b06060f12}*SharedItemsImports = 5
-		DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems*{32eda780-6a0b-48b4-bc8d-b458e9932bb6}*SharedItemsImports = 13
-		DbFacadeShared\DbFacadeShared.projitems*{3e7e0ba8-19d9-44e2-b126-e1b5fb148cab}*SharedItemsImports = 4
-		DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems*{422e2016-4a1d-491b-b3cb-732b8e86835a}*SharedItemsImports = 4
-		DbFacadeShared\DbFacadeShared.projitems*{4debd385-03a2-459f-b873-0265e472e952}*SharedItemsImports = 5
-		DbFacadeShared\DbFacadeShared.projitems*{cd5f1105-82f7-4333-b29d-36f7ddf4bd52}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3E7E0BA8-19D9-44E2-B126-E1B5FB148CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E7E0BA8-19D9-44E2-B126-E1B5FB148CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E7E0BA8-19D9-44E2-B126-E1B5FB148CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E7E0BA8-19D9-44E2-B126-E1B5FB148CAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{422E2016-4A1D-491B-B3CB-732B8E86835A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{422E2016-4A1D-491B-B3CB-732B8E86835A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{422E2016-4A1D-491B-B3CB-732B8E86835A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{422E2016-4A1D-491B-B3CB-732B8E86835A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4DEBD385-03A2-459F-B873-0265E472E952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4DEBD385-03A2-459F-B873-0265E472E952}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DEBD385-03A2-459F-B873-0265E472E952}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -70,6 +58,22 @@ Global
 		{ABB1318A-E848-401E-923A-286191B3863E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABB1318A-E848-401E-923A-286191B3863E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABB1318A-E848-401E-923A-286191B3863E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E70C61-6867-4F51-9671-B032AEBE5114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E70C61-6867-4F51-9671-B032AEBE5114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E70C61-6867-4F51-9671-B032AEBE5114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E70C61-6867-4F51-9671-B032AEBE5114}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D82C231-9AB6-453A-AC5E-0BE9F78FAF07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D82C231-9AB6-453A-AC5E-0BE9F78FAF07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D82C231-9AB6-453A-AC5E-0BE9F78FAF07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D82C231-9AB6-453A-AC5E-0BE9F78FAF07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23A4322A-B607-4D26-AD4D-1094E0865264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23A4322A-B607-4D26-AD4D-1094E0865264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23A4322A-B607-4D26-AD4D-1094E0865264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23A4322A-B607-4D26-AD4D-1094E0865264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9579945C-4D02-4D06-9872-9AC969E973E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9579945C-4D02-4D06-9872-9AC969E973E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9579945C-4D02-4D06-9872-9AC969E973E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9579945C-4D02-4D06-9872-9AC969E973E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,5 +84,11 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {422FA976-93A1-4C2B-B82D-46D5F0C75E54}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems*{2901f3c4-6cb3-426b-a939-342b06060f12}*SharedItemsImports = 5
+		DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems*{32eda780-6a0b-48b4-bc8d-b458e9932bb6}*SharedItemsImports = 13
+		DbFacadeShared\DbFacadeShared.projitems*{4debd385-03a2-459f-b873-0265e472e952}*SharedItemsImports = 5
+		DbFacadeShared\DbFacadeShared.projitems*{cd5f1105-82f7-4333-b29d-36f7ddf4bd52}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

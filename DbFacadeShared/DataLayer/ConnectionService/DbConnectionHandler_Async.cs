@@ -31,7 +31,7 @@ namespace DbFacade.DataLayer.ConnectionService
             bool rawDataOnly,
             IDbCommandSettings dbCommandSettings,
             DataSet ds = null,
-            IDictionary<string,object> outputValues = null)
+            IDictionary<string, object> outputValues = null)
         {
             var responseObj = await DbResponseFactory<TDbDataModel>.CreateAsync(dbCommandSettings, default(int), outputValues);
             if (responseObj is DbResponse<TDbDataModel> _responseObj && ds != null)
@@ -93,7 +93,7 @@ namespace DbFacade.DataLayer.ConnectionService
                     }
 
                     transaction.Commit();
-                    IDbResponse<TDbDataModel>  response = await BuildRepsonseAsync(
+                    IDbResponse<TDbDataModel> response = await BuildRepsonseAsync(
                         true,
                         config.DbCommandText,
                         null,
@@ -174,16 +174,17 @@ namespace DbFacade.DataLayer.ConnectionService
                     try
                     {
                         dbConnection.Open();
-                    }catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         throw new SQLExecutionException("Unable to open Connection", config.DbCommandText, ex);
                     }
-                    
+
                     using (var dbCommand =
                         await dbConnection.GetDbCommandAsync(config.DbCommandText, config.DbParams, parameters))
                     {
                         return config.DbCommandText.IsTransaction ?
-                           await  ExecuteTransactionAsync(config, dbConnection, dbCommand) :
+                           await ExecuteTransactionAsync(config, dbConnection, dbCommand) :
                             await ExecuteQueryAsync(config, dbCommand, rawDataOnly, createDbDataAdapter);
                     }
                 }

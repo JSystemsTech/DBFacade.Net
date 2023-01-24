@@ -28,7 +28,7 @@ namespace DbFacadeShared.DataLayer.Models
     /// <summary>
     ///   <br />
     /// </summary>
-    internal class DbDataSet: IDbDataSet
+    internal class DbDataSet : IDbDataSet
     {
         /// <summary>
         /// Gets or sets the database command settings.
@@ -43,7 +43,7 @@ namespace DbFacadeShared.DataLayer.Models
         private static IDbDataSet Create(IDbCommandSettings dbCommandSettings, DataTable dt)
         {
             DbDataSet dataSet = new DbDataSet() { DbCommandSettings = dbCommandSettings, DataTable = dt };
-            
+
             return dataSet;
         }
         public static IEnumerable<IDbDataSet> CreateDataSets(IDbCommandSettings dbCommandSettings, DataSet dataSet)
@@ -66,8 +66,8 @@ namespace DbFacadeShared.DataLayer.Models
             List<TDbDataModel> data = new List<TDbDataModel>();
             foreach (DataRow dataRow in DataTable.Rows)
             {
-               TDbDataModel model = DbDataModel.ToDbDataModel<TDbDataModel>(DbCommandSettings, dataRow);
-               data.Add(model);
+                TDbDataModel model = DbDataModel.ToDbDataModel<TDbDataModel>(DbCommandSettings, dataRow);
+                data.Add(model);
             }
             return data;
         }

@@ -2,7 +2,6 @@
 
 namespace DbFacade
 {
-
     /// <summary>
     ///   <br />
     /// </summary>

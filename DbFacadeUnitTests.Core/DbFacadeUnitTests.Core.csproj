@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DbFacade.Core\DbFacade.Core.csproj" />
+    <ProjectReference Include="..\DbFacade.Core\DbFacade.csproj" />
   </ItemGroup>
 
   <Import Project="..\DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems" Label="Shared" />

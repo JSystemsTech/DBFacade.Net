@@ -382,7 +382,7 @@
   "GettingStarted/index.html": {
     "href": "GettingStarted/index.html",
     "title": "Installation | DbFacade",
-    "keywords": "Installation .Net Framework Install-Package DbFacade The latest version can also be downloaded directly from NuGet.org at: https://www.nuget.org/packages/DbFacade/ .Net Core Install-Package DbFacade.Core The latest version can also be downloaded directly from NuGet.org at: https://www.nuget.org/packages/DbFacade.Core/"
+    "keywords": "Installation Install-Package DbFacade The latest version can also be downloaded directly from NuGet.org at: https://www.nuget.org/packages/DbFacade/"
   },
   "GettingStarted/SetupConnection.html": {
     "href": "GettingStarted/SetupConnection.html",
@@ -392,7 +392,7 @@
   "index.html": {
     "href": "index.html",
     "title": "DbFacade | DbFacade",
-    "keywords": "DbFacade About Confused about how C# .NET projects set up calls to SQL databases? Need a well structured design pattern to organize calls to database stored procedures? Then DbFacade is the solution! DbFacade builds upon ADO.NET and simplifies structuring calls to SQL database stored procedures. Features Simplified parameter binding Built-In configurable parameter validation Easy data model binding Supports syncronous or asyncronous methods Supports .Net Framework and .Net Core projects Installation .Net Framework Install-Package DbFacade The latest version can also be downloaded directly from NuGet.org Here .Net Core Install-Package DbFacade.Core The latest version can also be downloaded directly from NuGet.org Here Documentation For the latest README updates and documentation please visit Here"
+    "keywords": "DbFacade About Confused about how C# .NET projects set up calls to SQL databases? Need a well structured design pattern to organize calls to database stored procedures? Then DbFacade is the solution! DbFacade builds upon ADO.NET and simplifies structuring calls to SQL database stored procedures. Features Simplified parameter binding Built-In configurable parameter validation Easy data model binding Supports syncronous or asyncronous methods Supports .Net Framework and .Net Core projects Installation Install-Package DbFacade The latest version can also be downloaded directly from NuGet.org Here Connection Type Helpers For support with the following data base types please additionally install the following helpers Oracle Install-Package DbFacade.Oracle SQLite Install-Package DbFacade.SQLite Odbc Install-Package DbFacade.Odbc OleDb Install-Package DbFacade.OleDb Documentation For the latest README updates and documentation please visit Here"
   },
   "ReleaseNotes/index.html": {
     "href": "ReleaseNotes/index.html",

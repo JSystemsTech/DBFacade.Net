@@ -18,7 +18,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         /// <value>
         /// The factory.
         /// </value>
-        DbCommandParameterConfigFactory<TDbParams> Factory {get;}
+        DbCommandParameterConfigFactory<TDbParams> Factory { get; }
         /// <summary>
         /// Adds the asynchronous.
         /// </summary>

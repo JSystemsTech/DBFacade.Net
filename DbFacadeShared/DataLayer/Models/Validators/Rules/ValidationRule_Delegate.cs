@@ -30,12 +30,12 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <value>
             /// The delegate rule handler.
             /// </value>
-            private Func<T, bool> DelegateRuleHandler{ get; set; }
+            private Func<T, bool> DelegateRuleHandler { get; set; }
 
             /// <summary>
             /// Prevents a default instance of the <see cref="DelegateRule`1" /> class from being created.
             /// </summary>
-            private DelegateRule(){}
+            private DelegateRule() { }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="DelegateRule`1" /> class.
@@ -46,7 +46,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 bool isNullable = Nullable.GetUnderlyingType(typeof(T)) != null;
                 Init(selector, isNullable);
-                
+
                 DelegateRuleHandler = handler;
             }
             /// <summary>
@@ -55,7 +55,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
             protected override bool ValidateRule(TDbParams paramsModel)
-            => DelegateRuleHandler((T) ParamsValue);
+            => DelegateRuleHandler((T)ParamsValue);
 
             /// <summary>
             /// Validates the rule asynchronous.
@@ -64,7 +64,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
             {
-                bool result =  DelegateRuleHandler((T)ParamsValue);
+                bool result = DelegateRuleHandler((T)ParamsValue);
                 await Task.CompletedTask;
                 return result;
             }
@@ -88,7 +88,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 await Task.CompletedTask;
                 return message;
             }
-            
+
 
         }
         /// <summary>

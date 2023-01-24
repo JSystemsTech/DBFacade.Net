@@ -1,0 +1,85 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net48;net472;</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.12.0</Version>
+    <Company>JSystemsTech</Company>
+    <Product>DbFacade.SQLite .NET</Product>
+    <Description>A DbFacade extension to build a data connection service to SQLite databases</Description>
+    <Copyright>Copyright © 2022</Copyright>
+    <PackageId>DbFacade.SQLite</PackageId>
+    <Authors>JSystemsTech</Authors>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net dbfacade.oracle</PackageTags>
+    <PackageIcon>images\icon.jpg</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
+    <PackageReleaseNotes>Release 1.12.0 depricate .Core specific nuget package. Separate Non SQL Client connections into separate packages</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIconUrl />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net7.0'">
+    <AssemblyTitle>DbFacade.SQLite .NET 7.0</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <AssemblyTitle>DbFacade.SQLite .NET 6.0</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net48'">
+    <AssemblyTitle>DbFacade.SQLite .NET 4.8</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net472'">
+    <AssemblyTitle>DbFacade.SQLite .NET 4.7.2</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Meta\DbFacadeLogoNoText.jpg" />
+    <None Include="..\icon.jpg">
+      <Pack>True</Pack>
+      <PackagePath>images\icon.jpg</PackagePath>
+      <Visible>False</Visible>
+    </None>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    
+  </ItemGroup>
+
+  
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
+    <PackageReference Include="DbFacade" Version="1.12.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
+    <PackageReference Include="DbFacade" Version="1.12.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
+    <PackageReference Include="DbFacade" Version="1.12.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
+    <PackageReference Include="DbFacade" Version="1.12.0" />
+  </ItemGroup> 
+  
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="C:\Users\jsmc1\source\repos\DomainFacade\DbFacadeShared\Factories\DbConnectionService.cs">
+      <LastGenOutput>DbConnectionService.txt</LastGenOutput>
+    </None>
+    <None Update="C:\Users\jsmc1\source\repos\DomainFacade\DbFacadeShared\Factories\DbConnectionService.tt">
+      <LastGenOutput>DbConnectionService.txt</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

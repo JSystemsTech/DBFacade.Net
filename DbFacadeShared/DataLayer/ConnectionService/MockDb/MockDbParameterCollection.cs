@@ -21,7 +21,8 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// <summary>
         /// Initializes a new instance of the <see cref="MockDbParameterCollection"/> class.
         /// </summary>
-        public MockDbParameterCollection() {
+        public MockDbParameterCollection()
+        {
             Parameters = new List<MockDbParameter>();
         }
         /// <summary>
@@ -55,7 +56,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// <param name="values">The values.</param>
         public override void AddRange(Array values)
         {
-            if(values is IEnumerable<MockDbParameter> range)
+            if (values is IEnumerable<MockDbParameter> range)
             {
                 Parameters.AddRange(range);
             }
@@ -89,7 +90,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// <returns>
         ///   <c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.
         /// </returns>
-        public override bool Contains(string value) => Parameters.Any(p=>p.ParameterName == value);
+        public override bool Contains(string value) => Parameters.Any(p => p.ParameterName == value);
 
         /// <summary>
         /// Copies to.
@@ -128,7 +129,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// </summary>
         /// <param name="parameterName">Name of the parameter.</param>
         /// <returns></returns>
-        public override int IndexOf(string parameterName) => IndexOf(Parameters.FirstOrDefault(p=>p.ParameterName == parameterName));
+        public override int IndexOf(string parameterName) => IndexOf(Parameters.FirstOrDefault(p => p.ParameterName == parameterName));
 
 
         /// <summary>
@@ -188,15 +189,15 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// <param name="value">The value.</param>
         protected override void SetParameter(int index, DbParameter value)
         {
-            if (value is MockDbParameter parameter && index  >= 0 && index < Count)
+            if (value is MockDbParameter parameter && index >= 0 && index < Count)
             {
-                bool hasExistingRecord = 
-                    Contains(parameter) || 
+                bool hasExistingRecord =
+                    Contains(parameter) ||
                     Parameters.ElementAtOrDefault(index) is MockDbParameter elParam && elParam.ParameterName == parameter.ParameterName;
-                if(!hasExistingRecord)
+                if (!hasExistingRecord)
                 {
                     Parameters[index] = parameter;
-                }                
+                }
             }
         }
 
@@ -211,7 +212,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// </summary>
         /// <returns></returns>
         public MockDbParameter GetReturnValueParam()
-        =>Parameters.Where(entry => entry.Direction == System.Data.ParameterDirection.ReturnValue).FirstOrDefault();
+        => Parameters.Where(entry => entry.Direction == System.Data.ParameterDirection.ReturnValue).FirstOrDefault();
 
         /// <summary>
         /// Gets the output parameters.

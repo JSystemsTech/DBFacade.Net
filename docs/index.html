@@ -73,8 +73,7 @@
 <h1 id="dbfacade">DbFacade</h1>
 
 <p><a href="https://github.com/JSystemsTech/DBFacade.Net/actions/workflows/NetFxCI.yml"><img src="https://github.com/JSystemsTech/DBFacade.Net/actions/workflows/NetFxCI.yml/badge.svg?branch=master" alt=".NET"></a>
- <a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/nuget/v/DbFacade?label=nuget%20DbFacade" alt="NuGet"></a> <a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Target%20Framework-.NET%20Framework%204.8-blue" alt="NuGet"></a>
-  <a href="https://nuget.org/packages/DbFacade.Core"><img src="https://img.shields.io/nuget/v/DbFacade.Core?label=nuget%20DbFacade.Core" alt="NuGet"></a> <a href="https://nuget.org/packages/DbFacade.Core"><img src="https://img.shields.io/badge/Target%20Framework-.NET%20Core%203.1-blue" alt="Target Framework"></a></p>
+ <a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/nuget/v/DbFacade?label=nuget%20DbFacade" alt="NuGet"></a> <a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Target%20Framework-.NET%20Framework%204.8-blue" alt="NuGet"></a></p>
 <h2 id="about">About</h2>
 <p>Confused about how C# .NET projects set up calls to SQL databases? Need a well structured design pattern to organize calls to database stored procedures? </p>
 <p>Then <code>DbFacade</code> is the solution! DbFacade builds upon <code>ADO.NET</code> and simplifies structuring calls to SQL database stored procedures.</p>
@@ -87,13 +86,19 @@
 <li>Supports .Net Framework and .Net Core projects </li>
 </ul>
 <h2 id="installation">Installation</h2>
-<h6 id="net-framework">.Net Framework</h6>
 <pre><code class="lang-bash">Install-Package DbFacade
 </code></pre><p>The latest version can also be downloaded directly from NuGet.org <a href="https://www.nuget.org/packages/DbFacade/">Here</a></p>
-<h6 id="net-core">.Net Core</h6>
-<pre><code class="lang-bash">Install-Package DbFacade.Core
-</code></pre><p>The latest version can also be downloaded directly from NuGet.org <a href="https://www.nuget.org/packages/DbFacade.Core/">Here</a></p>
-<h2 id="documentation">Documentation</h2>
+<h3 id="connection-type-helpers">Connection Type Helpers</h3>
+<p>For support with the following data base types please additionally install the following helpers </p>
+<h4 id="oracle">Oracle</h4>
+<pre><code class="lang-bash">Install-Package DbFacade.Oracle
+</code></pre><h4 id="sqlite">SQLite</h4>
+<pre><code class="lang-bash">Install-Package DbFacade.SQLite
+</code></pre><h4 id="odbc">Odbc</h4>
+<pre><code class="lang-bash">Install-Package DbFacade.Odbc
+</code></pre><h4 id="oledb">OleDb</h4>
+<pre><code class="lang-bash">Install-Package DbFacade.OleDb
+</code></pre><h2 id="documentation">Documentation</h2>
 <p>For the latest README updates and documentation please visit <a href="https://github.com/JSystemsTech/DBFacade.Net">Here</a> </p>
 </article>
           </div>

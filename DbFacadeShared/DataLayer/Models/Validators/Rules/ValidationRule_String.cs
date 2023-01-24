@@ -40,7 +40,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchRule" /> class.
             /// </summary>
-            protected MatchRule(){}
+            protected MatchRule() { }
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchRule" /> class.
             /// </summary>
@@ -115,7 +115,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
             {
                 await Task.CompletedTask;
-                return $"does not match the expression."; 
+                return $"does not match the expression.";
             }
 
         }
@@ -166,7 +166,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
             {
                 bool isLengthN = Length > 0 && ParamsValue.ToString().Length == Length;
-                bool baseValidation = await base.ValidateRuleAsync(paramsModel);                
+                bool baseValidation = await base.ValidateRuleAsync(paramsModel);
                 return isLengthN && baseValidation;
             }
 
@@ -177,7 +177,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             => (Length <= 0 || ParamsValue.ToString().Length != Length) ?
-                $"Length is not equal to {Length}":
+                $"Length is not equal to {Length}" :
                 $"not a {Length} digit string";
 
             /// <summary>
@@ -215,7 +215,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <summary>
             /// Prevents a default instance of the <see cref="IsSocialSecurityNumberRule" /> class from being created.
             /// </summary>
-            private IsSocialSecurityNumberRule(){}
+            private IsSocialSecurityNumberRule() { }
             /// <summary>
             /// Initializes a new instance of the <see cref="IsSocialSecurityNumberRule" /> class.
             /// </summary>
@@ -223,7 +223,8 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="allowDashes">if set to <c>true</c> [allow dashes].</param>
             /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
             public IsSocialSecurityNumberRule(Func<TDbParams, string> selector, bool allowDashes = true,
-                bool isNullable = false) : base(selector, SSNMatchNoDashes, isNullable) {
+                bool isNullable = false) : base(selector, SSNMatchNoDashes, isNullable)
+            {
                 AllowDashes = allowDashes;
             }
             /// <summary>
@@ -283,7 +284,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 await Task.CompletedTask;
                 return $"not a valid Social Security Number";
             }
-            
+
         }
 
         /// <summary>
@@ -294,7 +295,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <summary>
             /// Prevents a default instance of the <see cref="IsNullOrEmptyRule" /> class from being created.
             /// </summary>
-            private IsNullOrEmptyRule(){ }
+            private IsNullOrEmptyRule() { }
             /// <summary>
             /// Initializes a new instance of the <see cref="IsNullOrEmptyRule" /> class.
             /// </summary>

@@ -107,7 +107,7 @@ namespace DbFacade.Utils
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         internal static T Instance<T>()
-            => constructorMap.ContainsKey(typeof(T)) ? (T)constructorMap[typeof(T)](): New<T>.Instance();
+            => constructorMap.ContainsKey(typeof(T)) ? (T)constructorMap[typeof(T)]() : New<T>.Instance();
         /// <summary>
         /// Instances the specified type.
         /// </summary>

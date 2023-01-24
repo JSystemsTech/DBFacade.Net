@@ -5,7 +5,11 @@
         {
           "src": "../../",
           "files": [
-            "DBFacade.Net/DBFacade/**.csproj"
+            "DBFacade.Net/DBFacade/**.csproj",
+            "DBFacade.Net/DBFacade.Oracle/**.csproj",
+            "DBFacade.Net/DBFacade.OleDb/**.csproj",
+            "DBFacade.Net/DBFacade.Odbc/**.csproj",
+            "DBFacade.Net/DBFacade.SQLite/**.csproj"
           ],
           "cwd": "../../",
           "exclude": [

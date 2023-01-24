@@ -50,7 +50,7 @@ namespace DbFacadeShared.Extensions
     }
     internal static class DataDictionaryExtensions
     {
-        
+
         /// <summary>The converters</summary>
         private static readonly ConcurrentDictionary<Type, TypeConverter> Converters
         = new ConcurrentDictionary<Type, TypeConverter>();
@@ -117,7 +117,7 @@ namespace DbFacadeShared.Extensions
                 }
 
             }
-            
+
             else
             {
                 return (T)Convert.ChangeType(value, typeof(T));
@@ -198,7 +198,7 @@ namespace DbFacadeShared.Extensions
         /// <param name="data">The data.</param>
         /// <param name="key">The key.</param>
         /// <returns></returns>
-        private static string GetName(this IDictionary<string,object> data, string key)
+        private static string GetName(this IDictionary<string, object> data, string key)
             => data.ContainsKey(key) ? key :
             data.Keys.FirstOrDefault(k => string.Equals(k, key, StringComparison.CurrentCultureIgnoreCase));
         /// <summary>
@@ -258,7 +258,7 @@ namespace DbFacadeShared.Extensions
             return (data.TryGetValue(name, out object value) &&
                 value != null &&
                 value != DBNull.Value ?
-                Parse(value, defaultValue) : defaultValue,null);
+                Parse(value, defaultValue) : defaultValue, null);
         }
 
         /// <summary>
@@ -297,7 +297,7 @@ namespace DbFacadeShared.Extensions
             var result = data.GetValue<DateTime?>(key);
             return result.value is DateTime convertedValue ? (convertedValue.ToString(format), result.error) : (null, result.error);
         }
-        
+
         /// <summary>
         /// Gets the enumerable value.
         /// </summary>

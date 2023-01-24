@@ -64,7 +64,7 @@ namespace DbFacade.DataLayer.Models.Validators
 
         /// <summary>Gets the error summary.</summary>
         /// <value>The error summary.</value>
-        public string ErrorSummary => string.Join(", ", Errors.Where(m=> m.Status == ValidationStatus.FAIL).Select(x => x.ErrorMessage).ToArray());
+        public string ErrorSummary => string.Join(", ", Errors.Where(m => m.Status == ValidationStatus.FAIL).Select(x => x.ErrorMessage).ToArray());
 
         /// <summary>
         /// The passing validation
@@ -161,7 +161,7 @@ namespace DbFacade.DataLayer.Models.Validators
         /// <returns></returns>
         public static Validator<TDbParams> Create(Action<IValidator<TDbParams>> validatorInitializer = null)
         {
-            Validator<TDbParams> validator = new Validator<TDbParams>();            
+            Validator<TDbParams> validator = new Validator<TDbParams>();
             validator.Rules = new ValidationRuleFactory<TDbParams>();
             Action<IValidator<TDbParams>> _validatorInitializer =
                 validatorInitializer != null ? validatorInitializer : v => { };
@@ -179,7 +179,7 @@ namespace DbFacade.DataLayer.Models.Validators
             validator.Rules = await ValidationRuleFactory<TDbParams>.CreateFactoryAsync();
             Func<IValidator<TDbParams>, Task> _validatorInitializer =
                 validatorInitializer != null ? validatorInitializer : async v => { await Task.CompletedTask; };
-            await _validatorInitializer(validator);           
+            await _validatorInitializer(validator);
             return validator;
         }
 

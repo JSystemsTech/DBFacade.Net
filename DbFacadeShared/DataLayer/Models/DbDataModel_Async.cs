@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Threading.Tasks;
+
 namespace DbFacade.DataLayer.Models
 {
     /// <summary>
@@ -54,7 +55,7 @@ namespace DbFacade.DataLayer.Models
         /// <returns>
         ///   <br />
         /// </returns>
-        internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string,object> data)
+        internal static async Task<TDbDataModel> ToDbDataModelAsync<TDbDataModel>(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data)
             where TDbDataModel : DbDataModel
         {
             var model = await GenericInstance.GetInstanceAsync<TDbDataModel>();

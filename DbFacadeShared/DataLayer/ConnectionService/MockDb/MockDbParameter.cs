@@ -71,7 +71,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// <value>
         /// The type of the database.
         /// </value>
-        public override DbType DbType { get => _DbType; set => _DbType=value; }
+        public override DbType DbType { get => _DbType; set => _DbType = value; }
         /// <summary>
         /// Gets or sets the direction.
         /// </summary>

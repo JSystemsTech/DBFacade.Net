@@ -37,7 +37,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         /// <value>
         /// The parameter direction.
         /// </value>
-        ParameterDirection ParameterDirection { get;}
+        ParameterDirection ParameterDirection { get; }
         /// <summary>
         /// Gets a value indicating whether this instance is output.
         /// </summary>

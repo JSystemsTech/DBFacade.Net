@@ -61,13 +61,15 @@ namespace DbFacade.DataLayer.Models
         /// <summary>
         /// Initializes this instance.
         /// </summary>
-        protected sealed override void Init() {
+        protected sealed override void Init()
+        {
             Value = GetColumn<T>(Name);
         }
         /// <summary>
         /// Initializes the asynchronous.
         /// </summary>
-        protected sealed override async Task InitAsync() {
+        protected sealed override async Task InitAsync()
+        {
             Value = await GetColumnAsync<T>(Name);
         }
 

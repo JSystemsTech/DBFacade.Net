@@ -170,20 +170,20 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         /// Creates the database parameter.
         /// </summary>
         /// <returns></returns>
-        protected override DbParameter CreateDbParameter()=> new MockDbParameter();
+        protected override DbParameter CreateDbParameter() => new MockDbParameter();
         /// <summary>
         /// Sets the response.
         /// </summary>
         private void SetResponse()
         {
-            if(_DbParameterCollection is MockDbParameterCollection mockDbParameterCollection)
+            if (_DbParameterCollection is MockDbParameterCollection mockDbParameterCollection)
             {
-                if(mockDbParameterCollection.GetReturnValueParam() is MockDbParameter param)
+                if (mockDbParameterCollection.GetReturnValueParam() is MockDbParameter param)
                 {
                     param.Value = MockResponseData.ReturnValue;
                 }
-                if(MockResponseData.OutputValues != null)
-                {                    
+                if (MockResponseData.OutputValues != null)
+                {
                     foreach (MockDbParameter outputParam in mockDbParameterCollection.GetOutputParams())
                     {
                         object value;

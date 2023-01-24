@@ -2,6 +2,30 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net5.0;netcoreapp3.1;net48;net472;</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net7.0'">
+    <AssemblyTitle>Json.NET .NET 7.0</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <AssemblyTitle>Json.NET .NET 6.0</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
+    <AssemblyTitle>Json.NET .NET 5.0</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
+    <AssemblyTitle>Json.NET .NET 3.1</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net48'">
+    <AssemblyTitle>Json.NET .NET 4.8</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net472'">
+    <AssemblyTitle>Json.NET .NET 4.7.2</AssemblyTitle>
+  </PropertyGroup>
+  
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>

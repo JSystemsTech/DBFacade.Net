@@ -21,7 +21,7 @@ namespace DbFacade.Extensions
         /// <param name="config">The configuration.</param>
         /// <param name="model">The model.</param>
         public static void AddParameter<TDbParams>(
-            this IDbCommand dbCommand, 
+            this IDbCommand dbCommand,
             KeyValuePair<string, IDbCommandParameterConfig<TDbParams>> config,
             TDbParams model)
         {
@@ -35,17 +35,17 @@ namespace DbFacade.Extensions
                     parameter.DbType = paramConfig.DbType;
                     if (parameter.Direction != ParameterDirection.ReturnValue)
                     {
-                        if(parameter is DbParameter dbParameter)
+                        if (parameter is DbParameter dbParameter)
                         {
                             dbParameter.IsNullable = paramConfig.IsNullable;
-                        }                        
+                        }
                     }
                     if (parameter.Direction == ParameterDirection.Input)
                     {
                         parameter.DbType = paramConfig.DbType;
                         parameter.Value = paramConfig.Value(model);
                     }
-                    else if(parameter.Direction == ParameterDirection.Output)
+                    else if (parameter.Direction == ParameterDirection.Output)
                     {
                         parameter.Size = paramConfig.OutputSize is int outputSize ? outputSize : int.MaxValue;
                     }
@@ -75,13 +75,14 @@ namespace DbFacade.Extensions
                     parameter.DbType = paramConfig.DbType;
                     if (parameter.Direction != ParameterDirection.ReturnValue)
                     {
-                        if(parameter is DbParameter dbParameter)
+                        if (parameter is DbParameter dbParameter)
                         {
                             dbParameter.IsNullable = paramConfig.IsNullable;
-                        }                        
+                        }
                     }
-                    if (parameter.Direction == ParameterDirection.Input)                    {
-                        
+                    if (parameter.Direction == ParameterDirection.Input)
+                    {
+
                         parameter.Value = await paramConfig.ValueAsync(model);
                     }
                     else if (parameter.Direction == ParameterDirection.Output)
@@ -89,9 +90,9 @@ namespace DbFacade.Extensions
                         parameter.Size = paramConfig.OutputSize is int outputSize ? outputSize : int.MaxValue;
                     }
                     dbCommand.Parameters.Add(parameter);
-                }                
+                }
             }
-            await Task.CompletedTask; 
+            await Task.CompletedTask;
         }
 
 
@@ -153,7 +154,7 @@ namespace DbFacade.Extensions
             foreach (IDbDataParameter dbParameter in dbCommand.Parameters)
             {
                 if (dbParameter.Direction == ParameterDirection.ReturnValue)
-                {                    
+                {
                     parameter = dbParameter;
                     break;
                 }
@@ -191,9 +192,9 @@ namespace DbFacade.Extensions
         private static IEnumerable<IDbDataParameter> GetOutputParams(this IDbCommand dbCommand)
         {
             List<IDbDataParameter> list = new List<IDbDataParameter>();
-            foreach(IDbDataParameter parameter in dbCommand.Parameters)
+            foreach (IDbDataParameter parameter in dbCommand.Parameters)
             {
-                if(parameter.Direction == ParameterDirection.Output)
+                if (parameter.Direction == ParameterDirection.Output)
                 {
                     list.Add(parameter);
                 }

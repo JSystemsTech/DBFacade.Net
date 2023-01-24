@@ -347,7 +347,7 @@ namespace DbFacade.Factories
         /// <param name="size">The size.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> OutputCharArray(int? size = null)
-        => DbCommandParameterConfig<TDbParams>.CreateOutput<char[]> (DbType.String, size);
+        => DbCommandParameterConfig<TDbParams>.CreateOutput<char[]>(DbType.String, size);
 
 
         /// <summary>

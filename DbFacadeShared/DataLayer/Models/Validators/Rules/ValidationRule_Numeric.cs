@@ -34,7 +34,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <summary>
             /// The number styles
             /// </summary>
-            private static NumberStyles NumberStyles = 
+            private static NumberStyles NumberStyles =
                 NumberStyles.Any |
                 NumberStyles.AllowLeadingSign |
                 NumberStyles.AllowExponent |
@@ -44,7 +44,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <summary>
             /// Prevents a default instance of the <see cref="IsNumeric" /> class from being created.
             /// </summary>
-            private IsNumeric() {}
+            private IsNumeric() { }
             /// <summary>
             /// Initializes a new instance of the <see cref="IsNumeric" /> class.
             /// </summary>
