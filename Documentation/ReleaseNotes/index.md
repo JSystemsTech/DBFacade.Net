@@ -1,5 +1,18 @@
 ﻿# Release Notes
 
+## 1.12.1
+### Issues Resolved
+- Resolved an issue with unit testing feature not properly handling annonomous objects as data row values
+
+### Additional Notes
+- bumped NuGet package dependancy versions
+
+## 1.12.0
+
+### Features Depreciated/Removed
+- Depreciated .NET Core specific nuget package. Separate Non SQL Client connections into separate packages
+
+
 ## 1.11.0
 ### Features Added
 - Added Access to raw C# 'DataSet' object

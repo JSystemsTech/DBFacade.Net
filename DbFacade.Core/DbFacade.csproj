@@ -6,7 +6,7 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <Version>1.12.0</Version>
+    <Version>1.12.1</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
@@ -19,7 +19,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release 1.12.0 depricate .Core specific nuget package. Separate Non SQL Client connections into separate packages</PackageReleaseNotes>
+    <PackageReleaseNotes>Release 1.12.1 Resolved an issue with unit testing feature not properly handling annonomous objects as data row values</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
@@ -47,14 +47,14 @@
       <PackagePath>images\icon.jpg</PackagePath>
       <Visible>False</Visible>
     </None>
-    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
     
   </ItemGroup>
 
   
 
   <ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>

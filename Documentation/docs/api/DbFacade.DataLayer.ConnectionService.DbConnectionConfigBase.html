@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class DbConnectionConfigBase
    | DbFacade ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../images/icon.jpg">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -89,7 +89,7 @@
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">DbConnectionConfigBase</span></div>
-      <div class="level2"><a class="xref" href="DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html">DbConnectionConfig&lt;TDbDataReader, TDbConnection, TDbCommand, TDbTransaction, TDbParameter, TDbConnectionConfig&gt;</a></div>
+      <div class="level2"><a class="xref" href="DbFacade.DataLayer.ConnectionService.DbConnectionConfig-1.html">DbConnectionConfig&lt;TDbConnectionConfig&gt;</a></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -126,66 +126,97 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public abstract class DbConnectionConfigBase : IDbConnectionConfig, IAsyncInit</code></pre>
   </div>
-  <h3 id="properties">Properties
-  </h3>
-  
-  
-  <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_MockDataResponseDictionary_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.MockDataResponseDictionary*"></a>
-  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_MockDataResponseDictionary" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.MockDataResponseDictionary">MockDataResponseDictionary</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the mock data response dictionary.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected IDictionary&lt;Guid, MockResponseData&gt; MockDataResponseDictionary { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.Guid</span>, <a class="xref" href="DbFacade.DataLayer.Models.MockResponseData.html">MockResponseData</a>&gt;</td>
-        <td><p>The mock data response dictionary.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_UseMockConnection_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.UseMockConnection*"></a>
-  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_UseMockConnection" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.UseMockConnection">UseMockConnection</h4>
-  <div class="markdown level1 summary"><p>Gets a value indicating whether [use mock connection].</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected bool UseMockConnection { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if [use mock connection]; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_CreateDbConnection_System_String_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.CreateDbConnection(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L51">View Source</a>
+  </span>
+  <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_CreateDbConnection_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.CreateDbConnection*"></a>
+  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_CreateDbConnection_System_String_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.CreateDbConnection(System.String)">CreateDbConnection(String)</h4>
+  <div class="markdown level1 summary"><p>Creates the database connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract IDbConnection CreateDbConnection(string connectionString)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionString</span></td>
+        <td><p>The connection string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Data.IDbConnection</span></td>
+        <td><p><br></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_GetDbDataAdapter.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.GetDbDataAdapter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L45">View Source</a>
+  </span>
+  <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_GetDbDataAdapter_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.GetDbDataAdapter*"></a>
+  <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_GetDbDataAdapter" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.GetDbDataAdapter">GetDbDataAdapter()</h4>
+  <div class="markdown level1 summary"><p>Gets the database data adapter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract IDbDataAdapter GetDbDataAdapter()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Data.IDbDataAdapter</span></td>
+        <td><p><br></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_InitAsync.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.InitAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L24">View Source</a>
+  </span>
   <a id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_InitAsync_" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.InitAsync*"></a>
   <h4 id="DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase_InitAsync" data-uid="DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.InitAsync">InitAsync()</h4>
   <div class="markdown level1 summary"><p>Initializes the asynchronous.</p>
@@ -231,6 +262,12 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_DbConnectionConfigBase.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/ConnectionService/DbConnectionConfig.cs/#L19" class="contribution-link">View Source</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

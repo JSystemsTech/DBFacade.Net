@@ -77,7 +77,7 @@ namespace DbFacade.DataLayer.Models
         /// <param name="returnValue">The return value.</param>
         /// <returns></returns>
         public static MockResponseData Create<T>(IEnumerable<T> responseData, Action<IDictionary<string, object>> outputValueHandler = null, int? returnValue = null)
-        => Create(new MockDbTable<T>(responseData).ToDataReader(), outputValueHandler, returnValue);
+        => Create(MockDbTable.Create(responseData).ToDataReader(), outputValueHandler, returnValue);
     }
 
 }

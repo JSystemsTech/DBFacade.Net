@@ -8,130 +8,79 @@ using System.Reflection;
 namespace DbFacade.Utils
 {
     /// <summary>
-    /// 
+    ///   <br />
     /// </summary>
     internal class MockDbTable
     {
-        /// <summary>
-        /// The empty table
-        /// </summary>
+        /// <summary>The empty table</summary>
         public static DbDataReader EmptyTable = new DataTable("EmptyMockDbTable").CreateDataReader();
-    }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    internal class MockDbTable<T>
-    {
-        /// <summary>
-        /// The bindable fields
-        /// </summary>
-        private readonly List<FieldInfo> BindableFields =
-            typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance).ToList();
+        /// <summary>Gets or sets the bindable fields.</summary>
+        /// <value>The bindable fields.</value>
+        private FieldInfo[] BindableFields { get; set; }
+        /// <summary>Gets or sets the bindable properties.</summary>
+        /// <value>The bindable properties.</value>
+        private PropertyInfo[] BindableProperties { get; set; }
 
-        /// <summary>
-        /// The bindable properties
-        /// </summary>
-        private readonly List<PropertyInfo> BindableProperties =
-            typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
-
-        /// <summary>
-        /// The test values data table
-        /// </summary>
+        /// <summary>The test values data table</summary>
         private DataTable TestValuesDataTable;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MockDbTable{T}"/> class.
-        /// </summary>
-        public MockDbTable()
+        /// <summary>Initializes a new instance of the <see cref="MockDbTable" /> class.</summary>
+        /// <param name="dataType">Type of the data.</param>
+        private MockDbTable(Type dataType)
         {
-            Init();
-        }
+            BindableFields = dataType.GetFields(BindingFlags.Public | BindingFlags.Instance);
+            BindableProperties = dataType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MockDbTable{T}"/> class.
-        /// </summary>
+            TestValuesDataTable = new DataTable("MockDbTable");
+            foreach (var prop in BindableProperties)
+                TestValuesDataTable.Columns.Add(new DataColumn(prop.Name, GetPropType(prop.PropertyType)));
+            foreach (var field in BindableFields)
+                TestValuesDataTable.Columns.Add(new DataColumn(field.Name, GetPropType(field.FieldType)));
+
+        }
+        /// <summary>Creates the specified models.</summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="models">The models.</param>
-        public MockDbTable(IEnumerable<T> models)
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public static MockDbTable Create<T>(IEnumerable<T> models)
         {
-            Init();
-            AddRows(models);
+            MockDbTable mockDbTable = new MockDbTable(models.FirstOrDefault().GetType());
+            foreach (T model in models) {
+                object[] values = mockDbTable.GetRowValues(model);
+                mockDbTable.TestValuesDataTable.Rows.Add(values); 
+            }
+            return mockDbTable;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MockDbTable{T}"/> class.
-        /// </summary>
+        /// <summary>Gets the row values.</summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="model">The model.</param>
-        public MockDbTable(T model)
-        {
-            Init();
-            AddRow(model);
-        }
-
-        /// <summary>
-        /// Gets the row values.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
-        private object[] GetRowValues(T model)
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        private object[] GetRowValues<T>(T model)
         {
             var values = BindableProperties.Select(prop => prop.GetValue(model));
             values = values.Concat(BindableFields.Select(field => field.GetValue(model)));
             return values.ToArray();
         }
 
-        /// <summary>
-        /// Gets the type.
-        /// </summary>
+
+        /// <summary>Gets the type of the property.</summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
-        private Type GetType(Type type)
-        {
-            return Nullable.GetUnderlyingType(type) ?? type;
-        }
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        private Type GetPropType(Type type) => Nullable.GetUnderlyingType(type) ?? type;
 
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        private void Init()
-        {
-            TestValuesDataTable = new DataTable("MockDbTable");
-            foreach (var prop in BindableProperties)
-                TestValuesDataTable.Columns.Add(new DataColumn(prop.Name, GetType(prop.PropertyType)));
-            foreach (var field in BindableFields)
-                TestValuesDataTable.Columns.Add(new DataColumn(field.Name, GetType(field.FieldType)));
-        }
 
-        /// <summary>
-        /// Adds the rows.
-        /// </summary>
-        /// <param name="models">The models.</param>
-        /// <returns></returns>
-        public MockDbTable<T> AddRows(IEnumerable<T> models)
-        {
-            foreach (T model in models) AddRow(model);
-            return this;
-        }
-
-        /// <summary>
-        /// Adds the row.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
-        public MockDbTable<T> AddRow(T model)
-        {
-            TestValuesDataTable.Rows.Add(GetRowValues(model));
-            return this;
-        }
-
-        /// <summary>
-        /// Converts to datareader.
-        /// </summary>
-        /// <returns></returns>
+        /// <summary>Converts to datareader.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public DbDataReader ToDataReader()
-        {
-            return TestValuesDataTable.CreateDataReader();
-        }
+        => TestValuesDataTable.CreateDataReader();
     }
 }
