@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net48;net472;</TargetFrameworks>
     <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>

@@ -237,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "ReleaseNotes/index.html",
-          "hash": "kOTc7tCtJssL5EU0xFx0gSMbgKo8MXzpKMclY63OEKs="
+          "hash": "1XHAaWShxbe2UmTxEqEcOrKmt0va5bHB+pfs8URMxKQ="
         }
       },
       "is_incremental": false,
@@ -1099,11 +1099,11 @@
     {
       "status": {
         "can_incremental": false,
-        "details": "Cannot build incrementally because docfx version changed from 2.58.9.0 to 2.59.4.0.",
+        "details": "Disable incremental build by force rebuild option.",
         "incrementalPhase": "build",
         "total_file_count": 0,
         "skipped_file_count": 0,
-        "full_build_reason_code": "DocfxVersionChanged"
+        "full_build_reason_code": "ForceRebuild"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
