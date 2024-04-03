@@ -99,6 +99,38 @@ namespace DbFacade.Utils.UnitTests
 
             }
         }
+        public interface ITestData
+        {
+            int Num { get; }
+        }
+        public class TestData:ITestData
+        {
+            public int Num { get; set; }
+        }
+        [Test]
+        public void TestTryGetDataTableFromInterface()
+        {
+            ITestData expectedModel = new TestData() { Num = 2 };
+            bool success = new ITestData[] { expectedModel }.TryGetDataTable(out DataTable dt);
+            Assert.IsTrue(success, $"expected collection parser to generate a Data Table");
+            Assert.That(dt.Rows.Count, Is.EqualTo(1));
+
+            AssertHasColumn(dt, "Num");
+            DataRow row = dt.Rows[0];
+            AssertHasValue(row, "Num", expectedModel.Num);
+        }
+        [Test]
+        public void TestTryGetDataTableFromAnnonomous()
+        {
+            object expectedModel = new  { Num = 2 };
+            bool success = new object[] { expectedModel }.TryGetDataTable(out DataTable dt);
+            Assert.IsTrue(success, $"expected collection parser to generate a Data Table");
+            Assert.That(dt.Rows.Count, Is.EqualTo(1));
+
+            AssertHasColumn(dt, "Num");
+            DataRow row = dt.Rows[0];
+            AssertHasValue(row, "Num", 2);
+        }
         [Test]
         public void TestTryGetValue()
         {

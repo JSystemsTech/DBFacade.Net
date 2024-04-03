@@ -10,7 +10,12 @@ namespace DbFacade.Utils
     {
         public static bool TryGetDataTable<To>(IEnumerable<To> data, out DataTable dt)
         {
-            if (ClassTypeDetailsFactory.TryGetClassTypeDetails(typeof(To), out ClassTypeDetails details))
+            Type type = typeof(To);
+            if(type == typeof(object) && data.Count() > 0)
+            {
+                type = data.FirstOrDefault().GetType();
+            }
+            if (ClassTypeDetailsFactory.TryGetClassTypeDetails(type, out ClassTypeDetails details))
             {
                 dt = new DataTable(Guid.NewGuid().ToString());
                 AddColumns(dt, details);
@@ -71,6 +76,12 @@ namespace DbFacade.Utils
             FillEntriesWithProperties();
             FillEntriesWithFields();
         }
+        private bool IsValidType(object obj) { 
+         Type type = obj.GetType();
+            bool isExactMatch = type == ClassType;
+            bool isInterfaceMatch = ClassType.IsInterface && type.GetInterfaces().Contains(ClassType);
+            return isExactMatch || isInterfaceMatch;
+        }
         private void FillEntriesWithProperties()
         {
             foreach (var prop in ClassType.GetProperties())
@@ -80,11 +91,11 @@ namespace DbFacade.Utils
                     prop.Name,
                     prop.PropertyType,
                     nullType is Type nType ? nType : prop.PropertyType,
-                    m => m.GetType() == ClassType && prop.CanRead ? ClassType.GetProperty(prop.Name).GetValue(m) : null,
+                    m => IsValidType(m) && prop.CanRead ? ClassType.GetProperty(prop.Name).GetValue(m) : null,
                  (m, v) =>
                  {
                      bool propIsMatch = v.GetType() == prop.PropertyType || v.GetType() == nullType;
-                     if (m.GetType() == ClassType && propIsMatch && prop.CanWrite)
+                     if (IsValidType(m) && propIsMatch && prop.CanWrite)
                      {
                          ClassType.GetProperty(prop.Name).SetValue(m, v);
                      }
@@ -102,13 +113,13 @@ namespace DbFacade.Utils
                     field.Name,
                     field.FieldType,
                     nullType is Type nType ? nType : field.FieldType,
-                    m => m.GetType() == ClassType && field.IsPublic && !field.IsStatic ? ClassType.GetField(field.Name).GetValue(m) : null,
+                    m => IsValidType(m) && field.IsPublic && !field.IsStatic ? ClassType.GetField(field.Name).GetValue(m) : null,
                  (m, v) =>
                  {
                      bool propIsMatch = v.GetType() == field.FieldType || v.GetType() == nullType;
-                     if (m.GetType() == ClassType && propIsMatch && field.IsPublic && !field.IsStatic)
+                     if (IsValidType(m) && propIsMatch && field.IsPublic && !field.IsStatic)
                      {
-                         ClassType.GetProperty(field.Name).SetValue(m, v);
+                         ClassType.GetField(field.Name).SetValue(m, v);
                      }
                  }
                 );
