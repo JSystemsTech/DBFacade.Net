@@ -1,4 +1,5 @@
 ﻿using DbFacade.DataLayer.CommandConfig;
+using DbFacade.DataLayer.ConnectionService.MockDb;
 using DbFacade.DataLayer.Models;
 using DbFacade.Exceptions;
 using DbFacade.Extensions;
@@ -18,6 +19,7 @@ namespace DbFacade.DataLayer.ConnectionService
     internal partial class DbConnectionHandler<TDbDataModel, TDbParams>
         where TDbDataModel : DbDataModel
     {
+
         /// <summary>
         /// Builds the repsonse.
         /// </summary>
@@ -37,7 +39,15 @@ namespace DbFacade.DataLayer.ConnectionService
             var responseObj = DbResponseFactory<TDbDataModel>.Create(dbCommandSettings, default(int), outputValues);
             if (responseObj is DbResponse<TDbDataModel> _responseObj && ds != null)
             {
-                _responseObj.InitDataSets(DbDataSet.CreateDataSets(dbCommandSettings, ds), ds, rawDataOnly);
+                IEnumerable<IDbDataSet> data;
+                using (MeasurableMetric.Create("BuildRepsonse_CreateDataSets"))
+                {
+                    data = DbDataSet.CreateDataSets(dbCommandSettings, ds);
+                }
+                using (MeasurableMetric.Create("BuildRepsonse_InitDataSets"))
+                {
+                    _responseObj.InitDataSets(data, ds, rawDataOnly);
+                }                
             }
             return responseObj;
         }
@@ -122,7 +132,10 @@ namespace DbFacade.DataLayer.ConnectionService
                 DataSet ds = new DataSet($"{config.DbCommandText.Label} Result DataSet");
                 IDbDataAdapter da = createDbDataAdapter();
                 da.SelectCommand = dbCommand;
-                da.Fill(ds);
+                using (MeasurableMetric.Create("ExecuteQuery_Fill"))
+                {
+                    da.Fill(ds);
+                }
 
                 response = BuildRepsonse(
                     rawDataOnly,
@@ -158,7 +171,12 @@ namespace DbFacade.DataLayer.ConnectionService
         public static IDbResponse<TDbDataModel> ExecuteDbAction(
             DbCommandMethod<TDbParams, TDbDataModel> config, TDbParams parameters, bool rawDataOnly, Func<IDbDataAdapter> createDbDataAdapter)
         {
-            using (IDbConnection dbConnection = config.DbConnectionConfig.GetDbConnection(config.DbCommandText))
+            IDbConnection dbConnection;
+            using (MeasurableMetric.Create("ExecuteDbAction_ResolveDbConnection"))
+            {
+                dbConnection = config.DbCommandText.DbConnection.ResolveDbConnection(config.DbCommandText, config);
+            }
+            using (dbConnection)
             {
                 if (dbConnection != null)
                 {

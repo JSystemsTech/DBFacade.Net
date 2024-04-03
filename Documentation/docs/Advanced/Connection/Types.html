@@ -109,13 +109,28 @@
 </code></pre><h2 id="custom-connection-type">Custom Connection Type</h2>
 <p>If you are trying to connect to a database type that is not listed above you may define your own connection type.</p>
 <h3 id="create-base-abstract-class">Create Base abstract class</h3>
-<pre><code class="lang-csharp">public abstract class CustomConnectionConfig&lt;TDbConnectionConfig&gt; : DbConnectionConfig
-where TDbConnectionConfig : DbConnectionConfigBase 
+<pre><code class="lang-csharp">public abstract class CustomConnectionConfig&lt;TDbConnectionConfig&gt; : DbConnectionConfigFull&lt;TDbConnectionConfig&gt;
+where TDbConnectionConfig : IDbConnectionConfig 
 {
-    protected sealed override IDbDataAdapter GetDbDataAdapter() =&gt; new CustomDataAdapter();
-
-    protected sealed override IDbConnection CreateDbConnection(string connectionString) =&gt; new CustomDbConnection(connectionString);
-
+    public static void Configure(OnGetConnectionString getConnectionString, Action&lt;IErrorHandlerOptions&gt; handler)
+    {
+        handler(GetConnectionOptions().ErrorHandlerOptions);
+        GetConnectionOptions().SetOnGetDbDataAdapter(() =&gt; new CustomDataAdapter());
+        GetConnectionOptions().SetOnGetConnectionString(getConnectionString);
+        GetConnectionOptions().SetOnCreateDbConnection(connectionString =&gt; new CustomDbConnection(connectionString));
+    }
+}
+</code></pre><p>If the database type does not support transactions use the following.</p>
+<pre><code class="lang-csharp">public abstract class CustomConnectionConfig&lt;TDbConnectionConfig&gt; : DbConnectionConfigNoTransaction&lt;TDbConnectionConfig&gt;
+where TDbConnectionConfig : IDbConnectionConfig 
+{
+    public static void Configure(OnGetConnectionString getConnectionString, Action&lt;IErrorHandlerOptions&gt; handler)
+    {
+        handler(GetConnectionOptions().ErrorHandlerOptions);
+        GetConnectionOptions().SetOnGetDbDataAdapter(() =&gt; new CustomDataAdapter());
+        GetConnectionOptions().SetOnGetConnectionString(getConnectionString);
+        GetConnectionOptions().SetOnCreateDbConnection(connectionString =&gt; new CustomDbConnection(connectionString));
+    }
 }
 </code></pre><h3 id="create-the-connection-class">Create the Connection class</h3>
 <pre><code class="lang-csharp">internal class MyProjectCustomConnection : CustomConnectionConfig&lt;MyProjectCustomConnection&gt;

@@ -49,7 +49,7 @@ namespace DbFacade.Exceptions
         /// Initializes a new instance of the <see cref="DbConnectionConfigNotRegisteredException"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        internal DbConnectionConfigNotRegisteredException(Type type) : base($"{type.Name} has not been registered yet") { }
+        internal DbConnectionConfigNotRegisteredException() : base($"Connection has not been registered yet") { }
 
         /// <summary>
         /// Names this instance.
@@ -99,18 +99,16 @@ namespace DbFacade.Exceptions
     }
 
     /// <summary>
-    /// 
+    ///   <br />
     /// </summary>
-    /// <typeparam name="DbParams">The type of the b parameters.</typeparam>
-    public class ValidationException<DbParams> : FacadeException
+    public class ValidationException : FacadeException
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationException{DbParams}"/> class.
-        /// </summary>
+
+        /// <summary>Initializes a new instance of the <see cref="ValidationException" /> class.</summary>
         /// <param name="validationResult">The validation result.</param>
         /// <param name="parameters">The parameters.</param>
         /// <param name="errorMessage">The error message.</param>
-        internal ValidationException(IValidationResult validationResult, DbParams parameters, string errorMessage) : base(
+        internal ValidationException(IValidationResult validationResult, object parameters, string errorMessage) : base(
             errorMessage)
         {
             Init(validationResult, parameters);
@@ -135,7 +133,7 @@ namespace DbFacade.Exceptions
         /// <value>
         /// The parameters.
         /// </value>
-        public DbParams Parameters { get; private set; }
+        public object Parameters { get; private set; }
 
         /// <summary>
         /// Names this instance.
@@ -153,7 +151,7 @@ namespace DbFacade.Exceptions
         /// </summary>
         /// <param name="validationResult">The validation result.</param>
         /// <param name="parameters">The parameters.</param>
-        private void Init(IValidationResult validationResult, DbParams parameters)
+        private void Init(IValidationResult validationResult, object parameters)
         {
             ValidationResult = validationResult;
             Parameters = parameters;

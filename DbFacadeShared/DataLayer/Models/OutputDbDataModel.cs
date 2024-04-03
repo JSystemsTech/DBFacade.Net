@@ -33,14 +33,16 @@ namespace DbFacade.DataLayer.Models
         /// <param name="data">The data.</param>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        internal static OutputDbDataModel<T> ToDbDataModel(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data, string name)
+        internal static OutputDbDataModel<T> ToDbDataModel(IDbCommandSettings dbCommandSettings, object data, string name)
         {
-            var model = GenericInstance.GetInstance<OutputDbDataModel<T>>();
-            model.Data = data;
-            model.DbCommandSettings = dbCommandSettings;
-            model.Name = name;
-            model.Init();
-            return model;
+            if(Utils.Utils.TryMakeInstance(out OutputDbDataModel<T> model, data))
+            {
+                model.DbCommandSettings = dbCommandSettings;
+                model.Name = name;
+                model.Init();
+                return model;
+            }
+            return default(OutputDbDataModel<T>);
         }
         /// <summary>
         /// Converts to dbdatamodelasync.
@@ -49,13 +51,16 @@ namespace DbFacade.DataLayer.Models
         /// <param name="data">The data.</param>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        internal static async Task<OutputDbDataModel<T>> ToDbDataModelAsync(IDbCommandSettings dbCommandSettings, IDictionary<string, object> data, string name)
+        internal static async Task<OutputDbDataModel<T>> ToDbDataModelAsync(IDbCommandSettings dbCommandSettings, object data, string name)
         {
-            var model = await GenericInstance.GetInstanceAsync<OutputDbDataModel<T>>();
-            model.Data = data;
-            model.DbCommandSettings = dbCommandSettings;
-            model.Name = name;
-            await model.InitAsync();
+            if (Utils.Utils.TryMakeInstance(out OutputDbDataModel<T> model, data))
+            {
+                model.DbCommandSettings = dbCommandSettings;
+                model.Name = name;
+                await model.InitAsync();
+                return model;
+            }
+            await Task.CompletedTask;
             return model;
         }
         /// <summary>

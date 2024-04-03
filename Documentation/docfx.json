@@ -9,7 +9,8 @@
             "DBFacade.Net/DBFacade.Oracle/**.csproj",
             "DBFacade.Net/DBFacade.OleDb/**.csproj",
             "DBFacade.Net/DBFacade.Odbc/**.csproj",
-            "DBFacade.Net/DBFacade.SQLite/**.csproj"
+            "DBFacade.Net/DBFacade.SQLite/**.csproj",
+            "DBFacade.Net/DBFacade.Utils/**.csproj"
           ],
           "cwd": "../../",
           "exclude": [

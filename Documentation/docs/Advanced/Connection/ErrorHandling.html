@@ -86,6 +86,72 @@ the connection object also provides a means of capturing and handling exceptions
 this is a convienient way to capture those errors upfront without having to
 replicate for each call on the DomainFacade file.</p>
 <h2 id="use-cases">Use Cases</h2>
+<h3 id="as-of-version-1130">As of Version 1.13.0</h3>
+<pre><code class="lang-csharp">internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
+{
+    public static void Configure()
+    {
+        Configure(GetDbConnectionString, o =&gt; {
+            o.SetOnErrorHandler(OnError);
+            o.SetOnValidationError(OnValidationError);
+            o.SetOnSQLExecutionError(OnSQLExecutionError);
+            o.SetOnFacadeError(OnFacadeError);
+        });
+    }
+
+    //Handle any Error
+    //Generally the most common one to use
+    private static void OnError(Exception ex, IDbCommandSettings commandSettings) { 
+        //Run custom logic to log error
+    }
+    //Handle method Validation Errors
+    private static void OnValidationError&lt;TDbParams&gt;(ValidationException&lt;TDbParams&gt; ex, IDbCommandSettings commandSettings) { 
+        //Run custom logic to log error
+    }
+    //Handle SQL execution Errors
+    private static void OnSQLExecutionError(SQLExecutionException ex, IDbCommandSettings commandSettings) { 
+        //Run custom logic to log error
+    }
+    //Handle rare Facade Error. 
+    //This shouldn&#39;t normally be hit all that often when an error occurs, so this is best used in debug mode.
+    private static void OnFacadeError(FacadeException ex, IDbCommandSettings commandSettings) { 
+        //Run custom logic to log error
+    }
+    ...
+}
+</code></pre><p>If your code Executes methods asynchronsly you will need to define the async error handler(s).</p>
+<pre><code class="lang-csharp">internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
+{
+    public static void Configure()
+    {
+        Configure(GetDbConnectionString, o =&gt; {
+            o.SetOnErrorHandlerAsync(OnErrorAsync);
+            o.SetOnValidationErrorAsync(OnValidationErrorAsync);
+            o.SetOnSQLExecutionErrorAsync(OnSQLExecutionErrorAsync);
+            o.SetOnFacadeErrorAsync(OnFacadeErrorAsync);
+        });
+    }
+    //Handle any Error
+    //Generally the most common one to use
+    private static async Task OnErrorAsync(Exception ex, IDbCommandSettings commandSettings) { 
+        //Run custom logic to log error
+    }
+    //Handle method Validation Errors
+    private static async Task OnValidationErrorAsync&lt;TDbParams&gt;(ValidationException&lt;TDbParams&gt; ex, IDbCommandSettings commandSettings) { 
+        //Run custom logic to log error
+    }
+    //Handle SQL execution Errors
+    private static async Task OnSQLExecutionErrorAsync(SQLExecutionException ex, IDbCommandSettings commandSettings) { 
+        //Run custom logic to log error
+    }
+    //Handle rare Facade Error. 
+    //This shouldn&#39;t normally be hit all that often when an error occurs, so this is best used in debug mode.
+    private static async Task OnFacadeErrorAsync(FacadeException ex, IDbCommandSettings commandSettings) { 
+        //Run custom logic to log error
+    }
+    ...
+}
+</code></pre><h3 id="version-1121-and-earlier">Version 1.12.1 and earlier</h3>
 <pre><code class="lang-csharp">internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
 {
     ...

@@ -87,6 +87,17 @@
 |   |   |   |- MyProjectSQLConnection.cs
 </code></pre><h2 id="add-connection-file">Add Connection file</h2>
 <p>Create a <code>MyProjectSQLConnection.cs</code> class file in <code>MyProjectDirectory/DomainLayer/Connections</code> as follows:</p>
+<h3 id="as-of-version-1130">As of Version 1.13.0</h3>
+<pre><code class="lang-csharp">    internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
+    {
+        private static string GetDbConnectionString() =&gt; &quot;SomeConnectionString&quot;;
+
+        public static void Configure()
+        {
+            Configure(GetDbConnectionString, o =&gt; { });
+        }   
+    }
+</code></pre><h3 id="version-1121-and-earlier">Version 1.12.1 and earlier</h3>
 <pre><code class="lang-csharp">    internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
     {
         private string ConnectionString { get; set; }
@@ -111,6 +122,19 @@
 <p>Add a SQL stored procedure command definition to class <code>MyProjectSQLConnection</code> as a static property as follows</p>
 <pre><code class="lang-csharp">    public static IDbCommandConfig GetSampleData = CreateFetchCommand(&quot;[dbo].[SampleData_Get]&quot;, &quot;Get Sample Data&quot;);
 </code></pre><h2 id="complete-class-code">Complete Class Code</h2>
+<h3 id="as-of-version-1130-1">As of Version 1.13.0</h3>
+<pre><code class="lang-csharp">    internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
+    {
+        private static string GetDbConnectionString() =&gt; &quot;SomeConnectionString&quot;;
+
+        public static void Configure()
+        {
+            Configure(GetDbConnectionString, o =&gt; { });
+        }   
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand(&quot;[dbo].[SampleData_Get]&quot;, &quot;Get Sample Data&quot;);
+    }
+</code></pre><h3 id="version-1121-and-earlier-1">Version 1.12.1 and earlier</h3>
 <pre><code class="lang-csharp">    internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
     {
         private string ConnectionString { get; set; }
@@ -135,7 +159,31 @@
     }
 </code></pre><h2 id="speciallized-setup-for-connection-types-that-support-for-a-credential-object">Speciallized Setup for Connection types that support for a credential object</h2>
 <p>&#39;OracleConnectionConfig&#39; and &#39;SqlConnectionConfig&#39; types support an aditional optional credendial object  </p>
-<p>Add a SQL stored procedure command definition to class <code>MyProjectSQLConnection</code> as a static property as follows</p>
+<h3 id="as-of-version-1130-2">As of Version 1.13.0</h3>
+<pre><code class="lang-csharp">    internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
+    {
+        private static string GetDbConnectionString() =&gt; &quot;SomeConnectionString&quot;;
+
+        public static void Configure(SqlCredential credential)
+        {
+            Configure(GetDbConnectionString, credential, o =&gt; { });
+        }   
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand(&quot;[dbo].[SampleData_Get]&quot;, &quot;Get Sample Data&quot;);
+    }
+
+    internal class MyProjectOracleConnection : OracleConnectionConfig&lt;MyProjectOracleConnection&gt;
+    {
+        private static string GetDbConnectionString() =&gt; &quot;SomeConnectionString&quot;;
+
+        public static void Configure(OracleCredential credential)
+        {
+            Configure(GetDbConnectionString, credential, o =&gt; { });
+        }    
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand(&quot;[dbo].[SampleData_Get]&quot;, &quot;Get Sample Data&quot;);
+    }
+</code></pre><h3 id="version-1121-and-earlier-2">Version 1.12.1 and earlier</h3>
 <pre><code class="lang-csharp">    internal class MyProjectSQLConnection : SqlConnectionConfig&lt;MyProjectSQLConnection&gt;
     {
         private string ConnectionString { get; set; }        

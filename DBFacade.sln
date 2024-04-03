@@ -30,13 +30,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\NetFxCI.yml = .github\workflows\NetFxCI.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Oracle", "DbFacade.Oracle\DbFacade.Oracle.csproj", "{F5E70C61-6867-4F51-9671-B032AEBE5114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade.Oracle", "DbFacade.Oracle\DbFacade.Oracle.csproj", "{F5E70C61-6867-4F51-9671-B032AEBE5114}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.SQLite", "DbFacade.SQLite\DbFacade.SQLite.csproj", "{5D82C231-9AB6-453A-AC5E-0BE9F78FAF07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade.SQLite", "DbFacade.SQLite\DbFacade.SQLite.csproj", "{5D82C231-9AB6-453A-AC5E-0BE9F78FAF07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Odbc", "DbFacade.Odbc\DbFacade.Odbc.csproj", "{23A4322A-B607-4D26-AD4D-1094E0865264}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade.Odbc", "DbFacade.Odbc\DbFacade.Odbc.csproj", "{23A4322A-B607-4D26-AD4D-1094E0865264}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.OleDb", "DbFacade.OleDb\DbFacade.OleDb.csproj", "{9579945C-4D02-4D06-9872-9AC969E973E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade.OleDb", "DbFacade.OleDb\DbFacade.OleDb.csproj", "{9579945C-4D02-4D06-9872-9AC969E973E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Utils", "DbFacade.Utils\DbFacade.Utils.csproj", "{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Utils.UnitTests", "DbFacade.Utils.UnitTests\DbFacade.Utils.UnitTests.csproj", "{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +78,14 @@ Global
 		{9579945C-4D02-4D06-9872-9AC969E973E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9579945C-4D02-4D06-9872-9AC969E973E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9579945C-4D02-4D06-9872-9AC969E973E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

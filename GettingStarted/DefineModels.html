@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Define Models | DbFacade </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Define Models | DbFacade ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../images/icon.jpg">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" src="../images/icon.jpg" alt="" width="50" height="50" class="d-inline-block align-text-top">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="define-models">Define Models</h1>
+
+<h2 id="directory-structure">Directory Structure</h2>
+<p>Modify the current directory structure as follows in your project directory.</p>
+<pre><code>|- MyProjectDirectory
+|   |- DomainLayer
+|   |   |- Connections
+|   |   |   |- MyProjectSQLConnection.cs
+|   |   |- Models
+|   |   |   |- Data
+|   |   |   |   |- SampleDataModel.cs
+|   |   |   |- Parameter
+|   |   |   |   |- GetSampleDataParameters.cs
+</code></pre><h2 id="add-parameter-model">Add Parameter Model</h2>
+<p>Create a <code>GetSampleDataParameters.cs</code> class file in <code>MyProjectDirectory/DomainLayer/Models/Parameters</code> as follows:</p>
+<pre><code class="lang-csharp">    public class GetSampleDataParameters
+    {
+        public Guid Guid { get; set; }
+        public string String { get; set; }
+    }
+</code></pre><h2 id="add-data-model">Add Data Model</h2>
+<p>Create a <code>SampleDataModel.cs</code> class file in <code>MyProjectDirectory/DomainLayer/Models/Data</code> as follows:</p>
+<pre><code class="lang-csharp">    public class SampleDataModel: DbDataModel
+    {
+        public Guid Guid { get; set; }
+        public string String { get; set; }
+        public bool Bool { get; set; }
+        public int Integer { get; set; }
+
+        protected override void Init()
+        {
+            Guid = GetColumn&lt;Guid&gt;(&quot;Guid&quot;);
+            String = GetColumn&lt;string&gt;(&quot;String&quot;);
+            Bool = GetColumn&lt;bool&gt;(&quot;Bool&quot;);
+            Integer = GetColumn&lt;int&gt;(&quot;Integer&quot;);
+        }
+
+        // if you plan to use asynchronous programing you must add the following to support asynchronous model binding. 
+        // Otherwise ignore this method override.
+        protected override async Task InitAsync()
+        {
+            Guid = await GetColumnAsync&lt;Guid&gt;(&quot;Guid&quot;);
+            String = await GetColumnAsync&lt;string&gt;(&quot;String&quot;);
+            Bool = await GetColumnAsync&lt;bool&gt;(&quot;Bool&quot;);
+            Integer = await GetColumnAsync&lt;int&gt;(&quot;Integer&quot;);
+        }
+    }
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Documentation/GettingStarted/DefineModels.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container-fluid">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright &copy; JSystemsTech 2021
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

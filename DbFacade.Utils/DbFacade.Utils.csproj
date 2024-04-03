@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net8.0;net7.0;net6.0;net481;net48;net472;</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.0.6</Version>
+    <Company>JSystemsTech</Company>
+    <Product>DbFacade.Utils .NET</Product>
+    <Description>DbFacade.NET extension utilities</Description>
+    <Copyright>Copyright © 2024</Copyright>
+    <PackageId>DbFacade.Utils</PackageId>
+    <Authors>JSystemsTech</Authors>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net dbfacade.Utils</PackageTags>
+    <PackageIcon>images\icon.jpg</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
+    <PackageReleaseNotes>Release 1.0.6 remove parallel processing</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIconUrl />
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyTitle>DbFacade.Utils $(LibraryFrameworks)</AssemblyTitle>
+  </PropertyGroup>
+ 
+
+
+  <ItemGroup>
+    <None Remove="Meta\DbFacadeLogoNoText.jpg" />
+    <None Include="..\icon.jpg">
+      <Pack>True</Pack>
+      <PackagePath>images\icon.jpg</PackagePath>
+      <Visible>False</Visible>
+    </None>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    
+  </ItemGroup>
+
+</Project>

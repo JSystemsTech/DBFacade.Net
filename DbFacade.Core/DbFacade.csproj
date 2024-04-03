@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net48;net472;</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net8.0;net7.0;net6.0;net481;net48;net472;</TargetFrameworks>
     <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
   </PropertyGroup>
   
   <PropertyGroup>
-    <Version>1.12.1</Version>
+    <Version>1.13.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
-    <Copyright>Copyright © 2022</Copyright>
+    <Copyright>Copyright © 2024</Copyright>
     <PackageId>DbFacade</PackageId>
     <Authors>JSystemsTech</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -19,23 +19,15 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release 1.12.1 Resolved an issue with unit testing feature not properly handling annonomous objects as data row values</PackageReleaseNotes>
+    <PackageReleaseNotes>Release 1.13.0 Add Unit testing feature to allow multiple data sets on single call. Update Dependancies</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net7.0'">
-    <AssemblyTitle>DbFacade .NET 7.0</AssemblyTitle>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
-    <AssemblyTitle>DbFacade .NET 6.0</AssemblyTitle>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net48'">
-    <AssemblyTitle>DbFacade .NET 4.8</AssemblyTitle>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net472'">
-    <AssemblyTitle>DbFacade .NET 4.7.2</AssemblyTitle>
+  <PropertyGroup>
+    <AssemblyTitle>DbFacade $(LibraryFrameworks)</AssemblyTitle>
+    <Title>DbFacade</Title>
   </PropertyGroup>
 
   <Import Project="..\DbFacadeShared\DbFacadeShared.projitems" Label="Shared" />
@@ -51,28 +43,15 @@
     
   </ItemGroup>
 
-  
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  <ItemGroup>
+    <PackageReference Include="DbFacade.Utils" Version="1.0.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="*" />
+    <PackageReference Include="System.Data.Common" Version="*" />
+    <PackageReference Include="System.Data.SqlClient" Version="*" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
-  </ItemGroup> 
+  
   
 
   <ItemGroup>

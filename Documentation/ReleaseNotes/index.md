@@ -1,5 +1,16 @@
 ﻿# Release Notes
 
+## 1.13.0
+### Issues Resolved
+- Resolved an issue with unit testing feature ruturning empty data sets when executing same call multiple times
+
+### Additional Notes
+- Bumped NuGet package dependancy versions
+- Added dependancy for NuGet package DbFacade.Utils
+- Add Unit testing feature to allow multiple data sets on single call
+- Refactored DbConnection Configuration pattern
+
+
 ## 1.12.1
 ### Issues Resolved
 - Resolved an issue with unit testing feature not properly handling annonomous objects as data row values

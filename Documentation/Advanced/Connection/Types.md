@@ -47,13 +47,30 @@ If you are trying to connect to a database type that is not listed above you may
 
 ### Create Base abstract class
 ```csharp
-public abstract class CustomConnectionConfig<TDbConnectionConfig> : DbConnectionConfig
-where TDbConnectionConfig : DbConnectionConfigBase 
+public abstract class CustomConnectionConfig<TDbConnectionConfig> : DbConnectionConfigFull<TDbConnectionConfig>
+where TDbConnectionConfig : IDbConnectionConfig 
 {
-    protected sealed override IDbDataAdapter GetDbDataAdapter() => new CustomDataAdapter();
-    
-    protected sealed override IDbConnection CreateDbConnection(string connectionString) => new CustomDbConnection(connectionString);
-
+    public static void Configure(OnGetConnectionString getConnectionString, Action<IErrorHandlerOptions> handler)
+    {
+        handler(GetConnectionOptions().ErrorHandlerOptions);
+        GetConnectionOptions().SetOnGetDbDataAdapter(() => new CustomDataAdapter());
+        GetConnectionOptions().SetOnGetConnectionString(getConnectionString);
+        GetConnectionOptions().SetOnCreateDbConnection(connectionString => new CustomDbConnection(connectionString));
+    }
+}
+```
+If the database type does not support transactions use the following.
+```csharp
+public abstract class CustomConnectionConfig<TDbConnectionConfig> : DbConnectionConfigNoTransaction<TDbConnectionConfig>
+where TDbConnectionConfig : IDbConnectionConfig 
+{
+    public static void Configure(OnGetConnectionString getConnectionString, Action<IErrorHandlerOptions> handler)
+    {
+        handler(GetConnectionOptions().ErrorHandlerOptions);
+        GetConnectionOptions().SetOnGetDbDataAdapter(() => new CustomDataAdapter());
+        GetConnectionOptions().SetOnGetConnectionString(getConnectionString);
+        GetConnectionOptions().SetOnCreateDbConnection(connectionString => new CustomDbConnection(connectionString));
+    }
 }
 ```
 

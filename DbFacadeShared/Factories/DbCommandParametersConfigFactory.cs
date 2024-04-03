@@ -89,7 +89,7 @@ namespace DbFacade.Factories
         /// <param name="returnFunction">The return function.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> Create<T>(DelegateHandler<TDbParams, T> returnFunction)
-        => Create(returnFunction, GenericInstance.IsNullableType<T>());
+        => Create(returnFunction, Nullable.GetUnderlyingType(typeof(T)) is Type);
 
         /// <summary>
         /// Creates the specified value.
@@ -98,7 +98,7 @@ namespace DbFacade.Factories
         /// <param name="value">The value.</param>
         /// <returns></returns>
         public IDbCommandParameterConfig<TDbParams> Create<T>(T value)
-        => Create(value, GenericInstance.IsNullableType<T>());
+        => Create(value, Nullable.GetUnderlyingType(typeof(T)) is Type);
 
 
 

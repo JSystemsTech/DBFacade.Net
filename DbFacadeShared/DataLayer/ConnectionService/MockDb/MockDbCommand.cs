@@ -203,7 +203,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
         {
             SetResponse();
-            return MockResponseData.ResponseData;
+            return MockResponseData.GetResponseData();
         }
     }
 }

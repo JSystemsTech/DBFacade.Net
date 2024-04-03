@@ -5,12 +5,16 @@ using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.CommandConfig
 {
+    public interface IDbMethod
+    {
+        Guid MethodId { get; }
+    }
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-    public interface IDbCommandMethod<TDbParams, TDbDataModel>
+    public interface IDbCommandMethod<TDbParams, TDbDataModel>: IDbMethod
         where TDbDataModel : DbDataModel
     {
 
@@ -35,7 +39,7 @@ namespace DbFacade.DataLayer.CommandConfig
     /// 
     /// </summary>
     /// <typeparam name="TDbDataModel">The type of the database data model.</typeparam>
-    public interface IParameterlessDbCommandMethod<TDbDataModel>
+    public interface IParameterlessDbCommandMethod<TDbDataModel> : IDbMethod
         where TDbDataModel : DbDataModel
     {
         /// <summary>
@@ -56,7 +60,7 @@ namespace DbFacade.DataLayer.CommandConfig
     /// 
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    public interface IDbCommandMethod<TDbParams>
+    public interface IDbCommandMethod<TDbParams> : IDbMethod
     {
         /// <summary>
         /// Executes the specified parameters.
@@ -77,7 +81,7 @@ namespace DbFacade.DataLayer.CommandConfig
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbCommandMethod
+    public interface IDbCommandMethod : IDbMethod
     {
         /// <summary>
         /// Executes this instance.

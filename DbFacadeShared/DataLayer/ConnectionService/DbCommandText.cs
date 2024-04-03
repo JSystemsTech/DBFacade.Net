@@ -2,9 +2,9 @@
 using DbFacade.DataLayer.CommandConfig.Parameters;
 using DbFacade.DataLayer.Models;
 using DbFacade.DataLayer.Models.Validators;
+using DbFacade.Utils;
 using System;
 using System.Data;
-using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.ConnectionService
 {
@@ -161,14 +161,16 @@ namespace DbFacade.DataLayer.ConnectionService
         ///   <c>true</c> if [requires validation]; otherwise, <c>false</c>.
         /// </value>
         public bool RequiresValidation { get; protected set; }
+        /// <summary>Gets or sets the database connection.</summary>
+        /// <value>The database connection.</value>
+        public IDbConnectionCore DbConnection { get; protected set; }
 
     }
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
-    internal class DbCommand<TDbConnectionConfig> : DbCommandSettingsBase, IDbCommandConfig
-        where TDbConnectionConfig : DbConnectionConfigBase
+    internal class DbCommandSettings : DbCommandSettingsBase, IDbCommandConfig
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DbCommand{TDbConnectionConfig}"/> class.
@@ -178,12 +180,13 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <param name="commandType">Type of the command.</param>
         /// <param name="isTransaction">if set to <c>true</c> [is transaction].</param>
         /// <param name="requiresValidation">if set to <c>true</c> [requires validation].</param>
-        private DbCommand(
+        private DbCommandSettings(
             string commandText,
             string label,
-            CommandType commandType = CommandType.StoredProcedure,
-            bool isTransaction = false,
-            bool requiresValidation = false)
+            CommandType commandType,
+            bool isTransaction,
+            bool requiresValidation,
+            IDbConnectionCore dbConnection)
         {
             CommandId = Guid.NewGuid();
             CommandText = commandText;
@@ -191,6 +194,7 @@ namespace DbFacade.DataLayer.ConnectionService
             CommandType = commandType;
             IsTransaction = isTransaction;
             RequiresValidation = requiresValidation;
+            DbConnection = dbConnection;
         }
 
         /// <summary>
@@ -202,12 +206,13 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <param name="isTransaction">if set to <c>true</c> [is transaction].</param>
         /// <param name="requiresValidation">if set to <c>true</c> [requires validation].</param>
         /// <returns></returns>
-        public static DbCommand<TDbConnectionConfig> Create(
+        public static DbCommandSettings Create(
+            IDbConnectionCore dbConnection,
             string commandText,
             string label,
             CommandType commandType = CommandType.StoredProcedure,
             bool isTransaction = false,
-            bool requiresValidation = false) => new DbCommand<TDbConnectionConfig>(commandText, label, commandType, isTransaction, requiresValidation);
+            bool requiresValidation = false) => new DbCommandSettings(commandText, label, commandType, isTransaction, requiresValidation, dbConnection);
 
         /// <summary>
         /// Creates the method.
@@ -215,7 +220,7 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <returns></returns>
         public IDbCommandMethod CreateMethod(Action<IDbCommandConfigParams<object>> parametersInitializer = null)
-        => DbCommandMethod.Create<TDbConnectionConfig>(this, parametersInitializer);
+        => DbCommandMethod.Create(this, parametersInitializer);
 
         /// <summary>
         /// Creates the parameterless method.
@@ -225,7 +230,7 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <returns></returns>
         public IParameterlessDbCommandMethod<TDbDataModel> CreateParameterlessMethod<TDbDataModel>(Action<IDbCommandConfigParams<object>> parametersInitializer = null)
             where TDbDataModel : DbDataModel
-        => ParameterlessDbCommandMethod<TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer);
+        => ParameterlessDbCommandMethod<TDbDataModel>.Create(this, parametersInitializer);
 
 
         /// <summary>
@@ -238,7 +243,7 @@ namespace DbFacade.DataLayer.ConnectionService
         public IDbCommandMethod<TDbParams> CreateMethod<TDbParams>(
          Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null,
         Action<IValidator<TDbParams>> validatorInitializer = null)
-        => DbCommandMethod<TDbParams>.Create<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer);
+        => DbCommandMethod<TDbParams>.Create(this, parametersInitializer, validatorInitializer);
 
         /// <summary>
         /// Creates the method.
@@ -252,7 +257,7 @@ namespace DbFacade.DataLayer.ConnectionService
          Action<IDbCommandConfigParams<TDbParams>> parametersInitializer,
         Action<IValidator<TDbParams>> validatorInitializer,
         params Action<TDbParams>[] onBeforeActions)
-        => DbCommandMethod<TDbParams>.Create<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer, onBeforeActions);
+        => DbCommandMethod<TDbParams>.Create(this, parametersInitializer, validatorInitializer, onBeforeActions);
 
 
         /// <summary>
@@ -267,7 +272,7 @@ namespace DbFacade.DataLayer.ConnectionService
          Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null,
         Action<IValidator<TDbParams>> validatorInitializer = null)
             where TDbDataModel : DbDataModel
-        => DbCommandMethod<TDbParams, TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer);
+        => DbCommandMethod<TDbParams, TDbDataModel>.Create(this, parametersInitializer, validatorInitializer);
 
         /// <summary>
         /// Creates the method.
@@ -283,7 +288,7 @@ namespace DbFacade.DataLayer.ConnectionService
         Action<IValidator<TDbParams>> validatorInitializer,
         params Action<TDbParams>[] onBeforeActions)
          where TDbDataModel : DbDataModel
-        => DbCommandMethod<TDbParams, TDbDataModel>.Create<TDbConnectionConfig>(this, parametersInitializer, validatorInitializer, onBeforeActions);
+        => DbCommandMethod<TDbParams, TDbDataModel>.Create(this, parametersInitializer, validatorInitializer, onBeforeActions);
 
     }
 }

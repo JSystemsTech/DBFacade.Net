@@ -211,7 +211,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 CompareRule<T> rule = new CompareRule<T>();
                 rule.Init(getLimit, comaparitor, comparitorAsync, compareType);
-                rule.Init(selector, GenericInstance.IsNullableType<T>());
+                rule.Init(selector, Nullable.GetUnderlyingType(typeof(T)) != null);
                 return rule;
             }
             /// <summary>
@@ -368,19 +368,18 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 T limit = GetLimit(paramsModel);
                 if (ParamsValue is string val)
                 {
-                    if (!Converter<T>.CanConvertFromString)
+                    if (val.TryParse(out T convertedValue))
                     {
-                        return false;
+                        try
+                        {
+                            return Comaparitor(convertedValue, limit);
+                        }
+                        catch
+                        {
+                            return false;
+                        }
                     }
-                    try
-                    {
-                        T convertedValue = Converter<T>.FromString(val);
-                        return Comaparitor(convertedValue, limit);
-                    }
-                    catch
-                    {
-                        return false;
-                    }
+                    return false;
                 }
                 return Comaparitor((T)ParamsValue, limit);
             }
@@ -394,21 +393,21 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 T limit = GetLimit(paramsModel);
                 if (ParamsValue is string val)
                 {
-                    if (!Converter<T>.CanConvertFromString)
+                    if (val.TryParse(out T convertedValue))
                     {
-                        await Task.CompletedTask;
-                        return false;
+                        try
+                        {
+                            await Task.CompletedTask;
+                            return Comaparitor(convertedValue, limit);
+                        }
+                        catch
+                        {
+                            await Task.CompletedTask;
+                            return false;
+                        }
                     }
-                    try
-                    {
-                        T convertedValue = await Converter<T>.FromStringAsync(val);
-                        return await ComaparitorAsync(convertedValue, limit);
-                    }
-                    catch
-                    {
-                        await Task.CompletedTask;
-                        return false;
-                    }
+                    await Task.CompletedTask;
+                    return false;
                 }
                 return await ComaparitorAsync((T)ParamsValue, limit);
             }

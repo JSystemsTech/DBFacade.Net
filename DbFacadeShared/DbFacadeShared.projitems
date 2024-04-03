@@ -9,6 +9,7 @@
     <Import_RootNamespace>DbFacadeShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Metrics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\DbCommandConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\IDbCommandConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
@@ -21,9 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionHandler_Async.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\IDbConnectionConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDataAdapter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbCommand.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbConnection.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -47,18 +46,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_Required.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_String.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Validator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Deligates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\FacadeException.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DataDictionaryExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DbResponseExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ParameterConfigExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\DbCommandConfigFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\DbCommandParametersConfigFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\ValidationRuleFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\ValidatorFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SafeDisposable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\DbConnectionService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\Converter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\GenericInstance.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\IMockDbTableRow.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\MockDbTable.cs" />
   </ItemGroup>
 </Project>

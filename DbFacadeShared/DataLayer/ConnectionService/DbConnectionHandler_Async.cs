@@ -166,8 +166,7 @@ namespace DbFacade.DataLayer.ConnectionService
         /// <exception cref="FacadeException">Invalid Connection Definition</exception>
         public static async Task<IDbResponse<TDbDataModel>> ExecuteDbActionAsync(DbCommandMethod<TDbParams, TDbDataModel> config, TDbParams parameters, bool rawDataOnly, Func<IDbDataAdapter> createDbDataAdapter)
         {
-            var connectionConfig = config.DbConnectionConfig;
-            using (IDbConnection dbConnection = await connectionConfig.GetDbConnectionAsync(config.DbCommandText))
+            using (IDbConnection dbConnection = config.DbCommandText.DbConnection.ResolveDbConnection(config.DbCommandText, config))
             {
                 if (dbConnection != null)
                 {

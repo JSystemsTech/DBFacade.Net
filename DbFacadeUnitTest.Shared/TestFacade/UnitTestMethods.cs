@@ -13,8 +13,14 @@ namespace DbFacadeUnitTests.TestFacade
 
     internal class UnitTestMethods
     {
+        public static readonly IParameterlessDbCommandMethod<TestClass2> TestBenchmark
+            = UnitTestConnection.TestBenchmark.CreateParameterlessMethod<TestClass2>();
+
         public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchData
             = UnitTestConnection.TestFetchData.CreateParameterlessMethod<FetchData>();
+
+        public static readonly IParameterlessDbCommandMethod<UserData> TestMultipleDataSets
+            = UnitTestConnection.TestMultipleDataSets.CreateParameterlessMethod<UserData>();
 
         public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchDataAlt
             = UnitTestConnection.TestFetchDataAlt.CreateParameterlessMethod<FetchData>();

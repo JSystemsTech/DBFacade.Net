@@ -1,7 +1,6 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
 using DbFacade.Exceptions;
 using DbFacadeShared.DataLayer.Models;
-using DbFacadeShared.Extensions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,7 +23,7 @@ namespace DbFacade.DataLayer.Models
         /// <summary>
         /// The is empty data return
         /// </summary>
-        private static bool IsEmptyDataReturn = typeof(TDbDataModel) == typeof(DbDataModel);
+        private static readonly bool IsEmptyDataReturn = typeof(TDbDataModel) == typeof(DbDataModel);
         /// <summary>
         /// Creates the specified command identifier.
         /// </summary>
@@ -313,7 +312,7 @@ namespace DbFacade.DataLayer.Models
         /// <param name="key">The key.</param>
         /// <returns></returns>
         public object GetOutputValue(string key)
-        => OutputValues != null ? OutputValues.GetValue<object>(key).value : (object)null;
+        => OutputValues != null && OutputValues.TryGetValue(key, out object value) ? value : (object)null;
         /// <summary>
         /// Gets the output value.
         /// </summary>
@@ -338,7 +337,7 @@ namespace DbFacade.DataLayer.Models
         public async Task<object> GetOutputValueAsync(string key)
         {
             await Task.CompletedTask;
-            return OutputValues != null ? OutputValues.GetValue<object>(key).value : (object)null;
+            return GetOutputValue(key);
         }
         /// <summary>
         /// Gets the output value asynchronous.

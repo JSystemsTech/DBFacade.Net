@@ -2,7 +2,9 @@
 using DbFacadeUnitTests.TestFacade;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.Models
@@ -182,5 +184,124 @@ namespace DbFacadeUnitTests.Models
             FlagFalse = await GetFlagColumnAsync("FlagFalse", "TRUE");
             FlagIntFalse = await GetFlagColumnAsync("FlagIntFalse", 1);
         }
+    }
+    internal class UserData : DbDataModel
+    {
+        public string Name { get; internal set; }
+        public int Id { get; internal set; }
+        protected override void Init()
+        {
+            Name = GetColumn<string>("Name");
+            Id = GetColumn<int>("Id");
+        }
+        protected override async Task InitAsync()
+        {
+            Name = await GetColumnAsync<string>("Name");
+            Id = await GetColumnAsync<int>("Id");
+        }
+    }
+    internal class UserRole : DbDataModel
+    {
+        public string Name { get; internal set; }
+        public string Value { get; internal set; }
+        protected override void Init()
+        {
+            Name = GetColumn<string>("Name");
+            Value = GetColumn<string>("Value");
+        }
+        protected override async Task InitAsync()
+        {
+            Name = await GetColumnAsync<string>("Name");
+            Value = await GetColumnAsync<string>("Value");
+        }
+    }
+
+    internal enum TestEnum
+    {
+        No,
+        Yes
+    }
+    internal enum TestEnumChar
+    {
+        No = 48,
+        Yes = 49
+    }
+    internal class UserName2: DbDataModel
+    {
+        public string First { get; set; }
+        public string Middle { get; set; }
+        public string Last { get; set; }
+        public UserName2() { }
+        
+
+        private UserName2(string first, string middle, string last)
+        {
+            First = first;
+            Middle = middle;
+            Last = last;
+        }
+        protected override void Init()
+        {
+            First = GetColumn<string>("First");
+            Middle = GetColumn<string>("Middle");
+            Last = GetColumn<string>("Last");
+        }
+        protected override async Task InitAsync()
+        {
+            First = await GetColumnAsync<string>("First");
+            Middle = await GetColumnAsync<string>("Middle");
+            Last = await GetColumnAsync<string>("Last");
+        }
+        public override string ToString()
+        => $"{First},{Middle},{Last}";
+        public static UserName2 Value1 = new UserName2("First1", "Middle1", "Last1");
+        public static UserName2 Value2 = new UserName2("First2", "Middle2", "Last2");
+        public static UserName2 Value3 = new UserName2("First3", "Middle3", "Last3");
+        public static UserName2 Value4 = new UserName2("First4", "Middle4", "Last4");
+        public static IEnumerable<UserName2> List = new UserName2[] { Value1, Value2, Value3, Value4 };
+
+    }
+    internal class TestClass2:DbDataModel
+    {
+        public string String { get; set; }
+        public int Integer { get; set; }
+        public Guid Guid { get; set; }
+        public TestEnum TestEnum { get; set; }
+        public TestClass2() { }
+        public IEnumerable<int> StrList { get; set; }
+
+        private TestClass2(string str, int integer, Guid guid, TestEnum testEnum, IEnumerable<int> strList)
+        {
+            String = str;
+            Integer = integer;
+            Guid = guid;
+            TestEnum = testEnum;
+            StrList = strList;
+        }
+        protected override void Init()
+        {
+            String = GetColumn<string>("str");
+            Integer = GetColumn<int>("integer");
+            Guid = GetColumn<Guid>("guid");
+            TestEnum = GetColumn<TestEnum>("testEnum");
+            StrList = GetEnumerableColumn<int>("strList");
+        }
+        protected override async Task InitAsync()
+        {
+            String = await GetColumnAsync<string>("str");
+            Integer = await GetColumnAsync<int>("integer");
+            Guid = await GetColumnAsync<Guid>("guid");
+            TestEnum = await GetColumnAsync<TestEnum>("testEnum");
+            StrList = await GetEnumerableColumnAsync<int>("strList");
+        }
+        
+
+        private static int[] numList = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        public static TestClass2 Value1 = new TestClass2("Value1", 10, Guid.NewGuid(), TestEnum.No, numList);
+        public static TestClass2 Value2 = new TestClass2("Value2", 20, Guid.NewGuid(), TestEnum.Yes, numList);
+        public static TestClass2 Value3 = new TestClass2("Value3", 30, Guid.NewGuid(), TestEnum.Yes, numList);
+        public static TestClass2 Value4 = new TestClass2("Value4", 40, Guid.NewGuid(), TestEnum.No, numList);
+        public static IEnumerable<TestClass2> List = new TestClass2[] { Value1, Value2, Value3, Value4 };
+
     }
 }

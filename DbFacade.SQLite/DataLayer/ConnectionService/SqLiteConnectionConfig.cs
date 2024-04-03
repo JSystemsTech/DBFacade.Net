@@ -1,5 +1,5 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
-using System.Data;
+using System;
 using System.Data.SQLite;
 
 namespace DbFacade.SQLite.DataLayer.ConnectionService
@@ -9,10 +9,15 @@ namespace DbFacade.SQLite.DataLayer.ConnectionService
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
     public abstract class
-        SqLiteConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<TDbConnectionConfig>
-        where TDbConnectionConfig : DbConnectionConfigBase
+        SqLiteConnectionConfig<TDbConnectionConfig> : DbConnectionConfigFull<TDbConnectionConfig>
+        where TDbConnectionConfig : IDbConnectionConfig
     {
-        protected sealed override IDbDataAdapter GetDbDataAdapter() => new SQLiteDataAdapter();
-        protected sealed override IDbConnection CreateDbConnection(string connectionString) => new SQLiteConnection(connectionString);
+        public static void Configure(OnGetConnectionString getConnectionString, Action<IErrorHandlerOptions> handler)
+        {
+            handler(GetConnectionOptions().ErrorHandlerOptions);
+            GetConnectionOptions().SetOnGetDbDataAdapter(() => new SQLiteDataAdapter());
+            GetConnectionOptions().SetOnGetConnectionString(getConnectionString);
+            GetConnectionOptions().SetOnCreateDbConnection(connectionString => new SQLiteConnection(connectionString));
+        }
     }
 }

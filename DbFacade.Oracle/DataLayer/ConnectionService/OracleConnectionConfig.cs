@@ -1,6 +1,6 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
 using Oracle.ManagedDataAccess.Client;
-using System.Data;
+using System;
 
 namespace DbFacade.Oracle.DataLayer.ConnectionService
 {
@@ -9,20 +9,22 @@ namespace DbFacade.Oracle.DataLayer.ConnectionService
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
     public abstract class
-        OracleConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<TDbConnectionConfig>
-        where TDbConnectionConfig : DbConnectionConfigBase
-    {
-        protected sealed override IDbDataAdapter GetDbDataAdapter() => new OracleDataAdapter();
-        protected sealed override IDbConnection CreateDbConnection(string connectionString)
-            => GetCredential() is OracleCredential credential ?
-            new OracleConnection(connectionString, credential) :
-            new OracleConnection(connectionString);
-
-
-        /// <summary>Gets the credential.</summary>
-        /// <returns>
-        ///   <br />
-        /// </returns>
-        protected virtual OracleCredential GetCredential() => null;
+        OracleConnectionConfig<TDbConnectionConfig> : DbConnectionConfigFull<TDbConnectionConfig>
+        where TDbConnectionConfig : IDbConnectionConfig
+    {        
+        public static void Configure(OnGetConnectionString getConnectionString, Action<IErrorHandlerOptions> handler)
+        {
+            handler(GetConnectionOptions().ErrorHandlerOptions);
+            GetConnectionOptions().SetOnGetDbDataAdapter(() => new OracleDataAdapter());
+            GetConnectionOptions().SetOnGetConnectionString(getConnectionString);
+            GetConnectionOptions().SetOnCreateDbConnection(connectionString => new OracleConnection(connectionString));
+        }
+        public static void Configure(OnGetConnectionString getConnectionString, OracleCredential credential, Action<IErrorHandlerOptions> handler)
+        {
+            handler(GetConnectionOptions().ErrorHandlerOptions);
+            GetConnectionOptions().SetOnGetDbDataAdapter(() => new OracleDataAdapter());
+            GetConnectionOptions().SetOnGetConnectionString(getConnectionString);
+            GetConnectionOptions().SetOnCreateDbConnection(connectionString => new OracleConnection(connectionString, credential));
+        }
     }
 }

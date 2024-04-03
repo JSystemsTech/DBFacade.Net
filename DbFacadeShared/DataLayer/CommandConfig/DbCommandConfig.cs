@@ -4,9 +4,7 @@ using DbFacade.DataLayer.Models;
 using DbFacade.DataLayer.Models.Validators;
 using DbFacade.Exceptions;
 using DbFacade.Factories;
-using DbFacade.Services;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.CommandConfig
@@ -19,13 +17,9 @@ namespace DbFacade.DataLayer.CommandConfig
     internal class DbCommandMethod<TDbParams, TDbDataModel> : SafeDisposableBase, IDbCommandMethod<TDbParams, TDbDataModel>
         where TDbDataModel : DbDataModel
     {
-        /// <summary>
-        /// Gets or sets the database connection configuration.
-        /// </summary>
-        /// <value>
-        /// The database connection configuration.
-        /// </value>
-        public DbConnectionConfigBase DbConnectionConfig { get; protected set; }
+        /// <summary>Gets or sets the command method identifier.</summary>
+        /// <value>The command method identifier.</value>
+        public Guid MethodId { get; protected set; }
         /// <summary>
         /// Gets or sets the database parameters.
         /// </summary>
@@ -79,45 +73,44 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Initializes a new instance of the <see cref="DbCommandMethod{TDbParams, TDbDataModel}" /> class.
         /// </summary>
-        protected DbCommandMethod() { }
+        protected DbCommandMethod() {
+            MethodId = Guid.NewGuid();
+        }
 
         /// <summary>
         /// Creates the specified database command.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <param name="validatorInitializer">The validator initializer.</param>
         /// <returns></returns>
-        internal static DbCommandMethod<TDbParams, TDbDataModel> Create<TDbConnectionConfig>(
+        internal static DbCommandMethod<TDbParams, TDbDataModel> Create(
            DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null,
             Action<IValidator<TDbParams>> validatorInitializer = null
-            ) where TDbConnectionConfig : DbConnectionConfigBase
-        => Create<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, p => { });
+            )
+        => Create(dbCommand, parametersInitializer, validatorInitializer, p => { });
 
         /// <summary>
         /// Creates the specified database command.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <param name="validatorInitializer">The validator initializer.</param>
         /// <param name="onBeforeActions">The on before actions.</param>
         /// <returns></returns>
-        internal static DbCommandMethod<TDbParams, TDbDataModel> Create<TDbConnectionConfig>(
+        internal static DbCommandMethod<TDbParams, TDbDataModel> Create(
            DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<TDbParams>> parametersInitializer,
             Action<IValidator<TDbParams>> validatorInitializer,
             params Action<TDbParams>[] onBeforeActions
-            ) where TDbConnectionConfig : DbConnectionConfigBase
+            )
         {
             DbCommandConfigParams<TDbParams> dbParams = DbCommandConfigParams<TDbParams>.Create(parametersInitializer);
             IValidator<TDbParams> validator = ValidatorFactory.Create(validatorInitializer);
             return new DbCommandMethod<TDbParams, TDbDataModel>()
             {
                 DbCommandText = dbCommand,
-                DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
                 DbParams = dbParams,
                 ParamsValidator = validator,
                 HasValidation = dbParams.Count > 0 && validator.Count > 0,
@@ -141,61 +134,56 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Initializes the asynchronous.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="dbParams">The database parameters.</param>
         /// <param name="validator">The validator.</param>
         /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
-        protected async Task InitAsync<TDbConnectionConfig>(DbCommandSettingsBase dbCommand,
+        protected async Task InitAsync(DbCommandSettingsBase dbCommand,
             IDbCommandConfigParams<TDbParams> dbParams,
             IValidator<TDbParams> validator,
             Func<TDbParams, Task>[] onBeforeAsyncActions
             )
-            where TDbConnectionConfig : DbConnectionConfigBase
         {
             DbCommandText = dbCommand;
-            DbConnectionConfig = await DbConnectionService.GetAsync<TDbConnectionConfig>() is DbConnectionConfigBase dbConnectionConfig ? dbConnectionConfig : null;
             DbParams = dbParams;
             ParamsValidator = validator;
             HasValidation = DbParams.Count > 0 && ParamsValidator.Count > 0;
             MissingValidation = DbParams.Count > 0 && ParamsValidator.Count == 0 && DbCommandText.RequiresValidation;
             OnBeforeAsyncActions = onBeforeAsyncActions;
-
+            await Task.CompletedTask;
         }
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <param name="validatorInitializer">The validator initializer.</param>
         /// <returns></returns>
-        internal static async Task<DbCommandMethod<TDbParams, TDbDataModel>> CreateAsync<TDbConnectionConfig>(
+        internal static async Task<DbCommandMethod<TDbParams, TDbDataModel>> CreateAsync(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
             Func<IValidator<TDbParams>, Task> validatorInitializer = null
-            ) where TDbConnectionConfig : DbConnectionConfigBase
-        => await CreateAsync<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, async p => { await Task.CompletedTask; });
+            )
+        => await CreateAsync(dbCommand, parametersInitializer, validatorInitializer, async p => { await Task.CompletedTask; });
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <param name="validatorInitializer">The validator initializer.</param>
         /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
         /// <returns></returns>
-        internal static async Task<DbCommandMethod<TDbParams, TDbDataModel>> CreateAsync<TDbConnectionConfig>(
+        internal static async Task<DbCommandMethod<TDbParams, TDbDataModel>> CreateAsync(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
             Func<IValidator<TDbParams>, Task> validatorInitializer,
             params Func<TDbParams, Task>[] onBeforeAsyncActions
-            ) where TDbConnectionConfig : DbConnectionConfigBase
+            )
         {
             DbCommandConfigParams<TDbParams> dbParams = await DbCommandConfigParams<TDbParams>.CreateAsync(parametersInitializer);
             IValidator<TDbParams> validator = await ValidatorFactory.CreateAsync(validatorInitializer);
             DbCommandMethod<TDbParams, TDbDataModel> config = new DbCommandMethod<TDbParams, TDbDataModel>();
-            await config.InitAsync<TDbConnectionConfig>(dbCommand, dbParams, validator, onBeforeAsyncActions);
+            await config.InitAsync(dbCommand, dbParams, validator, onBeforeAsyncActions);
             return config;
         }
         #endregion
@@ -222,7 +210,7 @@ namespace DbFacade.DataLayer.CommandConfig
                 : ValidationResult.PassingValidation;
             if (!validationResult.IsValid)
             {
-                throw new ValidationException<TDbParams>(validationResult, paramsModel,
+                throw new ValidationException(validationResult, paramsModel,
                     $"{(paramsModel is TDbParams pm ? pm.GetType().Name : "(null)")} values failed to pass validation for command '{DbCommandText.Label}'");
             }
             try
@@ -262,7 +250,7 @@ namespace DbFacade.DataLayer.CommandConfig
                 : ValidationResult.PassingValidation;
             if (!validationResult.IsValid)
             {
-                throw new ValidationException<TDbParams>(validationResult, paramsModel,
+                throw new ValidationException(validationResult, paramsModel,
                     $"{(paramsModel is TDbParams pm ? pm.GetType().Name : "(null)")} values failed to pass validation for command '{DbCommandText.Label}'");
             }
             try
@@ -296,7 +284,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
         public IDbResponse<TDbDataModel> Execute(TDbParams parameters, bool rawDataOnly = false)
-            => DbConnectionConfig.ExecuteDbAction(this, parameters, rawDataOnly);
+            => DbCommandText.DbConnection.ExecuteDbAction(this, parameters, rawDataOnly);
         /// <summary>
         /// Executes the asynchronous.
         /// </summary>
@@ -304,7 +292,7 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <param name="rawDataOnly">if set to <c>true</c> [raw data only].</param>
         /// <returns></returns>
         public async Task<IDbResponse<TDbDataModel>> ExecuteAsync(TDbParams parameters, bool rawDataOnly = false)
-            => await DbConnectionConfig.ExecuteDbActionAsync(this, parameters, rawDataOnly);
+            => await DbCommandText.DbConnection.ExecuteDbActionAsync(this, parameters, rawDataOnly);
 
 
 
@@ -334,25 +322,22 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Initializes a new instance of the <see cref="ParameterlessDbCommandMethod{TDbDataModel}" /> class.
         /// </summary>
-        public ParameterlessDbCommandMethod() { }
+        public ParameterlessDbCommandMethod():base() { }
 
         /// <summary>
         /// Creates the specified database command.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <returns></returns>
-        internal static ParameterlessDbCommandMethod<TDbDataModel> Create<TDbConnectionConfig>(
+        internal static ParameterlessDbCommandMethod<TDbDataModel> Create(
             DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<object>> parametersInitializer = null)
-            where TDbConnectionConfig : DbConnectionConfigBase
         {
             DbCommandConfigParams<object> dbParmas = DbCommandConfigParams<object>.Create(parametersInitializer);
             return new ParameterlessDbCommandMethod<TDbDataModel>()
             {
                 DbCommandText = dbCommand,
-                DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
                 DbParams = DbCommandConfigParams<object>.Create(parametersInitializer),
                 ParamsValidator = ValidatorFactory.Create((Action<IValidator<object>>)null)
             };
@@ -363,21 +348,18 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <returns></returns>
-        internal static async Task<ParameterlessDbCommandMethod<TDbDataModel>> CreateAsync<TDbConnectionConfig>(
+        internal static async Task<ParameterlessDbCommandMethod<TDbDataModel>> CreateAsync(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null
             )
-            where TDbConnectionConfig : DbConnectionConfigBase
         {
             DbCommandConfigParams<object> dbParams = await DbCommandConfigParams<object>.CreateAsync(parametersInitializer);
             ParameterlessDbCommandMethod<TDbDataModel> config = new ParameterlessDbCommandMethod<TDbDataModel>()
             {
                 DbCommandText = dbCommand,
-                DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
                 DbParams = await DbCommandConfigParams<object>.CreateAsync(parametersInitializer),
                 ParamsValidator = ValidatorFactory.Create((Action<IValidator<object>>)null)
             };
@@ -409,48 +391,43 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Initializes a new instance of the <see cref="DbCommandMethod{TDbParams}" /> class.
         /// </summary>
-        public DbCommandMethod() { }
+        public DbCommandMethod():base() { }
 
         /// <summary>
         /// Creates the specified database command.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <param name="validatorInitializer">The validator initializer.</param>
         /// <returns></returns>
-        internal static new DbCommandMethod<TDbParams> Create<TDbConnectionConfig>(
+        internal static new DbCommandMethod<TDbParams> Create(
                DbCommandSettingsBase dbCommand,
                 Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null,
                 Action<IValidator<TDbParams>> validatorInitializer = null
                 )
-            where TDbConnectionConfig : DbConnectionConfigBase
-            => Create<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, p => { });
+            => Create(dbCommand, parametersInitializer, validatorInitializer, p => { });
 
 
         /// <summary>
         /// Creates the specified database command.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <param name="validatorInitializer">The validator initializer.</param>
         /// <param name="onBeforeActions">The on before actions.</param>
         /// <returns></returns>
-        internal new static DbCommandMethod<TDbParams> Create<TDbConnectionConfig>(
+        internal new static DbCommandMethod<TDbParams> Create(
            DbCommandSettingsBase dbCommand,
             Action<IDbCommandConfigParams<TDbParams>> parametersInitializer,
             Action<IValidator<TDbParams>> validatorInitializer,
             params Action<TDbParams>[] onBeforeActions
             )
-            where TDbConnectionConfig : DbConnectionConfigBase
         {
             DbCommandConfigParams<TDbParams> dbParams = DbCommandConfigParams<TDbParams>.Create(parametersInitializer);
             IValidator<TDbParams> validator = ValidatorFactory.Create(validatorInitializer);
             return new DbCommandMethod<TDbParams>()
             {
                 DbCommandText = dbCommand,
-                DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
                 DbParams = dbParams,
                 ParamsValidator = validator,
                 HasValidation = dbParams.Count > 0 && validator.Count > 0,
@@ -464,37 +441,35 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <param name="validatorInitializer">The validator initializer.</param>
         /// <returns></returns>
-        internal static new async Task<DbCommandMethod<TDbParams>> CreateAsync<TDbConnectionConfig>(
+        internal static new async Task<DbCommandMethod<TDbParams>> CreateAsync(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null,
             Func<IValidator<TDbParams>, Task> validatorInitializer = null
-            ) where TDbConnectionConfig : DbConnectionConfigBase
-        => await CreateAsync<TDbConnectionConfig>(dbCommand, parametersInitializer, validatorInitializer, async p => { await Task.CompletedTask; });
+            )
+        => await CreateAsync(dbCommand, parametersInitializer, validatorInitializer, async p => { await Task.CompletedTask; });
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <param name="validatorInitializer">The validator initializer.</param>
         /// <param name="onBeforeAsyncActions">The on before asynchronous actions.</param>
         /// <returns></returns>
-        internal static new async Task<DbCommandMethod<TDbParams>> CreateAsync<TDbConnectionConfig>(
+        internal static new async Task<DbCommandMethod<TDbParams>> CreateAsync(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer,
             Func<IValidator<TDbParams>, Task> validatorInitializer,
             params Func<TDbParams, Task>[] onBeforeAsyncActions
-            ) where TDbConnectionConfig : DbConnectionConfigBase
+            )
         {
             DbCommandConfigParams<TDbParams> dbParams = await DbCommandConfigParams<TDbParams>.CreateAsync(parametersInitializer);
             IValidator<TDbParams> validator = await ValidatorFactory.CreateAsync(validatorInitializer);
             DbCommandMethod<TDbParams> config = new DbCommandMethod<TDbParams>();
-            await config.InitAsync<TDbConnectionConfig>(dbCommand, dbParams, validator, onBeforeAsyncActions);
+            await config.InitAsync(dbCommand, dbParams, validator, onBeforeAsyncActions);
             return config;
         }
 
@@ -524,26 +499,23 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Initializes a new instance of the <see cref="DbCommandMethod" /> class.
         /// </summary>
-        public DbCommandMethod() { }
+        public DbCommandMethod():base() { }
 
         /// <summary>
         /// Creates the specified database command.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="dbParams">The database parameters.</param>
         /// <param name="validator">The validator.</param>
         /// <returns></returns>
-        internal static DbCommandMethod Create<TDbConnectionConfig>(
+        internal static DbCommandMethod Create(
             DbCommandSettingsBase dbCommand,
             IDbCommandConfigParams<object> dbParams,
             IValidator<object> validator)
-            where TDbConnectionConfig : DbConnectionConfigBase
         {
             return new DbCommandMethod()
             {
                 DbCommandText = dbCommand,
-                DbConnectionConfig = DbConnectionService.Get<TDbConnectionConfig>() is TDbConnectionConfig dbConnectionConfig ? dbConnectionConfig : null,
                 DbParams = dbParams,
                 ParamsValidator = validator,
                 HasValidation = dbParams.Count > 0 && validator.Count > 0,
@@ -553,19 +525,17 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Creates the specified database command.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <returns></returns>
-        internal static DbCommandMethod Create<TDbConnectionConfig>(
+        internal static DbCommandMethod Create(
                DbCommandSettingsBase dbCommand,
                 Action<IDbCommandConfigParams<object>> parametersInitializer = null
                 )
-            where TDbConnectionConfig : DbConnectionConfigBase
         {
             DbCommandConfigParams<object> dbParams = DbCommandConfigParams<object>.Create(parametersInitializer);
             IValidator<object> validator = ValidatorFactory.Create((Action<IValidator<object>>)null);
-            var config = Create<TDbConnectionConfig>(dbCommand, dbParams, validator);
+            var config = Create(dbCommand, dbParams, validator);
 
             return config;
         }
@@ -575,20 +545,18 @@ namespace DbFacade.DataLayer.CommandConfig
         /// <summary>
         /// Creates the asynchronous.
         /// </summary>
-        /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
         /// <param name="dbCommand">The database command.</param>
         /// <param name="parametersInitializer">The parameters initializer.</param>
         /// <returns></returns>
-        internal static async Task<DbCommandMethod> CreateAsync<TDbConnectionConfig>(
+        internal static async Task<DbCommandMethod> CreateAsync(
            DbCommandSettingsBase dbCommand,
             Func<IDbCommandConfigParams<object>, Task> parametersInitializer = null
             )
-            where TDbConnectionConfig : DbConnectionConfigBase
         {
             DbCommandConfigParams<object> dbParams = await DbCommandConfigParams<object>.CreateAsync(parametersInitializer);
             IValidator<object> validator = await ValidatorFactory.CreateAsync((Func<IValidator<object>, Task>)null);
             DbCommandMethod config = new DbCommandMethod();
-            await config.InitAsync<TDbConnectionConfig>(dbCommand, dbParams, validator, new Func<object, Task>[0]);
+            await config.InitAsync(dbCommand, dbParams, validator, new Func<object, Task>[0]);
             return config;
         }
         #endregion

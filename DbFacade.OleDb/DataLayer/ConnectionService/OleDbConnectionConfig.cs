@@ -1,18 +1,25 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
-using System.Data;
+using System;
 using System.Data.OleDb;
-using System.Runtime.Versioning;
 
 namespace DbFacade.OleDb.DataLayer.ConnectionService
 {
     /// <summary>
-    /// 
+    ///   <br />
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
+#if (NET8_0_OR_GREATER)
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#endif
     public abstract class
-        OleDbConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<TDbConnectionConfig> where TDbConnectionConfig : DbConnectionConfigBase
+        OleDbConnectionConfig<TDbConnectionConfig> : DbConnectionConfigFull<TDbConnectionConfig> where TDbConnectionConfig : IDbConnectionConfig
     {
-        protected sealed override IDbDataAdapter GetDbDataAdapter() => new OleDbDataAdapter();
-        protected sealed override IDbConnection CreateDbConnection(string connectionString) => new OleDbConnection(connectionString);
+        public static void Configure(OnGetConnectionString getConnectionString, Action<IErrorHandlerOptions> handler)
+        {
+            handler(GetConnectionOptions().ErrorHandlerOptions);
+            GetConnectionOptions().SetOnGetDbDataAdapter(() => new OleDbDataAdapter());
+            GetConnectionOptions().SetOnGetConnectionString(getConnectionString);
+            GetConnectionOptions().SetOnCreateDbConnection(connectionString => new OleDbConnection(connectionString));
+        }
     }
 }

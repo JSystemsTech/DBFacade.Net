@@ -93,6 +93,7 @@
   <div classs="implements">
     <h5>Implements</h5>
     <div><a class="xref" href="DbFacade.DataLayer.Models.IDbDataModel.html">IDbDataModel</a></div>
+    <div><span class="xref">IDataCollectionModel</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -163,43 +164,10 @@ public IEnumerable&lt;string&gt; DataBindingErrors { get; }</code></pre>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_DbCommandSettings.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.DbCommandSettings%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L105">View Source</a>
-  </span>
-  <a id="DbFacade_DataLayer_Models_DbDataModel_DbCommandSettings_" data-uid="DbFacade.DataLayer.Models.DbDataModel.DbCommandSettings*"></a>
-  <h4 id="DbFacade_DataLayer_Models_DbDataModel_DbCommandSettings" data-uid="DbFacade.DataLayer.Models.DbDataModel.DbCommandSettings">DbCommandSettings</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the database command settings.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonIgnore]
-protected IDbCommandSettings DbCommandSettings { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html">IDbCommandSettings</a></td>
-        <td><p>The database command settings.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_HasDataBindingErrors.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.HasDataBindingErrors%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L88">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L98">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_HasDataBindingErrors_" data-uid="DbFacade.DataLayer.Models.DbDataModel.HasDataBindingErrors*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_HasDataBindingErrors" data-uid="DbFacade.DataLayer.Models.DbDataModel.HasDataBindingErrors">HasDataBindingErrors</h4>
@@ -234,7 +202,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_CreateNestedModel__1.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.CreateNestedModel%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L154">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L150">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_CreateNestedModel_" data-uid="DbFacade.DataLayer.Models.DbDataModel.CreateNestedModel*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_CreateNestedModel__1" data-uid="DbFacade.DataLayer.Models.DbDataModel.CreateNestedModel``1">CreateNestedModel&lt;TDbDataModel&gt;()</h4>
@@ -244,6 +212,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected TDbDataModel CreateNestedModel&lt;TDbDataModel&gt;()
+
     where TDbDataModel : DbDataModel</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -282,7 +251,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_CreateNestedModelAsync__1.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.CreateNestedModelAsync%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L79">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L57">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_CreateNestedModelAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.CreateNestedModelAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_CreateNestedModelAsync__1" data-uid="DbFacade.DataLayer.Models.DbDataModel.CreateNestedModelAsync``1">CreateNestedModelAsync&lt;TDbDataModel&gt;()</h4>
@@ -292,6 +261,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected async Task&lt;TDbDataModel&gt; CreateNestedModelAsync&lt;TDbDataModel&gt;()
+
     where TDbDataModel : DbDataModel</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -330,7 +300,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetColumn__1_System_String___0_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetColumn%60%601(System.String%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L221">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L216">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumn*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetColumn__1_System_String___0_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumn``1(System.String,``0)">GetColumn&lt;T&gt;(String, T)</h4>
@@ -397,168 +367,10 @@ public bool HasDataBindingErrors { get; }</code></pre>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetColumn__1_System_String_System_Func_System_String___0____0_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetColumn%60%601(System.String%2CSystem.Func%7BSystem.String%2C%60%600%7D%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L200">View Source</a>
-  </span>
-  <a id="DbFacade_DataLayer_Models_DbDataModel_GetColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumn*"></a>
-  <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetColumn__1_System_String_System_Func_System_String___0____0_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumn``1(System.String,System.Func{System.String,``0},``0)">GetColumn&lt;T&gt;(String, Func&lt;String, T&gt;, T)</h4>
-  <div class="markdown level1 summary"><p>Gets the column.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected T GetColumn&lt;T&gt;(string col, Func&lt;string, T&gt; convert, T defaultValue = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">col</span></td>
-        <td><p>The col.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.String</span>, T&gt;</td>
-        <td><span class="parametername">convert</span></td>
-        <td><p>The convert.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">defaultValue</span></td>
-        <td><p>The default value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetColumn__2_System_String_System_Func___1___0____0_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetColumn%60%602(System.String%2CSystem.Func%7B%60%601%2C%60%600%7D%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L211">View Source</a>
-  </span>
-  <a id="DbFacade_DataLayer_Models_DbDataModel_GetColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumn*"></a>
-  <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetColumn__2_System_String_System_Func___1___0____0_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumn``2(System.String,System.Func{``1,``0},``0)">GetColumn&lt;T, TParse&gt;(String, Func&lt;TParse, T&gt;, T)</h4>
-  <div class="markdown level1 summary"><p>Gets the column.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected T GetColumn&lt;T, TParse&gt;(string col, Func&lt;TParse, T&gt; convert, T defaultValue = null)
-    where TParse : IComparable</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">col</span></td>
-        <td><p>The col.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;TParse, T&gt;</td>
-        <td><span class="parametername">convert</span></td>
-        <td><p>The convert.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">defaultValue</span></td>
-        <td><p>The default value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">TParse</span></td>
-        <td><p>The type of the parse.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetColumnAsync__1_System_String___0_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetColumnAsync%60%601(System.String%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L149">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L104">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumnAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetColumnAsync__1_System_String___0_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumnAsync``1(System.String,``0)">GetColumnAsync&lt;T&gt;(String, T)</h4>
@@ -625,168 +437,10 @@ public bool HasDataBindingErrors { get; }</code></pre>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetColumnAsync__1_System_String_System_Func_System_String___0____0_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetColumnAsync%60%601(System.String%2CSystem.Func%7BSystem.String%2C%60%600%7D%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L128">View Source</a>
-  </span>
-  <a id="DbFacade_DataLayer_Models_DbDataModel_GetColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumnAsync*"></a>
-  <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetColumnAsync__1_System_String_System_Func_System_String___0____0_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumnAsync``1(System.String,System.Func{System.String,``0},``0)">GetColumnAsync&lt;T&gt;(String, Func&lt;String, T&gt;, T)</h4>
-  <div class="markdown level1 summary"><p>Gets the column asynchronous.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected async Task&lt;T&gt; GetColumnAsync&lt;T&gt;(string col, Func&lt;string, T&gt; convert, T defaultValue = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">col</span></td>
-        <td><p>The col.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.String</span>, T&gt;</td>
-        <td><span class="parametername">convert</span></td>
-        <td><p>The convert.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">defaultValue</span></td>
-        <td><p>The default value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;T&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetColumnAsync__2_System_String_System_Func___1___0____0_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetColumnAsync%60%602(System.String%2CSystem.Func%7B%60%601%2C%60%600%7D%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L139">View Source</a>
-  </span>
-  <a id="DbFacade_DataLayer_Models_DbDataModel_GetColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumnAsync*"></a>
-  <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetColumnAsync__2_System_String_System_Func___1___0____0_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetColumnAsync``2(System.String,System.Func{``1,``0},``0)">GetColumnAsync&lt;T, TParse&gt;(String, Func&lt;TParse, T&gt;, T)</h4>
-  <div class="markdown level1 summary"><p>Gets the column asynchronous.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected async Task&lt;T&gt; GetColumnAsync&lt;T, TParse&gt;(string col, Func&lt;TParse, T&gt; convert, T defaultValue = null)
-    where TParse : IComparable</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">col</span></td>
-        <td><p>The col.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;TParse, T&gt;</td>
-        <td><span class="parametername">convert</span></td>
-        <td><p>The convert.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">defaultValue</span></td>
-        <td><p>The default value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;T&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">TParse</span></td>
-        <td><p>The type of the parse.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumn_System_String_System_String_System_Globalization_DateTimeStyles_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumn(System.String%2CSystem.String%2CSystem.Globalization.DateTimeStyles)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L231">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L226">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumn*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumn_System_String_System_String_System_Globalization_DateTimeStyles_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumn(System.String,System.String,System.Globalization.DateTimeStyles)">GetDateTimeColumn(String, String, DateTimeStyles)</h4>
@@ -847,7 +501,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumn_System_String_System_String_System_IFormatProvider_System_Globalization_DateTimeStyles_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumn(System.String%2CSystem.String%2CSystem.IFormatProvider%2CSystem.Globalization.DateTimeStyles)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L241">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L236">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumn*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumn_System_String_System_String_System_IFormatProvider_System_Globalization_DateTimeStyles_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumn(System.String,System.String,System.IFormatProvider,System.Globalization.DateTimeStyles)">GetDateTimeColumn(String, String, IFormatProvider, DateTimeStyles)</h4>
@@ -914,7 +568,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumnAsync_System_String_System_String_System_Globalization_DateTimeStyles_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumnAsync(System.String%2CSystem.String%2CSystem.Globalization.DateTimeStyles)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L167">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L151">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumnAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumnAsync_System_String_System_String_System_Globalization_DateTimeStyles_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumnAsync(System.String,System.String,System.Globalization.DateTimeStyles)">GetDateTimeColumnAsync(String, String, DateTimeStyles)</h4>
@@ -975,7 +629,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumnAsync_System_String_System_String_System_IFormatProvider_System_Globalization_DateTimeStyles_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumnAsync(System.String%2CSystem.String%2CSystem.IFormatProvider%2CSystem.Globalization.DateTimeStyles)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L177">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L164">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumnAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetDateTimeColumnAsync_System_String_System_String_System_IFormatProvider_System_Globalization_DateTimeStyles_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetDateTimeColumnAsync(System.String,System.String,System.IFormatProvider,System.Globalization.DateTimeStyles)">GetDateTimeColumnAsync(String, String, IFormatProvider, DateTimeStyles)</h4>
@@ -1039,10 +693,144 @@ public bool HasDataBindingErrors { get; }</code></pre>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumn__1_System_String_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumn%60%601(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L270">View Source</a>
+  </span>
+  <a id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumn*"></a>
+  <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumn__1_System_String_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumn``1(System.String)">GetEnumerableColumn&lt;T&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Gets the enumerable column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;T&gt; GetEnumerableColumn&lt;T&gt;(string col)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">col</span></td>
+        <td><p>The col.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumn__1_System_String_System_Char_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumn%60%601(System.String%2CSystem.Char)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L262">View Source</a>
+  </span>
+  <a id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumn*"></a>
+  <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumn__1_System_String_System_Char_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumn``1(System.String,System.Char)">GetEnumerableColumn&lt;T&gt;(String, Char)</h4>
+  <div class="markdown level1 summary"><p>Gets the enumerable column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;T&gt; GetEnumerableColumn&lt;T&gt;(string col, char delimeter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">col</span></td>
+        <td><p>The col.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">delimeter</span></td>
+        <td><p>The delimeter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumn__1_System_String_System_String_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumn%60%601(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L258">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L253">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumn*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumn__1_System_String_System_String_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumn``1(System.String,System.String)">GetEnumerableColumn&lt;T&gt;(String, String)</h4>
@@ -1051,7 +839,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;T&gt; GetEnumerableColumn&lt;T&gt;(string col, string delimeter = &quot;,&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;T&gt; GetEnumerableColumn&lt;T&gt;(string col, string delimeter)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1109,10 +897,144 @@ public bool HasDataBindingErrors { get; }</code></pre>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumnAsync__1_System_String_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumnAsync%60%601(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L139">View Source</a>
+  </span>
+  <a id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumnAsync*"></a>
+  <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumnAsync__1_System_String_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumnAsync``1(System.String)">GetEnumerableColumnAsync&lt;T&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Gets the enumerable column asynchronous.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected async Task&lt;IEnumerable&lt;T&gt;&gt; GetEnumerableColumnAsync&lt;T&gt;(string col)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">col</span></td>
+        <td><p>The col.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumnAsync__1_System_String_System_Char_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumnAsync%60%601(System.String%2CSystem.Char)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L128">View Source</a>
+  </span>
+  <a id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumnAsync*"></a>
+  <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumnAsync__1_System_String_System_Char_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumnAsync``1(System.String,System.Char)">GetEnumerableColumnAsync&lt;T&gt;(String, Char)</h4>
+  <div class="markdown level1 summary"><p>Gets the enumerable column asynchronous.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected async Task&lt;IEnumerable&lt;T&gt;&gt; GetEnumerableColumnAsync&lt;T&gt;(string col, char delimeter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">col</span></td>
+        <td><p>The col.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">delimeter</span></td>
+        <td><p>The delimeter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumnAsync__1_System_String_System_String_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumnAsync%60%601(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L158">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L116">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumnAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetEnumerableColumnAsync__1_System_String_System_String_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetEnumerableColumnAsync``1(System.String,System.String)">GetEnumerableColumnAsync&lt;T&gt;(String, String)</h4>
@@ -1121,7 +1043,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected async Task&lt;IEnumerable&lt;T&gt;&gt; GetEnumerableColumnAsync&lt;T&gt;(string col, string delimeter = &quot;,&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">protected async Task&lt;IEnumerable&lt;T&gt;&gt; GetEnumerableColumnAsync&lt;T&gt;(string col, string delimeter)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1182,7 +1104,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetFlagColumn__1_System_String___0_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetFlagColumn%60%601(System.String%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L267">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L279">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetFlagColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetFlagColumn*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetFlagColumn__1_System_String___0_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetFlagColumn``1(System.String,``0)">GetFlagColumn&lt;T&gt;(String, T)</h4>
@@ -1192,6 +1114,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected bool GetFlagColumn&lt;T&gt;(string col, T trueValue)
+
     where T : IComparable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1253,7 +1176,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetFlagColumnAsync__1_System_String___0_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetFlagColumnAsync%60%601(System.String%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L194">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L187">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetFlagColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetFlagColumnAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetFlagColumnAsync__1_System_String___0_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetFlagColumnAsync``1(System.String,``0)">GetFlagColumnAsync&lt;T&gt;(String, T)</h4>
@@ -1263,6 +1186,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected async Task&lt;bool&gt; GetFlagColumnAsync&lt;T&gt;(string col, T trueValue)
+
     where T : IComparable</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1324,7 +1248,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetFormattedDateTimeStringColumn_System_String_System_String_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetFormattedDateTimeStringColumn(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L249">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L244">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetFormattedDateTimeStringColumn_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetFormattedDateTimeStringColumn*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetFormattedDateTimeStringColumn_System_String_System_String_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetFormattedDateTimeStringColumn(System.String,System.String)">GetFormattedDateTimeStringColumn(String, String)</h4>
@@ -1379,7 +1303,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_GetFormattedDateTimeStringColumnAsync_System_String_System_String_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.GetFormattedDateTimeStringColumnAsync(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L185">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L175">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_GetFormattedDateTimeStringColumnAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetFormattedDateTimeStringColumnAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_GetFormattedDateTimeStringColumnAsync_System_String_System_String_" data-uid="DbFacade.DataLayer.Models.DbDataModel.GetFormattedDateTimeStringColumnAsync(System.String,System.String)">GetFormattedDateTimeStringColumnAsync(String, String)</h4>
@@ -1434,7 +1358,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_Init.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.Init%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L173">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L181">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_Init_" data-uid="DbFacade.DataLayer.Models.DbDataModel.Init*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_Init" data-uid="DbFacade.DataLayer.Models.DbDataModel.Init">Init()</h4>
@@ -1450,7 +1374,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_InitAsync.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.InitAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L200">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L196">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_InitAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.InitAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_InitAsync" data-uid="DbFacade.DataLayer.Models.DbDataModel.InitAsync">InitAsync()</h4>
@@ -1478,10 +1402,44 @@ public bool HasDataBindingErrors { get; }</code></pre>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_InitDataCollection_IDataCollection_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.InitDataCollection(IDataCollection)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L186">View Source</a>
+  </span>
+  <a id="DbFacade_DataLayer_Models_DbDataModel_InitDataCollection_" data-uid="DbFacade.DataLayer.Models.DbDataModel.InitDataCollection*"></a>
+  <h4 id="DbFacade_DataLayer_Models_DbDataModel_InitDataCollection_IDataCollection_" data-uid="DbFacade.DataLayer.Models.DbDataModel.InitDataCollection(IDataCollection)">InitDataCollection(IDataCollection)</h4>
+  <div class="markdown level1 summary"><p>Initializes the data collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void InitDataCollection(IDataCollection collection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IDataCollection</span></td>
+        <td><span class="parametername">collection</span></td>
+        <td><p>The collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_IsDbCommand_DbFacade_DataLayer_ConnectionService_IDbCommandConfig_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.IsDbCommand(DbFacade.DataLayer.ConnectionService.IDbCommandConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L115">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel.cs/#L125">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_IsDbCommand_" data-uid="DbFacade.DataLayer.Models.DbDataModel.IsDbCommand*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_IsDbCommand_DbFacade_DataLayer_ConnectionService_IDbCommandConfig_" data-uid="DbFacade.DataLayer.Models.DbDataModel.IsDbCommand(DbFacade.DataLayer.ConnectionService.IDbCommandConfig)">IsDbCommand(IDbCommandConfig)</h4>
@@ -1531,7 +1489,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_IsDbCommandAsync_DbFacade_DataLayer_ConnectionService_IDbCommandConfig_.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.IsDbCommandAsync(DbFacade.DataLayer.ConnectionService.IDbCommandConfig)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L35">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L32">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_IsDbCommandAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.IsDbCommandAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_IsDbCommandAsync_DbFacade_DataLayer_ConnectionService_IDbCommandConfig_" data-uid="DbFacade.DataLayer.Models.DbDataModel.IsDbCommandAsync(DbFacade.DataLayer.ConnectionService.IDbCommandConfig)">IsDbCommandAsync(IDbCommandConfig)</h4>
@@ -1612,7 +1570,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel_ToJsonAsync.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel.ToJsonAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L22">View Source</a>
+    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L19">View Source</a>
   </span>
   <a id="DbFacade_DataLayer_Models_DbDataModel_ToJsonAsync_" data-uid="DbFacade.DataLayer.Models.DbDataModel.ToJsonAsync*"></a>
   <h4 id="DbFacade_DataLayer_Models_DbDataModel_ToJsonAsync" data-uid="DbFacade.DataLayer.Models.DbDataModel.ToJsonAsync">ToJsonAsync()</h4>
@@ -1642,6 +1600,46 @@ public bool HasDataBindingErrors { get; }</code></pre>
   <div>
       <a class="xref" href="DbFacade.DataLayer.Models.IDbDataModel.html">IDbDataModel</a>
   </div>
+  <div>
+      <span class="xref">IDataCollectionModel</span>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryParse__1_System_Object___0__">Utils.TryParse&lt;T&gt;(Object, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryParse__1_System_Object___0___0__">Utils.TryParse&lt;T&gt;(Object, T, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetValue_System_Object_System_String_System_Object__System_Object_">Utils.TryGetValue(Object, String, out Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetValue__1_System_Object_System_String___0____0_">Utils.TryGetValue&lt;To&gt;(Object, String, out To, To)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetEnumerable__1_System_Object_System_String_System_Collections_Generic_IEnumerable___0___">Utils.TryGetEnumerable&lt;To&gt;(Object, String, out IEnumerable&lt;To&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetEnumerable__1_System_Object_System_String_System_Char_System_Collections_Generic_IEnumerable___0___">Utils.TryGetEnumerable&lt;To&gt;(Object, String, Char, out IEnumerable&lt;To&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetEnumerable__1_System_Object_System_String_System_Collections_Generic_IEnumerable___0_____0_">Utils.TryGetEnumerable&lt;To&gt;(Object, String, out IEnumerable&lt;To&gt;, To)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetEnumerable__1_System_Object_System_String_System_Char_System_Collections_Generic_IEnumerable___0_____0_">Utils.TryGetEnumerable&lt;To&gt;(Object, String, Char, out IEnumerable&lt;To&gt;, To)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetFlagValue__1_System_Object_System_String___0_System_Boolean__">Utils.TryGetFlagValue&lt;T&gt;(Object, String, T, out Boolean)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetDateTimeValue_System_Object_System_String_System_String_System_Nullable_System_DateTime___System_Globalization_DateTimeStyles_">Utils.TryGetDateTimeValue(Object, String, String, out Nullable&lt;DateTime&gt;, DateTimeStyles)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetDateTimeValue_System_Object_System_String_System_String_System_IFormatProvider_System_Nullable_System_DateTime___System_Globalization_DateTimeStyles_">Utils.TryGetDateTimeValue(Object, String, String, IFormatProvider, out Nullable&lt;DateTime&gt;, DateTimeStyles)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Utils.Utils.html#DbFacade_Utils_Utils_TryGetFormattedDateTimeStringValue_System_Object_System_String_System_String_System_String__">Utils.TryGetFormattedDateTimeStringValue(Object, String, String, out String)</a>
+  </div>
 </article>
           </div>
           
@@ -1653,7 +1651,7 @@ public bool HasDataBindingErrors { get; }</code></pre>
                     <a href="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_DbDataModel.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.DbDataModel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L16" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacadeShared/DataLayer/Models/DbDataModel_Async.cs/#L13" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

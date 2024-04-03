@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net48;net472;</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net481;net48;net472;</TargetFrameworks>
     <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
   </PropertyGroup>
   
   <PropertyGroup>
-    <Version>1.12.1</Version>
+    <Version>1.13.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Odbc .NET</Product>
     <Description>A DbFacade extension to build a data connection service to Odbc databases</Description>
-    <Copyright>Copyright © 2022</Copyright>
+    <Copyright>Copyright © 2024</Copyright>
     <PackageId>DbFacade.Odbc</PackageId>
     <Authors>JSystemsTech</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -18,24 +18,20 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release 1.12.1 Resolved an issue with unit testing feature not properly handling annonomous objects as data row values</PackageReleaseNotes>
+    <PackageReleaseNotes>Release 1.13.0 Update Dependancies</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net7.0'">
-    <AssemblyTitle>DbFacade.Odbc .NET 7.0</AssemblyTitle>
+  
+  <PropertyGroup>
+    <AssemblyTitle>DbFacade.Odbc $(LibraryFrameworks)</AssemblyTitle>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
-    <AssemblyTitle>DbFacade.Odbc .NET 6.0</AssemblyTitle>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net48'">
-    <AssemblyTitle>DbFacade.Odbc .NET 4.8</AssemblyTitle>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net472'">
-    <AssemblyTitle>DbFacade.Odbc .NET 4.7.2</AssemblyTitle>
-  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.Odbc" Version="*" />
+    <PackageReference Include="DbFacade" Version="1.13.0" />
+  </ItemGroup>
 
 
   <ItemGroup>
@@ -51,22 +47,7 @@
 
   
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-    <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
-    <PackageReference Include="DbFacade" Version="1.12.1" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
-    <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
-    <PackageReference Include="DbFacade" Version="1.12.0" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
-    <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
-    <PackageReference Include="DbFacade" Version="1.12.0" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
-    <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
-    <PackageReference Include="DbFacade" Version="1.12.0" />
-  </ItemGroup> 
+  
   
 
   <ItemGroup>

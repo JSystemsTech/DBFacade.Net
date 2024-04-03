@@ -1,5 +1,5 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
-using System.Data;
+using System;
 using System.Data.Odbc;
 
 namespace DbFacade.Odbc.DataLayer.ConnectionService
@@ -9,9 +9,15 @@ namespace DbFacade.Odbc.DataLayer.ConnectionService
     /// </summary>
     /// <typeparam name="TDbConnectionConfig">The type of the database connection configuration.</typeparam>
     public abstract class
-        OdbcConnectionConfig<TDbConnectionConfig> : DbConnectionConfig<TDbConnectionConfig> where TDbConnectionConfig : DbConnectionConfigBase
+        OdbcConnectionConfig<TDbConnectionConfig> : DbConnectionConfigFull<TDbConnectionConfig> 
+        where TDbConnectionConfig : IDbConnectionConfig
     {
-        protected sealed override IDbDataAdapter GetDbDataAdapter() => new OdbcDataAdapter();
-        protected sealed override IDbConnection CreateDbConnection(string connectionString) => new OdbcConnection(connectionString);
+        public static void Configure(OnGetConnectionString getConnectionString, Action<IErrorHandlerOptions> handler)
+        {
+            handler(GetConnectionOptions().ErrorHandlerOptions);
+            GetConnectionOptions().SetOnGetDbDataAdapter(() => new OdbcDataAdapter());
+            GetConnectionOptions().SetOnGetConnectionString(getConnectionString);
+            GetConnectionOptions().SetOnCreateDbConnection(connectionString => new OdbcConnection(connectionString));
+        }
     }
 }

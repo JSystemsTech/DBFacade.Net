@@ -12,6 +12,22 @@ Create a directory structure as follows in your project directory.
 ## Add Connection file
 Create a `MyProjectSQLConnection.cs` class file in `MyProjectDirectory/DomainLayer/Connections` as follows:
 
+### As of Version 1.13.0
+
+```csharp
+    internal class MyProjectSQLConnection : SqlConnectionConfig<MyProjectSQLConnection>
+    {
+        private static string GetDbConnectionString() => "SomeConnectionString";
+
+        public static void Configure()
+        {
+            Configure(GetDbConnectionString, o => { });
+        }   
+    }
+```
+
+### Version 1.12.1 and earlier
+
 ```csharp
     internal class MyProjectSQLConnection : SqlConnectionConfig<MyProjectSQLConnection>
     {
@@ -43,6 +59,24 @@ Add a SQL stored procedure command definition to class `MyProjectSQLConnection` 
 
 ## Complete Class Code
 
+### As of Version 1.13.0
+
+```csharp
+    internal class MyProjectSQLConnection : SqlConnectionConfig<MyProjectSQLConnection>
+    {
+        private static string GetDbConnectionString() => "SomeConnectionString";
+
+        public static void Configure()
+        {
+            Configure(GetDbConnectionString, o => { });
+        }   
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
+    }
+```
+
+### Version 1.12.1 and earlier
+
 ```csharp
     internal class MyProjectSQLConnection : SqlConnectionConfig<MyProjectSQLConnection>
     {
@@ -71,7 +105,35 @@ Add a SQL stored procedure command definition to class `MyProjectSQLConnection` 
 ## Speciallized Setup for Connection types that support for a credential object 
 'OracleConnectionConfig' and 'SqlConnectionConfig' types support an aditional optional credendial object  
 
-Add a SQL stored procedure command definition to class `MyProjectSQLConnection` as a static property as follows
+### As of Version 1.13.0
+```csharp
+    internal class MyProjectSQLConnection : SqlConnectionConfig<MyProjectSQLConnection>
+    {
+        private static string GetDbConnectionString() => "SomeConnectionString";
+
+        public static void Configure(SqlCredential credential)
+        {
+            Configure(GetDbConnectionString, credential, o => { });
+        }   
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
+    }
+
+    internal class MyProjectOracleConnection : OracleConnectionConfig<MyProjectOracleConnection>
+    {
+        private static string GetDbConnectionString() => "SomeConnectionString";
+
+        public static void Configure(OracleCredential credential)
+        {
+            Configure(GetDbConnectionString, credential, o => { });
+        }    
+
+        public static IDbCommandConfig GetSampleData = CreateFetchCommand("[dbo].[SampleData_Get]", "Get Sample Data");
+    }
+```
+
+### Version 1.12.1 and earlier
+
 ```csharp
     internal class MyProjectSQLConnection : SqlConnectionConfig<MyProjectSQLConnection>
     {

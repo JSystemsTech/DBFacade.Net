@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using DbFacade.DataLayer.ConnectionService;
 using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.Tests.Facade
@@ -51,27 +52,9 @@ namespace DbFacadeUnitTests.Tests.Facade
         [TestMethod]
         public void SuccessfullyCatchesUnregisteredConnectionException()
         {
-            try
-            {
-                IDbResponse data = DomainFacade.TestUnregisteredConnectionCall();
-                Assert.Fail();
-            }
-            catch (DbConnectionConfigNotRegisteredException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch (Exception e)
-            {
-                if(e.InnerException is DbConnectionConfigNotRegisteredException)
-                {
-                    Assert.IsTrue(true);
-                }
-                else
-                {
-                    Assert.Fail();
-                }
-                
-            }
+            IDbResponse data = DomainFacade.TestUnregisteredConnectionCall();
+            Assert.IsTrue(data.HasError);
+            Assert.IsTrue(data.Error is DbConnectionConfigNotRegisteredException);
         }
         [TestMethod]
         public void SuccessfullyFetchesData()
@@ -85,6 +68,69 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.IsNotNull(model.PublicKey);
             Assert.AreNotEqual(new Guid(), model.PublicKey);
         }
+        [TestMethod]
+        public void SuccessfullyFetchesTestDataConsistantly()
+        {
+            for(int i =  0; i < 10; i++)
+            {
+                IDbResponse<FetchData> data = DomainFacade.TestFetchData();
+                Assert.IsNotNull(data);
+                Assert.AreEqual(1, data.Count());
+                FetchData model = data.First();
+                Assert.AreEqual(FetchDataEnum.Pass, model.MyEnum);
+                Assert.AreEqual("test string", model.MyString);
+                Assert.IsNotNull(model.PublicKey);
+                Assert.AreNotEqual(new Guid(), model.PublicKey);
+            }
+        }
+        [TestMethod]
+        public void SuccessfullyFetchesMultipleDataSets()
+        {
+            IDbResponse<UserData> users = DomainFacade.TestMultipleDataSets();
+            Assert.IsNotNull(users);
+            Assert.AreEqual(2, users.Count());
+            var user1 = users.ElementAt(0);
+            var user2 = users.ElementAt(1);
+            Assert.AreEqual(1, user1.Id);
+            Assert.AreEqual("Test User", user1.Name);
+            Assert.AreEqual(2, user2.Id);
+            Assert.AreEqual("Other User", user2.Name);
+
+            Assert.AreEqual(2, users.DataSets.Count());
+            var roles = users.DataSets.ElementAt(1).ToDbDataModelList<UserRole>();
+            Assert.IsNotNull(roles);
+            Assert.AreEqual(2, roles.Count());
+            var role1 = roles.ElementAt(0);
+            var role2 = roles.ElementAt(1);
+            Assert.AreEqual("R1", role1.Value);
+            Assert.AreEqual("Role One", role1.Name);
+            Assert.AreEqual("R2", role2.Value);
+            Assert.AreEqual("Role Two", role2.Name);
+        }
+        //[TestMethod]
+        //public void SuccessfullyFetchesMultipleDataSets2()
+        //{
+        //    IDbResponse<UserData> users = DomainFacade.TestMultipleDataSets();
+        //    Assert.IsNotNull(users);
+        //    Assert.AreEqual(2, users.Count());
+        //    var user1 = users.ElementAt(0);
+        //    var user2 = users.ElementAt(1);
+        //    Assert.AreEqual(1, user1.Id);
+        //    Assert.AreEqual("Test User", user1.Name);
+        //    Assert.AreEqual(2, user2.Id);
+        //    Assert.AreEqual("Other User", user2.Name);
+
+        //    Assert.AreEqual(2, users.DataSets.Count());
+        //    var roles = users.DataSets.ElementAt(1).ToDbDataModelList<UserRole>();
+        //    Assert.IsNotNull(roles);
+        //    Assert.AreEqual(2, roles.Count());
+        //    var role1 = roles.ElementAt(0);
+        //    var role2 = roles.ElementAt(1);
+        //    Assert.AreEqual("R1", role1.Value);
+        //    Assert.AreEqual("Role One", role1.Name);
+        //    Assert.AreEqual("R2", role2.Value);
+        //    Assert.AreEqual("Role Two", role2.Name);
+        //}
         [TestMethod]
         public void SuccessfullyFetchesAltData()
         {
@@ -175,7 +221,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         public void CatchesValidationError()
         {
             IDbResponse<DbDataModel> response = DomainFacade.TestTransaction(null);
-            if (response.Error is ValidationException<string> e)
+            if (response.Error is ValidationException e)
             {
                 Assert.AreEqual(1, e.ValidationErrors.Count());
                 Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
@@ -264,6 +310,53 @@ namespace DbFacadeUnitTests.Tests.Facade
                 await Task.CompletedTask;
             });
 
+        }
+        [TestMethod]
+        public void SuccessfullyFetchesTestDataConsistantlyAsync()
+        {
+            RunAsAsyc(async () =>
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    IDbResponse<FetchData> response = await DomainFacade.TestFetchDataAsync();
+                    Assert.IsNotNull(response);
+                    Assert.AreEqual(1, response.Count());
+                    FetchData model = response.First();
+                    Assert.AreEqual(FetchDataEnum.Pass, model.MyEnum);
+                    Assert.AreEqual("test string", model.MyString);
+                    Assert.IsNotNull(model.PublicKey);
+                    Assert.AreNotEqual(new Guid(), model.PublicKey);
+                    await Task.CompletedTask;
+                }
+            });
+
+        }
+        [TestMethod]
+        public void SuccessfullyFetchesMultipleDataSetsAsync()
+        {
+            RunAsAsyc(async () =>
+            {
+                IDbResponse<UserData> users = await DomainFacade.TestMultipleDataSetsAsync();
+                Assert.IsNotNull(users);
+                Assert.AreEqual(2, users.Count());
+                var user1 = users.ElementAt(0);
+                var user2 = users.ElementAt(1);
+                Assert.AreEqual(1, user1.Id);
+                Assert.AreEqual("Test User", user1.Name);
+                Assert.AreEqual(2, user2.Id);
+                Assert.AreEqual("Other User", user2.Name);
+
+                Assert.AreEqual(2, users.DataSets.Count());
+                var roles = await users.DataSets.ElementAt(1).ToDbDataModelListAsync<UserRole>();
+                Assert.IsNotNull(roles);
+                Assert.AreEqual(2, roles.Count());
+                var role1 = roles.ElementAt(0);
+                var role2 = roles.ElementAt(1);
+                Assert.AreEqual("R1", role1.Value);
+                Assert.AreEqual("Role One", role1.Name);
+                Assert.AreEqual("R2", role2.Value);
+                Assert.AreEqual("Role Two", role2.Name);
+            });
         }
         [TestMethod]
         public void SuccessfullyFetchesAltDataAsync()
@@ -393,7 +486,7 @@ namespace DbFacadeUnitTests.Tests.Facade
             RunAsAsyc(async () =>
             {
                 IDbResponse<DbDataModel> response = await DomainFacade.TestTransactionAsync(null);
-                if (response.Error is ValidationException<string> e)
+                if (response.Error is ValidationException e)
                 {
                     Assert.AreEqual(1, e.ValidationErrors.Count());
                     Assert.IsNotNull(e.ValidationErrors.First().ErrorMessage);
@@ -487,5 +580,120 @@ namespace DbFacadeUnitTests.Tests.Facade
             });
             
         }
+        private class BenchmarkConstants
+        {
+            public const int TinyCount = 10;
+            public const int VerySmallCount = 50;
+            public const int SmallCount = 100;
+            public const int MediumCount = 1000;
+            public const int LargeCount = 10000;
+            public const int VeryLargeCount = 20000;
+            public const int MassiveCount = 50000;
+
+            public const double Tiny = 0.05;
+            public const double VerySmall = 0.1;
+            public const double Small = 0.3;
+            public const double Medium = 0.5;
+            public const double Large = 1.5;
+            public const double VeryLarge = 10;
+            public const double Massive = 180; //3 min
+
+            public const string TinyText = "Tiny";
+            public const string VerySmallText = "Very Small";
+            public const string SmallText = "Small";
+            public const string MediumText = "Medium";
+            public const string LargeText = "Large";
+            public const string VeryLargeText = "Very Large";
+            public const string MassiveText = "Massive";
+        }
+        
+        private void TestBenchmark(int count, double threshold, string text)
+        {
+            DbFacade.Metrics.Clear();
+            var presetDone = DbFacade.Metrics.Begin($"Test Benchmark {text}: Preset Data");
+            var testModel = new
+            {
+                str = TestClass2.Value1.String,
+                integer = TestClass2.Value1.Integer,
+                guid = TestClass2.Value1.Guid,
+                testEnum = TestClass2.Value1.TestEnum,
+                strList = string.Join(",", TestClass2.Value1.StrList.Select(m => m.ToString()))
+            };
+            var list = Enumerable.Range(1, count).Select(m => testModel);
+            var mock = MockResponseData.Create(list, null, 0);
+            UnitTestConnection.TestBenchmark.AddMockResponseData(mock);
+            UnitTestConnection.EnableMockMode();
+            presetDone();
+
+            DateTime start = DateTime.Now;
+            var response = DomainFacade.TestBenchmark();
+            DateTime end = DateTime.Now;           
+
+            double seconds = (end - start).TotalSeconds;
+            var metricsMap = DbFacade.Metrics.MetricsMap;
+            var metricsList = DbFacade.Metrics.MetricsList;
+            Assert.IsTrue(seconds < threshold, $"TestBenchmark: Parsing {text} data set took {seconds} seconds");
+            Assert.IsFalse(response.HasError, $"Response Error: {response.ErrorMessage} Details: {response.ErrorDetails}");
+            Assert.AreEqual(count, response.Count());
+        }
+        [TestMethod]
+        public void TestBenchmarkTiny() => TestBenchmark(BenchmarkConstants.TinyCount, BenchmarkConstants.Tiny, BenchmarkConstants.TinyText);
+        [TestMethod]
+        public void TestBenchmarkVerySmall() => TestBenchmark(BenchmarkConstants.VerySmallCount, BenchmarkConstants.VerySmall, BenchmarkConstants.VerySmallText);
+        [TestMethod]
+        public void TestBenchmarkSmall() => TestBenchmark(BenchmarkConstants.SmallCount, BenchmarkConstants.Small, BenchmarkConstants.SmallText);
+        [TestMethod]
+        public void TestBenchmarkMedium() => TestBenchmark(BenchmarkConstants.MediumCount, BenchmarkConstants.Medium, BenchmarkConstants.MediumText);
+        [TestMethod]
+        public void TestBenchmarkLarge() => TestBenchmark(BenchmarkConstants.LargeCount, BenchmarkConstants.Large, BenchmarkConstants.LargeText);
+        [TestMethod]
+        public void TestBenchmarkVeryLarge() => TestBenchmark(BenchmarkConstants.VeryLargeCount, BenchmarkConstants.VeryLarge, BenchmarkConstants.VeryLargeText);
+        [TestMethod]
+        public void TestBenchmarkMassive() => TestBenchmark(BenchmarkConstants.MassiveCount, BenchmarkConstants.Massive, BenchmarkConstants.MassiveText);
+
+
+        private void TestBenchmarkAsync(int count, double threshold, string text)
+        {
+            var testModel = new
+            {
+                str = TestClass2.Value1.String,
+                integer = TestClass2.Value1.Integer,
+                guid = TestClass2.Value1.Guid,
+                testEnum = TestClass2.Value1.TestEnum,
+                strList = string.Join(",", TestClass2.Value1.StrList.Select(m => m.ToString()))
+            };
+            var list = Enumerable.Range(1, count).Select(m => testModel);
+            var mock = MockResponseData.Create(list, null, 0);
+            UnitTestConnection.TestBenchmark.AddMockResponseData(mock);
+            UnitTestConnection.EnableMockMode();
+
+            RunAsAsyc(async () =>
+            {
+                DateTime start = DateTime.Now;
+                var response = await DomainFacade.TestBenchmarkAsync();
+                DateTime end = DateTime.Now;
+
+                double seconds = (end - start).TotalSeconds;
+                Assert.IsTrue(seconds < threshold, $"TestBenchmark: Parsing {text} data set took {seconds} seconds");
+                Assert.IsFalse(response.HasError, $"Response Error: {response.ErrorMessage} Details: {response.ErrorDetails}");
+                Assert.AreEqual(count, response.Count());
+            });
+
+            
+        }
+        [TestMethod]
+        public void TestBenchmarkTinyAsync() => TestBenchmarkAsync(BenchmarkConstants.TinyCount, BenchmarkConstants.Tiny, BenchmarkConstants.TinyText);
+        [TestMethod]
+        public void TestBenchmarkVerySmallAsync() => TestBenchmarkAsync(BenchmarkConstants.VerySmallCount, BenchmarkConstants.VerySmall, BenchmarkConstants.VerySmallText);
+        [TestMethod]
+        public void TestBenchmarkSmallAsync() => TestBenchmarkAsync(BenchmarkConstants.SmallCount, BenchmarkConstants.Small, BenchmarkConstants.SmallText);
+        [TestMethod]
+        public void TestBenchmarkMediumAsync() => TestBenchmarkAsync(BenchmarkConstants.MediumCount, BenchmarkConstants.Medium, BenchmarkConstants.MediumText);
+        [TestMethod]
+        public void TestBenchmarkLargeAsync() => TestBenchmarkAsync(BenchmarkConstants.LargeCount, BenchmarkConstants.Large, BenchmarkConstants.LargeText);
+        [TestMethod]
+        public void TestBenchmarkVeryLargeAsync() => TestBenchmarkAsync(BenchmarkConstants.VeryLargeCount, BenchmarkConstants.VeryLarge, BenchmarkConstants.VeryLargeText);
+        [TestMethod]
+        public void TestBenchmarkMassiveAsync() => TestBenchmarkAsync(BenchmarkConstants.MassiveCount, BenchmarkConstants.Massive, BenchmarkConstants.MassiveText);
     }
 }

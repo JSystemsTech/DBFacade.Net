@@ -39,6 +39,23 @@ Install-Package DbFacade.Odbc
 Install-Package DbFacade.OleDb
 ```
 
-
 ## Documentation
-Read full Documentation [Here](https://jsystemstech.github.io/DBFacade.Net/index.html) 
+Read full Documentation [Here](https://jsystemstech.github.io/DBFacade.Net/index.html)
+
+## Utilities 
+DbFacade depends on the NuGet Package DbFacade.Utils.
+DbFacade.Utils is a set of Utilities useful for data parseing. 
+
+### Installation
+```bash
+Install-Package DbFacade.Utils
+```
+The latest version can also be downloaded directly from NuGet.org [Here](https://www.nuget.org/packages/DbFacade.Utils/)
+
+### Documentation
+Read full Documentation [Here](https://jsystemstech.github.io/DBFacade.Net/index.html)
+
+
+
+
+ 
