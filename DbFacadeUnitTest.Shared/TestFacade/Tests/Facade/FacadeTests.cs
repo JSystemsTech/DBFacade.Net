@@ -609,8 +609,6 @@ namespace DbFacadeUnitTests.Tests.Facade
         
         private void TestBenchmark(int count, double threshold, string text)
         {
-            DbFacade.Metrics.Clear();
-            var presetDone = DbFacade.Metrics.Begin($"Test Benchmark {text}: Preset Data");
             var testModel = new
             {
                 str = TestClass2.Value1.String,
@@ -623,15 +621,12 @@ namespace DbFacadeUnitTests.Tests.Facade
             var mock = MockResponseData.Create(list, null, 0);
             UnitTestConnection.TestBenchmark.AddMockResponseData(mock);
             UnitTestConnection.EnableMockMode();
-            presetDone();
 
             DateTime start = DateTime.Now;
             var response = DomainFacade.TestBenchmark();
             DateTime end = DateTime.Now;           
 
             double seconds = (end - start).TotalSeconds;
-            var metricsMap = DbFacade.Metrics.MetricsMap;
-            var metricsList = DbFacade.Metrics.MetricsList;
             Assert.IsTrue(seconds < threshold, $"TestBenchmark: Parsing {text} data set took {seconds} seconds");
             Assert.IsFalse(response.HasError, $"Response Error: {response.ErrorMessage} Details: {response.ErrorDetails}");
             Assert.AreEqual(count, response.Count());
