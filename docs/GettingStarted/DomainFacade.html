@@ -102,6 +102,18 @@
     public IDbResponse&lt;SampleDataModel&gt; GetSampleData(GetSampleDataParameters parameters);
 }
 </code></pre><p>Create a <code>DomainFacade</code> class file in <code>MyProjectDirectory/DomainLayer</code> as follows:</p>
+<h3 id="as-of-version-1130">As of Version 1.13.0</h3>
+<pre><code class="lang-csharp">internal class DomainFacade: IDomainFacade
+{
+    public DomainFacade(){
+        // MyProjectSQLConnection must be configured before any calls can be made
+        MyProjectSQLConnection.Configure(string connectionString);
+    }
+
+    public IDbResponse&lt;SampleDataModel&gt; GetSampleData(GetSampleDataParameters parameters)
+    =&gt; MyProjectSQLMethods.GetSampleData.Execute(parameters);
+}
+</code></pre><h3 id="version-1121-and-earlier">Version 1.12.1 and earlier</h3>
 <pre><code class="lang-csharp">internal class DomainFacade: IDomainFacade
 {
     public DomainFacade(){

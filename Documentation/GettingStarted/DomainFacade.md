@@ -29,6 +29,24 @@ public interface IDomainFacade
 }
 ```
 Create a `DomainFacade` class file in `MyProjectDirectory/DomainLayer` as follows:
+
+### As of Version 1.13.0
+
+```csharp
+internal class DomainFacade: IDomainFacade
+{
+    public DomainFacade(){
+        // MyProjectSQLConnection must be configured before any calls can be made
+        MyProjectSQLConnection.Configure(string connectionString);
+    }
+
+    public IDbResponse<SampleDataModel> GetSampleData(GetSampleDataParameters parameters)
+    => MyProjectSQLMethods.GetSampleData.Execute(parameters);
+}
+```
+
+### Version 1.12.1 and earlier
+
 ```csharp
 internal class DomainFacade: IDomainFacade
 {
