@@ -1,12 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace RealisticExampleProject.Services
 {
@@ -16,7 +9,7 @@ namespace RealisticExampleProject.Services
         bool IsEnabled(LogLevel logLevel);
         ILogResult Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter);
     }
-    public class ApplicationLogger : IApplicationLogger
+    public class ApplicationLogger : IApplicationLogger,ILogger
     {        
         private readonly IApplicationLoggerProvider LoggerProvider;
         private readonly string CategoryName;
@@ -51,6 +44,11 @@ namespace RealisticExampleProject.Services
                 message += Environment.NewLine + exception.ToString();
             }
             return message;
+        }
+
+        void ILogger.Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        {
+            this.Log(logLevel, eventId, state, exception, formatter);
         }
     }
     
