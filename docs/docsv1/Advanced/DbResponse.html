@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>DbResponse | DbFacade </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="DbResponse | DbFacade ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../images/icon.jpg">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" src="../images/icon.jpg" alt="" width="50" height="50" class="d-inline-block align-text-top">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container-fluid hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container-fluid body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container-fluid body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="dbresponse">DbResponse</h1>
+
+<p>This is the default response object from method executions. 
+<code>DbRespnse&lt;TDbDataModel&gt;</code> is also an IEnumerable<tdbdatamodel> which returns a fetched dataset.<p>
+<h2 id="return-value">Return Value</h2>
+<p>If you need to access a stored procedures return value you can call the <code>ReturnValue</code> property of the object.</p>
+<h2 id="output-variables">Output Variables</h2>
+<p>Some stored procedures define output variables which return on the call.
+To access those values you can use the following:</p>
+<h3 id="single-parmameter-value">Single Parmameter Value</h3>
+<pre><code class="lang-csharp">T value = MyDbResonse.GetOutputValue&lt;T&gt;(string key);
+</code></pre><p>or with <code>async</code></p>
+<pre><code class="lang-csharp">T value = await MyDbResonse.GetOutputValueAsync&lt;T&gt;(string key);
+</code></pre><h3 id="multiple-values-as-dbdatamodel">Multiple Values as DbDataModel</h3>
+<pre><code class="lang-csharp">public class MyOutputDataModel : DbDataModel
+{
+    public string Value { get; private set; }
+
+    protected override void Init()
+    {
+        Value = GetColumn&lt;string&gt;(&quot;OutputParameterName&quot;);
+    }
+    protected override async Task InitAsync()
+    {
+        Value = await GetColumnAsync&lt;string&gt;(&quot;ColumnName&quot;);
+    }
+}
+</code></pre><pre><code class="lang-csharp">MyOutputDataModel model = MyDbResonse.GetOutputModel&lt;MyOutputDataModel&gt;();
+</code></pre><p>or with <code>async</code></p>
+<pre><code class="lang-csharp">MyOutputDataModel model = await MyDbResonse.GetOutputModelAsync&lt;MyOutputDataModel&gt;();
+</code></pre><h2 id="additional-datasets">Additional DataSets</h2>
+<p>If you stroed procedure has multiple data sets returning you can access the additional data sets as follows:</p>
+<pre><code class="lang-csharp">int index = 1; //index 0 is always the first data set and is already a part of the response;
+IEnumerable&lt;MyDataModel&gt; data = MyDbResonse.DataSets.ElementAt(index).ToDbDataModelList&lt;MyDataModel&gt;();
+</code></pre><p>or with <code>async</code></p>
+<pre><code class="lang-csharp">int index = 1; //index 0 is always the first data set and is already a part of the response;
+IEnumerable&lt;MyDataModel&gt; data = await MyDbResonse.DataSets.ElementAt(index).ToDbDataModelListAsync&lt;MyDataModel&gt;();
+</code></pre><h2 id="raw-dataset-object">Raw DataSet Object</h2>
+<p>If you have a need for accessing the raw C# &#39;DataTable&#39; type objects you can access them in the following way:</p>
+<pre><code class="lang-csharp">int index = 1; //index 0 is always the first data set and is already a part of the response;
+IEnumerable&lt;MyDataModel&gt; data = MyDbResonse.DataSets.ElementAt(index).ToDbDataModelList&lt;MyDataModel&gt;();
+</code></pre><p>Note that this is the raw data response from the database call. You do not have access to any of the specialized column parser extensions that the &#39;DbDataModel&#39; type class provides.</p>
+<p>This is especially useful if you are importing data into another service.
+Ex. the Aspose libraries make use of a DataTable to construct a MS Office table object.</p>
+<h2 id="error">Error</h2>
+<p>If the method execution call fires an exception the error is captured and set in the <code>Error</code> property and the <code>HasError</code> property  is set to <code>true</code>.</p>
+<h2 id="error-message">Error Message</h2>
+<p>If the method execution call fires an exception the error is captured and the <code>ErrorMessage</code> property is set to the value of the <code>Message</code> property of the error</p>
+<h2 id="error-details">Error Details</h2>
+<p>If the method execution call fires an exception the error is captured and is of type <code>FacadeException</code> the <code>ErrorDetails</code> property is set to the value of the <code>ErrorDetails</code> property of the error</p>
+<h2 id="hasdatabindingerrors">HasDataBindingErrors</h2>
+<p>If any of the data models have data binding errors the <code>HasDataBindingErrors</code> will be set to <code>true</code></p>
+</tdbdatamodel></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Documentation/Advanced/DbResponse.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container-fluid">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright &copy; JSystemsTech 2021
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

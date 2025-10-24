@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Validating Parameters | DbFacade </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Validating Parameters | DbFacade ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+
+
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Docs2.0/docfx_project/GettingStarted/ParameterValidation.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+      <script type="module" src="./../public/app.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md bg-primary" role="navigation" data-bs-theme="dark">
+        <div class="container-fluid flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/icon.jpg" alt="DbFacade">
+            DbFacade
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-fluid px-lg-5">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="validating-parameters">Validating Parameters</h1>
+
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_ExampleBase" role="tab" aria-controls="tabpanel_1_ExampleBase" data-tab="ExampleBase" tabindex="0" aria-selected="true">Example Base</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_ClassReference" role="tab" aria-controls="tabpanel_1_ClassReference" data-tab="ClassReference" tabindex="-1">Class Reference</a>
+</li>
+</ul>
+<section id="tabpanel_1_ExampleBase" role="tabpanel" data-tab="ExampleBase">
+
+<p>Snipets below all go into this example.</p>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpointValidation = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    //...
+    o.WithValidation&lt;MyParametersModelForValidation&gt;(v =&gt;
+    {
+        //Implement Model Validation here
+    });
+    //...
+});
+</code></pre></section>
+<section id="tabpanel_1_ClassReference" role="tabpanel" data-tab="ClassReference" aria-hidden="true" hidden="hidden">
+
+<p>Parameters class used in validation example</p>
+<pre><code class="lang-csharp">internal class MyParametersModelForValidation
+{
+
+    internal DateTime? DateTimeNullable = DateTime.Parse(&quot;01/01/1979&quot;);
+    internal string DateString = &quot;01/01/1979&quot;;
+    internal int IntegerValue = 10;
+
+    internal int IntegerValueLow = 9;
+    internal int IntegerValueHigh = 11;
+    internal string MyString = &quot;1234567890&quot;;
+    internal string StringNumeric = &quot;1234567890&quot;;
+    internal string StringNull = null;
+    internal string StringEmpty = &quot;&quot;;
+    internal string StringWhiteSpace = &quot; &quot;;
+    internal string StringAlphaNumeric = &quot;abc123ABC&quot;;
+
+    internal bool CustomCheck() { return true; }
+
+    internal string Email = &quot;my.name@testdomain.com&quot;;
+    internal MailAddress MailAddress = new MailAddress(&quot;my.name@testdomain.com&quot;);
+}
+</code></pre></section>
+</div>
+<h2 id="date-string-validation">Date String Validation</h2>
+<p>If you need to validate date strings you can use the following.</p>
+<pre><code class="lang-csharp">//Check if model value is non null DateTime object
+v.AddIsDateTime(m =&gt; m.DateTimeNullable, &quot;incorrect Date&quot;);
+//Check if model value string can be parsed to DateTime object
+v.AddIsDateTime(m =&gt; m.DateString, &quot;DateString is incorrect Date&quot;);
+//Check if model value string can be parsed to DateTime object with specific format
+v.AddIsDateTime(m =&gt; m.DateString, &quot;dd/MM/yyyy&quot;, &quot;DateString is incorrect Date&quot;);
+//Check if model value string can be parsed to DateTime object with specific format and format provider
+v.AddIsDateTime(m =&gt; m.DateString, &quot;dd/MM/yyyy&quot;, CultureInfo.InvariantCulture, &quot;DateString is incorrect Date&quot;);
+//Check if model value string can be parsed to DateTime object with specific format, format provider, and style
+v.AddIsDateTime(m =&gt; m.DateString, &quot;dd/MM/yyyy&quot;, CultureInfo.InvariantCulture, DateTimeStyles.None, &quot;DateString is incorrect Date&quot;);
+//Check if model value string can be parsed to DateTime object with specific format, and style
+v.AddIsDateTime(m =&gt; m.DateString, &quot;dd/MM/yyyy&quot;, DateTimeStyles.None, &quot;DateString is incorrect Date&quot;);
+</code></pre><h2 id="icomparable-validation">IComparable Validation</h2>
+<p>If you need to validate an value that is also an IComparable object (int, double, float, DateTime etc) you can do so like the following.</p>
+<pre><code class="lang-csharp">//Check if model value is equal to a value
+v.AddIsEqualTo(m =&gt; m.IntegerValue, 10, &quot;IntegerValue Not Equal To 10&quot;);
+//Check if model value is equal to another model value
+v.AddIsEqualTo(m =&gt; m.IntegerValue, m =&gt; m.IntegerValueHigh, &quot;IntegerValue Not Equal To IntegerValueHigh&quot;);
+//Check if model value is not equal to a value
+v.AddIsNotEqual(m =&gt; m.IntegerValue, 11, &quot;IntegerValue Is Equal To 11&quot;);
+//Check if model value is not equal to another model value
+v.AddIsNotEqual(m =&gt; m.IntegerValue, m =&gt; m.IntegerValueHigh, &quot;IntegerValue Is Equal To IntegerValueHigh&quot;);
+//Check if model value is greator than or equal to a value
+v.AddIsGreaterThanOrEqualTo(m =&gt; m.IntegerValue, 9, &quot;IntegerValue Not Greater Than Or Equal To 9&quot;);
+//Check if model value is greator than or equal to another model value
+v.AddIsGreaterThanOrEqualTo(m =&gt; m.IntegerValue, m =&gt; m.IntegerValueLow, &quot;IntegerValue Not Greater Than Or Equal To IntegerValueLow&quot;);
+//Check if model value is greator than a value
+v.AddIsGreatorThan(m =&gt; m.IntegerValue, 9, &quot;IntegerValue Not Greater Than 9&quot;);
+//Check if model value is greator than another model value
+v.AddIsGreatorThan(m =&gt; m.IntegerValue, m =&gt; m.IntegerValueLow, &quot;IntegerValue Not Greater Than IntegerValueLow&quot;);
+//Check if model value is less than or equal to a value
+v.AddIsLessThanOrEqualTo(m =&gt; m.IntegerValue, 11, &quot;IntegerValue Not Less Than Or Equal To 11&quot;);
+//Check if model value is less than or equal to another model value
+v.AddIsLessThanOrEqualTo(m =&gt; m.IntegerValue, m =&gt; m.IntegerValueHigh, &quot;IntegerValue Not Less Than Or Equal To IntegerValueHigh&quot;);
+//Check if model value is less than a value
+v.AddIsLessThan(m =&gt; m.IntegerValue, 11, &quot;IntegerValue Not Less Than 11&quot;);
+//Check if model value is less than another model value
+v.AddIsLessThan(m =&gt; m.IntegerValue, m =&gt; m.IntegerValueHigh, &quot;IntegerValue Not Less Than IntegerValueHigh&quot;);
+</code></pre><h2 id="numeric-object-validation">Numeric Object Validation</h2>
+<p>If you need to validate if an object is numeric or not use the following.</p>
+<pre><code class="lang-csharp">//Check if model value is numeric type
+v.AddIsNumeric(m =&gt; m.IntegerValue, &quot;IntegerValue Is Not Numeric&quot;);
+//Check if model value string can be parsed to numeric type
+v.AddIsNumeric(m =&gt; m.StringNumeric, &quot;StringNumeric Is Not Numeric&quot;);
+</code></pre><h2 id="email-validation">Email Validation</h2>
+<p>If you need to do any sort of email address validation use the following.</p>
+<pre><code class="lang-csharp">//Check if model string value can be parsed to MailAddress object
+v.AddIsMailAddress(m =&gt; m.Email, &quot;Email Is Not Mail Address&quot;);
+//Check if model string value can be parsed to MailAddress object and is in allowed domain list.
+v.AddIsInDomain(m =&gt; m.Email, new string[] { &quot;testdomain.com&quot; }, &quot;Email is not in allowed domains&quot;);
+//Check if model MailAddress object is in allowed domain list.
+v.AddIsInDomain(m =&gt; m.MailAddress, new string[] { &quot;testdomain.com&quot; }, &quot;MailAddress is not in allowed domains&quot;);
+//Check if model string value can be parsed to MailAddress object and is not in unallowed domain list.
+v.AddIsNotInDomain(m =&gt; m.Email, new string[] { &quot;baddomain.com&quot; }, &quot;Email is in unallowed domains&quot;);
+//Check if model MailAddress object is not in unallowed domain list.
+v.AddIsNotInDomain(m =&gt; m.MailAddress, new string[] { &quot;baddomain.com&quot; }, &quot;MailAddress is in unallowed domains&quot;);
+</code></pre><h2 id="general-string-validation">General String Validation</h2>
+<p>If you need to do any sort of general string validation use the following.</p>
+<pre><code class="lang-csharp">//Check if model string value length is at or below max lenth allowed
+v.AddHasMaxLength(m =&gt; m.MyString, 10, &quot;MyString too long&quot;);
+//Check if model string value length is at or above min lenth allowed
+v.AddHasMinLength(m =&gt; m.MyString, 10, &quot;MyString too short&quot;);
+//Check if model string value is a digit only string of a given length
+v.AddIsNDigitString(m =&gt; m.StringNumeric, 10, &quot;StringNumeric Is Not 10 Digit String&quot;);
+//Check if model string value is null
+v.AddIsNull(m =&gt; m.StringNull, &quot;StringNull Is Not Null&quot;);
+//Check if model string value is null or empty
+v.AddIsNullOrEmpty(m =&gt; m.StringEmpty, &quot;StringEmpty Is Not Null Or Empty&quot;);
+//Check if model string value is null or whitespace
+v.AddIsNullOrWhiteSpace(m =&gt; m.StringWhiteSpace, &quot;StringWhiteSpace Is Not Null Or White Space&quot;);
+//Check if model string value is not null (useful for checking required)
+v.AddIsNotNull(m =&gt; m.MyString, &quot;MyString Is Null&quot;);
+//Check if model string value is not null or empty (useful for checking required)
+v.AddIsNotNullOrEmpty(m =&gt; m.MyString, &quot;MyString Is Null Or Empty&quot;);
+//Check if model string value is not null or whitespace (useful for checking required)
+v.AddIsNotNullOrWhiteSpace(m =&gt; m.MyString, &quot;MyString Is Null Or White Space&quot;);
+</code></pre><h2 id="regex-string-validation">Regex String Validation</h2>
+<p>If you have a specialized string validation done via Regex use the following.</p>
+<pre><code class="lang-csharp">string regexAlphanumeric = @&quot;^[a-zA-Z0-9\s,]*$&quot;;
+Regex rg = new Regex(regexAlphanumeric);
+
+//Check if model value matches regex string 
+v.AddIsRegexMatch(m =&gt; m.StringAlphaNumeric, regexAlphanumeric, &quot;Is Not alphanumeric&quot;);
+//Check if model value matches regex object 
+v.AddIsRegexMatch(m =&gt; m.StringAlphaNumeric, rg, &quot;Is Not alphanumeric&quot;);
+//Check if model value matches regex string with options
+v.AddIsRegexMatch(m =&gt; m.StringAlphaNumeric, regexAlphanumeric, RegexOptions.None, &quot;Is Not alphanumeric&quot;);
+</code></pre><h2 id="custom-model-validation">Custom Model Validation</h2>
+<p>If you have a custom model validation method use the following.</p>
+<pre><code class="lang-csharp">v.Add(m =&gt; m.CustomCheck(), &quot;Does Not Pass Custom Check&quot;);
+</code></pre><h2 id="adding-custom-validation-extensions">Adding Custom Validation Extensions</h2>
+<p>If you have a custom model validation method that you want to be made available for common use in your project, you can do the following.</p>
+<h3 id="create-the-extension-class-method">Create the extension class method</h3>
+<pre><code class="lang-csharp">internal static class CustomValidatorExtensions
+{
+    private static Regex AlphaNumericRegex = new Regex(@&quot;^[a-zA-Z0-9\s,]*$&quot;);
+    public static void AddIsAlphaNumeric&lt;T&gt;(this Validator&lt;T&gt; validator, Func&lt;T, string&gt; getValue, string parameterName)
+        where T : class
+    =&gt; validator.Add(m =&gt; AlphaNumericRegex.Match(getValue(m)).Success, $&quot;{parameterName} is not alphanumeric&quot;);
+}
+</code></pre><h3 id="use-extension-class-method">Use extension class method</h3>
+<pre><code class="lang-csharp">v.AddIsAlphaNumeric(m =&gt; m.StringAlphaNumeric, &quot;StringAlphaNumeric&quot;);
+</code></pre><h2 id="validation-when-binding-multiple-expected-parameter-model-types">Validation When Binding Multiple Expected Parameter Model Types</h2>
+<p>If you are binding multiple parameter model types and wish to validate you can do the following.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>When you declare model validation for one expected model type you must also declare it for all expected types. Otherwise you will recieve a validation error.</p>
+</div>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpointWithValidationMultipleExpectedTypes = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    //...
+    //Set first accepted Parameter Type
+    o.WithParameters&lt;MyParametersModel&gt;(p =&gt;
+    {
+        p.AddInput(&quot;ParameterA&quot;, model =&gt; model.ParameterA);
+        p.AddInput(&quot;ParameterB&quot;, model =&gt; model.ParameterB);
+    })
+    //Set second accepted Parameter Type
+    .WithParameters&lt;MyParametersModelOther&gt;(p =&gt;
+    {
+        p.AddInput(&quot;ParameterA&quot;, model =&gt; model.ParameterOne);
+        p.AddInput(&quot;ParameterB&quot;, model =&gt; model.ParameterTwo);
+    })
+    // Set Common parameters
+    .WithParameters(p =&gt;
+    {
+        p.AddInput(&quot;ParameterC&quot;, &quot;SomeHardedCodedValue&quot;);
+    })
+    .WithValidation&lt;MyParametersModel&gt;(v =&gt;
+    {
+        //Implement first accepted Model type Validation here
+    })
+    .WithValidation&lt;MyParametersModelOther&gt;(v =&gt;
+    {
+        //Implement second accepted Model type Validation here
+    });
+    //...
+});
+</code></pre>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Docs2.0/docfx_project/GettingStarted/ParameterValidation.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-fluid search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-fluid">
+        <div class="flex-fill">
+          Copyright &copy; JSystemsTech 2025
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

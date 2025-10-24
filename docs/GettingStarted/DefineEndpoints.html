@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Define Endpoints | DbFacade </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Define Endpoints | DbFacade ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+
+
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Docs2.0/docfx_project/GettingStarted/DefineEndpoints.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+      <script type="module" src="./../public/app.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md bg-primary" role="navigation" data-bs-theme="dark">
+        <div class="container-fluid flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/icon.jpg" alt="DbFacade">
+            DbFacade
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-fluid px-lg-5">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="define-endpoints">Define Endpoints</h1>
+
+<p>Create a <code>DbConnectionConfig</code> instance from Connection Provider</p>
+<pre><code class="lang-csharp">DbConnectionConfig dbConnectionConfig = connectionProvider.DbConnectionConfig;
+</code></pre><h2 id="define-endpoint">Define Endpoint</h2>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpoint = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    //...
+});
+</code></pre><h3 id="configure-as-stored-procedure">Configure as Stored Procedure</h3>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpoint_AsStoredProcedure = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    o.AsStoredProcedure(&quot;[dbo].[MyEndpointStoredProcedureName]&quot;);
+    //...
+});
+</code></pre><h3 id="configure-as-query">Configure as query</h3>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpoint_AsQuery = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    o.AsQuery(&quot;SELECT ColumnA, ColumnB, ColumnC FROM MySampleTable&quot;);
+    //...
+});
+</code></pre><h3 id="configure-as-non-query">Configure as non-query</h3>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpoint_AsNonQuery = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    o.AsNonQuery(&quot;UPDATE MySampleTable SET ColumnA = 1, ColumnB = 2, ColumnC = 3 FROM MySampleTable WHERE ColumnD = 5&quot;);
+    //...
+});
+</code></pre><h3 id="configure-as-xml-query">Configure as XML Query</h3>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Only applies to SQL connections.</p>
+</div>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpoint_AsXml = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    o.AsXml(&quot;SELECT * FROM [dbo].[SomeTestTable] FOR XML AUTO, XMLDATA&quot;);
+    //...
+});
+</code></pre><h3 id="configure-as-table-direct">Configure as table direct</h3>
+<div class="NOTE">
+<h5>Note</h5>
+<p>As stated by microsoft this is only supported by the .NET Framework Data Provider for OLE DB.</p>
+</div>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpoint_AsTableDirect = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    o.AsTableDirect(&quot;TableName&quot;);
+    //...
+});
+</code></pre><h2 id="configure-as-transaction">Configure as transaction</h2>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpoint_AsTransaction = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    //... 
+    o.AsTransaction();
+    //...
+});
+</code></pre><h2 id="binding-parameters">Binding Parameters</h2>
+<p>See for <a href="ParameterBinding.html">Binding Parameters</a> for more details.</p>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpointWithParameters = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    //...
+    o.WithParameters&lt;MyParametersModel&gt;(p =&gt;
+    {
+        p.AddInput(&quot;ParameterA&quot;, model =&gt; model.ParameterA);
+        p.AddInput(&quot;ParameterB&quot;, model =&gt; model.ParameterB);
+    });
+    //...
+});
+</code></pre><h3 id="binding-single-parameter-value">Binding Single Parameter Value</h3>
+<p>In the case of an endpoint only having a single input parameter with a struct type like int, string, Guid etc you may use the following</p>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpointSingleParameterValue = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    //...
+    o.WithParameters&lt;Guid&gt;((m, p) =&gt;
+    {
+        p.AddInput(&quot;SomeGuid&quot;, m);
+    });
+    //...
+});
+</code></pre><h2 id="validating-parameters">Validating Parameters</h2>
+<p>Optional if model validation handled separately
+See for <a href="ParameterValidation.html">Validating Parameters</a> for more details.</p>
+<pre><code class="lang-csharp">IDbCommandMethod myEndpointWithValidation = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+    //...
+    o.WithValidation&lt;MyParametersModel&gt;(v =&gt; {
+        v.AddIsNotNullOrWhiteSpace(m =&gt; m.ParameterA, &quot;ParameterA is required.&quot;);
+    });
+    //...
+});
+</code></pre><h2 id="best-practice">Best Practice</h2>
+<p>For most of my projects I work with I use the following approach:</p>
+<ol>
+<li>Create a internal class to hold the endpoint definitions.</li>
+<li>Make the 'IDbCommandMethod' class property values private set.</li>
+<li>Initialize the properties in the logially broken down Init methods.</li>
+<li>If I have a lot of endpoints I make the class a partial class and separted 'IDbCommandMethod' class properties and Init methods.</li>
+</ol>
+<pre><code class="lang-csharp">internal class Endpoints
+{
+    internal IDbCommandMethod MyEndpoint { get; private set; }
+    internal IDbCommandMethod LookupListA { get; private set; }
+    internal IDbCommandMethod LookupListB { get; private set; }
+    private readonly SqlDbConnectionProvider ConnectionProvider;
+    private DbConnectionConfig DbConnectionConfig =&gt; ConnectionProvider.DbConnectionConfig;
+    internal Endpoints()
+    {
+        ConnectionProvider = new SqlDbConnectionProvider();
+        ConnectionProvider.BindConnectionString(&quot;Some Safely Stored Configured Connection String&quot;);
+        InitBaseMethods();
+        InitLookupListMethods();
+    }
+    private void InitBaseMethods()
+    {
+        MyEndpoint = DbConnectionConfig.Dbo.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
+            o.AsStoredProcedure(&quot;MyEndpointStoredProcedureName&quot;)
+            .WithParameters&lt;MyParametersModel&gt;(p =&gt;
+            {
+                p.AddInput(&quot;ParameterA&quot;, model =&gt; model.ParameterA);
+                p.AddInput(&quot;ParameterB&quot;, model =&gt; model.ParameterB);
+            })
+            .WithValidation&lt;MyParametersModel&gt;(v =&gt; {
+                v.AddIsNotNullOrWhiteSpace(m =&gt; m.ParameterA, &quot;ParameterA is required.&quot;);
+            });
+        });
+    }
+    private void InitLookupListMethods()
+    {
+        LookupListA = DbConnectionConfig.Dbo.DefineEndpoint(&quot;LookupListA&quot;, o =&gt; {
+            o.AsStoredProcedure(&quot;LookupListA__StoredProcedureName&quot;);
+        });
+        LookupListB = DbConnectionConfig.Dbo.DefineEndpoint(&quot;LookupListB&quot;, o =&gt; {
+            o.AsStoredProcedure(&quot;LookupListB__StoredProcedureName&quot;);
+        });
+    }
+}
+</code></pre>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/Docs2.0/docfx_project/GettingStarted/DefineEndpoints.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-fluid search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-fluid">
+        <div class="flex-fill">
+          Copyright &copy; JSystemsTech 2025
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

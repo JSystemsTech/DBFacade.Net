@@ -1,0 +1,13 @@
+﻿CREATE TABLE [dbo].[Employee]
+(
+	[Id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[Guid] UNIQUEIDENTIFIER ROWGUIDCOL NOT NULL DEFAULT NEWID(),
+	[FirstName] NVARCHAR(50) NOT NULL,
+	[MiddleName] NVARCHAR(50) NULL,
+	[LastName] NVARCHAR(50) NOT NULL,
+	[DepartmentId] INT NOT NULL DEFAULT(1),
+	[IsActive] BIT NOT NULL DEFAULT(1),
+	[CreateDate] DATETIME NOT NULL DEFAULT GETDATE(),
+	[UpdateDate] DATETIME NULL, 
+    CONSTRAINT [FK_Employee_DepartmentId] FOREIGN KEY ([DepartmentId]) REFERENCES [dbo].[Department]([Id])
+)
