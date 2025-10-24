@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.Models.Validators.Rules
 {
@@ -87,17 +86,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override bool ValidateRule(TDbParams paramsModel)
             => Regex.Match(ParamsValue.ToString(), MatchStr, RegexOptions).Success;
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool val = Regex.Match(ParamsValue.ToString(), MatchStr, RegexOptions).Success;
-                await Task.CompletedTask;
-                return val;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -106,17 +94,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             => $"does not match the expression.";
-
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
-                return $"does not match the expression.";
-            }
 
         }
 
@@ -158,17 +135,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 return Length > 0 && ParamsValue.ToString().Length == Length && base.ValidateRule(paramsModel);
             }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool isLengthN = Length > 0 && ParamsValue.ToString().Length == Length;
-                bool baseValidation = await base.ValidateRuleAsync(paramsModel);
-                return isLengthN && baseValidation;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -179,20 +145,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             => (Length <= 0 || ParamsValue.ToString().Length != Length) ?
                 $"Length is not equal to {Length}" :
                 $"not a {Length} digit string";
-
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                string message = (Length <= 0 || ParamsValue.ToString().Length != Length) ?
-                $"Length is not equal to {Length}" :
-                $"not a {Length} digit string";
-                await Task.CompletedTask;
-                return message;
-            }
         }
 
         /// <summary>
@@ -251,21 +203,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
 
                 return baseValidation;
             }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool isValid = await base.ValidateRuleAsync(paramsModel);
-                if (AllowDashes)
-                {
-                    isValid = isValid || Regex.Match(ParamsValue.ToString(), SSNMatch, RegexOptions.IgnoreCase).Success;
-                }
-                await Task.CompletedTask;
-                return isValid;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -274,16 +211,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             => $"not a valid Social Security Number";
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
-                return $"not a valid Social Security Number";
-            }
 
         }
 
@@ -315,17 +242,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 return string.IsNullOrEmpty(ParamsValue.ToString());
             }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool isValid = string.IsNullOrEmpty(ParamsValue.ToString());
-                await Task.CompletedTask;
-                return isValid;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -334,16 +250,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"expecting value to be null or empty";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"expecting value to be null or empty";
             }
         }
@@ -374,17 +280,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 return !string.IsNullOrEmpty(ParamsValue.ToString());
             }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool isValid = !string.IsNullOrEmpty(ParamsValue.ToString());
-                await Task.CompletedTask;
-                return isValid;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -393,16 +288,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"expecting value to not be null or empty";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"expecting value to not be null or empty";
             }
         }
@@ -433,17 +318,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 return string.IsNullOrWhiteSpace(ParamsValue.ToString());
             }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool isValid = string.IsNullOrWhiteSpace(ParamsValue.ToString());
-                await Task.CompletedTask;
-                return isValid;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -452,16 +326,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"expecting value to be null or white space";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"expecting value to be null or white space";
             }
         }
@@ -492,17 +356,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 return !string.IsNullOrWhiteSpace(ParamsValue.ToString());
             }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool isValid = !string.IsNullOrWhiteSpace(ParamsValue.ToString());
-                await Task.CompletedTask;
-                return isValid;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -511,16 +364,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"expecting value to not be null or white space";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"expecting value to not be null or white space";
             }
 
@@ -563,17 +406,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 return ParamsValue.ToString().Length == LimitValue;
             }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool isValid = ParamsValue.ToString().Length == LimitValue;
-                await Task.CompletedTask;
-                return isValid;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -582,16 +414,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"expecting text length to  equal to {LimitValue}";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"expecting text length to  equal to {LimitValue}";
             }
         }
@@ -634,17 +456,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 return ParamsValue.ToString().Length >= LimitValue;
             }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool isValid = ParamsValue.ToString().Length >= LimitValue;
-                await Task.CompletedTask;
-                return isValid;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -653,16 +464,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"expecting text length to be greater than or equal to {LimitValue}";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"expecting text length to be greater than or equal to {LimitValue}";
             }
         }
@@ -705,17 +506,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 return ParamsValue.ToString().Length <= LimitValue;
             }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool isValid = ParamsValue.ToString().Length <= LimitValue;
-                await Task.CompletedTask;
-                return isValid;
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -724,16 +514,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"expecting text length to be less than or equal to {LimitValue}";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"expecting text length to be less than or equal to {LimitValue}";
             }
         }
@@ -805,48 +585,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                     return false;
                 }
             }
-            /// <summary>
-            /// Creates the mail address asynchronous.
-            /// </summary>
-            /// <returns></returns>
-            private async Task<MailAddress> CreateMailAddressAsync()
-            {
-                MailAddress mailAddress = new MailAddress(ParamsValue.ToString());
-                await Task.CompletedTask;
-                return mailAddress;
-            }
-            /// <summary>
-            /// Validates the mail address asynchronous.
-            /// </summary>
-            /// <param name="email">The email.</param>
-            /// <returns></returns>
-            private async Task<bool> ValidateMailAddressAsync(MailAddress email)
-            {
-                bool hasDomain = Domains.Contains(email.Host);
-                bool isValid = Mode == EmailDomainMode.Whitelist ? hasDomain :
-                        Mode == EmailDomainMode.Blacklist ? !hasDomain :
-                        true;
-                await Task.CompletedTask;
-                return isValid;
-            }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                try
-                {
-                    MailAddress email = await CreateMailAddressAsync();
-                    return await ValidateMailAddressAsync(email);
-                }
-                catch
-                {
-                    await Task.CompletedTask;
-                    return false;
-                }
-            }
 
             /// <summary>
             /// Gets the error message core.
@@ -855,16 +593,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"invalid email address";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"invalid email address";
             }
         }

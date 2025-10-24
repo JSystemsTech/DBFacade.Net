@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
-using DbFacade.DataLayer.ConnectionService;
 using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.Tests.Facade
@@ -16,16 +15,16 @@ namespace DbFacadeUnitTests.Tests.Facade
     public class FacadeTests: UnitTestBase
     {
 
-        UnitTestDomainFacade DomainFacade = new UnitTestDomainFacade();
+        private readonly UnitTestDomainFacade DomainFacade = new UnitTestDomainFacade();
 
-        public void CheckEnumerable<T>(IEnumerable<T>expectedData, IEnumerable<T> data)
+        public static void CheckEnumerable<T>(IEnumerable<T>expectedData, IEnumerable<T> data)
         {
             Assert.IsNotNull(data);
             Assert.AreEqual(expectedData.Count(), data.Count());
             Assert.IsTrue(expectedData.SequenceEqual(data));
             
         }
-        public async Task CheckEnumerableAsync<T>(IEnumerable<T> expectedData, IEnumerable<T> data)
+        public static async Task CheckEnumerableAsync<T>(IEnumerable<T> expectedData, IEnumerable<T> data)
         {
             Assert.IsNotNull(data);
             Assert.AreEqual(expectedData.Count(), data.Count());
@@ -33,14 +32,14 @@ namespace DbFacadeUnitTests.Tests.Facade
             await Task.CompletedTask;
 
         }
-        public void ValidateEmail(MailAddress expectedEmail, MailAddress email)
+        public static void ValidateEmail(MailAddress expectedEmail, MailAddress email)
         {
             Assert.IsNotNull(email);
             Assert.AreEqual(expectedEmail.Address, email.Address);
             Assert.AreEqual(expectedEmail.Host, email.Host);
             Assert.AreEqual(expectedEmail.User, email.User);
         }
-        public async Task  ValidateEmailAsync(MailAddress expectedEmail, MailAddress email)
+        public static async Task  ValidateEmailAsync(MailAddress expectedEmail, MailAddress email)
         {
             Assert.IsNotNull(email);
             Assert.AreEqual(expectedEmail.Address, email.Address);
@@ -50,16 +49,9 @@ namespace DbFacadeUnitTests.Tests.Facade
             await Task.CompletedTask;
         }
         [TestMethod]
-        public void SuccessfullyCatchesUnregisteredConnectionException()
-        {
-            IDbResponse data = DomainFacade.TestUnregisteredConnectionCall();
-            Assert.IsTrue(data.HasError);
-            Assert.IsTrue(data.Error is DbConnectionConfigNotRegisteredException);
-        }
-        [TestMethod]
         public void SuccessfullyFetchesData()
         {
-            IDbResponse<FetchData> data = DomainFacade.TestFetchData();
+            IDbResponseCustom<FetchData> data = DomainFacade.TestFetchData();
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Count());
             FetchData model = data.First();
@@ -73,7 +65,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             for(int i =  0; i < 10; i++)
             {
-                IDbResponse<FetchData> data = DomainFacade.TestFetchData();
+                IDbResponseCustom<FetchData> data = DomainFacade.TestFetchData();
                 Assert.IsNotNull(data);
                 Assert.AreEqual(1, data.Count());
                 FetchData model = data.First();
@@ -86,7 +78,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         [TestMethod]
         public void SuccessfullyFetchesMultipleDataSets()
         {
-            IDbResponse<UserData> users = DomainFacade.TestMultipleDataSets();
+            IDbResponseCustom<UserData> users = DomainFacade.TestMultipleDataSets();
             Assert.IsNotNull(users);
             Assert.AreEqual(2, users.Count());
             var user1 = users.ElementAt(0);
@@ -107,34 +99,10 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.AreEqual("R2", role2.Value);
             Assert.AreEqual("Role Two", role2.Name);
         }
-        //[TestMethod]
-        //public void SuccessfullyFetchesMultipleDataSets2()
-        //{
-        //    IDbResponse<UserData> users = DomainFacade.TestMultipleDataSets();
-        //    Assert.IsNotNull(users);
-        //    Assert.AreEqual(2, users.Count());
-        //    var user1 = users.ElementAt(0);
-        //    var user2 = users.ElementAt(1);
-        //    Assert.AreEqual(1, user1.Id);
-        //    Assert.AreEqual("Test User", user1.Name);
-        //    Assert.AreEqual(2, user2.Id);
-        //    Assert.AreEqual("Other User", user2.Name);
-
-        //    Assert.AreEqual(2, users.DataSets.Count());
-        //    var roles = users.DataSets.ElementAt(1).ToDbDataModelList<UserRole>();
-        //    Assert.IsNotNull(roles);
-        //    Assert.AreEqual(2, roles.Count());
-        //    var role1 = roles.ElementAt(0);
-        //    var role2 = roles.ElementAt(1);
-        //    Assert.AreEqual("R1", role1.Value);
-        //    Assert.AreEqual("Role One", role1.Name);
-        //    Assert.AreEqual("R2", role2.Value);
-        //    Assert.AreEqual("Role Two", role2.Name);
-        //}
         [TestMethod]
         public void SuccessfullyFetchesAltData()
         {
-            IDbResponse<FetchData> data = DomainFacade.TestFetchDataAlt();
+            IDbResponseCustom<FetchDataAlt> data = DomainFacade.TestFetchDataAlt();
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Count());
             FetchData model = data.First();
@@ -146,7 +114,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         [TestMethod]
         public void SuccessfullyFetchesDataWithOutput()
         {
-            IDbResponse<FetchData> data = DomainFacade.TestFetchDataWithOutput();
+            IDbResponseCustom<FetchData> data = DomainFacade.TestFetchDataWithOutput();
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Count());
             FetchData model = data.First();
@@ -155,17 +123,15 @@ namespace DbFacadeUnitTests.Tests.Facade
             Assert.AreNotEqual(new Guid(), model.PublicKey);
 
             Assert.AreEqual(data.GetOutputValue("MyStringOutputParam"), "output response");
-            Assert.AreEqual(data.GetOutputValue<string>("MyStringOutputParam"), "output response");
+            Assert.AreEqual(data.GetOutputValue("MyStringOutputParam"), "output response");
         }
         [TestMethod]
         public void SuccessfullyFetchesDataAndIgnoresBadColumnName()
         {
-            IDbResponse<FetchDataWithBadDbColumn> data = DomainFacade.TestFetchDataWithBadDbColumn();
+            IDbResponseCustom<FetchDataWithBadDbColumn> data = DomainFacade.TestFetchDataWithBadDbColumn();
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Count());
             FetchDataWithBadDbColumn model = data.First();
-            Assert.IsTrue(model.HasDataBindingErrors);
-            Assert.AreEqual(7, model.DataBindingErrors.Count());
             Assert.IsNull(model.MyString);
             Assert.AreEqual( default(int), model.Integer);
             Assert.IsNull(model.IntegerOptional);
@@ -177,7 +143,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         [TestMethod]
         public void SuccessfullyFetchesNestedData()
         {
-            IDbResponse<FetchDataWithNested> data = DomainFacade.TestFetchDataWithNested();
+            IDbResponseCustom<FetchDataWithNested> data = DomainFacade.TestFetchDataWithNested();
             Assert.IsNotNull(data);
             Assert.AreEqual(1, data.Count());
             FetchDataWithNested model = data.First();
@@ -185,14 +151,14 @@ namespace DbFacadeUnitTests.Tests.Facade
             ValidateEmail(new MailAddress("MyTestEmail@gmail.com"), model.EmailData.Email);
 
 
-            CheckEnumerable(new[] { "1", "12", "123", "1234" }, model.EnumerableData.Data);
-            CheckEnumerable(new short[] { 1, 12, 123, 1234 }, model.EnumerableData.ShortData);
-            CheckEnumerable(new int[] { 1, 12, 123, 1234 }, model.EnumerableData.IntData);
+            CheckEnumerable(["1", "12", "123", "1234" ], model.EnumerableData.Data);
+            CheckEnumerable<short>([1, 12, 123, 1234] , model.EnumerableData.ShortData);
+            CheckEnumerable([ 1, 12, 123, 1234 ], model.EnumerableData.IntData);
             CheckEnumerable(new long[] { 1, 12, 123, 1234 }, model.EnumerableData.LongData);
             CheckEnumerable(new float[] { 1, 12, 123, 1234 }, model.EnumerableData.FloatData);
             CheckEnumerable(new double[] { 1, 12, 123, 1234 }, model.EnumerableData.DoubleData);
             CheckEnumerable(new decimal[] { 1, 12, 123, 1234 }, model.EnumerableData.DecimalData);
-            CheckEnumerable(new[] { "1", "12", "123", "1234" }, model.EnumerableData.DataCustom);
+            CheckEnumerable(["1", "12", "123", "1234" ], model.EnumerableData.DataCustom);
 
             Assert.IsTrue(model.FlagData.Flag);
             Assert.IsTrue(model.FlagData.FlagInt);
@@ -203,24 +169,24 @@ namespace DbFacadeUnitTests.Tests.Facade
         [TestMethod]
         public void SuccessfullyHandlesTransaction()
         {
-            IDbResponse<DbDataModel> response = DomainFacade.TestTransaction("my param");
-            Assert.IsFalse(response.IsNull);
+            IDbResponseCustom response = DomainFacade.TestTransaction("my param");
+            Assert.AreEqual(0, response.DataSets.Count());
             Assert.AreEqual(10, response.ReturnValue);
         }
         [TestMethod]
         public void SuccessfullyHandlesTransactionWithOutput()
         {
-            IDbResponse<DbDataModel> response = DomainFacade.TestTransactionWithOutput("my param");
-            Assert.IsFalse(response.IsNull);
+            IDbResponseCustom response = DomainFacade.TestTransactionWithOutput("my param");
+            Assert.AreEqual(0, response.DataSets.Count());
             Assert.AreEqual(10, response.ReturnValue);
 
             Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
-            Assert.AreEqual(response.GetOutputValue<string>("MyStringOutputParam"), "output response");
+            Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
         }
         [TestMethod]
         public void CatchesValidationError()
         {
-            IDbResponse<DbDataModel> response = DomainFacade.TestTransaction(null);
+            IDbResponseCustom response = DomainFacade.TestTransaction(null);
             if (response.Error is ValidationException e)
             {
                 Assert.AreEqual(1, e.ValidationErrors.Count());
@@ -233,53 +199,10 @@ namespace DbFacadeUnitTests.Tests.Facade
             }
         }
         
-        
-        [TestMethod]
-        public void CustomFacadeVerifyStopsAtStep1()
-        {
-            IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(true, false, false);
-            if (response.Error is Exception e)
-            {
-                Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
-                Assert.AreEqual("Stopping at step 1", e.InnerException.Message);
-            }
-            else
-            {
-                Assert.Fail();
-            }
-        }
-        [TestMethod]
-        public void CustomFacadeVerifyStopsAtStep2()
-        {
-            IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(false, true, false);
-            if (response.Error is Exception e)
-            {
-                Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
-                Assert.AreEqual("Stopping at step 2", e.InnerException.Message);
-            }
-            else
-            {
-                Assert.Fail();
-            }
-        }
-        [TestMethod]
-        public void CustomFacadeVerifyStopsAtStep3()
-        {
-            IDbResponse<DbDataModel> response = DomainFacade.TestFetchDataWithModelProcessParams(false, false, true);
-            if (response.Error is Exception e)
-            {
-                Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
-                Assert.AreEqual("Stopping at step 3", e.InnerException.Message);
-            }
-            else
-            {
-                Assert.Fail();
-            }
-        }
         [TestMethod]
         public void VerifyFetchCallAsTransaction()
         {
-            IDbResponse response = DomainFacade.TestNoData();
+            IDbResponseCustom response = DomainFacade.TestNoData();
             if (response.Error is Exception e)
             {
                 Assert.Fail();
@@ -299,7 +222,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse<FetchData> response = await DomainFacade.TestFetchDataAsync();
+                IDbResponseCustom<FetchData> response = await DomainFacade.TestFetchDataAsync();
                 Assert.IsNotNull(response);
                 Assert.AreEqual(1, response.Count());
                 FetchData model = response.First();
@@ -318,7 +241,7 @@ namespace DbFacadeUnitTests.Tests.Facade
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    IDbResponse<FetchData> response = await DomainFacade.TestFetchDataAsync();
+                    IDbResponseCustom<FetchData> response = await DomainFacade.TestFetchDataAsync();
                     Assert.IsNotNull(response);
                     Assert.AreEqual(1, response.Count());
                     FetchData model = response.First();
@@ -336,7 +259,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse<UserData> users = await DomainFacade.TestMultipleDataSetsAsync();
+                IDbResponseCustom<UserData> users = await DomainFacade.TestMultipleDataSetsAsync();
                 Assert.IsNotNull(users);
                 Assert.AreEqual(2, users.Count());
                 var user1 = users.ElementAt(0);
@@ -347,7 +270,7 @@ namespace DbFacadeUnitTests.Tests.Facade
                 Assert.AreEqual("Other User", user2.Name);
 
                 Assert.AreEqual(2, users.DataSets.Count());
-                var roles = await users.DataSets.ElementAt(1).ToDbDataModelListAsync<UserRole>();
+                var roles = users.DataSets.ElementAt(1).ToDbDataModelList<UserRole>();
                 Assert.IsNotNull(roles);
                 Assert.AreEqual(2, roles.Count());
                 var role1 = roles.ElementAt(0);
@@ -363,7 +286,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse<FetchData> response = await DomainFacade.TestFetchDataAltAsync();
+                IDbResponseCustom<FetchDataAlt> response = await DomainFacade.TestFetchDataAltAsync();
                 Assert.IsNotNull(response);
                 Assert.AreEqual(1, response.Count());
                 FetchData model = response.First();
@@ -380,7 +303,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse<FetchData> response = await DomainFacade.TestFetchDataWithOutputAsync();
+                IDbResponseCustom<FetchData> response = await DomainFacade.TestFetchDataWithOutputAsync();
                 Assert.IsNotNull(response);
                 Assert.AreEqual(1, response.Count());
                 FetchData model = response.First();
@@ -389,7 +312,7 @@ namespace DbFacadeUnitTests.Tests.Facade
                 Assert.AreNotEqual(new Guid(), model.PublicKey);
 
                 Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
-                Assert.AreEqual(response.GetOutputValue<string>("MyStringOutputParam"), "output response");
+                Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
 
                 await Task.CompletedTask;
             });
@@ -401,12 +324,10 @@ namespace DbFacadeUnitTests.Tests.Facade
             {
                 try
                 {
-                    IDbResponse<FetchDataWithBadDbColumn> response = await DomainFacade.TestFetchDataWithBadDbColumnAsync();
+                    IDbResponseCustom<FetchDataWithBadDbColumn> response = await DomainFacade.TestFetchDataWithBadDbColumnAsync();
                     Assert.IsNotNull(response);
                     Assert.AreEqual(1, response.Count());
                     FetchDataWithBadDbColumn model = response.First();
-                    Assert.IsTrue(model.HasDataBindingErrors);
-                    Assert.AreEqual(7, model.DataBindingErrors.Count());
                     Assert.IsNull(model.MyString);
                     Assert.AreEqual(default(int), model.Integer);
                     Assert.IsNull(model.IntegerOptional);
@@ -430,21 +351,21 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse<FetchDataWithNested> response = await DomainFacade.TestFetchDataWithNestedAsync();
+                IDbResponseCustom<FetchDataWithNested> response = await DomainFacade.TestFetchDataWithNestedAsync();
                 Assert.IsNotNull(response);
                 Assert.AreEqual(1, response.Count());
                 FetchDataWithNested model = response.First();
 
                 await ValidateEmailAsync(new MailAddress("MyTestEmail@gmail.com"), model.EmailData.Email);
 
-                await CheckEnumerableAsync(new[] { "1", "12", "123", "1234" }, model.EnumerableData.Data);
+                await CheckEnumerableAsync(["1", "12", "123", "1234" ], model.EnumerableData.Data);
                 await CheckEnumerableAsync(new short[] { 1, 12, 123, 1234 }, model.EnumerableData.ShortData);
-                await CheckEnumerableAsync(new int[] { 1, 12, 123, 1234 }, model.EnumerableData.IntData);
+                await CheckEnumerableAsync([1, 12, 123, 1234 ], model.EnumerableData.IntData);
                 await CheckEnumerableAsync(new long[] { 1, 12, 123, 1234 }, model.EnumerableData.LongData);
                 await CheckEnumerableAsync(new float[] { 1, 12, 123, 1234 }, model.EnumerableData.FloatData);
                 await CheckEnumerableAsync(new double[] { 1, 12, 123, 1234 }, model.EnumerableData.DoubleData);
                 await CheckEnumerableAsync(new decimal[] { 1, 12, 123, 1234 }, model.EnumerableData.DecimalData);
-                await CheckEnumerableAsync(new[] { "1", "12", "123", "1234" }, model.EnumerableData.DataCustom);
+                await CheckEnumerableAsync(["1", "12", "123", "1234" ], model.EnumerableData.DataCustom);
 
                 Assert.IsTrue(model.FlagData.Flag);
                 Assert.IsTrue(model.FlagData.FlagInt);
@@ -460,8 +381,8 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse<DbDataModel> response = await DomainFacade.TestTransactionAsync("my param");
-                Assert.IsFalse(response.IsNull);
+                IDbResponseCustom response = await DomainFacade.TestTransactionAsync("my param");
+                Assert.AreEqual(0, response.DataSets.Count());
                 Assert.AreEqual(10, response.ReturnValue);
                 await Task.CompletedTask;
             });
@@ -471,12 +392,12 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse<DbDataModel> response = await DomainFacade.TestTransactionWithOutputAsync("my param");
-                Assert.IsFalse(response.IsNull);
+                IDbResponseCustom response = await DomainFacade.TestTransactionWithOutputAsync("my param");
+                Assert.AreEqual(0, response.DataSets.Count());
                 Assert.AreEqual(10, response.ReturnValue);
 
                 Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
-                Assert.AreEqual(response.GetOutputValue<string>("MyStringOutputParam"), "output response");
+                Assert.AreEqual(response.GetOutputValue("MyStringOutputParam"), "output response");
                 await Task.CompletedTask;
             });
         }
@@ -485,7 +406,7 @@ namespace DbFacadeUnitTests.Tests.Facade
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse<DbDataModel> response = await DomainFacade.TestTransactionAsync(null);
+                IDbResponseCustom response = await DomainFacade.TestTransactionAsync(null);
                 if (response.Error is ValidationException e)
                 {
                     Assert.AreEqual(1, e.ValidationErrors.Count());
@@ -500,73 +421,13 @@ namespace DbFacadeUnitTests.Tests.Facade
                 }
             });
         }
-        
-        
-        [TestMethod]
-        public void CustomFacadeVerifyStopsAtStep1Async()
-        {
-            RunAsAsyc(async () =>
-            {
-                IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(true, false, false);
-                if (response.Error is Exception e)
-                {
-                    Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
-                    Assert.AreEqual("Stopping at step 1", e.InnerException.Message);
-                    await Task.CompletedTask;
-                }
-                else
-                {
-                    Assert.Fail();
-                    await Task.CompletedTask;
-                }
-            });
-
-        }
-        [TestMethod]
-        public void CustomFacadeVerifyStopsAtStep2Async()
-        {
-            RunAsAsyc(async () =>
-            {
-                IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(false, true, false);
-                if (response.Error is Exception e)
-                {
-                    Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
-                    Assert.AreEqual("Stopping at step 2", e.InnerException.Message);
-                    await Task.CompletedTask;
-                }
-                else
-                {
-                    Assert.Fail();
-                    await Task.CompletedTask;
-                }
-            });
-        }
-        [TestMethod]
-        public void CustomFacadeVerifyStopsAtStep3Async()
-        {
-            RunAsAsyc(async () =>
-            {
-                IDbResponse<DbDataModel> response = await DomainFacade.TestFetchDataWithModelProcessParamsAsync(false, false, true);
-                if (response.Error is Exception e)
-                {
-                    Assert.AreEqual("An Error occured before calling 'Test Fetch Data'", e.Message);
-                    Assert.AreEqual("Stopping at step 3", e.InnerException.Message);
-                    await Task.CompletedTask;
-                }
-                else
-                {
-                    Assert.Fail();
-                    await Task.CompletedTask;
-                }
-            });
-        }
-
+         
         [TestMethod]
         public void VerifyFetchCallAsTransactionAsync()
         {
             RunAsAsyc(async () =>
             {
-                IDbResponse response = await DomainFacade.TestNoDataAsync();
+                IDbResponseCustom response = await DomainFacade.TestNoDataAsync();
                 if (response.Error is Exception e)
                 {
                     Assert.Fail();
@@ -588,15 +449,15 @@ namespace DbFacadeUnitTests.Tests.Facade
             public const int MediumCount = 1000;
             public const int LargeCount = 10000;
             public const int VeryLargeCount = 20000;
-            public const int MassiveCount = 50000;
+            public const int MassiveCount = 500000;
 
-            public const double Tiny = 0.05;
-            public const double VerySmall = 0.1;
-            public const double Small = 0.3;
-            public const double Medium = 0.5;
-            public const double Large = 1.5;
-            public const double VeryLarge = 10;
-            public const double Massive = 180; //3 min
+            public const double Tiny = 0.005;
+            public const double VerySmall = 0.01;
+            public const double Small = 0.05;
+            public const double Medium = 0.1;
+            public const double Large = 0.5;
+            public const double VeryLarge = 1.5;
+            public const double Massive = 5;
 
             public const string TinyText = "Tiny";
             public const string VerySmallText = "Very Small";
@@ -618,15 +479,18 @@ namespace DbFacadeUnitTests.Tests.Facade
                 strList = string.Join(",", TestClass2.Value1.StrList.Select(m => m.ToString()))
             };
             var list = Enumerable.Range(1, count).Select(m => testModel);
-            var mock = MockResponseData.Create(list, null, 0);
-            UnitTestConnection.TestBenchmark.AddMockResponseData(mock);
-            UnitTestConnection.EnableMockMode();
+            DomainFacade.UnitTestMethods.TestBenchmark.SetMockData(b => { 
+                b.AddResponseData(list);
+                b.AddReturnValue(0);
+            },true);
+            DomainFacade.UnitTestConnection.EnableMockMode();
 
-            DateTime start = DateTime.Now;
+            var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
             var response = DomainFacade.TestBenchmark();
-            DateTime end = DateTime.Now;           
+            stopwatch.Stop();
 
-            double seconds = (end - start).TotalSeconds;
+            double seconds = stopwatch.Elapsed.TotalSeconds;
             Assert.IsTrue(seconds < threshold, $"TestBenchmark: Parsing {text} data set took {seconds} seconds");
             Assert.IsFalse(response.HasError, $"Response Error: {response.ErrorMessage} Details: {response.ErrorDetails}");
             Assert.AreEqual(count, response.Count());
@@ -658,17 +522,20 @@ namespace DbFacadeUnitTests.Tests.Facade
                 strList = string.Join(",", TestClass2.Value1.StrList.Select(m => m.ToString()))
             };
             var list = Enumerable.Range(1, count).Select(m => testModel);
-            var mock = MockResponseData.Create(list, null, 0);
-            UnitTestConnection.TestBenchmark.AddMockResponseData(mock);
-            UnitTestConnection.EnableMockMode();
+            DomainFacade.UnitTestMethods.TestBenchmark.SetMockData(b => {
+                b.AddResponseData(list);
+                b.AddReturnValue(0);
+            }, true);
+            DomainFacade.UnitTestConnection.EnableMockMode();
 
             RunAsAsyc(async () =>
             {
-                DateTime start = DateTime.Now;
+                var stopwatch = new System.Diagnostics.Stopwatch();
+                stopwatch.Start();
                 var response = await DomainFacade.TestBenchmarkAsync();
-                DateTime end = DateTime.Now;
+                stopwatch.Stop();
 
-                double seconds = (end - start).TotalSeconds;
+                double seconds = stopwatch.Elapsed.TotalSeconds;
                 Assert.IsTrue(seconds < threshold, $"TestBenchmark: Parsing {text} data set took {seconds} seconds");
                 Assert.IsFalse(response.HasError, $"Response Error: {response.ErrorMessage} Details: {response.ErrorDetails}");
                 Assert.AreEqual(count, response.Count());

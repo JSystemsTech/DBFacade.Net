@@ -11,7 +11,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsNullOrEmpty()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v=> {
+            var Validator = MakeValidator<UnitTestDbParams>(v=> {
                 v.Add(v.Rules.IsNullOrEmpty(model => model.StringNumNull));
                 v.Add(v.Rules.IsNullOrEmpty(model => string.Empty));
             });
@@ -21,7 +21,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsNullOrEmptyFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNullOrEmpty(model => model.String));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -31,7 +31,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsNullOrWhiteSpace()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNullOrWhiteSpace(model => model.StringNumNull));
                 v.Add(v.Rules.IsNullOrWhiteSpace(model => string.Empty));
                 v.Add(v.Rules.IsNullOrWhiteSpace(model => " "));
@@ -43,7 +43,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsNullOrWhiteSpaceFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNullOrWhiteSpace(model => model.String));
             });
             IValidationResult result = Validator.Validate(Parameters);

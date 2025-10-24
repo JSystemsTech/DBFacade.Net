@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.Models.Validators.Rules
 {
@@ -79,25 +78,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return dateTime;
             }
             /// <summary>
-            /// Gets the date time from string asynchronous.
-            /// </summary>
-            /// <param name="value">The value.</param>
-            /// <returns></returns>
-            private async Task<DateTime?> GetDateTimeFromStringAsync(string value)
-            {
-                DateTime? dateTime = null;
-                DateTime dateTimeParsed;
-                bool isDate = !string.IsNullOrEmpty(DateFormat)
-                ? DateTime.TryParseExact(value, DateFormat, CultureInfo, DateTimeStyles, out dateTimeParsed)
-                : DateTime.TryParse(value, CultureInfo, DateTimeStyles, out dateTimeParsed);
-                if (isDate)
-                {
-                    dateTime = dateTimeParsed;
-                }
-                await Task.CompletedTask;
-                return dateTime;
-            }
-            /// <summary>
             /// Gets the date time.
             /// </summary>
             /// <returns></returns>
@@ -106,40 +86,12 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return ParamsValue is DateTime date ? date : ParamsValue is string dateStr ? GetDateTimeFromString(dateStr) : null;
             }
             /// <summary>
-            /// Gets the date time asynchronous.
-            /// </summary>
-            /// <returns></returns>
-            private async Task<DateTime?> GetDateTimeAsync()
-            {
-                if (ParamsValue is string dateStr)
-                {
-                    return await GetDateTimeFromStringAsync(dateStr);
-                }
-                DateTime? dateTime = null;
-                if (ParamsValue is DateTime date)
-                {
-                    dateTime = date;
-                }
-                await Task.CompletedTask;
-                return dateTime;
-            }
-            /// <summary>
             /// Gets the error message core.
             /// </summary>
             /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             => $"not a Valid DateTime.";
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
-                return $"not a Valid DateTime.";
-            }
 
             /// <summary>
             /// Validates the rule.
@@ -148,14 +100,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override bool ValidateRule(TDbParams paramsModel)
             => GetDateTime() is DateTime;
-
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            => await GetDateTimeAsync() is DateTime;
         }
 
     }

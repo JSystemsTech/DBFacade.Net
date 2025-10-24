@@ -2,103 +2,42 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.CommandConfig.Parameters
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    internal class DbCommandConfigParams<TDbParams> : Dictionary<string, IDbCommandParameterConfig<TDbParams>>,
-        IDbCommandConfigParams<TDbParams>
+    internal class DbCommandConfigParams<TDbParams>: IDbCommandConfigParams<TDbParams>
     {
-        /// <summary>
-        /// The return parameter default
-        /// </summary>
         private static string ReturnParamDefault = "DbFacade_DbCallReturn";
 
-        /// <summary>
-        /// Gets the factory.
-        /// </summary>
-        /// <value>
-        /// The factory.
-        /// </value>
-        public DbCommandParameterConfigFactory<TDbParams> Factory { get; private set; }
+        public DbCommandParameterConfigFactory<TDbParams> Factory => DbCommandParameterConfigFactory<TDbParams>.Instance;
 
-        /// <summary>
-        /// Adds the asynchronous.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        public async Task AddAsync(string key, IDbCommandParameterConfig<TDbParams> value)
+        private readonly Action<IDbCommandConfigParams<TDbParams>> ParametersInitializer;
+
+        internal readonly IDictionary<string, DbCommandParameterConfig<TDbParams>> Parameters;
+
+        internal DbCommandConfigParams(Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null)
         {
-            Add(key, value);
-            await Task.CompletedTask;
+            Parameters = new Dictionary<string, DbCommandParameterConfig<TDbParams>>();
+            ParametersInitializer = parametersInitializer != null ? parametersInitializer : p => { };
+            ParametersInitializer(this);
+            ResolveReturnValueParameter();
         }
-        /// <summary>
-        /// Creates the specified parameters initializer.
-        /// </summary>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <returns></returns>
-        public static DbCommandConfigParams<TDbParams> Create(Action<IDbCommandConfigParams<TDbParams>> parametersInitializer = null)
-        {
-            DbCommandConfigParams<TDbParams> dbParams = new DbCommandConfigParams<TDbParams>();
-            dbParams.Factory = new DbCommandParameterConfigFactory<TDbParams>();
-            Action<IDbCommandConfigParams<TDbParams>> _parametersInitializer =
-                parametersInitializer != null ? parametersInitializer : p => { };
-            _parametersInitializer(dbParams);
-            dbParams.ResolveReturnValueParameter();
-            return dbParams;
-        }
-        /// <summary>
-        /// Creates the asynchronous.
-        /// </summary>
-        /// <param name="parametersInitializer">The parameters initializer.</param>
-        /// <returns></returns>
-        public static async Task<DbCommandConfigParams<TDbParams>> CreateAsync(Func<IDbCommandConfigParams<TDbParams>, Task> parametersInitializer = null)
-        {
-            DbCommandConfigParams<TDbParams> dbParams = new DbCommandConfigParams<TDbParams>();
-            dbParams.Factory = await DbCommandParameterConfigFactory<TDbParams>.CreateAsync();
-            Func<IDbCommandConfigParams<TDbParams>, Task> _parametersInitializer =
-                parametersInitializer != null ? parametersInitializer : async p => { await Task.CompletedTask; };
-            await _parametersInitializer(dbParams);
-            await dbParams.ResolveReturnValueParameterAsync();
-            return dbParams;
-        }
-        /// <summary>
-        /// Resolves the return value parameter.
-        /// </summary>
         private void ResolveReturnValueParameter()
         {
-            bool hasReturnValue = this.Any(
-                item =>
-                item.Value is IInternalDbCommandParameterConfig<TDbParams> paramConfig &&
-                paramConfig.ParameterDirection == System.Data.ParameterDirection.ReturnValue
-                );
+            bool hasReturnValue = Parameters.Any(item => item.Value.ParameterDirection == System.Data.ParameterDirection.ReturnValue);
             if (!hasReturnValue)
             {
-                Add(ReturnParamDefault, DbCommandParameterConfig<TDbParams>.CreateReturnValue());
+                Parameters.Add(ReturnParamDefault, DbCommandParameterConfig<TDbParams>.CreateReturnValue());
             }
         }
-        /// <summary>
-        /// Resolves the return value parameter asynchronous.
-        /// </summary>
-        private async Task ResolveReturnValueParameterAsync()
-        {
-            bool hasReturnValue = this.Any(
-                item =>
-                item.Value is IInternalDbCommandParameterConfig<TDbParams> paramConfig &&
-                paramConfig.ParameterDirection == System.Data.ParameterDirection.ReturnValue
-                );
-            if (!hasReturnValue)
+
+        public void Add(string name, IDbCommandParameterConfig<TDbParams> value)
+        { 
+            if(value is DbCommandParameterConfig<TDbParams> config)
             {
-                Add(ReturnParamDefault, await DbCommandParameterConfig<TDbParams>.CreateReturnValueAsync());
+                Parameters.Add(name, config);
             }
-            await Task.CompletedTask;
         }
-
-
     }
     /// <summary>
     /// 

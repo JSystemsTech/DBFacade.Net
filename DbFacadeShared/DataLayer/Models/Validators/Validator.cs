@@ -1,10 +1,15 @@
-﻿using DbFacade.DataLayer.Models.Validators.Rules;
+﻿using DbFacade;
+using DbFacade.DataLayer.Models.Validators.Rules;
+using DbFacade.Exceptions;
+using DbFacade.Extensions;
 using DbFacade.Factories;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo(DbFacadeConstants.UnitTestAssembly)]
 namespace DbFacade.DataLayer.Models.Validators
 {
     /// <summary>
@@ -60,7 +65,7 @@ namespace DbFacade.DataLayer.Models.Validators
         /// <value>
         ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
         /// </value>
-        public bool IsValid => !Errors.Any();
+        public bool IsValid => Errors.Count() == 0;
 
         /// <summary>Gets the error summary.</summary>
         /// <value>The error summary.</value>
@@ -70,20 +75,14 @@ namespace DbFacade.DataLayer.Models.Validators
         /// The passing validation
         /// </summary>
         public static ValidationResult PassingValidation = new ValidationResult(new List<ValidationRuleResult>());
-    }
+    }    
+
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     public interface IValidator<TDbParams>
     {
-        /// <summary>
-        /// Gets the count.
-        /// </summary>
-        /// <value>
-        /// The count.
-        /// </value>
-        int Count { get; }
         /// <summary>
         /// Gets the rules.
         /// </summary>
@@ -97,113 +96,65 @@ namespace DbFacade.DataLayer.Models.Validators
         /// <param name="rule">The rule.</param>
         /// 
         void Add(IValidationRule<TDbParams> rule, string parameterName = "Unspecified Parameter");
-        /// <summary>
-        /// Adds the asynchronous.
-        /// </summary>
-        /// <param name="rule">The rule.</param>
-        /// <returns></returns>
-        Task AddAsync(IValidationRule<TDbParams> rule, string parameterName = "Unspecified Parameter");
-        /// <summary>
-        /// Validates the specified parameters model.
-        /// </summary>
-        /// <param name="paramsModel">The parameters model.</param>
-        /// <returns></returns>
-        IValidationResult Validate(TDbParams paramsModel);
-        /// <summary>
-        /// Validates the asynchronous.
-        /// </summary>
-        /// <param name="paramsModel">The parameters model.</param>
-        /// <returns></returns>
-        Task<IValidationResult> ValidateAsync(TDbParams paramsModel);
+    }
+    
+    internal interface IValidator
+    {
+        IValidationResult Validate(object paramsModel);
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    internal class Validator<TDbParams> : List<IValidationRule<TDbParams>>, IValidator<TDbParams>
+    internal class Validator<TDbParams> : IEnumerable<IValidationRule<TDbParams>>, IValidator<TDbParams>, IValidator
     {
+        private readonly List<IValidationRule<TDbParams>> ValidationRules;
+
+        public IEnumerator<IValidationRule<TDbParams>> GetEnumerator() 
+            => ValidationRules.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() 
+            => ValidationRules.GetEnumerator();
+
+        internal Validator()
+        {
+            ValidationRules = new List<IValidationRule<TDbParams>>();
+        }
+
         /// <summary>
         /// Gets the rules.
         /// </summary>
         /// <value>
         /// The rules.
         /// </value>
-        public ValidationRuleFactory<TDbParams> Rules { get; private set; }
-        /// <summary>Adds the asynchronous.</summary>
-        /// <param name="rule">The rule.</param>
-        /// <param name="parameterName"></param>
-        public async Task AddAsync(IValidationRule<TDbParams> rule, string parameterName = "Unspecified Parameter")
-        {
-            if (rule is IValidationRuleInternal<TDbParams> internalRule)
-            {
-                internalRule.SetParameterName(parameterName);
-            }
-            base.Add(rule);
-            await Task.CompletedTask;
-        }
+        public ValidationRuleFactory<TDbParams> Rules => ValidationRuleFactory<TDbParams>.Instance;
 
         /// <summary>Adds the specified rule.</summary>
         /// <param name="rule">The rule.</param>
         /// <param name="parameterName">Name of the parameter.</param>
         public void Add(IValidationRule<TDbParams> rule, string parameterName = "Unspecified Parameter")
         {
-            if (rule is IValidationRuleInternal<TDbParams> internalRule)
+            if (rule is ValidationRule<TDbParams> internalRule)
             {
                 internalRule.SetParameterName(parameterName);
             }
-            base.Add(rule);
-        }
-        /// <summary>
-        /// Creates the specified validator initializer.
-        /// </summary>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <returns></returns>
-        public static Validator<TDbParams> Create(Action<IValidator<TDbParams>> validatorInitializer = null)
+            ValidationRules.Add(rule);
+        }        
+
+        public IValidationResult Validate(object paramsModel)
         {
-            Validator<TDbParams> validator = new Validator<TDbParams>();
-            validator.Rules = new ValidationRuleFactory<TDbParams>();
-            Action<IValidator<TDbParams>> _validatorInitializer =
-                validatorInitializer != null ? validatorInitializer : v => { };
-            _validatorInitializer(validator);
-            return validator;
-        }
-        /// <summary>
-        /// Creates the asynchronous.
-        /// </summary>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <returns></returns>
-        public static async Task<Validator<TDbParams>> CreateAsync(Func<IValidator<TDbParams>, Task> validatorInitializer = null)
-        {
-            Validator<TDbParams> validator = new Validator<TDbParams>();
-            validator.Rules = await ValidationRuleFactory<TDbParams>.CreateFactoryAsync();
-            Func<IValidator<TDbParams>, Task> _validatorInitializer =
-                validatorInitializer != null ? validatorInitializer : async v => { await Task.CompletedTask; };
-            await _validatorInitializer(validator);
-            return validator;
+            if (paramsModel is TDbParams model)
+            {
+                var results = this.Select(rule => rule.Validate(model));
+                var errors = results.Where(result => result.Status == ValidationStatus.FAIL);
+                return new ValidationResult(errors);
+            }
+            else
+            {
+                throw new FacadeException($"Unable to validate parameters: expected model of type {typeof(TDbParams).TypeName()} but got {paramsModel.TypeName()}");
+            }
         }
 
-        /// <summary>
-        /// Validates the specified parameters model.
-        /// </summary>
-        /// <param name="paramsModel">The parameters model.</param>
-        /// <returns></returns>
-        public IValidationResult Validate(TDbParams paramsModel)
-        => new ValidationResult(this.Select(rule => rule.Validate(paramsModel))
-                .Where(result => result.Status == ValidationStatus.FAIL));
-
-
-        /// <summary>
-        /// Validates the asynchronous.
-        /// </summary>
-        /// <param name="paramsModel">The parameters model.</param>
-        /// <returns></returns>
-        public async Task<IValidationResult> ValidateAsync(TDbParams paramsModel)
-        {
-            var validationTasks = this.Select(rule => rule.ValidateAsync(paramsModel)).ToArray();
-            await Task.WhenAll(validationTasks);
-            return new ValidationResult(validationTasks.Where(task => task.Result.Status == ValidationStatus.FAIL)
-                .Select(task => task.Result));
-        }
     }
 }

@@ -1,0 +1,3489 @@
+{
+  "source_base_path": "C:/Users/jsmc1/source/repos/DBFacade.Net/Docs2.0/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "CodeExamples/ConnectionProvider.cs",
+      "output": {
+        "resource": {
+          "relative_path": "CodeExamples/ConnectionProvider.cs"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "CodeExamples/CreateDataLayer.cs",
+      "output": {
+        "resource": {
+          "relative_path": "CodeExamples/CreateDataLayer.cs"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "CodeExamples/DefineEndpoints.cs",
+      "output": {
+        "resource": {
+          "relative_path": "CodeExamples/DefineEndpoints.cs"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GettingStarted/ConnectionProvider.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/ConnectionProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GettingStarted/CreateMethods.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/CreateMethods.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GettingStarted/DefineDataModels.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/DefineDataModels.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GettingStarted/DefineEndpoints.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/DefineEndpoints.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GettingStarted/ErrorHandling.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/ErrorHandling.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GettingStarted/ParameterBinding.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/ParameterBinding.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GettingStarted/ParameterValidation.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/ParameterValidation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GettingStarted/UsingSchemas.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/UsingSchemas.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GettingStarted/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "GettingStarted/toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "GettingStarted/toc.html"
+        },
+        ".json": {
+          "relative_path": "GettingStarted/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/database/dbo/StoredProcedures/UpdateEmployee.sql",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/database/dbo/StoredProcedures/UpdateEmployee.sql"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/database/dbo/Tables/ContactInfo.sql",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/database/dbo/Tables/ContactInfo.sql"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/database/dbo/Tables/Department.sql",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/database/dbo/Tables/Department.sql"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/database/dbo/Tables/Employee.sql",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/database/dbo/Tables/Employee.sql"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ApplicationLogger.cs",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ApplicationLogger.cs"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ApplicationLoggerExtensions.cs",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ApplicationLoggerExtensions.cs"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ApplicationLoggerProvider.cs",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ApplicationLoggerProvider.cs"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ConnectionStringIdStore.cs",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ConnectionStringIdStore.cs"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ConnectionStringService.cs",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/dotnet/Services/ConnectionStringService.cs"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "RealisticExample/ProjectFiles/dotnet/appsettings.json",
+      "output": {
+        "resource": {
+          "relative_path": "RealisticExample/ProjectFiles/dotnet/appsettings.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "RealisticExample/docs/database/dbo/StoredProcedures/UpdateEmployee.md",
+      "output": {
+        ".html": {
+          "relative_path": "RealisticExample/docs/database/dbo/StoredProcedures/UpdateEmployee.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "RealisticExample/docs/database/dbo/Tables/ContactInfo.md",
+      "output": {
+        ".html": {
+          "relative_path": "RealisticExample/docs/database/dbo/Tables/ContactInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "RealisticExample/docs/database/dbo/Tables/Department.md",
+      "output": {
+        ".html": {
+          "relative_path": "RealisticExample/docs/database/dbo/Tables/Department.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "RealisticExample/docs/database/dbo/Tables/Employee.md",
+      "output": {
+        ".html": {
+          "relative_path": "RealisticExample/docs/database/dbo/Tables/Employee.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "RealisticExample/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "RealisticExample/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "RealisticExample/toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "RealisticExample/toc.html"
+        },
+        ".json": {
+          "relative_path": "RealisticExample/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ReleaseNotes.md",
+      "output": {
+        ".html": {
+          "relative_path": "ReleaseNotes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "TestCoverage.md",
+      "output": {
+        ".html": {
+          "relative_path": "TestCoverage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.CommandConfig.IDbCommandMethod",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.CommandConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.CommandConfig.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.CommandConfig",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.ConnectionService.DbConnectionConfig",
+      "Summary": "<br>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.ConnectionService.DbExecutionExceptionType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.ConnectionService.DbExecutionExceptionType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.ConnectionService.DbExecutionExceptionType",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.ConnectionService.EndpointErrorInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.ConnectionService.EndpointErrorInfo.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.ConnectionService.EndpointErrorInfo",
+      "Summary": "<br>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.ConnectionService.IDbConnectionProvider",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.ConnectionService.SqlDbConnectionProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.ConnectionService.SqlDbConnectionProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.ConnectionService.SqlDbConnectionProvider",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.ConnectionService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.ConnectionService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.DataCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.DataCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.DataCollection",
+      "Summary": "<br>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.DbTypeCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.DbTypeCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.DbTypeCollection",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.EndpointSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.EndpointSettings.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.EndpointSettings",
+      "Summary": "<br>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.IDataCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.IDataCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.IDataCollection",
+      "Summary": "<br>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.IDbDataModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.IDbDataModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.IDbDataModel",
+      "Summary": "<br>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.IDbDataTable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.IDbDataTable.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.IDbDataTable",
+      "Summary": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.IDbResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.IDbResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.IDbResponse",
+      "Summary": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.IMockResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.IMockResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.IMockResponse",
+      "Summary": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.MockResponseSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.MockResponseSettings.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.MockResponseSettings",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.ParameterDataCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.ParameterDataCollection<TModel>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.ParameterDataCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.ParameterDataCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.ParameterDataCollection",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.Parameters.AnsiString.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.Parameters.AnsiString.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.Parameters.AnsiString",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.Parameters.AnsiStringFixedLength.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.Parameters.AnsiStringFixedLength.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.Parameters.AnsiStringFixedLength",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.Parameters.Currency.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.Parameters.Currency.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.Parameters.Currency",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.Parameters.StringFixedLength.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.Parameters.StringFixedLength.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.Parameters.StringFixedLength",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.Parameters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.Parameters.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.Parameters",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.Schema.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.Schema.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.Schema",
+      "Summary": "<br>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.Validator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.Validator-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.Validator<T>",
+      "Summary": "<br>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Exceptions.DbExecutionException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Exceptions.DbExecutionException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Exceptions.DbExecutionException",
+      "Summary": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Exceptions.FacadeException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Exceptions.FacadeException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Exceptions.FacadeException",
+      "Summary": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Exceptions.ValidationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Exceptions.ValidationException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Exceptions.ValidationException",
+      "Summary": "<br>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Exceptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Exceptions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Extensions.AccessorExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Extensions.AccessorExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Extensions.AccessorExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Extensions.DbCommandMethodExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Extensions.DbCommandMethodExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Extensions.DbCommandMethodExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Extensions.DbConnectionConfigExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Extensions.DbConnectionConfigExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Extensions.DbConnectionConfigExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Extensions.DbDataCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Extensions.DbDataCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Extensions.DbDataCollectionExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Extensions.DbResponseExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Extensions.DbResponseExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Extensions.DbResponseExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Extensions.EndpointSettingsExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Extensions.EndpointSettingsExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Extensions.EndpointSettingsExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Extensions.ValidatorExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Extensions.ValidatorExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Extensions.ValidatorExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Odbc.DataLayer.ConnectionService.OdbcDbConnectionProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Odbc.DataLayer.ConnectionService.OdbcDbConnectionProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Odbc.DataLayer.ConnectionService.OdbcDbConnectionProvider",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Odbc.DataLayer.ConnectionService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Odbc.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Odbc.DataLayer.ConnectionService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.OleDb.DataLayer.ConnectionService.OleDbConnectionProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.OleDb.DataLayer.ConnectionService.OleDbConnectionProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.OleDb.DataLayer.ConnectionService.OleDbConnectionProvider",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.OleDb.DataLayer.ConnectionService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.OleDb.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.OleDb.DataLayer.ConnectionService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Oracle.DataLayer.ConnectionService.OracleDbConnectionProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Oracle.DataLayer.ConnectionService.OracleDbConnectionProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Oracle.DataLayer.ConnectionService.OracleDbConnectionProvider",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.Oracle.DataLayer.ConnectionService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.Oracle.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.Oracle.DataLayer.ConnectionService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.SQLite.DataLayer.ConnectionService.SqLiteDbConnectionProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.SQLite.DataLayer.ConnectionService.SqLiteDbConnectionProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.SQLite.DataLayer.ConnectionService.SqLiteDbConnectionProvider",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.SQLite.DataLayer.ConnectionService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.SQLite.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.SQLite.DataLayer.ConnectionService",
+      "Summary": null
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "author.md",
+      "output": {
+        ".html": {
+          "relative_path": "author.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_AccessorExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_AccessorExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_AccessorExtensions_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_AccessorExtensions_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_AccessorExtensions_T__TAttribute_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_AccessorExtensions_T__TAttribute_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_Accessor_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_Accessor_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_AnsiString.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_AnsiString.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_AnsiStringFixedLength.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_AnsiStringFixedLength.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ConversionFactory.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ConversionFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_Currency.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_Currency.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DataCollection.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DataCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DataRowDataCollection.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DataRowDataCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DataTableExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DataTableExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbCommandDataCollection.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbCommandDataCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbCommandExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbCommandExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbCommandMethod.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbCommandMethod.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbCommandMethodExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbCommandMethodExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbCommandMethodExtensions_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbCommandMethodExtensions_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbConnectionConfig.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbConnectionConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbConnectionConfigExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbConnectionConfigExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbConnectionManager.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbConnectionManager.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbDataCollectionExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbDataCollectionExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbDataCollectionExtensions_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbDataCollectionExtensions_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbDataTable.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbDataTable.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbDataTable_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbDataTable_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbExecutionException.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbExecutionException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbResponse.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbResponseExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbResponseExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbTypeCollection.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbTypeCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbTypeCollectionItem.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbTypeCollectionItem.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbTypeCollection_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbTypeCollection_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_EndpointErrorInfo.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_EndpointErrorInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_EndpointSettings.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_EndpointSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_EndpointSettingsExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_EndpointSettingsExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_EndpointSettings_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_EndpointSettings_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ErrorHelper.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ErrorHelper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_FacadeException.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_FacadeException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_MockDbException.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_MockDbException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_MockResponse.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_MockResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_MockResponseSettings.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_MockResponseSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ParameterDataCollection.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ParameterDataCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ParameterDataCollection_TModel_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ParameterDataCollection_TModel_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ParameterDataCollection_TModel__TAttribute_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ParameterDataCollection_TModel__TAttribute_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ParameterInfo.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ParameterInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_Schema.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_Schema.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_SqlDbConnectionProvider.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_SqlDbConnectionProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_StringExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_StringExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_StringFixedLength.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_StringFixedLength.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_TypeFactory.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_TypeFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_Types.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_Types.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ValidationException.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ValidationException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ValidationExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ValidationExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ValidationRule_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ValidationRule_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ValidatorExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ValidatorExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ValidatorExtensions_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ValidatorExtensions_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_ValidatorExtensions_T__TValue_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_ValidatorExtensions_T__TValue_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_Validator_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_Validator_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_VariableReference.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_VariableReference.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/class.js",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/class.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_cog.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_cog.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_cog_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_cog_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_cube.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_cube.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_cube_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_cube_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_fork.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_fork.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_fork_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_fork_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_info-circled.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_info-circled.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_info-circled_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_info-circled_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_minus.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_minus.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_minus_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_minus_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_plus.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_plus.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_plus_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_plus_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_search-minus.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_search-minus.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_search-minus_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_search-minus_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_search-plus.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_search-plus.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_search-plus_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_search-plus_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_sponsor.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_sponsor.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_star.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_star.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_star_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_star_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_up-dir.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_up-dir.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_up-dir_active.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_up-dir_active.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_up-down-dir.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_up-down-dir.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_up-down-dir_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_up-down-dir_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_wrench.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_wrench.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/icon_wrench_dark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/icon_wrench_dark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/index.htm",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/index.htm"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/index.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/main.js",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/main.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/report.css",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/report.css"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/Connection/ErrorHandling.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/Connection/ErrorHandling.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/Connection/IDbCommandConfig.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/Connection/IDbCommandConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/Connection/Types.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/Connection/Types.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/DbDataModel/GettingColumnValues.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/DbDataModel/GettingColumnValues.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/DbDataModel/NestedModels.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/DbDataModel/NestedModels.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/DbResponse.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/DbResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/Methods/Parameters.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/Methods/Parameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/Methods/Types.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/Methods/Types.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/Methods/Validation.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/Methods/Validation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/UnitTesting.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/UnitTesting.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/index.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/Advanced/toc.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/Advanced/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/GettingStarted/DeclareMethods.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/GettingStarted/DeclareMethods.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/GettingStarted/DefineModels.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/GettingStarted/DefineModels.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/GettingStarted/DomainFacade.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/GettingStarted/DomainFacade.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/GettingStarted/SetupConnection.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/GettingStarted/SetupConnection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/GettingStarted/index.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/GettingStarted/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/GettingStarted/toc.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/GettingStarted/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/ReleaseNotes/index.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/ReleaseNotes/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/ReleaseNotes/toc.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/ReleaseNotes/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IDbMethod.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IDbMethod.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandParameterConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandParameterConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.Parameters.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.Parameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.CommandConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigFull-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigFull-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigNoTransaction-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DbConnectionConfigNoTransaction-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DefaultConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.DefaultConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IConnectionOptions.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IConnectionOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IDbConnectionConfig.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IDbConnectionConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IErrorHandlerOptions.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.IErrorHandlerOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.MockDataResponseFactory.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.MockDataResponseFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.OdbcConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.OdbcConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.OleDbConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.OleDbConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.OracleConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.OracleConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.SqLiteConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.SqLiteConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.SqlConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.SqlConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.DbDataModel.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.DbDataModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.IDbDataModel.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.IDbDataModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.IDbResponse-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.IDbResponse-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.IDbResponse.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.IDbResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.IJsonSerializable-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.IJsonSerializable-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.IMockResponseDataResponseBuilder.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.IMockResponseDataResponseBuilder.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.IReadOnlyDbCollection-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.IReadOnlyDbCollection-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.IXMLSerializable-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.IXMLSerializable-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.MockResponseData.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.MockResponseData.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.IValidationResult.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.IValidationResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.IValidator-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.IValidator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.EmailDomainMode.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.EmailDomainMode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.IValidationRule-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.IValidationRule-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.IValidationRuleResult.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.IValidationRuleResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.DelegateRuleHandler-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.DelegateRuleHandler-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.ValidationStatus.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.ValidationStatus.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.Rules.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.Validators.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.DataLayer.Models.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.DataLayer.Models.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Exceptions.DbConnectionConfigNotRegisteredException.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Exceptions.DbConnectionConfigNotRegisteredException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Exceptions.FacadeException.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Exceptions.FacadeException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Exceptions.SQLExecutionException.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Exceptions.SQLExecutionException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Exceptions.ValidationException-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Exceptions.ValidationException-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Exceptions.ValidationException.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Exceptions.ValidationException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Exceptions.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Exceptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Factories.DbCommandConfigFactory-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Factories.DbCommandConfigFactory-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Factories.DbCommandParameterConfigFactory-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Factories.DbCommandParameterConfigFactory-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Factories.DelegateHandler-2.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Factories.DelegateHandler-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Factories.IDbCommandConfigSchemaFactory.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Factories.IDbCommandConfigSchemaFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Factories.IDbCommandConfigSchemaFactoryFull.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Factories.IDbCommandConfigSchemaFactoryFull.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Factories.ValidationRuleFactory-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Factories.ValidationRuleFactory-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Factories.ValidatorFactory.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Factories.ValidatorFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Factories.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Factories.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Odbc.DataLayer.ConnectionService.OdbcConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Odbc.DataLayer.ConnectionService.OdbcConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Odbc.DataLayer.ConnectionService.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Odbc.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OleDb.DataLayer.ConnectionService.OleDbConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OleDb.DataLayer.ConnectionService.OleDbConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OleDb.DataLayer.ConnectionService.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OleDb.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnCreateDbConnection.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnCreateDbConnection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnErrorHandler.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnErrorHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnErrorHandlerAsync.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnErrorHandlerAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnExecuteDbAction-2.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnExecuteDbAction-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnExecuteDbActionAsync-2.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnExecuteDbActionAsync-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnFacadeErrorHandler.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnFacadeErrorHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnFacadeErrorHandlerAsync.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnFacadeErrorHandlerAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnGetConnectionString.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnGetConnectionString.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnGetDbDataAdapter.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnGetDbDataAdapter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnSQLExecutionErrorHandler.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnSQLExecutionErrorHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnSQLExecutionErrorHandlerAsync.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnSQLExecutionErrorHandlerAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnValidationErrorHandler.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnValidationErrorHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.OnValidationErrorHandlerAsync.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.OnValidationErrorHandlerAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Oracle.DataLayer.ConnectionService.OracleConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Oracle.DataLayer.ConnectionService.OracleConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Oracle.DataLayer.ConnectionService.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Oracle.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.SQLite.DataLayer.ConnectionService.SqLiteConnectionConfig-1.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.SQLite.DataLayer.ConnectionService.SqLiteConnectionConfig-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.SQLite.DataLayer.ConnectionService.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.SQLite.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Services.DbConnectionService.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Services.DbConnectionService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Services.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Services.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Utils.IAsyncInit.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Utils.IAsyncInit.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Utils.IDataCollection.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Utils.IDataCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Utils.IDataCollectionModel.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Utils.IDataCollectionModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Utils.IDataTableParser.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Utils.IDataTableParser.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Utils.IMockDbTableRow.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Utils.IMockDbTableRow.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Utils.InitInstance.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Utils.InitInstance.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Utils.InstanceCreatorService.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Utils.InstanceCreatorService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Utils.Utils.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Utils.Utils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.Utils.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.Utils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacade.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacade.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacadeShared.DataLayer.Models.IDbDataSet.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacadeShared.DataLayer.Models.IDbDataSet.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacadeShared.DataLayer.Models.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacadeShared.DataLayer.Models.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacadeShared.Extensions.DbResponseExtensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacadeShared.Extensions.DbResponseExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/DbFacadeShared.Extensions.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/DbFacadeShared.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/index.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/api/toc.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/api/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/articles/GettingStarted.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/articles/GettingStarted.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/articles/intro.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/articles/intro.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/articles/toc.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/articles/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/favicon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/fonts/glyphicons-halflings-regular.eot",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/fonts/glyphicons-halflings-regular.eot"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/fonts/glyphicons-halflings-regular.svg",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/fonts/glyphicons-halflings-regular.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/fonts/glyphicons-halflings-regular.ttf",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/fonts/glyphicons-halflings-regular.ttf"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/fonts/glyphicons-halflings-regular.woff",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/fonts/glyphicons-halflings-regular.woff"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/fonts/glyphicons-halflings-regular.woff2",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/fonts/glyphicons-halflings-regular.woff2"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/images/icon.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/images/icon.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/index.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/index.json",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/index.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/manifest.json",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/manifest.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/search-stopwords.json",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/search-stopwords.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/styles/docfx.css",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/styles/docfx.css"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/styles/docfx.js",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/styles/docfx.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/styles/docfx.vendor.css",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/styles/docfx.vendor.css"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/styles/docfx.vendor.js",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/styles/docfx.vendor.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/styles/lunr.js",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/styles/lunr.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/styles/lunr.min.js",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/styles/lunr.min.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/styles/main.css",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/styles/main.css"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/styles/main.js",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/styles/main.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/styles/search-worker.js",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/styles/search-worker.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/toc.html",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/toc.md",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/toc.md"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docsv1/xrefmap.yml",
+      "output": {
+        "resource": {
+          "relative_path": "docsv1/xrefmap.yml"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/icon.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "images/icon.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "lib/font-awesome/webfonts/fa-brands-400.ttf",
+      "output": {
+        "resource": {
+          "relative_path": "lib/font-awesome/webfonts/fa-brands-400.ttf"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "lib/font-awesome/webfonts/fa-brands-400.woff2",
+      "output": {
+        "resource": {
+          "relative_path": "lib/font-awesome/webfonts/fa-brands-400.woff2"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "lib/font-awesome/webfonts/fa-regular-400.ttf",
+      "output": {
+        "resource": {
+          "relative_path": "lib/font-awesome/webfonts/fa-regular-400.ttf"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "lib/font-awesome/webfonts/fa-regular-400.woff2",
+      "output": {
+        "resource": {
+          "relative_path": "lib/font-awesome/webfonts/fa-regular-400.woff2"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "lib/font-awesome/webfonts/fa-solid-900.ttf",
+      "output": {
+        "resource": {
+          "relative_path": "lib/font-awesome/webfonts/fa-solid-900.ttf"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "lib/font-awesome/webfonts/fa-solid-900.woff2",
+      "output": {
+        "resource": {
+          "relative_path": "lib/font-awesome/webfonts/fa-solid-900.woff2"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "lib/font-awesome/webfonts/fa-v4compatibility.ttf",
+      "output": {
+        "resource": {
+          "relative_path": "lib/font-awesome/webfonts/fa-v4compatibility.ttf"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "lib/font-awesome/webfonts/fa-v4compatibility.woff2",
+      "output": {
+        "resource": {
+          "relative_path": "lib/font-awesome/webfonts/fa-v4compatibility.woff2"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

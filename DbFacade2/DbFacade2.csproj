@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyTitle>DbFacade $(LibraryFrameworks)</AssemblyTitle>
+    <Title>DbFacade2</Title>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net9.0;net8.0;net7.0;net6.0;net481;net48;net472;</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+    <RootNamespace>DbFacade</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>2.0.0</Version>
+    <Company>JSystemsTech</Company>
+    <Product>DbFacade.Net</Product>
+    <Description>A framework to build a data connection service to SQL databases</Description>
+    <Copyright>Copyright © 2025</Copyright>
+    <PackageId>DbFacade</PackageId>
+    <Authors>JSystemsTech</Authors>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>DBFacade DbFacade dbfacade domainfacade DbFacade.Net DBFacade.Net dbfacade.net</PackageTags>
+    <PackageIcon>images\icon.jpg</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
+    <PackageReleaseNotes>Release 2.0.0 Initial release of DbFacade 2</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIconUrl />
+  </PropertyGroup>
+
+  
+
+  <ItemGroup>
+    <None Remove="Meta\DbFacadeLogoNoText.jpg" />
+    <None Include="..\icon.jpg">
+      <Pack>True</Pack>
+      <PackagePath>images\icon.jpg</PackagePath>
+      <Visible>False</Visible>
+    </None>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net481' Or '$(TargetFramework)'=='net48' Or '$(TargetFramework)'=='net472'">
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net9.0' Or '$(TargetFramework)'=='net8.0'">
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
+  </ItemGroup>
+  <ItemGroup>    
+    <PackageReference Include="Newtonsoft.Json" Version="*" />
+    <PackageReference Include="System.Data.Common" Version="*" />
+    <PackageReference Include="System.Data.SqlClient" Version="*" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DataLayer\ConnectionService\MockDb\MockDbConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>DbFacade.UnitTest</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

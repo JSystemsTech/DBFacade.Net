@@ -9,18 +9,19 @@
     <Import_RootNamespace>DbFacadeShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Metrics.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\DbCommandConfig.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\IDbCommandConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\IDbCommandParameterConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\ConnectionOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\SqlDbConnectionConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DbFacadeConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DbConnectionConfigExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\DbCommandMethod.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\IDbCommandMethod.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\DbCommandConfigParams.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\DbCommandParameterConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\IDbCommandConfigParams.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\CommandConfig\Parameters\IDbCommandParameterConfig.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbCommandText.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionConfig.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionHandler_Async.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\IDbConnectionConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\DbConnectionConfigBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDataAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbConnection.cs">
@@ -29,13 +30,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbParameter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbParameterCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\ConnectionService\MockDb\MockDbTransaction.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataModel_Async.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbDataSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\MockResponseData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\DbResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\IDbResponse.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\OutputDbDataModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\IValidationRule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRuleResult.cs" />
@@ -46,7 +45,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_Required.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Rules\ValidationRule_String.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer\Models\Validators\Validator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Deligates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\FacadeException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DbResponseExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ParameterConfigExtensions.cs" />
@@ -54,6 +52,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)Factories\DbCommandParametersConfigFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\ValidationRuleFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\ValidatorFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SafeDisposable.cs" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Validator&lt;T&gt; | DbFacade </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Validator&lt;T&gt; | DbFacade ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+
+
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_Models_Validator_1.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.Models.Validator%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+      <script type="module" src="./../public/app.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md bg-primary" role="navigation" data-bs-theme="dark">
+        <div class="container-fluid flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/icon.jpg" alt="DbFacade">
+            DbFacade
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-fluid px-lg-5">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="DbFacade.DataLayer.Models.Validator`1">
+
+
+
+  <h1 id="DbFacade_DataLayer_Models_Validator_1" data-uid="DbFacade.DataLayer.Models.Validator`1" class="text-break">
+Class Validator&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/Validator.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="DbFacade.html">DbFacade</a>.<a class="xref" href="DbFacade.DataLayer.html">DataLayer</a>.<a class="xref" href="DbFacade.DataLayer.Models.html">Models</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>DbFacade2.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><br>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class Validator&lt;T&gt; where T : class</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Validator&lt;T&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.AccessorExtensions.html#DbFacade_Extensions_AccessorExtensions_ToDataCollection__1___0_">AccessorExtensions.ToDataCollection&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.AccessorExtensions.html#DbFacade_Extensions_AccessorExtensions_ToDataCollection__1___0_System_Action_DbFacade_DataLayer_Models_ParameterDataCollection___0___">AccessorExtensions.ToDataCollection&lt;T&gt;(T, Action&lt;ParameterDataCollection&lt;T&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.AccessorExtensions.html#DbFacade_Extensions_AccessorExtensions_ToDataCollection__2___0_">AccessorExtensions.ToDataCollection&lt;T, TAttribute&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.AccessorExtensions.html#DbFacade_Extensions_AccessorExtensions_TryGetValue__1___0_System_String_System_Object__">AccessorExtensions.TryGetValue&lt;T&gt;(T, string, out object)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddHasMaxLength__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_Int32_System_String_">ValidatorExtensions.AddHasMaxLength&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, int, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddHasMinLength__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_Int32_System_String_">ValidatorExtensions.AddHasMinLength&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, int, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsDateTime__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_Nullable_System_DateTime___System_String_">ValidatorExtensions.AddIsDateTime&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, DateTime?&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsDateTime__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_">ValidatorExtensions.AddIsDateTime&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsDateTime__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_System_Globalization_DateTimeStyles_System_String_">ValidatorExtensions.AddIsDateTime&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string, DateTimeStyles, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsDateTime__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_System_IFormatProvider_System_Globalization_DateTimeStyles_System_String_">ValidatorExtensions.AddIsDateTime&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string, IFormatProvider, DateTimeStyles, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsDateTime__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_System_IFormatProvider_System_String_">ValidatorExtensions.AddIsDateTime&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string, IFormatProvider, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsDateTime__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_System_String_">ValidatorExtensions.AddIsDateTime&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsEqualTo__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1__System_Func___0___1__System_String_">ValidatorExtensions.AddIsEqualTo&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, Func&lt;T, TValue&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsEqualTo__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1____1_System_String_">ValidatorExtensions.AddIsEqualTo&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, TValue, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsGreaterThanOrEqualTo__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1__System_Func___0___1__System_String_">ValidatorExtensions.AddIsGreaterThanOrEqualTo&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, Func&lt;T, TValue&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsGreaterThanOrEqualTo__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1____1_System_String_">ValidatorExtensions.AddIsGreaterThanOrEqualTo&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, TValue, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsGreatorThan__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1__System_Func___0___1__System_String_">ValidatorExtensions.AddIsGreatorThan&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, Func&lt;T, TValue&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsGreatorThan__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1____1_System_String_">ValidatorExtensions.AddIsGreatorThan&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, TValue, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsInDomain__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_Net_Mail_MailAddress__System_String___System_String_">ValidatorExtensions.AddIsInDomain&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, MailAddress&gt;, string[], string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsInDomain__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String___System_String_">ValidatorExtensions.AddIsInDomain&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string[], string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsLessThanOrEqualTo__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1__System_Func___0___1__System_String_">ValidatorExtensions.AddIsLessThanOrEqualTo&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, Func&lt;T, TValue&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsLessThanOrEqualTo__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1____1_System_String_">ValidatorExtensions.AddIsLessThanOrEqualTo&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, TValue, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsLessThan__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1__System_Func___0___1__System_String_">ValidatorExtensions.AddIsLessThan&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, Func&lt;T, TValue&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsLessThan__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1____1_System_String_">ValidatorExtensions.AddIsLessThan&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, TValue, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsMailAddress__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_">ValidatorExtensions.AddIsMailAddress&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNDigitString__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_Int32_System_String_">ValidatorExtensions.AddIsNDigitString&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, int, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNotEqual__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1__System_Func___0___1__System_String_">ValidatorExtensions.AddIsNotEqual&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, Func&lt;T, TValue&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNotEqual__2_DbFacade_DataLayer_Models_Validator___0__System_Func___0___1____1_System_String_">ValidatorExtensions.AddIsNotEqual&lt;T, TValue&gt;(Validator&lt;T&gt;, Func&lt;T, TValue&gt;, TValue, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNotInDomain__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_Net_Mail_MailAddress__System_String___System_String_">ValidatorExtensions.AddIsNotInDomain&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, MailAddress&gt;, string[], string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNotInDomain__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String___System_String_">ValidatorExtensions.AddIsNotInDomain&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string[], string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNotNullOrEmpty__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_">ValidatorExtensions.AddIsNotNullOrEmpty&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNotNullOrWhiteSpace__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_">ValidatorExtensions.AddIsNotNullOrWhiteSpace&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNotNull__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_">ValidatorExtensions.AddIsNotNull&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNullOrEmpty__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_">ValidatorExtensions.AddIsNullOrEmpty&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNullOrWhiteSpace__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_">ValidatorExtensions.AddIsNullOrWhiteSpace&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNull__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_">ValidatorExtensions.AddIsNull&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsNumeric__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_Object__System_String_">ValidatorExtensions.AddIsNumeric&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, object&gt;, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsRegexMatch__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_System_String_">ValidatorExtensions.AddIsRegexMatch&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsRegexMatch__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_String_System_Text_RegularExpressions_RegexOptions_System_String_">ValidatorExtensions.AddIsRegexMatch&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, string, RegexOptions, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.ValidatorExtensions.html#DbFacade_Extensions_ValidatorExtensions_AddIsRegexMatch__1_DbFacade_DataLayer_Models_Validator___0__System_Func___0_System_String__System_Text_RegularExpressions_Regex_System_String_">ValidatorExtensions.AddIsRegexMatch&lt;T&gt;(Validator&lt;T&gt;, Func&lt;T, string&gt;, Regex, string)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="DbFacade_DataLayer_Models_Validator_1_Add_" data-uid="DbFacade.DataLayer.Models.Validator`1.Add*"></a>
+
+  <h3 id="DbFacade_DataLayer_Models_Validator_1_Add_System_Func__0_System_Boolean__System_String_" data-uid="DbFacade.DataLayer.Models.Validator`1.Add(System.Func{`0,System.Boolean},System.String)">
+  Add(Func&lt;T, bool&gt;, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/Validator.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds the specified validate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(Func&lt;T, bool&gt; validate, string errorMessage)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>validate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>The validate.</p>
+</dd>
+    <dt><code>errorMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The error message.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/Validator.cs/#L10" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-fluid search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-fluid">
+        <div class="flex-fill">
+          Copyright &copy; JSystemsTech 2025
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

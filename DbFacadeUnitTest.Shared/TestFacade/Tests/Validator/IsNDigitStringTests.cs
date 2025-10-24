@@ -11,7 +11,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void NDigitString()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNDigitString(model => model.FiveDigitString, 5));
                 v.Add(v.Rules.IsNDigitString(model => model.TenDigitString, 10));
             });
@@ -21,7 +21,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void NDigitStringFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNDigitString(model => model.FiveDigitString, 10));
                 v.Add(v.Rules.IsNDigitString(model => model.TenDigitString, 5));
                 v.Add(v.Rules.IsNDigitString(model => model.TenDigitString, -1));
@@ -34,7 +34,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void NDigitStringOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNDigitString(model => model.FiveDigitString, 5, true));
                 v.Add(v.Rules.IsNDigitString(model => model.TenDigitString, 10, true));
             });
@@ -44,7 +44,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MinLengthOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNDigitString(model => model.StringNumNull, 5, true));
                 v.Add(v.Rules.IsNDigitString(model => model.StringNumNull, 10, true));
             });
@@ -54,7 +54,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MinLengthOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNDigitString(model => model.FiveDigitString, 10, true));
                 v.Add(v.Rules.IsNDigitString(model => model.TenDigitString, 5, true));
                 v.Add(v.Rules.IsNDigitString(model => model.TenDigitString, -1, true));

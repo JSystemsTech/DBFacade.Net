@@ -18,7 +18,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.Today, ValidValue));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -27,7 +27,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithValueFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.Today, InvalidValue));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -37,7 +37,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.TodayOptional, ValidValue));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -46,7 +46,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValueNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.DateTimeNull, ValidValue));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -55,7 +55,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValueFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.TodayOptional, InvalidValue));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -65,7 +65,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.DateTimeString, ValidDateTimeValue, DateFormat));
                 v.Add(v.Rules.IsOn(model => model.DateTimeStringAlt, ValidDateTimeValueAlt, DateFormatAlt));
             });
@@ -75,7 +75,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringValueFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.DateTimeString, InvalidDateTimeValue, DateFormat));
                 v.Add(v.Rules.IsOn(model => model.DateTimeStringAlt, InvalidDateTimeValueAlt, DateFormatAlt));
             });
@@ -86,7 +86,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.DateTimeString, ValidDateTimeValue, DateFormat, true));
                 v.Add(v.Rules.IsOn(model => model.DateTimeStringAlt, ValidDateTimeValueAlt, DateFormatAlt, true));
             });
@@ -96,7 +96,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringOptionalNullValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.StringNumNull, ValidDateTimeValue, DateFormat, true));
                 v.Add(v.Rules.IsOn(model => model.StringNumNull, ValidDateTimeValueAlt, DateFormatAlt, true));
             });
@@ -106,7 +106,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringOptionalValueFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsOn(model => model.DateTimeString, InvalidDateTimeValue, DateFormat, true));
                 v.Add(v.Rules.IsOn(model => model.DateTimeStringAlt, InvalidDateTimeValueAlt, DateFormatAlt, true));
             });

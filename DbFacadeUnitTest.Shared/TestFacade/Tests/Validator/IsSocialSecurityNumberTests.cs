@@ -12,7 +12,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsSocialSecurityNumber()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.SSN));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.SSNNoDashes));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.SSNNoDashes,false));
@@ -23,7 +23,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsSocialSecurityNumberFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.InvalidSSN));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.InvalidSSNNoDashes));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.InvalidSSN, false));
@@ -37,7 +37,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsSocialSecurityNumberOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.SSN, true, true));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.SSNNoDashes, true, true));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.SSNNoDashes, false, true));
@@ -48,7 +48,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsSocialSecurityNumberOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.StringNumNull, true, true));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.StringNumNull, true, true));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.StringNumNull, false, true));
@@ -59,7 +59,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsSocialSecurityNumberOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.InvalidSSN, true, true));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.InvalidSSNNoDashes, true, true));
                 v.Add(v.Rules.IsSocialSecurityNumber(model => model.InvalidSSN, false, true));

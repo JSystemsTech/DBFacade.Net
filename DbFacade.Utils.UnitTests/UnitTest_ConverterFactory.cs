@@ -18,7 +18,7 @@ namespace DbFacade.Utils.UnitTests
         protected void TestValueConverter<TTo>(TFrom input, TTo expected, Action<TTo, TTo> validator)
         {
             bool success = input.TryParse(out TTo actual);
-            Assert.IsTrue(success, $"expected {expected} but got {actual}");
+            Assert.That(success, Is.True, $"expected {expected} but got {actual}");
             validator(expected, actual);
         }
     }
@@ -144,66 +144,6 @@ namespace DbFacade.Utils.UnitTests
         public void ParseBoolOptionalNull() => TestValueConverter((bool?)null);
 
         
-    }
-    public class UnitTest_ByteConverter : UnitTestConverterBase<byte>
-    {
-        [Test]
-        public void ParseByte() => TestValueConverter(1, (byte)1);
-        [Test]
-        public void ParseSByte() => TestValueConverter(1, (sbyte)1);
-        [Test]
-        public void ParseShort() => TestValueConverter(10, (short)10);
-        [Test]
-        public void ParseUshort() => TestValueConverter(10, (ushort)10);
-        [Test]
-        public void ParseInt() => TestValueConverter(10, (int)10);
-        [Test]
-        public void ParseUint() => TestValueConverter(10, (uint)10);
-        [Test]
-        public void ParseDouble() => TestValueConverter(10, (double)10);
-        [Test]
-        public void ParseDecimal() => TestValueConverter(10, (decimal)10);
-        [Test]
-        public void ParseFloat() => TestValueConverter(10, (float)10);
-        [Test]
-        public void ParseChar() => TestValueConverter(1, (char)1);
-        [Test]
-        public void ParseString() => TestValueConverter(10, "10");
-        [Test]
-        public void ParseTestEnum0() => TestValueConverter(0, TestEnum.No);
-        [Test]
-        public void ParseTestEnum1() => TestValueConverter(1, TestEnum.Yes);
-
-    }
-    public class UnitTest_SByteConverter : UnitTestConverterBase<sbyte>
-    {
-        [Test]
-        public void ParseByte() => TestValueConverter(1, (byte)1);
-        [Test]
-        public void ParseSByte() => TestValueConverter(1, (sbyte)1);
-        [Test]
-        public void ParseShort() => TestValueConverter(10, (short)10);
-        [Test]
-        public void ParseUshort() => TestValueConverter(10, (ushort)10);
-        [Test]
-        public void ParseInt() => TestValueConverter(10, (int)10);
-        [Test]
-        public void ParseUint() => TestValueConverter(10, (uint)10);
-        [Test]
-        public void ParseDouble() => TestValueConverter(10, (double)10);
-        [Test]
-        public void ParseDecimal() => TestValueConverter(10, (decimal)10);
-        [Test]
-        public void ParseFloat() => TestValueConverter(10, (float)10);
-        [Test]
-        public void ParseChar() => TestValueConverter(1, (char)1);
-        [Test]
-        public void ParseString() => TestValueConverter(10, "10");
-        [Test]
-        public void ParseTestEnum0() => TestValueConverter(0, TestEnum.No);
-        [Test]
-        public void ParseTestEnum1() => TestValueConverter(1, TestEnum.Yes);
-
     }
     public class UnitTest_ShortConverter : UnitTestConverterBase<short>
     {
@@ -585,7 +525,7 @@ namespace DbFacade.Utils.UnitTests
             IEnumerable<TTo> expectedArr = RandomList(expected, allowNull);
             string input = string.Join(delimeter, expectedArr.Select(m => m == null ? (string)null : toString(m)));
             bool success = input.TryParseEnumerable(delimeter, out IEnumerable<TTo> actual);
-            Assert.IsTrue(success);
+            Assert.That(success, Is.True);
             Assert.That(actual.Count(), Is.EqualTo(expectedArr.Count()));
             for (int i = 0; i < expectedArr.Count(); i++)
             {
@@ -603,7 +543,7 @@ namespace DbFacade.Utils.UnitTests
             IEnumerable<TTo> expectedArr = RandomList(expected, allowNull);
             string input = string.Join(',', expectedArr.Select(m => m == null ? (string)null : toString(m)));
             bool success = input.TryParseEnumerable(out IEnumerable<TTo> actual);
-            Assert.IsTrue(success);
+            Assert.That(success, Is.True);
             Assert.That(actual.Count(), Is.EqualTo(expectedArr.Count()));
             for (int i = 0; i < expectedArr.Count(); i++)
             {
@@ -715,8 +655,8 @@ namespace DbFacade.Utils.UnitTests
         public void ParseUserName_Nullable() => TestStringEnumerableValueConverter(new UserName("Test,R,User"), ';', m => m.ToString(), (expected, actual) => {
             if (expected == null)
             {
-                Assert.IsNull(expected);
-                Assert.IsNotNull(actual);
+                Assert.That(expected, Is.Null);
+                Assert.That(actual, Is.Not.Null);
             }
             else
             {
@@ -739,8 +679,8 @@ namespace DbFacade.Utils.UnitTests
                 }
                 else
                 {
-                    Assert.IsNull(expected);
-                    Assert.IsNull(actual);
+                    Assert.That(expected, Is.Null);
+                    Assert.That(actual, Is.Null);
                 }
                 
             }, true);

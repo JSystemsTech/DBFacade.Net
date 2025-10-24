@@ -25,7 +25,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void Delegate()
         {            
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Delegate(model => model.String, Validates));
                 v.Add(v.Rules.Delegate(model => model.String, value => true));
                 v.Add(v.Rules.Delegate(model => model.Short, value => value == 10));
@@ -39,7 +39,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void DelegateFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Delegate(model => model.String, Invalidates));
                 v.Add(v.Rules.Delegate(model => model.String, value => false));
                 v.Add(v.Rules.Delegate(model => model.Short, value => value == 11));

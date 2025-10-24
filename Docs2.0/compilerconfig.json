@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "docfx_project/templates/modern/customization/template.css",
+    "inputFile": "docfx_project/templates/modern/customization/template.scss"
+  },
+  {
+    "outputFile": "docfx_project/templates/dbfacade/customization/template.css",
+    "inputFile": "docfx_project/templates/dbfacade/customization/template.scss"
+  }
+]

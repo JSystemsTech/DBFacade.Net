@@ -1,0 +1,24 @@
+{
+  "name": "dbfacade.unittest",
+  "version": "2.0.0",
+  "main": "",
+  "scripts": {
+    "coverage": "dotnet-coverage collect -f cobertura -o coverage.cobertura.xml \"dotnet test --no-build\"",
+    "postcoverage": "reportgenerator -reports:\"./coverage.cobertura.xml\" -targetdir:\"coverageresults\" -reporttypes:Html",
+    "remove_coverage": "@powershell if(Test-Path -Path \"./coverage.cobertura.xml\"){ Remove-Item -Path \"./coverage.cobertura.xml\"}",
+    "remove_coverage_results": "@powershell if(Test-Path -Path \"./coverageresults\"){ Remove-Item -Path \"./coverageresults\" -Recurse -Force }",
+    "remove_export_coverage_results": "@powershell if(Test-Path -Path \"./../Docs2.0/docfx_project/coverage\"){ Remove-Item -Path \"./../Docs2.0/docfx_project/coverage/*\" -Recurse -Force }",
+    "export_coverage_results": "@powershell if(Test-Path -Path \"./coverageresults\"){ Copy-Item -Path \"./coverageresults/*\" -Destination \"./../Docs2.0/docfx_project/coverage\" -Recurse -Force }",
+    "clean": "npm run remove_coverage && npm run remove_coverage_results",
+    "prebuild": "npm run clean",
+    "build": "npm run coverage",
+    "postbuild": "npm run remove_coverage",
+    "preexport": "npm run build && npm run remove_export_coverage_results",
+    "export": "npm run export_coverage_results",
+    "postexport": "npm run remove_coverage_results"
+
+  },
+  "author": "",
+  "license": "MIT",
+  "description": ""
+}

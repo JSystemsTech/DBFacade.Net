@@ -11,17 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.MD = README.MD
 	EndProjectSection
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbFacadeShared", "DbFacadeShared\DbFacadeShared.shproj", "{CD5F1105-82F7-4333-B29D-36F7DDF4BD52}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade", "DbFacade.Core\DbFacade.csproj", "{4DEBD385-03A2-459F-B873-0265E472E952}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbFacadeUnitTest.Shared", "DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.shproj", "{32EDA780-6A0B-48B4-BC8D-B458E9932BB6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacadeUnitTests.Core", "DbFacadeUnitTests.Core\DbFacadeUnitTests.Core.csproj", "{2901F3C4-6CB3-426B-A939-342B06060F12}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTest", "PerformanceTest\PerformanceTest.csproj", "{7207ABBA-622B-4E1A-8532-100601A783E3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documentation", "Documentation\Documentation.csproj", "{ABB1318A-E848-401E-923A-286191B3863E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5DC4AAAF-AE75-4FB8-8DD3-06D351ABBD3F}"
 EndProject
@@ -42,26 +32,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Utils", "DbFacade.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Utils.UnitTests", "DbFacade.Utils.UnitTests\DbFacade.Utils.UnitTests.csproj", "{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docs2.0", "Docs2.0\Docs2.0.csproj", "{16EEA344-0F43-4F5C-BA56-6533C356E1D5}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbFacadeShared", "DbFacadeShared\DbFacadeShared.shproj", "{CD5F1105-82F7-4333-B29D-36F7DDF4BD52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade2", "DbFacade2\DbFacade2.csproj", "{9737812B-B101-4FD4-9606-40EE5310B91C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.UnitTest", "DbFacade.UnitTest\DbFacade.UnitTest.csproj", "{65878EDE-078A-47FD-A079-6B7EA1F573EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4DEBD385-03A2-459F-B873-0265E472E952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DEBD385-03A2-459F-B873-0265E472E952}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DEBD385-03A2-459F-B873-0265E472E952}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DEBD385-03A2-459F-B873-0265E472E952}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2901F3C4-6CB3-426B-A939-342B06060F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2901F3C4-6CB3-426B-A939-342B06060F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2901F3C4-6CB3-426B-A939-342B06060F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2901F3C4-6CB3-426B-A939-342B06060F12}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7207ABBA-622B-4E1A-8532-100601A783E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7207ABBA-622B-4E1A-8532-100601A783E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABB1318A-E848-401E-923A-286191B3863E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABB1318A-E848-401E-923A-286191B3863E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABB1318A-E848-401E-923A-286191B3863E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABB1318A-E848-401E-923A-286191B3863E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5E70C61-6867-4F51-9671-B032AEBE5114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5E70C61-6867-4F51-9671-B032AEBE5114}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5E70C61-6867-4F51-9671-B032AEBE5114}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -86,6 +72,18 @@ Global
 		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16EEA344-0F43-4F5C-BA56-6533C356E1D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16EEA344-0F43-4F5C-BA56-6533C356E1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16EEA344-0F43-4F5C-BA56-6533C356E1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16EEA344-0F43-4F5C-BA56-6533C356E1D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9737812B-B101-4FD4-9606-40EE5310B91C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9737812B-B101-4FD4-9606-40EE5310B91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9737812B-B101-4FD4-9606-40EE5310B91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9737812B-B101-4FD4-9606-40EE5310B91C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65878EDE-078A-47FD-A079-6B7EA1F573EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65878EDE-078A-47FD-A079-6B7EA1F573EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65878EDE-078A-47FD-A079-6B7EA1F573EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65878EDE-078A-47FD-A079-6B7EA1F573EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,9 +96,6 @@ Global
 		SolutionGuid = {422FA976-93A1-4C2B-B82D-46D5F0C75E54}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems*{2901f3c4-6cb3-426b-a939-342b06060f12}*SharedItemsImports = 5
-		DbFacadeUnitTest.Shared\DbFacadeUnitTest.Shared.projitems*{32eda780-6a0b-48b4-bc8d-b458e9932bb6}*SharedItemsImports = 13
-		DbFacadeShared\DbFacadeShared.projitems*{4debd385-03a2-459f-b873-0265e472e952}*SharedItemsImports = 5
 		DbFacadeShared\DbFacadeShared.projitems*{cd5f1105-82f7-4333-b29d-36f7ddf4bd52}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

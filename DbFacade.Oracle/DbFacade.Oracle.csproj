@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net8.0;net7.0;net6.0;net481;net48;net472;</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net9.0;net8.0;net7.0;net6.0;net481;net48;net472;</TargetFrameworks>
     <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.13.0</Version>
+    <Version>2.0.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Oracle .NET</Product>
     <Description>A DbFacade extension to build a data connection service to Oracle databases</Description>
-    <Copyright>Copyright © 2024</Copyright>
+    <Copyright>Copyright © 2025</Copyright>
     <PackageId>DbFacade.Oracle</PackageId>
     <Authors>JSystemsTech</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -19,7 +19,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release 1.13.0 Update Dependancies</PackageReleaseNotes>
+    <PackageReleaseNotes>Release 2.0.0 Initial release of DbFacade 2</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
@@ -42,12 +42,13 @@
   </ItemGroup>
 
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net8.0' Or '$(TargetFramework)'=='net7.0' Or '$(TargetFramework)'=='net6.0'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net9.0' Or '$(TargetFramework)'=='net8.0' Or '$(TargetFramework)'=='net7.0' Or '$(TargetFramework)'=='net6.0'">
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="*" />
-    <PackageReference Include="DbFacade" Version="1.13.0" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net481' Or '$(TargetFramework)'=='net48' Or '$(TargetFramework)'=='net472'">
     <PackageReference Include="Oracle.ManagedDataAccess" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="DbFacade" Version="*" />
   </ItemGroup>
   

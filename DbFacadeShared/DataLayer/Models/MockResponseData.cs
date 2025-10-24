@@ -33,73 +33,14 @@ namespace DbFacade.DataLayer.Models
         /// </value>
         internal IDictionary<string, object> OutputValues { get; set; }
 
-        /// <summary>
-        /// Creates the specified response data.
-        /// </summary>
-        /// <param name="getResponseData">The get response data.</param>
-        /// <param name="outputValueHandler">The output value handler.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <returns></returns>
-        internal static MockResponseData Create(Func<DbDataReader> getResponseData, Action<IDictionary<string, object>> outputValueHandler = null, int? returnValue = null)
+        private static readonly DataSet EmptyDataSet = MockResponseDataResponseBuilder.ResolveDataSet(MockResponseDataResponseBuilder.CreateDataSet());
+        internal static readonly MockResponseData Empty = new MockResponseData()
         {
-            var mockResponseData = new MockResponseData()
-            {
-                GetResponseData = getResponseData,
-                ReturnValue = returnValue is int value ? value : default(int),
-                OutputValues = new Dictionary<string, object>()
-            };
-            if (outputValueHandler is Action<IDictionary<string, object>> handler)
-            {
-                handler(mockResponseData.OutputValues);
-            }
-            return mockResponseData;
-        }
-        /// <summary>
-        /// Creates the specified output value handler.
-        /// </summary>
-        /// <param name="returnValue">The return value.</param>
-        /// <returns></returns>
-        public static MockResponseData Create(int returnValue)
-        => Create(builder => {
-            builder.AddReturnValue(returnValue);
-        });
-        /// <summary>
-        /// Creates the specified output value handler.
-        /// </summary>
-        /// <param name="outputValueHandler">The output value handler.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <returns></returns>
-        public static MockResponseData Create(Action<IDictionary<string, object>> outputValueHandler = null, int? returnValue = null)
-        => Create(builder => {
-            builder.AddOutputValueHandler(outputValueHandler);
-            builder.AddReturnValue(returnValue);
-        });
-        /// <summary>
-        /// Creates the specified response data.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="responseData">The response data.</param>
-        /// <param name="outputValueHandler">The output value handler.</param>
-        /// <param name="returnValue">The return value.</param>
-        /// <returns></returns>
-        public static MockResponseData Create<T>(IEnumerable<T> responseData, Action<IDictionary<string, object>> outputValueHandler = null, int? returnValue = null)
-        => Create(builder => {
-            builder.AddOutputValueHandler(outputValueHandler);
-            builder.AddReturnValue(returnValue);
-            builder.AddResponseData(responseData);
+            GetResponseData = EmptyDataSet.CreateDataReader,
+            ReturnValue = default(int),
+            OutputValues = new Dictionary<string, object>()
+        };
 
-        });
-
-        /// <summary>
-        /// Creates the specified builder handler.
-        /// </summary>
-        /// <param name="builderHandler">The builder handler.</param>
-        /// <returns></returns>
-        public static MockResponseData Create(Action<IMockResponseDataResponseBuilder> builderHandler) {
-            MockResponseDataResponseBuilder builder = new MockResponseDataResponseBuilder();
-            builderHandler(builder);
-            return builder.Build();
-        }
     }
 
     /// <summary>
@@ -113,88 +54,126 @@ namespace DbFacade.DataLayer.Models
         /// <typeparam name="T"></typeparam>
         /// <param name="responseData">The response data.</param>
         void AddResponseData<T>(IEnumerable<T> responseData);
-        /// <summary>
-        /// Adds the output value handler.
-        /// </summary>
-        /// <param name="outputValueHandler">The output value handler.</param>
-        void AddOutputValueHandler(Action<IDictionary<string, object>> outputValueHandler = null);
+
+        /// <summary>Adds the response data.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="responseData">The response data.</param>
+        void AddResponseData<T>(params T[] responseData) where T : class;
+
+        /// <summary>Adds the output value.</summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        void AddOutputValue(string name, object value);
+        
         /// <summary>
         /// Adds the return value.
         /// </summary>
         /// <param name="returnValue">The return value.</param>
-        void AddReturnValue(int? returnValue = null);
+        void AddReturnValue(int returnValue);
+
+        /// <summary>Clears this instance.</summary>
+        void Clear();
     }
+    
     /// <summary>
     /// 
     /// </summary>
     internal class MockResponseDataResponseBuilder: IMockResponseDataResponseBuilder
     {
 
-        /// <summary>
-        /// Gets or sets the return value.
-        /// </summary>
-        /// <value>
-        /// The return value.
-        /// </value>
-        internal int? ReturnValue { get; private set; }
-        /// <summary>
-        /// Gets or sets the output values.
-        /// </summary>
-        /// <value>
-        /// The output values.
-        /// </value>
-        internal Action<IDictionary<string, object>> OutputValueHandler { get; set; }
-
-        /// <summary>
-        /// Gets or sets the test data set.
-        /// </summary>
-        /// <value>
-        /// The test data set.
-        /// </value>
-        private DataSet TestDataSet { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MockResponseDataResponseBuilder"/> class.
-        /// </summary>
-        public MockResponseDataResponseBuilder()
+        private int ReturnValue { get; set; }
+        private readonly Dictionary<string, object> OutputValues;
+        private readonly DataSet TestDataSet;
+        
+        internal MockResponseDataResponseBuilder()
         {
-            TestDataSet = new DataSet($"MockDataSetUID{Guid.NewGuid()}");
-
+            TestDataSet = CreateDataSet();
+            ReturnValue = default(int);
+            OutputValues = new Dictionary<string, object>();
         }
+        internal static DataSet CreateDataSet()
+        => new DataSet($"MockDataSetUID{Guid.NewGuid()}");
+        internal static DataSet ResolveDataSet(DataSet dataSet)
+        {
+            if (dataSet.Tables.Count == 0)
+            {
+                dataSet.Tables.Add(new DataTable("EmptyMockDbTable"));
+            }
+            return dataSet;
+        }
+
         /// <summary>
         /// Adds the response data.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="responseData">The response data.</param>
         public void AddResponseData<T>(IEnumerable<T> responseData)
+        => AddResponseDataCore(responseData);
+        /// <summary>Adds the response data.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="responseData">The response data.</param>
+        public void AddResponseData<T>(params T[] responseData)
+            where T : class
+        => AddResponseDataCore(responseData);
+        private void AddResponseDataCore<T>(IEnumerable<T> responseData)
         {
             if (responseData.TryGetDataTable(out DataTable dt))
             {
                 TestDataSet.Tables.Add(dt);
             }
         }
-        /// <summary>
-        /// Adds the output value handler.
-        /// </summary>
-        /// <param name="outputValueHandler">The output value handler.</param>
-        public void AddOutputValueHandler(Action<IDictionary<string, object>> outputValueHandler = null)
-        => OutputValueHandler = outputValueHandler;
+
+        /// <summary>Adds the output value.</summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        public void AddOutputValue(string name, object value)
+        {
+//#if NET8_0_OR_GREATER
+//            if (OutputValues.ContainsKey(name)) 
+//            {
+//                OutputValues[name] = value;
+//            }
+//            else
+//            {
+//                OutputValues.Add(name, value);
+//            }
+//#else
+            if (OutputValues.ContainsKey(name)) 
+            {
+                OutputValues[name] = value;
+            }
+            else
+            {
+                OutputValues.Add(name, value);
+            }
+//#endif
+        }
         /// <summary>
         /// Adds the return value.
         /// </summary>
         /// <param name="returnValue">The return value.</param>
-        public void AddReturnValue(int? returnValue = null)
+        public void AddReturnValue(int returnValue)
         => ReturnValue = returnValue;
-        /// <summary>
-        /// Builds this instance.
-        /// </summary>
-        /// <returns></returns>
-        public MockResponseData Build()
+
+        /// <summary>Clears this instance.</summary>
+        public void Clear()
         {
-            if (TestDataSet.Tables.Count == 0)
+            OutputValues.Clear();
+            TestDataSet.Tables.Clear();
+            ReturnValue = default(int);
+        }
+        
+        private DataTableReader GetResponseData()
+        => ResolveDataSet(TestDataSet).CreateDataReader();
+        internal MockResponseData Build(Action<IMockResponseDataResponseBuilder> handler)
+        {
+            handler(this);
+            return new MockResponseData()
             {
-                TestDataSet.Tables.Add(new DataTable("EmptyMockDbTable"));
-            }
-            return MockResponseData.Create(()=>TestDataSet.CreateDataReader(), OutputValueHandler, ReturnValue);
+                GetResponseData = GetResponseData,
+                ReturnValue = ReturnValue,
+                OutputValues = OutputValues
+            };
         }
 
     }

@@ -1,87 +1,107 @@
 ﻿using DbFacade.DataLayer.CommandConfig;
-using DbFacade.DataLayer.Models;
+using DbFacade.DataLayer.ConnectionService;
+using DbFacade.Extensions;
 using DbFacadeUnitTests.Models;
 using System;
 
 namespace DbFacadeUnitTests.TestFacade
 {
-    internal class UnregisteredConnectionUnitTestMethods
-    {
-        public static readonly IDbCommandMethod TestUnregisteredConnectionCall
-        = UnitTestUnregisteredConnection.TestCommand.CreateMethod();
-    }
 
     internal class UnitTestMethods
     {
-        public static readonly IParameterlessDbCommandMethod<TestClass2> TestBenchmark
-            = UnitTestConnection.TestBenchmark.CreateParameterlessMethod<TestClass2>();
+        internal readonly SqlDbConnectionConfig UnitTestConnection;
 
-        public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchData
-            = UnitTestConnection.TestFetchData.CreateParameterlessMethod<FetchData>();
+        internal readonly IDbCommandMethod TestBenchmark;
+        internal readonly IDbCommandMethod TestFetchData;
+        internal readonly IDbCommandMethod TestMultipleDataSets;
+        internal readonly IDbCommandMethod TestFetchDataAlt;
+        internal readonly IDbCommandMethod TestFetchDataWithBadDbColumn;
+        internal readonly IDbCommandMethod TestFetchDataWithNested;
+        internal readonly IDbCommandMethod TestFetchDataWithOutput;
+        internal readonly IDbCommandMethod TestNoData;
+        internal readonly IDbCommandMethod TestFetchDataWithModel;
+        internal readonly IDbCommandMethod TestTransaction;
+        internal readonly IDbCommandMethod TestTransactionWithOutput;
+        internal UnitTestMethods(Action<Exception> errorHandler)
+        {
+            UnitTestConnection = new UnitTestConnection(new UnitTestConnectionProvider(errorHandler));
 
-        public static readonly IParameterlessDbCommandMethod<UserData> TestMultipleDataSets
-            = UnitTestConnection.TestMultipleDataSets.CreateParameterlessMethod<UserData>();
+            TestBenchmark = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestBenchmark")
+                .WithLabel("Test Benchmark");
+            });
+            TestFetchData = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestFetchData")
+                .WithLabel("Test Fetch Data");
+            });
+            TestMultipleDataSets = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestTransaction")
+                .WithLabel("Test Transaction");
+            });
+            TestFetchDataAlt = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestFetchData")
+                .WithLabel("Test Fetch Data");
+            });
 
-        public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchDataAlt
-            = UnitTestConnection.TestFetchDataAlt.CreateParameterlessMethod<FetchData>();
-
-        public static readonly IParameterlessDbCommandMethod<FetchDataWithBadDbColumn> TestFetchDataWithBadDbColumn
-            = UnitTestConnection.TestFetchData.CreateParameterlessMethod<FetchDataWithBadDbColumn>();
-
-        public static readonly IParameterlessDbCommandMethod<FetchDataWithNested> TestFetchDataWithNested
-            = UnitTestConnection.TestFetchData.CreateParameterlessMethod<FetchDataWithNested>();
-
-        public static readonly IParameterlessDbCommandMethod<FetchData> TestFetchDataWithOutput
-            = UnitTestConnection.TestFetchDataWithOutputParameters.CreateParameterlessMethod<FetchData>(
-                p =>{
+            TestFetchDataWithBadDbColumn = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestFetchData")
+                .WithLabel("Test Fetch Data");
+            });
+            TestFetchDataWithNested = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestFetchData")
+                .WithLabel("Test Fetch Data");
+            });
+            TestFetchDataWithOutput = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestFetchData")
+                .WithLabel("Test Fetch Data")
+                .WithParameters(p => {
                     p.Add("MyStringOutputParam", p.Factory.OutputString(8000));
                 });
-        public static readonly IDbCommandMethod<Guid> TestNoData
-            = UnitTestConnection.TestNoData.CreateMethod<Guid>(p =>{
-                    p.Add("Guid", p.Factory.Create(m=>m));
-                });
-        public static readonly IDbCommandMethod<UnitTestDbParamsForManager, FetchData> TestFetchDataWithModel
-            = UnitTestConnection.TestTransaction.CreateMethod<UnitTestDbParamsForManager, FetchData>();
+            });
 
-        public static readonly IDbCommandMethod<string> TestTransaction
-            = UnitTestConnection.TestTransaction.CreateMethod<string>(
-                p =>{
-                    p.Add("MyStringParam", p.Factory.Create(model => model));
-                },
-                v =>{
-                    v.Add(v.Rules.Required(model => model));
+            TestNoData = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestTransaction")
+                .WithLabel("Test Transaction")
+                .WithParameters<Guid>(p => {
+                    p.Add("Guid", p.Factory.Create(m => m));
                 });
-        public static readonly IDbCommandMethod<string> TestTransactionWithOutput
-             = UnitTestConnection.TestTransaction.CreateMethod<string>(
-                 p =>{
-                     p.Add("MyStringParam", p.Factory.Create(model => model));
-                     p.Add("MyStringOutputParam", p.Factory.OutputString(8000));
-                 },
-                 v =>{
-                     v.Add(v.Rules.Required(model => model));
-                 });
-        public static readonly IDbCommandMethod<UnitTestDbParamsForManager> TestFetchDataWithModelProcessParams
-             = UnitTestConnection.TestFetchData.CreateMethod<UnitTestDbParamsForManager>(
-                 p => { },
-                 v => { },
-                 p => {
-                    if (p.StopAtStep1)
-                    {
-                        throw new System.Exception("Stopping at step 1");
-                    }
-                },
-                p => {
-                    if (p.StopAtStep2)
-                    {
-                        throw new System.Exception("Stopping at step 2");
-                    }
-                },
-                p => {
-                    if (p.StopAtStep3)
-                    {
-                        throw new System.Exception("Stopping at step 3");
-                    }
-                });
-        
+            });
+
+            TestFetchDataWithModel = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestTransaction")
+                .WithLabel("Test Transaction")
+                //.WithParameters<UnitTestDbParamsForManager>(p => {
+                //    p.Add("Guid", p.Factory.Create(m => m.));
+                //})
+                .AsTransaction();
+            });
+
+            TestTransaction = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestTransaction")
+                .WithLabel("Test Transaction")
+                .WithParameters<UnitTestDbParams>(p =>
+                {
+                    p.Add("MyStringParam", p.Factory.Create(model => model.CustomString));
+                })
+                .WithValidation<UnitTestDbParams>(v => {
+                    v.Add(v.Rules.Required(model => model.CustomString));
+                })
+                .AsTransaction();
+            });
+
+            TestTransactionWithOutput = UnitTestConnection.Dbo.CreateMethod(o => {
+                o.AsStoredProcedure("TestTransaction")
+                .WithLabel("Test Transaction")
+                .WithParameters<UnitTestDbParams>(p =>
+                {
+                    p.Add("MyStringParam", p.Factory.Create(model => model.CustomString));
+                    p.Add("MyStringOutputParam", p.Factory.OutputString(8000));
+                })
+                .WithValidation<UnitTestDbParams>(v => {
+                    v.Add(v.Rules.Required(model => model.CustomString));
+                })
+                .AsTransaction();
+            });
+        }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using DbFacade.DataLayer.CommandConfig.Parameters;
-using DbFacade.Utils;
 using System;
 using System.Data;
 using System.Data.SqlTypes;
-using System.Threading.Tasks;
 
 namespace DbFacade.Factories
 {
@@ -19,18 +17,10 @@ namespace DbFacade.Factories
     /// 
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    public sealed class DbCommandParameterConfigFactory<TDbParams>
+    public class DbCommandParameterConfigFactory<TDbParams>
     {
-        /// <summary>
-        /// Creates the asynchronous.
-        /// </summary>
-        /// <returns></returns>
-        internal static async Task<DbCommandParameterConfigFactory<TDbParams>> CreateAsync()
-        {
-            DbCommandParameterConfigFactory<TDbParams> factory = new DbCommandParameterConfigFactory<TDbParams>();
-            await Task.CompletedTask;
-            return factory;
-        }
+        internal static DbCommandParameterConfigFactory<TDbParams> Instance = new DbCommandParameterConfigFactory<TDbParams> ();
+
         #region ReturnValue
         /// <summary>
         /// Creates the return value.

@@ -12,7 +12,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void Constant()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Required(model => "MyString"));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -21,7 +21,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void ConstantFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Required(model => null));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -31,7 +31,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void Method()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Required(model => model.GetStringValue("MyString")));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -40,7 +40,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MethodFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Required(model => model.GetStringValue(null)));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -50,7 +50,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithNonNullValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Required(model => model.String));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -59,7 +59,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithNullValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Required(model => model.Null));
             });
             IValidationResult result = Validator.Validate(Parameters);

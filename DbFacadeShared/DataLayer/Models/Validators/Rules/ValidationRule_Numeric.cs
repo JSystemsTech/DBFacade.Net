@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.Models.Validators.Rules
 {
@@ -65,34 +64,12 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return double.TryParse(ParamsValue.ToString(), NumberStyles, System.Globalization.CultureInfo.CurrentCulture, out result);
             }
             /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                double result;
-                bool isNumber = double.TryParse(ParamsValue.ToString(), NumberStyles, System.Globalization.CultureInfo.CurrentCulture, out result);
-                await Task.CompletedTask;
-                return isNumber;
-            }
-            /// <summary>
             /// Gets the error message core.
             /// </summary>
             /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"not a number.";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"not a number.";
             }
         }

@@ -1,0 +1,22 @@
+[
+  {
+    "version": "v2.0.0",
+    "latestBuild": "2.0.0",
+    "url": "",
+    "latest": true,
+    "divider": true,
+    "header": "v2.0 Releases",
+    "message": null,
+    "messageTheme": "info"
+  },
+  {
+    "version": "v1.0.13",
+    "latestBuild": "2.0.0",
+    "url": "/docsv1/index.html",
+    "latest": false,
+    "divider": false,
+    "header": "Previous Releases",
+    "message": "A new version of DbFacade is available",
+    "messageTheme": "info"
+  }
+]

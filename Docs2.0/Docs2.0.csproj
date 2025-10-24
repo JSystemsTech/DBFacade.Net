@@ -1,0 +1,917 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{16EEA344-0F43-4F5C-BA56-6533C356E1D5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Docs2._0</RootNamespace>
+    <AssemblyName>Docs2.0</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44353</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.10\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.9.0.10\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.9.0.10\lib\net462\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.9.0.10\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.9.0.10\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.9.0.10\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Configuration, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Configuration.9.0.10\lib\net462\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.9.0.10\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.ConfigurationExtensions.9.0.10\lib\net462\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=9.0.0.10, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.9.0.10\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.9.0.10\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="docfx_project\.gitignore" />
+    <Content Include="docfx_project\api\.gitignore" />
+    <Content Include="docfx_project\coverage\class.js" />
+    <Content Include="docfx_project\coverage\DbFacade2_AccessorExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_AccessorExtensions_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_AccessorExtensions_T__TAttribute_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_Accessor_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_AnsiString.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_AnsiStringFixedLength.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ConversionFactory.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_Currency.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DataCollection.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DataRowDataCollection.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DataTableExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbCommandDataCollection.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbCommandExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbCommandMethod.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbCommandMethodExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbCommandMethodExtensions_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbConnectionConfig.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbConnectionConfigExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbDataCollectionExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbDataCollectionExtensions_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbDataTable.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbDataTable_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbExecutionException.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbResponse.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbResponseExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbTypeCollection.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbTypeCollectionItem.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_DbTypeCollection_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_EndpointErrorInfo.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_EndpointSettings.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_EndpointSettingsExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_EndpointSettingsExtensions_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ErrorHelper.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_FacadeException.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_MockDbException.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_MockResponse.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_MockResponseSettings.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ParameterDataCollection.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ParameterDataCollection_TModel_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ParameterDataCollection_TModel__TAttribute_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ParameterInfo.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_Schema.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_SqlDbConnectionProvider.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_StringExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_StringFixedLength.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_TypeFactory.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_Types.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ValidationException.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ValidationExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ValidationRule_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ValidatorExtensions.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ValidatorExtensions_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_ValidatorExtensions_T__TValue_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_Validator_T_.html" />
+    <Content Include="docfx_project\coverage\DbFacade2_VariableReference.html" />
+    <Content Include="docfx_project\coverage\icon_cog.svg" />
+    <Content Include="docfx_project\coverage\icon_cog_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_cube.svg" />
+    <Content Include="docfx_project\coverage\icon_cube_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_fork.svg" />
+    <Content Include="docfx_project\coverage\icon_fork_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_info-circled.svg" />
+    <Content Include="docfx_project\coverage\icon_info-circled_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_minus.svg" />
+    <Content Include="docfx_project\coverage\icon_minus_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_plus.svg" />
+    <Content Include="docfx_project\coverage\icon_plus_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_search-minus.svg" />
+    <Content Include="docfx_project\coverage\icon_search-minus_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_search-plus.svg" />
+    <Content Include="docfx_project\coverage\icon_search-plus_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_sponsor.svg" />
+    <Content Include="docfx_project\coverage\icon_star.svg" />
+    <Content Include="docfx_project\coverage\icon_star_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_up-dir.svg" />
+    <Content Include="docfx_project\coverage\icon_up-dir_active.svg" />
+    <Content Include="docfx_project\coverage\icon_up-down-dir.svg" />
+    <Content Include="docfx_project\coverage\icon_up-down-dir_dark.svg" />
+    <Content Include="docfx_project\coverage\icon_wrench.svg" />
+    <Content Include="docfx_project\coverage\icon_wrench_dark.svg" />
+    <Content Include="docfx_project\coverage\index.htm" />
+    <Content Include="docfx_project\coverage\index.html" />
+    <Content Include="docfx_project\coverage\main.js" />
+    <Content Include="docfx_project\coverage\report.css" />
+    <Content Include="docfx_project\docsv1\Advanced\Connection\ErrorHandling.html" />
+    <Content Include="docfx_project\docsv1\Advanced\Connection\IDbCommandConfig.html" />
+    <Content Include="docfx_project\docsv1\Advanced\Connection\Types.html" />
+    <Content Include="docfx_project\docsv1\Advanced\DbDataModel\GettingColumnValues.html" />
+    <Content Include="docfx_project\docsv1\Advanced\DbDataModel\NestedModels.html" />
+    <Content Include="docfx_project\docsv1\Advanced\DbResponse.html" />
+    <Content Include="docfx_project\docsv1\Advanced\index.html" />
+    <Content Include="docfx_project\docsv1\Advanced\Methods\Parameters.html" />
+    <Content Include="docfx_project\docsv1\Advanced\Methods\Types.html" />
+    <Content Include="docfx_project\docsv1\Advanced\Methods\Validation.html" />
+    <Content Include="docfx_project\docsv1\Advanced\toc.html" />
+    <Content Include="docfx_project\docsv1\Advanced\UnitTesting.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.CommandConfig.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.CommandConfig.IDbCommandMethod-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.CommandConfig.IDbCommandMethod-2.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.CommandConfig.IDbMethod.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.CommandConfig.IParameterlessDbCommandMethod-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.CommandConfig.Parameters.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandConfigParams-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.CommandConfig.Parameters.IDbCommandParameterConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.DbConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.DbConnectionConfig-6.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.DbConnectionConfigBase.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.DbConnectionConfigFull-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.DbConnectionConfigNoTransaction-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.DefaultConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.IConnectionOptions.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.IDbCommandConfig.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.IDbCommandSettings.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.IDbConnectionConfig.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.IErrorHandlerOptions.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.MockDataResponseFactory.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.OdbcConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.OleDbConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.OracleConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.SqlConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.ConnectionService.SqLiteConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.DbDataModel.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.IDbDataModel.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.IDbResponse-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.IDbResponse.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.IJsonSerializable-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.IMockResponseDataResponseBuilder.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.IReadOnlyDbCollection-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.IXMLSerializable-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.MockResponseData.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.IValidationResult.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.IValidator-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.Rules.EmailDomainMode.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.Rules.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.Rules.IValidationRule-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.Rules.IValidationRuleResult.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.DelegateRuleHandler-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.Rules.ValidationRule-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.DataLayer.Models.Validators.Rules.ValidationStatus.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Exceptions.DbConnectionConfigNotRegisteredException.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Exceptions.FacadeException.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Exceptions.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Exceptions.SQLExecutionException.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Exceptions.ValidationException-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Exceptions.ValidationException.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Factories.DbCommandConfigFactory-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Factories.DbCommandParameterConfigFactory-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Factories.DelegateHandler-2.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Factories.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Factories.IDbCommandConfigSchemaFactory.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Factories.IDbCommandConfigSchemaFactoryFull.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Factories.ValidationRuleFactory-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Factories.ValidatorFactory.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Odbc.DataLayer.ConnectionService.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Odbc.DataLayer.ConnectionService.OdbcConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OleDb.DataLayer.ConnectionService.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OleDb.DataLayer.ConnectionService.OleDbConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnCreateDbConnection.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnErrorHandler.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnErrorHandlerAsync.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnExecuteDbAction-2.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnExecuteDbActionAsync-2.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnFacadeErrorHandler.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnFacadeErrorHandlerAsync.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnGetConnectionString.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnGetDbDataAdapter.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnSQLExecutionErrorHandler.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnSQLExecutionErrorHandlerAsync.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnValidationErrorHandler.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.OnValidationErrorHandlerAsync.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Oracle.DataLayer.ConnectionService.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Oracle.DataLayer.ConnectionService.OracleConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Services.DbConnectionService.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Services.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.SQLite.DataLayer.ConnectionService.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.SQLite.DataLayer.ConnectionService.SqLiteConnectionConfig-1.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Utils.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Utils.IAsyncInit.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Utils.IDataCollection.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Utils.IDataCollectionModel.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Utils.IDataTableParser.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Utils.IMockDbTableRow.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Utils.InitInstance.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Utils.InstanceCreatorService.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacade.Utils.Utils.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacadeShared.DataLayer.Models.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacadeShared.DataLayer.Models.IDbDataSet.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacadeShared.Extensions.DbResponseExtensions.html" />
+    <Content Include="docfx_project\docsv1\api\DbFacadeShared.Extensions.html" />
+    <Content Include="docfx_project\docsv1\api\index.html" />
+    <Content Include="docfx_project\docsv1\api\toc.html" />
+    <Content Include="docfx_project\docsv1\articles\GettingStarted.html" />
+    <Content Include="docfx_project\docsv1\articles\intro.html" />
+    <Content Include="docfx_project\docsv1\articles\toc.html" />
+    <Content Include="docfx_project\docsv1\favicon.ico" />
+    <Content Include="docfx_project\docsv1\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="docfx_project\docsv1\GettingStarted\DeclareMethods.html" />
+    <Content Include="docfx_project\docsv1\GettingStarted\DefineModels.html" />
+    <Content Include="docfx_project\docsv1\GettingStarted\DomainFacade.html" />
+    <Content Include="docfx_project\docsv1\GettingStarted\index.html" />
+    <Content Include="docfx_project\docsv1\GettingStarted\SetupConnection.html" />
+    <Content Include="docfx_project\docsv1\GettingStarted\toc.html" />
+    <Content Include="docfx_project\docsv1\images\icon.jpg" />
+    <Content Include="docfx_project\docsv1\index.html" />
+    <Content Include="docfx_project\docsv1\logo.svg" />
+    <Content Include="docfx_project\docsv1\ReleaseNotes\index.html" />
+    <Content Include="docfx_project\docsv1\ReleaseNotes\toc.html" />
+    <Content Include="docfx_project\docsv1\styles\docfx.css" />
+    <Content Include="docfx_project\docsv1\styles\docfx.js" />
+    <Content Include="docfx_project\docsv1\styles\docfx.vendor.css" />
+    <Content Include="docfx_project\docsv1\styles\docfx.vendor.js" />
+    <Content Include="docfx_project\docsv1\styles\lunr.js" />
+    <Content Include="docfx_project\docsv1\styles\lunr.min.js" />
+    <Content Include="docfx_project\docsv1\styles\main.css" />
+    <Content Include="docfx_project\docsv1\styles\main.js" />
+    <Content Include="docfx_project\docsv1\styles\search-worker.js" />
+    <Content Include="docfx_project\docsv1\toc.html" />
+    <Content Include="docfx_project\favicon.ico" />
+    <Content Include="docfx_project\images\icon.jpg" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-grid.rtl.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-grid.rtl.min.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-reboot.rtl.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-reboot.rtl.min.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-utilities.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-utilities.min.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-utilities.rtl.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-utilities.rtl.min.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap.min.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap.rtl.css" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap.rtl.min.css" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.esm.js" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.esm.min.js" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.js" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="docfx_project\lib\font-awesome\css\all.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\all.min.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\brands.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\brands.min.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\fontawesome.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\fontawesome.min.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\regular.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\regular.min.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\solid.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\solid.min.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\svg-with-js.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\svg-with-js.min.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\v4-font-face.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\v4-font-face.min.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\v4-shims.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\v4-shims.min.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\v5-font-face.css" />
+    <Content Include="docfx_project\lib\font-awesome\css\v5-font-face.min.css" />
+    <Content Include="docfx_project\lib\font-awesome\js\all.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\all.min.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\brands.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\brands.min.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\conflict-detection.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\conflict-detection.min.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\fontawesome.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\fontawesome.min.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\regular.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\regular.min.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\solid.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\solid.min.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\v4-shims.js" />
+    <Content Include="docfx_project\lib\font-awesome\js\v4-shims.min.js" />
+    <Content Include="docfx_project\lib\font-awesome\sprites\brands.svg" />
+    <Content Include="docfx_project\lib\font-awesome\sprites\regular.svg" />
+    <Content Include="docfx_project\lib\font-awesome\sprites\solid.svg" />
+    <None Include="docfx_project\RealisticExample\docs\database\dbo\StoredProcedures\UpdateEmployee.md" />
+    <None Include="docfx_project\RealisticExample\docs\database\dbo\Tables\ContactInfo.md" />
+    <None Include="docfx_project\RealisticExample\docs\database\dbo\Tables\Department.md" />
+    <None Include="docfx_project\RealisticExample\docs\database\dbo\Tables\Employee.md" />
+    <Content Include="docfx_project\RealisticExample\ProjectFiles\database\dbo\StoredProcedures\UpdateEmployee.sql" />
+    <Content Include="docfx_project\RealisticExample\ProjectFiles\database\dbo\Tables\ContactInfo.sql" />
+    <Content Include="docfx_project\RealisticExample\ProjectFiles\database\dbo\Tables\Department.sql" />
+    <Content Include="docfx_project\RealisticExample\ProjectFiles\database\dbo\Tables\Employee.sql" />
+    <Content Include="docfx_project\templates\dbfacade\ApiPage.html.primary.js" />
+    <Content Include="docfx_project\templates\dbfacade\customization\main.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\app.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\app.min.js">
+      <DependentUpon>app.js</DependentUpon>
+    </Content>
+    <Content Include="docfx_project\templates\dbfacade\public\architecture-I3QFYML2-NK53GYGD.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\architectureDiagram-AYX4OTIS-UEH2Z7UQ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\blockDiagram-XN6IQ5JY-VK3M7PUD.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\c4Diagram-GPMAACGM-P3DMZBSW.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-24EG6CQZ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-2TAJJIOM.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-2YMHYP32.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-3Z74ZUXG.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-45RMNOPF.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-53EALYMI.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-5KKNARB2.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-7JZIB2XU.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-B5WF4DA4.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-CIWIECNU.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-CM5D5KZN.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-CXRPJJJE.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-DBPRPEV6.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-DFMVIMQJ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-DTUU2GN4.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-DXUQFVLL.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-HOCACIQT.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-IQQ46AC6.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-K7PO6CNQ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-KF4CENUX.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-LDPOAEOH.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-MJXJ7UGT.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-NRRWWJ3P.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-OSRY5VT3.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-P2C2SEUI.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-PYBRKFQJ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-R7DHUQMU.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-TERFBH2B.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-TOQ6ACLX.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-U4DUTLYF.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-UOD6J27N.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-WMZJ2DJX.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-XBNRW4G3.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-ZU5APUIQ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\classDiagram-FEGYTUDG-YCLVHNZU.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\classDiagram-v2-R65JCUOM-VFGJ2XXK.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\dagre-SWNTG5WE-7BA3SWK2.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\diagram-NZMEDLQF-NYTRB6HN.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\docfx.min.css" />
+    <Content Include="docfx_project\templates\dbfacade\public\docfx.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\erDiagram-WO52GFNT-Y4NFVIDE.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\es-4I4X6RME.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\flowDiagram-TSWR6T2D-H32UQL2W.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\ganttDiagram-FAOCOTIY-GFLLTKXL.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\gitGraph-YCYPL57B-C4NBXIBD.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\gitGraphDiagram-5C7YHVU6-2F4DKEGL.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\info-46DW6VJ7-MWRO75OW.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\infoDiagram-P5D6MX3V-EFUDKNDH.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\journeyDiagram-UIGPPNLY-FB6FUBJH.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\kanban-definition-KMT3NSR2-K4PM5M4E.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\katex-NVDEX37K.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ar-A6ZT2INA.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.da-WWM276CR.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.de-XXPRKDAY.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.du-NO4L2LL3.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.el-5ZSSJVMA.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.es-ZH6Q76E6.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.fi-S7WJSBCP.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.fr-H2QNBELV.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.he-TTLAK4MN.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.hi-PWWMAGLU.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.hu-DLG2DSVM.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.hy-FFQJAR7M.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.it-VQNLJLPR.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ja-J6QHZSR2.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.jp-M45D3XJE.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.kn-ASLXFRTC.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ko-RHF2BDE4.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.nl-2BITG354.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.no-WPLSHWFO.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.pt-V2XEBELC.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ro-O76266FJ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ru-G56UDXYH.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.sa-LD5PRAIS.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.sv-7VRY4UDB.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ta-OWB7AURB.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.te-JGGL3BFP.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.th-O4JBL3IY.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.tr-WXUV733C.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.vi-3U4A337N.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\main.css" />
+    <Content Include="docfx_project\templates\dbfacade\public\main.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\main.min.css">
+      <DependentUpon>main.css</DependentUpon>
+    </Content>
+    <Content Include="docfx_project\templates\dbfacade\public\main.min.js">
+      <DependentUpon>main.js</DependentUpon>
+    </Content>
+    <Content Include="docfx_project\templates\dbfacade\public\mermaid.core-RYVCAQML.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\mindmap-definition-R7LC4OIY-2USVTKSJ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\packet-W2GHVCYJ-73RTG6VT.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\pie-BEWT4RHE-6E5EOTAQ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\pieDiagram-BLWKPB35-RRRLPZVM.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\quadrantDiagram-QXWEEFXS-PKSQMH6W.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\requirementDiagram-XAUNFCZY-5ZWIDLT6.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\sankeyDiagram-LVV36NHA-T6DVYUKQ.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\search-worker.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\sequenceDiagram-D25TJ2OB-6R64PNA2.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\stateDiagram-GNSP7T6Y-QRHXVCK2.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\stateDiagram-v2-HP6YRVRG-XMVPP43U.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\tex-svg-full-SL33OL2J.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\timeline-definition-27KQCCZ3-MKUJTCR4.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\public\xychartDiagram-MYLB5AYS-IFQ4BEB4.min.js" />
+    <Content Include="docfx_project\templates\dbfacade\customization\template.css">
+      <DependentUpon>template.scss</DependentUpon>
+    </Content>
+    <Content Include="docfx_project\templates\dbfacade\customization\template.js" />
+    <Content Include="docfx_project\templates\dbfacade\customization\template.min.css">
+      <DependentUpon>template.css</DependentUpon>
+    </Content>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="docfx_project\CodeExamples\ConnectionProvider.cs" />
+    <Compile Include="docfx_project\CodeExamples\CreateDataLayer.cs" />
+    <Compile Include="docfx_project\CodeExamples\DefineEndpoints.cs" />
+    <Compile Include="docfx_project\RealisticExample\ProjectFiles\dotnet\Services\ApplicationLogger.cs" />
+    <Compile Include="docfx_project\RealisticExample\ProjectFiles\dotnet\Services\ApplicationLoggerExtensions.cs" />
+    <Compile Include="docfx_project\RealisticExample\ProjectFiles\dotnet\Services\ApplicationLoggerProvider.cs" />
+    <Compile Include="docfx_project\RealisticExample\ProjectFiles\dotnet\Services\ConnectionStringIdStore.cs" />
+    <Compile Include="docfx_project\RealisticExample\ProjectFiles\dotnet\Services\ConnectionStringService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebApplication.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="docfx_project\articles\intro.md" />
+    <Content Include="docfx_project\articles\toc.yml" />
+    <Content Include="docfx_project\docfx.json" />
+    <Content Include="docfx_project\index.md" />
+    <Content Include="docfx_project\toc.yml" />
+    <Content Include="docfx_project\Advanced\Connection\ErrorHandling.md" />
+    <Content Include="docfx_project\Advanced\Connection\IDbCommandConfig.md" />
+    <Content Include="docfx_project\Advanced\Connection\Types.md" />
+    <Content Include="docfx_project\Advanced\DbDataModel\GettingColumnValues.md" />
+    <Content Include="docfx_project\Advanced\DbDataModel\NestedModels.md" />
+    <Content Include="docfx_project\Advanced\DbResponse.md" />
+    <Content Include="docfx_project\Advanced\index.md" />
+    <Content Include="docfx_project\Advanced\Methods\Parameters.md" />
+    <Content Include="docfx_project\Advanced\Methods\Types.md" />
+    <Content Include="docfx_project\Advanced\Methods\Validation.md" />
+    <Content Include="docfx_project\Advanced\toc.md" />
+    <Content Include="docfx_project\Advanced\UnitTesting.md" />
+    <Content Include="docfx_project\docsv1\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="docfx_project\docsv1\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="docfx_project\docsv1\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="docfx_project\docsv1\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="docfx_project\docsv1\index.json" />
+    <Content Include="docfx_project\docsv1\manifest.json" />
+    <Content Include="docfx_project\docsv1\search-stopwords.json" />
+    <Content Include="docfx_project\docsv1\xrefmap.yml" />
+    <Content Include="docfx_project\GettingStarted\index.md" />
+    <None Include="docfx_project\GettingStarted\toc.md" />
+    <Content Include="docfx_project\docsv1\toc.md" />
+    <Content Include="docfx_project\api\index.md" />
+    <Content Include="docfx_project\api\toc.yml" />
+    <Content Include="docfx_project\GettingStarted\ConnectionProvider.md" />
+    <Content Include="docfx_project\GettingStarted\DefineEndpoints.md" />
+    <Content Include="docfx_project\GettingStarted\ParameterBinding.md" />
+    <Content Include="docfx_project\GettingStarted\ParameterValidation.md" />
+    <Content Include="docfx_project\GettingStarted\UsingSchemas.md" />
+    <Content Include="docfx_project\GettingStarted\CreateMethods.md" />
+    <Content Include="docfx_project\GettingStarted\DefineDataModels.md" />
+    <Content Include="libman.json" />
+    <Content Include="docfx_project\author.md" />
+    <None Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="docfx_project\templates\dbfacade\customization\template.scss" />
+    <Content Include="docfx_project\templates\dbfacade\ApiPage.html.primary.tmpl" />
+    <Content Include="docfx_project\templates\dbfacade\layout\_master.tmpl" />
+    <Content Include="docfx_project\templates\dbfacade\partials\class.header.tmpl.partial" />
+    <Content Include="docfx_project\templates\dbfacade\partials\class.memberpage.tmpl.partial" />
+    <Content Include="docfx_project\templates\dbfacade\partials\class.tmpl.partial" />
+    <Content Include="docfx_project\templates\dbfacade\partials\collection.tmpl.partial" />
+    <Content Include="docfx_project\templates\dbfacade\partials\customMREFContent.tmpl.partial" />
+    <Content Include="docfx_project\templates\dbfacade\partials\enum.tmpl.partial" />
+    <Content Include="docfx_project\templates\dbfacade\partials\item.tmpl.partial" />
+    <Content Include="docfx_project\templates\dbfacade\partials\namespace.tmpl.partial" />
+    <Content Include="docfx_project\templates\dbfacade\public\architecture-I3QFYML2-NK53GYGD.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\architectureDiagram-AYX4OTIS-UEH2Z7UQ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\blockDiagram-XN6IQ5JY-VK3M7PUD.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\bootstrap-icons-OCU552PF.woff" />
+    <Content Include="docfx_project\templates\dbfacade\public\bootstrap-icons-X6UQXWUS.woff2" />
+    <Content Include="docfx_project\templates\dbfacade\public\c4Diagram-GPMAACGM-P3DMZBSW.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-24EG6CQZ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-2TAJJIOM.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-2YMHYP32.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-3Z74ZUXG.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-45RMNOPF.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-53EALYMI.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-5KKNARB2.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-7JZIB2XU.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-B5WF4DA4.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-CIWIECNU.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-CM5D5KZN.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-CXRPJJJE.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-DBPRPEV6.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-DFMVIMQJ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-DTUU2GN4.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-DXUQFVLL.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-HOCACIQT.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-IQQ46AC6.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-K7PO6CNQ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-KF4CENUX.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-LDPOAEOH.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-MJXJ7UGT.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-NRRWWJ3P.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-OSRY5VT3.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-P2C2SEUI.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-PYBRKFQJ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-R7DHUQMU.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-TERFBH2B.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-TOQ6ACLX.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-U4DUTLYF.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-UOD6J27N.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-WMZJ2DJX.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-XBNRW4G3.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\chunk-ZU5APUIQ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\classDiagram-FEGYTUDG-YCLVHNZU.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\classDiagram-v2-R65JCUOM-VFGJ2XXK.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\dagre-SWNTG5WE-7BA3SWK2.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\diagram-NZMEDLQF-NYTRB6HN.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\docfx.min.css.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\docfx.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\erDiagram-WO52GFNT-Y4NFVIDE.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\es-4I4X6RME.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\flowDiagram-TSWR6T2D-H32UQL2W.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\ganttDiagram-FAOCOTIY-GFLLTKXL.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\gitGraph-YCYPL57B-C4NBXIBD.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\gitGraphDiagram-5C7YHVU6-2F4DKEGL.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\info-46DW6VJ7-MWRO75OW.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\infoDiagram-P5D6MX3V-EFUDKNDH.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\journeyDiagram-UIGPPNLY-FB6FUBJH.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\kanban-definition-KMT3NSR2-K4PM5M4E.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\katex-NVDEX37K.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ar-A6ZT2INA.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.da-WWM276CR.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.de-XXPRKDAY.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.du-NO4L2LL3.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.el-5ZSSJVMA.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.es-ZH6Q76E6.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.fi-S7WJSBCP.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.fr-H2QNBELV.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.he-TTLAK4MN.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.hi-PWWMAGLU.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.hu-DLG2DSVM.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.hy-FFQJAR7M.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.it-VQNLJLPR.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ja-J6QHZSR2.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.jp-M45D3XJE.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.kn-ASLXFRTC.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ko-RHF2BDE4.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.nl-2BITG354.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.no-WPLSHWFO.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.pt-V2XEBELC.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ro-O76266FJ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ru-G56UDXYH.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.sa-LD5PRAIS.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.sv-7VRY4UDB.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.ta-OWB7AURB.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.te-JGGL3BFP.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.th-O4JBL3IY.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.tr-WXUV733C.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\lunr.vi-3U4A337N.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\mermaid.core-RYVCAQML.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\mindmap-definition-R7LC4OIY-2USVTKSJ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\packet-W2GHVCYJ-73RTG6VT.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\pie-BEWT4RHE-6E5EOTAQ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\pieDiagram-BLWKPB35-RRRLPZVM.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\quadrantDiagram-QXWEEFXS-PKSQMH6W.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\requirementDiagram-XAUNFCZY-5ZWIDLT6.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\sankeyDiagram-LVV36NHA-T6DVYUKQ.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\search-worker.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\sequenceDiagram-D25TJ2OB-6R64PNA2.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\stateDiagram-GNSP7T6Y-QRHXVCK2.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\stateDiagram-v2-HP6YRVRG-XMVPP43U.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\tex-svg-full-SL33OL2J.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\timeline-definition-27KQCCZ3-MKUJTCR4.min.js.map" />
+    <Content Include="docfx_project\templates\dbfacade\public\xychartDiagram-MYLB5AYS-IFQ4BEB4.min.js.map" />
+    <Content Include="docfx_project\lib\font-awesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="docfx_project\lib\font-awesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="docfx_project\lib\font-awesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="docfx_project\lib\font-awesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="docfx_project\lib\font-awesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="docfx_project\lib\font-awesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="docfx_project\lib\font-awesome\webfonts\fa-v4compatibility.ttf" />
+    <Content Include="docfx_project\lib\font-awesome\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-grid.rtl.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-reboot.rtl.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-utilities.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-utilities.min.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-utilities.rtl.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap.rtl.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\css\bootstrap.rtl.min.css.map" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.esm.js.map" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.esm.min.js.map" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.js.map" />
+    <Content Include="docfx_project\lib\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="docfx_project\lib\bootstrap\scss\bootstrap-grid.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\bootstrap-reboot.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\bootstrap-utilities.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\bootstrap.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\forms\_floating-labels.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\forms\_form-check.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\forms\_form-control.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\forms\_form-range.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\forms\_form-select.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\forms\_form-text.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\forms\_input-group.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\forms\_labels.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\forms\_validation.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_clearfix.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_color-bg.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_colored-links.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_focus-ring.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_icon-link.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_position.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_ratio.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_stacks.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_stretched-link.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_text-truncation.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_visually-hidden.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\helpers\_vr.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_alert.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_backdrop.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_banner.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_border-radius.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_box-shadow.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_breakpoints.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_buttons.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_caret.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_clearfix.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_color-mode.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_color-scheme.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_container.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_deprecate.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_forms.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_gradients.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_grid.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_image.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_list-group.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_lists.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_pagination.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_reset-text.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_resize.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_table-variants.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_text-truncate.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_transition.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_utilities.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\mixins\_visually-hidden.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\utilities\_api.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\vendor\_rfs.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_accordion.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_alert.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_badge.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_breadcrumb.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_button-group.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_buttons.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_card.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_carousel.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_close.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_containers.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_dropdown.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_forms.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_functions.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_grid.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_helpers.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_images.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_list-group.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_maps.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_mixins.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_modal.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_nav.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_navbar.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_offcanvas.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_pagination.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_placeholders.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_popover.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_progress.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_reboot.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_root.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_spinners.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_tables.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_toasts.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_tooltip.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_transitions.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_type.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_utilities.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_variables-dark.scss" />
+    <Content Include="docfx_project\lib\bootstrap\scss\_variables.scss" />
+    <Content Include="docfx_project\templates\dbfacade\customization\bootstrap-override.scss" />
+    <Content Include="docfx_project\templates\dbfacade\customization\themes\flatly\_bootswatch.scss" />
+    <Content Include="docfx_project\templates\dbfacade\customization\themes\flatly\_variables.scss" />
+    <Content Include="docfx_project\templates\dbfacade\public\data\versions.json" />
+    <Content Include="docfx_project\TestCoverage.md" />
+    <Content Include="docfx_project\templates\dbfacade\public\data\appdata.json" />
+    <Content Include="docfx_project\GettingStarted\ErrorHandling.md" />
+    <Content Include="docfx_project\ReleaseNotes.md" />
+    <Content Include="docfx_project\RealisticExample\ProjectFiles\dotnet\appsettings.json" />
+    <None Include="docfx_project\RealisticExample\toc.md" />
+    <Content Include="docfx_project\RealisticExample\index.md" />
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="docfx_project\apidoc\" />
+    <Folder Include="docfx_project\RealisticExample\docs\dotnet\" />
+    <Folder Include="docfx_project\src\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DbFacade.Odbc\DbFacade.Odbc.csproj">
+      <Project>{23a4322a-b607-4d26-ad4d-1094e0865264}</Project>
+      <Name>DbFacade.Odbc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DbFacade.OleDb\DbFacade.OleDb.csproj">
+      <Project>{9579945c-4d02-4d06-9872-9ac969e973e4}</Project>
+      <Name>DbFacade.OleDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DbFacade.Oracle\DbFacade.Oracle.csproj">
+      <Project>{f5e70c61-6867-4f51-9671-b032aebe5114}</Project>
+      <Name>DbFacade.Oracle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DbFacade.SQLite\DbFacade.SQLite.csproj">
+      <Project>{5d82c231-9ab6-453a-ac5e-0be9f78faf07}</Project>
+      <Name>DbFacade.SQLite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DbFacade2\DbFacade2.csproj">
+      <Project>{9737812b-b101-4fd4-9606-40ee5310b91c}</Project>
+      <Name>DbFacade2</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51802</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44353/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+  </Target>
+  <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

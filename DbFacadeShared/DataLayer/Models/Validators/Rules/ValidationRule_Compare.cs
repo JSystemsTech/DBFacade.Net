@@ -1,7 +1,6 @@
 ﻿using DbFacade.Utils;
 using System;
 using System.Globalization;
-using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.Models.Validators.Rules
 {
@@ -48,13 +47,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// The comaparitor.
             /// </value>
             protected Func<T, T, bool> Comaparitor { get; private set; }
-            /// <summary>
-            /// Gets the comaparitor asynchronous.
-            /// </summary>
-            /// <value>
-            /// The comaparitor asynchronous.
-            /// </value>
-            protected Func<T, T, Task<bool>> ComaparitorAsync { get; private set; }
 
             /// <summary>
             /// Gets the comparable value.
@@ -84,37 +76,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 }
             }
             /// <summary>
-            /// Gets the comparable value asynchronous.
-            /// </summary>
-            /// <param name="obj">The object.</param>
-            /// <returns></returns>
-            protected static async Task<IComparable> GetComparableValueAsync(T obj)
-            {
-                if (obj is IComparable comparableObj)
-                {
-                    await Task.CompletedTask;
-                    return comparableObj;
-                }
-                Type t = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
-
-                try
-                {
-                    object convertedObj = Convert.ChangeType(obj, t);
-                    if (convertedObj is IComparable convertedConvertedObj)
-                    {
-                        await Task.CompletedTask;
-                        return convertedConvertedObj;
-                    }
-                    await Task.CompletedTask;
-                    return 0;
-                }
-                catch
-                {
-                    await Task.CompletedTask;
-                    return 0;
-                }
-            }
-            /// <summary>
             /// Compares the specified value.
             /// </summary>
             /// <param name="value">The value.</param>
@@ -123,22 +84,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             private static int Compare(T value, T limit)
             => GetComparableValue(value).CompareTo(GetComparableValue(limit));
 
-
-
-            /// <summary>
-            /// Compares the asynchronous.
-            /// </summary>
-            /// <param name="value">The value.</param>
-            /// <param name="limit">The limit.</param>
-            /// <returns></returns>
-            private static async Task<int> CompareAsync(T value, T limit)
-            {
-                IComparable iValue = await GetComparableValueAsync(value);
-                IComparable iLimit = await GetComparableValueAsync(limit);
-                int compareValue = iValue.CompareTo(iLimit);
-                await Task.CompletedTask;
-                return compareValue;
-            }
 
             /// <summary>
             /// The is equal to
@@ -167,50 +112,22 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
 
 
             /// <summary>
-            /// The is equal to asynchronous
-            /// </summary>
-            protected static Func<T, T, Task<bool>> IsEqualToAsync = async (v, l) => await CompareAsync(v, l) == 0;
-            /// <summary>
-            /// The is not equal asynchronous
-            /// </summary>
-            protected static Func<T, T, Task<bool>> IsNotEqualAsync = async (v, l) => await CompareAsync(v, l) != 0;
-            /// <summary>
-            /// The is greator than asynchronous
-            /// </summary>
-            protected static Func<T, T, Task<bool>> IsGreatorThanAsync = async (v, l) => await CompareAsync(v, l) > 0;
-            /// <summary>
-            /// The is greater than or equal to asynchronous
-            /// </summary>
-            protected static Func<T, T, Task<bool>> IsGreaterThanOrEqualToAsync = async (v, l) => await CompareAsync(v, l) >= 0;
-            /// <summary>
-            /// The is less than asynchronous
-            /// </summary>
-            protected static Func<T, T, Task<bool>> IsLessThanAsync = async (v, l) => await CompareAsync(v, l) < 0;
-            /// <summary>
-            /// The is less than or equal to asynchronous
-            /// </summary>
-            protected static Func<T, T, Task<bool>> IsLessThanOrEqualToAsync = async (v, l) => await CompareAsync(v, l) <= 0;
-
-
-            /// <summary>
             /// Creates the specified selector.
             /// </summary>
             /// <param name="selector">The selector.</param>
             /// <param name="getLimit">The get limit.</param>
             /// <param name="comaparitor">The comaparitor.</param>
-            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <returns></returns>
             private static CompareRule<T> Create(
                 Func<TDbParams, T> selector,
                 Func<TDbParams, T> getLimit,
                 Func<T, T, bool> comaparitor,
-                Func<T, T, Task<bool>> comparitorAsync,
                 string compareType
                 )
             {
                 CompareRule<T> rule = new CompareRule<T>();
-                rule.Init(getLimit, comaparitor, comparitorAsync, compareType);
+                rule.Init(getLimit, comaparitor, compareType);
                 rule.Init(selector, Nullable.GetUnderlyingType(typeof(T)) != null);
                 return rule;
             }
@@ -220,19 +137,17 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="selector">The selector.</param>
             /// <param name="getLimit">The get limit.</param>
             /// <param name="comaparitor">The comaparitor.</param>
-            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <returns></returns>
             private static CompareRule<T> Create(
                 Func<TDbParams, string> selector,
                 Func<TDbParams, T> getLimit,
                 Func<T, T, bool> comaparitor,
-                Func<T, T, Task<bool>> comparitorAsync,
                 string compareType
                 )
             {
                 CompareRule<T> rule = new CompareRule<T>();
-                rule.Init(getLimit, comaparitor, comparitorAsync, compareType);
+                rule.Init(getLimit, comaparitor, compareType);
                 rule.Init(selector, true);
                 return rule;
             }
@@ -242,19 +157,16 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// </summary>
             /// <param name="getLimit">The get limit.</param>
             /// <param name="comaparitor">The comaparitor.</param>
-            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             protected void Init(
                 Func<TDbParams, T> getLimit,
                 Func<T, T, bool> comaparitor,
-                Func<T, T, Task<bool>> comparitorAsync,
                 string compareType
                 )
             {
                 GetLimit = getLimit;
                 CompareType = compareType;
                 Comaparitor = comaparitor;
-                ComaparitorAsync = comparitorAsync;
             }
 
 
@@ -265,7 +177,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsEqual(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsEqualTo, IsEqualToAsync, "to be equal to");
+                => Create(selector, getLimit, IsEqualTo, "to be equal to");
             /// <summary>
             /// Creates the is not equal.
             /// </summary>
@@ -273,7 +185,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsNotEqual(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsNotEqual, IsNotEqualAsync, "to not be equal to");
+                => Create(selector, getLimit, IsNotEqual, "to not be equal to");
             /// <summary>
             /// Creates the is greater than.
             /// </summary>
@@ -281,7 +193,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsGreaterThan(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsGreatorThan, IsGreatorThanAsync, "to be greater than");
+                => Create(selector, getLimit, IsGreatorThan, "to be greater than");
             /// <summary>
             /// Creates the is greater than or equal to.
             /// </summary>
@@ -289,7 +201,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsGreaterThanOrEqualTo(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsGreaterThanOrEqualTo, IsGreaterThanOrEqualToAsync, "to be greater than or equal to");
+                => Create(selector, getLimit, IsGreaterThanOrEqualTo, "to be greater than or equal to");
             /// <summary>
             /// Creates the is less than.
             /// </summary>
@@ -297,7 +209,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsLessThan(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsLessThan, IsLessThanAsync, "to be less than");
+                => Create(selector, getLimit, IsLessThan, "to be less than");
             /// <summary>
             /// Creates the is less than or equal to.
             /// </summary>
@@ -305,7 +217,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsLessThanOrEqualTo(Func<TDbParams, T> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsLessThanOrEqualTo, IsLessThanOrEqualToAsync, "to be less than or equal to");
+                => Create(selector, getLimit, IsLessThanOrEqualTo, "to be less than or equal to");
 
 
             /// <summary>
@@ -315,7 +227,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsEqual(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsEqualTo, IsEqualToAsync, "to be equal to");
+                => Create(selector, getLimit, IsEqualTo, "to be equal to");
             /// <summary>
             /// Creates the is not equal.
             /// </summary>
@@ -323,7 +235,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">Gets The limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsNotEqual(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsNotEqual, IsNotEqualAsync, "to not be equal to");
+                => Create(selector, getLimit, IsNotEqual, "to not be equal to");
             /// <summary>
             /// Creates the is greater than.
             /// </summary>
@@ -331,7 +243,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">The get limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsGreaterThan(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsGreatorThan, IsGreatorThanAsync, "to be greater than");
+                => Create(selector, getLimit, IsGreatorThan, "to be greater than");
             /// <summary>
             /// Creates the is greater than or equal to.
             /// </summary>
@@ -339,7 +251,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">The get limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsGreaterThanOrEqualTo(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsGreaterThanOrEqualTo, IsGreaterThanOrEqualToAsync, "to be greater than or equal to");
+                => Create(selector, getLimit, IsGreaterThanOrEqualTo, "to be greater than or equal to");
             /// <summary>
             /// Creates the is less than.
             /// </summary>
@@ -347,7 +259,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">The get limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsLessThan(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsLessThan, IsLessThanAsync, "to be less than");
+                => Create(selector, getLimit, IsLessThan, "to be less than");
             /// <summary>
             /// Creates the is less than or equal to.
             /// </summary>
@@ -355,7 +267,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="getLimit">The get limit.</param>
             /// <returns></returns>
             public static CompareRule<T> CreateIsLessThanOrEqualTo(Func<TDbParams, string> selector, Func<TDbParams, T> getLimit)
-                => Create(selector, getLimit, IsLessThanOrEqualTo, IsLessThanOrEqualToAsync, "to be less than or equal to");
+                => Create(selector, getLimit, IsLessThanOrEqualTo, "to be less than or equal to");
 
 
             /// <summary>
@@ -382,34 +294,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                     return false;
                 }
                 return Comaparitor((T)ParamsValue, limit);
-            }
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                T limit = GetLimit(paramsModel);
-                if (ParamsValue is string val)
-                {
-                    if (val.TryParse(out T convertedValue))
-                    {
-                        try
-                        {
-                            await Task.CompletedTask;
-                            return Comaparitor(convertedValue, limit);
-                        }
-                        catch
-                        {
-                            await Task.CompletedTask;
-                            return false;
-                        }
-                    }
-                    await Task.CompletedTask;
-                    return false;
-                }
-                return await ComaparitorAsync((T)ParamsValue, limit);
             }
 
             /// <summary>
@@ -460,7 +344,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="selector">The selector.</param>
             /// <param name="getLimit">The get limit.</param>
             /// <param name="comparitor">The comparitor.</param>
-            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
@@ -469,14 +352,13 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 Func<TDbParams, DateTime?> selector,
                 Func<TDbParams, DateTime> getLimit,
                 Func<DateTime, DateTime, bool> comparitor,
-                Func<DateTime, DateTime, Task<bool>> comparitorAsync,
                 string compareType,
                 CultureInfo cultureInfo = null,
                 DateTimeStyles dateTimeStyles = DateTimeStyles.None
                 )
             {
                 CompareDateRule rule = new CompareDateRule();
-                rule.Init(getLimit, comparitor, comparitorAsync, compareType, cultureInfo, dateTimeStyles);
+                rule.Init(getLimit, comparitor, compareType, cultureInfo, dateTimeStyles);
                 rule.Init(selector, true);
                 return rule;
             }
@@ -486,7 +368,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <param name="selector">The selector.</param>
             /// <param name="getLimit">The get limit.</param>
             /// <param name="comparitor">The comparitor.</param>
-            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
@@ -497,7 +378,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 Func<TDbParams, string> selector,
                 Func<TDbParams, DateTime> getLimit,
                 Func<DateTime, DateTime, bool> comparitor,
-                Func<DateTime, DateTime, Task<bool>> comparitorAsync,
                 string compareType,
                 CultureInfo cultureInfo = null,
                 DateTimeStyles dateTimeStyles = DateTimeStyles.None,
@@ -506,7 +386,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 )
             {
                 CompareDateRule rule = new CompareDateRule();
-                rule.Init(getLimit, comparitor, comparitorAsync, compareType, cultureInfo, dateTimeStyles, dateFormat);
+                rule.Init(getLimit, comparitor, compareType, cultureInfo, dateTimeStyles, dateFormat);
                 rule.Init(selector, isNullable);
                 return rule;
             }
@@ -515,7 +395,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// </summary>
             /// <param name="getLimit">The get limit.</param>
             /// <param name="comparitor">The comparitor.</param>
-            /// <param name="comparitorAsync">The comparitor asynchronous.</param>
             /// <param name="compareType">Type of the compare.</param>
             /// <param name="cultureInfo">The culture information.</param>
             /// <param name="dateTimeStyles">The date time styles.</param>
@@ -523,7 +402,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             private void Init(
                 Func<TDbParams, DateTime> getLimit,
                 Func<DateTime, DateTime, bool> comparitor,
-                Func<DateTime, DateTime, Task<bool>> comparitorAsync,
                 string compareType,
                 CultureInfo cultureInfo = null,
                 DateTimeStyles dateTimeStyles = DateTimeStyles.None,
@@ -533,7 +411,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 CultureInfo = cultureInfo is CultureInfo ci ? ci : CultureInfo.InvariantCulture;
                 DateTimeStyles = dateTimeStyles;
                 DateFormat = dateFormat;
-                base.Init(getLimit, comparitor, comparitorAsync, compareType);
+                base.Init(getLimit, comparitor, compareType);
             }
 
             /// <summary>
@@ -546,7 +424,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             public static CompareDateRule CreateIsEqual(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsEqualTo, IsEqualToAsync, "to be equal to", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsEqualTo, "to be equal to", cultureInfo, dateTimeStyles);
             /// <summary>
             /// Creates the is not equal.
             /// </summary>
@@ -557,7 +435,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             public static CompareDateRule CreateIsNotEqual(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsNotEqual, IsNotEqualAsync, "to not be equal to", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsNotEqual, "to not be equal to", cultureInfo, dateTimeStyles);
             /// <summary>
             /// Creates the is after.
             /// </summary>
@@ -568,7 +446,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             public static CompareDateRule CreateIsAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsGreatorThan, IsGreatorThanAsync, "to be after", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsGreatorThan, "to be after", cultureInfo, dateTimeStyles);
             /// <summary>
             /// Creates the is on or after.
             /// </summary>
@@ -579,7 +457,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             public static CompareDateRule CreateIsOnOrAfter(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsGreaterThanOrEqualTo, IsGreaterThanOrEqualToAsync, "to be greater than or equal to", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsGreaterThanOrEqualTo, "to be greater than or equal to", cultureInfo, dateTimeStyles);
             /// <summary>
             /// Creates the is before.
             /// </summary>
@@ -590,7 +468,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             public static CompareDateRule CreateIsBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsLessThan, IsLessThanAsync, "to be less than", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsLessThan, "to be less than", cultureInfo, dateTimeStyles);
             /// <summary>
             /// Creates the is on or before.
             /// </summary>
@@ -601,7 +479,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             public static CompareDateRule CreateIsOnOrBefore(Func<TDbParams, DateTime?> selector, Func<TDbParams, DateTime> getLimit, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsLessThanOrEqualTo, IsLessThanOrEqualToAsync, "to be less than or equal to", cultureInfo, dateTimeStyles);
+                => Create(selector, getLimit, IsLessThanOrEqualTo, "to be less than or equal to", cultureInfo, dateTimeStyles);
 
 
             /// <summary>
@@ -617,7 +495,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             public static CompareDateRule CreateIsEqual(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
                 bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsEqualTo, IsEqualToAsync, "to be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
+                => Create(selector, getLimit, IsEqualTo, "to be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is not equal.
             /// </summary>
@@ -631,7 +509,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             public static CompareDateRule CreateIsNotEqual(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
                 bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsNotEqual, IsNotEqualAsync, "to not be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
+                => Create(selector, getLimit, IsNotEqual, "to not be equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is after.
             /// </summary>
@@ -645,7 +523,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             public static CompareDateRule CreateIsAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
                 bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsGreatorThan, IsGreatorThanAsync, "to be after", cultureInfo, dateTimeStyles, dateFormat, isNullable);
+                => Create(selector, getLimit, IsGreatorThan, "to be after", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is on or after.
             /// </summary>
@@ -659,7 +537,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             public static CompareDateRule CreateIsOnOrAfter(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
                 bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsGreaterThanOrEqualTo, IsGreaterThanOrEqualToAsync, "to be greater than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
+                => Create(selector, getLimit, IsGreaterThanOrEqualTo, "to be greater than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is before.
             /// </summary>
@@ -673,7 +551,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             public static CompareDateRule CreateIsBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
                 bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsLessThan, IsLessThanAsync, "to be less than", cultureInfo, dateTimeStyles, dateFormat, isNullable);
+                => Create(selector, getLimit, IsLessThan, "to be less than", cultureInfo, dateTimeStyles, dateFormat, isNullable);
             /// <summary>
             /// Creates the is on or before.
             /// </summary>
@@ -687,7 +565,7 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             public static CompareDateRule CreateIsOnOrBefore(Func<TDbParams, string> selector, Func<TDbParams, DateTime> getLimit, string dateFormat,
                 bool isNullable = true, CultureInfo cultureInfo = null,
             DateTimeStyles dateTimeStyles = DateTimeStyles.None)
-                => Create(selector, getLimit, IsLessThanOrEqualTo, IsLessThanOrEqualToAsync, "to be less than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
+                => Create(selector, getLimit, IsLessThanOrEqualTo, "to be less than or equal to", cultureInfo, dateTimeStyles, dateFormat, isNullable);
 
 
 
@@ -711,25 +589,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
                 return dateTime;
             }
             /// <summary>
-            /// Gets the date time from string asynchronous.
-            /// </summary>
-            /// <param name="value">The value.</param>
-            /// <returns></returns>
-            private async Task<DateTime?> GetDateTimeFromStringAsync(string value)
-            {
-                DateTime? dateTime = null;
-                DateTime dateTimeParsed;
-                bool isDate = !string.IsNullOrEmpty(DateFormat)
-                ? DateTime.TryParseExact(value, DateFormat, CultureInfo, DateTimeStyles, out dateTimeParsed)
-                : DateTime.TryParse(value, CultureInfo, DateTimeStyles, out dateTimeParsed);
-                if (isDate)
-                {
-                    dateTime = dateTimeParsed;
-                }
-                await Task.CompletedTask;
-                return dateTime;
-            }
-            /// <summary>
             /// Gets the date time.
             /// </summary>
             /// <returns></returns>
@@ -737,45 +596,14 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             {
                 return ParamsValue is DateTime date ? date : ParamsValue is string dateStr ? GetDateTimeFromString(dateStr) : null;
             }
-            /// <summary>
-            /// Gets the date time asynchronous.
-            /// </summary>
-            /// <returns></returns>
-            private async Task<DateTime?> GetDateTimeAsync()
-            {
-                if (ParamsValue is string dateStr)
-                {
-                    return await GetDateTimeFromStringAsync(dateStr);
-                }
-                DateTime? dateTime = null;
-                if (ParamsValue is DateTime date)
-                {
-                    dateTime = date;
-                }
-                await Task.CompletedTask;
-                return dateTime;
-            }
+
             /// <summary>
             /// Validates the rule.
             /// </summary>
             /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
             protected override bool ValidateRule(TDbParams paramsModel)
-            => GetDateTime() is DateTime date ? Comaparitor(date, GetLimit(paramsModel)) : false;
-            /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                DateTime? dateTime = await GetDateTimeAsync();
-                if (dateTime is DateTime date)
-                {
-                    return await ComaparitorAsync(date, GetLimit(paramsModel));
-                }
-                return false;
-            }
+            => GetDateTime() is DateTime date ? Comaparitor(date, GetLimit(paramsModel)) : false;           
 
         }
 

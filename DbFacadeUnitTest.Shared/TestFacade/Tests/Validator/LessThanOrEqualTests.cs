@@ -11,7 +11,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithInvalidStringNum()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LessThanOrEqual(model => model.StringInvalidNum, Double10));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -22,7 +22,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithNonNullableValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LessThanOrEqual(model => model.StringNum, Double11));
                 v.Add(v.Rules.LessThanOrEqual(model => model.Short, Short11));
                 v.Add(v.Rules.LessThanOrEqual(model => model.Int, Int11));
@@ -51,7 +51,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithNonNullableValueFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LessThanOrEqual(model => model.StringNum, Double9));
                 v.Add(v.Rules.LessThanOrEqual(model => model.Short, Short9));
                 v.Add(v.Rules.LessThanOrEqual(model => model.Int, Int9));
@@ -70,7 +70,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LessThanOrEqual(model => model.StringNum, Double11));
                 v.Add(v.Rules.LessThanOrEqual(model => model.ShortOptional, Short11));
                 v.Add(v.Rules.LessThanOrEqual(model => model.IntOptional, Int11));
@@ -99,7 +99,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValueNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LessThanOrEqual(model => model.StringNumNull, Double11));
                 v.Add(v.Rules.LessThanOrEqual(model => model.ShortOptionalNull, Short11));
                 v.Add(v.Rules.LessThanOrEqual(model => model.IntOptionalNull, Int11));
@@ -128,7 +128,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValueFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LessThanOrEqual(model => model.StringNum, Double9));
                 v.Add(v.Rules.LessThanOrEqual(model => model.ShortOptional, Short9));
                 v.Add(v.Rules.LessThanOrEqual(model => model.IntOptional, Int9));

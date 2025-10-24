@@ -1,0 +1,24 @@
+[
+  {
+    "outputFileName": "docfx_project/templates/dbfacade/public/main.css",
+    "inputFiles": [
+      "docfx_project/templates/dbfacade/customization/template.css",
+      "docfx_project/lib/font-awesome/css/all.css"
+    ]
+  },
+  {
+    "outputFileName": "docfx_project/templates/dbfacade/public/app.js",
+    "inputFiles": [
+      "docfx_project/lib/font-awesome/js/all.js",
+      "docfx_project/templates/dbfacade/customization/template.js"
+    ]
+  },
+  {
+    "outputFileName": "docfx_project/templates/dbfacade/public/main.js",
+    "inputFiles": [
+      "docfx_project/templates/dbfacade/customization/main.js"
+    ]
+  }
+
+
+]

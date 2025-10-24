@@ -12,7 +12,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsEmail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -21,7 +21,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsEmailFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.InvalidEmail));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -31,7 +31,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WhitelistEmail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email, new string[] { "gmail.com" }, EmailDomainMode.Whitelist));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -40,7 +40,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WhitelistEmailFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email, new string[] { "hotmail.com" }, EmailDomainMode.Whitelist));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -50,7 +50,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void BlacklistEmail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email, new string[] { "hotmail.com" }, EmailDomainMode.Blacklist));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -59,7 +59,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void BlacklistEmailFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email, new string[] { "gmail.com" }, EmailDomainMode.Blacklist));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -69,7 +69,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsEmailOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -78,7 +78,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsEmailOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.EmailNull, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -87,7 +87,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void IsEmailOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.InvalidEmail, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -97,7 +97,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WhitelistEmailOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email, new string[] { "gmail.com" }, EmailDomainMode.Whitelist, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -106,7 +106,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WhitelistEmailOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.EmailNull, new string[] { "gmail.com" }, EmailDomainMode.Whitelist, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -115,7 +115,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WhitelistEmailOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email, new string[] { "hotmail.com" }, EmailDomainMode.Whitelist, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -125,7 +125,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void BlacklistEmailOptionalValue()
         {            
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email, new string[] { "hotmail.com" }, EmailDomainMode.Blacklist, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -134,7 +134,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void BlacklistEmailOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.EmailNull, new string[] { "hotmail.com" }, EmailDomainMode.Blacklist, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -143,7 +143,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void BlacklistEmailOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Email(model => model.Email, new string[] { "gmail.com" }, EmailDomainMode.Blacklist, true));
             });
             IValidationResult result = Validator.Validate(Parameters);

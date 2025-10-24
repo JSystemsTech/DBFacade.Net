@@ -48,9 +48,8 @@ namespace DbFacade.Utils.UnitTests
             }
             
             done();
-            Assert.True(Metrics.MetricsMap[splitKey] < threshold, $"took {Metrics.MetricsMap[splitKey]} seconds");
-            TestContext.WriteLine($"{splitKey}: Parsing {text} data set took {Metrics.MetricsMap[splitKey]} seconds");
-            Assert.True(true);
+            Assert.That(Metrics.MetricsMap[splitKey] < threshold, Is.True, $"took {Metrics.MetricsMap[splitKey]} seconds");
+            //TestContext.WriteLine($"{splitKey}: Parsing {text} data set took {Metrics.MetricsMap[splitKey]} seconds");
         }
 
         [Test]
@@ -80,9 +79,8 @@ namespace DbFacade.Utils.UnitTests
                 str.TryParseEnumerable(',', out IEnumerable<string> values);
             }
             done();
-            Assert.True(Metrics.MetricsMap[splitKey] < threshold, $"took {Metrics.MetricsMap[splitKey]} seconds");
+            Assert.That(Metrics.MetricsMap[splitKey] < threshold, Is.True, $"took {Metrics.MetricsMap[splitKey]} seconds");
             TestContext.WriteLine($"{splitKey}: Parsing {text} data set took {Metrics.MetricsMap[splitKey]} seconds");
-            Assert.True(true);
         }
 
         [Test]

@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net481;net48;net472;</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net9.0;net8.0;net481;net48;net472;</TargetFrameworks>
     <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
   </PropertyGroup>
   
   <PropertyGroup>
-    <Version>1.13.0</Version>
+    <Version>2.0.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Odbc .NET</Product>
     <Description>A DbFacade extension to build a data connection service to Odbc databases</Description>
-    <Copyright>Copyright © 2024</Copyright>
+    <Copyright>Copyright © 2025</Copyright>
     <PackageId>DbFacade.Odbc</PackageId>
     <Authors>JSystemsTech</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -18,7 +18,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release 1.13.0 Update Dependancies</PackageReleaseNotes>
+    <PackageReleaseNotes>Release 2.0.0 Initial release of DbFacade 2</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
@@ -30,7 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.Odbc" Version="*" />
-    <PackageReference Include="DbFacade" Version="1.13.0" />
+    <PackageReference Include="DbFacade" Version="*"/>
   </ItemGroup>
 
 

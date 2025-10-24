@@ -1,13 +1,12 @@
-﻿using DbFacade.DataLayer.Models.Validators;
+﻿using DbFacade;
+using DbFacade.DataLayer.Models.Validators;
 using System;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo(DbFacadeConstants.UnitTestAssembly)]
 namespace DbFacade.Factories
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed class ValidatorFactory
+    internal sealed class ValidatorFactory
     {
         /// <summary>
         /// Creates the specified validator initializer.
@@ -15,15 +14,14 @@ namespace DbFacade.Factories
         /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
         /// <param name="validatorInitializer">The validator initializer.</param>
         /// <returns></returns>
-        public static IValidator<TDbParams> Create<TDbParams>(Action<IValidator<TDbParams>> validatorInitializer = null)
-        => Validator<TDbParams>.Create(validatorInitializer);
-        /// <summary>
-        /// Creates the asynchronous.
-        /// </summary>
-        /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-        /// <param name="validatorInitializer">The validator initializer.</param>
-        /// <returns></returns>
-        public static async Task<IValidator<TDbParams>> CreateAsync<TDbParams>(Func<IValidator<TDbParams>, Task> validatorInitializer = null)
-        => await Validator<TDbParams>.CreateAsync(validatorInitializer);
+        internal static Validator<TDbParams> Create<TDbParams>(Action<IValidator<TDbParams>> validatorInitializer)
+        {
+            var validator = new Validator<TDbParams>();
+            if(validatorInitializer != null)
+            {
+                validatorInitializer(validator);
+            }
+            return validator;
+        }
     }
 }

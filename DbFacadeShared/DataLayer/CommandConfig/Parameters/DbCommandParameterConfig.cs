@@ -2,94 +2,28 @@
 using System;
 using System.Data;
 using System.Data.SqlTypes;
-using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.CommandConfig.Parameters
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    internal class DbCommandParameterConfig<TDbParams> : IInternalDbCommandParameterConfig<TDbParams>
+    internal class DbCommandParameterConfig<TDbParams>: IDbCommandParameterConfig<TDbParams>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbCommandParameterConfig{TDbParams}"/> class.
-        /// </summary>
         internal DbCommandParameterConfig() { }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbCommandParameterConfig{TDbParams}"/> class.
-        /// </summary>
-        /// <param name="dbType">Type of the database.</param>
-        /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-        protected DbCommandParameterConfig(DbType dbType, bool isNullable = true)
+        internal DbCommandParameterConfig(DbType dbType, bool isNullable = true)
         {
             DbType = dbType;
             IsNullable = isNullable;
             ParameterDirection = ParameterDirection.Input;
         }
 
-        /// <summary>
-        /// Gets or sets the type of the database.
-        /// </summary>
-        /// <value>
-        /// The type of the database.
-        /// </value>
-        public DbType DbType { get; protected set; }
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is nullable.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is nullable; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsNullable { get; set; }
-        /// <summary>
-        /// Gets a value indicating whether this instance is output.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is output; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsOutput { get; private set; }
-        /// <summary>Gets the type of the output.</summary>
-        /// <value>The type of the output.</value>
-        public Type OutputType { get; private set; }
-        /// <summary>
-        /// Gets or sets the size of the output.
-        /// </summary>
-        /// <value>
-        /// The size of the output.
-        /// </value>
-        public int? OutputSize { get; protected set; }
-        /// <summary>
-        /// Gets or sets the parameter direction.
-        /// </summary>
-        /// <value>
-        /// The parameter direction.
-        /// </value>
-        public ParameterDirection ParameterDirection { get; protected set; }
-
-
-        /// <summary>
-        /// Values the specified model.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
-        public virtual object Value(TDbParams model) => null;
-        /// <summary>
-        /// Values the asynchronous.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
-        public virtual async Task<object> ValueAsync(TDbParams model)
-        {
-            await Task.CompletedTask;
-            return null;
-        }
-        /// <summary>
-        /// Gets the type of the database.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        internal DbType DbType { get; set; }
+        internal bool IsNullable { get; set; }
+        internal bool IsOutput { get; private set; }
+        internal Type OutputType { get; private set; }
+        internal int? OutputSize { get; set; }
+        internal ParameterDirection ParameterDirection { get; set; }
+        internal virtual object Value(TDbParams model) => null;
+        
         protected static DbType GetDbType<T>()
         {
             Type t = typeof(T);
@@ -114,12 +48,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
                    t == typeof(SqlXml) ? DbType.Xml :
                    DbType.Object;
         }
-        /// <summary>
-        /// Creates the output.
-        /// </summary>
-        /// <param name="dbType">Type of the database.</param>
-        /// <param name="size">The size.</param>
-        /// <returns></returns>
+        
         internal static DbCommandParameterConfig<TDbParams> CreateOutput<N>(DbType dbType, int? size = null)
         {
             DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>(dbType, true);
@@ -129,121 +58,44 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
             return config;
         }
 
-        /// <summary>
-        /// Creates the return value.
-        /// </summary>
-        /// <returns></returns>
         internal static DbCommandParameterConfig<TDbParams> CreateReturnValue()
         {
             DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>();
             config.ParameterDirection = ParameterDirection.ReturnValue;
             return config;
         }
-        /// <summary>
-        /// Creates the return value asynchronous.
-        /// </summary>
-        /// <returns></returns>
-        internal static async Task<DbCommandParameterConfig<TDbParams>> CreateReturnValueAsync()
-        {
-            DbCommandParameterConfig<TDbParams> config = new DbCommandParameterConfig<TDbParams>();
-            config.ParameterDirection = ParameterDirection.ReturnValue;
-            await Task.CompletedTask;
-            return config;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="N"></typeparam>
+
         internal class DbCommandParameterGenericConfig<N> : DbCommandParameterConfig<TDbParams>
         {
-            /// <summary>
-            /// Prevents a default instance of the <see cref="DbCommandParameterGenericConfig`1"/> class from being created.
-            /// </summary>
             private DbCommandParameterGenericConfig() { }
-            /// <summary>
-            /// Initializes a new instance of the <see cref="DbCommandParameterGenericConfig`1"/> class.
-            /// </summary>
-            /// <param name="dbType">Type of the database.</param>
-            /// <param name="returnFunction">The return function.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
+            
             private DbCommandParameterGenericConfig(DbType dbType, DelegateHandler<TDbParams, N> returnFunction,
                 bool isNullable = true) : base(dbType, isNullable)
             {
                 ReturnFunction = returnFunction;
             }
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="DbCommandParameterGenericConfig`1"/> class.
-            /// </summary>
-            /// <param name="dbType">Type of the database.</param>
-            /// <param name="value">The value.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
             private DbCommandParameterGenericConfig(DbType dbType, N value, bool isNullable = true) : this(dbType,
                 model => value, isNullable)
             { }
 
-            /// <summary>
-            /// Creates the specified database type.
-            /// </summary>
-            /// <param name="dbType">Type of the database.</param>
-            /// <param name="returnFunction">The return function.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <returns></returns>
-            public static DbCommandParameterGenericConfig<N> Create(DbType dbType, DelegateHandler<TDbParams, N> returnFunction, bool isNullable = true)
+            internal static DbCommandParameterGenericConfig<N> Create(DbType dbType, DelegateHandler<TDbParams, N> returnFunction, bool isNullable = true)
                 => new DbCommandParameterGenericConfig<N>(dbType, returnFunction, isNullable);
-            /// <summary>
-            /// Creates the specified database type.
-            /// </summary>
-            /// <param name="dbType">Type of the database.</param>
-            /// <param name="value">The value.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <returns></returns>
-            public static DbCommandParameterGenericConfig<N> Create(DbType dbType, N value, bool isNullable = true)
+            
+            internal static DbCommandParameterGenericConfig<N> Create(DbType dbType, N value, bool isNullable = true)
                 => new DbCommandParameterGenericConfig<N>(dbType, value, isNullable);
-            /// <summary>
-            /// Creates the specified return function.
-            /// </summary>
-            /// <param name="returnFunction">The return function.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <returns></returns>
-            public static DbCommandParameterGenericConfig<N> Create(DelegateHandler<TDbParams, N> returnFunction, bool isNullable = true)
+            
+            internal static DbCommandParameterGenericConfig<N> Create(DelegateHandler<TDbParams, N> returnFunction, bool isNullable = true)
                 => Create(GetDbType<N>(), returnFunction, isNullable);
-            /// <summary>
-            /// Creates the specified value.
-            /// </summary>
-            /// <param name="value">The value.</param>
-            /// <param name="isNullable">if set to <c>true</c> [is nullable].</param>
-            /// <returns></returns>
-            public static DbCommandParameterGenericConfig<N> Create(N value, bool isNullable = true)
+            
+            internal static DbCommandParameterGenericConfig<N> Create(N value, bool isNullable = true)
                 => Create(GetDbType<N>(), value, isNullable);
 
-            /// <summary>
-            /// Gets or sets the return function.
-            /// </summary>
-            /// <value>
-            /// The return function.
-            /// </value>
             private DelegateHandler<TDbParams, N> ReturnFunction { get; set; }
 
-            /// <summary>
-            /// Values the specified model.
-            /// </summary>
-            /// <param name="model">The model.</param>
-            /// <returns></returns>
-            public sealed override object Value(TDbParams model)
+            internal sealed override object Value(TDbParams model)
             {
                 return ReturnFunction(model);
-            }
-            /// <summary>
-            /// Values the asynchronous.
-            /// </summary>
-            /// <param name="model">The model.</param>
-            /// <returns></returns>
-            public sealed override async Task<object> ValueAsync(TDbParams model)
-            {
-                N value = ReturnFunction(model);
-                await Task.CompletedTask;
-                return value;
             }
         }
     }

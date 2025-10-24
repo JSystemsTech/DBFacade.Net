@@ -200,7 +200,7 @@ namespace DbFacade.Utils.UnitTests
                 return (First, Middle, Last);
             };
             bool addedConverter = resolver.TryRegisterConverter();
-            Assert.IsTrue(addedConverter);
+            Assert.That(addedConverter, Is.True);
             Utils.RegisterInstanceBuilder<TestClass3>(() => new TestClass3());
         } 
     }

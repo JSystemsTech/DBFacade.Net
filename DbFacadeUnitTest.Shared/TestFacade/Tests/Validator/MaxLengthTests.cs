@@ -11,7 +11,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MaxLength()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.MaxLength(model => model.String, 20));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -20,7 +20,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MaxLengthFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.MaxLength(model => model.String, 10));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -30,7 +30,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MaxLengthOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.MaxLength(model => model.String, 20, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -39,7 +39,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MaxLengthOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.MaxLength(model => model.StringNumNull, 10, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -48,7 +48,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MaxLengthOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.MaxLength(model => model.String, 10, true));
             });
             IValidationResult result = Validator.Validate(Parameters);

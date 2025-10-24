@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.Models.Validators.Rules
 {
@@ -36,16 +35,6 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             {
-                return $"is required.";
-            }
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                await Task.CompletedTask;
                 return $"is required.";
             }
         }

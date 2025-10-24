@@ -1,0 +1,18 @@
+﻿CREATE TABLE [dbo].[ContactInfo]
+(
+	[Id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[Guid] UNIQUEIDENTIFIER ROWGUIDCOL NOT NULL DEFAULT NEWID(),
+	[EmployeeId] INT NOT NULL UNIQUE,
+	[AddressLine1] NVARCHAR(50) NOT NULL,
+	[AddressLine2] NVARCHAR(20) NULL,
+	[AddressCity] NVARCHAR(20) NOT NULL,
+	[AddressState] NVARCHAR(20) NOT NULL,	
+	[AddressZIP] NVARCHAR(5) NOT NULL,	
+	[HomePhone] NVARCHAR(10) NULL,
+	[MobilePhone] NVARCHAR(10) NULL,
+	[Email] NVARCHAR(256) NULL,
+	[IsActive] BIT NOT NULL DEFAULT(1),
+	[CreateDate] DATETIME NOT NULL DEFAULT GETDATE(),
+	[UpdateDate] DATETIME NULL, 
+    CONSTRAINT [FK_ContactInfo_EmployeeId] FOREIGN KEY ([EmployeeId]) REFERENCES [dbo].[Employee]([Id])
+)

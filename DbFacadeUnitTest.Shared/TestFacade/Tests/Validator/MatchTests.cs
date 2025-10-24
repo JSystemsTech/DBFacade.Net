@@ -12,7 +12,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void Match()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Match(model => model.FormatedString, "Formatted[0-9]{10}"));
                 v.Add(v.Rules.Match(model => model.FormatedString.ToLower(), "Formatted[0-9]{10}", RegexOptions.IgnoreCase));
             });
@@ -22,7 +22,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MatchFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Match(model => model.FormatedString, "Bad[0-9]{10}"));
                 v.Add(v.Rules.Match(model => model.FormatedString.ToLower(), "Bad[0-9]{10}", RegexOptions.IgnoreCase));
             });
@@ -33,7 +33,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MatchOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Match(model => model.FormatedString, "Formatted[0-9]{10}", true));
                 v.Add(v.Rules.Match(model => model.FormatedString.ToLower(), "Formatted[0-9]{10}", RegexOptions.IgnoreCase, true));
             });
@@ -43,7 +43,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MatchOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Match(model => model.StringNumNull, "Formatted[0-9]{10}", true));
                 v.Add(v.Rules.Match(model => model.StringNumNull, "Formatted[0-9]{10}", RegexOptions.IgnoreCase, true));
             });
@@ -53,7 +53,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void MatchOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Match(model => model.FormatedString, "Bad[0-9]{10}", true));
                 v.Add(v.Rules.Match(model => model.FormatedString.ToLower(), "Bad[0-9]{10}", RegexOptions.IgnoreCase, true));
             });

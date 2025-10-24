@@ -1,0 +1,98 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../../../",
+          "files": [
+            "DBFacade.Net/DBFacade2/**.csproj",
+            "DBFacade.Net/DBFacade.Oracle/**.csproj",
+            "DBFacade.Net/DBFacade.OleDb/**.csproj",
+            "DBFacade.Net/DBFacade.Odbc/**.csproj",
+            "DBFacade.Net/DBFacade.SQLite/**.csproj"
+          ],
+          "exclude": [
+            "**/obj/**",
+            "**/bin/**"
+          ]
+        }
+      ],
+      "dest": "api",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/**.yml",
+          "api/index.md",
+          "articles/**.md",
+          "GettingStarted/**.md",
+          "RealisticExample/**.md",
+          "RealisticExample/**/**.md",
+          "toc.yml",
+          "*.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**",
+          "docsv1/**",
+          "coverage/**",
+          "CodeExamples/**",
+          "RealisticExample/ProjectFiles/**",
+          "favicon.ico"
+        ],
+        "dest": ""
+      },
+      {
+        "files": [
+          "lib/font-awesome/webfonts/**"
+        ],
+        "dest": ""
+      },
+      {
+        "files": [
+          "lib/font-awesome/webfonts/**"
+        ],
+        "dest": ""
+      }
+    ],
+    "overwrite": [
+      {
+        "files": [
+          "api/**.md"
+        ],
+        "exclude": [
+          "obj/**",
+          "docs/**"
+        ]
+      }
+    ],
+    "dest": "docs",
+    "globalMetadata": {
+      "_appTitle": "DbFacade",
+      "_appName": "DbFacade",
+      "_appLogoPath": "images/icon.jpg",
+      "_appFooter": "Copyright &copy; JSystemsTech 2025",
+      "_enableSearch": "true"
+
+    },
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default",
+      "templates/dbfacade"
+    ],
+    "postProcessors": [ "ExtractSearchIndex" ],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false
+  }
+}

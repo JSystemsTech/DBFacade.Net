@@ -13,17 +13,8 @@ namespace DbFacade.Factories
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
     public sealed class ValidationRuleFactory<TDbParams>
     {
+        internal static ValidationRuleFactory<TDbParams> Instance = new ValidationRuleFactory<TDbParams>();
 
-        /// <summary>
-        /// Creates the factory asynchronous.
-        /// </summary>
-        /// <returns></returns>
-        public static async Task<ValidationRuleFactory<TDbParams>> CreateFactoryAsync()
-        {
-            ValidationRuleFactory<TDbParams> rules = new ValidationRuleFactory<TDbParams>();
-            await Task.CompletedTask;
-            return rules;
-        }
         #region Compare        
         /// <summary>
         /// Equalses the specified selector.

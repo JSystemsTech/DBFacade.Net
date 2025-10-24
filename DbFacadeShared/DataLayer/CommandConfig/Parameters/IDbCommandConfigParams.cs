@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace DbFacade.DataLayer.CommandConfig.Parameters
@@ -10,7 +11,7 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
     /// 
     /// </summary>
     /// <typeparam name="TDbParams">The type of the database parameters.</typeparam>
-    public interface IDbCommandConfigParams<TDbParams> : IEnumerable, IDictionary<string, IDbCommandParameterConfig<TDbParams>>
+    public interface IDbCommandConfigParams<TDbParams>
     {
         /// <summary>
         /// Gets the factory.
@@ -19,12 +20,10 @@ namespace DbFacade.DataLayer.CommandConfig.Parameters
         /// The factory.
         /// </value>
         DbCommandParameterConfigFactory<TDbParams> Factory { get; }
-        /// <summary>
-        /// Adds the asynchronous.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
-        Task AddAsync(string key, IDbCommandParameterConfig<TDbParams> value);
+
+        /// <summary>Adds the specified name.</summary>
+        /// <param name="name">The name.</param>
+        /// <param name="parametersInitializer">The parameters initializer.</param>
+        void Add(string name, IDbCommandParameterConfig<TDbParams> value);
     }
 }

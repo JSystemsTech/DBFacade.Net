@@ -11,7 +11,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void LengthEquals()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LengthEquals(model => model.String, 14));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -20,7 +20,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void LengthEqualsFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LengthEquals(model => model.String, 20));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -30,7 +30,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void LengthEqualsOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LengthEquals(model => model.String, 14, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -39,7 +39,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void LengthEqualsOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LengthEquals(model => model.StringNumNull, 14, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -48,7 +48,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void LengthEqualsOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.LengthEquals(model => model.String, 20, true));
             });
             IValidationResult result = Validator.Validate(Parameters);

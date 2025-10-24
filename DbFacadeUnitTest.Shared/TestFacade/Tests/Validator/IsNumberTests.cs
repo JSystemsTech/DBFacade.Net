@@ -11,7 +11,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringNum()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNumber(model => model.StringNum));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -20,7 +20,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringNumFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNumber(model => model.StringInvalidNum));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -30,7 +30,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptional()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNumber(model => model.StringNum, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -39,7 +39,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNumber(model => model.StringNumNull, true));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -48,7 +48,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsNumber(model => model.StringInvalidNum, true));
             });
             IValidationResult result = Validator.Validate(Parameters);

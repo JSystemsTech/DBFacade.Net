@@ -1,6 +1,4 @@
-﻿using DbFacade.Utils;
-using System;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace DbFacade.DataLayer.Models.Validators.Rules
 {
@@ -58,36 +56,12 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             => DelegateRuleHandler((T)ParamsValue);
 
             /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool result = DelegateRuleHandler((T)ParamsValue);
-                await Task.CompletedTask;
-                return result;
-            }
-
-            /// <summary>
             /// Gets the error message core.
             /// </summary>
             /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             => $"expecting delegate to pass validation";
-
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                string message = $"expecting delegate to pass validation";
-                await Task.CompletedTask;
-                return message;
-            }
 
 
         }
@@ -136,36 +110,12 @@ namespace DbFacade.DataLayer.Models.Validators.Rules
             => DelegateRuleHandler((TDbParams)ParamsValue);
 
             /// <summary>
-            /// Validates the rule asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<bool> ValidateRuleAsync(TDbParams paramsModel)
-            {
-                bool result = DelegateRuleHandler((TDbParams)ParamsValue);
-                await Task.CompletedTask;
-                return result;
-            }
-
-            /// <summary>
             /// Gets the error message core.
             /// </summary>
             /// <param name="paramsModel">The parameters model.</param>
             /// <returns></returns>
             protected override string GetErrorMessageCore(TDbParams paramsModel)
             => ErrorMessageHandler();
-
-            /// <summary>
-            /// Gets the error message core asynchronous.
-            /// </summary>
-            /// <param name="paramsModel">The parameters model.</param>
-            /// <returns></returns>
-            protected override async Task<string> GetErrorMessageCoreAsync(TDbParams paramsModel)
-            {
-                string message = ErrorMessageHandler();
-                await Task.CompletedTask;
-                return message;
-            }
         }
     }
 }

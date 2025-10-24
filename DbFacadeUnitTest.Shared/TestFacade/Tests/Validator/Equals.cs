@@ -11,7 +11,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithInvalidStringNum()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Equals(model => model.StringInvalidNum, Double10));
             });
             IValidationResult result = Validator.Validate(Parameters);
@@ -22,7 +22,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithNonNullableValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Equals(model => model.StringNum, Double10));
                 v.Add(v.Rules.Equals(model => model.Short, Short10));
                 v.Add(v.Rules.Equals(model => model.Int, Int10));
@@ -40,7 +40,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithNonNullableValueFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Equals(model => model.StringNum, Double11));
                 v.Add(v.Rules.Equals(model => model.Short, Short11));
                 v.Add(v.Rules.Equals(model => model.Int, Int11));
@@ -59,7 +59,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValue()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Equals(model => model.StringNum, Double10));
                 v.Add(v.Rules.Equals(model => model.ShortOptional, Short10));
                 v.Add(v.Rules.Equals(model => model.IntOptional, Int10));
@@ -77,7 +77,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValueNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Equals(model => model.StringNumNull, Double10));
                 v.Add(v.Rules.Equals(model => model.ShortOptionalNull, Short10));
                 v.Add(v.Rules.Equals(model => model.IntOptionalNull, Int10));
@@ -95,7 +95,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalValueFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.Equals(model => model.StringNum, Double11));
                 v.Add(v.Rules.Equals(model => model.ShortOptional, Short11));
                 v.Add(v.Rules.Equals(model => model.IntOptional, Int11));

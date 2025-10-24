@@ -1,0 +1,1 @@
+﻿[!code-sql[](~/RealisticExample/ProjectFiles/database/dbo/Tables/Department.sql)]

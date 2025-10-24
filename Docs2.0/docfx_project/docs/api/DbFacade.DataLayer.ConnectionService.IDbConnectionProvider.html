@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IDbConnectionProvider | DbFacade </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IDbConnectionProvider | DbFacade ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+
+
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/JSystemsTech/DBFacade.Net/new/master/apiSpec/new?filename=DbFacade_DataLayer_ConnectionService_IDbConnectionProvider.md&amp;value=---%0Auid%3A%20DbFacade.DataLayer.ConnectionService.IDbConnectionProvider%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+      <script type="module" src="./../public/app.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md bg-primary" role="navigation" data-bs-theme="dark">
+        <div class="container-fluid flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/icon.jpg" alt="DbFacade">
+            DbFacade
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-fluid px-lg-5">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider">
+
+
+
+  <h1 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider" class="text-break">
+Interface IDbConnectionProvider  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="DbFacade.html">DbFacade</a>.<a class="xref" href="DbFacade.DataLayer.html">DataLayer</a>.<a class="xref" href="DbFacade.DataLayer.ConnectionService.html">ConnectionService</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>DbFacade2.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IDbConnectionProvider</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.AccessorExtensions.html#DbFacade_Extensions_AccessorExtensions_ToDataCollection__1___0_">AccessorExtensions.ToDataCollection&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.AccessorExtensions.html#DbFacade_Extensions_AccessorExtensions_ToDataCollection__1___0_System_Action_DbFacade_DataLayer_Models_ParameterDataCollection___0___">AccessorExtensions.ToDataCollection&lt;T&gt;(T, Action&lt;ParameterDataCollection&lt;T&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.AccessorExtensions.html#DbFacade_Extensions_AccessorExtensions_ToDataCollection__2___0_">AccessorExtensions.ToDataCollection&lt;T, TAttribute&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="DbFacade.Extensions.AccessorExtensions.html#DbFacade_Extensions_AccessorExtensions_TryGetValue__1___0_System_String_System_Object__">AccessorExtensions.TryGetValue&lt;T&gt;(T, string, out object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_DbConnectionConfig_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.DbConnectionConfig*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_DbConnectionConfig" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.DbConnectionConfig">
+  DbConnectionConfig
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DbConnectionConfig DbConnectionConfig { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="DbFacade.DataLayer.ConnectionService.DbConnectionConfig.html">DbConnectionConfig</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_DbTypeCollection_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.DbTypeCollection*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_DbTypeCollection" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.DbTypeCollection">
+  DbTypeCollection
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DbTypeCollection DbTypeCollection { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="DbFacade.DataLayer.Models.DbTypeCollection.html">DbTypeCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BeginTransaction_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BeginTransaction*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BeginTransaction_System_Data_IDbConnection_System_Data_IsolationLevel_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BeginTransaction(System.Data.IDbConnection,System.Data.IsolationLevel)">
+  BeginTransaction(IDbConnection, IsolationLevel)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IDbTransaction BeginTransaction(IDbConnection connection, IsolationLevel isolationLevel)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connection</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></dt>
+    <dd></dd>
+    <dt><code>isolationLevel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.isolationlevel">IsolationLevel</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbtransaction">IDbTransaction</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BeginTransactionAsync_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BeginTransactionAsync*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BeginTransactionAsync_System_Data_IDbConnection_System_Threading_CancellationToken_System_Data_IsolationLevel_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BeginTransactionAsync(System.Data.IDbConnection,System.Threading.CancellationToken,System.Data.IsolationLevel)">
+  BeginTransactionAsync(IDbConnection, CancellationToken, IsolationLevel)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;IDbTransaction&gt; BeginTransactionAsync(IDbConnection connection, CancellationToken cancellationToken, IsolationLevel isolationLevel)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connection</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+    <dt><code>isolationLevel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.isolationlevel">IsolationLevel</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbtransaction">IDbTransaction</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BindConnectionString_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BindConnectionString*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BindConnectionString_System_Func_System_String_System_String__" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BindConnectionString(System.Func{System.String,System.String})">
+  BindConnectionString(Func&lt;string, string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void BindConnectionString(Func&lt;string, string&gt; getConnectionString)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>getConnectionString</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BindConnectionString_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BindConnectionString*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BindConnectionString_System_String_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BindConnectionString(System.String)">
+  BindConnectionString(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void BindConnectionString(string connectionString)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionString</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BindErrorHandler_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BindErrorHandler*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_BindErrorHandler_System_Action_DbFacade_DataLayer_ConnectionService_EndpointErrorInfo__" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.BindErrorHandler(System.Action{DbFacade.DataLayer.ConnectionService.EndpointErrorInfo})">
+  BindErrorHandler(Action&lt;EndpointErrorInfo&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void BindErrorHandler(Action&lt;EndpointErrorInfo&gt; errorHandler)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>errorHandler</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="DbFacade.DataLayer.ConnectionService.EndpointErrorInfo.html">EndpointErrorInfo</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_CanExecuteXmlReader_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.CanExecuteXmlReader*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_CanExecuteXmlReader_System_Data_IDbCommand_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.CanExecuteXmlReader(System.Data.IDbCommand)">
+  CanExecuteXmlReader(IDbCommand)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool CanExecuteXmlReader(IDbCommand command)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteNonQuery_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteNonQuery*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteNonQuery_System_Data_IDbCommand_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteNonQuery(System.Data.IDbCommand)">
+  ExecuteNonQuery(IDbCommand)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int ExecuteNonQuery(IDbCommand command)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteNonQueryAsync_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteNonQueryAsync*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteNonQueryAsync_System_Data_IDbCommand_System_Threading_CancellationToken_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteNonQueryAsync(System.Data.IDbCommand,System.Threading.CancellationToken)">
+  ExecuteNonQueryAsync(IDbCommand, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;int&gt; ExecuteNonQueryAsync(IDbCommand command, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteReader_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteReader*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteReader_System_Data_IDbCommand_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteReader(System.Data.IDbCommand)">
+  ExecuteReader(IDbCommand)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DbDataReader ExecuteReader(IDbCommand command)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbdatareader">DbDataReader</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteReaderAsync_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteReaderAsync*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteReaderAsync_System_Data_IDbCommand_System_Threading_CancellationToken_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteReaderAsync(System.Data.IDbCommand,System.Threading.CancellationToken)">
+  ExecuteReaderAsync(IDbCommand, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;DbDataReader&gt; ExecuteReaderAsync(IDbCommand command, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbdatareader">DbDataReader</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteScalar_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteScalar*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteScalar_System_Data_IDbCommand_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteScalar(System.Data.IDbCommand)">
+  ExecuteScalar(IDbCommand)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">object ExecuteScalar(IDbCommand command)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteScalarAsync_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteScalarAsync*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteScalarAsync_System_Data_IDbCommand_System_Threading_CancellationToken_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteScalarAsync(System.Data.IDbCommand,System.Threading.CancellationToken)">
+  ExecuteScalarAsync(IDbCommand, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;object&gt; ExecuteScalarAsync(IDbCommand command, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteXmlReader_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteXmlReader*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteXmlReader_System_Data_IDbCommand_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteXmlReader(System.Data.IDbCommand)">
+  ExecuteXmlReader(IDbCommand)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">XmlReader ExecuteXmlReader(IDbCommand command)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.xml.xmlreader">XmlReader</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteXmlReaderAsync_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteXmlReaderAsync*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ExecuteXmlReaderAsync_System_Data_IDbCommand_System_Threading_CancellationToken_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ExecuteXmlReaderAsync(System.Data.IDbCommand,System.Threading.CancellationToken)">
+  ExecuteXmlReaderAsync(IDbCommand, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;XmlReader&gt; ExecuteXmlReaderAsync(IDbCommand command, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbcommand">IDbCommand</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.xml.xmlreader">XmlReader</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_GetDbConnection_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.GetDbConnection*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_GetDbConnection_System_String_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.GetDbConnection(System.String)">
+  GetDbConnection(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IDbConnection GetDbConnection(string conectionStringId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>conectionStringId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbconnection">IDbConnection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_GetDbDataAdapter_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.GetDbDataAdapter*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_GetDbDataAdapter" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.GetDbDataAdapter">
+  GetDbDataAdapter()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IDbDataAdapter GetDbDataAdapter()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.idbdataadapter">IDbDataAdapter</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_OnError_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.OnError*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_OnError_DbFacade_DataLayer_ConnectionService_EndpointErrorInfo_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.OnError(DbFacade.DataLayer.ConnectionService.EndpointErrorInfo)">
+  OnError(EndpointErrorInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void OnError(EndpointErrorInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="DbFacade.DataLayer.ConnectionService.EndpointErrorInfo.html">EndpointErrorInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ResolveParameterName_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ResolveParameterName*"></a>
+
+  <h3 id="DbFacade_DataLayer_ConnectionService_IDbConnectionProvider_ResolveParameterName_System_String_System_Boolean_" data-uid="DbFacade.DataLayer.ConnectionService.IDbConnectionProvider.ResolveParameterName(System.String,System.Boolean)">
+  ResolveParameterName(string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string ResolveParameterName(string name, bool useFullParameterName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>useFullParameterName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/ConnectionService/ConnectionOptions.cs/#L19" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-fluid search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-fluid">
+        <div class="flex-fill">
+          Copyright &copy; JSystemsTech 2025
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

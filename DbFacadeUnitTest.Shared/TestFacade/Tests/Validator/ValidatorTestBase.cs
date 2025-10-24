@@ -1,5 +1,8 @@
 ﻿using DbFacade.DataLayer.Models.Validators;
+using DbFacade.Factories;
+using DbFacadeUnitTests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,23 +41,6 @@ namespace DbFacadeUnitTests.Tests.Validator
             Assert.AreEqual(expectedErrorCount, result.Errors.Count());
             await Task.CompletedTask;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         protected void IsValid(Task<IValidationResult> task)
         {
             task.Wait();
@@ -70,5 +56,8 @@ namespace DbFacadeUnitTests.Tests.Validator
             task.Wait();
             Assert.AreEqual(expectedErrorCount, task.Result.Errors.Count());
         }
+
+        internal Validator<T> MakeValidator<T>(Action<IValidator<T>> initializer)
+        => ValidatorFactory.Create(initializer);
     }
 }

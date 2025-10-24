@@ -11,7 +11,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringNum()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsDateTime(model => model.DateTimeString));
                 v.Add(v.Rules.IsDateTime(model => model.DateTimeStringAlt, DateFormatAlt));
             });
@@ -21,7 +21,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithStringNumFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsDateTime(model => model.StringInvalidDate));
                 v.Add(v.Rules.IsDateTime(model => model.StringInvalidDate, DateFormatAlt));
             });
@@ -32,7 +32,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptional()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsDateTime(model => model.DateTimeString, null, true));
                 v.Add(v.Rules.IsDateTime(model => model.DateTimeStringAlt, DateFormatAlt, true));
             });
@@ -42,7 +42,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalNull()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsDateTime(model => model.StringNumNull, null, true));
                 v.Add(v.Rules.IsDateTime(model => model.StringNumNull, DateFormatAlt, true));
             });
@@ -52,7 +52,7 @@ namespace DbFacadeUnitTests.Tests.Validator
         [TestMethod]
         public void WithOptionalFail()
         {
-            IValidator<UnitTestDbParams> Validator = ValidatorFactory.Create<UnitTestDbParams>(v => {
+            var Validator = MakeValidator<UnitTestDbParams>(v => {
                 v.Add(v.Rules.IsDateTime(model => model.StringInvalidDate, null, true));
                 v.Add(v.Rules.IsDateTime(model => model.StringInvalidDate, DateFormatAlt, true));
             });

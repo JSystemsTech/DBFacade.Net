@@ -5,20 +5,6 @@ using System.Threading.Tasks;
 
 namespace DbFacadeUnitTests.Models
 {
-    interface IUnitTestDbParamsModel
-    {
-        bool IsValidModel { get; }
-        bool StopAtStep1 { get; }
-        bool StopAtStep2 { get; }
-        bool StopAtStep3 { get; }
-    }
-    public class UnitTestDbParamsForManager : IUnitTestDbParamsModel
-    {
-        public bool IsValidModel { get; internal set; }
-        public bool StopAtStep1 { get; internal set; }
-        public bool StopAtStep2 { get; internal set; }
-        public bool StopAtStep3 { get; internal set; }
-    }
     public class UnitTestDbParams
     {
         public object Null = null;
@@ -87,10 +73,6 @@ namespace DbFacadeUnitTests.Models
         public string GetStringValue(string value = null) {
             return value;
         }
-        public async Task<string> GetStringValueAsync(string value = null)
-        {
-            await Task.CompletedTask;
-            return value;
-        }
+        public string CustomString { get; set; }
     }
 }

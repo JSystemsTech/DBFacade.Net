@@ -14,25 +14,25 @@ namespace DbFacade.Utils.UnitTests
             base.Setup();
             Metrics.Clear();
         }
-        private void AssertHasColumn(DataTable dt, string columnName)
+        private static void AssertHasColumn(DataTable dt, string columnName)
         {
-            Assert.IsTrue(dt.Columns.Contains(columnName), $"data table does not contain expected column '{columnName}'");
+            Assert.That(dt.Columns.Contains(columnName), Is.True, $"data table does not contain expected column '{columnName}'");
         }
-        private void AssertHasValue(DataRow row, string columnName, object expected)
+        private static void AssertHasValue(DataRow row, string columnName, object expected)
         {
             object actual = row[columnName] == DBNull.Value ? null: row[columnName];
             Assert.That(actual, Is.EqualTo(expected));
         }
-        private void AssertTryGetValue<T>(DataRow row, string columnName, T expected)
+        private static void AssertTryGetValue<T>(DataRow row, string columnName, T expected)
         {
             bool success = row.TryGetValue(columnName, out T actual);
-            Assert.IsTrue(success, $"unable to find or parse key '{columnName}'");
+            Assert.That(success, Is.True, $"unable to find or parse key '{columnName}'");
             Assert.That(actual, Is.EqualTo(expected));
         }
-        private void AssertTryGetEnumerable<T>(DataRow row, string columnName, IEnumerable<T> expected)
+        private static void AssertTryGetEnumerable<T>(DataRow row, string columnName, IEnumerable<T> expected)
         {
             bool success = row.TryGetEnumerable(columnName, out IEnumerable<T> actual);
-            Assert.IsTrue(success, $"unable to find or parse key '{columnName}'");
+            Assert.That(success, Is.True, $"unable to find or parse key '{columnName}'");
             Assert.That(actual.Count(), Is.EqualTo(expected.Count()));
             for (int i = 0; i < actual.Count(); i++)
             {
@@ -69,14 +69,14 @@ namespace DbFacade.Utils.UnitTests
         {
             var list = new ResponseData[] { new ResponseData { MyString = "test string", MyEnum = 1 } };
             bool success = list.TryGetDataTable(out DataTable dt);
-            Assert.IsTrue(success, $"expected collection parser to generate a Data Table");
+            Assert.That(success, Is.True, $"expected collection parser to generate a Data Table");
             Assert.That(dt.Rows.Count, Is.EqualTo(1));
 
         }
         [Test]
         public void TestTryGetDataTable() {
             bool success = TestClassForCollection.List.TryGetDataTable(out DataTable dt);
-            Assert.IsTrue(success, $"expected collection parser to generate a Data Table");
+            Assert.That(success, Is.True, $"expected collection parser to generate a Data Table");
             Assert.That(dt.Rows.Count, Is.EqualTo(4));
 
             AssertHasColumn(dt, "String");
@@ -112,7 +112,7 @@ namespace DbFacade.Utils.UnitTests
         {
             ITestData expectedModel = new TestData() { Num = 2 };
             bool success = new ITestData[] { expectedModel }.TryGetDataTable(out DataTable dt);
-            Assert.IsTrue(success, $"expected collection parser to generate a Data Table");
+            Assert.That(success, Is.True, $"expected collection parser to generate a Data Table");
             Assert.That(dt.Rows.Count, Is.EqualTo(1));
 
             AssertHasColumn(dt, "Num");
@@ -124,7 +124,7 @@ namespace DbFacade.Utils.UnitTests
         {
             object expectedModel = new  { Num = 2 };
             bool success = new object[] { expectedModel }.TryGetDataTable(out DataTable dt);
-            Assert.IsTrue(success, $"expected collection parser to generate a Data Table");
+            Assert.That(success, Is.True, $"expected collection parser to generate a Data Table");
             Assert.That(dt.Rows.Count, Is.EqualTo(1));
 
             AssertHasColumn(dt, "Num");
@@ -162,7 +162,7 @@ namespace DbFacade.Utils.UnitTests
                 UserName expectedModel = UserName.List.ElementAt(i);
                 DataRow row = dt.Rows[i];
                 UserName actualModel = Utils.MakeInstance<UserName>(row);
-                Assert.IsTrue(actualModel != null, $"expected collection parser to generate a UserName object");
+                Assert.That(actualModel != null, Is.True, $"expected collection parser to generate a UserName object");
                 Assert.That(actualModel.First, Is.EqualTo(expectedModel.First));
                 Assert.That(actualModel.Middle, Is.EqualTo(expectedModel.Middle));
                 Assert.That(actualModel.Last, Is.EqualTo(expectedModel.Last));
@@ -185,7 +185,7 @@ namespace DbFacade.Utils.UnitTests
                 UserName expectedModel = UserName.List.ElementAt(i);
                 DataRow row = dt.Rows[i];
                 UserName actualModel = Utils.MakeInstance<UserName>(row);
-                Assert.IsTrue(actualModel != null, $"expected collection parser to generate a UserName object");
+                Assert.That(actualModel != null, Is.True, $"expected collection parser to generate a UserName object");
                 Assert.That(actualModel.First, Is.EqualTo("First"));
                 Assert.That(actualModel.Middle, Is.EqualTo(null));
                 Assert.That(actualModel.Last, Is.EqualTo("Last"));
@@ -201,7 +201,7 @@ namespace DbFacade.Utils.UnitTests
                 { "Last", UserName.Value1.Last }
             };
             UserName actualModel = Utils.MakeInstance<UserName>(data);
-            Assert.IsTrue(actualModel != null, $"expected collection parser to generate a UserName object");
+            Assert.That(actualModel != null, Is.True, $"expected collection parser to generate a UserName object");
 
             Assert.That(actualModel.First, Is.EqualTo(UserName.Value1.First));
             Assert.That(actualModel.Middle, Is.EqualTo(UserName.Value1.Middle));
@@ -218,7 +218,7 @@ namespace DbFacade.Utils.UnitTests
                 { "StrList", "1,2,3,4,5,6,7,8,9" }
             };
             bool success = Utils.TryMakeInstance(out TestClass2 actualModel, data);
-            Assert.IsTrue(success, $"expected collection parser to generate a UserName object");
+            Assert.That(success, Is.True, $"expected collection parser to generate a UserName object");
 
             Assert.That(actualModel.String, Is.EqualTo(TestClass2.Value1.String));
             Assert.That(actualModel.Integer, Is.EqualTo(TestClass2.Value1.Integer));
@@ -235,7 +235,7 @@ namespace DbFacade.Utils.UnitTests
                 { "Last", UserName.Value1.Last }
             };
             UserName actualModel = Utils.MakeInstance<UserName>(data);
-            Assert.IsTrue(actualModel != null, $"expected collection parser to generate a UserName object");
+            Assert.That(actualModel != null, Is.True, $"expected collection parser to generate a UserName object");
 
             Assert.That(actualModel.First, Is.EqualTo(UserName.Value1.First));
             Assert.That(actualModel.Middle, Is.EqualTo(UserName.Value1.Middle));
@@ -252,7 +252,7 @@ namespace DbFacade.Utils.UnitTests
                 { "StrList", "1,2,3,4,5,6,7,8,9" }
             };
             bool success = Utils.TryMakeInstance(out TestClass2 actualModel, data);
-            Assert.IsTrue(success, $"expected collection parser to generate a UserName object");
+            Assert.That(success, Is.True, $"expected collection parser to generate a UserName object");
 
             Assert.That(actualModel.String, Is.EqualTo(TestClass2.Value1.String));
             Assert.That(actualModel.Integer, Is.EqualTo(TestClass2.Value1.Integer));
@@ -271,10 +271,10 @@ namespace DbFacade.Utils.UnitTests
                 StrList = "1,2,3,4,5,6,7,8,9"
             };
             bool hasDt = Utils.TryGetDataTable(new[] { data }, out DataTable dt);
-            Assert.IsTrue(hasDt, $"expected new DataTable");
+            Assert.That(hasDt, Is.True, $"expected new DataTable");
 
             bool success = Utils.TryMakeInstance(out TestClass2 actualModel, dt.Rows[0]);
-            Assert.IsTrue(success, $"expected collection parser to generate a UserName object");
+            Assert.That(success, Is.True, $"expected collection parser to generate a UserName object");
 
             Assert.That(actualModel.String, Is.EqualTo(TestClass2.Value1.String));
             Assert.That(actualModel.Integer, Is.EqualTo(TestClass2.Value1.Integer));
@@ -295,11 +295,11 @@ namespace DbFacade.Utils.UnitTests
             };
             var list = Enumerable.Range(1, 100).Select(m => data);
             bool hasDt = Utils.TryGetDataTable(list, out DataTable dt);
-            Assert.IsTrue(hasDt, $"expected new DataTable");
+            Assert.That(hasDt, Is.True, $"expected new DataTable");
             foreach (var dr in dt.Rows)
             {
                 bool success = Utils.TryMakeInstance(out TestClass2 actualModel, dr);
-                Assert.IsTrue(success, $"expected collection parser to generate a UserName object");
+                Assert.That(success, Is.True, $"expected collection parser to generate a UserName object");
 
                 Assert.That(actualModel.String, Is.EqualTo(TestClass2.Value1.String));
                 Assert.That(actualModel.Integer, Is.EqualTo(TestClass2.Value1.Integer));
@@ -325,10 +325,10 @@ namespace DbFacade.Utils.UnitTests
                 Last = UserName.Value1.Last
             };
             bool hasDt = Utils.TryGetDataTable(new[] { data }, out DataTable dt);
-            Assert.IsTrue(hasDt, $"expected new DataTable");
+            Assert.That(hasDt, Is.True, $"expected new DataTable");
 
             bool success = Utils.TryMakeInstance(out TestClass4 actualModel, dt.Rows[0]);
-            Assert.IsTrue(success, $"expected collection parser to generate a UserName object");
+            Assert.That(success, $"expected collection parser to generate a UserName object");
 
             Assert.That(actualModel.String, Is.EqualTo(TestClass4.Value1.String));
             Assert.That(actualModel.Integer, Is.EqualTo(TestClass4.Value1.Integer));
@@ -353,7 +353,7 @@ namespace DbFacade.Utils.UnitTests
             };
             var list = Enumerable.Range(1, count).Select(m => data);
             bool hasDt = Utils.TryGetDataTable(list, out DataTable dt);
-            Assert.IsTrue(hasDt, $"expected new DataTable");
+            Assert.That(hasDt, Is.True, $"expected new DataTable");
             Assert.That(dt.Rows.Count, Is.EqualTo(count));
             string metricsKey = "TryMakeInstance";
             var done = Metrics.Begin(metricsKey);
@@ -368,8 +368,8 @@ namespace DbFacade.Utils.UnitTests
             done();
             Assert.That(results.Count(), Is.EqualTo(count), $"Expected count to be {count} but was {results.Count()}");
             double seconds = Metrics.MetricsMap[metricsKey];
-            Assert.True(seconds < threshold, $"took {seconds} seconds");
-            TestContext.WriteLine($"TestBenchmark: Parsing {text} data set took {seconds} seconds");
+            Assert.That(seconds < threshold, Is.True, $"took {seconds} seconds");
+            //TestContext.WriteLine($"TestBenchmark: Parsing {text} data set took {seconds} seconds");
         }
 
         [Test]

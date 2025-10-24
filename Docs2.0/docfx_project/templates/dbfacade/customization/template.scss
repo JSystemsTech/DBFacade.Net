@@ -1,0 +1,138 @@
+﻿@import "bootstrap-override.scss";
+.navbar-brand {
+
+    img {
+        width: 50px;
+        height: 50px;
+        margin-right: 0.2em;
+        border-radius: 0.2em;
+    }
+}
+$gradient-angle: 40deg;
+@mixin gradient-bg($color-start, $color-end, $color-default, $angle: $gradient-angle) {
+    background: $color-default;
+    background: -webkit-linear-gradient($gradient-angle, $color-start, $color-end);
+    background: linear-gradient($gradient-angle, $color-start, $color-end);
+}
+.gradient-aqua {
+    @include gradient-bg(#2096ff, #05ffa3,#2096ff);
+}
+.gradient-morpheus-den {
+    @include gradient-bg(rgb(8,58,104),#2096ff,#30cfd0);
+}
+.gradient-malibu-beach {
+    @include gradient-bg(rgb(79,172,254), rgb(0,242,254),#4facfe);
+}
+.gradient-new-life {
+    @include gradient-bg(rgb(56,249,215),rgb(67,233,123), #43e97b);
+}
+
+.testimonial-card {
+    .card-up {
+        height: 5em;
+        overflow: hidden;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+
+    .avatar {
+        width: 5em;
+        height: 5em;
+        margin-top: -2.5em;
+        overflow: hidden;
+        border: 5px solid #fff;
+        border-radius: 50%;
+    }
+}
+.list-group.list-group-sm {
+    .list-group-item {
+        font-size: .75em;
+    }
+}
+:root,
+[data-bs-theme="light"] {
+    --#{$prefix}toc-link-color: #{$toc-link-color};
+    --#{$prefix}toc-link-hover-color: #{$toc-link-hover-color};
+    --#{$prefix}toc-expander-link-color: #{$toc-expander-link-color};
+    --#{$prefix}toc-link-active-color: #{$toc-link-active-color};
+    --#{$prefix}toc-expander-link-color: #{$toc-expander-link-color};
+    --#{$prefix}toc-expander-link-active-color: #{$toc-link-active-color};    
+}
+@if $enable-dark-mode {
+    @include color-mode(dark, true) {
+        color-scheme: dark;
+        --#{$prefix}toc-link-color: #{$toc-link-color-dark};
+        --#{$prefix}toc-link-hover-color: #{$toc-link-hover-color-dark};
+        --#{$prefix}toc-expander-link-color: #{$toc-expander-link-color-dark};
+        --#{$prefix}toc-link-active-color: #{$toc-link-active-color-dark};
+        --#{$prefix}toc-expander-link-color: #{$toc-expander-link-color-dark};
+        --#{$prefix}toc-expander-link-active-color: #{$toc-link-active-color-dark};
+    }
+}
+
+
+    .toc li {
+        
+
+        &:not(.expander) > a {
+            color: var(--#{$prefix}toc-link-color);
+
+            &:hover, &:focus {
+                color: var(--#{$prefix}toc-link-hover-color);
+            }
+        }
+
+        &.expander > a {
+            color: var(--#{$prefix}toc-expander-link-color);
+
+            &:hover, &:focus {
+                color: var(--#{$prefix}toc-link-hover-color);
+            }
+        }
+
+        &.active {
+            &:not(.expander) > a {
+                color: var(--#{$prefix}toc-link-active-color);
+
+                &:hover, &:focus {
+                    color: var(--#{$prefix}toc-link-hover-color);
+                }
+            }
+
+            &.expander > a {
+                color: var( --#{$prefix}toc-expander-link-active-color);
+                font-weight: bold;
+
+                &:hover, &:focus {
+                    color: var(--#{$prefix}toc-link-hover-color);
+                }
+            }
+        }
+    }
+
+body,
+body[data-layout="landing"] {
+
+    > header {
+        display: block !important;
+        position: static !important;
+        height: unset !important;
+
+        > nav {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    }
+}
+.alert{
+    padding:0.5em;
+    p{
+        margin-bottom: 0;
+    }
+}
+.full {
+    height: 100%;
+    height: -webkit-fill-available;
+    width: 100%;
+    width: -webkit-fill-available;
+}

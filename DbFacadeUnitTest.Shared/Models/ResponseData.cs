@@ -47,4 +47,15 @@ namespace DbFacadeUnitTests.Models
         public int FlagIntFalseAlt = 0;
         public string FlagFalseAlt = "FALSE";
     }
+
+    class ResponseDataMulti1
+    {
+        public int Id { get; internal set; }
+        public string Name { get; internal set; }
+    }
+    class ResponseDataMulti2
+    {
+        public string Name { get; internal set; }
+        public string Value { get; internal set; }
+    }
 }

@@ -1,9 +1,10 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
 using DbFacade.DataLayer.Models.Validators;
 using DbFacade.DataLayer.Models.Validators.Rules;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Linq;
 
 namespace DbFacade.Exceptions
@@ -61,40 +62,21 @@ namespace DbFacade.Exceptions
     /// <summary>
     /// 
     /// </summary>
-    public class SQLExecutionException : FacadeException
+    public class DbExecutionException : FacadeException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SQLExecutionException"/> class.
         /// </summary>
-        /// <param name="sqlMethod">The SQL method.</param>
+        /// <param name="dbMethod">The SQL method.</param>
         /// <param name="innerException">The inner exception.</param>
-        internal SQLExecutionException(DbCommandSettingsBase sqlMethod, SqlException innerException) : base(
-            "A SQL Error has occurred", innerException)
-        {
-            CommandText = sqlMethod.CommandText;
-        }
-        /// <summary>Initializes a new instance of the <see cref="SQLExecutionException" /> class.</summary>
-        /// <param name="message">The message.</param>
-        /// <param name="sqlMethod">The SQL method.</param>
-        /// <param name="innerException">The inner exception.</param>
-        internal SQLExecutionException(string message, DbCommandSettingsBase sqlMethod, Exception innerException) : base(
-            message, innerException)
-        {
-            CommandText = sqlMethod.CommandText;
-        }
-        /// <summary>
-        /// Gets the command text.
-        /// </summary>
-        /// <value>
-        /// The command text.
-        /// </value>
-        public string CommandText { get; private set; }
+        internal DbExecutionException(string message, Exception innerException) : base(
+            message, innerException) { }
 
         /// <summary>
         /// Names this instance.
         /// </summary>
         /// <returns></returns>
-        public override string Name() => "SQLExecutionException";
+        public override string Name() => "DbExecutionException";
 
     }
 
