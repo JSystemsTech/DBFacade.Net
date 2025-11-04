@@ -19,7 +19,7 @@ namespace DbFacade.DataLayer.Models
             Name = property.Name;
             Type underlyingType = Nullable.GetUnderlyingType(property.PropertyType);
             VariableType = underlyingType != null ? underlyingType : property.PropertyType;
-            IsNullable = underlyingType != null;
+            IsNullable = VariableType == typeof(string) || underlyingType != null;
         }
         internal VariableReference(FieldInfo field)
         {
@@ -28,7 +28,7 @@ namespace DbFacade.DataLayer.Models
             Name = field.Name;
             Type underlyingType = Nullable.GetUnderlyingType(field.FieldType);
             VariableType = underlyingType != null ? underlyingType : field.FieldType;
-            IsNullable = underlyingType != null;
+            IsNullable = VariableType == typeof(string) || underlyingType != null;
         }
         internal bool TryGetAttribute<T>(out T attr) where T : Attribute
         {

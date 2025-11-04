@@ -32,7 +32,7 @@ namespace DbFacade.DataLayer.Models
             {
                 Type = typeof(T);                 
                 UnderlyingType = Nullable.GetUnderlyingType(Type);
-                IsNullable = UnderlyingType != null;
+                IsNullable = Type == typeof(string) || UnderlyingType != null;
                 Name = UnderlyingType != null ? UnderlyingType.Name : Type.Name;
                 Properties = Type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
                 Fields = Type.GetFields(BindingFlags.Instance | BindingFlags.Public);
