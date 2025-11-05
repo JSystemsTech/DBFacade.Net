@@ -7,7 +7,6 @@ using System.Reflection;
 namespace DbFacade.DataLayer.Models
 {
     internal class Accessor<T>
-        where T : class
     {
         private static Accessor<T> Instance = new Accessor<T>();
         internal static Accessor<T> GetInstance() {

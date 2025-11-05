@@ -41,9 +41,9 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
             TestNullableParams = SQLConnection.Dbo.DefineEndpoint("TestNullableParams", o => {
                 o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
                 o.AsStoredProcedure("TestNullableParams")
-                .WithParameters<Guid?>((m, p) =>
+                .WithParameters<Guid?>(p =>
                 {
-                    p.AddInput("Today", m);
+                    p.AddInput("Today", m=>m);
                 });
             });
             TestFetchDataWithOnBeforeAsync = SQLConnection.Dbo.DefineEndpoint("TestFetchDataWithOnBeforeAsync", o => {
@@ -83,9 +83,9 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
             TestFetchDataAltWithParams = SQLConnection.Dbo.DefineEndpoint("TestFetchDataAltWithParams", o => {
                 o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
                 o.AsStoredProcedure("TestFetchDataAltWithParams")
-                .WithParameters<UnitTestDbParams>((m, p) =>
+                .WithParameters<UnitTestDbParams>(p =>
                 {
-                    p.AddInput("Today", m.Today);
+                    p.AddInput("Today", m => m.Today);
                 });
             });
 
@@ -108,9 +108,9 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
             {
                 o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
                 o.AsStoredProcedure("TestTransaction")
-                .WithParameters<Guid>((m, p) =>
+                .WithParameters<Guid>(p =>
                 {
-                    p.AddInput("Guid", m);
+                    p.AddInput("Guid", m => m);
                     p.AddInput("Nullable", (int?)null);
                 });
             });
@@ -124,7 +124,7 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
             TestValidation = SQLConnection.Dbo.DefineEndpoint("TestValidation", o => {
                 o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
                 o.AsStoredProcedure("TestValidation")
-                .WithParameters<UnitTestParamsForValidation>((m, p) =>
+                .WithParameters(p =>
                 {
                     p.AddInput("Guid", Guid.NewGuid());
                 })
@@ -177,7 +177,7 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
             TestValidationFail = SQLConnection.Dbo.DefineEndpoint("TestValidationFail", o => {
                 o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
                 o.AsStoredProcedure("TestValidationFail")
-                .WithParameters<UnitTestParamsForValidation>((m, p) =>
+                .WithParameters(p =>
                 {
                     p.AddInput("Guid", Guid.NewGuid());
                 })

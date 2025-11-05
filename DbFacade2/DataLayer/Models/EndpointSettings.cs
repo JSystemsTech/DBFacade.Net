@@ -1,4 +1,5 @@
 ﻿using DbFacade.DataLayer.ConnectionService;
+using DbFacade.DataLayer.Models.Parameters;
 using DbFacade.Exceptions;
 using DbFacade.Extensions;
 using System;
@@ -160,17 +161,7 @@ namespace DbFacade.DataLayer.Models
             }
         }
         private Action<IDbCommand, object> AddParamsGeneral { get; set; }
-        internal void AddParameterResolver<T>(Action<T, ParameterDataCollection> parametersBuilder)
-        {
-            Type key = typeof(T);
-            Action<IDbCommand,object> resolver = (cmd, data) => {
-                ParameterDataCollection collection = ParameterDataCollection.Create(c => parametersBuilder((T)data, c), key); //Type check done in AddParams method
-                cmd.AddParameters(collection, this);
-            };
-            ParameterResolvers[key] = resolver;
-        }
         internal void AddParameterResolver<T>(Action<ParameterDataCollection<T>> parametersBuilder)
-            where T: class
         {
             Type key = typeof(T);
             Action<IDbCommand, object> resolver = (cmd, data) => {
