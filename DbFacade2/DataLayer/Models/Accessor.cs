@@ -54,14 +54,16 @@ namespace DbFacade.DataLayer.Models
             return VariableReferences.Where(kv => predicate(kv.Value)).Select(kv => kv.Key);
         }
         
-        internal bool TryGetValue(T source, string name, out object value)
+        internal bool TryGetValue(T source, string name, out object value, out Type type)
         {
             if (!string.IsNullOrWhiteSpace(name) && VariableReferences.TryGetValue(name, out VariableReference varRef))
             {
                 value = varRef.Get(source);
+                type = varRef.VariableType;
                 return true;
             }
             value = null;
+            type = null;
             return true;
         }
     }

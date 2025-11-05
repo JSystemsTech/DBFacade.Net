@@ -10,7 +10,7 @@ namespace DbFacade.Extensions
     {
         public static bool TryGetValue<T>(this T source, string name, out object value)
             where T : class
-            => Accessor<T>.GetInstance().TryGetValue(source, name, out value);
+            => Accessor<T>.GetInstance().TryGetValue(source, name, out value, out Type t);
         public static IDataCollection ToDataCollection<T>(this T source)
             where T : class
         => source.ToDataCollection(c => c.BindInput());
