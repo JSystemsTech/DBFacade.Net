@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>2.0.4</Version>
+    <Version>2.0.5</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
@@ -21,7 +21,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release 2.0.4 Resolve Generic Params Builder issue</PackageReleaseNotes>
+    <PackageReleaseNotes>Release 2.0.5 Resolve Generic Validator issue</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />

@@ -7,7 +7,7 @@ namespace DbFacade.DataLayer.Models
     ///   <br />
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class Validator<T> where T : class
+    public sealed class Validator<T>
     {
         private readonly List<ValidationRule> Rules;
         internal Validator()

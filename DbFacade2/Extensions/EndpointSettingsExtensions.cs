@@ -214,7 +214,6 @@ namespace DbFacade.Extensions
         ///   <br />
         /// </returns>
         public static EndpointSettings WithValidation<T>(this EndpointSettings settings, Action<Validator<T>> validatorInitializer)
-        where T : class
         {
             settings.AddValidation(validatorInitializer);
             return settings;

@@ -116,7 +116,6 @@ namespace DbFacade.DataLayer.Models
             return (true, Array.Empty<string>());
         }
         internal void AddValidation<T>(Action<Validator<T>> validatorInitializer)
-        where T : class
         {
             Type key = typeof(T);
             var validator = new Validator<T>();
