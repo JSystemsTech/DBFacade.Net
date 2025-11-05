@@ -164,7 +164,7 @@ namespace DbFacade.DataLayer.Models
         {
             Type key = typeof(T);
             Action<IDbCommand,object> resolver = (cmd, data) => {
-                ParameterDataCollection collection = ParameterDataCollection.Create(c => parametersBuilder((T)data, c)); //Type check done in AddParams method
+                ParameterDataCollection collection = ParameterDataCollection.Create(c => parametersBuilder((T)data, c), key); //Type check done in AddParams method
                 cmd.AddParameters(collection, this);
             };
             ParameterResolvers[key] = resolver;

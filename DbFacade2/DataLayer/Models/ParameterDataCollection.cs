@@ -10,14 +10,18 @@ namespace DbFacade.DataLayer.Models
     {
 
         internal readonly Dictionary<string, ParameterInfo> Collection;
+        private Type DefaultType { get; set; }
         private ParameterDataCollection()
         {
             Collection = new Dictionary<string, ParameterInfo>();
             Keys = Array.Empty<string>();
         }
         internal static ParameterDataCollection Create(Action<ParameterDataCollection> resolver)
+            => Create(resolver, typeof(object));
+        internal static ParameterDataCollection Create(Action<ParameterDataCollection> resolver, Type defaultType)
         {
             ParameterDataCollection collection = new ParameterDataCollection();
+            collection.DefaultType = defaultType;
             resolver(collection);
             return collection;
         }
@@ -39,7 +43,7 @@ namespace DbFacade.DataLayer.Models
                 return Collection.TryGetValue(name, out ParameterInfo pi) ? pi.Value : null;
             }
         }
-        private static Type GetType(object value) => value == null ? typeof(object) : value.GetType();
+        private Type GetType(object value) => value == null ? DefaultType : value.GetType();
         private void Add(string columnName, object value, Type type, ParameterDirection direction, int? size = null)
         {
             string name = GetName(columnName);
