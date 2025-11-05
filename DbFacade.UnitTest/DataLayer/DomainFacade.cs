@@ -14,9 +14,10 @@ namespace DbFacade.UnitTest.DataLayer
         public DomainFacade(Endpoints endpoints)
         {
             Endpoints = endpoints;
-        }       
+        }
 
-
+        public IDbResponse TestNullableParams(Guid? data)
+        => Endpoints.TestNullableParams.Execute(data);
         public IDbResponse TestFetchData(out IEnumerable<FetchData> data)
         => Endpoints.TestFetchData.ExecuteAndFetchFirst(out data);
         public IDbResponse TestFetchDataNoSchema(out IEnumerable<FetchData> data)

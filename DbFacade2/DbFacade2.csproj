@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
@@ -21,7 +21,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release 2.0.1 Fix Issue with Unit testing</PackageReleaseNotes>
+    <PackageReleaseNotes>Release 2.0.2 Fix Issue with passing single primitive values as parameter models</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />

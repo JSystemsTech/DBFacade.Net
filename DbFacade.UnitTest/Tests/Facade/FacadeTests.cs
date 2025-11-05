@@ -1,4 +1,5 @@
-﻿using DbFacade.DataLayer.ConnectionService;
+﻿using Azure;
+using DbFacade.DataLayer.ConnectionService;
 using DbFacade.DataLayer.Models;
 using DbFacade.Exceptions;
 using DbFacade.Extensions;
@@ -27,8 +28,20 @@ namespace DbFacade.UnitTest.Tests.Facade
             Assert.Equal(expectedEmail.Host, email.Host);
             Assert.Equal(expectedEmail.User, email.User);
         }
-        
-
+        [Fact]
+        public void SuccessfullySendsNullableParam()
+        {
+            Services.EndpointMockHelper.TestNullableParams_EnableMockMode();
+            var response = Services.DomainFacade.TestNullableParams(null);
+            Assert.False(response.HasError);
+        }
+        [Fact]
+        public void SuccessfullySendsNullableValueParam()
+        {
+            Services.EndpointMockHelper.TestNullableParams_EnableMockMode();
+            var response = Services.DomainFacade.TestNullableParams(Guid.NewGuid());
+            Assert.False(response.HasError);
+        }
         [Fact]
         public void SuccessfullyFetchesData()
         {

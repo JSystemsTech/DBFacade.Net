@@ -33,8 +33,19 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
         internal IDbCommandMethod TestNonQuery { get; private set; }
         internal IDbCommandMethod TestFetchDataWithOnBeforeAsync { get; private set; }
 
+
+        internal IDbCommandMethod TestNullableParams { get; private set; }
+
         private void OnInit_FetchData()
         {
+            TestNullableParams = SQLConnection.Dbo.DefineEndpoint("TestNullableParams", o => {
+                o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
+                o.AsStoredProcedure("TestNullableParams")
+                .WithParameters<Guid?>((m, p) =>
+                {
+                    p.AddInput("Today", m);
+                });
+            });
             TestFetchDataWithOnBeforeAsync = SQLConnection.Dbo.DefineEndpoint("TestFetchDataWithOnBeforeAsync", o => {
                 o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
                 o.AsStoredProcedure("TestFetchDataWithOnBeforeAsync");

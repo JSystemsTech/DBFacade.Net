@@ -131,10 +131,19 @@ namespace DbFacade.DataLayer.Models
         {
             bool hasTypeConstraintResolvers = ParameterResolvers.Keys.Count > 0;
             bool hasGeneralResolver = AddParamsGeneral != null;
-            
-            Type key = model == null ? typeof(object): model.GetType();
+            Type parmFirstType = ParameterResolvers.Keys.FirstOrDefault();
+            bool isPrimitiveNullableNonNull = model != null && ParameterResolvers.Keys.Count == 1 && parmFirstType != null && !parmFirstType.IsClass && parmFirstType.UnderlyingSystemType != model.GetType();
+            bool isPrimitiveNullableNull = model == null && ParameterResolvers.Keys.Count == 1 && parmFirstType != null && !parmFirstType.IsClass && parmFirstType.UnderlyingSystemType != null;
+
+
+            Type key = isPrimitiveNullableNonNull ? parmFirstType :
+                isPrimitiveNullableNull ? parmFirstType :
+                model == null ? 
+                typeof(object): model.GetType();
+
             bool expectingParams = hasTypeConstraintResolvers || hasGeneralResolver;
             bool addedParams = !expectingParams;
+            
             if (ParameterResolvers.ContainsKey(key) && ParameterResolvers[key] is Action<IDbCommand, object> resolver)
             {
                 resolver(command, model);
