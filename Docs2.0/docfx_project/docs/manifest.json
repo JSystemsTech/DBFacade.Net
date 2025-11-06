@@ -576,7 +576,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "DbFacade.DataLayer.Models.ParameterDataCollection<TModel>",
-      "Summary": null
+      "Summary": "<br>\n"
     },
     {
       "type": "ManagedReference",
@@ -633,6 +633,20 @@
       "IsMRef": true,
       "Title": "DbFacade.DataLayer.Models.Parameters.Currency",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.DataLayer.Models.Parameters.GenericParameterModel-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.DataLayer.Models.Parameters.GenericParameterModel-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.DataLayer.Models.Parameters.GenericParameterModel<T>",
+      "Summary": "<br>\n"
     },
     {
       "type": "ManagedReference",
@@ -1179,10 +1193,40 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbCommandMethodExtensions_TParameters_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbCommandMethodExtensions_TParameters_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "coverage/DbFacade2_DbCommandMethodExtensions_T_.html",
       "output": {
         "resource": {
           "relative_path": "coverage/DbFacade2_DbCommandMethodExtensions_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbCommandMethodExtensions_T__TParameters_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbCommandMethodExtensions_T__TParameters_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbCommandMethod_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbCommandMethod_T_.html"
         }
       },
       "version": ""
@@ -1213,6 +1257,16 @@
       "output": {
         "resource": {
           "relative_path": "coverage/DbFacade2_DbConnectionManager.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_DbConnectionManager_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_DbConnectionManager_T_.html"
         }
       },
       "version": ""
@@ -1373,6 +1427,16 @@
       "output": {
         "resource": {
           "relative_path": "coverage/DbFacade2_FacadeException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_GenericParameterModel_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_GenericParameterModel_T_.html"
         }
       },
       "version": ""

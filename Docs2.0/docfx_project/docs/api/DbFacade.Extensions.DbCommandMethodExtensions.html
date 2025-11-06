@@ -161,7 +161,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod)">
   ExecuteAndFetchFirstAsync&lt;T&gt;(IDbCommandMethod)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L111"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
@@ -205,7 +205,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})">
   ExecuteAndFetchFirstAsync&lt;T&gt;(IDbCommandMethod, Action&lt;T, IDataCollection&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L111"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L122"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
@@ -250,106 +250,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync*"></a>
 
-  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Object_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object)">
-  ExecuteAndFetchFirstAsync&lt;T&gt;(IDbCommandMethod, object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L122"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;Tuple&lt;IDbResponse, IEnumerable&lt;T&gt;&gt;&gt; ExecuteAndFetchFirstAsync&lt;T&gt;(this IDbCommandMethod endpoint, object parameters) where T : class, IDbDataModel</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>endpoint</code> <a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a></dt>
-    <dd><p>The endpoint.</p>
-</dd>
-    <dt><code>parameters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd><p>The parameters.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.tuple-2">Tuple</a>&lt;<a class="xref" href="DbFacade.DataLayer.Models.IDbResponse.html">IDbResponse</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;&gt;</dt>
-    <dd><br>
-</dd>
-  </dl>
-
-  <h4 class="section">Type Parameters</h4>
-  <dl class="parameters">
-    <dt><code>T</code></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync*"></a>
-
-  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Object_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})">
-  ExecuteAndFetchFirstAsync&lt;T&gt;(IDbCommandMethod, object, Action&lt;T, IDataCollection&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L134"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;Tuple&lt;IDbResponse, IEnumerable&lt;T&gt;&gt;&gt; ExecuteAndFetchFirstAsync&lt;T&gt;(this IDbCommandMethod endpoint, object parameters, Action&lt;T, IDataCollection&gt; initialize) where T : class</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>endpoint</code> <a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a></dt>
-    <dd><p>The endpoint.</p>
-</dd>
-    <dt><code>parameters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd><p>The parameters.</p>
-</dd>
-    <dt><code>initialize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;T, <a class="xref" href="DbFacade.DataLayer.Models.IDataCollection.html">IDataCollection</a>&gt;</dt>
-    <dd><p>The initialize.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.tuple-2">Tuple</a>&lt;<a class="xref" href="DbFacade.DataLayer.Models.IDbResponse.html">IDbResponse</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;&gt;</dt>
-    <dd><br>
-</dd>
-  </dl>
-
-  <h4 class="section">Type Parameters</h4>
-  <dl class="parameters">
-    <dt><code>T</code></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync*"></a>
-
   <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken)">
   ExecuteAndFetchFirstAsync&lt;T&gt;(IDbCommandMethod, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L159"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
@@ -396,7 +299,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})">
   ExecuteAndFetchFirstAsync&lt;T&gt;(IDbCommandMethod, CancellationToken, Action&lt;T, IDataCollection&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L161"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L175"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
@@ -444,9 +347,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync*"></a>
 
-  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken_System_Object_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,System.Object)">
-  ExecuteAndFetchFirstAsync&lt;T&gt;(IDbCommandMethod, CancellationToken, object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L177"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken___1_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,``1)">
+  ExecuteAndFetchFirstAsync&lt;T, TParameters&gt;(IDbCommandMethod, CancellationToken, TParameters)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L192"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
@@ -454,7 +357,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;Tuple&lt;IDbResponse, IEnumerable&lt;T&gt;&gt;&gt; ExecuteAndFetchFirstAsync&lt;T&gt;(this IDbCommandMethod endpoint, CancellationToken cancellationToken, object parameters) where T : class, IDbDataModel</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;Tuple&lt;IDbResponse, IEnumerable&lt;T&gt;&gt;&gt; ExecuteAndFetchFirstAsync&lt;T, TParameters&gt;(this IDbCommandMethod endpoint, CancellationToken cancellationToken, TParameters parameters) where T : class, IDbDataModel</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -465,7 +368,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
     <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
     <dd><p>The cancellation token.</p>
 </dd>
-    <dt><code>parameters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dt><code>parameters</code> <span class="xref">TParameters</span></dt>
     <dd><p>The parameters.</p>
 </dd>
   </dl>
@@ -481,6 +384,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <dl class="parameters">
     <dt><code>T</code></dt>
     <dd></dd>
+    <dt><code>TParameters</code></dt>
+    <dd><p>The type of the parameters.</p>
+</dd>
   </dl>
 
 
@@ -494,9 +400,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync*"></a>
 
-  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken_System_Object_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,System.Object,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})">
-  ExecuteAndFetchFirstAsync&lt;T&gt;(IDbCommandMethod, CancellationToken, object, Action&lt;T, IDataCollection&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken___1_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,``1,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})">
+  ExecuteAndFetchFirstAsync&lt;T, TParameters&gt;(IDbCommandMethod, CancellationToken, TParameters, Action&lt;T, IDataCollection&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L210"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
@@ -504,7 +410,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;Tuple&lt;IDbResponse, IEnumerable&lt;T&gt;&gt;&gt; ExecuteAndFetchFirstAsync&lt;T&gt;(this IDbCommandMethod endpoint, CancellationToken cancellationToken, object parameters, Action&lt;T, IDataCollection&gt; initialize) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;Tuple&lt;IDbResponse, IEnumerable&lt;T&gt;&gt;&gt; ExecuteAndFetchFirstAsync&lt;T, TParameters&gt;(this IDbCommandMethod endpoint, CancellationToken cancellationToken, TParameters parameters, Action&lt;T, IDataCollection&gt; initialize) where T : class</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -515,7 +421,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
     <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
     <dd><p>The cancellation token.</p>
 </dd>
-    <dt><code>parameters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dt><code>parameters</code> <span class="xref">TParameters</span></dt>
     <dd><p>The parameters.</p>
 </dd>
     <dt><code>initialize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;T, <a class="xref" href="DbFacade.DataLayer.Models.IDataCollection.html">IDataCollection</a>&gt;</dt>
@@ -534,6 +440,112 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <dl class="parameters">
     <dt><code>T</code></dt>
     <dd></dd>
+    <dt><code>TParameters</code></dt>
+    <dd><p>The type of the parameters.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync*"></a>
+
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod___1_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1)">
+  ExecuteAndFetchFirstAsync&lt;T, TParameters&gt;(IDbCommandMethod, TParameters)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L135"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Tuple&lt;IDbResponse, IEnumerable&lt;T&gt;&gt;&gt; ExecuteAndFetchFirstAsync&lt;T, TParameters&gt;(this IDbCommandMethod endpoint, TParameters parameters) where T : class, IDbDataModel</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>endpoint</code> <a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a></dt>
+    <dd><p>The endpoint.</p>
+</dd>
+    <dt><code>parameters</code> <span class="xref">TParameters</span></dt>
+    <dd><p>The parameters.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.tuple-2">Tuple</a>&lt;<a class="xref" href="DbFacade.DataLayer.Models.IDbResponse.html">IDbResponse</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;&gt;</dt>
+    <dd><br>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+    <dt><code>TParameters</code></dt>
+    <dd><p>The type of the parameters.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync*"></a>
+
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod___1_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})">
+  ExecuteAndFetchFirstAsync&lt;T, TParameters&gt;(IDbCommandMethod, TParameters, Action&lt;T, IDataCollection&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L148"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the and fetch first asynchronous.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Tuple&lt;IDbResponse, IEnumerable&lt;T&gt;&gt;&gt; ExecuteAndFetchFirstAsync&lt;T, TParameters&gt;(this IDbCommandMethod endpoint, TParameters parameters, Action&lt;T, IDataCollection&gt; initialize) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>endpoint</code> <a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a></dt>
+    <dd><p>The endpoint.</p>
+</dd>
+    <dt><code>parameters</code> <span class="xref">TParameters</span></dt>
+    <dd><p>The parameters.</p>
+</dd>
+    <dt><code>initialize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;T, <a class="xref" href="DbFacade.DataLayer.Models.IDataCollection.html">IDataCollection</a>&gt;</dt>
+    <dd><p>The initialize.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.tuple-2">Tuple</a>&lt;<a class="xref" href="DbFacade.DataLayer.Models.IDbResponse.html">IDbResponse</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;&gt;</dt>
+    <dd><br>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+    <dt><code>TParameters</code></dt>
+    <dd><p>The type of the parameters.</p>
+</dd>
   </dl>
 
 
@@ -549,7 +561,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__System_Collections_Generic_IEnumerable___0___" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection},System.Collections.Generic.IEnumerable{``0}@)">
   ExecuteAndFetchFirst&lt;T&gt;(IDbCommandMethod, Action&lt;T, IDataCollection&gt;, out IEnumerable&lt;T&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the and fetch first.</p>
@@ -644,9 +656,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst*"></a>
 
-  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Object_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__System_Collections_Generic_IEnumerable___0___" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection},System.Collections.Generic.IEnumerable{``0}@)">
-  ExecuteAndFetchFirst&lt;T&gt;(IDbCommandMethod, object, Action&lt;T, IDataCollection&gt;, out IEnumerable&lt;T&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod___1_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__System_Collections_Generic_IEnumerable___0___" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection},System.Collections.Generic.IEnumerable{``0}@)">
+  ExecuteAndFetchFirst&lt;T, TParameters&gt;(IDbCommandMethod, TParameters, Action&lt;T, IDataCollection&gt;, out IEnumerable&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L75"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the and fetch first.</p>
@@ -654,7 +666,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IDbResponse ExecuteAndFetchFirst&lt;T&gt;(this IDbCommandMethod endpoint, object parameters, Action&lt;T, IDataCollection&gt; initialize, out IEnumerable&lt;T&gt; data) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public static IDbResponse ExecuteAndFetchFirst&lt;T, TParameters&gt;(this IDbCommandMethod endpoint, TParameters parameters, Action&lt;T, IDataCollection&gt; initialize, out IEnumerable&lt;T&gt; data) where T : class</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -662,7 +674,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
     <dt><code>endpoint</code> <a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a></dt>
     <dd><p>The endpoint.</p>
 </dd>
-    <dt><code>parameters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dt><code>parameters</code> <span class="xref">TParameters</span></dt>
     <dd><p>The parameters.</p>
 </dd>
     <dt><code>initialize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;T, <a class="xref" href="DbFacade.DataLayer.Models.IDataCollection.html">IDataCollection</a>&gt;</dt>
@@ -684,6 +696,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <dl class="parameters">
     <dt><code>T</code></dt>
     <dd></dd>
+    <dt><code>TParameters</code></dt>
+    <dd><p>The type of the parameters.</p>
+</dd>
   </dl>
 
 
@@ -697,9 +712,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst*"></a>
 
-  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Object_System_Collections_Generic_IEnumerable___0___" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object,System.Collections.Generic.IEnumerable{``0}@)">
-  ExecuteAndFetchFirst&lt;T&gt;(IDbCommandMethod, object, out IEnumerable&lt;T&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod___1_System_Collections_Generic_IEnumerable___0___" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1,System.Collections.Generic.IEnumerable{``0}@)">
+  ExecuteAndFetchFirst&lt;T, TParameters&gt;(IDbCommandMethod, TParameters, out IEnumerable&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L56"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the and fetch first.</p>
@@ -707,7 +722,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IDbResponse ExecuteAndFetchFirst&lt;T&gt;(this IDbCommandMethod endpoint, object parameters, out IEnumerable&lt;T&gt; data) where T : class, IDbDataModel</code></pre>
+    <pre><code class="lang-csharp hljs">public static IDbResponse ExecuteAndFetchFirst&lt;T, TParameters&gt;(this IDbCommandMethod endpoint, TParameters parameters, out IEnumerable&lt;T&gt; data) where T : class, IDbDataModel</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -715,7 +730,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
     <dt><code>endpoint</code> <a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a></dt>
     <dd><p>The endpoint.</p>
 </dd>
-    <dt><code>parameters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dt><code>parameters</code> <span class="xref">TParameters</span></dt>
     <dd><p>The parameters.</p>
 </dd>
     <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
@@ -734,6 +749,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <dl class="parameters">
     <dt><code>T</code></dt>
     <dd></dd>
+    <dt><code>TParameters</code></dt>
+    <dd><p>The type of the parameters.</p>
+</dd>
   </dl>
 
 
@@ -747,9 +765,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroup_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup*"></a>
 
-  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroup_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Object_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Object)">
-  ExecuteGroup(IEnumerable&lt;IDbCommandMethod&gt;, object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroup_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod})">
+  ExecuteGroup(IEnumerable&lt;IDbCommandMethod&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L100"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the group.</p>
@@ -757,16 +775,13 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;IDbResponse&gt; ExecuteGroup(this IEnumerable&lt;IDbCommandMethod&gt; methods, object parameters = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;IDbResponse&gt; ExecuteGroup(this IEnumerable&lt;IDbCommandMethod&gt; methods)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>methods</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a>&gt;</dt>
     <dd><p>The methods.</p>
-</dd>
-    <dt><code>parameters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd><p>The parameters.</p>
 </dd>
   </dl>
 
@@ -789,9 +804,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync*"></a>
 
-  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Object_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Object)">
-  ExecuteGroupAsync(IEnumerable&lt;IDbCommandMethod&gt;, object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L208"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod})">
+  ExecuteGroupAsync(IEnumerable&lt;IDbCommandMethod&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L247"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the group asynchronous.</p>
@@ -799,16 +814,13 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;IDbResponse&gt;&gt; ExecuteGroupAsync(this IEnumerable&lt;IDbCommandMethod&gt; methods, object parameters = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;IDbResponse&gt;&gt; ExecuteGroupAsync(this IEnumerable&lt;IDbCommandMethod&gt; methods)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>methods</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a>&gt;</dt>
     <dd><p>The methods.</p>
-</dd>
-    <dt><code>parameters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd><p>The parameters.</p>
 </dd>
   </dl>
 
@@ -831,9 +843,9 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 
   <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync*"></a>
 
-  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Threading_CancellationToken_System_Object_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Threading.CancellationToken,System.Object)">
-  ExecuteGroupAsync(IEnumerable&lt;IDbCommandMethod&gt;, CancellationToken, object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L217"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Threading_CancellationToken_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Threading.CancellationToken)">
+  ExecuteGroupAsync(IEnumerable&lt;IDbCommandMethod&gt;, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L256"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes the group asynchronous.</p>
@@ -841,7 +853,7 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;IDbResponse&gt;&gt; ExecuteGroupAsync(this IEnumerable&lt;IDbCommandMethod&gt; methods, CancellationToken cancellationToken, object parameters = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;IDbResponse&gt;&gt; ExecuteGroupAsync(this IEnumerable&lt;IDbCommandMethod&gt; methods, CancellationToken cancellationToken)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -852,7 +864,49 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
     <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
     <dd><p>The cancellation token.</p>
 </dd>
-    <dt><code>parameters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DbFacade.DataLayer.Models.IDbResponse.html">IDbResponse</a>&gt;&gt;</dt>
+    <dd><br>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync*"></a>
+
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync__1_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Threading_CancellationToken___0_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync``1(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Threading.CancellationToken,``0)">
+  ExecuteGroupAsync&lt;TParameters&gt;(IEnumerable&lt;IDbCommandMethod&gt;, CancellationToken, TParameters)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L237"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the group asynchronous.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;IDbResponse&gt;&gt; ExecuteGroupAsync&lt;TParameters&gt;(this IEnumerable&lt;IDbCommandMethod&gt; methods, CancellationToken cancellationToken, TParameters parameters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>methods</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a>&gt;</dt>
+    <dd><p>The methods.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>The cancellation token.</p>
+</dd>
+    <dt><code>parameters</code> <span class="xref">TParameters</span></dt>
     <dd><p>The parameters.</p>
 </dd>
   </dl>
@@ -864,6 +918,108 @@ Class DbCommandMethodExtensions  <a class="header-action link-secondary" title="
 </dd>
   </dl>
 
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TParameters</code></dt>
+    <dd><p>The type of the parameters.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync*"></a>
+
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync__1_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod____0_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync``1(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},``0)">
+  ExecuteGroupAsync&lt;TParameters&gt;(IEnumerable&lt;IDbCommandMethod&gt;, TParameters)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L226"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the group asynchronous.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;IDbResponse&gt;&gt; ExecuteGroupAsync&lt;TParameters&gt;(this IEnumerable&lt;IDbCommandMethod&gt; methods, TParameters parameters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>methods</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a>&gt;</dt>
+    <dd><p>The methods.</p>
+</dd>
+    <dt><code>parameters</code> <span class="xref">TParameters</span></dt>
+    <dd><p>The parameters.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DbFacade.DataLayer.Models.IDbResponse.html">IDbResponse</a>&gt;&gt;</dt>
+    <dd><br>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TParameters</code></dt>
+    <dd><p>The type of the parameters.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroup_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup*"></a>
+
+  <h3 id="DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroup__1_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod____0_" data-uid="DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup``1(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},``0)">
+  ExecuteGroup&lt;TParameters&gt;(IEnumerable&lt;IDbCommandMethod&gt;, TParameters)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/Extensions/DbCommandMethodExtensions.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;IDbResponse&gt; ExecuteGroup&lt;TParameters&gt;(this IEnumerable&lt;IDbCommandMethod&gt; methods, TParameters parameters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>methods</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html">IDbCommandMethod</a>&gt;</dt>
+    <dd><p>The methods.</p>
+</dd>
+    <dt><code>parameters</code> <span class="xref">TParameters</span></dt>
+    <dd><p>The parameters.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="DbFacade.DataLayer.Models.IDbResponse.html">IDbResponse</a>&gt;</dt>
+    <dd><br>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TParameters</code></dt>
+    <dd><p>The type of the parameters.</p>
+</dd>
+  </dl>
 
 
 

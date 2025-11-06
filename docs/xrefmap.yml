@@ -42,15 +42,12 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.EnableMockMode
   nameWithType: IDbCommandMethod.EnableMockMode
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute(System.Object)
-  name: Execute(object)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_Execute_System_Object_
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute(System.Object)
-  name.vb: Execute(Object)
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute(object)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute(Object)
-  nameWithType: IDbCommandMethod.Execute(object)
-  nameWithType.vb: IDbCommandMethod.Execute(Object)
+- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute
+  name: Execute()
+  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_Execute
+  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute
+  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute()
+  nameWithType: IDbCommandMethod.Execute()
 - uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute*
   name: Execute
   href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_Execute_
@@ -58,24 +55,18 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute
   nameWithType: IDbCommandMethod.Execute
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(System.Object)
-  name: ExecuteAsync(object)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_ExecuteAsync_System_Object_
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(System.Object)
-  name.vb: ExecuteAsync(Object)
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(object)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(Object)
-  nameWithType: IDbCommandMethod.ExecuteAsync(object)
-  nameWithType.vb: IDbCommandMethod.ExecuteAsync(Object)
-- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(System.Threading.CancellationToken,System.Object)
-  name: ExecuteAsync(CancellationToken, object)
-  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_ExecuteAsync_System_Threading_CancellationToken_System_Object_
-  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(System.Threading.CancellationToken,System.Object)
-  name.vb: ExecuteAsync(CancellationToken, Object)
-  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(System.Threading.CancellationToken, object)
-  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(System.Threading.CancellationToken, Object)
-  nameWithType: IDbCommandMethod.ExecuteAsync(CancellationToken, object)
-  nameWithType.vb: IDbCommandMethod.ExecuteAsync(CancellationToken, Object)
+- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync
+  name: ExecuteAsync()
+  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_ExecuteAsync
+  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync
+  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync()
+  nameWithType: IDbCommandMethod.ExecuteAsync()
+- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(System.Threading.CancellationToken)
+  name: ExecuteAsync(CancellationToken)
+  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_ExecuteAsync_System_Threading_CancellationToken_
+  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(System.Threading.CancellationToken)
+  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(System.Threading.CancellationToken)
+  nameWithType: IDbCommandMethod.ExecuteAsync(CancellationToken)
 - uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync*
   name: ExecuteAsync
   href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_ExecuteAsync_
@@ -83,6 +74,33 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync
   nameWithType: IDbCommandMethod.ExecuteAsync
+- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync``1(System.Threading.CancellationToken,``0)
+  name: ExecuteAsync<T>(CancellationToken, T)
+  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_ExecuteAsync__1_System_Threading_CancellationToken___0_
+  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync``1(System.Threading.CancellationToken,``0)
+  name.vb: ExecuteAsync(Of T)(CancellationToken, T)
+  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync<T>(System.Threading.CancellationToken, T)
+  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(Of T)(System.Threading.CancellationToken, T)
+  nameWithType: IDbCommandMethod.ExecuteAsync<T>(CancellationToken, T)
+  nameWithType.vb: IDbCommandMethod.ExecuteAsync(Of T)(CancellationToken, T)
+- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync``1(``0)
+  name: ExecuteAsync<T>(T)
+  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_ExecuteAsync__1___0_
+  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync``1(``0)
+  name.vb: ExecuteAsync(Of T)(T)
+  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync<T>(T)
+  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.ExecuteAsync(Of T)(T)
+  nameWithType: IDbCommandMethod.ExecuteAsync<T>(T)
+  nameWithType.vb: IDbCommandMethod.ExecuteAsync(Of T)(T)
+- uid: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute``1(``0)
+  name: Execute<T>(T)
+  href: api/DbFacade.DataLayer.CommandConfig.IDbCommandMethod.html#DbFacade_DataLayer_CommandConfig_IDbCommandMethod_Execute__1___0_
+  commentId: M:DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute``1(``0)
+  name.vb: Execute(Of T)(T)
+  fullName: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute<T>(T)
+  fullName.vb: DbFacade.DataLayer.CommandConfig.IDbCommandMethod.Execute(Of T)(T)
+  nameWithType: IDbCommandMethod.Execute<T>(T)
+  nameWithType.vb: IDbCommandMethod.Execute(Of T)(T)
 - uid: DbFacade.DataLayer.ConnectionService
   name: DbFacade.DataLayer.ConnectionService
   href: api/DbFacade.DataLayer.ConnectionService.html
@@ -945,6 +963,12 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.Models.EndpointSettings.ConnectionStringId
   nameWithType: EndpointSettings.ConnectionStringId
+- uid: DbFacade.DataLayer.Models.EndpointSettings.Name
+  name: Name
+  href: api/DbFacade.DataLayer.Models.EndpointSettings.html#DbFacade_DataLayer_Models_EndpointSettings_Name
+  commentId: F:DbFacade.DataLayer.Models.EndpointSettings.Name
+  fullName: DbFacade.DataLayer.Models.EndpointSettings.Name
+  nameWithType: EndpointSettings.Name
 - uid: DbFacade.DataLayer.Models.IDataCollection
   name: IDataCollection
   href: api/DbFacade.DataLayer.Models.IDataCollection.html
@@ -1427,15 +1451,6 @@ references:
   commentId: T:DbFacade.DataLayer.Models.ParameterDataCollection
   fullName: DbFacade.DataLayer.Models.ParameterDataCollection
   nameWithType: ParameterDataCollection
-- uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput(System.String,System.Object)
-  name: AddInput(string, object)
-  href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInput_System_String_System_Object_
-  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection.AddInput(System.String,System.Object)
-  name.vb: AddInput(String, Object)
-  fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput(string, object)
-  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput(String, Object)
-  nameWithType: ParameterDataCollection.AddInput(string, object)
-  nameWithType.vb: ParameterDataCollection.AddInput(String, Object)
 - uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput*
   name: AddInput
   href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInput_
@@ -1443,15 +1458,6 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput
   nameWithType: ParameterDataCollection.AddInput
-- uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput(System.String,System.Object,System.Nullable{System.Int32})
-  name: AddInputOutput(string, object, int?)
-  href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput_System_String_System_Object_System_Nullable_System_Int32__
-  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput(System.String,System.Object,System.Nullable{System.Int32})
-  name.vb: AddInputOutput(String, Object, Integer?)
-  fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput(string, object, int?)
-  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput(String, Object, Integer?)
-  nameWithType: ParameterDataCollection.AddInputOutput(string, object, int?)
-  nameWithType.vb: ParameterDataCollection.AddInputOutput(String, Object, Integer?)
 - uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput*
   name: AddInputOutput
   href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput_
@@ -1459,24 +1465,42 @@ references:
   isSpec: "True"
   fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput
   nameWithType: ParameterDataCollection.AddInputOutput
-- uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput``1(System.String,``0,System.Func{``0,System.Object},System.Nullable{System.Int32})
-  name: AddInputOutput<TModel>(string, TModel, Func<TModel, object>, int?)
-  href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput__1_System_String___0_System_Func___0_System_Object__System_Nullable_System_Int32__
-  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput``1(System.String,``0,System.Func{``0,System.Object},System.Nullable{System.Int32})
-  name.vb: AddInputOutput(Of TModel)(String, TModel, Func(Of TModel, Object), Integer?)
-  fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput<TModel>(string, TModel, System.Func<TModel, object>, int?)
-  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput(Of TModel)(String, TModel, System.Func(Of TModel, Object), Integer?)
-  nameWithType: ParameterDataCollection.AddInputOutput<TModel>(string, TModel, Func<TModel, object>, int?)
-  nameWithType.vb: ParameterDataCollection.AddInputOutput(Of TModel)(String, TModel, Func(Of TModel, Object), Integer?)
-- uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput``1(System.String,``0,System.Func{``0,System.Object})
-  name: AddInput<TModel>(string, TModel, Func<TModel, object>)
-  href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInput__1_System_String___0_System_Func___0_System_Object__
-  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection.AddInput``1(System.String,``0,System.Func{``0,System.Object})
-  name.vb: AddInput(Of TModel)(String, TModel, Func(Of TModel, Object))
-  fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput<TModel>(string, TModel, System.Func<TModel, object>)
-  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput(Of TModel)(String, TModel, System.Func(Of TModel, Object))
-  nameWithType: ParameterDataCollection.AddInput<TModel>(string, TModel, Func<TModel, object>)
-  nameWithType.vb: ParameterDataCollection.AddInput(Of TModel)(String, TModel, Func(Of TModel, Object))
+- uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput``1(System.String,``0,System.Nullable{System.Int32})
+  name: AddInputOutput<TCol>(string, TCol, int?)
+  href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput__1_System_String___0_System_Nullable_System_Int32__
+  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput``1(System.String,``0,System.Nullable{System.Int32})
+  name.vb: AddInputOutput(Of TCol)(String, TCol, Integer?)
+  fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput<TCol>(string, TCol, int?)
+  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput(Of TCol)(String, TCol, Integer?)
+  nameWithType: ParameterDataCollection.AddInputOutput<TCol>(string, TCol, int?)
+  nameWithType.vb: ParameterDataCollection.AddInputOutput(Of TCol)(String, TCol, Integer?)
+- uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput``2(System.String,``0,System.Func{``0,``1},System.Nullable{System.Int32})
+  name: AddInputOutput<TModel, TCol>(string, TModel, Func<TModel, TCol>, int?)
+  href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput__2_System_String___0_System_Func___0___1__System_Nullable_System_Int32__
+  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput``2(System.String,``0,System.Func{``0,``1},System.Nullable{System.Int32})
+  name.vb: AddInputOutput(Of TModel, TCol)(String, TModel, Func(Of TModel, TCol), Integer?)
+  fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput<TModel, TCol>(string, TModel, System.Func<TModel, TCol>, int?)
+  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput(Of TModel, TCol)(String, TModel, System.Func(Of TModel, TCol), Integer?)
+  nameWithType: ParameterDataCollection.AddInputOutput<TModel, TCol>(string, TModel, Func<TModel, TCol>, int?)
+  nameWithType.vb: ParameterDataCollection.AddInputOutput(Of TModel, TCol)(String, TModel, Func(Of TModel, TCol), Integer?)
+- uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput``1(System.String,``0)
+  name: AddInput<TCol>(string, TCol)
+  href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInput__1_System_String___0_
+  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection.AddInput``1(System.String,``0)
+  name.vb: AddInput(Of TCol)(String, TCol)
+  fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput<TCol>(string, TCol)
+  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput(Of TCol)(String, TCol)
+  nameWithType: ParameterDataCollection.AddInput<TCol>(string, TCol)
+  nameWithType.vb: ParameterDataCollection.AddInput(Of TCol)(String, TCol)
+- uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput``2(System.String,``0,System.Func{``0,``1})
+  name: AddInput<TModel, TCol>(string, TModel, Func<TModel, TCol>)
+  href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddInput__2_System_String___0_System_Func___0___1__
+  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection.AddInput``2(System.String,``0,System.Func{``0,``1})
+  name.vb: AddInput(Of TModel, TCol)(String, TModel, Func(Of TModel, TCol))
+  fullName: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput<TModel, TCol>(string, TModel, System.Func<TModel, TCol>)
+  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection.AddInput(Of TModel, TCol)(String, TModel, System.Func(Of TModel, TCol))
+  nameWithType: ParameterDataCollection.AddInput<TModel, TCol>(string, TModel, Func<TModel, TCol>)
+  nameWithType.vb: ParameterDataCollection.AddInput(Of TModel, TCol)(String, TModel, Func(Of TModel, TCol))
 - uid: DbFacade.DataLayer.Models.ParameterDataCollection.AddOutput*
   name: AddOutput
   href: api/DbFacade.DataLayer.Models.ParameterDataCollection.html#DbFacade_DataLayer_Models_ParameterDataCollection_AddOutput_
@@ -1543,24 +1567,6 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel)
   nameWithType: ParameterDataCollection<TModel>
   nameWithType.vb: ParameterDataCollection(Of TModel)
-- uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInput(System.String,System.Func{`0,System.Object})
-  name: AddInput(string, Func<TModel, object>)
-  href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInput_System_String_System_Func__0_System_Object__
-  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInput(System.String,System.Func{`0,System.Object})
-  name.vb: AddInput(String, Func(Of TModel, Object))
-  fullName: DbFacade.DataLayer.Models.ParameterDataCollection<TModel>.AddInput(string, System.Func<TModel, object>)
-  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInput(String, System.Func(Of TModel, Object))
-  nameWithType: ParameterDataCollection<TModel>.AddInput(string, Func<TModel, object>)
-  nameWithType.vb: ParameterDataCollection(Of TModel).AddInput(String, Func(Of TModel, Object))
-- uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInput(System.String,System.Object)
-  name: AddInput(string, object)
-  href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInput_System_String_System_Object_
-  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInput(System.String,System.Object)
-  name.vb: AddInput(String, Object)
-  fullName: DbFacade.DataLayer.Models.ParameterDataCollection<TModel>.AddInput(string, object)
-  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInput(String, Object)
-  nameWithType: ParameterDataCollection<TModel>.AddInput(string, object)
-  nameWithType.vb: ParameterDataCollection(Of TModel).AddInput(String, Object)
 - uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInput*
   name: AddInput
   href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInput_
@@ -1570,24 +1576,6 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInput
   nameWithType: ParameterDataCollection<TModel>.AddInput
   nameWithType.vb: ParameterDataCollection(Of TModel).AddInput
-- uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInputOutput(System.String,System.Func{`0,System.Object},System.Nullable{System.Int32})
-  name: AddInputOutput(string, Func<TModel, object>, int?)
-  href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInputOutput_System_String_System_Func__0_System_Object__System_Nullable_System_Int32__
-  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInputOutput(System.String,System.Func{`0,System.Object},System.Nullable{System.Int32})
-  name.vb: AddInputOutput(String, Func(Of TModel, Object), Integer?)
-  fullName: DbFacade.DataLayer.Models.ParameterDataCollection<TModel>.AddInputOutput(string, System.Func<TModel, object>, int?)
-  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInputOutput(String, System.Func(Of TModel, Object), Integer?)
-  nameWithType: ParameterDataCollection<TModel>.AddInputOutput(string, Func<TModel, object>, int?)
-  nameWithType.vb: ParameterDataCollection(Of TModel).AddInputOutput(String, Func(Of TModel, Object), Integer?)
-- uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInputOutput(System.String,System.Object,System.Nullable{System.Int32})
-  name: AddInputOutput(string, object, int?)
-  href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInputOutput_System_String_System_Object_System_Nullable_System_Int32__
-  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInputOutput(System.String,System.Object,System.Nullable{System.Int32})
-  name.vb: AddInputOutput(String, Object, Integer?)
-  fullName: DbFacade.DataLayer.Models.ParameterDataCollection<TModel>.AddInputOutput(string, object, int?)
-  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInputOutput(String, Object, Integer?)
-  nameWithType: ParameterDataCollection<TModel>.AddInputOutput(string, object, int?)
-  nameWithType.vb: ParameterDataCollection(Of TModel).AddInputOutput(String, Object, Integer?)
 - uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInputOutput*
   name: AddInputOutput
   href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInputOutput_
@@ -1597,6 +1585,42 @@ references:
   fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInputOutput
   nameWithType: ParameterDataCollection<TModel>.AddInputOutput
   nameWithType.vb: ParameterDataCollection(Of TModel).AddInputOutput
+- uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInputOutput``1(System.String,System.Func{`0,``0},System.Nullable{System.Int32})
+  name: AddInputOutput<TCol>(string, Func<TModel, TCol>, int?)
+  href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInputOutput__1_System_String_System_Func__0___0__System_Nullable_System_Int32__
+  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInputOutput``1(System.String,System.Func{`0,``0},System.Nullable{System.Int32})
+  name.vb: AddInputOutput(Of TCol)(String, Func(Of TModel, TCol), Integer?)
+  fullName: DbFacade.DataLayer.Models.ParameterDataCollection<TModel>.AddInputOutput<TCol>(string, System.Func<TModel, TCol>, int?)
+  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInputOutput(Of TCol)(String, System.Func(Of TModel, TCol), Integer?)
+  nameWithType: ParameterDataCollection<TModel>.AddInputOutput<TCol>(string, Func<TModel, TCol>, int?)
+  nameWithType.vb: ParameterDataCollection(Of TModel).AddInputOutput(Of TCol)(String, Func(Of TModel, TCol), Integer?)
+- uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInputOutput``1(System.String,``0,System.Nullable{System.Int32})
+  name: AddInputOutput<TCol>(string, TCol, int?)
+  href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInputOutput__1_System_String___0_System_Nullable_System_Int32__
+  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInputOutput``1(System.String,``0,System.Nullable{System.Int32})
+  name.vb: AddInputOutput(Of TCol)(String, TCol, Integer?)
+  fullName: DbFacade.DataLayer.Models.ParameterDataCollection<TModel>.AddInputOutput<TCol>(string, TCol, int?)
+  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInputOutput(Of TCol)(String, TCol, Integer?)
+  nameWithType: ParameterDataCollection<TModel>.AddInputOutput<TCol>(string, TCol, int?)
+  nameWithType.vb: ParameterDataCollection(Of TModel).AddInputOutput(Of TCol)(String, TCol, Integer?)
+- uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInput``1(System.String,System.Func{`0,``0})
+  name: AddInput<TCol>(string, Func<TModel, TCol>)
+  href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInput__1_System_String_System_Func__0___0__
+  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInput``1(System.String,System.Func{`0,``0})
+  name.vb: AddInput(Of TCol)(String, Func(Of TModel, TCol))
+  fullName: DbFacade.DataLayer.Models.ParameterDataCollection<TModel>.AddInput<TCol>(string, System.Func<TModel, TCol>)
+  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInput(Of TCol)(String, System.Func(Of TModel, TCol))
+  nameWithType: ParameterDataCollection<TModel>.AddInput<TCol>(string, Func<TModel, TCol>)
+  nameWithType.vb: ParameterDataCollection(Of TModel).AddInput(Of TCol)(String, Func(Of TModel, TCol))
+- uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInput``1(System.String,``0)
+  name: AddInput<TCol>(string, TCol)
+  href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddInput__1_System_String___0_
+  commentId: M:DbFacade.DataLayer.Models.ParameterDataCollection`1.AddInput``1(System.String,``0)
+  name.vb: AddInput(Of TCol)(String, TCol)
+  fullName: DbFacade.DataLayer.Models.ParameterDataCollection<TModel>.AddInput<TCol>(string, TCol)
+  fullName.vb: DbFacade.DataLayer.Models.ParameterDataCollection(Of TModel).AddInput(Of TCol)(String, TCol)
+  nameWithType: ParameterDataCollection<TModel>.AddInput<TCol>(string, TCol)
+  nameWithType.vb: ParameterDataCollection(Of TModel).AddInput(Of TCol)(String, TCol)
 - uid: DbFacade.DataLayer.Models.ParameterDataCollection`1.AddOutput*
   name: AddOutput
   href: api/DbFacade.DataLayer.Models.ParameterDataCollection-1.html#DbFacade_DataLayer_Models_ParameterDataCollection_1_AddOutput_
@@ -1779,6 +1803,32 @@ references:
   commentId: F:DbFacade.DataLayer.Models.Parameters.Currency.Value
   fullName: DbFacade.DataLayer.Models.Parameters.Currency.Value
   nameWithType: Currency.Value
+- uid: DbFacade.DataLayer.Models.Parameters.GenericParameterModel`1
+  name: GenericParameterModel<T>
+  href: api/DbFacade.DataLayer.Models.Parameters.GenericParameterModel-1.html
+  commentId: T:DbFacade.DataLayer.Models.Parameters.GenericParameterModel`1
+  name.vb: GenericParameterModel(Of T)
+  fullName: DbFacade.DataLayer.Models.Parameters.GenericParameterModel<T>
+  fullName.vb: DbFacade.DataLayer.Models.Parameters.GenericParameterModel(Of T)
+  nameWithType: GenericParameterModel<T>
+  nameWithType.vb: GenericParameterModel(Of T)
+- uid: DbFacade.DataLayer.Models.Parameters.GenericParameterModel`1.Data
+  name: Data
+  href: api/DbFacade.DataLayer.Models.Parameters.GenericParameterModel-1.html#DbFacade_DataLayer_Models_Parameters_GenericParameterModel_1_Data
+  commentId: P:DbFacade.DataLayer.Models.Parameters.GenericParameterModel`1.Data
+  fullName: DbFacade.DataLayer.Models.Parameters.GenericParameterModel<T>.Data
+  fullName.vb: DbFacade.DataLayer.Models.Parameters.GenericParameterModel(Of T).Data
+  nameWithType: GenericParameterModel<T>.Data
+  nameWithType.vb: GenericParameterModel(Of T).Data
+- uid: DbFacade.DataLayer.Models.Parameters.GenericParameterModel`1.Data*
+  name: Data
+  href: api/DbFacade.DataLayer.Models.Parameters.GenericParameterModel-1.html#DbFacade_DataLayer_Models_Parameters_GenericParameterModel_1_Data_
+  commentId: Overload:DbFacade.DataLayer.Models.Parameters.GenericParameterModel`1.Data
+  isSpec: "True"
+  fullName: DbFacade.DataLayer.Models.Parameters.GenericParameterModel<T>.Data
+  fullName.vb: DbFacade.DataLayer.Models.Parameters.GenericParameterModel(Of T).Data
+  nameWithType: GenericParameterModel<T>.Data
+  nameWithType.vb: GenericParameterModel(Of T).Data
 - uid: DbFacade.DataLayer.Models.Parameters.StringFixedLength
   name: StringFixedLength
   href: api/DbFacade.DataLayer.Models.Parameters.StringFixedLength.html
@@ -2045,24 +2095,6 @@ references:
   fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Action(Of T, DbFacade.DataLayer.Models.IDataCollection))
   nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, Action<T, IDataCollection>)
   nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, Action(Of T, IDataCollection))
-- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object)
-  name: ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, object)
-  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Object_
-  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object)
-  name.vb: ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, Object)
-  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, object)
-  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, Object)
-  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, object)
-  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, Object)
-- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})
-  name: ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, object, Action<T, IDataCollection>)
-  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Object_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__
-  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})
-  name.vb: ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, Object, Action(Of T, IDataCollection))
-  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, object, System.Action<T, DbFacade.DataLayer.Models.IDataCollection>)
-  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, Object, System.Action(Of T, DbFacade.DataLayer.Models.IDataCollection))
-  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, object, Action<T, IDataCollection>)
-  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, Object, Action(Of T, IDataCollection))
 - uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken)
   name: ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, CancellationToken)
   href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken_
@@ -2081,24 +2113,42 @@ references:
   fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Threading.CancellationToken, System.Action(Of T, DbFacade.DataLayer.Models.IDataCollection))
   nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, CancellationToken, Action<T, IDataCollection>)
   nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, CancellationToken, Action(Of T, IDataCollection))
-- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,System.Object)
-  name: ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, CancellationToken, object)
-  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken_System_Object_
-  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,System.Object)
-  name.vb: ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, CancellationToken, Object)
-  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Threading.CancellationToken, object)
-  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Threading.CancellationToken, Object)
-  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, CancellationToken, object)
-  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, CancellationToken, Object)
-- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,System.Object,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})
-  name: ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, CancellationToken, object, Action<T, IDataCollection>)
-  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken_System_Object_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__
-  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,System.Object,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})
-  name.vb: ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, CancellationToken, Object, Action(Of T, IDataCollection))
-  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Threading.CancellationToken, object, System.Action<T, DbFacade.DataLayer.Models.IDataCollection>)
-  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Threading.CancellationToken, Object, System.Action(Of T, DbFacade.DataLayer.Models.IDataCollection))
-  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T>(IDbCommandMethod, CancellationToken, object, Action<T, IDataCollection>)
-  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T)(IDbCommandMethod, CancellationToken, Object, Action(Of T, IDataCollection))
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,``1)
+  name: ExecuteAndFetchFirstAsync<T, TParameters>(IDbCommandMethod, CancellationToken, TParameters)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken___1_
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,``1)
+  name.vb: ExecuteAndFetchFirstAsync(Of T, TParameters)(IDbCommandMethod, CancellationToken, TParameters)
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T, TParameters>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Threading.CancellationToken, TParameters)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T, TParameters)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Threading.CancellationToken, TParameters)
+  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T, TParameters>(IDbCommandMethod, CancellationToken, TParameters)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T, TParameters)(IDbCommandMethod, CancellationToken, TParameters)
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,``1,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})
+  name: ExecuteAndFetchFirstAsync<T, TParameters>(IDbCommandMethod, CancellationToken, TParameters, Action<T, IDataCollection>)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Threading_CancellationToken___1_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Threading.CancellationToken,``1,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})
+  name.vb: ExecuteAndFetchFirstAsync(Of T, TParameters)(IDbCommandMethod, CancellationToken, TParameters, Action(Of T, IDataCollection))
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T, TParameters>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Threading.CancellationToken, TParameters, System.Action<T, DbFacade.DataLayer.Models.IDataCollection>)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T, TParameters)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Threading.CancellationToken, TParameters, System.Action(Of T, DbFacade.DataLayer.Models.IDataCollection))
+  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T, TParameters>(IDbCommandMethod, CancellationToken, TParameters, Action<T, IDataCollection>)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T, TParameters)(IDbCommandMethod, CancellationToken, TParameters, Action(Of T, IDataCollection))
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1)
+  name: ExecuteAndFetchFirstAsync<T, TParameters>(IDbCommandMethod, TParameters)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod___1_
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1)
+  name.vb: ExecuteAndFetchFirstAsync(Of T, TParameters)(IDbCommandMethod, TParameters)
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T, TParameters>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, TParameters)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T, TParameters)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, TParameters)
+  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T, TParameters>(IDbCommandMethod, TParameters)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T, TParameters)(IDbCommandMethod, TParameters)
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})
+  name: ExecuteAndFetchFirstAsync<T, TParameters>(IDbCommandMethod, TParameters, Action<T, IDataCollection>)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirstAsync__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod___1_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection})
+  name.vb: ExecuteAndFetchFirstAsync(Of T, TParameters)(IDbCommandMethod, TParameters, Action(Of T, IDataCollection))
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T, TParameters>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, TParameters, System.Action<T, DbFacade.DataLayer.Models.IDataCollection>)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T, TParameters)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, TParameters, System.Action(Of T, DbFacade.DataLayer.Models.IDataCollection))
+  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync<T, TParameters>(IDbCommandMethod, TParameters, Action<T, IDataCollection>)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirstAsync(Of T, TParameters)(IDbCommandMethod, TParameters, Action(Of T, IDataCollection))
 - uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection},System.Collections.Generic.IEnumerable{``0}@)
   name: ExecuteAndFetchFirst<T>(IDbCommandMethod, Action<T, IDataCollection>, out IEnumerable<T>)
   href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__System_Collections_Generic_IEnumerable___0___
@@ -2117,33 +2167,33 @@ references:
   fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, System.Collections.Generic.IEnumerable(Of T))
   nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirst<T>(IDbCommandMethod, out IEnumerable<T>)
   nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T)(IDbCommandMethod, IEnumerable(Of T))
-- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection},System.Collections.Generic.IEnumerable{``0}@)
-  name: ExecuteAndFetchFirst<T>(IDbCommandMethod, object, Action<T, IDataCollection>, out IEnumerable<T>)
-  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Object_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__System_Collections_Generic_IEnumerable___0___
-  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection},System.Collections.Generic.IEnumerable{``0}@)
-  name.vb: ExecuteAndFetchFirst(Of T)(IDbCommandMethod, Object, Action(Of T, IDataCollection), IEnumerable(Of T))
-  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst<T>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, object, System.Action<T, DbFacade.DataLayer.Models.IDataCollection>, out System.Collections.Generic.IEnumerable<T>)
-  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, Object, System.Action(Of T, DbFacade.DataLayer.Models.IDataCollection), System.Collections.Generic.IEnumerable(Of T))
-  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirst<T>(IDbCommandMethod, object, Action<T, IDataCollection>, out IEnumerable<T>)
-  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T)(IDbCommandMethod, Object, Action(Of T, IDataCollection), IEnumerable(Of T))
-- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object,System.Collections.Generic.IEnumerable{``0}@)
-  name: ExecuteAndFetchFirst<T>(IDbCommandMethod, object, out IEnumerable<T>)
-  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__1_DbFacade_DataLayer_CommandConfig_IDbCommandMethod_System_Object_System_Collections_Generic_IEnumerable___0___
-  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``1(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,System.Object,System.Collections.Generic.IEnumerable{``0}@)
-  name.vb: ExecuteAndFetchFirst(Of T)(IDbCommandMethod, Object, IEnumerable(Of T))
-  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst<T>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, object, out System.Collections.Generic.IEnumerable<T>)
-  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, Object, System.Collections.Generic.IEnumerable(Of T))
-  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirst<T>(IDbCommandMethod, object, out IEnumerable<T>)
-  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T)(IDbCommandMethod, Object, IEnumerable(Of T))
-- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Object)
-  name: ExecuteGroup(IEnumerable<IDbCommandMethod>, object)
-  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroup_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Object_
-  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Object)
-  name.vb: ExecuteGroup(IEnumerable(Of IDbCommandMethod), Object)
-  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable<DbFacade.DataLayer.CommandConfig.IDbCommandMethod>, object)
-  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable(Of DbFacade.DataLayer.CommandConfig.IDbCommandMethod), Object)
-  nameWithType: DbCommandMethodExtensions.ExecuteGroup(IEnumerable<IDbCommandMethod>, object)
-  nameWithType.vb: DbCommandMethodExtensions.ExecuteGroup(IEnumerable(Of IDbCommandMethod), Object)
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection},System.Collections.Generic.IEnumerable{``0}@)
+  name: ExecuteAndFetchFirst<T, TParameters>(IDbCommandMethod, TParameters, Action<T, IDataCollection>, out IEnumerable<T>)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod___1_System_Action___0_DbFacade_DataLayer_Models_IDataCollection__System_Collections_Generic_IEnumerable___0___
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1,System.Action{``0,DbFacade.DataLayer.Models.IDataCollection},System.Collections.Generic.IEnumerable{``0}@)
+  name.vb: ExecuteAndFetchFirst(Of T, TParameters)(IDbCommandMethod, TParameters, Action(Of T, IDataCollection), IEnumerable(Of T))
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst<T, TParameters>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, TParameters, System.Action<T, DbFacade.DataLayer.Models.IDataCollection>, out System.Collections.Generic.IEnumerable<T>)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T, TParameters)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, TParameters, System.Action(Of T, DbFacade.DataLayer.Models.IDataCollection), System.Collections.Generic.IEnumerable(Of T))
+  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirst<T, TParameters>(IDbCommandMethod, TParameters, Action<T, IDataCollection>, out IEnumerable<T>)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T, TParameters)(IDbCommandMethod, TParameters, Action(Of T, IDataCollection), IEnumerable(Of T))
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1,System.Collections.Generic.IEnumerable{``0}@)
+  name: ExecuteAndFetchFirst<T, TParameters>(IDbCommandMethod, TParameters, out IEnumerable<T>)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteAndFetchFirst__2_DbFacade_DataLayer_CommandConfig_IDbCommandMethod___1_System_Collections_Generic_IEnumerable___0___
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst``2(DbFacade.DataLayer.CommandConfig.IDbCommandMethod,``1,System.Collections.Generic.IEnumerable{``0}@)
+  name.vb: ExecuteAndFetchFirst(Of T, TParameters)(IDbCommandMethod, TParameters, IEnumerable(Of T))
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst<T, TParameters>(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, TParameters, out System.Collections.Generic.IEnumerable<T>)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T, TParameters)(DbFacade.DataLayer.CommandConfig.IDbCommandMethod, TParameters, System.Collections.Generic.IEnumerable(Of T))
+  nameWithType: DbCommandMethodExtensions.ExecuteAndFetchFirst<T, TParameters>(IDbCommandMethod, TParameters, out IEnumerable<T>)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteAndFetchFirst(Of T, TParameters)(IDbCommandMethod, TParameters, IEnumerable(Of T))
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod})
+  name: ExecuteGroup(IEnumerable<IDbCommandMethod>)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroup_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod})
+  name.vb: ExecuteGroup(IEnumerable(Of IDbCommandMethod))
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable<DbFacade.DataLayer.CommandConfig.IDbCommandMethod>)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(System.Collections.Generic.IEnumerable(Of DbFacade.DataLayer.CommandConfig.IDbCommandMethod))
+  nameWithType: DbCommandMethodExtensions.ExecuteGroup(IEnumerable<IDbCommandMethod>)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteGroup(IEnumerable(Of IDbCommandMethod))
 - uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup*
   name: ExecuteGroup
   href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroup_
@@ -2151,24 +2201,24 @@ references:
   isSpec: "True"
   fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup
   nameWithType: DbCommandMethodExtensions.ExecuteGroup
-- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Object)
-  name: ExecuteGroupAsync(IEnumerable<IDbCommandMethod>, object)
-  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Object_
-  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Object)
-  name.vb: ExecuteGroupAsync(IEnumerable(Of IDbCommandMethod), Object)
-  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable<DbFacade.DataLayer.CommandConfig.IDbCommandMethod>, object)
-  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable(Of DbFacade.DataLayer.CommandConfig.IDbCommandMethod), Object)
-  nameWithType: DbCommandMethodExtensions.ExecuteGroupAsync(IEnumerable<IDbCommandMethod>, object)
-  nameWithType.vb: DbCommandMethodExtensions.ExecuteGroupAsync(IEnumerable(Of IDbCommandMethod), Object)
-- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Threading.CancellationToken,System.Object)
-  name: ExecuteGroupAsync(IEnumerable<IDbCommandMethod>, CancellationToken, object)
-  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Threading_CancellationToken_System_Object_
-  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Threading.CancellationToken,System.Object)
-  name.vb: ExecuteGroupAsync(IEnumerable(Of IDbCommandMethod), CancellationToken, Object)
-  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable<DbFacade.DataLayer.CommandConfig.IDbCommandMethod>, System.Threading.CancellationToken, object)
-  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable(Of DbFacade.DataLayer.CommandConfig.IDbCommandMethod), System.Threading.CancellationToken, Object)
-  nameWithType: DbCommandMethodExtensions.ExecuteGroupAsync(IEnumerable<IDbCommandMethod>, CancellationToken, object)
-  nameWithType.vb: DbCommandMethodExtensions.ExecuteGroupAsync(IEnumerable(Of IDbCommandMethod), CancellationToken, Object)
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod})
+  name: ExecuteGroupAsync(IEnumerable<IDbCommandMethod>)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod})
+  name.vb: ExecuteGroupAsync(IEnumerable(Of IDbCommandMethod))
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable<DbFacade.DataLayer.CommandConfig.IDbCommandMethod>)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable(Of DbFacade.DataLayer.CommandConfig.IDbCommandMethod))
+  nameWithType: DbCommandMethodExtensions.ExecuteGroupAsync(IEnumerable<IDbCommandMethod>)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteGroupAsync(IEnumerable(Of IDbCommandMethod))
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Threading.CancellationToken)
+  name: ExecuteGroupAsync(IEnumerable<IDbCommandMethod>, CancellationToken)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Threading_CancellationToken_
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Threading.CancellationToken)
+  name.vb: ExecuteGroupAsync(IEnumerable(Of IDbCommandMethod), CancellationToken)
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable<DbFacade.DataLayer.CommandConfig.IDbCommandMethod>, System.Threading.CancellationToken)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(System.Collections.Generic.IEnumerable(Of DbFacade.DataLayer.CommandConfig.IDbCommandMethod), System.Threading.CancellationToken)
+  nameWithType: DbCommandMethodExtensions.ExecuteGroupAsync(IEnumerable<IDbCommandMethod>, CancellationToken)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteGroupAsync(IEnumerable(Of IDbCommandMethod), CancellationToken)
 - uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync*
   name: ExecuteGroupAsync
   href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync_
@@ -2176,6 +2226,33 @@ references:
   isSpec: "True"
   fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync
   nameWithType: DbCommandMethodExtensions.ExecuteGroupAsync
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync``1(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Threading.CancellationToken,``0)
+  name: ExecuteGroupAsync<TParameters>(IEnumerable<IDbCommandMethod>, CancellationToken, TParameters)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync__1_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod__System_Threading_CancellationToken___0_
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync``1(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},System.Threading.CancellationToken,``0)
+  name.vb: ExecuteGroupAsync(Of TParameters)(IEnumerable(Of IDbCommandMethod), CancellationToken, TParameters)
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync<TParameters>(System.Collections.Generic.IEnumerable<DbFacade.DataLayer.CommandConfig.IDbCommandMethod>, System.Threading.CancellationToken, TParameters)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(Of TParameters)(System.Collections.Generic.IEnumerable(Of DbFacade.DataLayer.CommandConfig.IDbCommandMethod), System.Threading.CancellationToken, TParameters)
+  nameWithType: DbCommandMethodExtensions.ExecuteGroupAsync<TParameters>(IEnumerable<IDbCommandMethod>, CancellationToken, TParameters)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteGroupAsync(Of TParameters)(IEnumerable(Of IDbCommandMethod), CancellationToken, TParameters)
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync``1(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},``0)
+  name: ExecuteGroupAsync<TParameters>(IEnumerable<IDbCommandMethod>, TParameters)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroupAsync__1_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod____0_
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync``1(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},``0)
+  name.vb: ExecuteGroupAsync(Of TParameters)(IEnumerable(Of IDbCommandMethod), TParameters)
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync<TParameters>(System.Collections.Generic.IEnumerable<DbFacade.DataLayer.CommandConfig.IDbCommandMethod>, TParameters)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroupAsync(Of TParameters)(System.Collections.Generic.IEnumerable(Of DbFacade.DataLayer.CommandConfig.IDbCommandMethod), TParameters)
+  nameWithType: DbCommandMethodExtensions.ExecuteGroupAsync<TParameters>(IEnumerable<IDbCommandMethod>, TParameters)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteGroupAsync(Of TParameters)(IEnumerable(Of IDbCommandMethod), TParameters)
+- uid: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup``1(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},``0)
+  name: ExecuteGroup<TParameters>(IEnumerable<IDbCommandMethod>, TParameters)
+  href: api/DbFacade.Extensions.DbCommandMethodExtensions.html#DbFacade_Extensions_DbCommandMethodExtensions_ExecuteGroup__1_System_Collections_Generic_IEnumerable_DbFacade_DataLayer_CommandConfig_IDbCommandMethod____0_
+  commentId: M:DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup``1(System.Collections.Generic.IEnumerable{DbFacade.DataLayer.CommandConfig.IDbCommandMethod},``0)
+  name.vb: ExecuteGroup(Of TParameters)(IEnumerable(Of IDbCommandMethod), TParameters)
+  fullName: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup<TParameters>(System.Collections.Generic.IEnumerable<DbFacade.DataLayer.CommandConfig.IDbCommandMethod>, TParameters)
+  fullName.vb: DbFacade.Extensions.DbCommandMethodExtensions.ExecuteGroup(Of TParameters)(System.Collections.Generic.IEnumerable(Of DbFacade.DataLayer.CommandConfig.IDbCommandMethod), TParameters)
+  nameWithType: DbCommandMethodExtensions.ExecuteGroup<TParameters>(IEnumerable<IDbCommandMethod>, TParameters)
+  nameWithType.vb: DbCommandMethodExtensions.ExecuteGroup(Of TParameters)(IEnumerable(Of IDbCommandMethod), TParameters)
 - uid: DbFacade.Extensions.DbConnectionConfigExtensions
   name: DbConnectionConfigExtensions
   href: api/DbFacade.Extensions.DbConnectionConfigExtensions.html
@@ -2616,15 +2693,6 @@ references:
   fullName.vb: DbFacade.Extensions.EndpointSettingsExtensions.WithParameters(Of T)(DbFacade.DataLayer.Models.EndpointSettings, System.Action(Of DbFacade.DataLayer.Models.ParameterDataCollection(Of T)))
   nameWithType: EndpointSettingsExtensions.WithParameters<T>(EndpointSettings, Action<ParameterDataCollection<T>>)
   nameWithType.vb: EndpointSettingsExtensions.WithParameters(Of T)(EndpointSettings, Action(Of ParameterDataCollection(Of T)))
-- uid: DbFacade.Extensions.EndpointSettingsExtensions.WithParameters``1(DbFacade.DataLayer.Models.EndpointSettings,System.Action{``0,DbFacade.DataLayer.Models.ParameterDataCollection})
-  name: WithParameters<T>(EndpointSettings, Action<T, ParameterDataCollection>)
-  href: api/DbFacade.Extensions.EndpointSettingsExtensions.html#DbFacade_Extensions_EndpointSettingsExtensions_WithParameters__1_DbFacade_DataLayer_Models_EndpointSettings_System_Action___0_DbFacade_DataLayer_Models_ParameterDataCollection__
-  commentId: M:DbFacade.Extensions.EndpointSettingsExtensions.WithParameters``1(DbFacade.DataLayer.Models.EndpointSettings,System.Action{``0,DbFacade.DataLayer.Models.ParameterDataCollection})
-  name.vb: WithParameters(Of T)(EndpointSettings, Action(Of T, ParameterDataCollection))
-  fullName: DbFacade.Extensions.EndpointSettingsExtensions.WithParameters<T>(DbFacade.DataLayer.Models.EndpointSettings, System.Action<T, DbFacade.DataLayer.Models.ParameterDataCollection>)
-  fullName.vb: DbFacade.Extensions.EndpointSettingsExtensions.WithParameters(Of T)(DbFacade.DataLayer.Models.EndpointSettings, System.Action(Of T, DbFacade.DataLayer.Models.ParameterDataCollection))
-  nameWithType: EndpointSettingsExtensions.WithParameters<T>(EndpointSettings, Action<T, ParameterDataCollection>)
-  nameWithType.vb: EndpointSettingsExtensions.WithParameters(Of T)(EndpointSettings, Action(Of T, ParameterDataCollection))
 - uid: DbFacade.Extensions.EndpointSettingsExtensions.WithValidation*
   name: WithValidation
   href: api/DbFacade.Extensions.EndpointSettingsExtensions.html#DbFacade_Extensions_EndpointSettingsExtensions_WithValidation_

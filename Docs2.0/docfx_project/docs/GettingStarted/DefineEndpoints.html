@@ -152,9 +152,9 @@
 <p>In the case of an endpoint only having a single input parameter with a struct type like int, string, Guid etc you may use the following</p>
 <pre><code class="lang-csharp">IDbCommandMethod myEndpointSingleParameterValue = dbConnectionConfig.DefineEndpoint(&quot;MyEndpoint&quot;, o =&gt; {
     //...
-    o.WithParameters&lt;Guid&gt;((m, p) =&gt;
+    o.WithParameters&lt;Guid&gt;(p=&gt;
     {
-        p.AddInput(&quot;SomeGuid&quot;, m);
+        p.AddInput(&quot;SomeGuid&quot;, m=&gt;m);
     });
     //...
 });

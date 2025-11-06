@@ -91,9 +91,9 @@ namespace Docs2._0.docfx_project.CodeExamples
             #region DefineEndpoint_ParameterBinding_SingleParameterValue
             IDbCommandMethod myEndpointSingleParameterValue = dbConnectionConfig.DefineEndpoint("MyEndpoint", o => {
                 //...
-                o.WithParameters<Guid>((m, p) =>
+                o.WithParameters<Guid>(p=>
                 {
-                    p.AddInput("SomeGuid", m);
+                    p.AddInput("SomeGuid", m=>m);
                 });
                 //...
             });

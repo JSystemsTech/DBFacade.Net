@@ -13,80 +13,97 @@ $(function () {
         const currentVersion = 'v1.0.13';
         const form = document.querySelector('.navbar-form');
         var currentURL = new URL(window.location.href);
-        let versions;
+        var versions = [
+            {
+                "version": "v2.0.0",
+                "latestBuild": "2.0.0",
+                "url": "",
+                "latest": true,
+                "divider": true,
+                "header": "v2.0 Releases",
+                "message": null,
+                "messageTheme": "info"
+            },
+            {
+                "version": "v1.0.13",
+                "latestBuild": "2.0.0",
+                "url": "/docsv1/index.html",
+                "latest": false,
+                "divider": false,
+                "header": "Previous Releases",
+                "message": "A new version of DbFacade is available",
+                "messageTheme": "info"
+            }
+        ];
         try {
-            getJson('versions', versions => {
-                if (versions !== null) {
-                    const versionsDropdownMenu = document.createElement('ul');
-                    versionsDropdownMenu.className = 'dropdown-menu';
-                    versionsDropdownMenu.setAttribute('aria-labelledby', 'versionsDropdownMenu');
-                    
-
-                    let currentInfo;
-                    versions.forEach(function (versionInfo) {
-                        
-                        if (currentVersion === versionInfo.version) {
-                            currentInfo = versionInfo;
-                        }
-                        if (versionInfo.header !== null) {
-                            var header = document.createElement('li');
-                            header.className = 'dropdown-header';
-                            header.textContent = versionInfo.header;
-                            versionsDropdownMenu.append(header);
-                        }
+            const versionsDropdownMenu = document.createElement('ul');
+            versionsDropdownMenu.className = 'dropdown-menu';
+            versionsDropdownMenu.setAttribute('aria-labelledby', 'versionsDropdownMenu');
 
 
-                        var listItem = document.createElement('li');
-                        var link = document.createElement('a');
-                        var url = `${currentURL.origin}${versionInfo.url}`;
-                        link.setAttribute('href', url);
-                        link.textContent = versionInfo.latest ? `${versionInfo.version} (latest)` : versionInfo.version;
-                        listItem.append(link);
-                        versionsDropdownMenu.append(listItem);
-                        if (versionInfo.divider) {
-                            var divider = document.createElement('li');
-                            divider.setAttribute('role', 'separator');
-                            divider.className = 'divider';
-                            versionsDropdownMenu.append(divider);
-                        }
-                    });
+            let currentInfo;
+            versions.forEach(function (versionInfo) {
 
-                    const versionsDropdown = document.createElement('div');
-                    versionsDropdown.className = 'dropdown';
+                if (currentVersion === versionInfo.version) {
+                    currentInfo = versionInfo;
+                }
+                if (versionInfo.header !== null) {
+                    var header = document.createElement('li');
+                    header.className = 'dropdown-header';
+                    header.textContent = versionInfo.header;
+                    versionsDropdownMenu.append(header);
+                }
 
-                    const versionsDropdownToggle = document.createElement('button');
-                    versionsDropdownToggle.className = 'btn btn-link dropdown-toggle';
-                    versionsDropdownToggle.setAttribute('type', 'button');
-                    versionsDropdownToggle.setAttribute('id', 'versionsDropdownMenu');
-                    versionsDropdownToggle.setAttribute('data-toggle', 'dropdown');
-                    versionsDropdownToggle.setAttribute('aria-haspopup', 'true');
-                    versionsDropdownToggle.setAttribute('aria-expanded', 'false');
-                    
-                    const versionsDropdownToggleText = document.createElement('span');
-                    var btnText = currentInfo.latest ? `${currentInfo.version} (latest)` : currentInfo.version;
-                    versionsDropdownToggleText.textContent = btnText;
-                    versionsDropdownToggle.append(versionsDropdownToggleText);
-                    const versionsDropdownToggleCaret = document.createElement('span');
-                    versionsDropdownToggleCaret.className = 'caret';
-                    versionsDropdownToggle.append(versionsDropdownToggleCaret);
 
-                    versionsDropdown.append(versionsDropdownToggle);
-                    versionsDropdown.append(versionsDropdownMenu);
+                var listItem = document.createElement('li');
+                var link = document.createElement('a');
+                var url = `${currentURL.origin}${versionInfo.url}`;
+                link.setAttribute('href', url);
+                link.textContent = versionInfo.latest ? `${versionInfo.version} (latest)` : versionInfo.version;
+                listItem.append(link);
+                versionsDropdownMenu.append(listItem);
+                if (versionInfo.divider) {
+                    var divider = document.createElement('li');
+                    divider.setAttribute('role', 'separator');
+                    divider.className = 'divider';
+                    versionsDropdownMenu.append(divider);
+                }
+            });
 
-                    const formGroup = document.createElement('div');
-                    formGroup.className = 'form-group';
-                    formGroup.append(versionsDropdown);
-                    form.prepend(formGroup);
+            const versionsDropdown = document.createElement('div');
+            versionsDropdown.className = 'dropdown';
 
-                    const groups = form.querySelectorAll('.form-group');
-                    groups.forEach((group) => {
-                        group.classList.add('reset-width');
-                    });
-                    if (typeof currentInfo.message === 'string') {
-                        addNavbarMessage(currentInfo.message);
-                    }
-                } 
-            }, true);
+            const versionsDropdownToggle = document.createElement('button');
+            versionsDropdownToggle.className = 'btn btn-link dropdown-toggle';
+            versionsDropdownToggle.setAttribute('type', 'button');
+            versionsDropdownToggle.setAttribute('id', 'versionsDropdownMenu');
+            versionsDropdownToggle.setAttribute('data-toggle', 'dropdown');
+            versionsDropdownToggle.setAttribute('aria-haspopup', 'true');
+            versionsDropdownToggle.setAttribute('aria-expanded', 'false');
+
+            const versionsDropdownToggleText = document.createElement('span');
+            var btnText = currentInfo.latest ? `${currentInfo.version} (latest)` : currentInfo.version;
+            versionsDropdownToggleText.textContent = btnText;
+            versionsDropdownToggle.append(versionsDropdownToggleText);
+            const versionsDropdownToggleCaret = document.createElement('span');
+            versionsDropdownToggleCaret.className = 'caret';
+            versionsDropdownToggle.append(versionsDropdownToggleCaret);
+
+            versionsDropdown.append(versionsDropdownToggle);
+            versionsDropdown.append(versionsDropdownMenu);
+
+            const formGroup = document.createElement('div');
+            formGroup.className = 'form-group';
+            formGroup.append(versionsDropdown);
+            form.prepend(formGroup);
+
+            const groups = form.querySelectorAll('.form-group');
+            groups.forEach((group) => {
+                group.classList.add('reset-width');
+            });
+            if (typeof currentInfo.message === 'string') {
+                addNavbarMessage(currentInfo.message);
+            }
             
         } catch (err) {
             console.log('Failed to add version navigation:', err);

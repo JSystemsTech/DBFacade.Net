@@ -210,7 +210,7 @@ Class ParameterDataCollection  <a class="header-action link-secondary" title="Vi
 
   <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_Item_System_Int32_" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.Item(System.Int32)">
   this[int]
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> with the specified column index.</p>
@@ -249,7 +249,7 @@ Class ParameterDataCollection  <a class="header-action link-secondary" title="Vi
 
   <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_Item_System_String_" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.Item(System.String)">
   this[string]
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L48"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> with the specified column name.</p>
@@ -288,7 +288,7 @@ Class ParameterDataCollection  <a class="header-action link-secondary" title="Vi
 
   <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_Keys" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.Keys">
   Keys
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the keys.</p>
@@ -321,60 +321,38 @@ Class ParameterDataCollection  <a class="header-action link-secondary" title="Vi
 </h2>
 
 
-  <a id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInput_" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInput*"></a>
-
-  <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInput_System_String_System_Object_" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInput(System.String,System.Object)">
-  AddInput(string, object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L49"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void AddInput(string columnName, object value)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>columnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
   <a id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput_" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput*"></a>
 
-  <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput_System_String_System_Object_System_Nullable_System_Int32__" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput(System.String,System.Object,System.Nullable{System.Int32})">
-  AddInputOutput(string, object, int?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput__1_System_String___0_System_Nullable_System_Int32__" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput``1(System.String,``0,System.Nullable{System.Int32})">
+  AddInputOutput&lt;TCol&gt;(string, TCol, int?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L94"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Adds the input output.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void AddInputOutput(string columnName, object value, int? size = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddInputOutput&lt;TCol&gt;(string columnName, TCol value, int? size = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>columnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
+    <dd><p>Name of the column.</p>
+</dd>
+    <dt><code>value</code> <span class="xref">TCol</span></dt>
+    <dd><p>The value.</p>
+</dd>
     <dt><code>size</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</dt>
+    <dd><p>The size.</p>
+</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TCol</code></dt>
     <dd></dd>
   </dl>
 
@@ -387,39 +365,46 @@ Class ParameterDataCollection  <a class="header-action link-secondary" title="Vi
 
 
 
-
-
   <a id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput_" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput*"></a>
 
-  <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput__1_System_String___0_System_Func___0_System_Object__System_Nullable_System_Int32__" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput``1(System.String,``0,System.Func{``0,System.Object},System.Nullable{System.Int32})">
-  AddInputOutput&lt;TModel&gt;(string, TModel, Func&lt;TModel, object&gt;, int?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInputOutput__2_System_String___0_System_Func___0___1__System_Nullable_System_Int32__" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInputOutput``2(System.String,``0,System.Func{``0,``1},System.Nullable{System.Int32})">
+  AddInputOutput&lt;TModel, TCol&gt;(string, TModel, Func&lt;TModel, TCol&gt;, int?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L104"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Adds the input output.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void AddInputOutput&lt;TModel&gt;(string columnName, TModel data, Func&lt;TModel, object&gt; getter, int? size = null) where TModel : class</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddInputOutput&lt;TModel, TCol&gt;(string columnName, TModel data, Func&lt;TModel, TCol&gt; getter, int? size = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>columnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>Name of the column.</p>
+</dd>
     <dt><code>data</code> <span class="xref">TModel</span></dt>
-    <dd></dd>
-    <dt><code>getter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TModel, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
-    <dd></dd>
+    <dd><p>The data.</p>
+</dd>
+    <dt><code>getter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TModel, TCol&gt;</dt>
+    <dd><p>The getter.</p>
+</dd>
     <dt><code>size</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</dt>
-    <dd></dd>
+    <dd><p>The size.</p>
+</dd>
   </dl>
 
 
   <h4 class="section">Type Parameters</h4>
   <dl class="parameters">
     <dt><code>TModel</code></dt>
-    <dd></dd>
+    <dd><p>The type of the model.</p>
+</dd>
+    <dt><code>TCol</code></dt>
+    <dd><p>The type of the col.</p>
+</dd>
   </dl>
 
 
@@ -433,33 +418,82 @@ Class ParameterDataCollection  <a class="header-action link-secondary" title="Vi
 
   <a id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInput_" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInput*"></a>
 
-  <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInput__1_System_String___0_System_Func___0_System_Object__" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInput``1(System.String,``0,System.Func{``0,System.Object})">
-  AddInput&lt;TModel&gt;(string, TModel, Func&lt;TModel, object&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInput__1_System_String___0_" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInput``1(System.String,``0)">
+  AddInput&lt;TCol&gt;(string, TCol)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L65"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Adds the input.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void AddInput&lt;TModel&gt;(string columnName, TModel data, Func&lt;TModel, object&gt; getter) where TModel : class</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddInput&lt;TCol&gt;(string columnName, TCol value)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>columnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Name of the column.</p>
+</dd>
+    <dt><code>value</code> <span class="xref">TCol</span></dt>
+    <dd><p>The value.</p>
+</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TCol</code></dt>
     <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInput_" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInput*"></a>
+
+  <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_AddInput__2_System_String___0_System_Func___0___1__" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddInput``2(System.String,``0,System.Func{``0,``1})">
+  AddInput&lt;TModel, TCol&gt;(string, TModel, Func&lt;TModel, TCol&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddInput&lt;TModel, TCol&gt;(string columnName, TModel data, Func&lt;TModel, TCol&gt; getter)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Name of the column.</p>
+</dd>
     <dt><code>data</code> <span class="xref">TModel</span></dt>
-    <dd></dd>
-    <dt><code>getter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TModel, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
-    <dd></dd>
+    <dd><p>The data.</p>
+</dd>
+    <dt><code>getter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TModel, TCol&gt;</dt>
+    <dd><p>The getter.</p>
+</dd>
   </dl>
 
 
   <h4 class="section">Type Parameters</h4>
   <dl class="parameters">
     <dt><code>TModel</code></dt>
-    <dd></dd>
+    <dd><p>The type of the model.</p>
+</dd>
+    <dt><code>TCol</code></dt>
+    <dd><p>The type of the col.</p>
+</dd>
   </dl>
 
 
@@ -475,10 +509,11 @@ Class ParameterDataCollection  <a class="header-action link-secondary" title="Vi
 
   <h3 id="DbFacade_DataLayer_Models_ParameterDataCollection_AddOutput__1_System_String_System_Nullable_System_Int32__" data-uid="DbFacade.DataLayer.Models.ParameterDataCollection.AddOutput``1(System.String,System.Nullable{System.Int32})">
   AddOutput&lt;TCol&gt;(string, int?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JSystemsTech/DBFacade.Net/blob/master/DbFacade2/DataLayer/Models/ParameterDataCollection.cs/#L87"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Adds the output.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -488,16 +523,19 @@ Class ParameterDataCollection  <a class="header-action link-secondary" title="Vi
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>columnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>Name of the column.</p>
+</dd>
     <dt><code>size</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</dt>
-    <dd></dd>
+    <dd><p>The size.</p>
+</dd>
   </dl>
 
 
   <h4 class="section">Type Parameters</h4>
   <dl class="parameters">
     <dt><code>TCol</code></dt>
-    <dd></dd>
+    <dd><p>The type of the col.</p>
+</dd>
   </dl>
 
 
