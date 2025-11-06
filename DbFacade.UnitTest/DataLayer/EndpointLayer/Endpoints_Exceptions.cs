@@ -20,6 +20,7 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
             TestException = SQLConnection.Dbo.DefineEndpoint("TestException", o => {
                 o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
                 o.AsStoredProcedure("TestException")
+                .WithParameters<Exception>(o => { })
                 .BindOnBeforeExecute((cmd, m) => { 
                     if(m is Exception ex)
                     {

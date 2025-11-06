@@ -38,10 +38,10 @@ namespace DbFacade.Extensions
                 dbCommand.AddParameter(info, settings);
             }
         }
-        internal static IDbCommand GetDbCommand(
+        internal static IDbCommand GetDbCommand<T>(
             this IDbConnection dbConnection,
             DbCommandMethod dbCommandMethod,
-            object model
+            T model
             )
         {
             var dbCommand = dbConnection is MockDbConnection conn ? conn.CreateDbCommand(dbCommandMethod) : dbConnection.CreateCommand();

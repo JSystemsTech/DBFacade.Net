@@ -43,6 +43,20 @@ namespace DbFacade.UnitTest.Tests.Facade
             Assert.False(response.HasError);
         }
         [Fact]
+        public void SuccessfullySendsNullableStringParam()
+        {
+            Services.EndpointMockHelper.TestNullableStringParams_EnableMockMode();
+            var response = Services.DomainFacade.TestNullableStringParams(null);
+            Assert.False(response.HasError);
+        }
+        [Fact]
+        public void SuccessfullySendsNullableStringValueParam()
+        {
+            Services.EndpointMockHelper.TestNullableStringParams_EnableMockMode();
+            var response = Services.DomainFacade.TestNullableStringParams("Some String");
+            Assert.False(response.HasError);
+        }
+        [Fact]
         public void SuccessfullyFetchesData()
         {
             Services.EndpointMockHelper.TestFetchData_EnableMockMode();

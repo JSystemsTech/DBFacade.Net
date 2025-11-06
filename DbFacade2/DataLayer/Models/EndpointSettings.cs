@@ -26,9 +26,10 @@ namespace DbFacade.DataLayer.Models
         /// <summary>Gets or sets the connection string identifier.</summary>
         /// <value>The connection string identifier.</value>
         public string ConnectionStringId { get; set; }
-        internal readonly string Name;
+        /// <summary>The name</summary>
+        public readonly string Name;
         private readonly List<Func<object, string>> CommandTextBuilders;
-        internal string BuildCommandText(object model) => string.Join(Environment.NewLine, CommandTextBuilders.Select(b => b(model)));
+        internal string BuildCommandText<T>(T model) => string.Join(Environment.NewLine, CommandTextBuilders.Select(b => b(model)));
         internal CommandType CommandType { get; set; }
         internal bool IsTransaction { get; set; }
         internal IsolationLevel IsolationLevel { get; set; }
@@ -59,7 +60,7 @@ namespace DbFacade.DataLayer.Models
         }
         internal (Type providerType, string connectionStringId) GetConnectionGroupKey()
             => (DbConnectionProvider.GetType(), ConnectionStringId);
-        internal async Task OnBeforeExecuteAsync(IDbCommand command, object model, CancellationToken cancellationToken)
+        internal async Task OnBeforeExecuteAsync<T>(IDbCommand command, T model, CancellationToken cancellationToken)
         {
             if (OnBeforeExecuteHandlerAsync != null)
             {
@@ -71,7 +72,7 @@ namespace DbFacade.DataLayer.Models
                 await Task.CompletedTask;
             }
         }
-        internal void OnBeforeExecute(IDbCommand command, object model)
+        internal void OnBeforeExecute<T>(IDbCommand command, T model)
         {
             if (OnBeforeExecuteHandler != null)
             {
@@ -101,10 +102,10 @@ namespace DbFacade.DataLayer.Models
                 CommandTextBuilders.Add(m => query);
             }
         }
-        internal (bool isValid, string[] errors) Validate(object model)
+        internal (bool isValid, string[] errors) Validate<T>(T model)
         {
             bool hasTypeValidation = TypeValidators.Keys.Count > 0;
-            Type key = model == null ? typeof(object) : model.GetType();
+            Type key = model == null ? typeof(object) : Accessor<T>.GetInstance().Type;
             if (TypeValidators.ContainsKey(key) && TypeValidators[key] is Func<object, (bool isValid, string[] errors)> validate)
             {
                 return validate(model);
@@ -127,36 +128,25 @@ namespace DbFacade.DataLayer.Models
             TypeValidators[key] = validate;
         }
 
-        internal void AddParams(IDbCommand command, object model)
+        internal void AddParams<T>(IDbCommand command, T model)
         {
-            bool hasTypeConstraintResolvers = ParameterResolvers.Keys.Count > 0;
-            bool hasGeneralResolver = AddParamsGeneral != null;
-            Type parmFirstType = ParameterResolvers.Keys.FirstOrDefault();
-            bool isPrimitiveNullableNonNull = model != null && ParameterResolvers.Keys.Count == 1 && parmFirstType != null && !parmFirstType.IsClass && parmFirstType.UnderlyingSystemType != model.GetType();
-            bool isPrimitiveNullableNull = model == null && ParameterResolvers.Keys.Count == 1 && parmFirstType != null && !parmFirstType.IsClass && parmFirstType.UnderlyingSystemType != null;
-
-
-            Type key = isPrimitiveNullableNonNull ? parmFirstType :
-                isPrimitiveNullableNull ? parmFirstType :
-                model == null ? 
-                typeof(object): model.GetType();
-
-            bool expectingParams = hasTypeConstraintResolvers || hasGeneralResolver;
-            bool addedParams = !expectingParams;
+            Accessor<T> accessor = Accessor<T>.GetInstance();
             
-            if (ParameterResolvers.ContainsKey(key) && ParameterResolvers[key] is Action<IDbCommand, object> resolver)
+            if (ParameterResolvers.ContainsKey(accessor.Type) && ParameterResolvers[accessor.Type] is Action<IDbCommand, object> resolver)
             {
                 resolver(command, model);
-                addedParams = true;
             }
-            if (hasGeneralResolver)
+            else if(AddParamsGeneral != null)
             {
                 AddParamsGeneral(command, model);
-                addedParams = true;
             }
-            if (!addedParams && hasTypeConstraintResolvers)
+            else if (accessor.IsNullable && model == null)
             {
-                ErrorHelper.ThrowInvalidParametersError(key, ParameterResolvers.Keys.ToArray());
+                return;
+            }
+            else
+            {
+                ErrorHelper.ThrowInvalidParametersError(accessor.Type, ParameterResolvers.Keys.ToArray());
             }
         }
         private Action<IDbCommand, object> AddParamsGeneral { get; set; }

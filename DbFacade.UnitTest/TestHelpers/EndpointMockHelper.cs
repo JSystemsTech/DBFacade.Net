@@ -40,11 +40,18 @@ namespace DbFacade.UnitTest.TestHelpers
             Endpoints.TestNonQuery.DisableMockMode();
             Endpoints.TestFetchDataWithOnBeforeAsync.DisableMockMode();
             Endpoints.TestNullableParams.DisableMockMode();
+            Endpoints.TestNullableStringParams.DisableMockMode();
 
         }
         public void TestNullableParams_EnableMockMode()
         {
             Endpoints.TestNullableParams.EnableMockMode(b => {
+                b.ReturnValue = 1;
+            });
+        }
+        public void TestNullableStringParams_EnableMockMode()
+        {
+            Endpoints.TestNullableStringParams.EnableMockMode(b => {
                 b.ReturnValue = 1;
             });
         }

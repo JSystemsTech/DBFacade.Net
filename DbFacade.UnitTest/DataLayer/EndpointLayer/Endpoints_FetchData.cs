@@ -35,6 +35,7 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
 
 
         internal IDbCommandMethod TestNullableParams { get; private set; }
+        internal IDbCommandMethod TestNullableStringParams { get; private set; }
 
         private void OnInit_FetchData()
         {
@@ -43,12 +44,21 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
                 o.AsStoredProcedure("TestNullableParams")
                 .WithParameters<Guid?>(p =>
                 {
-                    p.AddInput("Today", m=>m);
+                    p.AddInput("Guid", m=>m);
+                });
+            });
+            TestNullableStringParams = SQLConnection.Dbo.DefineEndpoint("TestNullableString", o => {
+                o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
+                o.AsStoredProcedure("TestNullableString")
+                .WithParameters<string>(p =>
+                {
+                    p.AddInput("Value", m => m);
                 });
             });
             TestFetchDataWithOnBeforeAsync = SQLConnection.Dbo.DefineEndpoint("TestFetchDataWithOnBeforeAsync", o => {
                 o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
                 o.AsStoredProcedure("TestFetchDataWithOnBeforeAsync");
+                o.WithParameters<Func<Task>>(o => { });
                 o.BindOnBeforeExecute((cmd, model) => {
                     if (model is string throwErrorMessage)
                     {
@@ -63,7 +73,6 @@ namespace DbFacade.UnitTest.DataLayer.EndpointLayer
                     return Task.CompletedTask;
                 });
             });
-
             TestFetchData = SQLConnection.Dbo.DefineEndpoint("TestFetchData", o => {
                 o.ConnectionStringId = ConnectionStringIds.SQLUnitTest;
                 o.AsStoredProcedure("TestFetchData");

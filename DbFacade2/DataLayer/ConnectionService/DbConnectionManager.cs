@@ -15,7 +15,7 @@ namespace DbFacade.DataLayer.ConnectionService
 {
     internal partial class DbConnectionManager
     {
-        internal static IDbResponse ExecuteDbAction(DbCommandMethod commandConfig, object parameters)
+        internal static IDbResponse ExecuteDbAction<T>(DbCommandMethod commandConfig, T parameters)
         {            
             try
             {                
@@ -31,9 +31,9 @@ namespace DbFacade.DataLayer.ConnectionService
             }
         }
 
-        internal static IEnumerable<IDbResponse> ExecuteDbActions(
+        internal static IEnumerable<IDbResponse> ExecuteDbActions<T>(
             IEnumerable<DbCommandMethod> configs,
-            object parameters)
+            T parameters)
         {
             List<IDbResponse> responses = new List<IDbResponse>();
 
@@ -60,10 +60,10 @@ namespace DbFacade.DataLayer.ConnectionService
             }
             return responses;
         }
-        private static IDbResponse TryExecute(
+        private static IDbResponse TryExecute<T>(
             IDbConnection dbConnection,
             DbCommandMethod config,
-            object parameters)
+            T parameters)
         {
             try
             {
@@ -182,10 +182,10 @@ namespace DbFacade.DataLayer.ConnectionService
             }
         }
 
-        private static IDbResponse ProcessDbAction(
+        private static IDbResponse ProcessDbAction<T>(
             IDbConnection dbConnection,
             DbCommandMethod config,
-            object parameters)
+            T parameters)
         {
             config.Validate(parameters);
             using (var dbCommand = dbConnection.GetDbCommand(config, parameters))

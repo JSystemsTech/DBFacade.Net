@@ -15,7 +15,7 @@ namespace DbFacade.DataLayer.ConnectionService
 {
     internal partial class DbConnectionManager
     {       
-        internal static async Task<IDbResponse> ExecuteDbActionAsync(DbCommandMethod commandConfig, object parameters, CancellationToken cancellationToken)
+        internal static async Task<IDbResponse> ExecuteDbActionAsync<T>(DbCommandMethod commandConfig, T parameters, CancellationToken cancellationToken)
         {
             try
             {
@@ -30,9 +30,9 @@ namespace DbFacade.DataLayer.ConnectionService
                 return await HandleErrorResponseAsync(ex, commandConfig, parameters);
             }
         }
-        internal static async Task <IEnumerable<IDbResponse>> ExecuteDbActionsAsync(
+        internal static async Task <IEnumerable<IDbResponse>> ExecuteDbActionsAsync<T>(
             IEnumerable<DbCommandMethod> configs,
-            object parameters, 
+            T parameters, 
             CancellationToken cancellationToken)
         {
             List<IDbResponse> responses = new List<IDbResponse>();
@@ -61,10 +61,10 @@ namespace DbFacade.DataLayer.ConnectionService
             await Task.CompletedTask;
             return responses;
         }
-        private static async Task<IDbResponse> TryExecuteAsync(
+        private static async Task<IDbResponse> TryExecuteAsync<T>(
             IDbConnection dbConnection,
             DbCommandMethod config,
-            object parameters,
+            T parameters,
             CancellationToken cancellationToken)
         {
             try
@@ -174,10 +174,10 @@ namespace DbFacade.DataLayer.ConnectionService
             return response;
         }
 
-        private static async Task<IDbResponse> ProcessDbActionAsync(
+        private static async Task<IDbResponse> ProcessDbActionAsync<T>(
             IDbConnection dbConnection,
             DbCommandMethod config,
-            object parameters,
+            T parameters,
             CancellationToken cancellationToken)
         {
             config.Validate(parameters);

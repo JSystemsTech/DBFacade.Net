@@ -18,6 +18,8 @@ namespace DbFacade.UnitTest.DataLayer
 
         public IDbResponse TestNullableParams(Guid? data)
         => Endpoints.TestNullableParams.Execute(data);
+        public IDbResponse TestNullableStringParams(string data)
+        => Endpoints.TestNullableStringParams.Execute(data);
         public IDbResponse TestFetchData(out IEnumerable<FetchData> data)
         => Endpoints.TestFetchData.ExecuteAndFetchFirst(out data);
         public IDbResponse TestFetchDataNoSchema(out IEnumerable<FetchData> data)
@@ -120,7 +122,7 @@ namespace DbFacade.UnitTest.DataLayer
         }
 
         public async Task<Tuple<IDbResponse, IEnumerable<FetchData>>> TestFetchDataWithOnBeforeAsync(CancellationToken cancellationToken, Func<Task> cb)
-        => await Endpoints.TestFetchDataWithOnBeforeAsync.ExecuteAndFetchFirstAsync<FetchData>(cancellationToken, cb);
+        => await Endpoints.TestFetchDataWithOnBeforeAsync.ExecuteAndFetchFirstAsync<FetchData, Func<Task>>(cancellationToken, cb);
         public async Task<Tuple<IDbResponse, IEnumerable<FetchData>>> TestFetchDataAsync()
         => await Endpoints.TestFetchData.ExecuteAndFetchFirstAsync<FetchData>();
         public async Task<Tuple<IDbResponse, IEnumerable<FetchData>>> TestFetchDataNoSchemaAsync()
@@ -140,7 +142,7 @@ namespace DbFacade.UnitTest.DataLayer
             model.MyByteAsInt = collection.GetValue<int>("MyByteAlt");
         });
         public async Task<Tuple<IDbResponse, IEnumerable<FetchDataAlt>>> TestFetchDataAltWithParamsAsync()
-        => await Endpoints.TestFetchDataAltWithParams.ExecuteAndFetchFirstAsync<FetchDataAlt>(new UnitTestDbParams() { }, (model, collection) => {
+        => await Endpoints.TestFetchDataAltWithParams.ExecuteAndFetchFirstAsync<FetchDataAlt, UnitTestDbParams>(new UnitTestDbParams() { }, (model, collection) => {
             model.MyEnum = collection.GetValue<FetchDataEnum>("MyEnumAlt");
             model.MyString = collection.GetValue<string>("MyStringAlt");
             model.MyChar = collection.GetValue<string>("MyCharAlt");
@@ -162,7 +164,7 @@ namespace DbFacade.UnitTest.DataLayer
         public async Task<Tuple<IDbResponse, IEnumerable<FetchDataWithNested>>> TestFetchDataWithNestedAsync()
         => await Endpoints.TestFetchDataWithNested.ExecuteAndFetchFirstAsync<FetchDataWithNested>();
         public async Task<Tuple<IDbResponse, IEnumerable<UserData>>> TestTransactionAsync(string value)
-        => await Endpoints.TestTransaction.ExecuteAndFetchFirstAsync<UserData>(new UnitTestDbParams() { CustomString = value });
+        => await Endpoints.TestTransaction.ExecuteAndFetchFirstAsync<UserData, UnitTestDbParams>(new UnitTestDbParams() { CustomString = value });
         public async Task<Tuple<IDbResponse, IEnumerable<FetchData>>> TestFetchDataWithOutputAsync()
         => await Endpoints.TestFetchDataWithOutput.ExecuteAndFetchFirstAsync<FetchData>();
 

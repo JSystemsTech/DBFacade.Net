@@ -15,11 +15,11 @@ namespace DbFacade.DataLayer.Models
         }
 
         private bool IsInitialized { get; set; }
-        private Type Type { get; set; }
-        private Type UnderlyingType { get; set; }
-        private bool IsNullable { get; set; }
-        private PropertyInfo[] Properties { get; set; }
-        private FieldInfo[] Fields { get; set; }
+        internal Type Type { get; set; }
+        internal Type UnderlyingType { get; private set; }
+        internal bool IsNullable { get; private set; }
+        internal PropertyInfo[] Properties { get; private set; }
+        internal FieldInfo[] Fields { get; private set; }
         internal ConcurrentDictionary<string, VariableReference> VariableReferences { get; private set; }
         internal IEnumerable<string> Keys { get; private set; }
         internal string Name { get; private set; }
@@ -31,7 +31,7 @@ namespace DbFacade.DataLayer.Models
             {
                 Type = typeof(T);                 
                 UnderlyingType = Nullable.GetUnderlyingType(Type);
-                IsNullable = Type == typeof(string) || UnderlyingType != null;
+                IsNullable = Type == typeof(object) || Type == typeof(string) || UnderlyingType != null;
                 Name = UnderlyingType != null ? UnderlyingType.Name : Type.Name;
                 Properties = Type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
                 Fields = Type.GetFields(BindingFlags.Instance | BindingFlags.Public);

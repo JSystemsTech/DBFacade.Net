@@ -34,7 +34,7 @@ namespace DbFacade.DataLayer.CommandConfig
         internal MockResponse MockResponse { get; private set; }
         
 
-        internal void Validate(object paramsModel)
+        internal void Validate<T>(T paramsModel)
         {
             var validationResult = EndpointSettings.Validate(paramsModel);
             if (!validationResult.isValid)
@@ -81,11 +81,18 @@ namespace DbFacade.DataLayer.CommandConfig
         internal IDbResponse MakeDbResponse(int returnValue)
         => DbResponse.Create(DbCommandDataCollection.Empty, returnValue);
 
-        public IDbResponse Execute(object parameters = null)
+        public IDbResponse Execute<T>(T parameters)
         => DbConnectionManager.ExecuteDbAction(this, parameters);
-        public async Task<IDbResponse> ExecuteAsync(object parameters = null)
+        public IDbResponse Execute()
+        => DbConnectionManager.ExecuteDbAction<object>(this,null);
+
+        public async Task<IDbResponse> ExecuteAsync()
+        => await ExecuteAsync<object>(CancellationToken.None, null);
+        public async Task<IDbResponse> ExecuteAsync<T>(T parameters)
         => await ExecuteAsync(CancellationToken.None, parameters);
-        public async Task<IDbResponse> ExecuteAsync(CancellationToken cancellationToken, object parameters = null)
-        => await DbConnectionManager.ExecuteDbActionAsync(this, parameters, cancellationToken);        
+        public async Task<IDbResponse> ExecuteAsync<T>(CancellationToken cancellationToken, T parameters)
+        => await DbConnectionManager.ExecuteDbActionAsync(this, parameters, cancellationToken);
+        public async Task<IDbResponse> ExecuteAsync(CancellationToken cancellationToken)
+        => await ExecuteAsync<object>(cancellationToken, null);
     }
 }
