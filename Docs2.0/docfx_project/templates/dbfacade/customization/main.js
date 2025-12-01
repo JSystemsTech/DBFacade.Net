@@ -38,28 +38,25 @@
         }
     },
     loadVersionsTest: async function (newLinksList) {
-        const currentVersion = 'v2.0.0';
         var currentURL = new URL(window.location.href);
         var versions = [
             {
-                "version": "v2.0.0",
-                "latestBuild": "2.0.0",
+                "version": "v2.x.x",
                 "url": "",
                 "latest": true,
                 "divider": true,
-                "header": "v2.0 Releases",
                 "message": null,
-                "messageTheme": "info"
+                "messageTheme": "info",
+                "currentDoc": true
             },
             {
-                "version": "v1.0.13",
-                "latestBuild": "2.0.0",
+                "version": "v1.0.x",
                 "url": "/docsv1/index.html",
                 "latest": false,
                 "divider": false,
-                "header": "Previous Releases",
                 "message": "A new version of DbFacade is available",
-                "messageTheme": "info"
+                "messageTheme": "info",
+                "currentDoc": false
             }
         ];
         try {
@@ -85,10 +82,10 @@
             let currentInfo;
             versions.forEach(function (versionInfo) {
 
-                if (currentVersion === versionInfo.version) {
+                if (versionInfo.currentDoc === true) {
                     currentInfo = versionInfo;
                 }
-                if (versionInfo.header !== null && versionInfo.header.trim() !== '') {
+                if (versionInfo.header !== undefined && versionInfo.header !== null && versionInfo.header.trim() !== '') {
                     var header = document.createElement('li');
                     var h6 = document.createElement('h6');
                     h6.className = 'dropdown-header';

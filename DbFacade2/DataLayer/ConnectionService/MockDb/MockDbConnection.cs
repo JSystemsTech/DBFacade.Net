@@ -34,8 +34,7 @@ namespace DbFacade.DataLayer.ConnectionService.MockDb
         
         protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
         => MockResponse.Settings.UseNullTransaction ? null : new MockDbTransaction(this, isolationLevel);
-
-#if !NET6_0_OR_GREATER
+#if NET472_OR_GREATER
         public async Task<DbTransaction> BeginTransactionAsync(IsolationLevel isolationLevel, CancellationToken cancellationToken)
             => await BeginDbTransactionAsync(isolationLevel, cancellationToken);
         private Task<DbTransaction> BeginDbTransactionAsync(IsolationLevel isolationLevel, CancellationToken cancellationToken)

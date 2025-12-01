@@ -66,12 +66,12 @@
 <div class="card">
 <div class="card-header">Branch coverage</div>
 <div class="card-body">
-<div class="large cardpercentagebar cardpercentagebar15">85%</div>
+<div class="large cardpercentagebar cardpercentagebar18">82%</div>
 <div class="table">
 <table>
 <tr>
 <th>Covered branches:</th>
-<td class="limit-width right" title="63">63</td>
+<td class="limit-width right" title="61">61</td>
 </tr>
 <tr>
 <th>Total branches:</th>
@@ -79,7 +79,7 @@
 </tr>
 <tr>
 <th>Branch coverage:</th>
-<td class="limit-width right" title="63 of 74">85.1%</td>
+<td class="limit-width right" title="61 of 74">82.4%</td>
 </tr>
 </table>
 </div>
@@ -128,7 +128,7 @@
 <tr><td title="ExecuteScalar(DbFacade.DataLayer.CommandConfig.DbCommandMethod, System.Data.IDbCommand)"><a href="#file1_line154" class="navigatetohash">File 2: ExecuteScalar(...)</a></td><td>50%</td><td>2</td><td>2</td><td>100%</td></tr>
 <tr><td title="ExecuteXml(DbFacade.DataLayer.CommandConfig.DbCommandMethod, System.Data.IDbCommand)"><a href="#file1_line162" class="navigatetohash">File 2: ExecuteXml(...)</a></td><td>50%</td><td>2</td><td>2</td><td>100%</td></tr>
 <tr><td title="TryOpenConnection(System.Data.IDbConnection)"><a href="#file1_line170" class="navigatetohash">File 2: TryOpenConnection(...)</a></td><td>100%</td><td>2</td><td>2</td><td>84.62%</td></tr>
-<tr><td title="ProcessDbAction&lt;T&gt;(System.Data.IDbConnection, DbFacade.DataLayer.CommandConfig.DbCommandMethod, T)"><a href="#file1_line189" class="navigatetohash">File 2: ProcessDbAction&lt;T&gt;(...)</a></td><td>92.86%</td><td>28</td><td>28</td><td>96.97%</td></tr>
+<tr><td title="ProcessDbAction&lt;T&gt;(System.Data.IDbConnection, DbFacade.DataLayer.CommandConfig.DbCommandMethod, T)"><a href="#file1_line189" class="navigatetohash">File 2: ProcessDbAction&lt;T&gt;(...)</a></td><td>85.71%</td><td>28</td><td>28</td><td>96.97%</td></tr>
 </tbody>
 </table>
 </div>
@@ -566,7 +566,7 @@
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line193"></a><code>193</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;config.EndpointSettings.OnBeforeExecute(dbCommand,&nbsp;parameters);</code></td></tr>
 <tr class="coverableline" title="Partially covered (1 visits, 1 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'orange'}}"><td class="orange">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line194"></a><code>194</code></td><td class="percentagebar percentagebar50"><i class="icon-fork"></i></td><td class="lightorange"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bool&nbsp;canExecuteXml&nbsp;=&nbsp;dbCommand&nbsp;is&nbsp;MockDbCommand&nbsp;||&nbsp;config.EndpointSettings.DbConnectionProvider.CanExecu</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file1_line195"></a><code>195</code></td><td></td><td class="lightgray"><code></code></td></tr>
-<tr class="coverableline" title="Covered (1 visits, 2 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line196"></a><code>196</code></td><td class="percentagebar percentagebar100"><i class="icon-fork"></i></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action&lt;Exception&gt;&nbsp;throwErrorCallback&nbsp;=&nbsp;ErrorHelper.ThrowOnExecuteNonQueryError;</code></td></tr>
+<tr class="coverableline" title="Partially covered (1 visits, 1 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'orange'}}"><td class="orange">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line196"></a><code>196</code></td><td class="percentagebar percentagebar50"><i class="icon-fork"></i></td><td class="lightorange"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action&lt;Exception&gt;&nbsp;throwErrorCallback&nbsp;=&nbsp;ErrorHelper.ThrowOnExecuteNonQueryError;</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits, 2 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line197"></a><code>197</code></td><td class="percentagebar percentagebar100"><i class="icon-fork"></i></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Func&lt;DbCommandMethod,&nbsp;IDbCommand,&nbsp;IDbResponse&gt;&nbsp;executeMethod&nbsp;=&nbsp;ExecuteNonQuery;</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file1_line198"></a><code>198</code></td><td></td><td class="lightgray"><code></code></td></tr>
 <tr class="coverableline" title="Covered (1 visits, 2 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line199"></a><code>199</code></td><td class="percentagebar percentagebar100"><i class="icon-fork"></i></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(config.EndpointSettings.ExecutionMethod&nbsp;==&nbsp;ExecutionMethod.Xml&nbsp;&amp;&amp;&nbsp;canExecuteXml)</code></td></tr>
@@ -576,7 +576,7 @@
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line203"></a><code>203</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits, 4 of 4 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line204"></a><code>204</code></td><td class="percentagebar percentagebar100"><i class="icon-fork"></i></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if&nbsp;(config.EndpointSettings.ExecutionMethod&nbsp;==&nbsp;ExecutionMethod.Query&nbsp;||&nbsp;config.EndpointSettings.Exe</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line205"></a><code>205</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
-<tr class="coverableline" title="Covered (1 visits, 2 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line206"></a><code>206</code></td><td class="percentagebar percentagebar100"><i class="icon-fork"></i></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throwErrorCallback&nbsp;=&nbsp;ErrorHelper.ThrowOnExecuteQueryError;</code></td></tr>
+<tr class="coverableline" title="Partially covered (1 visits, 1 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'orange'}}"><td class="orange">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line206"></a><code>206</code></td><td class="percentagebar percentagebar50"><i class="icon-fork"></i></td><td class="lightorange"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throwErrorCallback&nbsp;=&nbsp;ErrorHelper.ThrowOnExecuteQueryError;</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits, 2 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line207"></a><code>207</code></td><td class="percentagebar percentagebar100"><i class="icon-fork"></i></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;executeMethod&nbsp;=&nbsp;ExecuteQuery;</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line208"></a><code>208</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits, 2 of 2 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file1_line209"></a><code>209</code></td><td class="percentagebar percentagebar100"><i class="icon-fork"></i></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if&nbsp;(config.EndpointSettings.ExecutionMethod&nbsp;==&nbsp;ExecutionMethod.Scalar)</code></td></tr>
@@ -606,7 +606,7 @@
 </tbody>
 </table>
 </div>
-<div class="footer">Generated by: ReportGenerator 5.4.5.0<br />11/6/2025 - 3:40:21 PM<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
+<div class="footer">Generated by: ReportGenerator 5.4.5.0<br />11/27/2025 - 7:42:26 PM<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
 <div class="containerright">
 <div class="containerrightfixed">
 <h1>Methods/Properties</h1>

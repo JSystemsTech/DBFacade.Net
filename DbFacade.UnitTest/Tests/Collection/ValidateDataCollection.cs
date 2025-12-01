@@ -18,7 +18,7 @@ namespace DbFacade.UnitTest.Tests.Collection
             DataCollection["Age"] = Age;
             DataCollection["Updated"] = Updated;
             DataCollection["DateStr"] = "01/01/2025";
-            DataCollection["Null"] = null;
+            DataCollection["Null"] = (string)null;
 
             ParmDataCollection = ParameterDataCollection.Create(collection =>
             {
@@ -47,6 +47,13 @@ namespace DbFacade.UnitTest.Tests.Collection
             Assert.Equal("FullName", DataCollection.Keys[0]);
             Assert.Equal("Age", DataCollection.Keys[1]);
             Assert.Equal("Updated", DataCollection.Keys[2]);
+        }
+        [Fact]
+        public void ValidateCollectionExtensionsDefaults()
+        {
+            Assert.Null(DataCollection.GetValue<string>("Null"));
+            Assert.Equal("Default", DataCollection.GetValue<string>("Null", "Default"));
+            Assert.Equal("Default", DataCollection.GetValue<string>("BadRef", "Default"));
         }
         [Fact]
         public void ValidateCollectionExtensions()

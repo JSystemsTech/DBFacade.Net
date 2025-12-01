@@ -1,14 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Condition="'$(TargetFramework)'=='net481' Or '$(TargetFramework)'=='net48' Or '$(TargetFramework)'=='net472'">
+    <UseNetFramework>true</UseNetFramework>
+    <TargetFamily>NET_FRAMEWORK</TargetFamily>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net10.0' Or '$(TargetFramework)'=='net9.0' Or '$(TargetFramework)'=='net8.0'">
+    <UseNetFramework>false</UseNetFramework>
+    <TargetFamily>NET_CORE</TargetFamily>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
+    <TargetFamily>NET_STANDARD</TargetFamily>
+  </PropertyGroup>
+
   <PropertyGroup>
-    <AssemblyTitle>DbFacade $(LibraryFrameworks)</AssemblyTitle>
-    <Title>DbFacade2</Title>
-    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net9.0;net8.0;net7.0;net6.0;net481;net48;net472;</TargetFrameworks>
-    <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+    <TargetFamilyFramework>net481;net48;net472</TargetFamilyFramework>
+    <TargetFamilyCore>net10.0;net9.0;net8.0</TargetFamilyCore>
+    <TargetFamilyStandard>netstandard2.1</TargetFamilyStandard>
+    <TargetFrameworks>$(TargetFamilyFramework);$(TargetFamilyCore);$(TargetFamilyStandard)</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyTitle>DbFacade</AssemblyTitle>
+    <Title>DbFacade</Title>
     <RootNamespace>DbFacade</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>2.0.6</Version>
+    <Preview>true</Preview>
+    <PreviewBuild>2</PreviewBuild>
+    <VersionBase>2.1.0</VersionBase>
+    <Version Condition="'$(Preview)'=='false'">$(VersionBase)</Version>
+    <Version Condition="'$(Preview)'=='true'">$(VersionBase).$(PreviewBuild)-preview</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Net</Product>
     <Description>A framework to build a data connection service to SQL databases</Description>
@@ -21,13 +41,22 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release 2.0.6 Fix issues with nullable string parameters.</PackageReleaseNotes>
+    <PackageReleaseNotes>Release $(Version) Depreciate support for .NET6 and .NET7. Add Support for .NET10. Add Support for .NET Standard 2.1. Fix issue with default value for DataCollection GetValue Extension</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
+    <PushPackageToLocalSource>true</PushPackageToLocalSource>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="*" />
+  </ItemGroup>
   
+  <ItemGroup>    
+    <PackageReference Include="Newtonsoft.Json" Version="*" />
+    <PackageReference Include="System.Data.Common" Version="*" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="*" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Meta\DbFacadeLogoNoText.jpg" />
@@ -37,32 +66,33 @@
       <Visible>False</Visible>
     </None>
     <None Include="..\README.md" Pack="true" PackagePath="\" />
-
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net481' Or '$(TargetFramework)'=='net48' Or '$(TargetFramework)'=='net472'">
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net9.0' Or '$(TargetFramework)'=='net8.0'">
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
-  </ItemGroup>
-  <ItemGroup>    
-    <PackageReference Include="Newtonsoft.Json" Version="*" />
-    <PackageReference Include="System.Data.Common" Version="*" />
-    <PackageReference Include="System.Data.SqlClient" Version="*" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="DataLayer\ConnectionService\MockDb\MockDbConnection.cs">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>DbFacade.UnitTest</_Parameter1>
     </AssemblyAttribute>
+
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>DbFacade.Odbc</_Parameter1>
+    </AssemblyAttribute>
+
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>DbFacade.OleDb</_Parameter1>
+    </AssemblyAttribute>
+
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>DbFacade.Oracle</_Parameter1>
+    </AssemblyAttribute>
+
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>DbFacade.PostgreSQL</_Parameter1>
+    </AssemblyAttribute>
+
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>DbFacade.SQLite</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
+
 
 </Project>

@@ -1,10 +1,5 @@
 ﻿using DbFacade.DataLayer.Models;
-
-#if NET8_0_OR_GREATER
 using Microsoft.Data.SqlClient;
-#else
-using System.Data.SqlClient;
-#endif
 using System;
 using System.Data;
 using System.Data.Common;
