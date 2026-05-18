@@ -41,13 +41,14 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
+    <PushPackageToLocalSource>true</PushPackageToLocalSource>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Data.Odbc" Version="*" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DbFacade" Version="2.1.0.2-preview" />
+    <PackageReference Include="DbFacade" Version="*" />
   </ItemGroup>
 
   <ItemGroup>

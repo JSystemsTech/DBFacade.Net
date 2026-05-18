@@ -42,6 +42,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
+    <PushPackageToLocalSource>true</PushPackageToLocalSource>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFamily)'=='NET_FRAMEWORK' Or '$(TargetFamily)'=='NET_STANDARD'">
@@ -52,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DbFacade" Version="2.1.0.2-preview" />
+    <PackageReference Include="DbFacade" Version="*" />
   </ItemGroup>
 
 

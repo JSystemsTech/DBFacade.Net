@@ -1431,6 +1431,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "coverage/DbFacade2_EndpointSettingsExtensions_T_.html",
+      "output": {
+        "resource": {
+          "relative_path": "coverage/DbFacade2_EndpointSettingsExtensions_T_.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "coverage/DbFacade2_EndpointSettings_T_.html",
       "output": {
         "resource": {

@@ -192,7 +192,6 @@ namespace DbFacade.Extensions
             return settings;
         }
 
-
         /// <summary>Withes the parameters.</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="settings">The settings.</param>
@@ -201,6 +200,16 @@ namespace DbFacade.Extensions
         ///   <br />
         /// </returns>
         public static EndpointSettings WithParameters<T>(this EndpointSettings settings, Action<ParameterDataCollection<T>> parametersBuilder)
+        => settings.WithParameters<T>((p, m) => parametersBuilder(p));
+        /// <summary>Withes the parameters.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="settings">The settings.</param>
+        /// <param name="parametersBuilder">The parameters builder.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+       
+        public static EndpointSettings WithParameters<T>(this EndpointSettings settings, Action<ParameterDataCollection<T>,T> parametersBuilder)
         {
             settings.AddParameterResolver(parametersBuilder);
             return settings;

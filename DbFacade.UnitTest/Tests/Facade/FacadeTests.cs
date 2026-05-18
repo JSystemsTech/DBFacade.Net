@@ -1,12 +1,10 @@
-﻿using Azure;
-using DbFacade.DataLayer.ConnectionService;
+﻿using DbFacade.DataLayer.ConnectionService;
 using DbFacade.DataLayer.Models;
 using DbFacade.Exceptions;
 using DbFacade.Extensions;
 using DbFacade.UnitTest.DataLayer.Models.Data;
 using DbFacade.UnitTest.DataLayer.Models.Parameters;
 using System.Net.Mail;
-using System.Reflection;
 
 namespace DbFacade.UnitTest.Tests.Facade
 {

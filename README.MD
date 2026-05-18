@@ -38,6 +38,10 @@ Install-Package DbFacade.Odbc
 ```bash
 Install-Package DbFacade.OleDb
 ```
+#### PostgreSQL
+```bash
+Install-Package DbFacade.PostgreSQL
+```
 
 ## Documentation
 Read full Documentation [Here](https://jsystemstech.github.io/DBFacade.Net/index.html)
