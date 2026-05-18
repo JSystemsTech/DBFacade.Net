@@ -2684,6 +2684,15 @@ references:
   isSpec: "True"
   fullName: DbFacade.Extensions.EndpointSettingsExtensions.WithParameters
   nameWithType: EndpointSettingsExtensions.WithParameters
+- uid: DbFacade.Extensions.EndpointSettingsExtensions.WithParameters``1(DbFacade.DataLayer.Models.EndpointSettings,System.Action{DbFacade.DataLayer.Models.ParameterDataCollection{``0},``0})
+  name: WithParameters<T>(EndpointSettings, Action<ParameterDataCollection<T>, T>)
+  href: api/DbFacade.Extensions.EndpointSettingsExtensions.html#DbFacade_Extensions_EndpointSettingsExtensions_WithParameters__1_DbFacade_DataLayer_Models_EndpointSettings_System_Action_DbFacade_DataLayer_Models_ParameterDataCollection___0____0__
+  commentId: M:DbFacade.Extensions.EndpointSettingsExtensions.WithParameters``1(DbFacade.DataLayer.Models.EndpointSettings,System.Action{DbFacade.DataLayer.Models.ParameterDataCollection{``0},``0})
+  name.vb: WithParameters(Of T)(EndpointSettings, Action(Of ParameterDataCollection(Of T), T))
+  fullName: DbFacade.Extensions.EndpointSettingsExtensions.WithParameters<T>(DbFacade.DataLayer.Models.EndpointSettings, System.Action<DbFacade.DataLayer.Models.ParameterDataCollection<T>, T>)
+  fullName.vb: DbFacade.Extensions.EndpointSettingsExtensions.WithParameters(Of T)(DbFacade.DataLayer.Models.EndpointSettings, System.Action(Of DbFacade.DataLayer.Models.ParameterDataCollection(Of T), T))
+  nameWithType: EndpointSettingsExtensions.WithParameters<T>(EndpointSettings, Action<ParameterDataCollection<T>, T>)
+  nameWithType.vb: EndpointSettingsExtensions.WithParameters(Of T)(EndpointSettings, Action(Of ParameterDataCollection(Of T), T))
 - uid: DbFacade.Extensions.EndpointSettingsExtensions.WithParameters``1(DbFacade.DataLayer.Models.EndpointSettings,System.Action{DbFacade.DataLayer.Models.ParameterDataCollection{``0}})
   name: WithParameters<T>(EndpointSettings, Action<ParameterDataCollection<T>>)
   href: api/DbFacade.Extensions.EndpointSettingsExtensions.html#DbFacade_Extensions_EndpointSettingsExtensions_WithParameters__1_DbFacade_DataLayer_Models_EndpointSettings_System_Action_DbFacade_DataLayer_Models_ParameterDataCollection___0___
