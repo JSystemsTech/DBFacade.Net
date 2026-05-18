@@ -80,7 +80,7 @@ namespace DbFacade.Utils.UnitTests
             }
             done();
             Assert.That(Metrics.MetricsMap[splitKey] < threshold, Is.True, $"took {Metrics.MetricsMap[splitKey]} seconds");
-            TestContext.WriteLine($"{splitKey}: Parsing {text} data set took {Metrics.MetricsMap[splitKey]} seconds");
+            TestContext.Out.WriteLine($"{splitKey}: Parsing {text} data set took {Metrics.MetricsMap[splitKey]} seconds");
         }
 
         [Test]

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.4.33205.214
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{289AC024-FD51-40CB-9C88-44B64ABD90FB}"
 	ProjectSection(SolutionItems) = preProject
@@ -28,17 +28,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade.Odbc", "DbFacade.O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFacade.OleDb", "DbFacade.OleDb\DbFacade.OleDb.csproj", "{9579945C-4D02-4D06-9872-9AC969E973E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Utils", "DbFacade.Utils\DbFacade.Utils.csproj", "{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.Utils.UnitTests", "DbFacade.Utils.UnitTests\DbFacade.Utils.UnitTests.csproj", "{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docs2.0", "Docs2.0\Docs2.0.csproj", "{16EEA344-0F43-4F5C-BA56-6533C356E1D5}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbFacadeShared", "DbFacadeShared\DbFacadeShared.shproj", "{CD5F1105-82F7-4333-B29D-36F7DDF4BD52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade2", "DbFacade2\DbFacade2.csproj", "{9737812B-B101-4FD4-9606-40EE5310B91C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.UnitTest", "DbFacade.UnitTest\DbFacade.UnitTest.csproj", "{65878EDE-078A-47FD-A079-6B7EA1F573EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFacade.PostgreSQL", "DbFacade.PostgreSQL\DbFacade.PostgreSQL.csproj", "{B2E83749-6437-4C2F-AC91-A2223D6302C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,14 +60,6 @@ Global
 		{9579945C-4D02-4D06-9872-9AC969E973E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9579945C-4D02-4D06-9872-9AC969E973E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9579945C-4D02-4D06-9872-9AC969E973E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADFBE3EE-3046-4266-8064-E6D41C4A65FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E1C3D95-54DA-4BF2-B46E-11CAFFA6B33D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16EEA344-0F43-4F5C-BA56-6533C356E1D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16EEA344-0F43-4F5C-BA56-6533C356E1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16EEA344-0F43-4F5C-BA56-6533C356E1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -84,6 +72,10 @@ Global
 		{65878EDE-078A-47FD-A079-6B7EA1F573EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65878EDE-078A-47FD-A079-6B7EA1F573EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65878EDE-078A-47FD-A079-6B7EA1F573EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2E83749-6437-4C2F-AC91-A2223D6302C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E83749-6437-4C2F-AC91-A2223D6302C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E83749-6437-4C2F-AC91-A2223D6302C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2E83749-6437-4C2F-AC91-A2223D6302C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,8 +86,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {422FA976-93A1-4C2B-B82D-46D5F0C75E54}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		DbFacadeShared\DbFacadeShared.projitems*{cd5f1105-82f7-4333-b29d-36f7ddf4bd52}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

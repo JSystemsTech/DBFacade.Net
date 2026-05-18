@@ -5,11 +5,12 @@
         {
           "src": "../../../",
           "files": [
-            "DBFacade.Net/DBFacade2/**.csproj",
-            "DBFacade.Net/DBFacade.Oracle/**.csproj",
-            "DBFacade.Net/DBFacade.OleDb/**.csproj",
-            "DBFacade.Net/DBFacade.Odbc/**.csproj",
-            "DBFacade.Net/DBFacade.SQLite/**.csproj"
+            "DBFacade.Net/DbFacade2/DbFacade2.csproj",
+            "DBFacade.Net/DbFacade.Oracle/DbFacade.Oracle.csproj",
+            "DBFacade.Net/DbFacade.OleDb/DbFacade.OleDb.csproj",
+            "DBFacade.Net/DbFacade.Odbc/DbFacade.Odbc.csproj",
+            "DBFacade.Net/DbFacade.SQLite/DbFacade.SQLite.csproj",
+            "DBFacade.Net/DbFacade.PostgreSQL/DbFacade.PostgreSQL.csproj"
           ],
           "exclude": [
             "**/obj/**",

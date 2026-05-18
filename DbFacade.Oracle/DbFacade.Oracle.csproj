@@ -1,12 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net9.0;net8.0;net7.0;net6.0;net481;net48;net472;</TargetFrameworks>
-    <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net481' Or '$(TargetFramework)'=='net48' Or '$(TargetFramework)'=='net472'">
+    <TargetFamily>NET_FRAMEWORK</TargetFamily>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net10.0' Or '$(TargetFramework)'=='net9.0' Or '$(TargetFramework)'=='net8.0'">
+    <TargetFamily>NET_CORE</TargetFamily>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
+    <TargetFamily>NET_STANDARD</TargetFamily>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>2.0.0</Version>
+    <TargetFamilyFramework>net481;net48;net472</TargetFamilyFramework>
+    <TargetFamilyCore>net10.0;net9.0;net8.0</TargetFamilyCore>
+    <TargetFamilyStandard>netstandard2.1</TargetFamilyStandard>
+    <TargetFrameworks>$(TargetFamilyFramework);$(TargetFamilyCore);$(TargetFamilyStandard)</TargetFrameworks>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <AssemblyTitle>DbFacade Oracle</AssemblyTitle>
+    <Title>DbFacade.Oracle</Title>
+    <RootNamespace>DbFacade.Oracle</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>2.1.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.Oracle .NET</Product>
     <Description>A DbFacade extension to build a data connection service to Oracle databases</Description>
@@ -19,35 +37,20 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release 2.0.0 Initial release of DbFacade 2</PackageReleaseNotes>
+    <PackageReleaseNotes>Release $(Version) Drop support for .NET6 and .NET7. Add Support for .NET10. Add Support for .NET Standard 2.1.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
+    <PushPackageToLocalSource>true</PushPackageToLocalSource>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <AssemblyTitle>DbFacade.Oracle $(LibraryFrameworks)</AssemblyTitle>
-  </PropertyGroup>
-
-
-  <ItemGroup>
-    <None Remove="Meta\DbFacadeLogoNoText.jpg" />
-    <None Include="..\icon.jpg">
-      <Pack>True</Pack>
-      <PackagePath>images\icon.jpg</PackagePath>
-      <Visible>False</Visible>
-    </None>
-    <None Include="..\README.md" Pack="true" PackagePath="\" />
-    
-  </ItemGroup>
-
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net9.0' Or '$(TargetFramework)'=='net8.0' Or '$(TargetFramework)'=='net7.0' Or '$(TargetFramework)'=='net6.0'">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="*" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net481' Or '$(TargetFramework)'=='net48' Or '$(TargetFramework)'=='net472'">
+  <ItemGroup Condition="'$(TargetFamily)'=='NET_FRAMEWORK'">
     <PackageReference Include="Oracle.ManagedDataAccess" Version="*" />
   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFamily)'=='NET_CORE' Or '$(TargetFamily)'=='NET_STANDARD'">
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="*" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="DbFacade" Version="*" />
   </ItemGroup>
@@ -58,12 +61,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="C:\Users\jsmc1\source\repos\DomainFacade\DbFacadeShared\Factories\DbConnectionService.cs">
-      <LastGenOutput>DbConnectionService.txt</LastGenOutput>
+    <None Remove="Meta\DbFacadeLogoNoText.jpg" />
+    <None Include="..\icon.jpg">
+      <Pack>True</Pack>
+      <PackagePath>images\icon.jpg</PackagePath>
+      <Visible>False</Visible>
     </None>
-    <None Update="C:\Users\jsmc1\source\repos\DomainFacade\DbFacadeShared\Factories\DbConnectionService.tt">
-      <LastGenOutput>DbConnectionService.txt</LastGenOutput>
-    </None>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,35 @@
 
 # [2.x.x](#tab/Dbfacade2)
 
+## 2.1.0
+
+### Features Depreciated/Removed
+- Depreciate support for .NET6 and .NET7.
+
+### Features Added
+- Add Support for .NET10.
+
+### Issues Resolved
+- Fix issue with default value for DataCollection GetValue Extension
+
+## 2.0.6
+- Fix issues with nullable string parameters
+
+## 2.0.5
+- Resolve Generic Validator issue
+
+## 2.0.4
+- Resolve Generic Params Builder issue
+
+## 2.0.3
+- Fix Issue with null value not getting correct DbType on parameter
+
+## 2.0.2
+- Fix Issue with passing single primitive values as parameter models
+
+## 2.0.1
+- Fix Issue with Unit testing
+
 ## 2.0.0
 - Completely redesigned archetecture for interfacing with ADO.NET. More Configurable
 
@@ -86,4 +115,5 @@
 
 ## 1.0.0
 `No Release Notes available at this time`
+
 ---

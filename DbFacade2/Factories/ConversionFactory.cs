@@ -29,7 +29,7 @@ namespace DbFacade.Factories
             {
                 if (isNullableEmptyStr || isNullableNull)
                 {
-                    value = (T)(object)null;
+                    value = defaultValue != null ? defaultValue : (T)(object)null;
                 }
                 else if (isToString)
                 {

@@ -4,7 +4,7 @@ _layout: landing
 
 <div class="mt-4 p-5 gradient-morpheus-den text-white rounded">
   <h1 class="display-4">DbFacade</h1>
-  <p>v2.0.0</p>
+  <p>v2.x.x</p>
   <p class="lead">
 	Confused about how C# .NET projects set up calls to SQL databases? Need a well structured design pattern to organize calls to database stored procedures?
 	Then <code>DbFacade</code> is the solution! DbFacade builds upon <code>ADO.NET</code> and simplifies structuring calls to SQL databases.
@@ -54,6 +54,7 @@ _layout: landing
 		    <li class="list-group-item d-flex justify-content-between align-items-center"><span>SQLite</span> <span class="badge text-bg-secondary">Package DbFacade.SQLite</span></li>
 		    <li class="list-group-item d-flex justify-content-between align-items-center"><span>Odbc</span> <span class="badge text-bg-secondary">Package DbFacade.Odbc</span></li>
 		    <li class="list-group-item d-flex justify-content-between align-items-center"><span>OleDb</span> <span class="badge text-bg-secondary">Package DbFacade.OleDb</span></li>
+		    <li class="list-group-item d-flex justify-content-between align-items-center"><span>PostgreSQL</span> <span class="badge text-bg-secondary">Package DbFacade.PostgreSQL</span></li>
 		  </ul>
 		</div>
 	</div>	
@@ -74,7 +75,13 @@ _layout: landing
 		  <ul class="list-group list-group-flush list-group-sm">
 		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://github.com/JSystemsTech/DBFacade.Net/actions/workflows/NetFxCI.yml"><img src="https://github.com/JSystemsTech/DBFacade.Net/actions/workflows/NetFxCI.yml/badge.svg?branch=master" alt=".NET"></a></li>
 		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/nuget/v/DbFacade?label=nuget%20DbFacade" alt="NuGet"></a></li>
-		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Targets-.NET%20%3E%3D%206%2C%20.NetFramework%20%3E%3D%204.7.2-blue" alt="Targets"></a></li>
+		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Targets-.NetFramework 4.7.2-blue" alt="Targets"></a></li>
+		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Targets-.NetFramework 4.8-blue" alt="Targets"></a></li>
+		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Targets-.NetFramework 4.8.1-blue" alt="Targets"></a></li>
+		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Targets-.NET 8.0-blue" alt="Targets"></a></li>
+		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Targets-.NET 9.0-blue" alt="Targets"></a></li>
+		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Targets-.NET 10.0-blue" alt="Targets"></a></li>
+		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://nuget.org/packages/DbFacade"><img src="https://img.shields.io/badge/Targets-.NET Standard 2.1-blue" alt="Targets"></a></li>
 		    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="https://www.nuget.org/stats/packages/DbFacade?groupby=Version"><img src="https://img.shields.io/nuget/dt/DbFacade?label=Downloads" alt="DownloadCount"></a></li>
 		  </ul>
 		</div>

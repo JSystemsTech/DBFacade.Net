@@ -216,8 +216,8 @@ var assemblies = [
       { "name": "DbFacade.DataLayer.CommandConfig.DbCommandMethod", "rp": "DbFacade2_DbCommandMethod.html", "cl": 56, "ucl": 1, "cal": 57, "tl": 98, "cb": 7, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "DbFacade.DataLayer.CommandConfig.DbCommandMethod<T>", "rp": "DbFacade2_DbCommandMethod_T_.html", "cl": 56, "ucl": 1, "cal": 57, "tl": 98, "cb": 7, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "DbFacade.DataLayer.ConnectionService.DbConnectionConfig", "rp": "DbFacade2_DbConnectionConfig.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 30, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "DbFacade.DataLayer.ConnectionService.DbConnectionManager", "rp": "DbFacade2_DbConnectionManager.html", "cl": 273, "ucl": 15, "cal": 288, "tl": 457, "cb": 63, "tb": 74, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "DbFacade.DataLayer.ConnectionService.DbConnectionManager<T>", "rp": "DbFacade2_DbConnectionManager_T_.html", "cl": 273, "ucl": 15, "cal": 288, "tl": 457, "cb": 63, "tb": 74, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "DbFacade.DataLayer.ConnectionService.DbConnectionManager", "rp": "DbFacade2_DbConnectionManager.html", "cl": 273, "ucl": 15, "cal": 288, "tl": 457, "cb": 61, "tb": 74, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "DbFacade.DataLayer.ConnectionService.DbConnectionManager<T>", "rp": "DbFacade2_DbConnectionManager_T_.html", "cl": 273, "ucl": 15, "cal": 288, "tl": 457, "cb": 61, "tb": 74, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "DbFacade.DataLayer.ConnectionService.EndpointErrorInfo", "rp": "DbFacade2_EndpointErrorInfo.html", "cl": 21, "ucl": 0, "cal": 21, "tl": 48, "cb": 12, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "DbFacade.DataLayer.ConnectionService.MockDb.MockDbException", "rp": "DbFacade2_MockDbException.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "DbFacade.DataLayer.ConnectionService.SqlDbConnectionProvider", "rp": "DbFacade2_SqlDbConnectionProvider.html", "cl": 62, "ucl": 1, "cal": 63, "tl": 174, "cb": 36, "tb": 38, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -272,7 +272,7 @@ var assemblies = [
       { "name": "DbFacade.Extensions.ValidatorExtensions", "rp": "DbFacade2_ValidatorExtensions.html", "cl": 36, "ucl": 0, "cal": 36, "tl": 374, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "DbFacade.Extensions.ValidatorExtensions<T, TValue>", "rp": "DbFacade2_ValidatorExtensions_T__TValue_.html", "cl": 36, "ucl": 0, "cal": 36, "tl": 374, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "DbFacade.Extensions.ValidatorExtensions<T>", "rp": "DbFacade2_ValidatorExtensions_T_.html", "cl": 36, "ucl": 0, "cal": 36, "tl": 374, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "DbFacade.Factories.ConversionFactory", "rp": "DbFacade2_ConversionFactory.html", "cl": 145, "ucl": 1, "cal": 146, "tl": 189, "cb": 111, "tb": 116, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "DbFacade.Factories.ConversionFactory", "rp": "DbFacade2_ConversionFactory.html", "cl": 145, "ucl": 1, "cal": 146, "tl": 189, "cb": 113, "tb": 118, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "DbFacade.Factories.ConversionFactory.Types", "rp": "DbFacade2_Types.html", "cl": 15, "ucl": 0, "cal": 15, "tl": 189, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "DbFacade.Factories.TypeFactory", "rp": "DbFacade2_TypeFactory.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 17, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
@@ -309,8 +309,8 @@ var riskHotspots = [
   {
     "assembly": "DbFacade2", "class": "DbFacade.Factories.ConversionFactory", "reportPath": "DbFacade2_ConversionFactory.html", "methodName": "TryGetValue<T>(object, out T, T, bool)", "methodShortName": "TryGetValue<T>(...)", "fileIndex": 0, "line": 13,
     "metrics": [
-      { "value": 30, "exceeded": false },
-      { "value": 30, "exceeded": true },
+      { "value": 32, "exceeded": true },
+      { "value": 32, "exceeded": true },
     ]},
   {
     "assembly": "DbFacade2", "class": "DbFacade.DataLayer.ConnectionService.DbConnectionManager", "reportPath": "DbFacade2_DbConnectionManager.html", "methodName": "ProcessDbAction<T>(System.Data.IDbConnection, DbFacade.DataLayer.CommandConfig.DbCommandMethod, T)", "methodShortName": "ProcessDbAction<T>(...)", "fileIndex": 1, "line": 189,

@@ -972,6 +972,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/DbFacade.PostgreSQL.DataLayer.ConnectionService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DbFacade.PostgreSQL.DataLayer.ConnectionService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "DbFacade.PostgreSQL.DataLayer.ConnectionService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/DbFacade.SQLite.DataLayer.ConnectionService.SqLiteDbConnectionProvider.yml",
       "output": {
         ".html": {

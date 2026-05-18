@@ -4105,6 +4105,305 @@ references:
   isSpec: "True"
   fullName: DbFacade.Oracle.DataLayer.ConnectionService.OracleDbConnectionProvider.ResolveParameterName
   nameWithType: OracleDbConnectionProvider.ResolveParameterName
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService
+  name: DbFacade.PostgreSQL.DataLayer.ConnectionService
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.html
+  commentId: N:DbFacade.PostgreSQL.DataLayer.ConnectionService
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService
+  nameWithType: DbFacade.PostgreSQL.DataLayer.ConnectionService
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider
+  name: PostgreSQLDbConnectionProvider
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html
+  commentId: T:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider
+  nameWithType: PostgreSQLDbConnectionProvider
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.#ctor
+  name: PostgreSQLDbConnectionProvider()
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider__ctor
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.#ctor
+  name.vb: New()
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.PostgreSQLDbConnectionProvider()
+  fullName.vb: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.New()
+  nameWithType: PostgreSQLDbConnectionProvider.PostgreSQLDbConnectionProvider()
+  nameWithType.vb: PostgreSQLDbConnectionProvider.New()
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.#ctor*
+  name: PostgreSQLDbConnectionProvider
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider__ctor_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.PostgreSQLDbConnectionProvider
+  fullName.vb: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.New
+  nameWithType: PostgreSQLDbConnectionProvider.PostgreSQLDbConnectionProvider
+  nameWithType.vb: PostgreSQLDbConnectionProvider.New
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransaction(System.Data.IDbConnection,System.Data.IsolationLevel)
+  name: BeginTransaction(IDbConnection, IsolationLevel)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_BeginTransaction_System_Data_IDbConnection_System_Data_IsolationLevel_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransaction(System.Data.IDbConnection,System.Data.IsolationLevel)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransaction(System.Data.IDbConnection, System.Data.IsolationLevel)
+  nameWithType: PostgreSQLDbConnectionProvider.BeginTransaction(IDbConnection, IsolationLevel)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransaction*
+  name: BeginTransaction
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_BeginTransaction_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransaction
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransaction
+  nameWithType: PostgreSQLDbConnectionProvider.BeginTransaction
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransactionAsync(System.Data.IDbConnection,System.Threading.CancellationToken,System.Data.IsolationLevel)
+  name: BeginTransactionAsync(IDbConnection, CancellationToken, IsolationLevel)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_BeginTransactionAsync_System_Data_IDbConnection_System_Threading_CancellationToken_System_Data_IsolationLevel_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransactionAsync(System.Data.IDbConnection,System.Threading.CancellationToken,System.Data.IsolationLevel)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransactionAsync(System.Data.IDbConnection, System.Threading.CancellationToken, System.Data.IsolationLevel)
+  nameWithType: PostgreSQLDbConnectionProvider.BeginTransactionAsync(IDbConnection, CancellationToken, IsolationLevel)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransactionAsync*
+  name: BeginTransactionAsync
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_BeginTransactionAsync_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransactionAsync
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BeginTransactionAsync
+  nameWithType: PostgreSQLDbConnectionProvider.BeginTransactionAsync
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString(System.Func{System.String,System.String})
+  name: BindConnectionString(Func<string, string>)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_BindConnectionString_System_Func_System_String_System_String__
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString(System.Func{System.String,System.String})
+  name.vb: BindConnectionString(Func(Of String, String))
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString(System.Func<string, string>)
+  fullName.vb: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString(System.Func(Of String, String))
+  nameWithType: PostgreSQLDbConnectionProvider.BindConnectionString(Func<string, string>)
+  nameWithType.vb: PostgreSQLDbConnectionProvider.BindConnectionString(Func(Of String, String))
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString(System.String)
+  name: BindConnectionString(string)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_BindConnectionString_System_String_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString(System.String)
+  name.vb: BindConnectionString(String)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString(string)
+  fullName.vb: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString(String)
+  nameWithType: PostgreSQLDbConnectionProvider.BindConnectionString(string)
+  nameWithType.vb: PostgreSQLDbConnectionProvider.BindConnectionString(String)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString*
+  name: BindConnectionString
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_BindConnectionString_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindConnectionString
+  nameWithType: PostgreSQLDbConnectionProvider.BindConnectionString
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindErrorHandler(System.Action{DbFacade.DataLayer.ConnectionService.EndpointErrorInfo})
+  name: BindErrorHandler(Action<EndpointErrorInfo>)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_BindErrorHandler_System_Action_DbFacade_DataLayer_ConnectionService_EndpointErrorInfo__
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindErrorHandler(System.Action{DbFacade.DataLayer.ConnectionService.EndpointErrorInfo})
+  name.vb: BindErrorHandler(Action(Of EndpointErrorInfo))
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindErrorHandler(System.Action<DbFacade.DataLayer.ConnectionService.EndpointErrorInfo>)
+  fullName.vb: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindErrorHandler(System.Action(Of DbFacade.DataLayer.ConnectionService.EndpointErrorInfo))
+  nameWithType: PostgreSQLDbConnectionProvider.BindErrorHandler(Action<EndpointErrorInfo>)
+  nameWithType.vb: PostgreSQLDbConnectionProvider.BindErrorHandler(Action(Of EndpointErrorInfo))
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindErrorHandler*
+  name: BindErrorHandler
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_BindErrorHandler_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindErrorHandler
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.BindErrorHandler
+  nameWithType: PostgreSQLDbConnectionProvider.BindErrorHandler
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.CanExecuteXmlReader(System.Data.IDbCommand)
+  name: CanExecuteXmlReader(IDbCommand)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_CanExecuteXmlReader_System_Data_IDbCommand_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.CanExecuteXmlReader(System.Data.IDbCommand)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.CanExecuteXmlReader(System.Data.IDbCommand)
+  nameWithType: PostgreSQLDbConnectionProvider.CanExecuteXmlReader(IDbCommand)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.CanExecuteXmlReader*
+  name: CanExecuteXmlReader
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_CanExecuteXmlReader_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.CanExecuteXmlReader
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.CanExecuteXmlReader
+  nameWithType: PostgreSQLDbConnectionProvider.CanExecuteXmlReader
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbConnectionConfig
+  name: DbConnectionConfig
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_DbConnectionConfig
+  commentId: P:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbConnectionConfig
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbConnectionConfig
+  nameWithType: PostgreSQLDbConnectionProvider.DbConnectionConfig
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbConnectionConfig*
+  name: DbConnectionConfig
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_DbConnectionConfig_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbConnectionConfig
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbConnectionConfig
+  nameWithType: PostgreSQLDbConnectionProvider.DbConnectionConfig
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbTypeCollection
+  name: DbTypeCollection
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_DbTypeCollection
+  commentId: P:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbTypeCollection
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbTypeCollection
+  nameWithType: PostgreSQLDbConnectionProvider.DbTypeCollection
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbTypeCollection*
+  name: DbTypeCollection
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_DbTypeCollection_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbTypeCollection
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.DbTypeCollection
+  nameWithType: PostgreSQLDbConnectionProvider.DbTypeCollection
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQuery(System.Data.IDbCommand)
+  name: ExecuteNonQuery(IDbCommand)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteNonQuery_System_Data_IDbCommand_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQuery(System.Data.IDbCommand)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQuery(System.Data.IDbCommand)
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteNonQuery(IDbCommand)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQuery*
+  name: ExecuteNonQuery
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteNonQuery_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQuery
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQuery
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteNonQuery
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQueryAsync(System.Data.IDbCommand,System.Threading.CancellationToken)
+  name: ExecuteNonQueryAsync(IDbCommand, CancellationToken)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteNonQueryAsync_System_Data_IDbCommand_System_Threading_CancellationToken_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQueryAsync(System.Data.IDbCommand,System.Threading.CancellationToken)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQueryAsync(System.Data.IDbCommand, System.Threading.CancellationToken)
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteNonQueryAsync(IDbCommand, CancellationToken)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQueryAsync*
+  name: ExecuteNonQueryAsync
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteNonQueryAsync_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQueryAsync
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteNonQueryAsync
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteNonQueryAsync
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReader(System.Data.IDbCommand)
+  name: ExecuteReader(IDbCommand)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteReader_System_Data_IDbCommand_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReader(System.Data.IDbCommand)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReader(System.Data.IDbCommand)
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteReader(IDbCommand)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReader*
+  name: ExecuteReader
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteReader_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReader
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReader
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteReader
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReaderAsync(System.Data.IDbCommand,System.Threading.CancellationToken)
+  name: ExecuteReaderAsync(IDbCommand, CancellationToken)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteReaderAsync_System_Data_IDbCommand_System_Threading_CancellationToken_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReaderAsync(System.Data.IDbCommand,System.Threading.CancellationToken)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReaderAsync(System.Data.IDbCommand, System.Threading.CancellationToken)
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteReaderAsync(IDbCommand, CancellationToken)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReaderAsync*
+  name: ExecuteReaderAsync
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteReaderAsync_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReaderAsync
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteReaderAsync
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteReaderAsync
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalar(System.Data.IDbCommand)
+  name: ExecuteScalar(IDbCommand)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteScalar_System_Data_IDbCommand_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalar(System.Data.IDbCommand)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalar(System.Data.IDbCommand)
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteScalar(IDbCommand)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalar*
+  name: ExecuteScalar
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteScalar_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalar
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalar
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteScalar
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalarAsync(System.Data.IDbCommand,System.Threading.CancellationToken)
+  name: ExecuteScalarAsync(IDbCommand, CancellationToken)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteScalarAsync_System_Data_IDbCommand_System_Threading_CancellationToken_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalarAsync(System.Data.IDbCommand,System.Threading.CancellationToken)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalarAsync(System.Data.IDbCommand, System.Threading.CancellationToken)
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteScalarAsync(IDbCommand, CancellationToken)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalarAsync*
+  name: ExecuteScalarAsync
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteScalarAsync_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalarAsync
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteScalarAsync
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteScalarAsync
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReader(System.Data.IDbCommand)
+  name: ExecuteXmlReader(IDbCommand)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteXmlReader_System_Data_IDbCommand_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReader(System.Data.IDbCommand)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReader(System.Data.IDbCommand)
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteXmlReader(IDbCommand)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReader*
+  name: ExecuteXmlReader
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteXmlReader_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReader
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReader
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteXmlReader
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReaderAsync(System.Data.IDbCommand,System.Threading.CancellationToken)
+  name: ExecuteXmlReaderAsync(IDbCommand, CancellationToken)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteXmlReaderAsync_System_Data_IDbCommand_System_Threading_CancellationToken_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReaderAsync(System.Data.IDbCommand,System.Threading.CancellationToken)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReaderAsync(System.Data.IDbCommand, System.Threading.CancellationToken)
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteXmlReaderAsync(IDbCommand, CancellationToken)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReaderAsync*
+  name: ExecuteXmlReaderAsync
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ExecuteXmlReaderAsync_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReaderAsync
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ExecuteXmlReaderAsync
+  nameWithType: PostgreSQLDbConnectionProvider.ExecuteXmlReaderAsync
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbConnection(System.String)
+  name: GetDbConnection(string)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_GetDbConnection_System_String_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbConnection(System.String)
+  name.vb: GetDbConnection(String)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbConnection(string)
+  fullName.vb: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbConnection(String)
+  nameWithType: PostgreSQLDbConnectionProvider.GetDbConnection(string)
+  nameWithType.vb: PostgreSQLDbConnectionProvider.GetDbConnection(String)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbConnection*
+  name: GetDbConnection
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_GetDbConnection_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbConnection
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbConnection
+  nameWithType: PostgreSQLDbConnectionProvider.GetDbConnection
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbDataAdapter
+  name: GetDbDataAdapter()
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_GetDbDataAdapter
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbDataAdapter
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbDataAdapter()
+  nameWithType: PostgreSQLDbConnectionProvider.GetDbDataAdapter()
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbDataAdapter*
+  name: GetDbDataAdapter
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_GetDbDataAdapter_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbDataAdapter
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.GetDbDataAdapter
+  nameWithType: PostgreSQLDbConnectionProvider.GetDbDataAdapter
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.OnError(DbFacade.DataLayer.ConnectionService.EndpointErrorInfo)
+  name: OnError(EndpointErrorInfo)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_OnError_DbFacade_DataLayer_ConnectionService_EndpointErrorInfo_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.OnError(DbFacade.DataLayer.ConnectionService.EndpointErrorInfo)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.OnError(DbFacade.DataLayer.ConnectionService.EndpointErrorInfo)
+  nameWithType: PostgreSQLDbConnectionProvider.OnError(EndpointErrorInfo)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.OnError*
+  name: OnError
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_OnError_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.OnError
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.OnError
+  nameWithType: PostgreSQLDbConnectionProvider.OnError
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ResolveParameterName(System.String,System.Boolean)
+  name: ResolveParameterName(string, bool)
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ResolveParameterName_System_String_System_Boolean_
+  commentId: M:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ResolveParameterName(System.String,System.Boolean)
+  name.vb: ResolveParameterName(String, Boolean)
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ResolveParameterName(string, bool)
+  fullName.vb: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ResolveParameterName(String, Boolean)
+  nameWithType: PostgreSQLDbConnectionProvider.ResolveParameterName(string, bool)
+  nameWithType.vb: PostgreSQLDbConnectionProvider.ResolveParameterName(String, Boolean)
+- uid: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ResolveParameterName*
+  name: ResolveParameterName
+  href: api/DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.html#DbFacade_PostgreSQL_DataLayer_ConnectionService_PostgreSQLDbConnectionProvider_ResolveParameterName_
+  commentId: Overload:DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ResolveParameterName
+  isSpec: "True"
+  fullName: DbFacade.PostgreSQL.DataLayer.ConnectionService.PostgreSQLDbConnectionProvider.ResolveParameterName
+  nameWithType: PostgreSQLDbConnectionProvider.ResolveParameterName
 - uid: DbFacade.SQLite.DataLayer.ConnectionService
   name: DbFacade.SQLite.DataLayer.ConnectionService
   href: api/DbFacade.SQLite.DataLayer.ConnectionService.html

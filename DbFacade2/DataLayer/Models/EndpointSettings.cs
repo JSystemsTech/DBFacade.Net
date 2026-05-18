@@ -150,12 +150,12 @@ namespace DbFacade.DataLayer.Models
             }
         }
         private Action<IDbCommand, object> AddParamsGeneral { get; set; }
-        internal void AddParameterResolver<T>(Action<ParameterDataCollection<T>> parametersBuilder)
+        internal void AddParameterResolver<T>(Action<ParameterDataCollection<T>,T> parametersBuilder)
         {
             Type key = typeof(T);
             Action<IDbCommand, object> resolver = (cmd, data) => {
                 ParameterDataCollection<T> collection = new ParameterDataCollection<T>((T)data); //Type check done in AddParams method
-                parametersBuilder(collection);
+                parametersBuilder(collection, (T)data);
                 cmd.AddParameters(collection.Collection, this);
             };
             ParameterResolvers[key] = resolver;
