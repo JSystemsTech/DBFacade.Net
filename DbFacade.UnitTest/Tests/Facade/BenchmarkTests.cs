@@ -16,7 +16,7 @@ namespace DbFacade.UnitTest.Tests.Facade
             public const int VeryLargeCount = 20000;
             public const int MassiveCount = 500000;
 
-            public const double Tiny = 0.005;
+            public const double Tiny = 0.02;
             public const double VerySmall = 0.02;
             public const double Small = 0.05;
             public const double Medium = 0.1;

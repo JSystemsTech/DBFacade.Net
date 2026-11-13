@@ -1,18 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net481' Or '$(TargetFramework)'=='net48' Or '$(TargetFramework)'=='net472'">
+    <UseNetFramework>true</UseNetFramework>
     <TargetFamily>NET_FRAMEWORK</TargetFamily>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net10.0' Or '$(TargetFramework)'=='net9.0' Or '$(TargetFramework)'=='net8.0'">
+  <PropertyGroup Condition="'$(TargetFramework)'=='net11.0' Or '$(TargetFramework)'=='net10.0'">
+    <UseNetFramework>false</UseNetFramework>
     <TargetFamily>NET_CORE</TargetFamily>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
     <TargetFamily>NET_STANDARD</TargetFamily>
   </PropertyGroup>
-
+  
   <PropertyGroup>
     <TargetFamilyFramework>net481;net48;net472</TargetFamilyFramework>
-    <TargetFamilyCore>net10.0;net9.0;net8.0</TargetFamilyCore>
+    <TargetFamilyCore>net11.0;net10.0</TargetFamilyCore>
     <TargetFamilyStandard>netstandard2.1</TargetFamilyStandard>
     <TargetFrameworks>$(TargetFamilyFramework);$(TargetFamilyCore);$(TargetFamilyStandard)</TargetFrameworks>
   </PropertyGroup>
@@ -25,7 +27,7 @@
 
 
   <PropertyGroup>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <Company>JSystemsTech</Company>
     <Product>DbFacade.PostgreSQL .NET</Product>
     <Description>A DbFacade extension to build a data connection service to PostgreSQL databases</Description>
@@ -38,7 +40,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jsystemstech.github.io/DBFacade.Net/</PackageProjectUrl>
-    <PackageReleaseNotes>Release $(Version) Drop support for .NET6 and .NET7. Add Support for .NET10. Add Support for .NET Standard 2.1.</PackageReleaseNotes>
+    <PackageReleaseNotes>Release $(Version) Depreciate support for .NET8 and .NET9. Add Support for .NET11.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
@@ -49,11 +51,12 @@
     <PackageReference Include="Npgsql" Version="8.0.8" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFamily)'=='NET_CORE'">
-    <PackageReference Include="Npgsql" Version="*" />
+    <PackageReference Include="Npgsql" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DbFacade" Version="*" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="11.0.0" />
   </ItemGroup>
 
 
