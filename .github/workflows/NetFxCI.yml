@@ -23,7 +23,7 @@ jobs:
         dotnet-version: '11.0.x'
         
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore DBFacade.sln
     
     - name: Build Solution
       run: msbuild DBFacade.sln /p:Configuration=Release
