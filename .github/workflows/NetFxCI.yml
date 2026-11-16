@@ -16,7 +16,14 @@ jobs:
     
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
-      
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '11.0.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore
     
     - name: Build Solution
       run: msbuild DBFacade.sln /p:Configuration=Release
